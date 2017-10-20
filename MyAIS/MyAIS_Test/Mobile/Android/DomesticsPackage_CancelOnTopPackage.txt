@@ -1,0 +1,163 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/DomesticsPackage_CancelOnTopPackage.txt
+
+*** Test Cases ***
+[F6_Package_2,4_2_Y_2_2] Cancel ontop package(have ontop package)
+    [Documentation]    [F6_Package_2,4_2_Y_2_1] Cancel ontop package(have ontop package)
+    ...
+    ...    Owner : Eng
+    ...
+    ...    TestStep
+    ...
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Your Current Package" menu
+    ...    4. Click "Cancel Package"
+    ...    5. Verify \ Page "Cancel On-Top Package"
+    ...    - All Package
+    ...    6. Click "Package(Internet ontop package 699B. Max speed 6 GB) "
+    ...    7. Verify Detail Package
+    ...    - Cancel Package (header)
+    ...    - Mobile Number
+    ...    - Bill cycle
+    ...    - Detail
+    ...    - Package name (Internet ontop package 699B. Max speed 6 GB)
+    ...    - Confirm Button
+    ...    - Back Button
+    ...    - Term and Condition
+    ...
+    ...
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันของคุณ"
+    ...    4. เลือก "ยกเลิกแพ็กเสริม"
+    ...    5. ตรวจสอบหน้า "ยกเลิกแพ็กเสริม"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเสริม
+    ...    - ชื่อแพ็กเกจ
+    ...    - เงื่อนไขบริการ
+    ...    6. เลือก "แพ็กเสริม" ที่ต้องการยกเลิก
+    ...    7. ตรวจสอบหน้า "ยกเลิกแพ็กเกจ" ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - รายละเอียด
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไขบริการ
+    [Tags]    active    success    3PO    3BO
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    HaveOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Select Cancel Package
+    Verify Cancel Package Page    ${Number}
+    Select Cancel Ontop Package Name
+    Verify Cancel Package Detail Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_1_Prod] DummyLanguage
+    [Tags]    dummy
+    Log    TH
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Talk OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalk}
+
+Select Monthly OnTop Package
+    Click Mobile Element    ${btnApplyOnTopInternetMonthly}
+
+Select Monthly fee 100 B. Call All 115 min
+    ${element}    Aisappium Get Webelement    ${SubOnTopMonthly100B.CallAll115min}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopMonthly100B.CallAll115min}
+
+Confirm Package
+    Click Mobile Element    ${btnApplyOnTopConfirmNext}
+
+Select Immediately
+    Click Mobile Element    ${btnApplyOnTopImmediately}
+
+Confirm Package And Comfirm Effective Date
+    Swipe Element To Screen    ${btnApplyOnTopConfirm}
+    Click Mobile Element    ${btnApplyOnTopConfirm}
+
+Verify Dialog Apply On Top Package
+    [Arguments]    ${successText}
+    Mobile element text should match regexp whole string    ${lblApplyOnTopConfirmDailogChangePackageSuccess}    ${successText}
+
+Confirm Dialog On Top Package
+    Click Mobile Element    ${btnApplyOnTopOkChangePackageSuccess}
+
+Select Cancel Package
+    Swipe Element To Screen    ${btnCancelPackage}
+    Click Mobile Element    ${btnCancelPackage}
+
+Verify On Top Package Monthly 100 B.Call all 115 min
+    Swipe Element To Screen    ${lblOnTop100B.CallAll115min}
+    Wait Mobile Until Page Contains Element    ${lblOnTop100B.CallAll115min}
+    Mobile Capture Screen At Verify Point    Monthly 100 B.Call all 115 min
+
+Verify Cancel Package Page
+    [Arguments]    ${Number}
+    Sleep    5
+    #Appium wait until element contain text
+    Mobile element text should be    ${lblHeadCancelPackagePage}    ${CancelPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should match regexp    ${lblBillCycle}    ${BillingCycle}
+    Mobile element text should be    ${lblOntopHeader}    ${txtOntopHeader}
+    Mobile check existing text    ${lblOntopPackage}
+    Mobile Capture Screen At Verify Point    Cancel Package Page
+
+Verify Cancel Package Detail Page
+    [Arguments]    ${Number}
+    Comment    Sleep    5
+    Mobile element text should be    ${lblHeadCancelPackagePage}    ${CancelPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should match regexp    ${lblBillCycle}    ${BillingCycle}
+    Mobile element text should be    ${lblPackageDetailHeader}    ${txtDetail}
+    Mobile check existing text    ${lblCancelOntopDetailPackageName}
+    Mobile element text should be    ${btnConfirmCancelOnTop}    ${txtConfirm}
+    Mobile element text should be    ${btnBackCancelOntopPackage}    ${txtBack}
+    Swipe to element    ${lblTermAndCondition}
+    Mobile element text should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    Cancel Package Detail Page
+
+Confirm Cancel OnTop Package
+    Click Mobile Element    ${btnConfirmCancelOnTop}
+
+Verify Dialog Message Cancel Complete
+    Mobile element text should be    ${DialogMessageCancelOnTop}    ${MessageCompleteCancelOnTOp}
+    Mobile Capture Screen At Verify Point    Dialog Message Cancel Complete
+
+Confirm Dialog Message
+    Click Mobile Element    ${btnConfirmDialogMessage}
+
+Select OnTop Package
+    Click Mobile Element    ${lblCancelMonthly100B.CallAll115minName}
+
+Select Cancel Ontop Package Name
+    Click Mobile Element    ${lblOntopPackage}

@@ -1,0 +1,96 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/LoginRepository.txt
+
+*** Keywords ***
+Login
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    Run Keyword If    '${Network}'=='Wifi'    Login Wifi    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    ...    ${Number}
+    Run Keyword If    '${Network}'=='Data'    Log    auto login
+    verify login
+
+chosen primary button
+    [Arguments]    ${timeout}=${lo_general_timeout}
+    ${rounds}    Evaluate    int(${timeout}/2)
+    : FOR    ${INDEX}    IN RANGE    1    ${rounds}
+    \    ${statusPrimary}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnPrimary}    1
+    \    ${statusInputOTP}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${txtInputOTP}    1
+    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnDialogOk}    1
+    \    ${statusRequestOTP}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnRequestOTP}    1
+    \    Exit For Loop If    ${statusPrimary} or ${statusInputOTP} or ${statusButtonDialogOk} or ${statusRequestOTP}
+    Run Keyword If    ${statusRequestOTP}    Click Mobile Element    ${btnRequestOTP}
+    Run Keyword If    ${statusPrimary}    Click Mobile Element    ${btnPrimary}
+    Run Keyword If    ${statusButtonDialogOk}    Fail    Found some dialog pop up.
+    [Return]    ${statusRequestOTP}    ${statusPrimary}
+
+Choose Language
+    [Arguments]    ${Language}    ${Environment}=Wifi
+    ${title}    AISAppiumEx.Get Text    ${lblTitle}
+    Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='HOME' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    change language    ${Language}
+
+verify login
+    ${rounds}    Evaluate    int(${lo_general_timeout}/3)
+    : FOR    ${INDEX}    IN RANGE    1    ${rounds}
+    \    ${statusConfirmTerm}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnConfirmTerm}    1
+    \    Run Keyword If    ${statusConfirmTerm}    Click Mobile Element    ${btnConfirmTerm}
+    \    ${statusDialogAISpoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCancelDialog}    1
+    \    Run Keyword If    ${statusDialogAISpoint}    Click Mobile Element    ${btnCancelDialog}
+    \    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseAdvert}    1
+    \    Run Keyword If    ${statusBtnCloseDialogShow}    Click Mobile Element    ${btnCloseAdvert}
+    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnDialogOk}    1
+    \    ${statusUserAccount}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lbUserAccount}    1
+    \    Exit For Loop If    ${statusUserAccount} or ${statusButtonDialogOk}
+    Log    ${statusButtonDialogOk}
+    Run Keyword If    ${statusButtonDialogOk}    Fail    Found some dialog pop up.
+    Log    ${statusUserAccount}
+    Run Keyword If    '${statusUserAccount}' != 'True'    Fail    Not found user account after login.
+    verify dialog AIS promotions
+
+verify dialog AIS promotions
+    ${statusDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnNotShowAgain}    10
+    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseAdvert}    10
+    : FOR    ${PAGE}    IN RANGE    1    20
+    \    Run Keyword If    ${statusDialogShow}    Click Mobile Element    ${btnNotShowAgain}
+    \    Run Keyword If    ${statusBtnCloseDialogShow}    Click Mobile Element    ${btnCloseAdvert}
+    \    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseAdvert}    1
+    \    Exit For Loop If    '${status}' != 'True'
+
+Login Wifi
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    ${timeout_input_otp_invisible}=    Set Variable    5
+    : FOR    ${INDEX}    IN RANGE    1    3
+    \    ${statusBtnInputOTP}=    Run Keyword And Return Status    Wait Mobile Until Page Does Not Contain Element    ${txtInputOTP}    ${timeout_input_otp_invisible}
+    \    ${StatRequestOTP}    ${statusPrimary}    Run Keyword If    ${statusBtnInputOTP}    chosen primary button
+    Run Keyword If    "${ar_NType}"=="FBB"    Input mobile text    ${txtInputOTP}    Test@2017
+    ...    ELSE    Input mobile text    ${txtInputOTP}    1111    60
+    Run Keyword And Ignore Error    Hide keyboard
+    Log    ${StatRequestOTP}
+    Run Keyword If    ${StatRequestOTP} or ${statusPrimary}    Click Mobile Element    ${btnOKGetOTPForRegisted}    60    ELSE    Click Mobile Element    ${btnOKGetOTP}    60
+
+change language
+    [Arguments]    ${Language}
+    Click Mobile Element    ${btnHamburger}
+    Click Mobile Element    ${btnSettings}
+    Wait Mobile Until Element Visible    ${btnSwitchLanguage}
+    run keyword if    "${ar_OS}"=="Android"    change language android    ${Language}
+    run keyword if    "${ar_OS}"=="iOS"    change language ios    ${Language}
+    Click Mobile Element    ${btnMyAISBack}
+    ${title}    Get Mobile Text    ${lblTitle}
+    Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    fail    change lange not working
+
+change language android
+    [Arguments]    ${Language}
+    ${checked}    AISAppiumEx.Get Element Attribute    ${btnSwitchLanguage}    checked
+    Run Keyword If    ('${Language}'=='TH') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchLanguage}
+    Run Keyword If    ('${Language}'=='EN') and ('${checked}'=='true')    Click Mobile Element    ${btnSwitchLanguage}
+
+change language ios
+    [Arguments]    ${Language}
+    ${Lang}    Get mobile text    ${lblLanguageSetting}
+    log to console    ${Lang}
+    Run Keyword If    ('${Language}'=='TH') and ('${Lang}'=='Language')    Click Mobile Element    ${btnSwitchLanguage}
+    Run Keyword If    ('${Language}'=='EN') and ('${Lang}'=='ภาษา')    Click Mobile Element    ${btnSwitchLanguage}

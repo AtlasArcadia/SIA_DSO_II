@@ -1,0 +1,16 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/MenuSettingRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/MenusettingLocalized.txt
+
+*** Keywords ***
+Setting Language
+    [Arguments]    ${Language}
+    Click Mobile Element    ${mnuSettings}
+    ${Language}    Set Variable    ${CheckLanguage}
+    ${Lang}    Get mobile text    ${lblLanguage}
+    Log    ${Lang}
+    : FOR    ${INDEX}    IN RANGE    1    10
+    \    Run Keyword If    '${Language}'=='${Lang}'    Click Mobile Element    ${btnSettingLanguage}
+    \    ...    ELSE    Exit For Loop
+    \    ${Lang}    Get mobile text    ${lblLanguage}

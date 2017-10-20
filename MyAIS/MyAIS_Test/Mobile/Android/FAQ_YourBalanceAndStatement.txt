@@ -1,0 +1,731 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
+
+*** Test Cases ***
+[F2_Help_1-6_1-2_Y_50_2] Go to your balance & statement verify AIS monthly statement third question
+    [Documentation]    Owner : Tong
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "AIS Monthly Statement"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS Monthly Statement" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    7.Click " Third \ question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS Monthly Statement" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทู-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ใบแจ้งค่าใช้บริการรายเดือน"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    7.เลือก " คำถามข้อที่3 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select AIS Monthly Statement
+    Verify AIS Monthly Statement Question
+    Select AIS Monthly Statement Question    3    #Select First Question
+    Verify AIS Monthly Statement Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke
+
+[F2_Help_1-6_1-2_Y_16_2] Go to your balance & statement
+    [Documentation]    Owner : Tong
+    ...
+    ...    Status : Done
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    [Tags]    success    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Verify FAQ Your Balance And Statement Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Help_1-6_1-2_Y_17_2] Go to your balance & statement verify AIS monthly statement first question
+    [Documentation]    Owner : Tong
+    ...
+    ...    Status : Done
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "AIS Monthly Statement"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS Monthly Statement" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    7.Click " First \ question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS Monthly Statement" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ใบแจ้งค่าใช้บริการรายเดือน"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    7.เลือก " คำถามข้อที่1 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select AIS Monthly Statement
+    Verify AIS Monthly Statement Question
+    Select AIS Monthly Statement Question    1    #Select First Question
+    Verify AIS Monthly Statement Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Help_1-6_1-2_Y_18_2] Go to your balance & statement verify AIS monthly statement second question
+    [Documentation]    Owner : Tong
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "AIS Monthly Statement"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS Monthly Statement" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    7.Click " Second question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS Monthly Statement" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ใบแจ้งค่าใช้บริการรายเดือน"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    7.เลือก " คำถามข้อที่2 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select AIS Monthly Statement
+    Verify AIS Monthly Statement Question
+    Select AIS Monthly Statement Question    2    #Select Second Question
+    Verify AIS Monthly Statement Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Help_1-6_1-2_Y_19_2] Go to your balance & statement verify AIS 1-2-call credit balance first question
+    [Documentation]    Owner : Tong
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "AIS 1-2-Call Credit Balance"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click " First \ question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ตรวจสอบยอดเงินวัน-ทู-คอล!"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่ 4
+    ...    - คำถามข้อที่ 5
+    ...    7.เลือก " คำถามข้อที่1 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select AIS One-2-Call Credit Balance
+    Verify AIS 1-2-Call Credit Balance Question
+    Select AIS 1-2-Call Credit Balance Question    1    #Select First Question
+    Verify AIS 1-2-Call Credit Balance Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Help_1-6_1-2_Y_20_2] Go to your balance & statement verify AIS 1-2-call credit balance second question
+    [Documentation]    Owner : Tong
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "AIS 1-2-Call Credit Balance"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click " Second question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ตรวจสอบยอดเงินวัน-ทู-คอล!"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่ 4
+    ...    - คำถามข้อที่ 5
+    ...    7.เลือก " คำถามข้อที่2 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select AIS One-2-Call Credit Balance
+    Verify AIS 1-2-Call Credit Balance Question
+    Select AIS 1-2-Call Credit Balance Question    2    #Select Second Question
+    Verify AIS 1-2-Call Credit Balance Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Help_1-6_1-2_Y_21_2] Go to your balance & statement verify AIS 1-2-call credit balance third question
+    [Documentation]    Owner : Tong
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "AIS 1-2-Call Credit Balance"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click " Third question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ตรวจสอบยอดเงินวัน-ทู-คอล!"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่ 4
+    ...    - คำถามข้อที่ 5
+    ...    7.เลือก " คำถามข้อที่3 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select AIS One-2-Call Credit Balance
+    Verify AIS 1-2-Call Credit Balance Question
+    Select AIS 1-2-Call Credit Balance Question    3    #Select Thrid Question
+    Verify AIS 1-2-Call Credit Balance Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Help_1-6_1-2_Y_22_2] Go to your balance & statement verify AIS 1-2-call credit balance fourth question
+    [Documentation]    Owner : Tong
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "AIS 1-2-Call Credit Balance"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click " Fourth question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ตรวจสอบยอดเงินวัน-ทู-คอล!"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่ 4
+    ...    - คำถามข้อที่ 5
+    ...    7.เลือก " คำถามข้อที่ 4 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select AIS One-2-Call Credit Balance
+    Verify AIS 1-2-Call Credit Balance Question
+    Select AIS 1-2-Call Credit Balance Question    4    #Select Fourth Question
+    Verify AIS 1-2-Call Credit Balance Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Help_1-6_1-2_Y_23_2] Go to your balance & statement verify AIS 1-2-call credit balance fifth question
+    [Documentation]    Owner : Tong
+    ...
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "AIS 1-2-Call Credit Balance"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click " Fifth question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "AIS 1-2-Call Credit Balance" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ตรวจสอบยอดเงินวัน-ทู-คอล!"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่ 4
+    ...    - คำถามข้อที่ 5
+    ...    7.เลือก " คำถามข้อที่ 5 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ตรวจสอบยอดเงินวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select AIS One-2-Call Credit Balance
+    Verify AIS 1-2-Call Credit Balance Question
+    Select AIS 1-2-Call Credit Balance Question    5    #Select Fifth Question
+    Verify AIS 1-2-Call Credit Balance Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Help_1-6_1-2_Y_24_2] Go to Your balance & statement verify invoice or bill AIS fiber fist question
+    [Documentation]    Owner : Tong
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "Invoice/Bill AIS Fiber"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "Invoice/Bill AIS Fiber" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    7.Click " First \ question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "Invoice/Bill AIS Fiber" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ใบแจ้งค่าใช้บริการไฟเบอร์"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการไฟเบอร์" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    7.เลือก " คำถามข้อที่1 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการไฟเบอร์" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select Invoice Or Bill AIS Fiber
+    Verify Invoice/Bill AIS Fiber Question
+    Select Invoice/Bill AIS Fiber Question    1    #Select First Question
+    Verify Invoice/Bill AIS Fiber Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Help_1-6_1-2_Y_25_2] Go to your balance & statement verify invoice or bill AIS fiber second question
+    [Documentation]    Owner : Tong
+    ...
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : FBB
+    ...    Status : Active
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "Your Balance & Statement"
+    ...    4.Verify FAQ "Your Balance & Statement" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    - AIS Monthly Statement
+    ...    - AIS 1-2-Call Credit Balance
+    ...    - Invoice/Bill AIS Fiber
+    ...    5.Click "Invoice/Bill AIS Fiber"
+    ...    6.Verify "FAQ" page
+    ...    "Your Balance & Statement" (Text)
+    ...    "Invoice/Bill AIS Fiber" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    7.Click " Second question "
+    ...    8.Verify "answers" Page
+    ...    "Your Balance & Statement" (Text)
+    ...    "Invoice/Bill AIS Fiber" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    - ใบแจ้งค่าใช้บริการรายเดือน
+    ...    - ตรวจสอบยอดเงินวัน-ทุ-คอล!
+    ...    - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ใบแจ้งค่าใช้บริการไฟเบอร์"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการไฟเบอร์" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    7.เลือก " คำถามข้อที่2 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...    "ใบแจ้งค่าใช้บริการไฟเบอร์" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Comment    Verify FAQ Your Balance And Statement Page    ${virtual_device_1_SN}
+    Select Invoice Or Bill AIS Fiber
+    Verify Invoice/Bill AIS Fiber Question
+    Select Invoice/Bill AIS Fiber Question    2    #Select Second Question
+    Verify Invoice/Bill AIS Fiber Answer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

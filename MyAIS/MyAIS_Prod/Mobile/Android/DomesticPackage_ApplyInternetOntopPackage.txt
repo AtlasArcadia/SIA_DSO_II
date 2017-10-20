@@ -1,0 +1,786 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPackage.txt
+
+*** Test Cases ***
+[F4_Package_1-4_1-2_Y_1_1] Verify page apply internet on top package
+    [Documentation]    *Owner*
+    ...    Oum
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3BO , 3PO ,3PE , 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    =============================
+    ...    Update 15/3/2017
+    ...    -add verify point
+    ...
+    ...    5. Verify Page "Apply Internet On-Top Package"
+    ...    - On-Top Package - at Header
+    ...    - Please select the price that you want - at Header
+    ...    - Max Speed Internet
+    ...    - Up Speed Internet
+    ...    - Unlimited Social App
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...
+    ...    Update 28/3/2017
+    ...    อินเทอร์เน็ตอัพสปีด >> อินเทอร์เน็ตอัปสปีด
+    ...
+    ...    =============================
+    ...
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Verify Page "Apply Internet On-Top Package"
+    ...    - Max Speed Internet
+    ...    - Up Speed Internet
+    ...    - Unlimited Social App
+    ...    5. Capture Screen
+    ...
+    ...
+    ...    TH Version
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    - แพ็กเกจเสริม อินเทอร์เน็ต at Header
+    ...    - เลือกแพ็กเกจตามราคาที่คุณต้องการ at Header
+    ...    - TH/EN at Header
+    ...    - อินเทอร์เน็ตเต็มสปีด
+    ...    - อินเทอร์เน็ตอัพสปีด
+    ...    - Entertainment
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    active    success    EN    TH
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    InternetOnTopPackage
+    Switch Language    ${ar_LANG}
+    Verify Apply Internet On Top Package Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_1-4_1-2_Y_2_1] Verify page apply Internet on top package case apply max speed internet (49baht)
+    [Documentation]    *Owner*
+    ...    Oum
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3BO , 3PO ,3PE ,3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    3BO / 3PO
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "Max Speed Internet"
+    ...    5. Click "49฿."
+    ...    6. Verify Page Detail Pack
+    ...    - Internet 3 GB 49 baht 1 days
+    ...    - You will receive a confirmation SMS once the purchasing process is completed.
+    ...    7. Click "Confirm"
+    ...    8. Verify "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    9. Capture Screen
+    ...    10. Verify SMS "Mao Mao 49B. You've got Internet max speed 3 GB for 24hrs. Startxx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx. More value! Mao Mao 69B. Internet max speed 4GB for 24hrs. Press*777*7033#"
+    ...    11. Capture Screen
+    ...
+    ...
+    ...    3PE / 3BE
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "EN"
+    ...    5. Verify Menu "Max Speed Internet"
+    ...    - Volume
+    ...    - DAY (s)
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...    6. Select pack "49฿."
+    ...    7. Verify page "Apply Internet On-Top Package" step 1 Select package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 6.
+    ...    - Detaill Package (3GB 49 baht 1 days)
+    ...    - You will receive a confirmation SMS once the purchasing process is completed.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    8. Click "Confirm"
+    ...    9. Verify dialog message "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    - "OK" botton
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    12. Verify SMS "You can now enjoy internet max speed 3GB for 24hrs. ! Recommended for you! internet max speed upto 4GB 3Days only 99B. Press*777*7039# to subscribe later."
+    ...    13. Capture screen
+    ...
+    ...    TH Version
+    ...
+    ...    3PO/3BO
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. เลือก "TH"
+    ...    5. เลือก "อินเทอร์เน็ตเต็มสปีด"
+    ...    6. ตรวจสอบเมนู "อินเทอร์เน็ตเต็มสปีด"
+    ...    - ปริมาณ
+    ...    - จำนวนวัน
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    7. เลือกแพ้กเกจ 49บ.
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - รายละเอียด แพ็กเกจ (อินเทอร์เน็ต 3 GB 49 บาท 1 วัน)
+    ...    - คุณจะได้รับ SMS ยืนยัน หลังจากระบบทำการสมัครสำเร็จ Heading
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "ย้อนกลับ"
+    ...    9. เลือก "ยืนยัน"
+    ...    10. ตรวจสอบ dialog message "ระบบกำลังดำเนินการ กรุณารอรับข้อความยืนยันการใช้บริการค่ะ"
+    ...    - ปุ่ม "ตกลง"
+    ...    11. จับภาพหน้าจอ
+    ...    12. เลือก "ตกลง"
+    ...    13. ตรวจสอบ SMS "เริ่มใช้แพ็กเน็ต49บ.3GBที่ความเร็วสูงสุดนาน24ชม.ได้แล้วค่ะ แนะนำแพ็กพิเศษสำหรับคุณ! เน็ตความเร็วสูงสุดถึง4GBแค่99บ.นาน3วัน สมัคร*777*7039#"
+    ...    14. จับภาพหน้าจอ
+    [Tags]    active    success    EN    TH
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    InternetOnTopPackage
+    Switch Language    ${ar_LANG}
+    Select Max Speed Internet
+    Verify Menu Max Speed Internet
+    ${packageName}    Select Max Speed Internet 49 Baht    #Get package name from previous page
+    log    ${packageName}
+    Verify Detail Of Package Max Speed Internet 49 Baht    ${packageName}    ${ar_LANG}
+    Click Confirm Button
+    Confirm MobileNo Apply Internet
+    Verify Your Request Has Been Submitted
+    Verify Confirmation SMS Of Max Speed Internet Package    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_1-4_1-2_Y_3_1] Verify page apply up on top package case apply up speed internet (79baht)
+    [Documentation]    *Owner*
+    ...    Oum
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3BO , 3PO ,3PE ,3BE
+    ...    Status : Active
+    ...
+    ...
+    ...    Update 30/03/2017
+    ...    3PE TH >> SMSมา 2 อัน
+    ...
+    ...    *Test Step*
+    ...
+    ...    3PO/3BO
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "Up Speed Internet"
+    ...    5. Click "79฿."
+    ...    6. Verify Page Detail Pack
+    ...    - Internet 3 GB 79 baht 7 days
+    ...    - You will receive a confirmation SMS
+    ...    7. Click "Confirm"
+    ...    8. Verify "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    9. Capture Screen
+    ...    10. Verify SMS "Mao Mao 79 B. You have got Internet max speed 3 GB valid for 7 days. Excess usage will be charged as your main package. Start xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx"
+    ...    11. Capture Screen
+    ...
+    ...    ====================================
+    ...    Update 16/3/2017
+    ...
+    ...    3PO/3BO
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "EN"
+    ...    5. Click "Up Speed Internet"
+    ...    6. Verify Menu "Up Speed Internet"
+    ...    - !!Eligible for Prepaid customer who have Unlimited internet packages / Postpaid customer
+    ...    - DAY (s)
+    ...    - Volume
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...    7. Select 1st pack "79฿."
+    ...    8. Verify page "Apply Internet On-Top Package" step 1 Select package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detial Package
+    ...    - You will receive a confirmation SMS once the purchasing process is completed.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    9. Click "Confirm"
+    ...    10. Verify "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    11. Capture Screen
+    ...    10. Verify SMS "เหมา เหมา 79บ. คุณสามารถใช้เน็ตเร็วสูงสุด ปริมาณ 3 GB นาน 7 วัน ส่วนเกินคิดตามโปรโมชั่นหลัก เริ่มxx/xx/xxxx xx:xxถึงxx/xx/xxxx xx:xx"
+    ...    12. Verify SMS "Mao Mao 79 B. You have got Internet max speed 3 GB valid for 7 days. Excess usage will be charged as your main package. Start xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx"
+    ...    13. Capture Screen
+    ...    ====================================
+    ...    3PE/3BE
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "EN"
+    ...    5. Click "Up Speed Internet"
+    ...    6. Verify Menu "Up Speed Internet"
+    ...    - !!Eligible for Prepaid customer who have Unlimited internet packages / Postpaid customer
+    ...    - DAY (s)
+    ...    - Volume
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...    7. Select 1st pack "79฿."
+    ...    8. Verify page "Apply Internet On-Top Package" step 1 Select package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detial Package (Internet 3 GB 79 baht 7 days)
+    ...    - You will receive a confirmation SMS once the purchasing process is completed.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    10. Click "Confirm"
+    ...    11. Verify dialog message "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    - "OK" botton
+    ...    12. Capture screen
+    ...    13. Click "OK"
+    ...    14. Verify SMS "Welcome to 3G2100 Package \ (Domestic only). You will get 3G Pack79B Internet 3GB 7days"
+    ...    15. Capture screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. เลือก "อินเทอร์เน็ตอัพสปีด"
+    ...    5. ตรวจสอบหน้า "อินเทอร์เน็ตอัพสปีด"
+    ...    - แพ็กเกจเสริมราคาพิเศษ! สำหรับลูกค้าเติมเงิน ที่มีแพ็กเน็ตแบบใช้งานต่อเนื่อง / ลูกค้ารายเดือน
+    ...    - ปริมาณ
+    ...    - จำนวนวัน
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    6. จับภาพหน้าจอ
+    ...    7. เลือกแพ็กแกจ "79บ."
+    ...    8. ตรวจสอบหน้า "อินเทอร์เน็ตอัพสปีด" ขั้นตอนที่ 1 เลือกแพ็กเกจ
+    ...    - กรุณากด ยืนยัน เพื่อสมัครแพ็กเกจ
+    ...    - แพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...    - รายละเอียดแพ็กเกจ (3GB 79บาท 7วัน)
+    ...    - คุณจะได้รับ SMS ยืนยัน หลังจากระบบทำการสมัครสำเร็จ
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "ย้อนกลับ"
+    ...    9. เลือก "ยืนยัน"
+    ...    10. ตรวจสอบ dialog message "ระบบกำลังดำเนินการ กรุณารอรับข้อความยืนยันการใช้บริการค่ะ Heading"
+    ...    11. จับภาพหน้าจอ
+    ...    12. ตรวจสอบ SMS (เหมา เหมา 79 บ. คุณสามารถใช้เน็ตเร็วสูงสุด ปริมาณ 3 GB นาน 7 วัน \ ส่วนเกินคิดตามโปรโมชั่นหลัก เริ่มxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx)
+    ...    13. จับภาพหน้าจอ
+    [Tags]    active    success    EN    TH
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    InternetOnTopPackage
+    Switch Language    ${ar_LANG}
+    Select Up Speed Internet
+    Verify Menu Up Speed Internet
+    ${packageName}    Select Up Speed Internet 79 Baht    #Get package name from previous page
+    log    ${packageName}
+    Verify Details Of Package Up Speed Internet 79 Baht    ${packageName}    ${ar_LANG}
+    Click Confirm Button
+    Verify Your Request Has Been Submitted
+    Verify Confirmation Of Package Up Speed Internet    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_1-4_1_Y_4_1] Verify page apply unlimited social app case entertainment
+    [Documentation]    *Owner*
+    ...    Oum
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3BO , 3PO ,3PE , 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. เลือก "Entertainment"
+    ...    5. ตรวจสอบเมนู Entertainment
+    ...    - Entertainment
+    ...    - ความบันเทิงระดับโลกทั้งหนัง ซีรีส์ การ์ตูน กีฬา ข่าว และอีกมากมาย
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    6. จับภาพหน้าจอ
+    ...    7. เลือกแพ็กเกจ 119บาท/เดือน
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - รายละเอียด แพ็กเกจ (119 บาท 30 วัน)
+    ...    - ชมฟรี 45 วัน
+    ...    - คุณจะได้รับ SMS ยืนยัน หลังจากระบบทำการสมัครสำเร็จ
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "ย้อนกลับ"
+    ...    9. เลือก "ยืนยัน"
+    ...    10. ตรวจสอบ dialog message "ระบบกำลังทำรายการ คุณจะได้รับ SMS ตอบกลับในอีกสักครู่ "
+    ...    11. จับภาพหน้าจอ
+    ...    12. ตรวจสอบ SMS จาก AIS
+    ...    - "ขอบคุณที่สมัคร HOOQ Package คุณสามารถลงทะเบียนเพื่อเข้าชมหนังได้ที่ http://go.hooq.tv/GetHOOQ"
+    ...    SMS จาก HOOQ
+    ...    - "ระบบกำลังสมัครบริการให้คุณ กรุณารอรับSMSยืนยันอีกครั้งก่อนเริ่มใช้งาน"
+    ...    - "Thank you"
+    ...    13. จับภาพหน้าจอ
+    [Tags]    active    TH    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    InternetOnTopPackage
+    Switch Language    ${ar_LANG}
+    Select Entertainment
+    Verify Menu Entertainment
+    Select Hooq Package
+    Verify Details of Hooq Package
+    Click Confirm Button
+    Verify Apply Hooq Package Success
+    Verify SMS Confirmation Of Hooq Package From Hooq AIS    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}    ${ar_NType}
+    Verify SMS Confirmation Of Hooq Package From AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Prod] Smoke test
+    [Tags]    smoke
+    log    smoke for quick test
+
+[F0_0_0_Y_1_Prod] DummyLanguage
+    [Tags]    dummy
+    log    Dummy 3PO 3BO TH
+
+[F4_Package_1-4_2_Y_4_1] Verify page apply unlimited social app case apply unlimited social app (29baht)
+    [Documentation]    *Owner*
+    ...    Oum
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3BO , 3PO ,3PE , 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    3BO / 3PO
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "EN"
+    ...    5. Click "Unlimited Social App"
+    ...    6. Verify Menu "Unlimited Social App"
+    ...    - Social Unlimited
+    ...    - social media
+    ...    - DAY (s)
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...    6. Click Pack "29฿."
+    ...    7. Verify Page Detail Pack
+    ...    - 29 baht 24 hours
+    ...    - Unlimited Internet at speed 512 kbps for applications
+    ...    - You will receive a confirmation SMS
+    ...    8. Click "Confirm"
+    ...    9. Verify "ระบบสมัครรายการเรียบร้อยแล้ว"
+    ...    10. Capture Screen
+    ...    11. Verify SMS "MaoMao 29B. Unlimited Internet at max speed 512kbps for Movie & Music via applications. Exceeding usage rate base on main package, valid for 24 hours. Start xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx"
+    ...    12. Capture Screen
+    ...
+    ...    3PE / 3BE
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "EN"
+    ...    5. Click "Unlimited Social App"
+    ...    6. Verify Menu "Unlimited Social App"
+    ...    - Social Unlimited
+    ...    - social media
+    ...    - DAY (s)
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...    7. Select 1st pack "29฿."
+    ...    8. Verify page "Apply Internet On-Top Package" step 1 Select package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detial Package
+    ...    - Prepaid Only
+    ...    - \ You will receive a confirmation SMS.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    10. Click "Confirm"
+    ...    11. Verify dialog message "ระบบสมัครรายการเรียบร้อยแล้ว"
+    ...    - "OK" botton
+    ...    12. Capture screen
+    ...    13. Click "OK"
+    ...    14. Verify SMS "Mao Mao 29B, Unlimited Internet at max speed 512kbps for AIS PLAY, YouTube, DOONEE, HOOQ, JOOX, AtimeOnline, BEC-Tero Radio, COOLISM, HEADSHOT valid for 24hrs. Others will be charged as your price plan."
+    ...    15. Capture screen
+    [Tags]    inactive    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    InternetOnTopPackage
+    Switch Language    ${ar_LANG}
+    Select Entertainment
+    Verify Menu Unlimited Social App
+    ${packageName}    Select Unlimited Social Pack 1 Day 29 Baht
+    log    ${packageName}
+    Verify Unlimited Social 1 Day 29 Baht Page Detail Package    ${packageName}
+    Click Confirm Button
+    Verify Apply Package Unlimited Social 1 Day 29 Baht Complete
+    Verify SMS Unlimited Social 1 Day 29 Baht    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+test
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    InternetOnTopPackage
+    Switch Language    ${ar_LANG}
+    Select Max Speed Internet
+    Comment    @{MessageExpect}    Create List    AAA    bbb
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Comment    Wait and Verify SMS    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}    2    0614122105    ${MessageExpect}
+    ...    30
+    Comment    Mobile Capture Screen At Verify Point    SMS From Hooq
+    Comment    Verify SMS From AIS with Match Regexp    ${txtSMSMaxSpeedInternetPrepaidBE}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Click Mobile Element    xpath=//*[@text="HOOQ_AIS"]
+    Mobile Capture Screen At Verify Point    SMS From Hooq
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+testStartActivity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    @{MessageExpect}    Create List    444    222
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Wait and Verify SMS    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}    2    0614157453    ${MessageExpect}    30
+    Comment    Click Mobile Element    xpath=//*[@text="0614157453"]
+    Comment    Mobile Capture Screen At Verify Point    test
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Verify Apply Internet On Top Package Page
+    [Documentation]    Add verify point
+    Wait Mobile Until Element Visible    ${lblOnTopPackage}
+    Wait Mobile Until Element Visible    xpath=//android.webkit.WebView[@index="0"]/android.view.View[@index="4"]/android.view.View[@index="0"]/android.view.View[@index="2"]    #Share button
+    Mobile element name should be    ${lblOnTopPackage}    ${txtOnTopPackage}
+    Mobile element name should be    ${lblPleaseSelectThePrice}    ${txtPleaseSelectThePriceThatYouWant}
+    Mobile element name should be    ${btnSwitchLanguageEN}    ${txtLanguageEN}    #EN
+    Mobile element name should be    ${btnSwitchLanguageTH}    ${txtLanguageTH}    #TH
+    Mobile element name should be    ${lblMaxSpeedInternet}    ${txtMaxSpeedInternet}
+    Mobile element name should be    ${lblUpSpeedInternet}    ${txtUpSpeedInternet}    #Entertainment
+    Mobile element name should be    ${lblUnlimitedSocialApp}    ${txtUnlimitedSocialApp}
+    Mobile element name should be    ${btnCancelOntop}    ${txtCancel}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile Capture Screen At Verify Point    Verify Page Apply Internet On-Top Package
+
+Select Max Speed Internet
+    Wait Mobile Until Element Visible    ${lblMaxSpeedInternet}
+    Click Mobile Element    ${lblMaxSpeedInternet}
+
+Verify Detail Of Package Max Speed Internet 49 Baht
+    [Arguments]    ${packageName}    ${ar_LANG}
+    Swipe element to specific area    xpath=//android.view.View[@index="10"]/android.view.View[@index="2"]
+    Mobile element name should be    ${dgdPackage49Baht}    ${packageName}
+    Verify Text 3GB 49 Baht 1 Day
+    Verify Text You Will Receive Confirmation Of 49 Baht Pack    ${ar_LANG}
+    Mobile element name should be    ${btnBackDetailPage}    ${txtBack}
+    Mobile element name should be    ${btnConfirm}    ${txtConfirm}
+    Mobile Capture Screen At Verify Point    Verify Page Apply Max Speed Internet 49 baht
+
+Select Max Speed Internet 49 Baht
+    Click Mobile Element    ${btn49Baht}
+    Sleep    2
+    Click Mobile Element    ${btn49Baht}
+    ${packname}    Get mobile attribute    ${btn49Baht}    name
+    log    ${packname}
+    [Return]    ${packname}
+
+Switch Language
+    [Arguments]    ${ar_LANG}
+    Wait Mobile Until Element Visible    ${btnSwitchLanguageEN}
+    Sleep    3
+    Run Keyword If    '${ar_LANG}' == 'EN'    Click Mobile Element    ${btnSwitchLanguageEN}
+    Run Keyword If    '${ar_LANG}' == 'TH'    Click Mobile Element    ${btnSwitchLanguageTH}
+
+Select Up Speed Internet 79 Baht
+    Click Mobile Element    ${btn79Baht}
+    Sleep    2
+    Click Mobile Element    ${btn79Baht}
+    ${packname}    Get mobile attribute    ${btn79Baht}    name
+    log    ${packname}
+    [Return]    ${packname}
+
+Verify Your Request Has Been Submitted
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Wait Until Keyword Succeeds    120    3    Mobile element text in name should match regexp whole string    ${msgDialog}    ${txtSubmittedRequest}
+    Mobile Capture Screen At Verify Point    Verify Message Request Has Been Submitted
+
+Click Confirm Button
+    Swipe element to specific area    ${btnSwitchLanguageEN}    0    0    0    0    down
+    Click Mobile Element    ${btnConfirm}
+
+Select Up Speed Internet
+    Wait Mobile Until Element Visible    ${lblUpSpeedInternet}
+    Click Mobile Element    ${lblUpSpeedInternet}
+
+Verify Confirmation SMS Of Max Speed Internet Package
+    [Arguments]    ${IPAppium}    ${PlatformName}    ${PlatformVersion}    ${SN}    ${ar_NType}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS From AIS with Match Regexp    ${txtMaoMao49Baht}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS From AIS with Match Regexp    ${txtMaoMao49Baht}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS From AIS with Match Regexp    ${txtSMSMaxSpeedInternetPrepaidPE}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS From AIS with Match Regexp    ${txtSMSMaxSpeedInternetPrepaidBE}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+
+Select Entertainment
+    Wait Mobile Until Element Visible    ${lblUnlimitedSocialApp}
+    Click Mobile Element    ${lblUnlimitedSocialApp}
+
+Select Unlimited Social Pack 1 Day 29 Baht
+    ${packname}    Get mobile attribute    ${btnSocialUnlimited29Baht1Day}    name
+    log    ${packname}
+    Click Mobile Element    ${btnSocialUnlimited29Baht1Day}
+    Comment    ${packname}    Get mobile attribute    ${btnSocialUnlimited29Baht1Day}    name
+    Comment    log    ${packname}
+    [Return]    ${packname}
+
+Verify Unlimited Social 1 Day 29 Baht Page Detail Package
+    [Arguments]    ${packageName}
+    Swipe element to specific area    ${lblYouWillReceiveAConfirmationUlimitedSocial}
+    Mobile element name should be    ${lbl29BahtUnlimitedSocialAppDetails}    ${packageName}
+    Mobile element name should be    ${lbl29UnlimidtedSocial}    ${txt29UnlimitedSocial}
+    Mobile element name should be    ${lblBahtUnlimidtedSocial}    ${txtBaht}
+    Mobile element name should be    ${lbl24UnlimitedSocial}    ${txt24UnlimitedSocial}
+    Mobile element name should be    ${lblHoursUnlimidtedSocial}    ${txtHourUnlimitedSocial}
+    Mobile element name should be    ${lblDetailPackageUnlimitedSocial}    ${txtUnlimitedAtSpeed512Kb}
+    Mobile element name should be    ${lblYouWillReceiveAConfirmationUlimitedSocial}    ${txtYouWillReceiveAConfirmation}
+    Mobile element name should be    ${btnBackDetailPage}    ${txtBack}
+    Mobile element name should be    ${btnConfirm}    ${txtConfirm}
+    Mobile Capture Screen At Verify Point    Verify In Unlimited Social Detail Package
+
+Verify SMS Unlimited Social 1 Day 29 Baht
+    [Arguments]    ${IPAppium}    ${PlatformName}    ${PlatformVersion}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS From AIS with Match Regexp    ${txtSMSMaoMao29BahtUnlimitedSocial}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS From AIS with Match Regexp    ${txtSMSMaoMao29BahtUnlimitedSocial}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS From AIS with Match Regexp    ${txtMaoMao29BahtUnlimitedInternetPE}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS From AIS with Match Regexp    ${txtMaoMao29BahtUnlimitedInternetBE}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+
+Verify Apply Package Unlimited Social 1 Day 29 Baht Complete
+    Wait Mobile Until Element Visible    ${lblApplyPackageUnlimitedSocial}
+    sleep    10
+    Wait Until Keyword Succeeds    120    3    Mobile element text in name should match regexp whole string    ${lblApplyPackageUnlimitedSocial}    ${txtApplyPackageUnlimitedSocial}
+    Mobile Capture Screen At Verify Point    Verify Apply Package Unlimited Social
+
+Verify Details Of Package Up Speed Internet 79 Baht
+    [Arguments]    ${packageName}    ${ar_LANG}
+    Swipe Element To Screen    xpath=//android.webkit.WebView[@index="0"]/android.view.View[@index="8"]/android.view.View[@index="0"]/android.view.View[@index="1"]
+    Mobile element name should be    ${dgdUpSpeedInternetPackage79Baht}    ${packageName}
+    Verify Text 3GB 79 Baht 7 Days
+    Verify Text You Will Receive Confirmation Of 79 Baht Pack    ${ar_LANG}
+    Mobile element name should be    ${btnBackDetailPage}    ${txtBack}
+    Mobile element name should be    ${btnConfirm}    ${txtConfirm}
+    Mobile Capture Screen At Verify Point    Verify Details Of Up Speed Package
+
+Verify Confirmation Of Package Up Speed Internet
+    [Arguments]    ${IPAppium}    ${PlatformName}    ${PlatformVersion}    ${SN}    ${ar_NType}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS From AIS with Match Regexp    ${txtSMSMaoMao79BahtUpSpeedInternet}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS From AIS with Match Regexp    ${txtSMSMaoMao79BahtUpSpeedInternet}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS From AIS with Match Regexp    ${txtSMSWelcome3G2100Package}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}    2    #2 SMS
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS From AIS with Match Regexp    ${txtSMSWelcome3G2100Package}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}
+    ...    ${SN}
+
+Verify Text 3GB 49 Baht 1 Day
+    Mobile element name should be    ${lblInternet}    ${txtInternet}
+    Mobile element name should be    ${lbl3GB}    ${txt3GB}
+    Mobile element name should be    ${lbl49}    ${txt49}
+    Mobile element name should be    ${lblBaht}    ${txtBaht}
+    Mobile element name should be    ${lblNumber1}    ${txtNumber1}
+    Mobile element name should be    ${lbldays}    ${txtDays}
+
+Verify Text You Will Receive Confirmation Of 49 Baht Pack
+    [Arguments]    ${ar_LANG}
+    Run Keyword If    "${ar_NType}"=="EN"    Verify Text You Will Receive Confirmation SMS EN Version
+    Run Keyword If    "${ar_NType}"=="TH"    Verify Text You Will Receive Confirmation SMS TH Version
+
+Verify Text 3GB 79 Baht 7 Days
+    Mobile element name should be    ${lblInternetUpSpeedInternet}    ${txtInternetUpSpeedInternet}
+    Mobile element name should be    ${lbl3GBUpSpeedInternet}    ${txt3GBUpSpeedInternet}
+    Mobile element name should be    ${lbl79UpSpeedInternet}    ${txt79UpSpeedInternet}
+    Mobile element name should be    ${lblBahtUpSpeedInternet}    ${txtBahtUpSpeedInternet}
+    Mobile element name should be    ${lbl7UpSpeedInternet}    ${txt7UpSpeedInternet}
+    Mobile element name should be    ${lblDaysUpSpeedInternet}    ${txtDaysUpSpeedInternet}
+
+Verify Text You Will Receive Confirmation Of 79 Baht Pack
+    [Arguments]    ${ar_LANG}
+    Run Keyword If    "${ar_LANG}"=="EN"    Verify Text You WIll Receive Confirmation EN
+    Run Keyword If    "${ar_LANG}"=="TH"    Verify Text You WIll Receive Confirmation TH
+
+Verify Menu Max Speed Internet
+    Wait Mobile Until Element Visible    ${lblVolume}
+    Mobile element name should be    ${lblVolume}    ${txtVolume}
+    Mobile element name should be    ${lblDAY}    ${txtDAY(s)}
+    Mobile element name should be    ${btnCancelOntop}    ${txtCancel}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile Capture Screen At Verify Point    Max Speed Internet
+
+Verify Menu Up Speed Internet
+    Wait Mobile Until Element Visible    ${lblEligibleForPrepaidCustomer}
+    Mobile element name should be    ${lblEligibleForPrepaidCustomer}    ${txtEligibleForUnlimitedPackage}    #!!Eligible for Prepaid customer who have Unlimited internet packages / Postpaid customer
+    Mobile element name should be    ${lblVolumeUpSpeedInternetMainPage}    ${txtVolume}    #Volume
+    Mobile element name should be    ${lblDaysUpSpeedIntenetMainPage}    ${txtDAY(s)}    #DAY (s)
+    Mobile element name should be    ${btnNext}    ${txtNext}    #Next
+    Mobile element name should be    ${btnCancelOntop}    ${txtCancel}    #Cancel
+    Mobile Capture Screen At Verify Point    UpSpeed Internet Page
+
+Verify Menu Unlimited Social App
+    Wait Mobile Until Element Visible    ${lblSocialUnlimited}
+    Mobile element name should be    ${lblSocialUnlimited}    ${txtSocialUnlimited}
+    Mobile element name should be    ${lblSocialMedia}    ${txtSocialMedia}
+    Mobile element name should be    ${lblDAYsUnlimitedSocialApp}    ${txtDAYsUnlimitedSocialApp}
+    Mobile element name should be    ${btnCancelOntop}    ${txtCancel}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+
+Verify Submit Request Success
+    [Arguments]    ${locator}    ${expectedMsg}
+    Wait Mobile Until Element Visible    ${locator}
+    ${RealMessage}    Get mobile attribute    ${locator}    name
+    Log    ${RealMessage}
+    Should Match Regexp    ${RealMessage}    ${expectedMsg}[\s]*
+
+Verify Text You Will Receive Confirmation SMS EN Version
+    Mobile element name should be    ${lblYouWillReceiveAConfirmation}    ${txtYouWillReceiveAConfirmation}
+    Mobile element name should be    ${lblSMS}    ${txtSMS}
+    Mobile element name should be    ${lblOnceThePurchasingProcessIsCompleted}    ${txtOnceThePurchasingProcessIsCompleted}
+
+Verify Text You Will Receive Confirmation SMS TH Version
+    Mobile element name should be    ${lblYouWillReceiveAConfirmation}    ${txtYouWillReceiveAConfirmation}
+    Mobile element name should be    ${lblSMS}    ${txtSMS}
+    Mobile element name should be    ${lblConfirm}    ${txtConfirm}
+    Mobile element name should be    ${lblOnceThePurchasingProcessIsCompleted}    ${txtOnceThePurchasingProcessIsCompleted}
+
+Verify Text You WIll Receive Confirmation EN
+    Mobile element name should be    ${lblYouWillReceiveAConfirmationUpSpeedInternet}    ${txtYouWillReceiveAConfirmationUpSpeedInternet}
+    Mobile element name should be    ${lblSMSUpSpeedInternet}    ${txtSMSUpSpeedInternet}
+
+Verify Text You WIll Receive Confirmation TH
+    Mobile element name should be    ${lblYouWillReceiveAConfirmationUpSpeedInternet}    ${txtYouWillReceiveAConfirmationUpSpeedInternet}
+    Mobile element name should be    ${lblSMSUpSpeedInternet}    ${txtSMSUpSpeedInternet}
+    Mobile element name should be    ${lblConfirmUpSpeedInternet}    ${txtConfirmUpSpeedInternet}
+    Mobile element name should be    ${lblAfterFinishedApply}    ${txtAfterFinishApply}
+
+Verify Menu Entertainment
+    Wait Mobile Until Element Visible    ${lblEntertainment}
+    Mobile element name should be    ${lblEntertainment}    ${txtEntertainment}    #Entertainment
+    Mobile element name should be    ${lblEntertainmentDescription}    ${txtEntertainmentDescription}    #ความบันเทิงระดับโลกทั้งหนัง ซีรีส์ การ์ตูน กีฬา ข่าว และอีกมากมาย
+    Mobile element name should be    ${btnNext}    ${txtNext}    #Next
+    Mobile element name should be    ${btnCancelOntop}    ${txtCancel}    #Cancel
+    Mobile Capture Screen At Verify Point    Entertainment Menu
+
+Select Hooq Package
+    Click Mobile Element    ${lblHooq}    #Select HOOQ
+
+Verify Details of Hooq Package
+    Swipe element to specific area    xpath=//android.view.View[@index="17"]    #Swipe to bottom page
+    Mobile element name should be    ${lblHooq119}    ${txtHooq119}    #119
+    Mobile element name should be    ${lblHooqBaht}    ${txtHooqBaht}    #Baht
+    Mobile element name should be    ${lblHooq30}    ${txtHooq30}    #30
+    Mobile element name should be    ${lblHooqDay}    ${txtHooqDays}    #Days
+    Mobile element name should be    ${lblHooqFreeTrial}    ${txtHooqFreeTrial}    #Free trial 45 days
+    Mobile element name should be    ${lblHooqYouWillReceive}    ${txtHooqYouWillReceive}    #You will receive
+    Mobile element name should be    ${lblHooqSMS}    ${txtHooqSMS}    #SMS
+    Mobile element name should be    ${lblHooqConfirm}    ${txtHooqConfirmation}    #confirm
+    Mobile element name should be    ${lblHooqAfterFinished}    ${txtHooqAfterApplySuccess}    #After success
+    Mobile element name should be    ${btnBackDetailPage}    ${txtBack}
+    Mobile element name should be    ${btnConfirm}    ${txtConfirm}
+    Mobile Capture Screen At Verify Point    Hooq Package Details
+
+Verify SMS From AIS HOOQ with Match Regexp
+    [Arguments]    ${MsgVerifySMS}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${TotalSMS}=2
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${Platfrom_Name}    ${TotalSMS}    ${lo_sms_timeout}    HOOQ_AIS
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${Platfrom_Name}    HOOQ_AIS    ${TotalSMS}
+    Comment    ${messageFromSMS}=    Convert To String    ${message}
+    Comment    Should Match Regexp    ${messageFromSMS}    ${MsgVerifySMS}
+    ${result}    Evaluate    ${TotalSMS}-1
+    : FOR    ${indexOfActual}    IN RANGE    ${TotalSMS}
+    \    Log    Actual : @{messages}[${indexOfActual}]
+    \    Log    Expect : ${MsgVerifySMS}
+    \    ${status}=    Run Keyword And Return Status    Should Match Regexp    @{messages}[${indexOfActual}]    ${MsgVerifySMS}
+    \    Run Keyword If    '${status}'=='True'    Exit For Loop
+    \    Run Keyword If    ${indexOfActual}==${result}    Fail    Message did not match with regex pattern...
+    \    ${indexOfActual}    Evaluate    ${indexOfActual}+1
+    Click Mobile Element    ${SenderAIS}
+    Mobile Capture Screen At Verify Point    Verify SMS MyAIS
+
+Verify Apply Hooq Package Success
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Wait Until Keyword Succeeds    120    3    Mobile element text in name should match regexp whole string    ${msgDialog}    ${txtHooqWaitForSMS}
+    Mobile Capture Screen At Verify Point    Verify Message Request Has Been Submitted
+
+Verify SMS Confirmation Of Hooq Package From Hooq AIS
+    [Arguments]    ${PlatformName}    ${SN}    ${ar_NType}
+    @{MessageExpect}    Create List    ${txtHooqFirstSMS}    ${txtHooqSecondSMS}
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Wait and Verify SMS    ${PlatformName}    ${SN}    2    HOOQ_AIS    ${MessageExpect}    30
+    Click Mobile Element    ${senderAISHOOQ}
+    Mobile Capture Screen At Verify Point    Verify SMS From HOOQ
+
+Verify SMS Confirmation Of Hooq Package From AIS
+    [Arguments]    ${IPAppium}    ${PlatformName}    ${PlatformVersion}    ${SN}    ${ar_NType}
+    Verify SMS From AIS with Match Regexp    ${txtHooqSMSFromAIS}    ${IPAppium}    ${PlatformName}    ${PlatformVersion}    ${SN}

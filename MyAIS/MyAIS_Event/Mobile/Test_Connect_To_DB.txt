@@ -1,0 +1,57 @@
+*** Settings ***
+Library           String
+Library           OperatingSystem
+Library           DatabaseLibrary
+Library           Collections
+
+*** Variables ***
+${DBHost}         10.239.223.214
+${DBName}         EPP11G.WORLD
+${DBPass}         RPSSB
+${DBPort}         1521
+${DBUser}         RPSSB
+
+*** Test Cases ***
+Test Query Some Data
+    ${result} =    Convert To Number    54.33    1
+    ${result} =    Evaluate    ${result} + 10
+    Log    ${result}
+    Comment    Connect To Database    cx_Oracle    ${DBName}    ${DBUser}    ${DBPass}    ${DBHost}
+    ...    ${DBPort}
+    Comment    Connect To Database    cx_Oracle    ${DBName}    ${DBUser}    ${DBPass}    ${DBHost}
+    ...    ${DBPort}
+    Comment    Set Environment Variable    NLS_LANG    Thai_Thailand.TH8TISASCII
+    Comment    ${temp} =    Get Environment Variable    NLS_LANG
+    Comment    Connect To Database Using Custom Params    cx_Oracle    user='RPSSB',password='RPSSB',dsn='EPP11G.WORLD'
+    Comment    ${queryResults}=    DatabaseLibrary.Query    select RESPONSE_MSG from es_log_service_ssb where service_log_id='8546781' and mobile_no='0933526370' and logtime > sysdate - 1
+    Comment    Log Many    ${queryResults}
+    Comment    ${output} =    Set Variable    ${queryResults[0]}
+    Comment    ${output} =    Convert To String    ${output}
+    Comment    ${output1} =    Encode String To Bytes    ${output}    UTF-8
+    Comment    ${output2} =    Encode String To Bytes    ${output}    ASCII
+    Comment    ${output3} =    Decode Bytes To String    ${output}    UTF-8
+    Comment    Log Many    ${output3}
+    Comment    OracleLibrary.Connect To Database By Tns    RPSSB    RPSSB    EPP11G.WORLD    encoding=windows-1252
+    Comment    ${queryResults}=    Query    select RESPONSE_MSG from es_log_service_ssb where service_log_id='8546781' and mobile_no='0933526370' and logtime > sysdate - 1
+    Comment    Log Many    ${queryResults}
+    [Teardown]    DatabaseLibrary.Disconnect From Database
+
+Test Query List Data
+    Connect To Database Using Custom Params    cx_Oracle    user='RPSSB',password='RPSSB',dsn='EPP11G.WORLD'
+    ${queryResults}=    DatabaseLibrary.Query    select LOGTIME, RESPONSE_MSG from es_log_service_ssb where mobile_no='0933526370' and logtime > sysdate - 1
+    Log Many    ${queryResults}
+    ${listResults1}=    Convert To List    ${queryResults}
+    Log Many    ${listResults1}
+    ${listResults2}=    Convert To List    ${listResults1[1]}
+    Log Many    ${listResults2}
+    ${strResult1}=    Convert To String    ${listResults1[1][0]}
+    ${strResult2}=    Convert To String    ${listResults1[1][1]}
+
+Test Query 2 Database
+    Connect To Database Using Custom Params    cx_Oracle    user='neweserv',password='neweServ',dsn='AIS_245_CAMPAIGNDB'
+    ${audit_log_id}=    DatabaseLibrary.Query    select AUDIT_LOG_ID from ES_LOG_AUDIT t where t.mobile_no = '0933526370'and ROWNUM <= 1 order by 1 desc
+    Log Many    ${audit_log_id[0][0]}
+    Comment    DatabaseLibrary.Disconnect From Database
+    Connect To Database Using Custom Params    cx_Oracle    user='${DBUser}',password='${DBPass}',dsn='${DBName}'
+    ${queryResults}=    DatabaseLibrary.Query    select * from es_log_service_ssb where mobile_no='0933526370' and AUDIT_LOG_ID='${audit_log_id[0][0]}'
+    Log Many    ${queryResults}

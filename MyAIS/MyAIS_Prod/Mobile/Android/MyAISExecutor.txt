@@ -1,0 +1,353 @@
+*** Settings ***
+Library           ../../../../AisRobotBuffet/Library/Web/WebManeger.py
+Resource          ../Config/NtypeOfFeatureConfig.txt
+Resource          ../Resource/PageKeywords/MyAISCommon.txt
+Library           ../../../../AisRobotBuffet/Library/General/ExecuteFeature.py
+
+*** Test Cases ***
+ParallelNTypeExecutor
+    [Tags]    parallel
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    TestParallelNType    3PO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=failAND3POORsuccessAND3PO    is_parallel=True
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    TestParallelNType    3PE    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=failAND3PEORsuccessAND3PE    is_parallel=True
+
+BillAISPostpaid
+    [Tags]    bill_AIS_postpaid    test
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    BillAISPostpaid    3PO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=failAND3POORsuccessAND3PO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    platform=${ar_OS}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    BillAISPostpaid    3BO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=failAND3BOORsuccessAND3BO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    platform=${ar_OS}
+
+ConsultAgent
+    [Tags]    consult_agent
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    ConsultAgent    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+ISWOP
+    [Tags]    ISWOP    test
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    ISWOP    3PO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag}AND3PO    is_parallel=False    platform=${ar_OS}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    ISWOP    3BO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag}AND3BO    is_parallel=False    platform=${ar_OS}
+
+RegisterAISFibreAndCoverageChecking
+    [Tags]    register_AIS_fibre_and_coverage_checking    prod
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RegisterAISFibreAndCoverageChecking    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RegisterAISFibreAndCoverageChecking    3BO    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}    is_parallel=False    network=${ar_NETWORK}
+    Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RegisterAISFibreAndCoverageChecking    3BE    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}    is_parallel=False    network=${ar_NETWORK}
+    Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RegisterAISFibreAndCoverageChecking    3PE    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}    is_parallel=False    network=${ar_NETWORK}
+
+RequestAndChangeWifiPassword
+    [Tags]    request_and_change_wifi_password    prod
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RequestAndChangeWifiPassword    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RequestAndChangeWifiPassword    3BO    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}    is_parallel=False    network=${ar_NETWORK}
+    Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RequestAndChangeWifiPassword    3BE    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=3BE    is_parallel=False    network=${ar_NETWORK}
+    Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RequestAndChangeWifiPassword    3PE    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=3PE    is_parallel=False    network=${ar_NETWORK}
+
+DomesticPackage
+    [Tags]    domestic_package    test
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    DomesticPackage    3PO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=failAND3POORsuccessAND3PO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    platform=${ar_OS}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    DomesticPackage    3BO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=failAND3BOORsuccessAND3BO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    platform=${ar_OS}
+
+FAQ
+    [Tags]    FAQ
+    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    FAQ    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    FAQ    3PO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=dummy    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    FAQ    3BO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+
+TopUp
+    [Tags]    topup
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    TopUp    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+HowToUse
+    [Tags]    how_to_use
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    HowToUse    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+MyAccount
+    [Tags]    my_account
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    MyAccount    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+AISeStatement
+    [Tags]    test    ais_estatement
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    AISeStatement    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+RoamingPackage
+    [Tags]    test    roaming_package
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    RoamingPackage    3PO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag}AND3PO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    platform=${ar_OS}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    RoamingPackage    3BO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag}AND3BO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    platform=${ar_OS}
+
+BalanceAndUsageDetail
+    [Tags]    balance_and_usage_detail
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    BalanceAndUsageDetail    3PO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=failORsuccess    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=False    network=${ar_NETWORK}    platform=${ar_OS}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    BalanceAndUsageDetail    3BO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=failORsuccess    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=False    network=${ar_NETWORK}    platform=${ar_OS}
+
+FAQ_InternationalRoaming
+    [Tags]    faq_internationalroaming
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    FAQ_InternationalRoaming    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+FAQ_YourBalanceAndStatement
+    [Tags]    faq_yourbalanceandstatement
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    FAQ_YourBalanceAndStatement    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+FAQ_InternetAndAISFibre
+    [Tags]    faq_internet_and_ais_fibre
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    FAQ_InternetAndAISFibre    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+FAQ_SpecialCampaignAndPrivileges
+    [Tags]    faq_special_campaign_and_privileges
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    FAQ_SpecialCampaignAndPrivileges    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+DomesticPackage_YourCurrentPackage
+    [Tags]    domestic_yourcurrentpackage
+    Run Keyword If    "${ar_NODE}" == "atlas_Teemo" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_YourCurrentPackage    3PO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=activeANDregressionAND3PO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_NODE}" == "atlas_Teemo" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_YourCurrentPackage    3BO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=activeANDregressionAND3BO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_NODE}" == "atlas_WinOS_New" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_YourCurrentPackage    3PE
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=activeANDregressionAND3PE    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_NODE}" == "atlas_WinOS_New" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_YourCurrentPackage    3BE
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=activeANDregressionAND3BE    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_NODE}" == "atlas_WinOS_New" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_YourCurrentPackage    3PE,3BE
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_NODE}" == "atlas_Teemo" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_YourCurrentPackage    3PO,3BO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+
+PointsAndPrivileges
+    [Tags]    points_and_privileges
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    PointsAndPrivileges    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+DomesticPackage_ChangePricePlan
+    [Tags]    domesticpackage_changepriceplan
+    ExecuteFeature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ChangePricePlan    3PE    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag}AND3PE    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ChangePricePlan    3BO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag}AND3BO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    ExecuteFeature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ChangePricePlan    3BE    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag}AND3BE    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ChangePricePlan    3PO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag}AND3PO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+RoamingPackage_ApplyRoamingPackage
+    [Tags]    roaming_package_apply_roaming_package
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_ApplyRoamingPackage
+    ...    3PO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=False
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_ApplyRoamingPackage
+    ...    3PO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=dummy    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=False
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_ApplyRoamingPackage
+    ...    3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=False
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_ApplyRoamingPackage
+    ...    3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=dummy    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=False
+    ...    network=${ar_NETWORK}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RoamingPackage_ApplyRoamingPackage    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+RoamingPackage_CurrentPackageAndRemaining
+    [Tags]    roaming_package_current_package
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RoamingPackage_CurrentPackageAndRemaining    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_CurrentPackageAndRemaining
+    ...    3PO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_CurrentPackageAndRemaining
+    ...    3PO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=dummy    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_CurrentPackageAndRemaining
+    ...    3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_CurrentPackageAndRemaining
+    ...    3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=dummy    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+
+RoamingPackage_RoamingServiceRates
+    [Tags]    roaming_package_roaming_service_rates
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_RoamingServiceRates
+    ...    3PO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_RoamingServiceRates
+    ...    3PO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=dummy    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_RoamingServiceRates
+    ...    3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_RoamingServiceRates
+    ...    3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=dummy    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_RoamingServiceRates
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    RoamingPackage_RoamingServiceRates
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    RoamingPackage_RoamingServiceRates    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+DomesticPackage_ApplyOtherOnTopPackage
+    [Tags]    domesticpackage_applyotherontoppackage
+    Run Keyword If    "${ar_LANG}"=="EN" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ApplyOtherOnTopPackage    3PO,3BO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}AND3POOR${ar_Tag}AND3BO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="EN" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ApplyOtherOnTopPackage    3PE,3BE
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}AND3PEOR${ar_Tag}AND3BE    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="TH" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ApplyOtherOnTopPackage    3PO,3BO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}AND3POOR${ar_Tag}AND3BO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="TH" and "${ar_Tag}" == "activeANDregression"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ApplyOtherOnTopPackage    3PE,3BE
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}AND3PEOR${ar_Tag}AND3BE    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_Tag}" == "smoke"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ApplyOtherOnTopPackage    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=smoke    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Run Keyword If    "${ar_Tag}" == "sanity"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ApplyOtherOnTopPackage    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=sanity    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+DomesticsPackage_CancelOnTopPackage
+    [Tags]    domesticspackage_cancelontoppackage
+    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticsPackage_CancelOnTopPackage    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=False    network=${ar_NETWORK}    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticsPackage_CancelOnTopPackage    3PO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=dummy    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=False    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+
+DomesticPackage_ApplyInternetOntopPackage
+    [Tags]    domesticpackage_apply_internet_ontop_package
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    DomesticPackage_ApplyInternetOntopPackage
+    ...    3PO,3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    DomesticPackage_ApplyInternetOntopPackage
+    ...    3PE,3BE    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    DomesticPackage_ApplyInternetOntopPackage
+    ...    3PO,3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Prod\\    DomesticPackage_ApplyInternetOntopPackage
+    ...    3PE,3BE    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    DomesticPackage_ApplyInternetOntopPackage    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+Home
+    [Tags]    home
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Home    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+FAQ_MainPackageAndOnTopPackage
+    [Tags]    faq_main_and_ontoppackage
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    FAQ_MainPackageAndOnTopPackage    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+CallingMelody
+    [Tags]    calling_melody
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    CallingMelody    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+FAQ_SMSCancellationOrInquiries
+    [Tags]    faq_sms_cancellation_or_inquiries
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    FAQ_SMSCancellationOrInquiries    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+BalanceTransfer
+    [Tags]    balance_transfer
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    BalanceTransfer    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+ValidityTransfer
+    [Tags]    validity_transfer
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    ValidityTransfer    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+TouchID
+    [Tags]    touchid
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    TouchID    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+Quickmenu_Search_Prepaid
+    [Tags]    quickmenu_search_prepaid
+    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Prepaid    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}ANDTH    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Prepaid    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}ANDEN    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+Quickmenu_VerifyButton
+    [Tags]    quickmenu_verifybutton
+    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_VerifyButton    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_VerifyButton
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDEN    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_VerifyButton    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+Quickmenu_VerifyMenu
+    [Tags]    quickmenu_verifymenu
+    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_VerifyMenu    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}ANDTH    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_VerifyMenu
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDEN    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_VerifyMenu    3PE,3BE
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDEN    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+
+Quickmenu_Search_Postpaid
+    [Tags]    quickmenu_search_postpaid
+    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    3PO,3BO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDTH    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid
+    ...    3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDTH    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}    platform=${ar_OS}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=dummyORsmoke    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    3PO,3BO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDEN    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+    Run Keyword If    "${ar_Tag}" == "sanity"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    3PO,3BO
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=sanity    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
+    ...    platform=${ar_OS}
+
+TopUpAndPayment
+    [Tags]    topupandpayment
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    TopUpAndPayment    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+PaymentTopUp
+    [Tags]    paymenttopup
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    PaymentTopUp    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}

@@ -1,0 +1,21 @@
+*** Settings ***
+Resource          ../../Andriod/Keywords/GeneralFunctionKeywords.txt
+Resource          ../../iOS/Keywords/iosGeneralFunctionKeywords.txt
+
+*** Keywords ***
+Switch App
+    [Arguments]    ${platformName}    ${AppName}
+    [Documentation]    App Name can use Match Regexp
+    ...    EX My AIS.*
+    Run Keyword If    '${platformName}' == 'Android'    Android Switch App    ${AppName}
+    Run Keyword If    '${platformName}' == 'iOS'    ios Switch App    ${AppName}
+
+Set Network Connection
+    [Arguments]    ${Connection}    ${IpAppium}    ${platformName}    ${SN}
+    Comment    Run Keyword If    '${platformName}' == 'Android'    Android Set Network Connection    ${Connection}    ${IpAppium}    ${SN}
+    Comment    Run Keyword If    '${platformName}' == 'iOS'    iOS Set Network Connection    ${Connection}
+
+Go Home Menu
+    [Arguments]    ${platformName}
+    Run Keyword If    '${platformName}' == 'Android'    Go Home Android
+    Run Keyword If    '${platformName}' == 'iOS'    Home iOS

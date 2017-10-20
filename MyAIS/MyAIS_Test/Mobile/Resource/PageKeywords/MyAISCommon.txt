@@ -1,0 +1,815 @@
+*** Settings ***
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/ParallelLocalConfigKeyWord.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
+Resource          ../PageRepository/${ar_OS}/MyAISRepository.txt
+Resource          ../../../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctionKeywords.txt
+Resource          ../../../../../AisRobotBuffet/Mobile/Generic/Keywords/SmsGenericKeywords.txt
+Resource          ../PageVariable/MyAISCommonVariable.txt
+Library           DateTime
+Resource          ../../../../../AisRobotBuffet/Mobile/Generic/Keywords/PhoneGenericKeyword.txt
+
+*** Keywords ***
+Open My AIS
+    [Arguments]    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    ${driver}    Run Keyword And Return If    '${platformName}' == 'Android'    android open my ais app    ${remoteUrl}    ${platformName}    ${platformVersion}
+    ...    ${udid}
+    ${driver}    Run Keyword And Return If    '${platformName}' == 'iOS'    ios open my ais app    ${remoteUrl}    ${platformName}    ${platformVersion}
+    ...    ${udid}
+    [Return]    ${driver}
+
+android open my ais app
+    [Arguments]    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    Log    In Open My AIS App
+    Comment    automationName=uiautomator2
+    ${driver}    Aisappium Open Application    http://${remoteUrl}/wd/hub    platformName=${platformName}    platformVersion=${platformVersion}    udid=${udid}    appPackage=com.ais.mimo.eservice.debug
+    ...    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity    deviceName=${remoteUrl}    unicodeKeyboard=${True}    noReset=${True}    automationName=uiautomator2
+    Log    Quite Open My AIS App
+    [Return]    ${driver}
+
+ios open my ais app
+    [Arguments]    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    Log    In Open My AIS App
+    log to console    Open My AIS
+    ${driver}    Aisappium Open Application    http://${remoteUrl}/wd/hub    alias=MyAIS    platformName=${platformName}    platformVersion=${platformVersion}    deviceName=iPhone7
+    ...    udid=${udid}    app=com.ais.mimo.eservice.inhouse1    desired_capabilities=resetkeyboard:true
+    log to console    Quite Open My AIS App
+    Log    Quite Open My AIS App
+    [Return]    ${driver}
+
+Swipe to element
+    [Arguments]    ${target}    ${Container}=screen    ${Direction}=up    ${ratio}=0.2    ${Round}=10    ${duration}=1000
+    ...    ${appium_info}="noinfo"
+    Comment    Sleep    3
+    Log    In swipe to element
+    Log    ${ar_OS}
+    ${elementIsContain}=    Run Keyword If    "${ar_OS}"=="Android"    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}    0.1
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}    0
+    ...    ELSE    "${ar_OS}"=="Android"    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}    0
+    Comment    ${elementIsContain}=    Run Keyword If    "${ar_OS}"=="iOS"    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}
+    ...    0
+    Comment    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${target}
+    Run Keyword If    ${ratio}>0.5 or ${ratio}<=0    fail    ratio are <0 or >0.5
+    Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe in screen to element    ${target}    ${Direction}    ${ratio}    ${Round}
+    ...    ${duration}    ${appium_info}
+    Run Keyword If    '${Container}' != 'screen' and '${elementIsContain}'== 'False'    swipe in container to element    ${target}    ${Container}    ${Direction}    ${ratio}
+    ...    ${Round}    ${duration}    ${appium_info}
+    Log    Out swipe to element
+
+swipe in container to element
+    [Arguments]    ${target}    ${Container}    ${Direction}=up    ${ratio}=0.2    ${Round}=10    ${duration}=500
+    ...    ${appium_info}="noinfo"
+    Wait Mobile Until Element Visible    ${Container}
+    &{Location}    Get Element Location    ${Container}
+    &{Size}    AISAppiumEx.Get Element Size    ${Container}
+    ${x}    Get From Dictionary    ${Location}    x
+    ${y}    Get From Dictionary    ${Location}    y
+    ${width}    Get From Dictionary    ${Size}    width
+    ${height}    Get From Dictionary    ${Size}    height
+    ${x1}    Evaluate    ${x}+int(${width}*${ratio})
+    ${y1}    Evaluate    ${y}+int(${height}*${ratio})
+    ${x2}    Evaluate    ${x}+int(${width}*(1-${ratio}))
+    ${y2}    Evaluate    ${y}+int(${height}*(1-${ratio}))
+    @{listPosition}    Create List
+    Run Keyword If    "${Direction}" == "up" and "${ar_OS}"=="Android"    Append To List    ${listPosition}    ${x1}    ${y2}    ${x1}
+    ...    ${y1}
+    Run Keyword If    "${Direction}" == "up" and "${ar_OS}"=="iOS"    Append To List    ${listPosition}    ${x1}    ${y2}    ${x1}
+    ...    -${y1}
+    Run Keyword If    "${Direction}" == "left" and "${ar_OS}"=="Android"    Append To List    ${listPosition}    ${x2}    ${y1}    ${x1}
+    ...    ${y1}
+    Run Keyword If    "${Direction}" == "left" and "${ar_OS}"=="iOS"    Append To List    ${listPosition}    ${x2}    ${y1}    -${x2}
+    ...    0
+    Run Keyword If    "${Direction}" == "down"    Append To List    ${listPosition}    ${x1}    ${y1}    ${x1}
+    ...    ${y2}
+    Run Keyword If    "${Direction}" == "right"    Append To List    ${listPosition}    ${x1}    ${y1}    ${x2}
+    ...    ${y1}
+    Log    ${listPosition}[0]
+    Log    ${listPosition}[1]
+    Log    ${listPosition}[2]
+    Log    ${listPosition}[3]
+    : FOR    ${index}    IN RANGE    1    ${Round}
+    \    ${elementIsContain}=    Run Keyword If    "${ar_OS}"=="Android"    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${target}
+    \    ...    ELSE IF    "${ar_OS}"=="iOS"    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}
+    \    ...    0
+    \    ...    ELSE    Log    Not Support This OS!
+    \    Log    ${elementIsContain}Swipe to element
+    \    Run Keyword If    "${elementIsContain}"=="False"    Swipe    @{listPosition}[0]    @{listPosition}[1]    @{listPosition}[2]
+    \    ...    @{listPosition}[3]
+    \    Run Keyword If    "${elementIsContain}"=="True"    Exit For Loop
+    Run Keyword If    "${elementIsContain}"=="False"    fail    cannot find element
+
+swipe in screen to element
+    [Arguments]    ${target}    ${Direction}=up    ${ratio}=0.2    ${Round}=10    ${duration}=500    ${appium_info}="noinfo"
+    ${driver}=    Run Keyword If    ${appium_info}=="noinfo"    Aisappium Get Driver Instance
+    &{dict_size}    Run Keyword If    ${appium_info}=="noinfo"    Create Dictionary    &{driver.get_window_size()}
+    ...    ELSE    Create Dictionary    &{appium_info.driver.get_window_size()}
+    ${size}=    Get Dictionary Values    ${dict_size}
+    ${x}=    Set Variable    @{size}[1]
+    ${y}=    Set Variable    @{size}[0]
+    ${less_x}=    Evaluate    int(${x}*${ratio})
+    ${less_y}=    Evaluate    int(${y}*${ratio})
+    ${more_x}=    Evaluate    int(${x}*(1-${ratio}))
+    ${more_y}=    Evaluate    int(${y}*(1-${ratio}))
+    @{listEndPosition}    Create List
+    ${start_x}    ${start_y}=    set start point    ${Direction}    ${less_x}    ${more_x}    ${less_y}
+    ...    ${more_y}
+    log    ${Direction}
+    Run Keyword If    "${Direction}" == "up" and "${ar_OS}"=="Android"    Append To List    ${listEndPosition}    ${start_x}    ${less_y}
+    ...    ELSE IF    "${Direction}" == "up" and "${ar_OS}"=="iOS"    Append To List    ${listEndPosition}    ${start_x}    -${less_y}
+    Run Keyword If    "${Direction}" == "down"    Append To List    ${listEndPosition}    ${start_x}    ${more_y}
+    Run Keyword If    "${Direction}" == "left" and "${ar_OS}"=="Android"    Append To List    ${listEndPosition}    ${less_x}    ${start_y}
+    ...    ELSE IF    "${Direction}" == "left" and "${ar_OS}"=="iOS"    Append To List    ${listEndPosition}    -${less_x}    ${start_y}
+    Run Keyword If    "${Direction}" == "right"    Append To List    ${listEndPosition}    ${more_x}    ${start_y}
+    log    @{listEndPosition}[0]
+    log    @{listEndPosition}[1]
+    Comment    sleep    2
+    : FOR    ${index}    IN RANGE    1    ${Round}
+    \    ${elementIsContain}=    Run Keyword If    "${ar_OS}"=="Android"    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}
+    \    ...    0.1
+    \    ...    ELSE IF    "${ar_OS}"=="iOS"    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}
+    \    ...    0
+    \    log    before swipe
+    \    Run Keyword If    "${elementIsContain}"=="False"    Run Keyword And Ignore Error    Swipe    ${start_x}    ${start_y}
+    \    ...    @{listEndPosition}[0]    @{listEndPosition}[1]
+    \    log    after swipe
+    \    Exit For Loop If    "${elementIsContain}"=="True"
+    Run Keyword If    "${elementIsContain}"=="False"    fail    cannot find element
+
+Choose Menu
+    [Arguments]    ${locatormenu}
+    Click Mobile Element    ${locatormenu}
+
+set start point
+    [Arguments]    ${Direction}    ${less_x}    ${more_x}    ${less_y}    ${more_y}
+    ${start_x}=    Set Variable If    "${Direction}" == "up"    ${less_x}
+    ${start_y}=    Set Variable If    "${Direction}" == "up"    ${more_y}
+    ${start_x}    Set Variable If    "${Direction}" == "down"    ${less_x}    ${start_x}
+    ${start_y}=    Set Variable If    "${Direction}" == "down"    ${less_y}    ${start_y}
+    ${start_x}=    Set Variable If    "${Direction}" == "left"    ${more_x}    ${start_x}
+    ${start_y}=    Set Variable If    "${Direction}" == "left"    ${more_y}    ${start_y}
+    ${start_x}=    Set Variable If    "${Direction}" == "right"    ${less_x}    ${start_x}
+    ${start_y}=    Set Variable If    "${Direction}" == "right"    ${more_y}    ${start_y}
+    [Return]    ${start_x}    ${start_y}
+
+Long Press At Position
+    [Arguments]    ${locator}    ${marginSide}=right    ${ratio}=0.1    ${duration}=1000
+    &{size}    Get Element Size    ${locator}
+    &{location}    Get Element Location    ${locator}
+    ${width}=    Get From Dictionary    ${size}    width
+    ${height}=    Get From Dictionary    ${size}    height
+    ${y}=    Get From Dictionary    ${location}    y
+    ${x}=    Get From Dictionary    ${location}    x
+    ${halfY}=    Evaluate    ${y}+(${height}/2)
+    ${halfX}=    Evaluate    ${width}/2
+    ${marginTop}=    Evaluate    ${y}+(${height}*${ratio})
+    ${marginBelow}=    Evaluate    (${y}+${height})-(${height}*${ratio})
+    ${marginLeft}=    Evaluate    ${x}+(${width}*${ratio})
+    ${marginRight}=    Evaluate    ${width}-(${width}*${ratio})
+    Run Keyword If    '${marginSide}'=='top'    Click A Point    ${halfX}    ${marginTop}    ${duration}
+    Run Keyword If    '${marginSide}'=='below'    Click A Point    ${halfX}    ${marginBelow}    ${duration}
+    Run Keyword If    '${marginSide}'=='left'    Click A Point    ${marginLeft}    ${halfY}    ${duration}
+    Run Keyword If    '${marginSide}'=='right'    Click A Point    ${marginRight}    ${halfY}    ${duration}
+    ${half}=    Evaluate    ${y}+(${height}/2)
+    ${marginValue}=    Run Keyword If    '${marginSide}'=='right'    Evaluate    ${width}-${margin}
+    ...    ELSE    Evaluate    ${x}+${margin}
+    Click A Point    ${marginValue}    ${half}    ${duration}
+
+Close my ais app
+    [Arguments]    ${udid}
+    Log    In Close MyAIS App
+    sleep    2
+    Press Keycode    187
+    sleep    2
+    Wait Mobile Until Page Contains Element    xpath=(//android.widget.TextView[@text='my AIS(b8.0.11)'])
+    Comment    Click Mobile Element    xpath=(//*[@clickable='true' and (@content-desc='mood' or @text='mood')])
+    Click Mobile Element    xpath=(//*[(@class='android.widget.FrameLayout' and @content-desc='my AIS(b8.0.11)')or (@class='android.widget.TextView' and @text='my AIS(b8.0.11)')])
+    sleep    1
+    close application
+    Log    after close application
+    sleep    1
+    ${command}=    Set Variable    adb -s ${udid} shell am kill com.ais.mimo.eservice.debug
+    Log    ${command}
+    ${rc}=    Run And Return Rc    ${command}
+    Log    ${rc}
+
+swipe in screen out from element
+    [Arguments]    ${target}    ${Direction}=up    ${ratio}=0.2    ${Round}=10    ${duration}=500    ${appium_info}="noinfo"
+    ${driver}=    Run Keyword If    ${appium_info}=="noinfo"    Aisappium Get Driver Instance
+    &{dict_size}    Run Keyword If    ${appium_info}=="noinfo"    Create Dictionary    &{driver.get_window_size()}
+    ...    ELSE    Create Dictionary    &{appium_info.driver.get_window_size()}
+    ${size}=    Get Dictionary Values    ${dict_size}
+    ${x}=    Set Variable    @{size}[1]
+    ${y}=    Set Variable    @{size}[0]
+    ${less_x}=    Evaluate    int(${x}*${ratio})
+    ${less_y}=    Evaluate    int(${y}*${ratio})
+    ${more_x}=    Evaluate    int(${x}*(1-${ratio}))
+    ${more_y}=    Evaluate    int(${y}*(1-${ratio}))
+    @{listEndPosition}    Create List
+    ${start_x}    ${start_y}=    set start point    ${Direction}    ${less_x}    ${more_x}    ${less_y}
+    ...    ${more_y}
+    Run Keyword If    "${Direction}" == "up"    Append To List    ${listEndPosition}    ${start_x}    ${less_y}
+    Run Keyword If    "${Direction}" == "down"    Append To List    ${listEndPosition}    ${start_x}    ${more_y}
+    Run Keyword If    "${Direction}" == "left"    Append To List    ${listEndPosition}    ${less_x}    ${start_y}
+    Run Keyword If    "${Direction}" == "right"    Append To List    ${listEndPosition}    ${more_x}    ${start_y}
+    : FOR    ${index}    IN RANGE    1    ${Round}
+    \    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${target}
+    \    Run Keyword If    "${elementIsContain}"=="False"    Swipe    ${start_x}    ${start_y}    @{listEndPosition}[0]
+    \    ...    @{listEndPosition}[1]
+    \    Exit For Loop If    "${elementIsContain}"=="True"
+    Run Keyword If    "${elementIsContain}"=="False"    fail
+
+swipe in container out from element
+    [Arguments]    ${appium_info}    ${target}    ${Container}    ${Direction}=up    ${ratio}=0.2    ${Round}=10
+    ...    ${duration}=500
+    &{Location}    Get Element Location    ${Container}
+    &{Size}    AISAppiumEx.Get Element Size    ${Container}
+    ${x}    Get From Dictionary    ${Location}    x
+    ${y}    Get From Dictionary    ${Location}    y
+    ${width}    Get From Dictionary    ${Size}    width
+    ${height}    Get From Dictionary    ${Size}    height
+    ${x1}    Evaluate    ${x}+int(${width}*${ratio})
+    ${y1}    Evaluate    ${y}+int(${height}*${ratio})
+    ${x2}    Evaluate    ${x}+int(${width}*(1-${ratio}))
+    ${y2}    Evaluate    ${y}+int(${height}*(1-${ratio}))
+    @{listPosition}    Create List
+    Run Keyword If    "${Direction}" == "up"    Append To List    ${listPosition}    ${x1}    ${y2}    ${x1}
+    ...    ${y1}
+    Run Keyword If    "${Direction}" == "down"    Append To List    ${listPosition}    ${x1}    ${y1}    ${x1}
+    ...    ${y2}
+    Run Keyword If    "${Direction}" == "left"    Append To List    ${listPosition}    ${x2}    ${y1}    ${x1}
+    ...    ${y1}
+    Run Keyword If    "${Direction}" == "right"    Append To List    ${listPosition}    ${x1}    ${y1}    ${x2}
+    ...    ${y1}
+    : FOR    ${index}    IN RANGE    1    ${Round}
+    \    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${target}
+    \    Run Keyword If    "${elementIsContain}"=="False"    Swipe    @{listPosition}[0]    @{listPosition}[1]    @{listPosition}[2]
+    \    ...    @{listPosition}[3]
+    \    Run Keyword If    "${elementIsContain}"=="True"    Exit For Loop
+    Run Keyword If    "${elementIsContain}"=="False"    fail
+
+Swipe out from element
+    [Arguments]    ${appium_info}    ${target}    ${Container}=screen    ${Direction}=up    ${ratio}=0.2    ${Round}=10
+    ...    ${duration}=1000
+    Log    In swipe to element
+    Run Keyword If    ${ratio}>0.5 or ${ratio}<=0    fail
+    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${target}
+    Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe in screen out from element    ${appium_info}    ${target}    ${Direction}    ${ratio}
+    ...    ${Round}    ${duration}
+    Run Keyword If    '${Container}' != 'screen' and '${elementIsContain}'== 'False'    swipe in container out from element    ${appium_info}    ${target}    ${Container}    ${Direction}
+    ...    ${ratio}    ${Round}    ${duration}
+    Log    Out swipe to element
+
+Select Menu
+    [Arguments]    ${Argument}
+    Swipe to element    ${mnu${Argument}}    ${mnuContainer}    left
+    Click Mobile Element    ${mnu${Argument}}
+
+Select Sub Menu
+    [Arguments]    ${Argument}
+    verify menu loading finish before swipe to submenu
+    Swipe to element    ${subMnu${Argument}}    screen    up
+    Click Mobile Element    ${subMnu${Argument}}
+
+Open Quick Menu List
+    Click Mobile Element    ${btnQuickMenuList}
+
+Select Sub Menu from QuickMenu
+    [Arguments]    ${SubMenuName}
+    Click Mobile Element    ${subMnuQuickMenu${SubMenuName}}
+
+Login mPay
+    [Arguments]    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}    ${Number}    ${PINmPay}
+    Sleep    2
+    Click Mobile Element    ${btnGetOTPmPay}
+    Mobile Capture Screen At Verify Point    Get OTP mPay
+    Sleep    2
+    ${appiumInfoNew}    Open SMS App    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${PlatfromName}    1    ${lo_sms_timeout}    mPAY
+    Mobile Capture Screen At Verify Point    Wait SMS OTP mPay
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${PlatfromName}    mPAY    1
+    Log    @{messages}[0]
+    @{OTP}=    Get Regexp Matches    @{messages}[0]    \\d\\d\\d\\d\\d
+    Sleep    5
+    Switch App    ${PlatfromName}    my AIS.*
+    Kill Process Mood    ${SN}
+    Input Mobile Text    ${txtInputOTPmPay}    @{OTP}[0]
+    Run Keyword And Ignore Error    Hide Keyboard
+    Click Mobile Element    ${btnOKOTPmPay}
+    Input Mobile Text    ${txtInputPINmPay}    ${PINmPay}
+    Run Keyword And Ignore Error    Hide Keyboard
+    Click Mobile Element    ${btnOKPINmPay}
+    [Return]    ${appiumInfoNew}
+
+Logout
+    Run Keyword And Ignore Error    Aisappium Click Element    ${btnCloseDialog}
+    ${statusLoginContainer}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${frmLoginContainer}    5
+    Log    ${statusLoginContainer}
+    Return From Keyword If    ${statusLoginContainer}    On Login page. Logout isn't necessary.
+    : FOR    ${index}    IN RANGE    1    10
+    \    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${lblDetailContainer}
+    \    Run Keyword If    ("${elementIsContain}"=="False") and ("${ar_OS}"=="Android")    AISAppiumEx.Go Back
+    \    Run Keyword If    ("${elementIsContain}"=="False") and ("${ar_OS}"=="iOS")    Click Mobile Element    ${btnBackPage}
+    \    Run Keyword And Ignore Error    Aisappium Click Element    ${ExitMyAISApplication}
+    \    Exit For Loop If    "${elementIsContain}"=="True"
+    Run Keyword If    "${ar_OS}"=="Android"    Swipe to element    ${btnLogout}    screen    right    0.01
+    Run Keyword If    "${ar_OS}"=="iOS"    Swipe to element    ${btnLogout}
+    Wait Mobile Until Element Visible    ${btnLogout}
+    Aisappium Click Element    ${btnLogout}
+    Comment    wait until logout success
+
+Kill Process Mood
+    [Arguments]    ${SN}
+    sleep    2
+    ${command}=    Set Variable    adb -s \ ${SN} shell am kill com.calea.echo
+    Log    ${command}
+    ${rc}=    Run And Return Rc    ${command}
+    Log    ${rc}
+    Sleep    2
+
+Swipe To
+    [Arguments]    ${target}    ${Direction}=up    ${ratio}=0.3    ${Round}=10    ${appium_info}="noinfo"
+    [Documentation]    Swipe to locator if that locator appear in UI but not in screen
+    ...
+    ...
+    ...    target is locator that need to show in screen
+    ${driver}=    Run Keyword If    ${appium_info}=="noinfo"    Aisappium Get Driver Instance
+    &{dict_size}    Run Keyword If    ${appium_info}=="noinfo"    Create Dictionary    &{driver.get_window_size()}
+    ...    ELSE    Create Dictionary    &{appium_info.driver.get_window_size()}
+    ${size}=    Get Dictionary Values    ${dict_size}
+    ${x}=    Set Variable    @{size}[1]
+    ${y}=    Set Variable    @{size}[0]
+    ${less_x}=    Evaluate    int(${x}*${ratio})
+    ${less_y}=    Evaluate    int(${y}*${ratio})
+    ${more_x}=    Evaluate    int(${x}*(1-${ratio}))
+    ${more_y}=    Evaluate    int(${y}*(1-${ratio}))
+    @{listEndPosition}    Create List
+    ${start_x}    ${start_y}=    set start point    ${Direction}    ${less_x}    ${more_x}    ${less_y}
+    ...    ${more_y}
+    Run Keyword If    "${Direction}" == "up"    Append To List    ${listEndPosition}    ${start_x}    ${less_y}
+    Run Keyword If    "${Direction}" == "down"    Append To List    ${listEndPosition}    ${start_x}    ${more_y}
+    Run Keyword If    "${Direction}" == "left"    Append To List    ${listEndPosition}    ${less_x}    ${start_y}
+    Run Keyword If    "${Direction}" == "right"    Append To List    ${listEndPosition}    ${more_x}    ${start_y}
+    : FOR    ${index}    IN RANGE    1    ${Round}
+    \    AISAppiumEx.Wait Until Page Contains Element    ${target}    5
+    \    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Wait Until Page Contains Element    ${target}    5
+    \    Run Keyword If    "${elementIsContain}"=="False"    fail
+    \    ${element_Size}=    AISAppiumEx.Get Element Size    ${target}
+    \    ${height}    Get From Dictionary    ${element_Size}    height
+    \    Run Keyword If    "${height}"<="0"    Swipe    ${start_x}    ${start_y}    @{listEndPosition}[0]
+    \    ...    @{listEndPosition}[1]
+    \    Exit For Loop If    "${height}">"0"
+
+wait until logout success
+    [Arguments]    ${timeout}=${lo_general_timeout}
+    ${rounds}    Evaluate    int(${timeout}/2)
+    : FOR    ${INDEX}    IN RANGE    1    ${rounds}
+    \    ${statusSurveyPage}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblSurveyPage}    1
+    \    ${statusLoginPage}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblLoginPage}    1
+    \    Exit For Loop If    ${statusSurveyPage} or ${statusLoginPage}
+
+Swipe Element To Screen
+    [Arguments]    ${target}    ${Container}=screen    ${Direction}=up    ${ratio}=0.2    ${Round}=10    ${appium_info}="noinfo"
+    [Documentation]    Swipe to locator and show on screen.
+    ...
+    ...    Target no need to show on the screen.
+    ...
+    ...    EX:${target} | screen |up |0.2 | 10 | "noinfo"
+    ${driver}=    Run Keyword If    ${appium_info}=="noinfo"    Aisappium Get Driver Instance
+    &{dict_size}    Run Keyword If    ${appium_info}=="noinfo"    Create Dictionary    &{driver.get_window_size()}
+    ...    ELSE    Create Dictionary    &{appium_info.driver.get_window_size()}
+    ${size}=    Get Dictionary Values    ${dict_size}
+    ${x}=    Set Variable    @{size}[1]
+    ${y}=    Set Variable    @{size}[0]
+    ${less_x}=    Evaluate    int((${x}*${ratio})/2)
+    ${less_y}=    Evaluate    int(${y}*${ratio})
+    ${more_x}=    Evaluate    int((${x}*(1-${ratio}))/2)
+    ${more_y}=    Evaluate    int(${y}*(1-${ratio}))
+    ${CheckTarget}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}    5
+    ${status}    Run keyword if    "${CheckTarget}"=="False"    Run Keyword And Return Status    Swipe to element    ${target}    ${Container}
+    ...    ${Direction}    0.25    ${Round}
+    ${status}    Run keyword if    "${CheckTarget}"=="True"    Set Variable    True
+    ${start_x}    ${start_y}=    Run Keyword If    "${status}"=="True"    set start point of element to area    ${target}    ${Direction}
+    @{listEndPosition}    Create List
+    Run Keyword If    "${Direction}" == "up"    Append To List    ${listEndPosition}    ${start_x}    ${less_y}
+    Run Keyword If    "${Direction}" == "down"    Append To List    ${listEndPosition}    ${start_x}    ${more_y}
+    Run Keyword If    "${Direction}" == "left"    Append To List    ${listEndPosition}    ${less_x}    ${start_y}
+    Run Keyword If    "${Direction}" == "right"    Append To List    ${listEndPosition}    ${more_x}    ${start_y}
+    Run Keyword If    "${status}"=="True"    Swipe    ${start_x}    ${start_y}    @{listEndPosition}[0]    @{listEndPosition}[1]
+    Wait Mobile Until Element Visible    ${target}    5
+
+set start point of element to area
+    [Arguments]    ${target}    ${Direction}
+    &{element_Size}=    AISAppiumEx.Get Element Size    ${target}
+    ${width}    Get From Dictionary    ${element_Size}    width
+    ${height}    Get From Dictionary    ${element_Size}    height
+    &{Location}    Get Element Location    ${target}
+    ${rank_x_of_top_element}    Get From Dictionary    ${Location}    x
+    ${rank_y_of_top_element}    Get From Dictionary    ${Location}    y
+    ${Center}    Evaluate    ${rank_x_of_top_element}+(${width}/2)
+    ${y_down}    Evaluate    int(${rank_y_of_top_element}+${height})
+    ${x_right}    Evaluate    int(${rank_x_of_top_element}+${width})
+    Comment    ${start_x}=    Set Variable If    "${Direction}" == "up"    ${rank_x_of_top_element}
+    ${start_x}=    Set Variable If    "${Direction}" == "up"    ${Center}
+    ${start_y}=    Set Variable If    "${Direction}" == "up"    ${rank_y_of_top_element}
+    Comment    ${start_x}=    Set Variable If    "${Direction}" == "down"    ${rank_x_of_top_element}
+    ${start_x}=    Set Variable If    "${Direction}" == "down"    ${Center}    ${start_x}
+    ${start_y}=    Set Variable If    "${Direction}" == "down"    ${y_down}    ${start_y}
+    ${start_x}=    Set Variable If    "${Direction}" == "left"    ${rank_x_of_top_element}    ${start_x}
+    ${start_y}=    Set Variable If    "${Direction}" == "left"    ${rank_y_of_top_element}    ${start_y}
+    ${start_x}=    Set Variable If    "${Direction}" == "right"    ${x_right}    ${start_x}
+    ${start_y}=    Set Variable If    "${Direction}" == "right"    ${rank_y_of_top_element}    ${start_y}
+    [Return]    ${start_x}    ${start_y}
+
+Log Dialog Msg From MyAIS
+    ${msg}    Run Keyword And Ignore Error    AisAppiumEx.Get Text    ${popUpDialog}
+    Log    @{msg}[1]
+
+Check And Get Error in My AIS App
+    Run keyword    Log Dialog Msg From MyAIS
+    Run keyword    Check Error Loading
+
+Check Error Loading
+    ${status}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${prgLoading}    1
+    Run Keyword If    "${status}"=="True"    Log    Time loading exceed timeout
+
+swipe in container to element by wait until visible N time
+    [Arguments]    ${target}    ${Container}    ${Round}=10    ${Direction}=up    ${ratio}=0.2    ${duration}=500
+    ...    ${appium_info}="noinfo"
+    &{Location}    Get Element Location    ${Container}
+    &{Size}    AISAppiumEx.Get Element Size    ${Container}
+    ${x}    Get From Dictionary    ${Location}    x
+    ${y}    Get From Dictionary    ${Location}    y
+    ${width}    Get From Dictionary    ${Size}    width
+    ${height}    Get From Dictionary    ${Size}    height
+    ${x1}    Evaluate    ${x}+int(${width}*${ratio})
+    ${y1}    Evaluate    ${y}+int(${height}*${ratio})
+    ${x2}    Evaluate    ${x}+int(${width}*(1-${ratio}))
+    ${y2}    Evaluate    ${y}+int(${height}*(1-${ratio}))
+    @{listPosition}    Create List
+    Run Keyword If    "${Direction}" == "up"    Append To List    ${listPosition}    ${x1}    ${y2}    ${x1}
+    ...    ${y1}
+    Run Keyword If    "${Direction}" == "down"    Append To List    ${listPosition}    ${x1}    ${y1}    ${x1}
+    ...    ${y2}
+    Run Keyword If    "${Direction}" == "left"    Append To List    ${listPosition}    ${x2}    ${y1}    ${x1}
+    ...    ${y1}
+    Run Keyword If    "${Direction}" == "right"    Append To List    ${listPosition}    ${x1}    ${y1}    ${x2}
+    ...    ${y1}
+    : FOR    ${index}    IN RANGE    0    ${Round}
+    \    Run Keyword If    "${index}"!="${Round}"    Swipe    @{listPosition}[0]    @{listPosition}[1]    @{listPosition}[2]
+    \    ...    @{listPosition}[3]
+    \    Run Keyword If    "${index}"=="${Round}"    Exit For Loop
+    ${elementIsContain}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}
+    Run Keyword If    "${elementIsContain}"=="False"    fail    cannot find element
+
+verify menu loading finish before swipe to submenu
+    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${prgLoading}
+    Run Keyword If    "${elementIsContain}"=="True"    Wait Mobile Until Page Does Not Contain Element    ${prgLoading}
+
+Swipe element to specific area
+    [Arguments]    ${target}    ${Ratio_margin_up}=0    ${Ratio_margin_down}=0    ${Ratio_margin_left}=0    ${Ratio_margin_right}=0    ${Direction}=up
+    ...    ${ratio}=0.25    ${Round}=10    ${appium_info}="noinfo"
+    [Documentation]    Make sure that target element appear on \ page
+    ...
+    ...    default \ margin is full screen[0,0,0,0] if you need any area you must to input margin any side
+    ...
+    ...    **Important**
+    ...
+    ...    Make sure swipe ratio is relation with border that input
+    ...
+    ...    margin can input in range 0-1 and swipe ratio can input >0 but <0.5
+    Run Keyword If    ${ratio}>0.5 or ${ratio}<=0    fail    ratio > 0.5 or <0
+    Run Keyword If    ${Ratio_margin_up} >0.5 or ${Ratio_margin_up} <0    fail    margin_up >0.5 or <0
+    Run Keyword If    ${Ratio_margin_down} >0.5 or ${Ratio_margin_down} <0    fail    margin_down >0.5 or <0
+    Run Keyword If    ${Ratio_margin_left} >0.5 or ${Ratio_margin_left} <0    fail    margin_left >0.5 or <0
+    Run Keyword If    ${Ratio_margin_right} >0.5 or ${Ratio_margin_right} <0    fail    margin_right >0.5 or <0
+    log    inswipe
+    ${driver}=    Run Keyword If    ${appium_info}=="noinfo"    Aisappium Get Driver Instance
+    &{dict_size}    Run Keyword If    ${appium_info}=="noinfo"    Create Dictionary    &{driver.get_window_size()}
+    ...    ELSE    Create Dictionary    &{appium_info.driver.get_window_size()}
+    ${size}=    Get Dictionary Values    ${dict_size}
+    ${x}=    Set Variable    @{size}[1]
+    ${y}=    Set Variable    @{size}[0]
+    ${less_x}=    Evaluate    int(${x}*${ratio})
+    ${less_y}=    Evaluate    int(${y}*${ratio})
+    ${more_x}=    Evaluate    int(${x}*(1-${ratio}))
+    ${more_y}=    Evaluate    int(${y}*(1-${ratio}))
+    ${border_up}=    Evaluate    int(${y}*${Ratio_margin_up})
+    ${border_down}=    Evaluate    int(${y}*(1-${Ratio_margin_down}))
+    ${border_left}=    Evaluate    int(${x}*${Ratio_margin_left})
+    ${border_right}=    Evaluate    int(${x}*(1-${Ratio_margin_right}))
+    @{listEndPosition}    Create List
+    ${start_x}    ${start_y}=    set start point    ${Direction}    ${less_x}    ${more_x}    ${less_y}
+    ...    ${more_y}
+    Run Keyword If    "${Direction}" == "up"    Append To List    ${listEndPosition}    ${start_x}    ${less_y}
+    Run Keyword If    "${Direction}" == "down"    Append To List    ${listEndPosition}    ${start_x}    ${more_y}
+    Run Keyword If    "${Direction}" == "left"    Append To List    ${listEndPosition}    ${less_x}    ${start_y}
+    Run Keyword If    "${Direction}" == "right"    Append To List    ${listEndPosition}    ${more_x}    ${start_y}
+    : FOR    ${index}    IN RANGE    1    ${Round}
+    \    ${elementIsContain}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${target}
+    \    Run Keyword If    "${elementIsContain}"=="False"    fail    Cannot found Element
+    \    ${location}=    Get Element Location    ${target}
+    \    ${sizeTarget}=    AISAppiumEx.Get Element Size    ${target}
+    \    ${height}=    Get From Dictionary    ${sizeTarget}    height
+    \    ${location_y}=    Get From Dictionary    ${location}    y
+    \    ${location_x}=    Get From Dictionary    ${location}    x
+    \    Log    @{listEndPosition}[0]
+    \    Log    @{listEndPosition}[1]
+    \    Run Keyword If    ${border_up}<=${location_y}<=${border_down} and ${border_left}<=${location_x}<=${border_right} and ${height} >0    Exit For Loop
+    \    ...    ELSE    Swipe    ${start_x}    ${start_y}    @{listEndPosition}[0]
+    \    ...    @{listEndPosition}[1]
+
+Input Text via ADB Keyboard
+    [Arguments]    ${Locator}    ${keyword}    ${udid}
+    [Documentation]    This Keyword for Input Text Thai language
+    ...
+    ...    Keyword Need ADB Keyboard Install On Mobile
+    ...    https://arcadiaautomationteam.slack.com/files/storygu/F4ENYP17X/keyboardservice-debug.apk
+    ...
+    ...    http://www.mediafire.com/file/rgdia9vj0ib0q4q/ADB+Keyboard.apk
+    Click Mobile Element    ${Locator}
+    ${setADB}=    Run And Return Rc    adb -s ${udid} shell ime set com.android.adbkeyboard/.AdbIME    # Set ADB Keyboard
+    ${command}=    Set Variable    adb -s ${udid} shell am broadcast -a ADB_INPUT_TEXT --es msg "${keyword}"
+    Log    ${command}
+    ${rcInputText}=    Run And Return Rc    ${command}
+    ${rcSearch}=    Run And Return Rc    adb -s ${udid} shell am broadcast -a ADB_EDITOR_CODE --ei code 3    # IME_ACTION_SEARCH
+    ${rcSSKB}=    Run And Return Rc    adb -s ${udid} shell ime set com.sec.android.inputmethod/.SamsungKeypad    # Set Samsung Keyboard
+    Run Keyword And Ignore Error    Hide Keyboard
+
+Swipe Element From Location
+    [Arguments]    ${target}    ${direction}=up    ${info}=show    ${ratio}=0.2    ${swipe_range}=200    ${duration}=100
+    ...    ${area}=0.3
+    # ${info}=verify / show
+    # up
+    # down
+    # left
+    # right
+    # ${ratio} == start point side
+    # ${area}    == verify element on screen
+    Wait Mobile Until Page Contains Element    ${target}
+    ${screen_width}    Get Window Width
+    ${screen_height}    Get Window Height
+    ${screen_center_x}    Evaluate    ${screen_width}/2
+    ${screen_center_y}    Evaluate    ${screen_height}/2
+    ${top_screen_ratio}    Evaluate    ${screen_height}-(${screen_height}*${ratio})
+    ${below_screen_ratio}    Evaluate    ${screen_height}*${ratio}
+    ${right_screen_ratio}    Evaluate    ${screen_width}*${ratio}
+    ${left_screen_ratio}    Evaluate    ${screen_width}-(${screen_width}*${ratio})
+    ${area_swipe_y}    Evaluate    ${screen_height}-(${screen_height}*${area})
+    ${area_swipe_x}    Evaluate    ${screen_width}-(${screen_width}*${area})
+    ${swipe_up}    Create List    ${screen_center_x}    ${below_screen_ratio}    ${screen_center_x}    -${swipe_range}
+    ${swipe_down}    Create List    ${screen_center_x}    ${top_screen_ratio}    ${screen_center_x}    ${swipe_range}
+    ${swipe_left}    Create List    ${right_screen_ratio}    ${screen_center_y}    ${swipe_range}    ${screen_center_y}
+    ${swipe_right}    Create List    ${left_screen_ratio}    ${screen_center_y}    -${swipe_range}    ${screen_center_y}
+    ${element_position}    Get Element Location    ${target}
+    ${round}    Run Keyword If    '${direction}'=='up' or '${direction}'=='down'    Evaluate    abs((${screen_height}-${element_position['y']})/${swipe_range})+3
+    ...    ELSE IF    '${direction}'=='left' or '${direction}'=='right'    Evaluate    abs((${screen_width}-${element_position['x']})/${swipe_range})+3
+    ${round_page}    Run Keyword If    '${info}'=='verify' and ('${direction}'=='up' or '${direction}'=='down')    Evaluate    ${area_swipe_y}/(${swipe_range}/2)
+    ...    ELSE IF    '${info}'=='verify' and ('${direction}'=='left' or '${direction}'=='right')    Evaluate    ${area_swipe_x}/(${swipe_range}/2)
+    ...    ELSE    Evaluate    0
+    ${round_total}    Evaluate    int(${round}+${round_page})
+    Log To Console    ${round_total}
+    : FOR    ${index}    IN RANGE    1    ${round_total}
+    \    Swipe    @{swipe_${direction}}[0]    @{swipe_${direction}}[1]    @{swipe_${direction}}[2]    @{swipe_${direction}}[3]    ${duration}
+    # Swipe To Element iOS
+    \    #    [Arguments]    ${target}    ${direction}=up    ${round}=20    ${duration}=100
+    \    ...    # ${ratio}=0.2
+    \    #    ${screen_width}    Get Window Width
+    \    #    ${screen_height}    Get Window Height
+    \    #    ${screen_center_x}    Evaluate    ${screen_width}/2
+    \    #    ${screen_center_y}    Evaluate    ${screen_height}/2
+    \    #    ${top_screen}    Evaluate    ${screen_height}-(${screen_height}*${ratio})
+    \    #    ${below_screen}    Evaluate    ${screen_height}*${ratio}
+    \    #    ${right_screen}    Evaluate    ${screen_width}*${ratio}
+    \    #    ${left_screen}    Evaluate    ${screen_width}-(${screen_width}*${ratio})
+    \    #    : FOR    ${index}    IN RANGE    1    ${round}
+    \    #    Run Keyword If    '${direction}'=='up'    Swipe    ${screen_center_x}    ${below_screen}
+    \    ...    # ${screen_center_x}    # -${top_screen}    ${duration}
+    \    #    ...    # ELSE IF    '${direction}'=='down'    Swipe    ${screen_center_x}
+    \    ...    # ${top_screen}    ${screen_center_x}    # ${below_screen}    ${duration}
+    \    #    ...    # ELSE IF    '${direction}'=='left'    Swipe    ${right_screen}
+    \    ...    # ${screen_center_y}    ${left_screen}    # ${screen_center_y}    ${duration}
+    \    #    ...    # ELSE IF    '${direction}'=='right'    Swipe    ${left_screen}
+    \    ...    # ${screen_center_y}    -${right_screen}    # ${screen_center_y}    ${duration}
+    #    ${foundTarget}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}    1
+    #    # \    ${foundTarget}    Run Keyword And Return Status    Mobile Element Is Exist    ${target}    1
+    #    Exit For Loop If    '${foundTarget}'=='True'
+
+Swipe Element To Screen From Location
+    [Arguments]    ${target}    ${swipe_line}=Horizontal    ${action}=Perform    ${duration}=1000    ${ratio}=0.1
+    ${ScreenHeight}=    AISAppiumEx.Get Window Height
+    ${ScreenWidth}=    AISAppiumEx.Get Window Width
+    &{ScreenSize}    Create Dictionary    height=${ScreenHeight}    width=${ScreenWidth}
+    ${x}    Evaluate    ${ScreenWidth}/2
+    ${y}    Evaluate    ${ScreenHeight}/2
+    &{Center_Point}    Create Dictionary    destination_x=${x}    destination_y=${y}    #will change to destination which calculate with    action eg. click or verify >>>> Keyword in building
+    ${tar_Location}    AISAppiumEx.Get Element Location    ${target}
+    ${target_x}=    Evaluate    ${tar_Location}['x']    # target location x
+    ${target_y}=    Evaluate    ${tar_Location}['y']    # target location y
+    &{tar_Size}    AISAppiumEx.Get Element Size    ${target}
+    ${tar_width}    Collections.Get From Dictionary    ${tar_Size}    width
+    ${tar_height}    Collections.Get From Dictionary    ${tar_Size}    height
+    ${tar_cen_x}=    Run Keyword If    ${target_x}>0    Evaluate    ${target_x}+(${tar_width}/2)
+    ...    ELSE    Evaluate    ${target_x}-(${tar_width}/2)
+    ${tar_cen_y}=    Run Keyword If    ${target_y}>0    Evaluate    ${target_y}+(${tar_height}/2)
+    ...    ELSE    Evaluate    ${target_y}-(${tar_height}/2)
+    ${abs_tar_location}    Create Dictionary    target_x=${tar_cen_x}    target_y=${tar_cen_y}    #location of target
+    ${status}=    Check Element On Screen At Proper Position    ${action}    ${Center_Point}    ${abs_tar_location}    ${ScreenSize}
+    Log    ${status}
+    Run Keyword If    ${status}==True    Return From Keyword
+    ${SetOfSwipe}=    Run Keyword If    ${status}==False    Create Swipe Set    ${ScreenSize}    ${Center_Point}    ${abs_tar_location}
+    ...    ${swipe_line}    ${ratio}
+    Log    ${SetOfSwipe}
+    ${TotalSwipeAmount}=    Evaluate    len(${SetOfSwipe})
+    Log    ${TotalSwipeAmount}
+    : FOR    ${index}    IN RANGE    0    ${TotalSwipeAmount}
+    \    ${dicSwipeDetail}    Get From List    ${SetOfSwipe}    ${index}
+    \    Log    ${index}
+    \    ${Start_x}    Collections.Get From Dictionary    ${dicSwipeDetail}    start_x
+    \    ${Start_y}    Collections.Get From Dictionary    ${dicSwipeDetail}    start_y
+    \    ${Offset_x}    Collections.Get From Dictionary    ${dicSwipeDetail}    offset_x
+    \    ${Offset_y}    Collections.Get From Dictionary    ${dicSwipeDetail}    offset_y
+    \    Swipe    ${Start_x}    ${Start_y}    ${Offset_x}    ${Offset_y}    ${duration}
+    Log    Out From Swipe
+
+Check Element On Screen At Proper Position
+    [Arguments]    ${actionType}    ${destination}    ${locatorPosition}    ${screenSize}
+    log    In Check Element On Screen At Proper Position
+    ${status}    Run Keyword And Return    Run Keyword If    "${actionType}"=="Perform"    Calculate Element On Screen    ${locatorPosition}    ${screenSize}
+    ...    ELSE IF    "${actionType}"=="Verify"    Calculate Element On Screen At Proper Position    ${destination}    ${locatorPosition}
+    ...    ELSE    Fail    Keyword Not Support Argument Yet
+    [Return]    ${status}
+
+Calculate Element On Screen
+    [Arguments]    ${locatorPosition}    ${screenSize}
+    Log    ${locatorPosition}
+    Log    ${screenSize}
+    ${screen_width}    Collections.Get From Dictionary    ${screenSize}    width
+    ${screen_height}    Collections.Get From Dictionary    ${screenSize}    height
+    ${element_location_x}    Collections.Get From Dictionary    ${locatorPosition}    target_x
+    ${element_location_y}    Collections.Get From Dictionary    ${locatorPosition}    target_y
+    ${status}    Evaluate    float(${element_location_x})>0 and float(${element_location_y})>0 and float(${screen_width})>float(${element_location_x}) and float(${screen_height})>float(${element_location_y})    #cant use & symbol in this situation
+    Log    ${status}
+    [Return]    ${status}
+
+Calculate Element On Screen At Proper Position
+    [Arguments]    ${destination}    ${locatorPosition}
+    Log    In Calculate Element On Screen At Proper Position
+    ${destination_x}    Collections.Get From Dictionary    ${destination}    destination_x
+    ${destination_y}    Collections.Get From Dictionary    ${destination}    destination_y
+    ${element_location_x}    Collections.Get From Dictionary    ${locatorPosition}    target_x
+    ${element_location_y}    Collections.Get From Dictionary    ${locatorPosition}    target_y
+    ${status}    Evaluate    float(${destination_x})==float(${element_location_x}) and float(${destination_y})==float(${element_location_y})
+    [Return]    ${status}
+
+Create Swipe Set
+    [Arguments]    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}    ${swipe_line}    ${ratio}
+    ${ListOfSwipe}=    Run Keyword If    "${swipe_line}"=="Horizontal"    Set Dict For Swipe Horizontal    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}
+    ...    ${ratio}
+    ...    ELSE IF    "${swipe_line}"=="Vertical"    Set Dict For Swipe Vertical    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}
+    ...    ${ratio}
+    ...    ELSE    Log    Still not Support This Swipe line. Please Check .
+    #${ListOfSwipe}=    Run Keyword And Return If    "${swipe_line}"=="Horizontal"    Set Dict For Swipe Horizontal    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}
+    Log    ${ListOfSwipe}
+    [Return]    ${ListOfSwipe}
+
+Set Dict For Swipe Horizontal
+    [Arguments]    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}    ${ratio}
+    log    in Horizontal
+    ${destination_x}    Collections.Get From Dictionary    ${destination_Point}    destination_x    #Destinatio
+    ${element_location_x}    Collections.Get From Dictionary    ${abs_tar_location}    target_x    #Element Location
+    ${destination_x}    Convert To Number    ${destination_x}
+    ${element_location_x}    Convert To Number    ${element_location_x}
+    ${ListOfSwipe}=    Run Keyword If    ${destination_x}<${element_location_x}    Set Dict Swipe Left    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}
+    ...    ${ratio}
+    ...    ELSE    Set Dict Swipe Right    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}    ${ratio}
+    Log    ${ListOfSwipe}
+    [Return]    ${ListOfSwipe}
+
+Set Dict For Swipe Vertical
+    [Arguments]    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}    ${ratio}
+    log    in Vertical
+    ${destination_y}    Collections.Get From Dictionary    ${destination_Point}    destination_y    #Destinatio
+    ${element_location_y}    Collections.Get From Dictionary    ${abs_tar_location}    target_y    #Element Location
+    ${destination_y}    Convert To Number    ${destination_y}
+    ${element_location_y}    Convert To Number    ${element_location_y}
+    ${ListOfSwipe}=    Run Keyword If    ${destination_y}<${element_location_y}    Set Dict Swipe Up    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}
+    ...    ${ratio}
+    ...    ELSE    Set Dict Swipe Down    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}    ${ratio}
+    Log    ${ListOfSwipe}
+    [Return]    ${ListOfSwipe}
+
+Set Dict Swipe Left
+    [Arguments]    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}    ${ratio}
+    log    in Set Dict Swipe Left
+    ${screen_y}    Collections.Get From Dictionary    ${ScreenSize}    height    #Screen
+    ${screen_x}    Collections.Get From Dictionary    ${ScreenSize}    width
+    ${destination_x}    Collections.Get From Dictionary    ${destination_Point}    destination_x    #Destinatio
+    ${destination_y}    Collections.Get From Dictionary    ${destination_Point}    destination_y
+    ${element_location_x}    Collections.Get From Dictionary    ${abs_tar_location}    target_x    #Element Location
+    ${element_location_y}    Collections.Get From Dictionary    ${abs_tar_location}    target_y
+    ${abs_distance_From_Destination}=    Evaluate    abs(float(${element_location_x})-float(${destination_x}))
+    ${swipe_time}=    Evaluate    ${abs_distance_From_Destination}/(${screen_x}*(1-${ratio}))
+    ${swipe_time}=    Convert To Integer    ${swipe_time}    #Time For Swipe To Destination
+    ${startx}=    Evaluate    ${screen_x}*(1-${ratio})
+    #${endx}=    Evaluate    ${screen_x}*${ratio}
+    ${Remain_Distance}=    Evaluate    ${abs_distance_From_Destination}%(${screen_x}*(1-${ratio}))
+    @{ListSetOfSwipe}    Create List    #List of Swipe set
+    : FOR    ${index}    IN RANGE    0    ${swipe_time}
+    \    Log    ${index}
+    \    ${dicSwipeCommand}=    Create Dictionary    start_x=${startx}    start_y=${element_location_y}    offset_x=-${startx}    offset_y=0.0
+    \    Append To List    ${ListSetOfSwipe}    ${dicSwipeCommand}
+    ${dicSwipeLastCommand}=    Create Dictionary    #${dicSwipeLastCommand}=    Run Keyword And Return    Run Keyword If    ${Remain_Distance}>0    Create Dictionary
+    ...    # start_x=${element_location_x}    start_y=${element_location_y}    # offset_x=-${Remain_Distance}    offset_y=0.0
+    Run Keyword If    ${Remain_Distance}>0    Set To Dictionary    ${dicSwipeLastCommand}    start_x=${startx}    start_y=${element_location_y}    offset_x=-${Remain_Distance}
+    ...    offset_y=0.0
+    Log    ${dicSwipeLastCommand}
+    Run Keyword If    ${Remain_Distance}>0    Append To List    ${ListSetOfSwipe}    ${dicSwipeLastCommand}
+    Log    ${ListSetOfSwipe}
+    [Return]    ${ListSetOfSwipe}
+
+Set Dict Swipe Right
+    [Arguments]    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}    ${ratio}
+    log    in Set Dict Swipe Left
+    ${screen_y}    Collections.Get From Dictionary    ${ScreenSize}    height    #Screen
+    ${screen_x}    Collections.Get From Dictionary    ${ScreenSize}    width
+    ${destination_x}    Collections.Get From Dictionary    ${destination_Point}    destination_x    #Destinatio
+    ${destination_y}    Collections.Get From Dictionary    ${destination_Point}    destination_y
+    ${element_location_x}    Collections.Get From Dictionary    ${abs_tar_location}    target_x    #Element Location
+    ${element_location_y}    Collections.Get From Dictionary    ${abs_tar_location}    target_y
+    ${abs_distance_From_Destination}=    Evaluate    abs(float(${element_location_x})-float(${destination_x}))
+    ${swipe_time}=    Evaluate    abs(${abs_distance_From_Destination}/(${screen_x}*(1-${ratio})))
+    ${swipe_time}=    Convert To Integer    ${swipe_time}    #Time For Swipe To Destination
+    ${startx}=    Evaluate    ${screen_x}*${ratio}
+    ${endx}=    Evaluate    ${screen_x}*(1-${ratio})
+    ${Remain_Distance}=    Evaluate    ${abs_distance_From_Destination}%(${screen_x}*(1-${ratio}))
+    @{ListSetOfSwipe}    Create List    #List of Swipe set
+    : FOR    ${index}    IN RANGE    0    ${swipe_time}
+    \    Log    ${index}
+    \    ${dicSwipeCommand}=    Create Dictionary    start_x=${startx}    start_y=${element_location_y}    offset_x=${endx}    offset_y=0.0
+    \    Append To List    ${ListSetOfSwipe}    ${dicSwipeCommand}
+    ${dicSwipeLastCommand}=    Create Dictionary    #${dicSwipeLastCommand}=    Run Keyword And Return    Run Keyword If    ${Remain_Distance}>0    Create Dictionary
+    ...    # start_x=${element_location_x}    start_y=${element_location_y}    # offset_x=-${Remain_Distance}    offset_y=0.0
+    Run Keyword If    ${Remain_Distance}>0    Set To Dictionary    ${dicSwipeLastCommand}    start_x=${startx}    start_y=${element_location_y}    offset_x=${Remain_Distance}
+    ...    offset_y=0.0
+    Log    ${dicSwipeLastCommand}
+    Run Keyword If    ${Remain_Distance}>0    Append To List    ${ListSetOfSwipe}    ${dicSwipeLastCommand}
+    Log    ${ListSetOfSwipe}
+    [Return]    ${ListSetOfSwipe}
+
+Set Dict Swipe Up
+    [Arguments]    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}    ${ratio}
+    Log    in Set Dict Swipe Up
+    ${screen_y}    Collections.Get From Dictionary    ${ScreenSize}    height    #Screen
+    ${screen_x}    Collections.Get From Dictionary    ${ScreenSize}    width
+    ${destination_x}    Collections.Get From Dictionary    ${destination_Point}    destination_x    #Destinatio
+    ${destination_y}    Collections.Get From Dictionary    ${destination_Point}    destination_y
+    ${element_location_x}    Collections.Get From Dictionary    ${abs_tar_location}    target_x    #Element Location
+    ${element_location_y}    Collections.Get From Dictionary    ${abs_tar_location}    target_y
+    ${abs_distance_From_Destination}=    Evaluate    abs(float(${element_location_y})-float(${destination_y}))
+    ${swipe_time}=    Evaluate    abs(${abs_distance_From_Destination}/(${screen_y}*(1-${ratio})))
+    ${swipe_time}=    Convert To Integer    ${swipe_time}    #Time For Swipe To Destination
+    ${starty}=    Evaluate    (${screen_y}*(1-${ratio}))
+    #${endy}=    Evaluate    ${screen_x}*(1-${ratio})
+    ${Remain_Distance}=    Evaluate    ${abs_distance_From_Destination}%(${screen_y}*(1-${ratio}))
+    @{ListSetOfSwipe}    Create List    #List of Swipe set
+    : FOR    ${index}    IN RANGE    0    ${swipe_time}
+    \    Log    ${index}
+    \    ${dicSwipeCommand}=    Create Dictionary    start_x=${element_location_x}    start_y=${starty}    offset_x=0.0    offset_y=-${starty}
+    \    Append To List    ${ListSetOfSwipe}    ${dicSwipeCommand}
+    ${dicSwipeLastCommand}=    Create Dictionary    #${dicSwipeLastCommand}=    Run Keyword And Return    Run Keyword If    ${Remain_Distance}>0    Create Dictionary
+    ...    # start_x=${element_location_x}    start_y=${element_location_y}    # offset_x=-${Remain_Distance}    offset_y=0.0
+    Run Keyword If    ${Remain_Distance}>0    Set To Dictionary    ${dicSwipeLastCommand}    start_x=${element_location_x}    start_y=${starty}    offset_x=0.0
+    ...    offset_y=-${Remain_Distance}
+    Log    ${dicSwipeLastCommand}
+    Run Keyword If    ${Remain_Distance}>0    Append To List    ${ListSetOfSwipe}    ${dicSwipeLastCommand}
+    Log    ${ListSetOfSwipe}
+    [Return]    ${ListSetOfSwipe}
+
+Set Dict Swipe Down
+    [Arguments]    ${ScreenSize}    ${destination_Point}    ${abs_tar_location}    ${ratio}
+    Log    in Set Dict Swipe down
+    ${screen_y}    Collections.Get From Dictionary    ${ScreenSize}    height    #Screen
+    ${screen_x}    Collections.Get From Dictionary    ${ScreenSize}    width
+    ${destination_x}    Collections.Get From Dictionary    ${destination_Point}    destination_x    #Destinatio
+    ${destination_y}    Collections.Get From Dictionary    ${destination_Point}    destination_y
+    ${element_location_x}    Collections.Get From Dictionary    ${abs_tar_location}    target_x    #Element Location
+    ${element_location_y}    Collections.Get From Dictionary    ${abs_tar_location}    target_y
+    ${abs_distance_From_Destination}=    Evaluate    abs(float(${element_location_y})-float(${destination_y}))
+    ${swipe_time}=    Evaluate    abs(${abs_distance_From_Destination}/(${screen_y}*(1-${ratio})))
+    ${swipe_time}=    Convert To Integer    ${swipe_time}    #Time For Swipe To Destination
+    ${starty}=    Evaluate    ${screen_y}*${ratio}
+    ${endy}=    Evaluate    ${screen_y}*(1-${ratio})
+    ${Remain_Distance}=    Evaluate    ${abs_distance_From_Destination}%(${screen_y}*(1-${ratio}))
+    @{ListSetOfSwipe}    Create List    #List of Swipe set
+    : FOR    ${index}    IN RANGE    0    ${swipe_time}
+    \    Log    ${index}
+    \    ${dicSwipeCommand}=    Create Dictionary    start_x=${element_location_x}    start_y=${starty}    offset_x=0.0    offset_y=${endy}
+    \    Append To List    ${ListSetOfSwipe}    ${dicSwipeCommand}
+    ${dicSwipeLastCommand}=    Create Dictionary    #${dicSwipeLastCommand}=    Run Keyword And Return    Run Keyword If    ${Remain_Distance}>0    Create Dictionary
+    ...    # start_x=${element_location_x}    start_y=${element_location_y}    # offset_x=-${Remain_Distance}    offset_y=0.0
+    Run Keyword If    ${Remain_Distance}>0    Set To Dictionary    ${dicSwipeLastCommand}    start_x=${element_location_x}    start_y=${starty}    offset_x=0.0
+    ...    offset_y=${Remain_Distance}
+    Log    ${dicSwipeLastCommand}
+    Run Keyword If    ${Remain_Distance}>0    Append To List    ${ListSetOfSwipe}    ${dicSwipeLastCommand}
+    Log    ${ListSetOfSwipe}
+    [Return]    ${ListSetOfSwipe}

@@ -1,0 +1,54 @@
+*** Settings ***
+Resource          ../PageRepository/${ar_OS}/FAQ_SMSCancellationOrInquiriesRepository.txt
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/FAQ_SMSCancellationOrInquiriesLocalized.txt
+
+*** Keywords ***
+Select Help And Support Menu
+    Select Menu    HelpAndSupport
+
+Select SMS Cancellation Inquiries Submenu
+    Select Sub Menu    SMSCancellation/Inquiries
+
+Verify SMS Cancellation/Inquiries Question Page
+    Mobile element name should be    ${SMSCancellation/Inquiries_Back}    ${txtSMSCancellation/Inquiries}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ1}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ2}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ3}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ4}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ5}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries Question Page
+
+Select SMS Cancellation/Inquiries Question
+    [Arguments]    ${Question_Number}
+    Wait Mobile Until Page Contains Element    ${lblSMSCancellation_FAQ${Question_Number}}
+    Comment    Click Mobile Element    ${lblSMSCancellation_FAQ${Question_Number}}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblSMSCancellation_FAQ${Question_Number}}    name
+    Comment    Click Mobile Element At Position    ${lblSMSCancellation_FAQ${Question_Number}}    top    0.01
+    Sleep    5
+    Click Mobile Element    ${lblSMSCancellation_FAQ${Question_Number}}
+
+Verify SMS Cancellation/Inquiries Answer
+    [Arguments]    ${Number}
+    Mobile element name should be    ${SMSCancellation/Inquiries_Back}    ${txtSMSCancellation/Inquiries}
+    Run Keyword If    "${Number}"=="4"    Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${txtCancellingSMSAdvertisment}
+    ...    ELSE    Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${txtSMSCancellation/Inquiries}
+    Verify Answer Text    ${lblSMSCancellation_Ans${Number}}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries First Answer
+
+Verify Answer Text
+    [Arguments]    ${locator}
+    ${ans}=    Get mobile attribute    ${locator}    name
+    log    ${ans}
+    ${verifyText}    Should Match Regexp    ${ans}    .+
+    log    ${verifyText}
+    Comment    Mobile Capture Screen At Verify Point    Answer Text
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}

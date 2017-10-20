@@ -1,0 +1,407 @@
+*** Settings ***
+Library           Selenium2Library    timeout=120    run_on_failure=Nothing
+Library           ../../Library/Mobile/AISAppiumEx.py    timeout=120    run_on_failure=Nothing
+Library           ../../Library/Web/WebManeger.py
+Resource          RunOnFailKeyword.txt
+Library           Collections
+Library           String
+Library           OperatingSystem
+
+*** Variables ***
+${Lang}           ${ar_LANG}
+
+*** Keywords ***
+Click Web Element
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    ${result}    Run Keyword And Return Status    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Comment    Log    ${timeout}
+    Comment    Log To Console    ${result}
+    Comment    Log To Console    ${locator} from click web element
+    Comment    Run Keyword If    '${result}'=='False'    Click Web Element By Wait Web Until Page Contains Element    ${locator}    ${timeout}
+    ...    ELSE    Selenium2Library.Click Element    ${locator}
+    Run Keyword If    '${result}'=='False'    Wait Web Until Page Contains Element    ${locator}    ${timeout}
+    Selenium2Library.Click Element    ${locator}
+
+Click Mobile Element
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Mobile Element Is Exist    ${locator}    ${timeout}
+    Aisappium Click Element    ${locator}
+
+Click Web Button
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    ${result}    Run Keyword And Return Status    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Comment    Log To Console    ${result}
+    Comment    Log To Console    ${locator} from Click Web Button
+    Run Keyword If    '${result}'=='False'    Wait Web Until Page Contains Element    ${locator}    ${timeout}
+    Selenium2Library.Click Button    ${locator}
+
+Click Mobile Button
+    [Arguments]    ${index_or_name}    ${timeout}=${lo_general_timeout}
+    Mobile Element Is Exist    ${index_or_name}    ${timeout}
+    AISAppiumEx.Click Button    ${index_or_name}
+
+Input Web Text
+    [Arguments]    ${locator}    ${text}    ${timeout}=${lo_general_timeout}
+    ${result}    Run Keyword And Return Status    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Comment    Log To Console    ${result}
+    Comment    Log To Console    ${locator} from Input Web Text
+    Run Keyword If    '${result}'=='False'    Wait Web Until Page Contains Element    ${locator}    ${timeout}
+    Selenium2Library.Input Text    ${locator}    ${text}
+
+Input Mobile Text
+    [Arguments]    ${locator}    ${text}    ${timeout}=${lo_general_timeout}
+    Mobile Element Is Exist    ${locator}    ${timeout}
+    AISAppiumEx.Input Text    ${locator}    ${text}
+
+Web Element Should Be Disabled
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Selenium2Library.Element Should Be Disabled    ${locator}
+
+Web Element Should Be Enabled
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Selenium2Library.Element Should Be Enabled    ${locator}
+
+Wait Web Until Page Contains Element
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Page Contains Element    ${locator}    ${timeout}
+
+Wait Mobile Until Page Contains Element
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    AISAppiumEx.Wait Until Page Contains Element    ${locator}    ${timeout}
+
+Get Web Text
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    ${result}    Run Keyword And Return Status    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Comment    Log To Console    ${result}
+    Comment    Log To Console    ${locator} from Get Web Text
+    Run Keyword If    '${result}'=='False'    Wait Web Until Page Contains Element    ${locator}    ${timeout}
+    ${Text}    Selenium2Library.Get Text    ${locator}
+    [Return]    ${Text}
+
+Mobile Switch App
+    [Arguments]    ${AppName}
+    [Documentation]    You have to wait before opening the program.
+    Press Keycode    187
+    sleep    2
+    Click Mobile Element    xpath=(//android.widget.TextView[@text='${AppName}'])
+
+Web Element Should Be Visible
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Selenium2Library.Element Should Be Visible    ${locator}
+
+Web Element Text Should Be
+    [Arguments]    ${locator}    ${text}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Selenium2Library.Wait Until Element Contains    ${locator}    ${text}    ${timeout}
+    Selenium2Library.Element Text Should Be    ${locator}    ${text}
+
+Mobile element text should be
+    [Arguments]    ${locator}    ${text}    ${timeout}=${lo_general_timeout}
+    Mobile Element Is Exist    ${locator}    ${timeout}
+    AISAppiumEx.Element Text Should Be    ${locator}    ${text}
+
+Select From Web List By Value
+    [Arguments]    ${locator}    ${Value}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Selenium2Library.Select From List By Value    ${locator}    ${Value}
+
+Click Web Image
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    ${result}    Run Keyword And Return Status    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Comment    Log To Console    ${result}
+    Comment    Log To Console    ${locator} from click Image
+    Run Keyword If    '${result}'=='False'    Wait Web Until Page Contains Element    ${locator}    ${timeout}
+    Selenium2Library.Click Image    ${locator}
+
+Select From Web List By Label
+    [Arguments]    ${locator}    ${label}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Selenium2Library.Select From List By Label    ${locator}    ${label}
+
+Select From Web List
+    [Arguments]    ${locator}    ${text}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Selenium2Library.Select From List    ${locator}    ${text}
+
+Open Web Browser
+    [Arguments]    ${url}    ${Browser}    ${ipSelenium}    ${extensions}=none    ${desired_capabilities}=${None}
+    ${orig wait} =    Set Selenium Implicit Wait    60 seconds
+    Run Keyword If    '${Browser}' == 'gc' and '${extensions}' == 'eservice'    start chrome browser    ${url}    ${Browser}    ${ipSelenium}    ${lo_path_chrome_extension}
+    ...    ${lo_IPWhiteList}
+    ...    ELSE IF    '${Browser}' == 'gc' and '${extensions}' == 'none'    Selenium2Library.Open Browser    ${url}    ${Browser}    remote_url=${ipSelenium}
+    ...    desired_capabilities=${desired_capabilities}
+    Run Keyword If    '${Browser}' == 'ff'    start firefox browser    ${url}    ${Browser}    ${ipSelenium}    ${lo_ff_profile}
+    Run Keyword If    '${Browser}' == 'ie'    start ie browser    ${url}    ${Browser}    ${ipSelenium}
+    Run Keyword If    '${Browser}' == 'phantomjs'    Open Browser    ${url}    ${Browser}    remote_url=${ipSelenium}
+    Set Selenium Implicit Wait    ${orig wait}
+
+start chrome browser
+    [Arguments]    ${url}    ${Browser}    ${ipSelenium}    @{args}
+    ${options}=    SetChromeOption    @{args}[0]
+    Selenium2Library.Open Browser    chrome://extensions/    ${Browser}    remote_url=${ipSelenium}    desired_capabilities=${options}
+    Comment    Set Browser Implicit Wait    20 seconds
+    Selenium2Library.Go To    chrome-extension://idgpnmonknjnojddfkpgkljpfnnfcklj/icon.png
+    Selenium2Library.Execute Javascript    localStorage.setItem('profiles', JSON.stringify([{title: 'Selenium', hideComment: true, appendMode: '',headers: [{enabled: true, name: 'X-Forwarded-For', value: '@{args}[1]', comment: ''}],respHeaders: [],filters: []}]));
+    Selenium2Library.Go To    ${url}
+
+start firefox browser
+    [Arguments]    ${url}    ${Browser}    ${ipSelenium}    ${ff_profile}
+    Comment    ${userprofile}=    Evaluate    sys.modules['os'].environ['userprofile']    sys, os
+    Comment    ${ff_profile}=    Set Variable    ${userprofile}\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles
+    Comment    ${capabilities}    Evaluate    sys.modules['selenium.webdriver'].common.desired_capabilities.DesiredCapabilities.FIREFOX    sys,selenium.webdriver
+    Selenium2Library.Open Browser    ${url}    ${Browser}    remote_url=${ipSelenium}    ff_profile_dir=${ff_profile}
+
+start ie browser
+    [Arguments]    ${url}    ${Browser}    ${ipSelenium}
+    Selenium2Library.Open Browser    ${url}    ${Browser}    remote_url=${ipSelenium}
+
+Get mobile text
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Mobile Element Is Exist    ${locator}    ${timeout}
+    ${text}    AISAppiumEx.Get Text    ${locator}
+    [Return]    ${text}
+
+Get mobile attribute
+    [Arguments]    ${locator}    ${attribute}    ${timeout}=${lo_general_timeout}
+    Mobile Element Is Exist    ${locator}    ${timeout}
+    ${attValue}    AISAppiumEx.Get Element Attribute    ${locator}    ${attribute}
+    [Return]    ${attValue}
+
+Capture ScreenShot
+    ${screenshot_index}=    Get Variable Value    ${screenshot_index}    ${0}
+    Set Global Variable    ${screenshot_index}    ${screenshot_index.__add__(1)}
+    Comment    ${time}=    Evaluate    str(time.time())    time
+    Selenium2Library.Capture Page Screenshot    screenshot-Selenium-${TEST NAME}-${screenshot_index}.png
+    AISAppiumEx.Capture Page Screenshot    screenshot-Appium-${TEST NAME}-${screenshot_index}.png
+    Comment    ${Appium}    Run Keyword And Return Status    AISAppiumEx.Capture Page Screenshot    screenshot-Appium-${ID_TestCase}-${Lang}.png
+    Comment    ${Selenium}    Run Keyword And Return Status    Selenium2Library.Capture Page Screenshot    screenshot-Selenium-${ID_TestCase}-${Lang}.png
+
+Mobile Get Elements
+    [Arguments]    ${locator}
+    ${elements}    Aisappium Get Webelements    ${locator}
+    [Return]    ${elements}
+
+Web get elements
+    [Arguments]    ${locator}
+    ${elements}    Selenium2Library.Get Webelements    ${locator}
+    [Return]    ${elements}
+
+Register Keyword For Run On Failure
+    Selenium2Library.Register Keyword To Run On Failure    all keyword to run on fail
+    AISAppiumEx.Register Keyword To Run On Failure    all keyword to run on fail
+
+Close Firefox Browser
+    Evaluate    sys.modules['os'].system('taskkill /f /im plugin-container.exe')    sys, os
+    Selenium2Library.Close Browser
+
+Open Firefox Browser
+    [Arguments]    ${url}
+    ${userprofile}=    Evaluate    sys.modules['os'].environ['userprofile']    sys, os
+    ${ff_profile}=    Set Variable    ${userprofile}\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles
+    ${capabilities}    Evaluate    sys.modules['selenium.webdriver'].common.desired_capabilities.DesiredCapabilities.FIREFOX    sys,selenium.webdriver
+    Open Browser    ${url}    ff_profile_dir=${ff_profile}
+
+Mobile element name should be
+    [Arguments]    ${locator}    ${text}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Element Visible    ${locator}    ${timeout}
+    ${Actual}=    Get mobile attribute    ${locator}    name
+    Log    ${text}
+    Should Be Equal    ${Actual}    ${text}
+
+Click Mobile Element At Position
+    [Arguments]    ${locator}    ${marginSide}=right    ${ratio}=0.1
+    [Documentation]    *e.g. marginSide=top, below, left, right
+    ...    (sensitive-case)
+    Wait Mobile Until Page Contains Element    ${locator}
+    &{size}    AISAppiumEx.Get Element Size    ${locator}
+    &{location}    Get Element Location    ${locator}
+    ${width}=    Get From Dictionary    ${size}    width
+    ${height}=    Get From Dictionary    ${size}    height
+    ${y}=    Get From Dictionary    ${location}    y
+    ${x}=    Get From Dictionary    ${location}    x
+    ${halfY}=    Evaluate    ${y}+(${height}/2)
+    ${halfX}=    Evaluate    ${x}+(${width}/2)
+    ${marginTop}=    Evaluate    ${y}+(${height}*${ratio})
+    ${marginBelow}=    Evaluate    (${y}+${height})-(${height}*${ratio})
+    ${marginLeft}=    Evaluate    ${x}+(${width}*${ratio})
+    ${marginRight}=    Evaluate    ${width}-(${width}*${ratio})
+    Run Keyword If    '${marginSide}'=='top'    Click A Point    ${halfX}    ${marginTop}
+    Run Keyword If    '${marginSide}'=='below'    Click A Point    ${halfX}    ${marginBelow}
+    Run Keyword If    '${marginSide}'=='left'    Click A Point    ${marginLeft}    ${halfY}
+    Run Keyword If    '${marginSide}'=='right'    Click A Point    ${marginRight}    ${halfY}
+
+Mobile Capture Screen At Verify Point
+    [Arguments]    ${NameOfVerifyPoint}    ${SerialNumber}=${EMPTY}
+    [Documentation]    Name of verify point cannot input / to name
+    ...    ex. Payment/Topup cannot input \ but can input Payment and Topup
+    Sleep    2
+    @{SplitCodeTestCase}    Split String    ${TEST_NAME}    ]
+    Log    @{SplitCodeTestCase}[0]
+    ${CodeTestCase}    Set Variable    @{SplitCodeTestCase}[0]
+    ${result} =    Wait Until Keyword Succeeds    3x    1s    AISAppiumEx.Capture Page Screenshot    screenshot-${NameOfVerifyPoint}-${CodeTestCase}]-${SUITE_NAME}-${Lang}-${ar_NType}.png
+    Log    ${result}
+    [Teardown]
+
+Mobile check existing text in name
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Page Contains Element    ${locator}
+    ${RealMessage}    Get mobile attribute    ${locator}    name
+    Should Match Regexp    ${RealMessage}    .+
+    Log    ${RealMessage}
+
+Mobile check existing text
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Page Contains Element    ${locator}
+    ${RealMessage}    AISAppiumEx.Get Text    ${locator}
+    Should Match Regexp    ${RealMessage}    .+
+    Log    ${RealMessage}
+
+Mobile element text should match regexp
+    [Arguments]    ${locator}    ${MessageExpect}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Element Visible    ${locator}
+    ${RealExpired}    AISAppiumEx.Get Text    ${locator}
+    Log    Expect ${MessageExpect}
+    Should Match Regexp    ${RealExpired}    ${MessageExpect}
+
+Mobile element text should match regexp whole string
+    [Arguments]    ${locator}    ${MessageExpect}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Element Visible    ${locator}
+    ${acctual}    AISAppiumEx.Get Text    ${locator}
+    Log    ${acctual}
+    Should Match Regexp    ${acctual}    ^${MessageExpect}$
+
+Mobile element text in name should match regexp whole string
+    [Arguments]    ${locator}    ${ExpectMsg}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Element Visible    ${locator}
+    ${RealMessage}    Get mobile attribute    ${locator}    name
+    Log    ${RealMessage}
+    Should Match Regexp    ${RealMessage}    ^${ExpectMsg}$
+    [Teardown]
+
+Mobile element name should match regexp ignore case sensitive
+    [Arguments]    ${locator}    ${MessageExpect}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Element Visible    ${locator}    ${timeout}
+    ${actual}=    Get mobile attribute    ${locator}    name
+    Log    ${actual}
+    Should Match Regexp    ${actual}    (?i)^${MessageExpect}$
+
+Mobile element text should match regexp ignore case sensitive
+    [Arguments]    ${locator}    ${MessageExpect}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Element Visible    ${locator}
+    ${actual}    AISAppiumEx.Get Text    ${locator}
+    Log    ${actual}
+    Should Match Regexp    ${actual}    (?i)^${MessageExpect}$
+
+TestFolderCapture
+    [Arguments]    ${NameOfVerifyPoint}    ${SerialNumber}=${EMPTY}
+    Sleep    3
+    @{SplitCodeTestCase}    Split String    ${TEST_NAME}    ]
+    Log    @{SplitCodeTestCase}[0]
+    ${CodeTestCase}    Set Variable    @{SplitCodeTestCase}[0]
+    Create Directory    CaptureVerifypoint
+    Run Keyword If    "${SerialNumber}" != "${EMPTY}"    Aisappium Local Capture Screenshot    ${SerialNumber}    CaptureVerifypoint\\screenshot-${NameOfVerifyPoint}-${CodeTestCase}]-${Lang}-${ar_NType}.png
+    Run Keyword If    "${SerialNumber}" == "${EMPTY}"    Sleep    15
+    Run Keyword If    "${SerialNumber}" == "${EMPTY}"    AISAppiumEx.Capture Page Screenshot    CaptureVerifypoint\\screenshot-${NameOfVerifyPoint}-${CodeTestCase}]-${Lang}-${ar_NType}.png
+    Comment    Log    ${ar_Dir}\\CaptureVerifypoint
+    Comment    Create Directory    ${ar_Dir}\\CaptureVerifypoint
+    Comment    AISAppiumEx.Capture Page Screenshot    CaptureScreen\\screenshot-${NameOfVerifyPoint}-${CodeTestCase}]-${Lang}-${ar_NType}.png
+    Comment    Aisappium Local Capture Screenshot    ${SN}    CaptureScreen\\screenshot-${NameOfVerifyPoint}-${CodeTestCase}]-${Lang}-${ar_NType}.png
+    Comment    Sleep    15
+    Comment    AISAppiumEx.Capture Page Screenshot    screenshot-${NameOfVerifyPoint}-${CodeTestCase}]-${Lang}-${ar_NType}.png
+
+Wait Mobile Until Element Visible
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    AISAppiumEx.Wait Until Element Is Visible    ${locator}    ${timeout}
+
+Wait Mobile Until Page Does Not Contain Element
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${locator}    ${timeout}
+
+Web Capture Screen At Verify Point
+    [Arguments]    ${NameOfVerifyPoint}
+    Sleep    2
+    @{SplitCodeTestCase}    Split String    ${TEST_NAME}    ]
+    Log    @{SplitCodeTestCase}[0]
+    ${CodeTestCase}    Set Variable    @{SplitCodeTestCase}[0]
+    ${result} =    Wait Until Keyword Succeeds    3x    1s    Selenium2Library.Capture Page Screenshot    screenshot-${NameOfVerifyPoint}-${CodeTestCase}]-${SUITE_NAME}-${Lang}-${ar_NType}.png
+    Log    ${result}
+
+Scroll Web To Element
+    [Arguments]    ${locator}
+    Wait Web Until Page Contains Element    ${locator}
+    ${target}    Get Vertical Position    ${locator}
+    ${width}    ${height}    Selenium2Library.Get Element Size    ${locator}
+    ${element}    Evaluate    ${target}-150
+    Run Keyword If    ${element}<0    Execute JavaScript    window.scrollTo(0, 0)
+    ...    ELSE    Execute JavaScript    window.scrollTo(0, ${element})
+
+Web check existing text
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Wait Web Until Page Contains Element    ${locator}
+    ${RealMessage}    Selenium2Library.Get Text    ${locator}
+    Should Match Regexp    ${RealMessage}    .+
+    Log    ${RealMessage}
+
+Mobile Element Is Exist
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Run Keyword If    "${ar_OS}"=="Android"    AISAppiumEx.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Run Keyword If    "${ar_OS}"=="iOS"    AISAppiumEx.Wait Until Page Contains Element    ${locator}    ${timeout}
+
+Web Select Window
+    [Arguments]    ${frame}    ${frameType}    ${timeout}=${lo_general_timeout}
+    Wait Until Keyword Succeeds    3s    ${timeout}=${lo_general_timeout}    Select Frame    ${frameType}=${frame}
+
+start chrome mobile browser
+    [Arguments]    ${url}    ${SN}    ${IPChrome}=None    ${Lang}=TH
+    ${options}=    Create Dictionary    androidPackage=com.android.chrome    androidDeviceSerial=${SN}
+    ${caps}=    Create Dictionary    chromeOptions=${options}    noReset=true
+    Create Webdriver    Remote    command_executor=http://${IPChrome}    desired_capabilities=${caps}
+    Go To    ${url}
+
+Open Web Browser On Mobile
+    [Arguments]    ${url}    ${SN}    ${IPChrome}=None    ${Lang}=TH
+    Run Keyword If    "${ar_BROWSER}"=="gc"    start chrome mobile browser    ${url}    ${SN}    ${IPChrome}    ${Lang}
+
+Web Mouse Over
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Page Contains Element    ${locator}    ${timeout}    Element is not visible on webpage
+    Mouse Over    ${locator}
+
+Get web attribute
+    [Arguments]    ${locator}    ${attribute}    ${timeout}=${lo_general_timeout}
+    [Documentation]    ${attribute} is key such as name, id
+    ...
+    ...    example
+    ...
+    ...    xpath=//div[@attribute="value"]
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}    Element is not visible on screen
+    ${locator}=    Set Variable    ${locator}
+    ${attribute}=    Set Variable    ${attribute}
+    ${attValue}    Selenium2Library.Get Element Attribute    ${locator}@${attribute}
+    [Return]    ${attValue}
+
+create google disire capabilities
+    [Arguments]    ${lang}=en    ${block_location}=${False}
+    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${options}    add_argument    --lang\=${lang}
+    ${json_string}=    catenate    {
+    ${json_string}=    Run Keyword If    ${block_location}    catenate    ${json_string}    "profile.default_content_setting_values.geolocation": "1",    "profile.default_content_settings.popups":"0",
+    ...    ELSE    catenate    ${json_string}
+    ${json_string}=    catenate    ${json_string}    }
+    ${json}=    Evaluate    ${json_string}
+    Call Method    ${options}    add_experimental_option    prefs    ${json}
+    ${dc}=    Call Method    ${options}    to_capabilities
+    [Return]    ${dc}
+
+Get Web Value
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}    Element is not visible on screen
+    ${value}    Get Value    ${locator}
+    [Return]    ${value}
+
+Wait Web Until Page Does Not Visible Element
+    [Arguments]    ${locator}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Not Visible    ${locator}    ${timeout}

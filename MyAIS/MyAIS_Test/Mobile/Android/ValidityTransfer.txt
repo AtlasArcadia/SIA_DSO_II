@@ -1,0 +1,1251 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/ValidityTransfer.txt
+
+*** Test Cases ***
+[F2_1,3,5_1-2_Y_1_2] Verify validity transfer page
+    [Documentation]    *Owner* :Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,3BE,IPE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Verify "Validity Transfer" page
+    ...    - Mobile Number
+    ...    - You can transfer Validity to your friend in AIS \ One-2-Call! Network with ease and convenience. Just fill out the following details (Text)
+    ...    - 1.Enter destination number
+    ...    - 2.Transfer amount/Days
+    ...    - "OK" Button
+    ...    - Terms & Conditions
+    ...    5. Capture screen
+    ...    =================================
+    ...    Update 31/01/2017
+    ...    - You can transfer Validity to your friend in AIS \ One-2-Call! Network with ease and convenience. Just fill out the following details (Text) --->> \ - You can transfer validity to your friend in AIS One2Call! Network with ease and convenience. Just fill out the following details
+    ...
+    ...
+    ...    IPE
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Verify "Validity Transfer" page
+    ...    - Mobile Number
+    ...    - You can transfer Validity to your friend in AIS \ One-2-Call! Network with ease and convenience. Just fill out the following details (Text)
+    ...    - 1.Enter destination number
+    ...    - 2.Transfer amount/Days
+    ...    - "OK" Button
+    ...    - Terms & Conditions
+    ...    5. Capture screen
+    ...
+    ...    TH Version
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. ตรวจสอบ "โอนวัน" page
+    ...    - หมายเลขโทรศัพท์
+    ...    - โอนวันให้เพื่อนๆ ในระบบ AIS One-2-Call! ได้ง่ายๆที่นี่ (Text)
+    ...    - 1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนวันให้
+    ...    - 2.จำนวนวันที่ต้องการโอน/วัน
+    ...    - ปุ่ม "ตกลง"
+    ...    - เงื่อนไขบริการ
+    ...    5. Capture screen
+    ...    =================================
+    ...    Update 03/02/2017
+    ...    โอนวันให้เพื่อนๆ ในระบบ AIS One-2-Call! ได้ง่ายๆที่นี่ (Text) verify text change to
+    ...    โอนวันให้เพื่อนๆ ในระบบ AIS One2Call! ได้ง่ายๆ ที่นี่
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Verify Validity Transfer Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_Y_2_2] Validity transfer case transfer to prepaid number (3PE)
+    [Documentation]    *Owner* :Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Destination Number : 3PE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Test Step*
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Transection processed successfully Please wait for a confirmation SMS."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...
+    ...    =====================================
+    ...    Update 01/02/2017
+    ...
+    ...    9. Verify dialog message "Transection processed successfully Please wait for a confirmation SMS."
+    ...    change to
+    ...    Transaction processed successfully.
+    ...    Please wait for a confirmation SMS.
+    ...
+    ...
+    ...    TH Version
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุรารอรับ SMS เพื่อยืนยันการทำรายการ"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ======================================
+    ...    Update
+    ...    9. ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุณารอรับ SMS เพื่อยืนยันการทำรายการ"
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Click Confirm Button
+    Verify Transaction Successfully
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3_1-2_Y_3_2] Validity transfer case transfer to prepaid number (3BE)
+    [Documentation]    *Owner* :Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,3BE
+    ...    Destination Number : 3BE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Update*
+    ...    07/06/2016
+    ...    IPE does not have this case
+    ...
+    ...
+    ...    *Test Step*
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Transection processed successfully Please wait for a confirmation SMS."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${AISBosPrepaidNumberTest}    #3BE
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${AISBosPrepaidNumberTest}    #3BE
+    Click Confirm Button
+    Verify Transaction Successfully
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_4_2] Validity transfer case transfer to postpaid number
+    [Documentation]    *Owner* :Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Destination Number : Postpaid Number
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "The destination number you would like to transfer your balance/validity to is not an AIS One-2-Call! number. Please input other number."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ====================
+    ...    Update 03/02/2017
+    ...    - ใน App คำ Please input other number ยังผิดอยู่
+    ...
+    ...    TH Version
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขปลายทางที่ต้องการโอนเงิน/โอนวัน ไม่ใช่หมายเลขในระบบ เอไอเอส 3G วัน-ทู-คอล กรุณระบุใหม่อีกครั้ง"
+    ...    10. Capture screen
+    ...
+    ...    =====================
+    ...    Update 07/02/2017
+    ...
+    ...    หมายเลขปลายทางที่ต้องการโอนเงิน/โอนวัน ไม่ใช่หมายเลขในระบบ เอไอเอส 3G วัน-ทู-คอล กรุณระบุใหม่อีกครั้ง
+    ...    change to
+    ...    หมายเลขปลายทางที่ต้องการโอนเงิน/โอนวัน ไม่ใช่หมายเลขในระบบ เอไอเอส 3G วัน-ทู-คอล! กรุณาระบุใหม่อีกครั้ง
+    [Tags]    fail    bug
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${AISPostpaidNumberTest}    #3PO
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${AISPostpaidNumberTest}    #3PO
+    Click Confirm Button
+    Verify Not 12Call Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_5_2] Validity transfer case transfer to other network
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Destination Number : other network
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "The number must be an AIS mobile number only. Please enter a new number."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...
+    ...    TH Version
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "บริการนี้สำหรับลูกค้าเอไอเอสเท่านั้น กรุณาระบุหมายเลขเอไอเอสอีกครั้ง"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...
+    ...    ===========================================
+    ...    Update (07/02/2017)
+    ...    - 9. ตรวจสอบ dialog message "บริการนี้สำหรับลูกค้าเอไอเอสเท่านั้น กรุณาระบุหมายเลขเอไอเอสอีกครั้ง" change to
+    ...    บริการนี้สำหรับลูกค้าเอไอเอสเท่านั้น กรุณาระบุหมายเลขเอไอเอสใหม่อีกครั้ง
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${DtacNumber}    #Other Network
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${DtacNumber}    #Other Network
+    Click Confirm Button
+    Verify The Number Must Be AIS Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_6_2] Validity transfer case transfer to self number
+    [Documentation]    *Owner* :Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Destination Number : Self Number
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "You cannot transfer your balance/validity to your own number. Please specify the new number"
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...
+    ...    =======================
+    ...    Update
+    ...
+    ...    You cannot transfer your balance/validity to your own number. Please specify the new number Change to
+    ...    You cannot transfer your balance / validity to your own number.
+    ...    Please specify the new number.
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ไม่สามารถโอนเงิน/โอนวัน ให้หมายเลขของคุณได้ กรุณาระบุหมายเลขใหม่"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${Number}    #Self Number
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${Number}    #Self Number
+    Click Confirm Button
+    Verify Cannot Transfer To Self Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_7_2] Validity transfer case not input destination number
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Test Step*
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please enter correct destination number"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...
+    ...    =========================
+    ...    Update 3/2/2017
+    ...    - Remove step \ \ 4. Input destination number
+    ...    - Remove step \ 4. กรอกหมายเลขปลายทาง
+    ...
+    ...    TH Version
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอนให้ถูกต้อง"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    #Not Input Destination Number
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Please Input Correct Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_8_2] Validity transfer case input destination number wrong format (eg 6666666666)
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please enter correct destination number"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...
+    ...    TH Version
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอนให้ถูกต้อง"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${WrongFormatNumber}    #6666666666
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Please Input Correct Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_Y_9_2] Validity transfer case input destination number wrong digit (eg 093701)
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please enter correct destination number"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอนให้ถูกต้อง"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${WrongDigitNumber}
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Please Input Correct Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_Y_10_2] Validity transfer case not select amount
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Not select amount
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please Select Amount"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...
+    ...    TH Version
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. ไม่กรอกจำนวนเงินที่ต้องการโอน
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณาเลือกจำนวนที่ต้องการ"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    # Not input Amount Of Day
+    Click OK Button
+    Verify Not Select Amount
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_Y_11_2] Validity transfer case insufficient balance
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Insufficiant balance
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Your balance is not sufficient for transfer. Please top up your account and try again."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...
+    ...    TH Version
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ยอดเงินคงเหลือของคุณไม่พอสำหรับโอนค่าโทร กรุณาเติมเงินและทำรายการใหม่อีกครั้ง"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    InsufficientBalance=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InsufficientBalance
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Click Confirm Button
+    Verify Insufficient Balance
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_12_2] Validity transfer case insufficient validity
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Insufficiant Validity
+    ...
+    ...    *Test Step*
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Verify "Validity Transfer" page
+    ...    - Mobile Number
+    ...    - You can transfer Validity to your friend in AIS \ One-2-Call! Network with ease and convenience. Just fill out the following details (Text)
+    ...    - 1.Enter destination number
+    ...    - 2.Transfer amount/Days
+    ...    - Insufficient validity (Dropdown list)
+    ...    - "OK" Button
+    ...    - Terms & Conditions
+    ...    5. Capture screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. ตรวจสอบ "โอนวัน" page
+    ...    - หมายเลขโทรศัพท์
+    ...    - โอนวันให้เพื่อนๆ ในระบบ AIS One-2-Call! ได้ง่ายๆที่นี่ (Text)
+    ...    - 1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนเงินให้
+    ...    - 2.จำนวนวันที่ต้องการโอน/วัน
+    ...    - จำนวนวันคงเหลือไม่เพียงพอ (Dropdown list)
+    ...    - ปุ่ม "ตกลง"
+    ...    - เงื่อนไขบริการ
+    ...    5. Capture screen
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    InsufficientValidity=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InsufficientValidity
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Verify Transfer Insufficient Validity    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_13_2] Validity transfer case destination number has max validity
+    [Documentation]    *Owner* :Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Destination Number : 3PE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Destination number has max Validity
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Sorry,the service is unaviable at the moment. Please try again" \ 10. Capture screen
+    ...    11. Click "OK"
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ขออภัย ระบบไม่สามารถให้บริการได้ในขณะนี้ กรุณาเข้าใช้บริการใหม่ภายหลัง"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...
+    ...    ====================================
+    ...    Update 07/02/2017
+    ...    - "Sorry,the service is unaviable at the moment. Please try again" \ Change to
+    ...    "Sorry, the service is unavailable at the moment. Please sign out and try again"
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    ${MaxValidityNumber}=    Input Max validity Number
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${MaxValidityNumber}    #Max Validity
+    Click Confirm Button
+    Verify Service Unavailable
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_14_2] Validity transfer case source number status is suspend
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Destination Number : 3PE
+    ...    Status : suspend (Source)
+    ...    Registerdate >= 90 days
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Verify dialog message "Balance checking is unaviable at the moment. Please try again later."
+    ...    5. Capture screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. ตรวจสอบ dialog message "ไม่สามารถเช็กยอดเงินคงเหลือได้ในขณะนี้ กรุณาใช้บริการใหม่ภายหลัง"
+    ...    5. Capture screen
+    ...
+    ...    ====================================
+    ...    Update 07/02/2017
+    ...    Balance checking is unaviable at the moment. Please try again later. Change to
+    ...    Balance checking is unavailable at the moment. Please try again later.
+    [Tags]    fail    bug
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Suspend=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Suspend
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Verify Balance Checking Unavailable
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_15_2] Validity transfer case destination number status is suspend
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,3BE
+    ...    Destination Number : 3PE
+    ...    Status : suspend (Dest)
+    ...    Registerdate >= 90 days
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "This service is unavailable at the moment."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ไม่สามารถใช้บริการนี้ได้ในขณะนี้"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    ${SuspendNumber}=    Input Suspend Number
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${SuspendNumber}    #Suspend Number
+    Click Confirm Button
+    Verify This Service Unavailable
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_16_2] Validity transfer case source number is black list
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Destination Number : 3PE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    COS (Source) = Black List
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Your mobile number is not eligible for balance/validity transfer service."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Blacklist=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Blacklist
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Click Confirm Button
+    Verify Mobile Number Not Eligible
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_17_2] Validity transfer case dest number is black list
+    [Documentation]    *Owner* : \ Oum
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Destination Number : 3PE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    COS (Dest) = Black List
+    ...
+    ...    *Test Step*
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Destination number you have entered is not eligible to use balance/validity transfer."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขปลายทางไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    ${BlacklistNumber}=    Input Blacklist Number
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${BlacklistNumber}    #Black List Number
+    Click Confirm Button
+    Verify Destination Number Not Eligible
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1,3,5_1-2_N_18_2] Validity transfer case source number register date less than 30 days
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Pre-requisite:*
+    ...
+    ...    Source Number : 3PE,IPE,3BE
+    ...    Status : Active
+    ...    Registerdate < 30 days
+    ...
+    ...
+    ...    Update (12/06/2017)
+    ...    Text Ntype IPE change
+    ...    บริการโอนเงิน/โอนวัน ขอสงวนสิทธิ์เฉพาะลูกค้าที่มีอายุการใช้งานตั้งแต่ 90 วันขึ้นไป และ 30 วันขึ้นไปสำหรับบริการโอนวัน
+    ...    to
+    ...    บริการโอนเงิน ขอสงวนสิทธิ์เฉพาะลูกค้าที่มีอายุการใช้งานตั้งแต่ 90 วันขึ้นไป
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN Version
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "The Balance/validity transfer service reserves for only AIS prepaid customers who have been in the system at least 90 days and 30 days for the Validity Transfer Service."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"บริการโอนเงิน/โอนวัน ขอสงวนสิทธิ์เฉพาะลูกค้าที่มีอายุการใช้งานตั้งแต่ 90 วันขึ้นไป และ 30 วันขึ้นไปสำหรับบริการโอนวัน"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    [Tags]    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    RegisterLessThan30Days=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RegisterLessThan30Days
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Run Keyword If    '${ar_NType}' == '3BE'    Input Number And Click Confirm
+    Run Keyword If    '${ar_NType}' == '3PE'    Input Number And Click Confirm
+    Verify Service Reserve For AIS Prepaid
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke.
+
+[F2_5_1-2_Y_3_2] Validity Transfer Case : Transfer to Prepaid Number (IPE)
+    [Documentation]    *Owner* :Oum
+    ...
+    ...    *Pre-requisite:*
+    ...
+    ...    Source Number : IPE
+    ...    Destination Number : IPE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Validity Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (5 Days)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 5 day transfer to the validity of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Transection processed successfully Please wait for a confirmation SMS."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    12.Verify SMS Devices A "You have successfully transferred x days to 0xxxxxxxxx."
+    ...    13. Capture screen
+    ...    14. Verify SMS DevicesB "0xxxxxxxxx has transferred x days to your account."
+    ...    15. Capture screen
+    ...
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนวัน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนวันที่ต้องการโอน (5 วัน)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนวันจำนวน 5 วันให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุณารอรับ SMS เพื่อยืนยันการทำรายการ"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    12. ตรวจสอบ SMS Devices A "คุณได้โอนวันจำนวน x วันให้กับ 0xxxxxxxxx เรียบร้อยแล้วค่ะ"
+    ...    13. Capture screen
+    ...    14. ตรวจสอบ SMS Devices B "คุณได้รับวันนจาก 0xxxxxxxxx เป็นจำนวน x วัน เรียบร้อยแล้วค่ะ"
+    ...    15. Capture screen
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Input Destination Number    ${AISIPENumber}    #IPE 0933516260
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${AISIPENumber}    #IPE 0933516260
+    Click Confirm Button
+    Verify Transaction Successfully
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Validity Transfer Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${fldMobileNumber}
+    Mobile Capture Screen At Verify Point    Validity Transfer Top Page
+    Mobile element name should be    ${fldMobileNumber}    ${Number}
+    Mobile element name should be    ${lblDescription}    ${txtDescription}
+    Mobile element name should be    ${lblEnterDesNumber}    ${txtEnterDesNumber}
+    Mobile element name should be    ${lblTransferAmount}    ${txtTransferAmount}
+    Swipe to element    ${lblTermAndCondition}
+    Mobile element name should be    ${btnOK}    ${txtOK}
+    Mobile element name should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    Validity Transfer below Page
+
+Input Destination Number
+    [Arguments]    ${DestinationNumber}
+    Click Mobile Element    ${fldDestinationNumber}
+    Input Mobile Text    ${fldDestinationNumber}    ${DestinationNumber}
+    Hide Keyboard
+
+Select Amount Of Day
+    Click Mobile Element    ${fldSelectDay}
+    Click Mobile Element    ${rdoMinimumDate}
+
+Click OK Button
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+
+Click Confirm Button
+    Click Mobile Element    ${btnConfirm}
+
+Verify Making Transfer To Destination Number
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    ${txtMakeFiveDayTransfer}    Replace String    ${txtMakeFiveDayTransfer}    [Number]    ${Number}
+    Mobile element name should be    ${msgDialog}    ${txtMakeFiveDayTransfer}
+    Mobile Capture Screen At Verify Point    Verify Transfer
+
+Verify Transaction Successfully
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtTransactionSuccessful}
+    Mobile Capture Screen At Verify Point    Verify Transaction successful
+    Click Mobile Element    ${btnOKFinish}
+
+Verify The Number Must Be AIS Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtMustBe12CallNumber}
+    Mobile Capture Screen At Verify Point    Verify Number Must Be AIS Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Cannot Transfer To Self Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtCannotUseSelfNumber}
+    Mobile Capture Screen At Verify Point    Verify Transfer To Self Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Please Input Correct Destination Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtEnterCorrectDestinationNumber}
+    Mobile Capture Screen At Verify Point    Verify Enter Correct Destination Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Not Select Amount
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtSelectAmount}
+    Mobile Capture Screen At Verify Point    Verify Please Select Amount
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Not 12Call Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtNot12CallNumber}
+    Mobile Capture Screen At Verify Point    Verify Destination Number Not 123 Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Insufficient Balance
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtInsufficientBalance}
+    Mobile Capture Screen At Verify Point    Verify Balance Not Sufficient
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Mobile Number Not Eligible
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtMobileNumberNotEligible}
+    Mobile Capture Screen At Verify Point    Verify Mobile Number Not Eligible Validity Transfer Service
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Transfer Insufficient Validity
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${fldMobileNumber}
+    Mobile Capture Screen At Verify Point    Validity Transfer Upper Page
+    Mobile element name should be    ${fldMobileNumber}    ${Number}
+    Mobile element name should be    ${lblDescription}    ${txtDescription}
+    Mobile element name should be    ${lblEnterDesNumber}    ${txtEnterDesNumber}
+    Mobile element name should be    ${lblTransferAmount}    ${txtTransferAmount}
+    Wait Mobile Until Page Contains Element    ${ddlInsufficientValidity}
+    Mobile element name should be    ${ddlInsufficientValidityText}    ${txtInsufficientValidity}
+    Swipe to element    ${lblTermAndCondition}
+    Mobile element name should be    ${btnOK}    ${txtOK}
+    Mobile element name should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    Validity Transfer Lower Page
+
+Verify Balance Checking Unavailable
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtBalanceCheckingUnavailable}
+    Mobile Capture Screen At Verify Point    Verify Unavailable Balance Checking
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Destination Number Not Eligible
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtDesNumberNotEligible}
+    Mobile Capture Screen At Verify Point    Verify Des Number Not Eligible
+    Click Mobile Element    ${btnOKFinish}
+
+Verify This Service Unavailable
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtThisServiceUnavailableAtTheMoment}
+    Mobile Capture Screen At Verify Point    Verify Service Unavailable At Moment
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Service Reserve For AIS Prepaid
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtServiceReserveForOnlyAISPrepaid}
+    Mobile Capture Screen At Verify Point    Verify Service Reserve For AIS Prepaid Customer
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Service Unavailable
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtServiceUnavailable}
+    Mobile Capture Screen At Verify Point    Verify Service Unvailable Cause Of Max Validity
+    Click Mobile Element    ${btnOKFinish}
+
+Set Destination Number
+    [Arguments]    ${ar_NType}
+    Run Keyword If    '${ar_NType}'=='3PE'    Input Destination Number
+
+Input Suspend Number
+    ${Number}    Set Variable If    '${ar_NType}' == '3PE'    ${AISNonBosPrepaidSuspensionNumberTest}    #Suspend Number
+    ${Number}    Set Variable If    '${ar_NType}' == '3BE'    ${AISNonBosPrepaidSuspensionNumberTest}    ${Number}    #Suspend Number
+    ${Number}    Set Variable If    '${ar_NType}' == 'IPE'    ${AIS_IPESuspend}    ${Number}    #Suspend Number_IPE
+    log    ${Number}
+    Input Destination Number    ${Number}
+    [Return]    ${Number}
+
+Input Max Validity Number
+    ${Number}    Set Variable If    '${ar_NType}' == '3BE'    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest}    #MaxValidity
+    ${Number}    Set Variable If    '${ar_NType}' == '3PE'    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest}    ${Number}
+    ${Number}    Set Variable If    '${ar_NType}' == 'IPE'    ${AIS_IPEMaxValidity}    ${Number}    #MaxValidity_IPE
+    log    ${Number}
+    Input Destination Number    ${Number}
+    [Return]    ${Number}
+
+Input Blacklist Number
+    ${Number}    Set Variable If    '${ar_NType}' == '3PE'    ${AISNonBosPrepaidBlacklistNumberTest}
+    ${Number}    Set Variable If    '${ar_NType}' == '3BE'    ${Number}    ${AISNonBosPrepaidBlacklistNumberTest}
+    ${Number}    Set Variable If    '${ar_NType}' == 'IPE'    ${Number}    ${AIS_IPEBlacklist}
+    log    ${Number}
+    Input Destination Number    ${Number}
+    [Return]    ${Number}
+
+Input Number And Click Confirm
+    Input Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Click Confirm Button

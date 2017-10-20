@@ -1,0 +1,43 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/Login.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+F1_1-4_1-2_Y_1_Test
+    [Tags]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Comment    Input mobile text    ${txtMoibleNumber}    ${virtual_device_1_Number}
+    Comment    Hide keyboard
+    Comment    Click mobile element    ${btnGetPassword}
+    Comment    Input mobile text    ${txtInputOTP}    1111
+    Comment    Hide keyboard
+    Comment    Click mobile element    ${btnOK}    60
+    Comment    ${userAccount}    Get mobile text    ${lbUserAccount}
+    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}
+    ${userAccount}    Get mobile text    ${lbUserAccount}
+    Run keyword if    '${userAccount}' != '${Number}'    fail
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke.
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Roaming Package & Roaming Service Rates Page
+    Mobile element name should be    ${lblInternationalRoamingTopic}    ${txtInternationalRoaming1}
+    Mobile element name should be    ${lblRoamingPackageAndServiceRatesTiltle}    ${txtRoamingPackageAndServiceRates}
+    Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question1}
+    Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question2}
+    Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question3}
+    Mobile Capture Screen At Verify Point    Verify Roaming Package And Roaming Service Rates Page

@@ -1,0 +1,142 @@
+*** Settings ***
+Resource          ../../Andriod/Keywords/SmsMoodKeywords.txt
+Resource          ../../iOS/Keywords/SmsIosKeywords.txt
+
+*** Keywords ***
+Wait SMS
+    [Arguments]    ${os}    ${totalSms}    ${timeout}    ${sender}=all
+    Comment    Log    In Wait SMS
+    Run Keyword If    '${os}' == 'Android'    mood Wait SMS    ${totalSms}    ${timeout}    ${sender}
+    Run Keyword If    '${os}' == 'iOS'    ios Wait SMS    ${totalSms}    ${timeout}    ${sender}
+    Comment    Log    Out Wait SMS
+
+Open SMS App
+    [Arguments]    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    Log    In Open SMS App
+    Log    ${remoteUrl}
+    Log    ${platformName}
+    Log    ${platformVersion}
+    Log    ${udid}
+    ${devices}    Run Keyword If    '${platformName}' == 'Android'    mood Open SMS App    ${remoteUrl}    ${platformName}    ${platformVersion}
+    ...    ${udid}
+    ${devices}    Run Keyword If    '${platformName}' == 'iOS'    ios Open SMS App    ${remoteUrl}    ${platformName}    ${platformVersion}
+    ...    ${udid}
+    Comment    Log    Out Open SMS App
+    [Return]    ${devices}
+
+Read SMS
+    [Arguments]    ${os}    ${sender}    ${totalSms}
+    Log    In Read SMS
+    Comment    Log    ${os}
+    @{messages}=    Create List
+    @{messages}=    Run Keyword If    '${os}' == 'Android'    mood Read SMS    ${sender}    ${totalSms}
+    ...    ELSE IF    '${os}' == 'iOS'    ios Read SMS    ${sender}    ${totalSms}
+    Log List    ${messages}
+    Log    Out Read SMS
+    [Return]    ${messages}
+
+Clear All Unread SMS
+    [Arguments]    ${os}
+    Log    In Clear All Unread SMS
+    Log    ${os}
+    Run Keyword If    '${os}' == 'Android'    mood Clear All Unread SMS
+    ...    ELSE IF    '${os}' == 'iOS'    Log To Console    Welcome iOS
+    Comment    Log    Out Read All SMS
+
+Wait and Verify SMS
+    [Arguments]    ${platformName}    ${platformSN}    ${totalSMS}    ${senderName}    ${messageExpect}    ${timeout}=10
+    [Documentation]    You must Create List for send List to ${MessageExpect}
+    ...    EX
+    ...    @{MessageExpect} \ \ \ \ \ Create List ${MessageOne} \ \ \ \ ${MessageTwo}
+    ...
+    ...    Wait and Verify SMS | ${virtual_3PO_2_Platfrom_Name}| ${virtual_3PO_2_Platfrom_SN} |1 | ${SenderName} | @{MessageExpect} |15
+    Log    In Wait and Verify SMS
+    Comment    sleep    2
+    Wait SMS    ${platformName}    ${totalSMS}    ${timeout}
+    Comment    @{messages}=    Read All Unread SMS    ${platformName}
+    @{messages}=    Read SMS    ${platformName}    ${senderName}    ${totalSMS}
+    ${lengthOfMsgExpect}    Get Length    ${messageExpect}
+    ${indexOfExpect}    Set Variable    0
+    : FOR    ${indexOfExpect}    IN RANGE    ${lengthOfMsgExpect}
+    \    Comment    Verify SMS    ${totalSMS}    ${messages}    ${indexOfExpect}    ${messageExpect}
+    \    Verify SMS    ${messages}    @{messageExpect}[${indexOfExpect}]
+    \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
+    Log    Out Wait and Verify SMS
+
+Close SMS App
+    [Arguments]    ${platformName}    ${udid}
+    Run Keyword If    '${platformName}' == 'Android'    mood Close SMS App    ${platformName}    ${udid}
+    Run Keyword If    '${platformName}' == 'iOS'    FAIL    Not Implement
+
+Verify SMS
+    [Arguments]    ${messages}    ${messageExpect}
+    ${indexOfActual}    Set Variable    0
+    ${totalSMS}    Get Length    ${messages}
+    ${result}    Evaluate    ${totalSMS}-1
+    : FOR    ${indexOfActual}    IN RANGE    ${totalSMS}
+    \    Log    ${messageExpect}
+    \    Log    @{messages}[${indexOfActual}]
+    \    ${status}=    Run Keyword And Return Status    Should Be Equal    @{messages}[${indexOfActual}]    ${messageExpect}
+    \    Run Keyword If    "${status}"=="True"    Exit For Loop
+    \    Run Keyword If    ${indexOfActual}==${result}    Fail    Message did not match...
+    \    ${indexOfActual}    Evaluate    ${indexOfActual}+1
+
+Read All Unread SMS
+    [Arguments]    ${platformName}
+    Log    In Read All Unread SMS
+    ${CollectMessage}=    Run Keyword If    '${platformName}' == 'Android'    mood Read All Unread SMS
+    ${CollectMessage}=    Run Keyword If    '${platformName}' == 'iOS'    ios Read All Unread SMS
+    Log    Out Read All Unread SMS
+    [Return]    ${CollectMessage}
+
+Wait and Verify Unread SMS
+    [Arguments]    ${platformName}    ${platformSN}    ${totalSMS}    ${messageExpect}    ${timeout}=10
+    [Documentation]    You must Create List for send List to ${MessageExpect}
+    ...    EX
+    ...    @{MessageExpect} \ \ \ \ \ Create List ${MessageOne} \ \ \ \ ${MessageTwo}
+    Log    In Wait and Verify Unread SMS
+    Comment    sleep    2
+    Wait SMS    ${platformName}    ${totalSMS}    ${timeout}
+    @{messages}=    Read All Unread SMS    ${platformName}
+    ${lengthOfMsgExpect}    Get Length    ${messageExpect}
+    ${indexOfExpect}    Set Variable    0
+    : FOR    ${indexOfExpect}    IN RANGE    ${lengthOfMsgExpect}
+    \    Verify SMS    ${messages}    @{messageExpect}[${indexOfExpect}]
+    \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
+    Log    Out Wait and Verify Unread SMS
+
+Wait And Verify Unread SMS By TimeOut
+    [Arguments]    ${platformName}    ${platformSN}    ${senderName}    ${messageExpect}    ${timeout}
+    Log    In Wait and Verify SMS By Time Out
+    Sleep    ${timeout}
+    Comment    Wait SMS    ${platformName}    ${totalSMS}    ${timeout}
+    @{unreadElements}    AISAppium Get Elements    ${lblUnreadNumber}
+    : FOR    ${eachUnread}    IN    @{unreadElements}
+    \    ${number}=    Convert To Integer    ${eachUnread.get_attribute('text')}
+    Log To Console    'total sms:' ${number}
+    @{messages}=    Read SMS    ${platformName}    ${senderName}    ${number}
+    ${lengthOfMsgExpect}    Get Length    ${messageExpect}
+    Log To Console    'Message Ex Amount:' ${lengthOfMsgExpect}
+    ${indexOfExpect}    Set Variable    0
+    : FOR    ${indexOfExpect}    IN RANGE    ${lengthOfMsgExpect}
+    \    log    'SMS:'${messages}
+    \    log    'Expect:'@{messageExpect}[${indexOfExpect}]
+    \    Verify SMS With Regex    ${messages}    @{messageExpect}[${indexOfExpect}]
+    \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
+    Log    Out Wait and Verify SMS By Time Out
+
+Verify SMS With Regex
+    [Arguments]    ${messages}    ${messageExpect}
+    ${indexOfActual}    Set Variable    0
+    ${totalSMS}    Get Length    ${messages}
+    ${result}    Evaluate    ${totalSMS}-1
+    Log To Console    result: ${result}
+    : FOR    ${indexOfActual}    IN RANGE    ${totalSMS}
+    \    Log To Console    message expect :${messageExpect}
+    \    Log To Console    message: @{messages}[${indexOfActual}]
+    \    Comment    Run Keyword If    '${messageExpect}'== '@{messages}[${indexOfActual}]'    Exit For Loop
+    \    ${status}=    Run Keyword And Return Status    Should Match Regexp    @{messages}[${indexOfActual}]    ${messageExpect}
+    \    Log To Console    ${status}
+    \    Run Keyword If    '${status}'=='True'    Exit For Loop
+    \    Run Keyword If    ${indexOfActual}==${result}    Fail    Message did not match with regex pattern...
+    \    ${indexOfActual}    Evaluate    ${indexOfActual}+1

@@ -1,0 +1,284 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/DomesticPackage_YourCurrentPackageLocalized.txt
+Resource          ../PageRepository/${ar_OS}/DomesticPackage_YourCurrentPackageRepository.txt
+
+*** Keywords ***
+Verify page current package main package only_3PO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only
+    Swipe Element To Screen    ${btnCurrent_ChangePackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only+btnChangePackage
+
+Verify page current package main package only_3BO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only
+    Swipe Element To Screen    ${lblHeadMainPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only+btnChangePackage
+
+Verify page current package main package only_3PE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Comment    Mobile check existing text    ${lbMainPackage_3GBuffet69}
+    Mobile check existing text    ${lblYourCurrentPackageName}
+    Comment    Mobile element text should match regexp    ${lblMainSignupDate}    ${SignUpDate}
+    Comment    Mobile element text should match regexp    ${lblMainBillCycle}    ${BillCycle}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only
+
+Verify page current package main package only_3BE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lbMainPackage_3GBuffet69}    ${3GBuffet69}
+    Mobile element text should match regexp    ${lblMainSignupDate}    ${SignUpDate}
+    Mobile element text should match regexp    ${lblMainBillCycle}    ${BillCycle}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only
+
+Verify page current package main+on-top package_3PO
+    [Arguments]    ${Number}
+    Verify page current package main+on-top package_FBB
+
+Verify page current package main+on-top package_3BO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main Package
+    Swipe Element To Screen    ${btnCurrent_ChangePackage}
+    Swipe Element To Screen    ${btnCurrent_ChangePackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCancel_OnTopPackage}
+    Mobile Capture Screen At Verify Point    Current Package OnTop Package
+
+Verify page current package main+on-top package_3PE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Comment    Mobile element text should be    ${lbMainPackage_3GBuffet69}    ${3GBuffet69}
+    Mobile element text should be    ${lbMainPackage_3GBuffet69}    ${txt3GTestPackage}
+    Mobile element text should match regexp    ${lblMainSignupDate}    ${SignUpDate}
+    Mobile check existing text    ${lblMainSignupDate}
+    Mobile element text should match regexp    ${lblMainBillCycle}    ${BillCycleUnlimit}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package one
+    Swipe Element To Screen    ${lblHeadOnTopInternetPackage}
+    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    Mobile element text should be    ${lblOneOnTopInternet_PE}    ${txtUnlimitLinePackage}
+    Mobile element text should match regexp    ${lblOneOnTopSignUpDate}    ${OnTopSignUpDate}
+    Mobile element text should match regexp    ${lblOneOnTopBillCycle}    ${BillCycle}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package two
+
+Verify page current package main+on-top package_3BE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lbMainPackage_3GBuffet69}    ${3GBuffet69}
+    Mobile element text should match regexp    ${lblMainSignupDate}    ${SignUpDate}
+    Mobile element text should match regexp    ${lblMainBillCycle}    ${BillCycle}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package one
+    Swipe Element To Screen    ${lblHeadOnTopInternetPackage}
+    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    Mobile element text should be    ${lblOneOnTopInternet_BE}    ${maomaoNet199}
+    Mobile element text should match regexp    ${lblOneOnTopSignUpDate}    ${OnTopSignUpDate}
+    Mobile element text should match regexp    ${lblOneOnTopBillCycle}    ${BillCycle}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package two
+
+Verify page current package main+2on-top package_3PO
+    [Arguments]    ${Number}
+    Verify page current package main+2on-top package_FBB
+
+Verify page current package main+2on-top package_3BO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main Package MainPackage
+    Swipe Element To Screen    ${btnCurrent_ChangePackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Swipe Element To Screen    ${lblHeadOnTopPackage}    screen    up    0.3
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblOnTopPackageOne_BO}    ${CurrentOnTopPackageNameOne}
+    Mobile element text should be    ${lblOnTopPackageTwo_BO}    ${CurrentOnTopPackageNameTwo}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package MainPackage
+    Swipe Element To Screen    ${btnCurrent_ApplyPackage}    screen    up    0.3
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCancel_OnTopPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package OnTopPackage
+
+Verify page current package main+2on-top package_3PE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}    #Start Verify Change Price Plan Package
+    Mobile element text should be    ${lblYourCurrentPackageMainPackageName}    ${txtMainPackageName3PE2Ontop}
+    Mobile element text should match regexp    ${lblMainSignupDate}    ${SignUpDate}
+    Mobile element text should match regexp    ${lblMainBillCycle}    ${BillCycleUnlimit}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}    #End Verify Change Price Plan Package
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Main Package
+    Swipe Element To Screen    ${lblHeadOnTopInternetPackage}    #Start Verify Internet Package
+    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    Mobile element text should be    ${lblInternetPackage3PE2Ontop}    ${txtInternetPackage3PE2Ontop}
+    Mobile element text should match regexp    ${lblInternetSigupDate3PE2Ontop}    ${OnTopSignUpDate}
+    Mobile element text should match regexp    ${lblInternetBillingCycle3PE2Ontop}    ${BillCycle}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop First Ontop Package    #End Verify Internet Package
+    Swipe Element To Screen    ${lblCurrentHeadOnTopPackage}    #Start Verify Ontop Package
+    Mobile element text should match regexp    ${lblCurrentHeadOnTopPackage}    ${txtOntopPackage}
+    Mobile element text should match regexp    ${lblOntopPackage3PE2Ontop}    ${txtInternetPackage3PE2Ontop}
+    Mobile element text should match regexp    ${lblOntopSigupDate3PE2Ontop}    ${OnTopSignUpDate}
+    Mobile element text should match regexp    ${lblOntopBillingCycle3PE2Ontop}    ${BillCycle}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Second Ontop Package
+
+Verify page current package main+2on-top package_3BE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lbMainPackage_3GBuffet69}    ${3GBuffet69}
+    Mobile element text should match regexp    ${lblMainSignupDate}    ${SignUpDate}
+    Mobile element text should match regexp    ${lblMainBillCycle}    ${BillCycle}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package one
+    Swipe Element To Screen    ${lblHeadOnTopInternetPackage}    screen    up    0.3
+    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    Mobile element text should be    ${lblOneOnTopInternet_BE}    ${maomaoNet199}
+    Mobile element text should match regexp    ${lblOneOnTopSignUpDate}    ${OnTopSignUpDate}
+    Mobile element text should match regexp    ${lblOneOnTopBillCycle}    ${BillCycle}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package two
+    Swipe Element To Screen    ${lblHeadOnTopPackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblTwoOnTopInternet}    ${WiFiMonthly69}
+    Mobile element text should match regexp    ${lblTwoOnTopSignUpDate}    ${OnTopSignUpDate}
+    Mobile element text should match regexp    ${lblTwoOnTopBillCycle}    ${BillCycle}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package three
+
+Verify Page Chang Price Plan_3BO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadChangePricePlan}
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlanBack}
+    Mobile element text should be    ${lblHeadChangePricePlan}    ${txtHeadHeadChangePricePlan}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should match regexp    ${YourBillingCycle_ChangePricePlan}    ${txtBillingCycleDate}
+
+Verify Page Chang Price Plan_3PO
+    Wait Mobile Until Page Contains Element    ${lblHeadChangePricePlan}
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlanBack}
+    Mobile element text should be    ${lblHeadChangePricePlan}    ${txtHeadHeadChangePricePlan}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should match regexp    ${YourBillingCycle_ChangePricePlan}    ${txtBillingCycleDate}
+
+Verify page current package main package only_FBB
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile check existing text    ${lblYourCurrentPackageName}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only
+
+Verify page current package main+on-top package_FBB
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package
+
+Verify page current package main+2on-top package_FBB
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package MainPackage
+    Swipe Element To Screen    ${lblHeadOnTopPackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblHeadValueAddService}    ${txtHeadValueAddService}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package OnTopPackage
+
+Verify page current package main package only_IPE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile check existing text    ${lblYourCurrentPackageName}
+    Swipe Element To Screen    ${btnCurrent_ChangePackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Swipe Element To Screen    ${lblTermAndConditions}
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only
+
+Verify page current package main+2on-top package_IPE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Swipe Element To Screen    ${btnChangePricePlan}
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package MainPackage
+    Swipe Element To Screen    ${lblHeadOnTopPackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblOnTopPackageOne_IPE} \    ${OnTopPackageOne_IPE}
+    Mobile element text should be    ${lblOnTopPackageTwo_IPE} \    ${OnTopPackageTwo_IPE}
+    Swipe Element To Screen    ${btnCurrent_ApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Swipe Element To Screen    ${lblTermAndConditions}
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package OnTopPackage
+
+Verify page current package main+on-top package_IPE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Swipe Element To Screen    ${btnCurrent_ApplyPackage}
+    Swipe Element To Screen    ${lblHeadOnTopPackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblYourCurrentPackageName}    ${MsgHeadOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Swipe Element To Screen    ${lblTermAndConditions}
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package

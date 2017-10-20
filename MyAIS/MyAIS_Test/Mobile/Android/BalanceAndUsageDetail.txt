@@ -1,0 +1,374 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F2_2_2_Y_1_Test] Voice Call : No transaction
+    [Documentation]    Owner => Mon
+    ...
+    ...    Step:EN
+    ...    Source Number : 3PO ,3BO
+    ...    Status : Active
+    ...
+    ...    No. 0937019815
+    ...    ID No.3801262532458
+    ...    1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Usage Detail History"
+    ...    4. Enter ID number
+    ...    5. Verify title "Usage Detail History"
+    ...    6. Click "Voice Call"
+    ...    7. Verify "Date/Time"
+    ...    8. Verify "Destination"
+    ...    9. Verify "Unit"
+    ...    10. Verify "Fee (฿)"
+    ...    11. Verify "Your requested transaction is not found."
+    ...
+    ...    Step:TH
+    ...    Source Number : 3PO ,3BO
+    ...    Status : Active
+    ...
+    ...    No. 0937019815
+    ...    ID No.3801262532458
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ...    4. ใส่หมายเลขบัตรประชาชน
+    ...    5. ตรวจสอบหัวข้อ "รายละเอียดค่าใช้บริการ"
+    ...    6. เลือก "การโทร"
+    ...    7. ตรวจสอบ "วันที่/เวลา"
+    ...    8. ตรวจสอบ "ปลายทาง"
+    ...    9. ตรวจสอบ "หน่วย"
+    ...    10. ตรวจสอบ "ค่าบริการ (฿)"
+    ...    11. ตรวจสอบ "ไม่พบรายการที่ต้องการค้นหา"
+    [Tags]    3PO    3BO    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    UsageDetailHistory
+    Verify Title Usage Detail History
+    Input ID Citizen    ${ID_Citizen}
+    ConfirmID_Citizen
+    Select Service Usage Type    VoiceCall
+    Verify Usage Detail History    Voice Call
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
+[F2_2_2_Y_2_Test] Internet/Value Added Service : No transaction
+    [Documentation]    Owner => Mon
+    ...
+    ...    Step:EN
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...
+    ...    No. 0937019815
+    ...    ID No.3801262532458
+    ...    1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Usage Detail History"
+    ...    4. Enter ID number
+    ...    5. Verify title "Usage Detail History"
+    ...    6. Click "Internet/Value Added Service"
+    ...    7. Verify "Date/Time"
+    ...    8. Verify "Destination"
+    ...    9. Verify "Unit"
+    ...    10. Verify "Fee (฿)"
+    ...    11. Verify "Your requested transaction is not found."
+    ...
+    ...    Step:TH
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...
+    ...    No. 0623180144
+    ...    ID No.1309051344371
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ...    4. ใส่หมายเลขบัตรประชาชน
+    ...    5. ตรวจสอบหัวข้อ "รายละเอียดค่าใช้บริการ"
+    ...    6. เลือก "Internet/บริการเสริม"
+    ...    7. ตรวจสอบ "วันที่/เวลา"
+    ...    8. ตรวจสอบ "ปลายทาง"
+    ...    9. ตรวจสอบ "หน่วยที่ใช้"
+    ...    10. ตรวจสอบ "หน่วย"
+    ...    11. ตรวจสอบ "ไม่พบรายการที่ต้องการค้นหา"
+    [Tags]    3PO    3BO    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    UsageDetailHistory
+    Verify Title Usage Detail History
+    Input ID Citizen    ${ID_Citizen}
+    ConfirmID_Citizen
+    Select Service Usage Type    InternetValueAddedService
+    Verify Usage Detail History    Internet Value
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
+[F3_2_2_Y_1_Test] No Outstanding balance
+    [Documentation]    Owner => Mon
+    ...
+    ...    Step:EN
+    ...    Source Number : 3BO
+    ...    Status : Active
+    ...    1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Your balance"
+    ...    4. Verify title "Your balance"
+    ...    5. Verify "No outstanding balance."
+    ...
+    ...    Step:TH
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "ค่าใช้บริการ"
+    ...    4. ตรวจสอบหัวข้อ "ค่าใช้บริการ"
+    ...    5. ตรวจสอบ "ไม่มียอดค้างชำระ"
+    [Tags]    3PO    3BO    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    YourBalance
+    Verify Title Your Balance
+    Verify No Outstanding Balance
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
+[F1_2_2_Y_1_Test] Your Current Charge(Unbilled) : No current charge
+    [Documentation]    Owner => Mon
+    ...
+    ...    Step:EN
+    ...    Source Number : 3BO
+    ...    Status : Active1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Your Current Charge(Unbilled)"
+    ...    4. Verify title "Your Current Charge(Unbilled)"
+    ...    5. Verify message "Sorry, the service is unavailable at this time please try again later."
+    ...
+    ...    Step:TH
+    ...    Source Number : 3PO ,3BO
+    ...    Status : Active
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "ค่าใช้บริการระหว่างรอบบิล"
+    ...    4. ตรวจสอบหัวข้อ "ค่าใช้บริการระหว่างรอบบิล"
+    ...    5. ตรวจสอบ "ขออภัย ระบบไม่สามารถให้บริการได้ในขณะนี้ กรุณาเข้าใช้บริการใหม่อีกครั้ง"
+    [Tags]    3PO    3BO    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    YourCurrentChange(Unbilled)
+    Verify No Your Current Change
+    Verify Balance & Usage Detail
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
+[F2_2_2_Y_3_Test] Invalid ID number
+    [Documentation]    Owner => Mon
+    ...
+    ...    Step:EN
+    ...    Source Number : 3PO ,3BO
+    ...    Status : Active
+    ...    1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Usage Detail History"
+    ...    4. Enter Invalid ID number "1720900169224"
+    ...    5. Click "OK"
+    ...    6. Verify message "The national ID Card number you have entered is not the same as the one you previously provided. Please enter again."
+    ...
+    ...
+    ...    Step:TH
+    ...    Source Number : 3PO ,3BO
+    ...    Status : Active
+    ...
+    ...    No. 0937019815
+    ...    ID No.3801262532458
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ...    4. ใส่หมายเลขบัตรประชาชนไม่ถูกต้อง "1720900169224"
+    ...    5. เลือก "ตกลง"
+    ...    6. ตรวจสอบข้อความ "หมายเลขบัตรประจำตัวที่คุณระบุ ไม่ตรงกับข้อมูลที่เคยให้ไว้กับบริษัท กรุณาระบบใหม่อีกครั้ง"
+    [Tags]    3PO    3BO    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    UsageDetailHistory
+    Verify Title Usage Detail History
+    Input ID Citizen    1720900169224
+    ConfirmID_Citizen
+    Verify Message    ${msgDialog}    ${messageInvalidIdNumber}    Invalid ID number
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
+[F2_4_2_Y_4_Test] Incomplete 13 digits
+    [Documentation]    Owner => Mon
+    ...
+    ...    Step: EN
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Usage Detail History"
+    ...    4. Enter Incomplete 13 digits "1720900"
+    ...    5. Click "OK"
+    ...    6. Verify message "The national ID Card number you have entered is not the same as the one you previously provided. Please enter again."
+    ...
+    ...    Step:TH
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ...    4. ใส่หมายเลขบัตรประชาชนไม่ครบ 13 หลัก "1720900"
+    ...    5. เลือก "ตกลง"
+    ...    6. ตรวจสอบข้อความ "หมายเลขบัตรประจำตัวที่คุณระบุ ไม่ตรงกับข้อมูลที่เคยให้ไว้กับบริษัท กรุณาระบบใหม่อีกครั้ง"
+    [Tags]    3PO    3BO    bug
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    UsageDetailHistory
+    Verify Title Usage Detail History
+    Input ID Citizen    1720900
+    ConfirmID_Citizen
+    Verify Message    ${msgDialog}    ${messageIncomplete13Digits}    Invalid ID number
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
+[F2_2_2_Y_5_Test] Enter invalid ID number over 3 times
+    [Documentation]    owner => Mon
+    ...
+    ...    Step EN
+    ...    Source Number : 3PO
+    ...    Status : Active1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Usage Detail History"
+    ...    4. Enter ID Number "1720900169224" over 3 times
+    ...    5. Click "OK"
+    ...    6. Verify message "You have entered incorrect national ID card number three times.Please sign out and try again later."
+    ...
+    ...    Step TH
+    ...    Source Number : 3BO
+    ...    Status : Active1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ...    4. ใส่หมายเลขบัตรประชาชน "1720900169224" เกิน 3 ครั้ง
+    ...    5. เลือก "ตกลง"
+    ...    6. ตรวจสอบข้อความ "คุณระบุเลขที่บัตรประจำตัวไม่ถูกต้อง ครบ 3ครั้งกรุณาเข้ามาใช้บริการใหม่ภายหลัง"
+    [Tags]    3PO    3BO    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    UsageDetailHistory
+    Verify Title Usage Detail History
+    Input Invalid ID Citizen > 3 Times    ${virtual_device_1_SN}
+    Verify Message    ${msgDialog}    ${messageInvalidIdCitizenMore3Times}    Invalid ID Citizen more 3 times
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke
+
+*** Keywords ***
+Keyword For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Sub Menu
+    [Arguments]    ${SubMenu}
+    Click Mobile Element    ${mnu${SubMenu}}
+
+Verify Title Usage Detail History
+    Mobile Element Text Should Be    ${titleMenu}    ${UsageDetailHistory}
+    Mobile Capture Screen At Verify Point    UsageDetailHistory
+
+Input ID Citizen
+    [Arguments]    ${ID}
+    Input Mobile Text    ${txtID_Number}    ${ID}
+
+ConfirmID_Citizen
+    Click Mobile Element    ${btnConfirmID}
+
+Select Service Usage Type
+    [Arguments]    ${Type}
+    Click Mobile Element    ${btn${Type}}
+
+Verify Usage Detail History
+    [Arguments]    ${UsageDetailType}
+    Mobile Element Text Should Be    ${lblDateTime}    ${DateTime}
+    Mobile Element Text Should Be    ${lblDestination}    ${Destination}
+    Mobile Element Text Should Be    ${lblUnit}    ${Unit}
+    Mobile Element Text Should Be    ${lblFee}    ${Fee}
+    Mobile Element Text Should Be    ${lblTransactionNotFound}    ${TransactionNotFound}
+    Mobile Capture Screen At Verify Point    ${UsageDetailType}
+
+Verify Title Your Balance
+    Mobile Element Text Should Be    ${titleMenu}    ${YourBalance}
+    Mobile Capture Screen At Verify Point    Your balance
+
+Verify No Outstanding Balance
+    Mobile Element Text Should Be    ${lblNoOutstandingBalance}    ${NoOutstandingBalance}
+    Mobile Capture Screen At Verify Point    No Outstanding Balance
+
+Verify No Your Current Change
+    Mobile Element Text Should Be    ${msgDialog}    ${NoYourCurrentChange}
+    Mobile Capture Screen At Verify Point    No Your Current Change
+    Click Mobile Element    ${btnComfirmNoCurrentChange}
+
+Verify Balance & Usage Detail
+    Mobile Element Text Should Be    ${HeaderMenu}    ${Balance&UsageDetail}
+    Mobile Capture Screen At Verify Point    Balance And Usage Detail return
+
+Verify Message
+    [Arguments]    ${locator}    ${msg}    ${VerifyPoint}
+    Mobile element text should be    ${locator}    ${msg}
+    Mobile Capture Screen At Verify Point    ${VerifyPoint}
+
+Input Invalid ID Citizen > 3 Times
+    [Arguments]    ${SN}
+    : FOR    ${INDEX}    IN RANGE    0    2
+    \    Input ID Citizen    1720900169224
+    \    ConfirmID_Citizen
+    \    Verify Message    ${msgDialog}    ${messageInvalidIdNumber}    Invalid ID number    ${SN}
+    \    Click Mobile Element    ${btnOkDialogMessage}
+    Input ID Citizen    1720900169224
+    ConfirmID_Citizen

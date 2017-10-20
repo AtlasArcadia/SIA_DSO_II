@@ -1,0 +1,53 @@
+*** Settings ***
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Package.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/TopUp.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Login.txt
+Resource          ../../../../../Config/LocalConfig.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RegisterAISFibreAndCoverageChecking.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RequestAndChangeWifiPassword.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/Event_CorpLocalized.txt
+Resource          ../PageRepository/Android/Event_CorpRepository.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/DomesticsPackage_CancelOnTopPackage.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/BalanceAndUsageDetail.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/MyAccount.txt
+Resource          ../PageRepository/Android/Event_CorpRepository.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Home.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Prepaid.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Prepaid.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemaining_Prepaid.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Prepaid.txt
+
+*** Keywords ***
+Log Number And Time
+    [Arguments]    ${Number}
+    Log    Mobile number = ${Number}
+    ${time} =    Get Time
+    Log    Current time = ${time}
+
+Verify Title Header
+    [Arguments]    ${titleName}
+    Mobile element text should be    ${txtTitleHeader}    ${Header${titleName}}
+
+Select Data Package Roaming
+    Click Mobile Element    ${ddlPackageTypeApplyRoamingPackagePage}
+    Swipe to element    ${itmDataApplyRoamingPackagePage}    ${lstPackageTypeApplyRoamingPackagePage}
+    Click Mobile Element    ${itmDataApplyRoamingPackagePage}
+
+Continue To Next Step Apply Roaming
+    Click Mobile Element    ${btnContinueApplyRoaming}
+
+Verify Header
+    [Arguments]    ${headername}
+    Mobile element text should be    ${txtHeader}    ${headername}
+
+Verify Current Roaming Package No Package
+    Comment    แพ็กเกจโรมมิ่งปัจจุบัน
+    Mobile element text should be    ${lblCardRoaming}    ${txtCardRoaming}
+    Comment    คุณยังไม่ได้สมัครแพ็กเกจโรมมิ่ง
+    Mobile element text should be    ${lblNoRoamingPackage}    ${txtNoRoamingPackage}
+    Comment    คุณสามารถสมัคร แพ็กเกจโรมมิ่งในราคาสุดคุ้ม เพื่อใช้งานอินเทอร์เน็ต/โทรและส่ง SMS ขณะอยู่ที่ต่างประเทศ
+    Mobile element text should be    ${lblNoRoamingPackageDescription}    ${txtNoRoamingPackageDescription}
+    Comment    รายละเอียด
+    Swipe Element To Screen    ${lblCardRoaming}    up
+    Mobile element text should be    ${lblMore}    ${txtMore}
+    Mobile Capture Screen At Verify Point    Verify Current Roaming Package (No Package)

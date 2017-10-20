@@ -1,0 +1,491 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/DomesticPackage_ChangePricePlanRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/DomesticPackage_ChangePricePlanLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Package Category
+    [Arguments]    ${PackageCategory}
+    [Documentation]    Category Name >>> TalkAndNetPlan, InternetPlan, TalkPlan
+    Click Mobile Element    ${lblCat${PackageCategory}}
+
+Verify Page Change Price Plan Postpaid
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblCatTalkAndNetPlan}    ${txtCatTalkAndNetPlan}
+    Mobile element text should be    ${lblCatInternetPlan}    ${txtCatInternetPlan}
+    Mobile element text should be    ${lblCatTalkPlan}    ${txtCatTalkPlan}
+    Mobile Capture Screen At Verify Point    Change Price Plan Select Package Page
+
+Select Talk And Net Package Section
+    [Arguments]    ${sectionPackageName}
+    [Documentation]    Section Name List>>> IEntertainNonStop, 4GMaxSpeed , Buffetx3, SerenadePack \
+    Click Mobile Element    ${btnTalkAndNetPlanPackageSection${sectionPackageName}}
+
+Select IEntertain Package 399 Bath
+    Click Mobile Element    ${btnIEntertainNonStop399Bath}
+
+Verify Selected Package
+    [Arguments]    ${Number}    ${PackageCategory}    ${PackageName}
+    Run Keyword If    '${ar_NType}'=='3BO' or \ '${ar_NType}'=='3PO'    Verify Selected Package Postpaid
+    Run Keyword If    '${ar_NType}'=='3BE' or '${ar_NType}'=='3PE'    Verify Selected Package Prepaid    ${Number}    ${PackageCategory}    ${PackageName}
+
+Verify Selected Package Postpaid
+    [Arguments]    ${PackName}    ${PackDetail}
+    [Documentation]    Arg >>> Package Name , PackageDetail
+    Mobile element text should be    ${lblSelectedPackageName}    ${PackName}
+    Mobile element text should be    ${lblSelectedPackageDetail}    ${PackDetail}
+    Mobile Capture Screen At Verify Point    Selected Package
+
+Verify Selected Package Prepaid
+    [Arguments]    ${CustomerNumber}    ${PackageCategory}    ${PackageName}
+    Mobile element text should be    ${lblCustomerNumber}    ${CustomerNumber}
+    Mobile element text should be    ${lblPackageSelectedCategory}    ${PackageCategory}
+    Mobile element text should be    ${lblSelectedPackageName}    ${PackageName}
+    Mobile element text should be    ${lblSelectedPackageDetail}    ${txtTalkAndPlanPackage512Unlimited}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnConfirmSelect}
+    Wait Mobile Until Element Visible    ${lblTermAndCondition}
+    Mobile Capture Screen At Verify Point    Selected Package Prepaid
+
+Confrim Select Package
+    Click Mobile Element    ${btnConfirmSelect}
+
+Select Effective Package
+    [Arguments]    ${EffectiveTime}
+    [Documentation]    Effective time optional>>> NextBillingCycle, NextDay, Immediately
+    Click Mobile Element    ${btn${EffectiveTime}Effective}
+
+Confirm Select Effective
+    Click Mobile Element    ${btnConfirmSelect}
+
+Verify Buffetx3 Package Summary
+    [Arguments]    ${PackageName}    ${PackageCondition}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    Buffetx3 Package Summary
+
+Confirm Subscribe Package
+    Click Mobile Element    ${btnConfirmSubscribePackage}
+
+Verify Dialog Message Subscibe Success
+    Mobile element text should be    ${msgSubscribeSuccess}    ${txtSubscribeSuccess}
+    Mobile Capture Screen At Verify Point    Dialog Message
+
+Select Buffet 3x Package 484 Bath
+    Click Mobile Element    ${lblPackageTalkAndNetPlanBuffetx3Package484Bath}
+
+Select Package 450 Bath Per Month Voice580 Minute
+    Click Mobile Element    ${lblPackageTalkPlan450BathPerMonth}
+
+Verify Talk Plan Basic Package Summary
+    [Arguments]    ${PackageName}    ${PackageCondition}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    Talk Plan Basic Package Summary
+
+Confirm Dialog Message
+    [Documentation]    xpath=//*[@resource-id="com.ais.mimo.eservice:id/my_ais_library_dialog_btn_neutral"]
+    Click Mobile Element    ${btnOKDailogMessage}
+
+Select net SIM Always Package 199 Bath
+    Swipe to element    ${lblPackageInternetPlanNetSIMAlwayspackage199Bath}
+    Click Mobile Element    ${lblPackageInternetPlanNetSIMAlwayspackage199Bath}
+
+Verify Internet Plan Package Summary
+    [Arguments]    ${PackageName}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    Internet Plan Package Summary
+
+Select Serenade Pack 899
+    Click Mobile Element    ${lblPackageTalkAndNetPlanSerenadePack899}
+
+Verify Talk And Net Plan Serenade Pack Summary
+    [Arguments]    ${PackageName}    ${PackageCondition}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    Serenade Package Summary
+
+Select 4G MAX Speed Package 688 Bath
+    Click Mobile Element    ${lblPackageTalkAndNetPlan4GMaxSpeed688Bath}
+
+Verify Talk And Net Plan 4G Max Speed Pack Summary
+    [Arguments]    ${PackageName}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Comment    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    4G Max Speed Package Summary
+
+Verify Talk And Net Plan iEntertain Non Stop Pack Summary
+    [Arguments]    ${PackageName}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Comment    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    iEntertain Non Stop Package Summary
+
+Verify Change Price Plan MyAIS
+    [Arguments]    ${messageExpect}    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}    ${timeout}
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Log    In Wait and Verify SMS By Time Out
+    Sleep    ${timeout}
+    Comment    Wait SMS    ${platformName}    ${totalSMS}    ${timeout}
+    @{unreadElements}    Aisappium Get Webelements    ${lblUnreadNumber}
+    : FOR    ${eachUnread}    IN    @{unreadElements}
+    \    ${number}=    Convert To Integer    ${eachUnread.get_attribute('text')}
+    Log To Console    'total sms:' ${number}
+    Comment    @{messages}=    Read SMS    ${platformName}    0614231950    ${number}
+    Log    In Mood Read SMS
+    @{emptyList}=    Create List
+    @{messages}=    Create List
+    @{senderNameElements}    AISAppiumEx.Get WebElements    ${lblSenderName}
+    : FOR    ${senderNameElement}    IN    @{senderNameElements}
+    \    ${senderName}=    Convert To String    ${senderNameElement.get_attribute('text')}
+    \    @{messages}=    Run Keyword If    '${senderName}' == 'AIS'    mood Collect SMS Message    ${senderNameElement}    ${number}
+    \    Run Keyword If    @{messages} != @{emptyList}    Exit For Loop
+    Run Keyword If    @{messages} == @{emptyList}    FAIL    Not found sender to read SMS
+    Mobile Capture Screen At Verify Point    Change Price Plan SMS
+    Press Keycode    4
+    Log    Out Mood Read SMS
+    ${lengthOfMsgExpect}    Get Length    ${messageExpect}
+    Log To Console    'Message Ex Amount:' ${lengthOfMsgExpect}
+    ${indexOfExpect}    Set Variable    0
+    : FOR    ${indexOfExpect}    IN RANGE    ${lengthOfMsgExpect}
+    \    log    'SMS:'${messages}
+    \    log    'Expect:'@{messageExpect}[${indexOfExpect}]
+    \    Verify SMS With Regex    ${messages}    @{messageExpect}[${indexOfExpect}]
+    \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
+    Log    Out Wait and Verify SMS By Time Out
+
+Verify Internet Plan Select Package
+    [Arguments]    ${PackName}    ${PackDetail}
+    Mobile element text should be    ${lblSelectedPackageName}    ${PackName}
+    Mobile element text should match regexp    ${lblSelectedPackageDetail}    ${PackDetail}
+    Mobile Capture Screen At Verify Point    Selected Internet Package
+
+Verify Page Change Price Plan
+    [Arguments]    ${Number}
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Verify Page Change Price Plan Postpaid
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Verify Page Change Price Plan Prepaid    ${Number}
+    Run Keyword If    '${ar_NType}'=='IPE'    Verify Page Change Price Plan IPE    ${Number}
+
+Verify Page Change Price Plan Talk Plan_3PE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblCatTalkPlan}    ${txtCatTalkPlan}
+    Mobile element text should be    ${lblTalkPlanBuffet}    ${txtTalkPlanBuffet}
+    Mobile element text should be    ${lblTalkPlanCallToAllNetworks}    ${txtTalkPlanCallToAllNetworks}
+    Mobile element text should be    ${lblTalkPlanCallToAIS}    ${txtTalkPlanCallToAIS}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Talk Plan
+
+Verify Page Change Price Plan Talk & Net Plan
+    [Arguments]    ${Number}
+    Run Keyword If    '${ar_NType}'=='3PE'    Verify Talk And Net Package Page 3PE
+    Run Keyword If    '${ar_NType}'=='3BE'    Verify Talk And Net Package Page 3BE    ${Number}
+
+Verify Page Change Price Plan Internet Plan
+    [Arguments]    ${Number}
+    Run Keyword If    '${ar_NType}'=='3PE'    Verify Page Change Price Plan Internet Plan 3PE
+    Run Keyword If    '${ar_NType}'=='3BE'    Verify Page Change Price Plan Internet Plan 3BE    ${Number}
+
+Select Talk And Net Plan Package 512 Unlimited
+    Comment    ${Package}    Set Variable If    '${ar_NType}'=='3PE'    ${lblTalkAndNetPlanFirstPackage}
+    ${PackageName}    Get mobile text    ${lblTalkAndNetPlanFirstPackage}
+    Comment    log    ${PackageName}
+    Click Mobile Element    ${lblTalkAndNetPlanFirstPackage}
+    [Return]    ${PackageName}
+
+Verify Page Change Price Plan Step 1 Select Package
+    [Arguments]    ${CustomerNumber}    ${PackageCategory}    ${PackageName}
+    Mobile element text should be    ${lblCustomerNumber}    ${CustomerNumber}
+    Mobile element text should be    ${lblPackageSelectedCategory}    ${PackageCategory}
+    Sleep    2
+    Comment    Mobile element text should be    ${lblBestValueTalkPackage}    ${BestValueTalkPackage}
+    Mobile element text should be    ${lblSelectedPackageName}    ${PackageName}
+    Mobile check existing text    ${lblSelectedPackageDetail}
+    Mobile check existing text    ${lblSelectedPackageDetail}
+    Swipe to element    ${lblTermAndCondition}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnConfirmSelect}
+    Wait Mobile Until Element Visible    ${lblTermAndCondition}
+    Mobile Capture Screen At Verify Point    Change Price Plan Step 1
+
+Verify Change Price Plan Step 2 Confirm
+    [Arguments]    ${CustomerNumber}    ${PackageName}
+    Mobile element text should be    ${lblCustomerNumber}    ${CustomerNumber}
+    Mobile element text should be    ${lblYouHaveSelect}    ${txtYouHaveSelect}
+    Mobile element text should be    ${lblPackageName}    ${PackageName}
+    Mobile element text should be    ${lblChangePricePlanWarningtext}    ${txtChangePricePlanWarningtext}
+    Swipe to element    ${lblTermAndCondition}
+    Wait Mobile Until Element Visible    ${btnConfirmSubscribePackage}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${lblTermAndCondition}
+    Mobile Capture Screen At Verify Point    Change Price Plan Step 2
+
+Verify SMS From AIS With Regex
+    [Arguments]    ${messageExpect}    ${totalSMS}    ${platformName}    ${udid}    ${timeout}    ${captureName}
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Log    In Wait and Verify SMS
+    Comment    sleep    2
+    Wait SMS    ${platformName}    ${totalSMS}    ${timeout}
+    Comment    @{messages}=    Read SMS    ${platformName}    AIS    ${totalSMS}
+    Log    In Mood Read SMS
+    @{emptyList}=    Create List
+    @{messages}=    Create List
+    @{senderNameElements}    AISAppiumEx.Get WebElements    ${lblSenderName}
+    : FOR    ${senderNameElement}    IN    @{senderNameElements}
+    \    ${senderName}=    Convert To String    ${senderNameElement.get_attribute('text')}
+    \    @{messages}=    Run Keyword If    '${senderName}' == 'AIS'    mood Collect SMS Message    ${senderNameElement}    ${totalSMS}
+    \    Run Keyword If    @{messages} != @{emptyList}    Exit For Loop
+    Run Keyword If    @{messages} == @{emptyList}    FAIL    Not found sender to read SMS
+    Mobile Capture Screen At Verify Point    ${captureName} SMS From Sender AIS
+    Press Keycode    4
+    Log    Out Mood Read SMS
+    ${lengthOfMsgExpect}    Get Length    ${messageExpect}
+    ${indexOfExpect}    Set Variable    0
+    : FOR    ${indexOfExpect}    IN RANGE    ${lengthOfMsgExpect}
+    \    log    @{messageExpect}[${indexOfExpect}]
+    \    Verify SMS With Regex    ${messages}    @{messageExpect}[${indexOfExpect}]
+    \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
+    Log    Out Wait and Verify SMS
+
+Select Talk&Net Plan Freedom Unlimited Package
+    Click Mobile Element    ${lblTalkAndNetFreedomUnlimitedPackage}
+
+Select Internet Plan NetSIM299B Internet Max Speed 1GB Non Stop
+    ${packageByNtype}    Set Variable If    '${ar_NType}'=='3PE'    ${lblInternetPlanFirstPackage3PE}    ${lblInternetPlanFirstPackage3BE}
+    ${PackageName}    Get mobile text    ${packageByNtype}
+    Click Mobile Element    ${packageByNtype}
+    [Return]    ${PackageName}
+
+Select Talk Plan Section
+    [Arguments]    ${sectionName}
+    [Documentation]    Section Name List
+    ...    -Buffet
+    ...    -CalltoAllNetworks
+    ...    -CallToAIS
+    Click Mobile Element    ${lblTalkplanSection${sectionName}}
+
+Verify Talk Plan Buffet Package List_3PE
+    Comment    Mobile element text should be    ${lblTalkPlanBuffetSectionPackage55B}    ${txtTalkPlanSectionBuffet55BPackage}
+    Mobile element text should be    ${lblTalkPlanBuffetSectionPackage69B}    ${txtTalkPlanSectionBuffet69BPackage}
+    Comment    Mobile element text should be    ${lblTalkPlanBuffetSectionPackage159B}    ${txtTalkPlanSectionBuffet159BPackage}
+    Comment    Mobile element text should be    ${lblTalkPlanBuffetSectionPackage199B}    ${txtTalkPlanSectionBuffet199BPackage}
+    Mobile Capture Screen At Verify Point    Talk Buffet Package
+
+Select Talk Plan Buffet NightTime Package_3PE
+    ${PackageName}    Get mobile text    ${lblTalkPlanBuffetSectionPackage69B}
+    Click Mobile Element    ${lblTalkPlanBuffetSectionPackage69B}
+    [Return]    ${PackageName}
+
+Verify Talk Plan Call To All Networks Package List_3PE
+    Mobile element text should be    ${lblTalkPlanCalltoAllNetworksFirstPackage}    ${txtTalkPlanCalltoAllNetworkFirstPackage}
+    Comment    Mobile element text should be    ${lblTalkPlanCallToAllNetworkSectionPackagePro30}    ${txtTalkPlanCallToAllNetworkSectionPackagePro30}
+    Comment    Mobile element text should be    ${lblTalkPlanCallToAllNetworkSectionPackageSpecial12Hour}    ${txtTalkPlanCallToAllNetworkSectionPackageSpecial12Hour}
+    Comment    Mobile element text should be    ${lblTalkPlanCallToAllNetworkSectionPackagerViVi60}    ${txtTalkPlanCallToAllNetworkSectionPackagerViVi60}
+    Mobile Capture Screen At Verify Point    Talk Call All Network Package
+
+Select Talk Plan Call To All Network Special 12 Hour Package_3PE
+    ${PackageName}    Get mobile text    ${lblTalkPlanCalltoAllNetworksFirstPackage}
+    Click Mobile Element    ${lblTalkPlanCalltoAllNetworksFirstPackage}
+    [Return]    ${PackageName}
+
+Verify Talk Plan Call To AIS Package List_3PE
+    [Arguments]    ${Ntype}
+    Mobile element text should be    ${lblTalkPlanSectionCallToAISBestValueTalkPackage}    ${txtTalkPlanCallToAISSectionBestValueTalkPackage}
+    Mobile Capture Screen At Verify Point    Talk Call To AIS Package
+
+Select Talk Plan Call To AIS BestValue Talk Package_3PE
+    ${PackageName}    Get mobile text    ${lblTalkPlanSectionCallToAISBestValueTalkPackage}
+    Click Mobile Element    ${lblTalkPlanSectionCallToAISBestValueTalkPackage}
+    [Return]    ${PackageName}
+
+Reset Package To Talk And Internet Plan Freedom Unlmited Package
+    [Arguments]    ${totalSMS}
+    Android Switch App    my AIS
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkAndNetPlan
+    Select Talk&Net Plan Freedom Unlimited Package
+    Confrim Select Package
+    Confirm Subscribe Package
+    Confirm Dialog Message
+    @{MessageExpect2}    Create List    ${txtSMSmsgFreedom}
+    Verify SMS From AIS With Regex    ${MessageExpect2}    ${totalSMS}    Android    ${virtual_device_1_SN}    ${lo_sms_timeout}    Cancel
+
+Verify Page Change Price Plan Prepaid
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Verify Page Change Price Plan Postpaid
+    Run Keyword If    '${ar_NType}'=='3PE'    Mobile element text should be    ${lblTerm&Condition}    ${txtTerms&Conditions}
+
+test return
+    [Arguments]    ${Ntype}
+    log    ${Ntype}
+    Run Keyword If    '${Ntype}'=='3PE'    log    3PE
+    Run Keyword If    '${Ntype}'=='3BE'    log    3BE
+
+Verify Talk And Net Package Page 3BE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblTalk&NetPlanList}    ${txtCatTalkAndNetPlan}
+    Mobile element text should be    ${lblPackListiSmart399Baht}    ${txtPackListiSmart399Baht}
+    Mobile element text should be    ${lblPackListFreedomUnlimited}    ${txtPackListFreedomUnlimited}
+    Mobile element text should be    ${lblPackageNonStop123}    ${txtPackageNonStop123}
+    Mobile element text should be    ${lblPackage512Unlimited}    ${txtPackage512Unlimited}
+    Mobile element text should be    ${lblPackageiSmart299Baht}    ${txtPackageiSmart299Baht}
+    Mobile element text should be    ${lblTerm&Condition}    ${txtTerms&Conditions}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Talk & Net Plan Package list
+
+Verify Talk And Net Package Page 3PE
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblTalk&NetPlanList}    ${txtCatTalkAndNetPlan}
+    Mobile element text should be    ${lblTalkAndNetPlanFirstPackage}    ${txtTalkAndNetPlanFirstPackage}
+    Comment    Mobile element text should be    ${lblPackListiSmart399Baht}    ${txtPackListiSmart399Baht}
+    Comment    Mobile element text should be    ${lblPackListFreedomUnlimited}    ${txtPackListFreedomUnlimited}
+    Comment    Mobile element text should be    ${lblPackageNonStop123}    ${txtPackageNonStop123}
+    Comment    Mobile element text should be    ${lblPackage512Unlimited}    ${txtPackage512Unlimited}
+    Comment    Mobile element text should be    ${lblPackageiSmart299Baht}    ${txtPackageiSmart299Baht}
+    Mobile element text should be    ${lblTerm&Condition}    ${txtTerms&Conditions}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Talk & Net Plan Package list
+
+Verify Page Change Price Plan Talk Plan
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}" == "3PE"    Verify Page Change Price Plan Talk Plan_3PE    ${Number}
+    Run Keyword If    "${ar_NType}" == "3BE"    Verify Page Change Price Plan Talk Plan_3BE    ${Number}
+    Run Keyword If    "${ar_NType}" == "IPE"    Verify Page Change Price Plan Talk Plan_IPE    ${Number}
+
+Verify Page Change Price Plan Talk Plan_3BE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblCatTalkPlan}    ${txtCatTalkPlan}
+    Mobile element text should be    ${lblTalkPlanBuffet}    ${txtTalkPlanBuffet}
+    Mobile element text should be    ${lblTalkPlanCallToAllNetworks}    ${txtTalkPlanCallToAllNetworks}
+    Mobile element text should be    ${lblTalkPlanCallToAIS}    ${txtTalkPlanCallToAIS}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Talk Plan
+
+Verify Page Change Price Plan Internet Plan 3PE
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblInternetPlan}    ${txtInternetPlan}
+    Mobile element text should be    ${lblInternetPlanFirstPackage}    ${txtInternetPlanFirstPackage}
+    Swipe to element    ${lblTerm&Condition}
+    Mobile element text should be    ${lblTerm&Condition}    ${txtTerms&Conditions}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Internet Plan Package List
+
+Verify Page Change Price Plan Internet Plan 3BE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblInternetPlan}    ${txtInternetPlan}
+    Mobile element text should be    ${lblNetSIM299B}    ${txtNetSIM299B}
+    Mobile element text should be    ${lblNetSIM399B}    ${txtNetSIM399B}
+    Mobile element text should be    ${lblNetSIM499B}    ${txtNetSIM499B}
+    Comment    Mobile element text should be    ${lblNetSIM699B}    ${txtNetSIM699B}
+    Mobile element text should be    ${lblTerm&Condition}    ${txtTerms&Conditions}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Internet Plan Package List
+
+Select Talk Plan Buffet NightTime Package
+    ${PackageName}    Run Keyword If    "${ar_NType}" == "3PE"    Select Talk Plan Buffet NightTime Package_3PE
+    ${PackageName}    Run Keyword If    "${ar_NType}" == "3BE"    Select Talk Plan Buffet NightTime Package_3BE
+    [Return]    ${PackageName}
+
+Select Talk Plan Buffet NightTime Package_3BE
+    ${PackageName}    Get mobile text    ${lblTalkPlanBuffetNighttimePackage199B}
+    Click Mobile Element    ${lblTalkPlanBuffetNighttimePackage199B}
+    [Return]    ${PackageName}
+
+Verify Talk Plan Buffet Package List_3BE
+    Mobile element text should be    ${lblTalkPlanBuffetNighttimePackage199B}    ${NighttimeBuffet159B}
+    Mobile Capture Screen At Verify Point    Talk Buffet Package
+
+Verify Talk Plan Buffet Package List
+    Run Keyword If    "${ar_NType}" == "3PE"    Verify Talk Plan Buffet Package List_3PE
+    Run Keyword If    "${ar_NType}" == "3BE"    Verify Talk Plan Buffet Package List_3BE
+
+Verify Talk Plan Call To All Networks Package List
+    Run Keyword If    "${ar_NType}" == "3PE"    Verify Talk Plan Call To All Networks Package List_3PE
+    Run Keyword If    "${ar_NType}" == "3BE"    Verify Talk Plan Call To All Networks Package List_3BE
+
+Verify Talk Plan Call To All Networks Package List_3BE
+    Mobile element text should be    ${lblPro30KumLungDee}    ${Pro30KumLungDee}
+    Mobile Capture Screen At Verify Point    Talk Call All Network Package
+
+Select Talk Plan Call To All Network Special 12 Hour Package
+    ${PackageName}    Run Keyword If    "${ar_NType}" == "3PE"    Select Talk Plan Call To All Network Special 12 Hour Package_3PE
+    ${PackageName}    Run Keyword If    "${ar_NType}" == "3BE"    Select Talk Plan Call To All Network Special 12 Hour Package_3BE
+    [Return]    ${PackageName}
+
+Select Talk Plan Call To All Network Special 12 Hour Package_3BE
+    ${PackageName}    Get mobile text    ${lblPro30KumLungDee}
+    Click Mobile Element    ${lblPro30KumLungDee}
+    [Return]    ${PackageName}
+
+Verify Talk Plan Call To AIS Package List
+    Run Keyword If    "${ar_NType}" == "3PE"    Verify Talk Plan Call To AIS Package List_3PE
+    Run Keyword If    "${ar_NType}" == "3BE"    Verify Talk Plan Call To AIS Package List_3BE
+
+Verify Talk Plan Call To AIS Package List_3BE
+    Mobile element text should be    ${lblBestValueTalkPackage}    ${BestValueTalkPackage}
+    Mobile Capture Screen At Verify Point    Talk Call To AIS Package
+
+Select Talk Plan Call To AIS BestValue Talk Package
+    ${PackageName}    Run Keyword If    "${ar_NType}" == "3PE"    Select Talk Plan Call To AIS BestValue Talk Package_3PE
+    ${PackageName}    Run Keyword If    "${ar_NType}" == "3BE"    Select Talk Plan Call To AIS BestValue Talk Package_3BE
+
+Select Talk Plan Call To AIS BestValue Talk Package_3BE
+    ${PackageName}    Get mobile text    ${lblBestValueTalkPackage}
+    Click Mobile Element    ${lblBestValueTalkPackage}
+    [Return]    ${PackageName}
+
+Verify Page Change Price Plan Talk Call To AIS Step 1 Select Package
+    [Arguments]    ${CustomerNumber}    ${PackageCategory}    ${PackageName}
+    Mobile element text should be    ${lblCustomerNumber}    ${CustomerNumber}
+    Mobile element text should be    ${lblPackageSelectedCategory}    ${PackageCategory}
+    Sleep    2
+    Mobile element text should be    ${lblBestValueTalkPackage}    ${BestValueTalkPackage}
+    Mobile check existing text    ${lblSelectedPackageDetail}
+    Mobile check existing text    ${lblSelectedPackageDetail}
+    Swipe to element    ${lblTermAndCondition}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnConfirmSelect}
+    Wait Mobile Until Element Visible    ${lblTermAndCondition}
+    Mobile Capture Screen At Verify Point    Change Price Plan Step 1
+
+Verify Page Change Price Plan IPE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Verify Page Change Price Plan Postpaid
+    Click Mobile Element    ${lblTalkplanSectionBuffet}
+    Mobile element text should be    ${lblTerm&Condition}    ${txtTerms&Conditions}
+    Mobile Capture Screen At Verify Point    Change Price Plan Select Package Page
+
+Verify Page Change Price Plan Talk Plan_IPE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblCatTalkPlan}    ${txtCatTalkPlan}
+    Mobile element text should be    ${lblTalkPlanBuffet}    ${txtTalkPlanBuffet}
+    Mobile element text should be    ${lblTalkPlanCallToAllNetworks}    ${txtTalkPlanCallToAllNetworks}
+    Mobile element text should be    ${lblTalkPlanCallToAIS}    ${txtTalkPlanCallToAIS}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Talk Plan

@@ -1,0 +1,39 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/DomesticPackage_ApplyOtherOnTopPackageRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/DomesticPackage_ApplyOtherOnTopPackageLocalized.txt
+
+*** Keywords ***
+Open And Verify SMS By Time
+    [Arguments]    ${messageExpect}    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}    ${timeout}
+    Open SMS App    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    Log    In Wait and Verify SMS By Time Out
+    Sleep    ${timeout}
+    Comment    Wait SMS    ${platformName}    ${totalSMS}    ${timeout}
+    @{unreadElements}    Aisappium Get Webelements    ${lblUnreadNumber}
+    : FOR    ${eachUnread}    IN    @{unreadElements}
+    \    ${number}=    Convert To Integer    ${eachUnread.get_attribute('text')}
+    Log To Console    'total sms:' ${number}
+    Comment    @{messages}=    Read SMS    ${platformName}    0614231950    ${number}
+    Log    In Mood Read SMS
+    @{emptyList}=    Create List
+    @{messages}=    Create List
+    @{senderNameElements}    AISAppiumEx.Get WebElements    ${lblSenderName}
+    : FOR    ${senderNameElement}    IN    @{senderNameElements}
+    \    ${senderName}=    Convert To String    ${senderNameElement.get_attribute('text')}
+    \    @{messages}=    Run Keyword If    '${senderName}' == 'AIS'    mood Collect SMS Message    ${senderNameElement}    ${number}
+    \    Run Keyword If    @{messages} != @{emptyList}    Exit For Loop
+    Run Keyword If    @{messages} == @{emptyList}    FAIL    Not found sender to read SMS
+    Mobile Capture Screen At Verify Point    Change Price Plan SMS
+    Press Keycode    4
+    Log    Out Mood Read SMS
+    ${lengthOfMsgExpect}    Get Length    ${messageExpect}
+    Log To Console    'Message Ex Amount:' ${lengthOfMsgExpect}
+    ${indexOfExpect}    Set Variable    0
+    : FOR    ${indexOfExpect}    IN RANGE    ${lengthOfMsgExpect}
+    \    log    'SMS:'${messages}
+    \    log    'Expect:'@{messageExpect}[${indexOfExpect}]
+    \    Verify SMS With Regex    ${messages}    @{messageExpect}[${indexOfExpect}]
+    \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
+    Log    Out Wait and Verify SMS By Time Out

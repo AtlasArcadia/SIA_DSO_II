@@ -1,0 +1,84 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/FAQ_InternationalRoamingLocalized.txt
+Resource          ../PageRepository/${ar_OS}/FAQ_InternationalRoamingRepository.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Select Help And Support Menu
+    Select Menu    HelpAndSupport
+
+Select International Roaming Submenu
+    Select Sub Menu    InternationalRoaming
+
+Verify International Roaming Menu Page
+    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTopic}
+    Mobile element name should be    ${lblInternationalRoaming}    ${txtInternationalRoaming}
+    Mobile element name should be    ${lblRoamingPackageAndServiceRate}    ${txtRoamingPackageAndServiceRates}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Menu
+
+Select into International Roaming
+    Click Mobile Element    ${lblInternationalRoaming}
+
+Verify International Roaming Question Page
+    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTopic}
+    Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question1}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question2}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question3}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question4}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question5}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Question
+
+Select International Roaming Question
+    [Arguments]    ${Q_Number}
+    Wait Mobile Until Page Contains Element    ${lblInternationalRoaming_Question${Q_Number}}
+    Click Mobile Element    ${lblInternationalRoaming_Question${Q_Number}}
+
+Verify International Roaming Asnwer Page
+    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTopic}
+    Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile check existing text in name    ${lblInternationalRoaming_Answer}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Asnwer
+
+Select Roaming Package & Roaming Services Rate
+    Click Mobile Element    ${lblRoamingPackageAndServiceRate}
+
+Verify Roaming Package & Roaming Service Rates Page
+    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTopic}
+    Mobile element name should be    ${lblRoamingPackageAndServiceRatesTiltle}    ${txtRoamingPackageAndServiceRatesTitle}
+    Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question1}
+    Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question2}
+    Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question3}
+    Mobile Capture Screen At Verify Point    Verify Roaming Package And Roaming Service Rates Page
+
+Select Roaming Package & Roaming Service Rates Question
+    [Arguments]    ${Q_Number}
+    Comment    Log To Console    ${lblInternationalRoaming_FAQ${FAQ_Number}}
+    Wait Mobile Until Page Contains Element    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}    name
+    Comment    Click Mobile Element At Position    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}    top    0.001
+    Click Mobile Element    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}
+    Comment    Click Mobile Element    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}
+
+Verify Roaming Package & Roaming Service Rates Answer Page
+    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTopic}
+    Mobile element name should be    ${lblRoamingPackageAndServiceRatesTiltle}    ${txtRoamingPackageAndServiceRatesTitle}
+    Verify Answer Text    ${lblRoamingPackageAndServiceRate_Answer1}
+    Mobile Capture Screen At Verify Point    Verify Roaming Package And Roaming Service Rates Answer Page
+
+Verify Answer Text
+    [Arguments]    ${locator}
+    ${ans}=    Get mobile attribute    ${locator}    name
+    log    ${ans}
+    ${verifyText}    Should Match Regexp    ${ans}    .+
+    log    ${verifyText}
+    Comment    Mobile Capture Screen At Verify Point    Answer Text

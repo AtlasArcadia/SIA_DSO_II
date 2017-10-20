@@ -1,0 +1,2446 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/TopUp.txt
+
+*** Test Cases ***
+[F1_Topup_1,3_1-2_Y_1_1] Verify page menu topup
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Verify "Top Up" page
+    ...    "Please select top up channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    - Refill Card
+    ...    "Enter destination number you wish to top up"
+    ...    "Select top up amount"
+    ...    6.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3. ตรวจสอบ เมนู "เติมเงิน"
+    ...    เลือกช่องทางการเติมเงิน"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    - mPAY Wallet
+    ...    - บัตรเติมเงิน
+    ...    "ระบุหมายเลขโทรศัพท์ที่ต้องการเติมเงิน"
+    ...    "เลือกจำนวนเงินที่ต้องการเติมเงิน"
+    ...    6.capture Screen
+    [Tags]    active    regression    success    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Verify Top Up Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_2_1] Top up to another number via credit card (visa)
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (VISA)
+    ...    5.Input destination number (prepaid)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up tp number
+    ...    - Amount
+    ...    9.Click "OK" button
+    ...    10. Verify "Bank" page (verify object in page)
+    ...    11.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (VISA)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (เป็นหมายเลข เอไอเอสในระบบเติมเงิน)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9.กดปุ่ม "ตกลง"
+    ...    10.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    ...    11.capture Screen
+    [Tags]    active    regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    VISA
+    Input Destination Number    ${AISNonbossPrepaidNumberProd}
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_3_1] Top up to another number via credit card (master)
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (MASTER)
+    ...    5.Input destination number (Prepaid)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up tp number
+    ...    - Amount
+    ...    9.Click "OK" button
+    ...    10. Verify "Bank" page (verify object in page)
+    ...    11.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (MASTER)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (เป็นหมายเลข เอไอเอสในระบบเติมเงิน)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9.กดปุ่ม "ตกลง"
+    ...    10.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    ...    11.capture Screen
+    [Tags]    active    regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    MASTER
+    Input Destination Number    ${AISNonbossPrepaidNumberProd}
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_4_1] Top up to another number via credit card (jcb)
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (JCB)
+    ...    5.Input destination number (Prepaid)
+    ...    6.Select \ top up amount
+    ...    9.Click "Next" button
+    ...    7.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up tp number
+    ...    - Amount
+    ...    8.Click "OK" button
+    ...    9. Verify "Bank" page (verify object in page)
+    ...    10.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (JCB)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (เป็นหมายเลข เอไอเอสในระบบเติมเงิน)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9.กดปุ่ม "ตกลง"
+    ...    10.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    ...    11.capture Screen
+    [Tags]    active    regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    JCB
+    Input Destination Number    ${AISNonbossPrepaidNumberProd}
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_5_1] Top up to another number via debit card
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Debit Card)
+    ...    4.Input destination number (Prepaid)
+    ...    5.Select \ top up amount
+    ...    6.Click "Next" button
+    ...    7.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up tp number
+    ...    - Amount
+    ...    8.Click "OK" button
+    ...    9. Verify "Bank" page (verify object in page)
+    ...    10.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเดบิต)
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงิน (เป็นหมายเลข เอไอเอสในระบบเติมเงิน)
+    ...    5.เลือกจำนวนเงินที่ต้องการเติม
+    ...    8.กดปุ่ม "ต่อไป"
+    ...    9.ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    10.กดปุ่ม "ตกลง"
+    ...    11.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    ...    12.capture Screen
+    [Tags]    active    regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    DebitCard
+    Input Destination Number    ${AISNonbossPrepaidNumberProd}
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Debit Card Page
+    Confirm Summary Top Up
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_6_1] Top up to another number via AIS refill card
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Check balance B \ :press *121# :
+    ...    2.Capture Screen
+    ...    3.Login to My AIS Application
+    ...    4.Click Menu " Top Up "
+    ...    5.Select Top up channels (Refill Card)
+    ...    6.Input Refill Card
+    ...    7Input destination number
+    ...    8.Click "Next" button
+    ...    9.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Top up to number
+    ...    - With PIN
+    ...    10.Click "OK" button
+    ...    11.Verify dialog message "Your requested transaction has been successfully processed. Please wait for a confirmation SMS."
+    ...    12.Verify SMS A 022719000 :You have successfully recharge 50 baht to 66935853282
+    ...
+    ...    Verify SMS B (AIS) :You have topped up 50.00Baht and your new balance is 267.30Baht and valid until 16/08/2017.
+    ...
+    ...    Verify SMS B 022719000 :66935853267 has recharged 50 baht for you, your current balance is 2781.51 baht,By this balance,your account will be expired on 15/12/2017
+    ...
+    ...    13.Capture Screen
+    ...    14.Check balance B : press *121# :
+    ...    15.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. ตรวจสอบยอด B เงินผ่าน *121# :
+    ...    2. Capture Screen
+    ...    3. Login เข้าสู่ระบบ My AIS
+    ...    4. กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน :บัตรเติมเงิน
+    ...    4.กรอกรหัสบัตรเติมเงิน
+    ...    7.กรอกหมายเลขที่ต้องการเติมเงิน (เป็นหมายเลข เอไอเอสในระบบเติมเงิน)
+    ...    8.กดปุ่ม "ต่อไป"
+    ...    9. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - รหัสบัตรเติมเงิน
+    ...    10. กดปุ่ม \ "ตกลง"
+    ...    11.Verify dialog message "ดำเนินการเรียบร้อยแล้ว
+    ...    กรุณารอรับ SMS เพื่อยืนยันการทำรายการ"
+    ...
+    ...    12.Verify SMS A 022719000 :You have successfully recharge 50 baht to 66935853282
+    ...
+    ...    Verify SMS B (AIS) : คุณได้เติมเงิน 50.00 บาท ยอดเงินคงเหลือคือ 267.30 บาท ใช้ได้ถึง 16/08/2017
+    ...
+    ...    Verify SMS B 022719000 :66935853267 has recharged 50 baht for you, your current balance is 2781.51 baht, By this balance, your account will be expired on 15/12/2017
+    ...    13.capture Screen
+    ...    14.ตรวจสอบยอดเงินผ่าน *121#
+    ...    15.Capture Screen
+    [Tags]    active    non_regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_2    ${ar_TAKE_TIMEOUT}    3PE=include
+    ...    DestinationNumber=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open Phone App    ${virtual_device_2_IPAppium}    ${virtual_device_2_Platfrom_Name}    ${virtual_device_2_Platfrom_Version}    ${virtual_device_2_SN}
+    ${DestinationNumber}    Get From Dictionary    ${virtual_device_2_Number}    3PE_DestinationNumber
+    ${Sim}    Get From Dictionary    ${virtual_device_2_Sim}    3PE_DestinationNumber
+    ${BalanceOld}    Check Balance    ${virtual_device_2_Platfrom_Name}    ${Sim}    1
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Correct PIN Card    4776938950613471
+    Input Destination Number    ${DestinationNumber}
+    Click Next Button
+    Verify Summary Of Topup With Refill Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${YourRequestedTransactionSuccess}
+    Run Keyword And Ignore Error    Logout
+    Sleep    3
+    ${RecipientNumber}    Replace String    ${DestinationNumber}    0    66    count=1
+    ${SenderNumber}    Replace String    ${Number}    0    66    count=1
+    ${SuccessfullyRecharge50Baht}    Replace String    ${SuccessfullyRecharge50Baht}    [DestinationNumber]    ${RecipientNumber}
+    ${MsgVerifySMSFromSystem}    Replace String    ${MsgVerifySMSFromSystem}    [SenderNumber]    ${SenderNumber}
+    Log    ${SuccessfullyRecharge50Baht}
+    Verify SMS Source Number    ${SuccessfullyRecharge50Baht}    ${virtual_device_1_Platfrom_Name}    1
+    Open SMS App    ${virtual_device_2_IPAppium}    ${virtual_device_2_Platfrom_Name}    ${virtual_device_2_Platfrom_Version}    ${virtual_device_2_SN}
+    Verify SMS Destination Number From AIS    ${MsgVerifySMSFromAIS}    ${virtual_device_2_Platfrom_Name}    1
+    Verify SMS Destination Number From System    ${MsgVerifySMSFromSystem}    ${virtual_device_2_Platfrom_Name}    1
+    ${appiumInfo}    Open Phone App    ${virtual_device_2_IPAppium}    ${virtual_device_2_Platfrom_Name}    ${virtual_device_2_Platfrom_Version}    ${virtual_device_2_SN}
+    ${BalanceNew}    Check Balance    ${virtual_device_2_Platfrom_Name}    ${Sim}    2
+    Check Balance New More than Balance Old    ${BalanceOld}    ${BalanceNew}
+    [Teardown]    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_7_1] Top up to another number via credit card not select card type
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Not Select card type
+    ...    5.Input destination number (prepaid)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please select the type card."
+    ...    9.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.ไม่เลือกประเภทบัตร
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (เป็นหมายเลข เอไอเอสในระบบเติมเงิน)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "กรุณาเลือกประเภทบัตร"
+    ...    บัตรเติมเงิน
+    ...    9.capture Screen
+    [Tags]    active    regression    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Input Destination Number    ${AISNonbossPrepaidNumberProd}
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog Message    ${PleaseSelectTheType Card}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_8_1] Top up to another number via AIS refill card not input refill card
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Refill Card)
+    ...    4.Not input Refill Card
+    ...    5.Input destination number
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please enter a 16 gigits PIN code."
+    ...    9.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเติมเงิน )
+    ...    4.ไม่กรอกรหัสบัตรเติมเงิน
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (เป็นหมายเลข เอไอเอสในระบบเติมเงิน)
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7.ตรวจสอบ dialog message "กรุณาระบุรหัสบัตรเติมเงิน 16 หลัก"
+    ...    8.capture Screen
+    [Tags]    active    regression    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Destination Number    ${AISNonbossPrepaidNumberProd}
+    Click Next Button
+    Verify Dialog Message    ${PleaseEnter16DigitsPINCode}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_9_1] Top up to another number via AIS Refill card input wrong refill card
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Refill Card)
+    ...    4.Input Refill Card \ (Wrong Refill Card)
+    ...    5.Input destination number
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Your have entered incorrect PIN code.Please try again"
+    ...    9.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเติมเงิน )
+    ...    4.กรอกรหัสบัตรเติมเงินผิด
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (เป็นหมายเลข เอไอเอสในระบบเติมเงิน)
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7.ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - รหัสบัตรเติมเงิน
+    ...    8.กดปุ่ม "ตกลง"
+    ...    9.ตรวจสอบ dialog message "คุณระบุหมายเลข PIN ไม่ถูกต้อง กรุณาระบุใหม่อีกครั้ง"
+    ...    10.capture Screen
+    [Tags]    active    regression    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Wrong PIN Card
+    Input Destination Number    0925380508
+    Click Next Button
+    Verify Summary of Topup With Refill Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message By Match Regular    ${YourHaveEnteredIncorrectPINCode}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_10_1] Top up to another number via credit card (VISA) not input destination number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (VISA)
+    ...    5.Not input destination number (Prepaid)
+    ...    6.Select top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please enter the destination number for top up."
+    ...    9.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (VISA)
+    ...    5.ไม่กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ ที่คุณต้องการเติมเงิน"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    VISA
+    Clear Destination Number Field
+    #Not input destination number
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog Please Input Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_11_1] Top up to another number via credit card (MASTER) not input destination number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (MASTER)
+    ...    5.Not input destination number (Prepaid)
+    ...    6.Select top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please enter the destination number for top up."
+    ...    9.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (MASTER)
+    ...    5.ไม่กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ ที่คุณต้องการเติมเงิน"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    MASTER
+    Clear Destination Number Field
+    #Not input destination number
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog Please Input Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_12_1] Top up to another number via credit card (JCB) not input destination number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (JCB)
+    ...    5.Not input destination number (Prepaid)
+    ...    6.Select top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please enter the destination number for top up."
+    ...    9.Capture Screen
+    ...
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (JCB)
+    ...    5.ไม่กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ ที่คุณต้องการเติมเงิน"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    JCB
+    Clear Destination Number Field
+    #Not input destination number
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog Please Input Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_13_1] Top up to another number via debit card not input destination number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Debit Card)
+    ...    4.Not input destination number (Prepaid)
+    ...    5.Select top up amount
+    ...    6.Click "Next" button
+    ...    7.Verify dialog message "Please enter the destination number for top up."
+    ...    8.Capture Screen
+    ...
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเดบิต)
+    ...    4.ไม่กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    5.เลือกจำนวนเงินที่ต้องการเติม
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ ที่คุณต้องการเติมเงิน"
+    ...    8.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    DebitCard
+    Clear Destination Number Field
+    #Not input destination number
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog Please Input Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1_1_Y_1_14]
+    Should Match Regexp    คุณได้เติมเงิน 50.00บาท ยอดเงินคงเหลือคือ 2502.90บาท ใช้ได้ถึง 03/05/2561    คุณได้เติมเงิน 50.00บาท ยอดเงินคงเหลือคือ [0-9.]*บาท ใช้ได้ถึง \\d\\d\/\\d\\d\/\\d\\d\\d\\d
+
+[F1_Topup_1,3_1-2_N_15_1] Top up to another number via AIS refill card not input destination number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Refill Card)
+    ...    4.Input Refill Card
+    ...    5.Not input destination number
+    ...    6.Click "Next" button
+    ...    7.Verify dialog message "Please enter the destination number for top up."
+    ...    8.Capture Screen
+    ...
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเติมเงิน )
+    ...    4.กรอกรหัสบัตรเติมเงิน
+    ...    5.ไม่กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ ที่คุณต้องการเติมเงิน"
+    ...    8.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Pin Code    4634816296703751
+    #Not input destination number
+    Clear Destination Number Field
+    Click Next Button
+    Verify Dialog Please Input Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_16_1] Top up to another number via credit card (VISA) input number wrong digits
+    [Documentation]    **Owner:tik**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (VISA)
+    ...    5.Input destination number wrong digits (Prepaid)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please specify a 10-digit mobile number"
+    ...    9.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (VISA)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงินไม่ครบ 10 หลัก
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ เป็นตัวเลข 10 หลัก"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    VISA
+    Clear Destination Number Field
+    input destination number    098276544
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog Please Enter Phone 10 Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_17_1] Top up to another number via credit card (MASTER) input number wrong digits
+    [Documentation]    **Owner:tik**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (MASTER)
+    ...    5.Input destination number wrong digits (Prepaid)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please specify a 10-digit mobile number"
+    ...    9.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (MASTER)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงินไม่ครบ 10 หลัก
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ เป็นตัวเลข 10 หลัก"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    MASTER
+    Clear Destination Number Field
+    input destination number    098276544
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog Please Enter Phone 10 Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_18_1] Top up to another number via credit card (JCB) input number wrong digits
+    [Documentation]    **Owner:tik**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (JCB)
+    ...    5.Input destination number wrong digits (Prepaid)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please specify a 10-digit mobile number"
+    ...    9.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (JBC)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงินไม่ครบ 10 หลัก
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ เป็นตัวเลข 10 หลัก"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    JCB
+    Clear Destination Number Field
+    input destination number    098276544
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog Please Enter Phone 10 Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_19_1] Top up to another number via debit card input number wrong digits
+    [Documentation]    **Owner:tik**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Debit Card)
+    ...    4.Input destination number wrong digits (Prepaid)
+    ...    5.Select \ top up amount
+    ...    6.Click "Next" button
+    ...    7.Verify dialog message "Please specify a 10-digit mobile number"
+    ...    8.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเดบิต)
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงินไม่ครบ 10 หลัก
+    ...    5.เลือกจำนวนเงินที่ต้องการเติม
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ เป็นตัวเลข 10 หลัก"
+    ...    8.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    DebitCard
+    Clear Destination Number Field
+    input destination number    098276544
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog Please Enter Phone 10 Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1_1_Y_1_20]
+
+[F1_Topup_1,3_1-2_N_21_1] Top up to another number via AIS refill card input number wrong digits
+    [Documentation]    **Owner:tik**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Refill Card)
+    ...    4.Input Refill Card
+    ...    5.Input destination number wrong digits (Prepaid)
+    ...    6.Click "Next" button
+    ...    7.Verify dialog message Verify dialog message "Please specify a 10-digit mobile number"
+    ...    8Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเติมเงิน )
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงินไม่ครบ 10 หลัก
+    ...    5.กดปุ่ม "ต่อไป"
+    ...    6.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ เป็นตัวเลข 10 หลัก"
+    ...    7.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Pin Code    4622642986233221
+    Clear Destination Number Field
+    input destination number    098276544
+    Click Next Button
+    Verify Dialog Please Enter Phone 10 Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_22_1] Top up to another number via credit card (VISA) input wrong format (eg. 66xxxxxxxxx)
+    [Documentation]    **Owner:It**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (VISA)
+    ...    5.Input destination number wrong format (Prepaid)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "You have entered invalid mobile number."
+    ...    9.Capture
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (VISA)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน ex. 66xxxxx
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "คุณระบุหมายเลขโทรศัพท์ไม่ถูกต้อง"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    VISA
+    Clear Destination Number Field
+    input destination number    66982765443
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog You Provided Invalid Phone Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_23_1] Top up to another number via credit card (MASTER) input wrong format (eg. 66xxxxxxxxx)
+    [Documentation]    **Owner:It**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (MASTER)
+    ...    5.Input destination number wrong format (Prepaid)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "You have entered invalid mobile number."
+    ...    9.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (MASTER)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน ex. 66xxxxx
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message \ "คุณระบุหมายเลขโทรศัพท์ไม่ถูกต้อง"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    MASTER
+    Clear Destination Number Field
+    input destination number    66982765443
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog You Provided Invalid Phone Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_24_1] Top up to another number via credit card (JCB) input wrong format (eg. 66xxxxxxxxx)
+    [Documentation]    **Owner:It**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (JCB)
+    ...    5.Input destination number wrong format (Prepaid)
+    ...    6.Select top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "You have entered invalid mobile number."
+    ...    9.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (JCB)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน ex. 66xxxxx
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "คุณระบุหมายเลขโทรศัพท์ไม่ถูกต้อง"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    JCB
+    Clear Destination Number Field
+    input destination number    66982765443
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog You Provided Invalid Phone Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_25_1] Top up to another number via debit card input wrong format (eg. 66xxxxxxxxx)
+    [Documentation]    **Owner:It**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Debit Card)
+    ...    4.Input destination number wrong format (Prepaid)
+    ...    5.Select \ top up amount
+    ...    6.Click "Next" button
+    ...    7.Verify dialog message "You have entered invalid mobile number."
+    ...    8.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเดบิต)
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงิน ex. 66xxxxx
+    ...    5.เลือกจำนวนเงินที่ต้องการเติม
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7.ตรวจสอบ dialog message \ "คุณระบุหมายเลขโทรศัพท์ไม่ถูกต้อง"
+    ...    8.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    Debit Card
+    Clear Destination Number Field
+    input destination number    66982765443
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Dialog You Provided Invalid Phone Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1_1_Y_1_26]
+
+[F1_Topup_1,3_1-2_N_27_1] Top up to another number via AIS refill card input wrong format (eg. 66xxxxxxxxx)
+    [Documentation]    **Owner:It**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    4.Select Top up channels (Refill Card)
+    ...    5.Input Refill Card
+    ...    6.Input destination number wrong format (Prepaid)
+    ...    7.Select \ top up amount
+    ...    8.Click "Next" button
+    ...    9.Verify dialog message "You have entered invalid mobile number."
+    ...    10.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน \ :บัตรเติมเงิน
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงิน ex. 66xxxxx
+    ...    5.กดปุ่ม "ต่อไป"
+    ...    6.ตรวจสอบ dialog message \ "กรุณาระบุหมายเลขโทรศัพท์ เป็นตัวเลข 10 หลัก"
+    ...    7.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Pin Code    4622642986233221
+    Clear Destination Number Field
+    input destination number    6698276544
+    Click Next Button
+    Verify Dialog You Provided Invalid Phone Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_28_1] Top up to another number via credit card (VISA) not select top up amount
+    [Documentation]    **Owner:It**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (VISA)
+    ...    5.Input destination number (Prepaid)
+    ...    6.Not select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Select top up amount"
+    ...    9.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (VISA)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.ไม่เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message"เลือกจำนวนเงินที่ต้องการเติม"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    VISA
+    Clear Destination Number Field
+    input destination number    0982765443
+    Click Next Button
+    Verify Not Select Top Up
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_29_1] Top up to another number via credit card (MASTER) not select top up amount
+    [Documentation]    **Owner:It**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (MASTER)
+    ...    5.Input destination number (Prepaid)
+    ...    6.Not select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Select top up amount"
+    ...    9.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (MASTER)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.ไม่เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message"เลือกจำนวนเงินที่ต้องการเติม"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    MASTER
+    Clear Destination Number Field
+    input destination number    0982765443
+    Click Next Button
+    Verify Not Select Top Up
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_30_1] Top up to another number via credit card (JCB) not select top up amount
+    [Documentation]    **Owner:tik**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    4.Select Top up channels (Refill Card)
+    ...    5.Input Refill Card
+    ...    6.Input destination number wrong format (Prepaid)
+    ...    7.Select \ top up amount
+    ...    8.Click "Next" button
+    ...    9.Verify dialog message "You have entered invalid mobile number."
+    ...    10.Capture Screen
+    ...
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (JCB)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.ไม่เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message"เลือกจำนวนเงินที่ต้องการเติม"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    JCB
+    Clear Destination Number Field
+    input destination number    0982765443
+    Click Next Button
+    Verify Not Select Top Up
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_31_1] Top up to another number via debit card not select top up amount
+    [Documentation]    **Owner:tik**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Debit Card)
+    ...    4.Input destination number (Prepaid)
+    ...    5.Not select \ top up amount
+    ...    6.Click "Next" button
+    ...    7.Verify dialog message "Select top up amount"
+    ...    8.Capture Screen
+    ...
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเดบิต)
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    5.ไม่เลือกจำนวนเงินที่ต้องการเติม
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7.ตรวจสอบ dialog message"เลือกจำนวนเงินที่ต้องการเติม"
+    ...    8.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    Debit Card
+    Clear Destination Number Field
+    input destination number    0982765443
+    Click Next Button
+    Verify Not Select Top Up
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1_1_Y_1_32]
+
+[F1_Topup_1,3_1-2_N_33_1] Top up to another number via credit card (VISA) input AIS postpaid number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (VISA)
+    ...    5.Input destination number (Postpaid Number)
+    ...    6.Select top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up to number
+    ...    - Amount
+    ...    9.Click "OK"button
+    ...    10.Verify dialog message "Your request is not completed because the destination number is not in One-2-Call! network."
+    ...    11.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (VISA)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (AIS Postpaid Number)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9. กดปุ่ม "ตกลง"
+    ...    10.ตรวจสอบ dialog message"คุณไม่สามารถเติมเงินได้ เนิ่องจากหมายเลขปลางทางไม่ได่อยู่ในระบบ One-2-Call!"
+    ...    11.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    VISA
+    Clear Destination Number Field
+    Input Destination Number    ${AISPostpaidNumber}
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${DestinationNumberNotOne2CallNetwork}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_34_1] Top up to another number via credit card (MASTER) input AIS postpaid number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (MASTER)
+    ...    5.Input destination number (Postpaid Number)
+    ...    6.Select top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up to number
+    ...    - Amount
+    ...    9.Click "OK"button
+    ...    10.Verify dialog message "Your request is not completed because the destination number is not in One-2-Call! network."
+    ...    11.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (Master)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (AIS Postpaid Number)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9 กดปุ่ม "ตกลง"
+    ...    10.ตรวจสอบ dialog message"คุณไม่สามารถเติมเงินได้ เนิ่องจากหมายเลขปลางทางไม่ได่อยู่ในระบบ One-2-Call!"
+    ...    11.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    MASTER
+    Clear Destination Number Field
+    Input Destination Number    ${AISPostpaidNumber}
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${DestinationNumberNotOne2CallNetwork}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_35_1] Top up to another number via credit card (JCB) input AIS postpaid number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (JCB)
+    ...    5.Input destination number (Postpaid Number)
+    ...    6.Select top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up to number
+    ...    - Amount
+    ...    9.Click "OK"button
+    ...    10.Verify dialog message "Your request is not completed because the destination number is not in One-2-Call! network."
+    ...    11.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (JCB)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (AIS Postpaid Number)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9. กดปุ่ม "ตกลง"
+    ...    10.ตรวจสอบ dialog message"คุณไม่สามารถเติมเงินได้ เนิ่องจากหมายเลขปลางทางไม่ได่อยู่ในระบบ One-2-Call!"
+    ...    11.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    JCB
+    Clear Destination Number Field
+    Input Destination Number    ${AISPostpaidNumber}
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${DestinationNumberNotOne2CallNetwork}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_N_36_1] Top up to another number via debit card input AIS postpaid number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Debit Card)
+    ...    4.Input destination number (Postpaid Number)
+    ...    5.Select top up amount
+    ...    6.Click "Next" button
+    ...    7.Verify "Summary of top up" page
+    ...    - Top up channel
+    ...    - Top up to number
+    ...    - Amount
+    ...    8.Click "OK"button
+    ...    9.Verify dialog message "Your request is not completed because the destination number is not in One-2-Call! network."
+    ...    10.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเดบิต)
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงิน (AIS Postpaid Number)
+    ...    5.เลือกจำนวนเงินที่ต้องการเติม
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    8. กดปุ่ม "ตกลง"
+    ...    9.ตรวจสอบ dialog message"คุณไม่สามารถเติมเงินได้ เนิ่องจากหมายเลขปลางทางไม่ได่อยู่ในระบบ One-2-Call!"
+    ...    10.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    DebitCard
+    Clear Destination Number Field
+    Input Destination Number    ${AISPostpaidNumber}
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Debit Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${DestinationNumberNotOne2CallNetwork}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1_1_Y_1_37]
+
+[F1_Topup_1,3_1-2_Y_38_1] Top up to another number via AIS refill card input AIS postpaid number
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Refill Card)
+    ...    4.Input Refill Card
+    ...    5.Input destination number (Postpais Number)
+    ...    6.Click "Next" button
+    ...    7.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Top up to number
+    ...    - With PIN
+    ...    8.Click "OK" button
+    ...    9.Verify dialog message "Your request is not completed because the destination number is not in One-2-Call! network."
+    ...    10.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเติมเงิน )
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงิน (AIS postpaid)
+    ...    5.เลือกจำนวนเงินที่ต้องการเติม
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - รหัสบัตรเติมเงิน
+    ...    8.ตรวจสอบ dialog message"คุณไม่สามารถเติมเงินได้ เนิ่องจากหมายเลขปลางทางไม่ได่อยู่ในระบบ One-2-Call!"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Pin Code    4622642986233221
+    Clear Destination Number Field
+    Input Destination Number    ${AISPostpaidNumber}
+    Click Next Button
+    Verify Summary Of Topup With Refill Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${DestinationNumberNotOne2CallNetwork}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_39_1] Top up to another number via credit card (VISA) input other network number (Non AIS)
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (VISA)
+    ...    5.Input destination number (Non-AIS Number)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up to number
+    ...    - Amount
+    ...    9.Click "OK"button
+    ...    10.Verify dialog message "The number must be an AIS mobile number only.Please enter a new number."
+    ...    11.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (VISA)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (Non AIS)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9. กดปุ่ม \ "ตกลง"
+    ...    10.ตรวจสอบ dialog message"บริการนี้สำหรับลูกค้าเอไอเอสเท่านั้น
+    ...    กรุณาระบุหมายเลขเอไอเอสใหม่อีกครั้ง"
+    ...    11.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    VISA
+    Clear Destination Number Field
+    Input Destination Number    ${DtacNumber}    #Dtac Number
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Number Must Be AIS Mobile Number    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_40_1] Top up to another number via credit card (MASTER) input other network number (Non AIS)
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (MASTER)
+    ...    5.Input destination number (Non-AIS Number)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up to number
+    ...    - Amount
+    ...    9.Click "OK"button
+    ...    10.Verify dialog message "The number must be an AIS mobile number only.Please enter a new number."
+    ...    11.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (Master)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (Non AIS)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9. กดปุ่ม \ "ตกลง"
+    ...    10.ตรวจสอบ dialog message"บริการนี้สำหรับลูกค้าเอไอเอสเท่านั้น
+    ...    กรุณาระบุหมายเลขเอไอเอสใหม่อีกครั้ง"
+    ...    11.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    MASTER
+    Clear Destination Number Field
+    Input Destination Number    ${DtacNumber}    #Dtac Number
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Number Must Be AIS Mobile Number    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_41_1] Top up to another number via credit card (JCB) input other network number (Non AIS)
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (JCB)
+    ...    5.Input destination number (Non-AIS Number)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up to number
+    ...    - Amount
+    ...    9.Click "OK"button
+    ...    10.Verify dialog message "The number must be an AIS mobile number only.Please enter a new number."
+    ...    11.Capture Screen
+    ...
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (JCB)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (Non AIS)
+    ...    6.เลือกจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9. กดปุ่ม \ "ตกลง"
+    ...    10.ตรวจสอบ dialog message"บริการนี้สำหรับลูกค้าเอไอเอสเท่านั้น
+    ...    กรุณาระบุหมายเลขเอไอเอสใหม่อีกครั้ง"
+    ...    11.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    JCB
+    Clear Destination Number Field
+    Input Destination Number    ${DtacNumber}    #Dtac Number
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Number Must Be AIS Mobile Number    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_42_1] Top up to another number via debit card input other network number (Non AIS)
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Debit Card)
+    ...    4.Input destination number (Non-AIS Number)
+    ...    5.Select \ top up amount
+    ...    6.Click "Next" button
+    ...    7.Verify "Summary of top up" page
+    ...    - Top up channel
+    ...    - Top up to number
+    ...    - Amount
+    ...    8.Click "OK"button
+    ...    9.Verify dialog message "The number must be an AIS mobile number only.Please enter a new number."
+    ...    10.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเดบิต)
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงิน (Non AIS)
+    ...    5.เลือกจำนวนเงินที่ต้องการเติม
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    8. กดปุ่ม \ "ตกลง"
+    ...    9.ตรวจสอบ dialog message"บริการนี้สำหรับลูกค้าเอไอเอสเท่านั้น
+    ...    กรุณาระบุหมายเลขเอไอเอสใหม่อีกครั้ง"
+    ...    10.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    DebitCard
+    Clear Destination Number Field
+    Input Destination Number    ${DtacNumber}    #Dtac Number
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Debit Card Page
+    Confirm Summary Top Up
+    Verify Number Must Be AIS Mobile Number    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1_1_Y_1_43]
+
+[F1_Topup_1,3_1-2_Y_44_1] Top up to another number via AIS refill card input other network Number (non AIS)
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Refill Card)
+    ...    4.Input Refill Card
+    ...    5.Input destination number (Non-AIS Number)
+    ...    6.Click "Next" button
+    ...    7.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Top up to number
+    ...    - With PIN
+    ...    8.Click "OK" button
+    ...    9.Verify dialog message "The number must be an AIS mobile number only.Please enter a new number."
+    ...    10.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน :บัตรเติมเงิน
+    ...    4.กรอกรหัสบัตรเติมเงิน
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน (กรอกหมายเลขต่างเครือข่าย)
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - รหัสบัตรเติมเงิน
+    ...    8.ตรวจสอบ dialog message"คุณไม่สามารถเติมเงินได้เนื่องจากหมายเลขปลายทางไม่ได้อยู่ในระบบ"
+    ...    9.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Pin Code    4622642986233221
+    Clear Destination Number Field
+    Input Destination Number    ${DtacNumber}    #Dtac Number
+    Click Next Button
+    Verify Summary Of Topup With Refill Card Page
+    Confirm Summary Top Up
+    Verify Number Must Be AIS Mobile Number    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_45_1] Top up to another via credit card (VISA) number destination number has max balance
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (VISA)
+    ...    5.Input destination number (AIS Number Max Balance)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up to number
+    ...    - Amount
+    ...    9.Click "OK"button
+    ...    10.Verify dialog message "Your top up cannot be processed at this time due to the remaining balance of destination number has been exceeded the allowing limit(One-2-Call! 5,000 B. / Sawasdee 3,000 B.)"
+    ...    11.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (VISA)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.ระบุจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9. กดปุ่ม \ "ตกลง"
+    ...    10.ตรวจสอบ dialog message"ไม่สามารถเติมเงินให้หมายเลขปลายทางได้ เนื่องหมายเลขนี้มียอดเงินคงเหลือเกินวงเงินที่กำหนด(วัน-ทู-คอล! 5,000 บาท / สวัสดี 3,000บาท)"
+    ...    11. กดปุ่ม \ "ตกลง"
+    ...    12.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    VISA
+    Clear Destination Number Field
+    Input Destination Number    0925890140    #Max Balance
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${TopUpCannotProcessDueToMaxBalance}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_46_1] Top up to another via credit card (MASTER) number destination number has max balance
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (MASTER)
+    ...    5.Input destination number (AIS Number Max Balance)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up to number
+    ...    - Amount
+    ...    9.Click "OK"button
+    ...    10.Verify dialog message "Your top up cannot be processed at this time due to the remaining balance of destination number has been exceeded the allowing limit(One-2-Call! 5,000 B. / Sawasdee 3,000 B.)"
+    ...    11.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (MASTER)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.ระบุจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9. กดปุ่ม \ "ตกลง"
+    ...    10.ตรวจสอบ dialog message"ไม่สามารถเติมเงินให้หมายเลขปลายทางได้ เนื่องหมายเลขนี้มียอดเงินคงเหลือเกินวงเงินที่กำหนด(วัน-ทู-คอล! 5,000 บาท / สวัสดี 3,000บาท)"
+    ...    11. กดปุ่ม \ "ตกลง"
+    ...    12.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    MASTER
+    Clear Destination Number Field
+    Input Destination Number    0925890140    #Max Balance
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${TopUpCannotProcessDueToMaxBalance}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_47_1] Top up to another via credit card (JCB) number destination number has max balance
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Credit Card)
+    ...    4.Select card type (JCB)
+    ...    5.Input destination number (AIS Number Max Balance)
+    ...    6.Select \ top up amount
+    ...    7.Click "Next" button
+    ...    8.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up to number
+    ...    - Amount
+    ...    9.Click "OK"button
+    ...    10.Verify dialog message "Your top up cannot be processed at this time due to the remaining balance of destination number has been exceeded the allowing limit(One-2-Call! 5,000 B. / Sawasdee 3,000 B.)"
+    ...    11.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเครดิต)
+    ...    4.เลือกประเภทบัตร (JCB)
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.ระบุจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - ประเภทบัตร
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9. กดปุ่ม \ "ตกลง"
+    ...    10.ตรวจสอบ dialog message"ไม่สามารถเติมเงินให้หมายเลขปลายทางได้ เนื่องหมายเลขนี้มียอดเงินคงเหลือเกินวงเงินที่กำหนด(วัน-ทู-คอล! 5,000 บาท / สวัสดี 3,000บาท)"
+    ...    11. กดปุ่ม \ "ตกลง"
+    ...    12.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    CreditCard
+    Select Card Type    JCB
+    Clear Destination Number Field
+    Input Destination Number    0925890140    #Max Balance
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Credit Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${TopUpCannotProcessDueToMaxBalance}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_48_1] Top up to another via debit card number destination number has max balance
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (Debit Card)
+    ...    4.Input destination number (AIS Number Max Balance)
+    ...    5.Select top up amount
+    ...    6.Click "Next" button
+    ...    7.Verify "Summary of top up" page
+    ...    - Top up channel
+    ...    - Top up to number
+    ...    - Amount
+    ...    8.Click "OK"button
+    ...    9.Verify dialog message "Your top up cannot be processed at this time due to the remaining balance of destination number has been exceeded the allowing limit(One-2-Call! 5,000 B. / Sawasdee 3,000 B.)"
+    ...    10.Capture Screen
+    ...
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเดบิต)
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    5.ระบุจำนวนเงินที่ต้องการเติม
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    8. กดปุ่ม \ "ตกลง"
+    ...    11.ตรวจสอบ dialog message"ไม่สามารถเติมเงินให้หมายเลขปลายทางได้ เนื่องหมายเลขนี้มียอดเงินคงเหลือเกินวงเงินที่กำหนด(วัน-ทู-คอล! 5,000 บาท / สวัสดี 3,000บาท)"
+    ...    9. กดปุ่ม \ "ตกลง"
+    ...    10.capture Screen
+    [Tags]    active    fail    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    DebitCard
+    Clear Destination Number Field
+    Input Destination Number    0925890140    #Max Balance
+    Select TopUp With Minimum Amount    #50 Baht
+    Click Next Button
+    Verify Summary Top Up Debit Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${TopUpCannotProcessDueToMaxBalance}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1_1_Y_1_49]
+
+[F1_Topup_1,3_1-2_Y_50_1] Top up to another via AIS refill card number destination number has max balance
+    [Documentation]    **Owner:Oum**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    Update 07/06/2016
+    ...    This case have to use active refill-card ID ,but there's no more active refill card ID >> non_regression
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    5.Select Top up channels (Refill Card)
+    ...    6.Input destination number (AIS Number Max Balance)
+    ...    7.Select \ top up amount
+    ...    8.Click "Next" button
+    ...    9.Verify "Summary of top up" page
+    ...    - Top up channel
+    ...    - Top up to number
+    ...    - Amount
+    ...    10.Click "OK"button
+    ...    11.Verify dialog message "Your top up cannot be processed at this time due to the remaining balance of destination number has been exceeded the allowing limit(One-2-Call! 5,000 B. / Sawasdee 3,000 B.)"
+    ...    12.Capture Screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (บัตรเติมเงิน )
+    ...    4.กรอกหมายเลขบัตรประชาชน
+    ...    5.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    6.ระบุจำนวนเงินที่ต้องการเติม
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    9. กดปุ่ม "ตกลง"
+    ...    10.ตรวจสอบ dialog message"ไม่สามารถเติมเงินให้หมายเลขปลายทางได้ เนื่องหมายเลขนี้มียอดเงินคงเหลือเกินวงเงินที่กำหนด(วัน-ทู-คอล! 5,000 บาท / สวัสดี 3,000บาท)"
+    ...    11 กดปุ่ม "ตกลง"
+    ...    12.capture Screen
+    [Tags]    active    fail    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Pin Code    4645262631491325    #used refill card
+    Clear Destination Number Field
+    Input Destination Number    0925890140    #Max balance
+    Click Next Button
+    Verify Summary Of Topup With Refill Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${TopUpCannotProcessDueToMaxBalance}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_51_1] Top up to another number Don't have service mPAY
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu " Top Up "
+    ...    3.Select Top up channels (mPAY Wallet)
+    ...    4.Input destination number (Prepaid)
+    ...    5.Select \ top up amount
+    ...    6.Click "Next" button
+    ...    7.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Card type
+    ...    - Top up tp number
+    ...    - Amount
+    ...    8.Click "OK" button
+    ...    9.Verify "mPAY" page (verify object in page)
+    ...    10.Login to mPAY
+    ...    - Input number
+    ...    11.Verify error message "REOTP-CustomerId is null" at mPAY page
+    ...    12.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน (mPAY Wallet)
+    ...    4.กรอกหมายเลขที่ต้องการเติมเงิน
+    ...    5.เลือกจำนวนเงินที่ต้องการเติม
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - จำนวนเงิน
+    ...    8. กดปุ่ม \ "ตกลง"
+    ...    9.ตรวจสอบหน้า "mPAY"
+    ...    10.ล๊อคอิน mPAY
+    ...    - กรอกหมายเลขโทรศัพท์ (โดยปกติแล้วระบบจะทำการ auto detect หมายเลขโทรศัพท์เองอยู่แล้ว)
+    ...    11.กดปุ่ม "ตกลง"
+    ...    12.ตรวจสอบ Error message "RE-OTP-ไม่พบข้อมูลในระบบ" ที่หน้า mPAY
+    ...    13.capture Screen
+    [Tags]    active    regression    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    mPAYWallet
+    Input Destination Number    ${AISNonbossPrepaidNumberProd}
+    Select TopUp With Minimum Amount
+    Click Next Button
+    Verify Summary of Topup With mPay Page
+    Confirm Summary Top Up
+    Verify Login mPay Page
+    Input Number Login mPay    ${Number}
+    Sleep    10    #protect slow load
+    Verify Error Message Login mPay    ${ErrorMessagemPay}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Topup_1,3_1-2_Y_52_1] Top up to your own number via AIS refill card
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...
+    ...    *Test Step--EN*
+    ...    1.Check balance press *121# :
+    ...    2.Capture Screen
+    ...    3.Login to My AIS Application
+    ...    4.Click Menu " Top Up "
+    ...    5.Select Top up channels (Refill Card)
+    ...    6.Input Refill Card
+    ...    7.Verify destination number
+    ...    8.Click "Next" button
+    ...    9.Verify "summary of top up" page
+    ...    - Top up channel
+    ...    - Top up to number
+    ...    - With PIN
+    ...    10.Click "OK" button
+    ...    11.Verify dialog message "Transaction processed successfully.
+    ...    Please for a confirmation SMS.."
+    ...    12.Verify SMS : You have topped up 50.00Baht and your new balance is 267.30Baht and valid until 16/08/2017.
+    ...
+    ...    13.Capture Screen
+    ...    14.Check balance press *121# :
+    ...    15.Capture Screen
+    ...
+    ...    *Test Step--TH*
+    ...
+    ...    1. ตรวจสอบยอดเงินผ่าน *121#
+    ...    2. Capture Screen
+    ...    3. Login เข้าสู่ระบบ My AIS
+    ...    4. กดเมนู "เติมเงิน"
+    ...    3.เลือกช่องทางการเติมเงิน :บัตรเติมเงิน
+    ...    4.กรอกรหัสบัตรเติมเงิน :
+    ...    7.Verify เบอร์ที่ต้องการเติมเงินเป็นเบอร์ที่ใช้ log in ใน App
+    ...    8.กดปุ่ม "ต่อไป"
+    ...    9. ตรวจสอบหน้า "สรุปรายละเอียดการเติมเงิน"
+    ...    - ช่องทางการเติมเงิน
+    ...    - หมายเลขที่ต้องการเติมเงิน
+    ...    - รหัสบัตรเติมเงิน
+    ...
+    ...    10. กดปุ่ม \ "ตกลง"
+    ...    11.ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุณารอรับ SMS เพื่อยืนยันการทำรายการ"
+    ...    12.Verify SMS(AIS) : คุณได้เติมเงิน 50.00บาท ยอดเงินคงเหลือคือ 267.30บาท ใช้ได้ถึง 16/08/2017
+    ...    13.capture Screen
+    ...    14.ตรวจสอบยอดเงินผ่าน *121#
+    ...    For other menu, press 9.
+    ...    15.Capture Screen
+    [Tags]    active    non_regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Take And Define PIN Card Top Up    ${lo_MyAIS_Prod_PIN_Card_TopUp}    PIN_Card_TopUp_1    ${ar_TAKE_TIMEOUT}    PINCard=include
+    Log    ${PIN_Card_TopUp_1_PINCard}
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${Sim}    Get From Dictionary    ${virtual_device_1_Sim}    ${ar_NType}
+    ${appiumInfo}    Open Phone App    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    ${BalanceOld}    Check Balance    ${virtual_device_1_Platfrom_Name}    ${Sim}    1
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    RefillCard
+    Input Correct PIN Card    ${PIN_Card_TopUp_1_PINCard}
+    Input Destination Number    ${Number}
+    Click Next Button
+    Verify Summary Of Topup With Refill Card Page
+    Confirm Summary Top Up
+    Verify Dialog Message    ${TransactionSuccessTopupYourOwn}
+    Run Keyword And Ignore Error    Logout
+    Sleep    3
+    Verify SMS Topup Your Own Number    ${MsgVerifySMSTopupYourSelfNumber}    ${virtual_device_1_Platfrom_Name}    1
+    ${appiumInfo}    Open Phone App    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    ${BalanceNew}    Check Balance    ${virtual_device_1_Platfrom_Name}    ${Sim}    2
+    Check Balance New More than Balance Old    ${BalanceOld}    ${BalanceNew}
+    [Teardown]    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+[F0_0_0_Y_0_Prod] Smoke test
+    [Tags]    smoke
+    log    test smoke
+
+*** Keywords ***

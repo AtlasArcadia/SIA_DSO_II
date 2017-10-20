@@ -1,0 +1,283 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/RoamingPackage_ApplyRoamingPackageRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/RoamingPackage_ApplyRoamingPackageLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+set date more than 30 days
+    ${getDate}    Get Current Date
+    log    ${getDate}
+    ${date}=    Convert Date    ${getDate}
+    ${time}=    Add Time To Date    ${date}    31 days    exclude_millis=yes    result_format=datetime
+    ${setDate}    Set Variable    ${time.day}
+    ${setMonth}    Set Variable    ${time.month}
+    ${setYear}    Set Variable    ${time.year}
+    ${currentYear}=    Get mobile text    ${numpickYear}
+    Run Keyword If    ${currentYear}<${setYear}    Click Mobile Element    ${btnIncreaseYear}
+    : FOR    ${index}    IN RANGE    12
+    \    ${currentMonth}=    Get mobile text    ${numpickMonth${ar_LANG}}
+    \    Run Keyword If    "${currentMonth}"=="${txtMonth${setMonth}}"    Exit For Loop
+    \    Click Mobile Element    ${btnIncreaseMonth${ar_LANG}}
+    : FOR    ${index}    IN RANGE    31
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}>${setDate}    Click Mobile Element    ${btnDecreaseDate${ar_LANG}}
+    \    ...    ELSE    Click Mobile Element    ${btnIncreaseDate${ar_LANG}}
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}==${setDate}    Exit For Loop
+
+select customer type
+    [Arguments]    ${CustomerType}
+    Swipe to element    ${itm${CustomerType}ApplyRoamingPackagePage}    ${lstCustomerTypeApplyRoamingPackagePage}
+    Click Mobile Element    ${itm${CustomerType}ApplyRoamingPackagePage}
+
+select package type
+    [Arguments]    ${PackageType}
+    Swipe to element    ${itm${PackageType}ApplyRoamingPackagePage}    ${lstPackageTypeApplyRoamingPackagePage}
+    Click Mobile Element    ${itm${PackageType}ApplyRoamingPackagePage}
+
+select roaming country
+    [Arguments]    ${Country}    ${Time}=50
+    Log    ${Country}
+    ${status}    Run Keyword And Return Status    Swipe to element    xpath=//*[@text="${txt${Country}}"]    ${lstRoamingPackageApplyRoamingPackagePage}    up    0.2
+    ...    Round=${Time}
+    Run Keyword If    ${status}    Click Mobile Element    xpath=//*[@text="${txt${Country}}"]
+    Run Keyword If    ${status} == False    fail    not found ${Country}
+
+set time 00:00
+    : FOR    ${index}    IN RANGE    24
+    \    ${currentHour}=    Get mobile text    ${numpickHour}
+    \    ${hh}    Convert To Integer    ${currentHour}
+    \    Run Keyword If    ${hh}==0    Exit For Loop
+    \    Run Keyword If    ${hh}>0    Click Mobile Element    ${btnDecreaseHour}
+    \    ...    ELSE    Click Mobile Element    ${btnIncreaseHour}
+    : FOR    ${index}    IN RANGE    60
+    \    ${currentMinute}=    Get mobile text    ${numpickTimeMinute}
+    \    ${mm}    Convert To Integer    ${currentMinute}
+    \    Run Keyword If    ${mm}==0    Exit For Loop
+    \    Run Keyword If    ${mm}>0    Click Mobile Element    ${btnDecreaseMinute}
+    \    ...    ELSE    Click Mobile Element    ${btnIncreaseMinute}
+
+set date tomorrow
+    ${getDate}    Get Current Date
+    log    ${getDate}
+    ${date}=    Convert Date    ${getDate}
+    ${time}=    Add Time To Date    ${date}    1 day    exclude_millis=yes    result_format=datetime
+    ${setDate}    Set Variable    ${time.day}
+    ${setMonth}    Set Variable    ${time.month}
+    ${setYear}    Set Variable    ${time.year}
+    ${currentYear}=    Get mobile text    ${numpickYear}
+    Run Keyword If    ${currentYear}<${setYear}    Click Mobile Element    ${btnIncreaseYear}
+    : FOR    ${index}    IN RANGE    12
+    \    ${currentMonth}=    Get mobile text    ${numpickMonth${ar_LANG}}
+    \    Run Keyword If    "${currentMonth}"=="${txtMonth${setMonth}}"    Exit For Loop
+    \    Click Mobile Element    ${btnIncreaseMonth${ar_LANG}}
+    : FOR    ${index}    IN RANGE    5
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}>${setDate}    Click Mobile Element    ${btnDecreaseDate${ar_LANG}}
+    \    ...    ELSE    Click Mobile Element    ${btnIncreaseDate${ar_LANG}}
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}==${setDate}    Exit For Loop
+
+set yesterday
+    [Arguments]    ${TimeZone}=local
+    ${getDate}    Get Current Date    ${TimeZone}
+    log    ${getDate}
+    ${date}=    Convert Date    ${getDate}
+    ${time}=    Add Time To Date    ${date}    - 1 day    exclude_millis=yes    result_format=datetime
+    ${setDate}    Set Variable    ${time.day}
+    ${setMonth}    Set Variable    ${time.month}
+    ${setYear}    Set Variable    ${time.year}
+    ${currentYear}=    Get mobile text    ${numpickYear}
+    Run Keyword If    ${currentYear}>${setYear}    Click Mobile Element    ${btnDecreaseYear}
+    : FOR    ${index}    IN RANGE    12
+    \    ${currentMonth}=    Get mobile text    ${numpickMonth${ar_LANG}}
+    \    Run Keyword If    "${currentMonth}"=="${txtMonth${setMonth}}"    Exit For Loop
+    \    Click Mobile Element    ${btnDecreaseMonth${ar_LANG}}
+    : FOR    ${index}    IN RANGE    5
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}>${setDate}    Click Mobile Element    ${btnDecreaseDate${ar_LANG}}
+    \    ...    ELSE    Click Mobile Element    ${btnIncreaseDate${ar_LANG}}
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}==${setDate}    Exit For Loop
+
+Select roaming country to
+    [Arguments]    ${Country}
+    Click Mobile Element    ${ddlRoamingCountryApplyRoamingPackagePage}
+    Run Keyword If    "${Country}"!="PleaseSelect"    select roaming country    ${Country}
+    ...    ELSE    Click Mobile Element    ${itmPleaseSelectApplyRoamingPackagePage}
+
+Select customer type to
+    [Arguments]    ${CustomerType}
+    Click Mobile Element    ${ddlCustomerTypeApplyRoamingPackagePage}
+    Run Keyword If    "${CustomerType}"!="PleaseSelect"    select customer type    ${CustomerType}
+    ...    ELSE    Click Mobile Element    ${itmPleaseSelectApplyRoamingPackagePage}
+
+Select package type to
+    [Arguments]    ${PackageType}
+    Click Mobile Element    ${ddlPackageTypeApplyRoamingPackagePage}
+    Run Keyword If    "${PackageType}"!="PleaseSelect"    select package type    ${PackageType}
+    ...    ELSE    Click Mobile Element    ${itmPleaseSelectApplyRoamingPackagePage}
+
+select roaming package
+    [Arguments]    ${package}
+    Wait Mobile Until Element Visible    ${lblPackageHeaderSelectRoamingPackagePage}
+    Swipe Element To Screen    ${lbl${package}}
+    Sleep    5
+    Click Mobile Element At Position    ${lbl${package}}    top    0.05
+
+Select roaming package to
+    [Arguments]    ${PackageName}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneA1DaySelectedNetworks"    select roaming package    ${PackageName}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneB1DayAllNetworksInChina"    select roaming package    ${PackageName}
+    Run Keyword If    "${PackageName}"=="SuperValueVoiceRoam20Min7Day"    select roaming package    ${PackageName}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneC1DaySelectedNetworks"    select roaming package    ${PackageName}
+    Run Keyword If    "${PackageName}"=="SuperValueVoiceRoam40Min7Day"    select roaming package    ${PackageName}
+    Run Keyword If    "${PackageName}"=="HotDealVoiceRoam150Minutes"    select roaming package    ${PackageName}
+    Run Keyword If    "${PackageName}"=="WorldSMSRoam30SMS"    select roaming package    ${PackageName}
+
+Select state to
+    [Arguments]    ${State}
+    Click Mobile Element    ${ddlSelectState}
+    Swipe to element    ${itm${State}State}    ${lstSelectState}
+    Click Mobile Element    ${itm${State}State}
+
+verify summary page immediate
+    [Arguments]    ${Desc}    ${Price}    ${Validity}    ${Start}    ${End}
+    Mobile element name should be    ${lblPackageDescriptionSummaryPage}    ${Desc}
+    Mobile element name should be    ${lblPackagePricePackageSummaryPage}    ${Price}
+    Mobile element name should be    ${lblValidityPackageSummaryPage}    ${Validity}
+    Mobile element name should be    ${lblStartDatePackageSummaryPage}    ${Start}
+    Mobile element name should be    ${lblEndDatePackageSummaryPage}    ${End}
+    Mobile Capture Screen At Verify Point    Verify In Summary Page
+
+Verify summary page immediate to
+    [Arguments]    ${PackageName}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneA1DaySelectedNetworks"    verify summary page immediate    ${txtNonStopDataRoamZoneA1DaySelectedNameSummaryPage}    ${txtNonStopDataRoamZoneA1DaySelectedPriceSummaryPage}    ${txtNonStopDataRoamZoneA1DaySelectedValiditySummaryPage}    ${txtNonStopDataRoamZoneA1DaySelectedStartFromSummaryPage}
+    ...    ${txtNonStopDataRoamZoneA1DaySelectedToSummaryPage}
+    Run Keyword If    "${PackageName}"=="HotDealVoiceRoam150Minutes"    verify summary page immediate    ${txtHotDealVoiceRoam150MinutesNameSummaryPage}    ${txtHotDealVoiceRoam150MinutesPriceSummaryPage}    ${txtHotDealVoiceRoam150MinutesValiditySummaryPage}    ${txtHotDealVoiceRoam150MinutesStartFromSummaryPage}
+    ...    ${txtHotDealVoiceRoam150MinutesToSummaryPage}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneB1DayAllNetworksInChina"    verify summary page immediate    ${txtNonStopDataRoamZoneB1DayAllNetworksInChinaNameSummaryPage}    ${txtNonStopDataRoamZoneB1DayAllNetworksInChinaPriceSummaryPage}    ${txtNonStopDataRoamZoneB1DayAllNetworksInChinaValiditySummaryPage}    ${txtNonStopDataRoamZoneB1DayAllNetworksInChinaStartFromSummaryPage}
+    ...    ${txtNonStopDataRoamZoneB1DayAllNetworksInChinaToSummaryPage}
+    Run Keyword If    "${PackageName}"=="SuperValueVoiceRoam20Min7Day"    verify summary page immediate    ${txtSuperValueVoiceRoam20Min7DayNameSummaryPage}    ${txtSuperValueVoiceRoam20Min7DayPriceSummaryPage}    ${txtSuperValueVoiceRoam20Min7DayValiditySummaryPage}    ${txtSuperValueVoiceRoam20Min7DayStartFromSummaryPage}
+    ...    ${txtSuperValueVoiceRoam20Min7DayToSummaryPage}
+    Run Keyword If    "${PackageName}"=="WorldSMSRoam30SMS"    verify summary page immediate    ${txtWorldSMSRoam30SMSNameSummaryPage}    ${txtWorldSMSRoam30SMSPriceSummaryPage}    ${txtWorldSMSRoam30SMSValiditySummaryPage}    ${txtWorldSMSRoam30SMSStartFromSummaryPage}
+    ...    ${txtWorldSMSRoam30SMSSToSummaryPage}
+
+verify alert subscribe sms from ais
+    [Arguments]    ${MsgVerifySMS}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Open SMS App    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${Platfrom_Name}    1    ${lo_sms_timeout}    AIS
+    Run Keyword If    '${status}'=='False'    Fail
+    ${message}=    Read SMS    ${Platfrom_Name}    AIS    1
+    ${messageFromSMS}=    Convert To String    ${message}
+    Should Match Regexp    ${messageFromSMS}    ${MsgVerifySMS}
+    Mobile Capture Screen At Verify Point    Verify SMS Apply Roaming
+    AISAppiumEx.Go Back
+    Switch App    ${Platfrom_Name}    my AIS.*
+
+Verify subscribe sms immediate
+    [Arguments]    ${PackageName}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneA1DaySelectedNetworks"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmNonStopDataRoamZoneA1DayImmediate}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="HotDealVoiceRoam150Mins"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmHotDealVoiceRoam150MinsImmediate}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneB1DayAllNetworksInChina"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmNonStopDataRoamZoneB1DayImmediate}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="SuperValueVoiceRoam20Min7Day"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmSuperValueVoiceRoam20MinsImmediate}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="SuperValueVoiceRoam40Min7Day"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmSuperValueVoiceRoam40MinsImmediate}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="WorldSMSRoam30SMS"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmWorldSMSRoam30SMSImmediate}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+verify summary page future
+    [Arguments]    ${Desc}    ${Price}    ${Validity}
+    Mobile element name should be    ${lblPackageDescriptionSummaryPage}    ${Desc}
+    Mobile element name should be    ${lblPackagePricePackageSummaryPage}    ${Price}
+    Mobile element name should be    ${lblValidityPackageSummaryPage}    ${Validity}
+    Mobile Capture Screen At Verify Point    Verify In Summary Page
+
+Verify summary page future to
+    [Arguments]    ${PackageName}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneA1DaySelectedNetworks"    verify summary page future    ${txtNonStopDataRoamZoneA1DaySelectedNameSummaryPage}    ${txtNonStopDataRoamZoneA1DaySelectedPriceSummaryPage}    ${txtNonStopDataRoamZoneA1DaySelectedValiditySummaryPage}
+    Run Keyword If    "${PackageName}"=="HotDealVoiceRoam150Minutes"    verify summary page future    ${txtHotDealVoiceRoam150MinutesNameSummaryPage}    ${txtHotDealVoiceRoam150MinutesPriceSummaryPage}    ${txtHotDealVoiceRoam150MinutesValiditySummaryPage}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneB1DayAllNetworksInChina"    verify summary page future    ${txtNonStopDataRoamZoneB1DayAllNetworksInChinaNameSummaryPage}    ${txtNonStopDataRoamZoneB1DayAllNetworksInChinaPriceSummaryPage}    ${txtNonStopDataRoamZoneB1DayAllNetworksInChinaValiditySummaryPage}
+    Run Keyword If    "${PackageName}"=="SuperValueVoiceRoam40Min7Day"    verify summary page future    ${txtSuperValueVoiceRoam40Min7DayNameSummaryPage}    ${txtSuperValueVoiceRoam40Min7DayPriceSummaryPage}    ${txtSuperValueVoiceRoam40Min7DayValiditySummaryPage}
+    Run Keyword If    "${PackageName}"=="WorldSMSRoam30SMS"    verify summary page future    ${txtWorldSMSRoam30SMSNameSummaryPage}    ${txtWorldSMSRoam30SMSPriceSummaryPage}    ${txtWorldSMSRoam30SMSValiditySummaryPage}
+
+Verify subscribe sms future
+    [Arguments]    ${PackageName}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneA1DaySelectedNetworks"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmNonStopDataRoamZoneA1DayFuture}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="HotDealVoiceRoam150Mins"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmHotDealVoiceRoam150MinsFuture}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="NonStopDataRoamZoneB1DayAllNetworksInChina"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmNonStopDataRoamZoneB1DayFuture}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="SuperValueVoiceRoam20Min7Day"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmSuperValueVoiceRoam20MinsFuture}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="SuperValueVoiceRoam40Min7Day"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmSuperValueVoiceRoam40MinsFuture}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${PackageName}"=="WorldSMSRoam30SMS"    Verify SMS From AIS with Match Regexp    ${txtSMSConfirmWorldSMSRoam30SMSFuture}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+set date the day after tomorrow
+    ${getDate}    Get Current Date
+    log    ${getDate}
+    ${date}=    Convert Date    ${getDate}
+    ${time}=    Add Time To Date    ${date}    2 day    exclude_millis=yes    result_format=datetime
+    ${setDate}    Set Variable    ${time.day}
+    ${setMonth}    Set Variable    ${time.month}
+    ${setYear}    Set Variable    ${time.year}
+    ${currentYear}=    Get mobile text    ${numpickYear}
+    Run Keyword If    ${currentYear}<${setYear}    Click Mobile Element    ${btnIncreaseYear}
+    : FOR    ${index}    IN RANGE    12
+    \    ${currentMonth}=    Get mobile text    ${numpickMonth${ar_LANG}}
+    \    Run Keyword If    "${currentMonth}"=="${txtMonth${setMonth}}"    Exit For Loop
+    \    Click Mobile Element    ${btnIncreaseMonth${ar_LANG}}
+    : FOR    ${index}    IN RANGE    5
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}>${setDate}    Click Mobile Element    ${btnDecreaseDate${ar_LANG}}
+    \    ...    ELSE    Click Mobile Element    ${btnIncreaseDate${ar_LANG}}
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}==${setDate}    Exit For Loop
+
+set date the day before yesterday
+    [Arguments]    ${TimeZone}=local
+    ${getDate}    Get Current Date    ${TimeZone}
+    log    ${getDate}
+    ${date}=    Convert Date    ${getDate}
+    ${time}=    Add Time To Date    ${date}    - 2 day    exclude_millis=yes    result_format=datetime
+    ${setDate}    Set Variable    ${time.day}
+    ${setMonth}    Set Variable    ${time.month}
+    ${setYear}    Set Variable    ${time.year}
+    ${currentYear}=    Get mobile text    ${numpickYear}
+    Run Keyword If    ${currentYear}>${setYear}    Click Mobile Element    ${btnDecreaseYear}
+    : FOR    ${index}    IN RANGE    12
+    \    ${currentMonth}=    Get mobile text    ${numpickMonth${ar_LANG}}
+    \    Run Keyword If    "${currentMonth}"=="${txtMonth${setMonth}}"    Exit For Loop
+    \    Click Mobile Element    ${btnDecreaseMonth${ar_LANG}}
+    : FOR    ${index}    IN RANGE    5
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}>${setDate}    Click Mobile Element    ${btnDecreaseDate${ar_LANG}}
+    \    ...    ELSE    Click Mobile Element    ${btnIncreaseDate${ar_LANG}}
+    \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
+    \    ${dd}    Convert To Integer    ${currentDate}
+    \    Run Keyword If    ${dd}==${setDate}    Exit For Loop

@@ -1,0 +1,1625 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/Domestic_ChangePricePlan.txt
+
+*** Test Cases ***
+[F5_Package_2,4_2_Y_1_1] Verify page change price plan
+    [Documentation]    Owner : Tinpan
+    ...    Source Number : 3PO
+    ...    Status : Active1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Verify Page "Change Price Plan"
+    ...    - Talk & Net Plan
+    ...    - Internet Plan
+    ...    - Talk Plan
+    ...    5. Capture Screen
+    [Tags]    success    3PO    3BO    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Verify Page Change Price Plan    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_2,4_2_Y_2_1] Change main package category Talk & Net Plan iEntertain Non Stop package 399 baht
+    [Documentation]    Owner : Tinpan
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...    Language: EN
+    ...    Teststep
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Talk & Net Plan"
+    ...    5. Click "iEntertain Non-Stop"
+    ...    6. Click "iEntertain NonStop package 399 Baht"
+    ...    7. Verify Page Detail Pack
+    ...    - iEntertain NonStop package 399 Baht
+    ...    - Monthly fee 399B. Voice 150 mins, Net max speed 3GB after that nonstop net speed at 128Kbps and Unlimited AIS SUPER WiFi. Exceed: Voice/VDO call 1.5B./min, SMS 3B., MMS 4B., 12 bill cycles
+    ...    8. Click "Next"
+    ...    9. Click "Next billing cycle"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - iEntertain NonStop package 399 Baht
+    ...    - Next billing cycle effective date: xx/xx/xxxx
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "iEntertain Non-Stop 399 Baht, Voice 150mins, Net max speed 3GB after that non-stop net speed at 128Kbps, Unlimited AIS SUPER WiFi. Exceed:Voice/VDO call 1.5B./min, SMS 3B., MMS 4B. Startxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx."
+    ...    17. Capture Screen
+    ...    ------------------------------------------------------------------------------------------------------------------
+    ...    Language: TH
+    ...    Teststep
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. เลือก "แพ็กเกจโทรและเน็ต"
+    ...    5. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - iEntertain NonStop
+    ...    - 4G Max Speed
+    ...    - Buffet X3
+    ...    - Serenade Pack
+    ...    6. เลือก "iEntertain NonStop"
+    ...    7. ตรวจสอบรายการ แพ็กเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    8. เลือกแพ็กเกจที่ 1 "iEntertain NonStop 399 บาท"
+    ...    9. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่1 เลือกแพ็กเกจ)
+    ...    - เบอร์โทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่เลือก \ (iEntertain NonStop 399 บาท)
+    ...    - รายละเอียดแพ็กเกจ (ค่าบริการ 399บาท/เดือน โทร 150นาที เน็ตต่อเนื่องความเร็วสูงสุดจำนวน 3GB จากนั้นความเร็วที่ 128Kbps และ AIS SUPER WiFi ไม่จำกัด ส่วนเกินโทร/VDO call นาทีละ 1.5บ., SMS 3บ., MMS 4บ., 12 รอบบิล)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    10. เลือก "ต่อไป"
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่2 เลือกวันมีผลใช้งาน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "รอบบิลถัดไป"
+    ...    13. เลือก "ต่อไป"
+    ...    14. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่3 ยืนยัน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - วันที่มีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    15. เลือก "ยืนยัน"
+    ...    16. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    17. จับภาพหน้าจอ
+    ...    18. เลือก "ตกลง"
+    ...    19. ตรวจสอบ SMS (2sms)
+    ...    "Your AIS SUPER WiFi Username:09xxxxxxxx. Password:xxxx."
+    ...    "iEntertain Non-Stop 399บาท โทร 150นาที เน็ตต่อเนื่องความเร็วสูงสุดจำนวน 3GB จากนั้นความเร็วที่ 128Kbps, AIS SUPER WiFi ไม่จำกัด ส่วนเกินโทร/VDO call นาทีละ 1.5บ. SMS 3บ. MMS 4บ. เริ่ม xx/xx/xxxx xx:xxถึงxx/xx/xxxx xx:xx"
+    ...    20. จับภาพหน้าจอ
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkAndNetPlan
+    Select Talk And Net Package Section    IEntertainNonStop
+    Select IEntertain Package 399 Bath
+    Verify Selected Package Postpaid    ${txtIEntertainNonStopPackageName}    ${txtIEntertainNonStopPackageDetail}
+    Confrim Select Package
+    Select Effective Package    NextBillingCycle
+    Confirm Select Effective
+    Verify Talk And Net Plan iEntertain Non Stop Pack Summary    ${txtIEntertainNonStopPackageName}    ${txtPatternNextBillingCycleEffective}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    @{MessageExpect}    Create List    ${txtSMSIEntertainNonStopPackage399Bath}
+    Verify Change Price Plan MyAIS    ${MessageExpect}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${lo_sms_timeout}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_2,4_2_Y_3_1] Change main package Talk & Net Plan 4G Max Speed Package 688 baht
+    [Documentation]    Source Number : 3PO
+    ...    Status : Active
+    ...    Language: EN
+    ...    Teststep
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Talk & Net Plan"
+    ...    5. Click "4G Max Speed"
+    ...    6. Click "4G Max Speed Package (688 Baht)"
+    ...    7. Verify Page Detail Pack
+    ...    - 4G Max Speed Package (688 Baht)
+    ...    - Monthly fee 688B., Voice/VDO call 300mins, Total Net 20GB (4G/3G =16GB, 4G =4GB) (stop automatically afterward), AIS SUPER WiFi Unlimited, AIS Cloud+ 100GB, AIS PLAY 4 movies. Exceed: Voice/VDO call 1.5B/min, SMS 3B, MMS 4B, Net 99 B/GB. 12 BillCycles
+    ...    8. Click "Next"
+    ...    9. Click "Next billing cycle"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - 4G Max Speed Package (688 Baht)
+    ...    - Next billing cycle effective date: xx/xx/xxxx
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "4G Max Speed 688B., Voice 300mins, Total Net 20GB (4G/3G=16GB, 4G=4GB) (to stop afterward), AIS SUPER WiFi, AIS Cloud+, AIS PLAY movies (download *357#), Exceed:Voice 1.5B/min, SMS 3B, MMS 4B, Net 99B/GB, 12 Bills, Startxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx."
+    ...    17. Capture Screen
+    ...
+    ...    ------------------------------------------------------------------------
+    ...    Language: TH
+    ...    Teststep
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. เลือก "แพ็กเกจโทรและเน็ต"
+    ...    5. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - iEntertain NonStop
+    ...    - 4G Max Speed
+    ...    - Buffet X3
+    ...    - Serenade Pack
+    ...    6. เลือก "4G Max Speed"
+    ...    7. ตรวจสอบรายการ แพ็กเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    8. เลือกแพ็กเกจที่ 1 \ "แพ็กเกจ 4G Max Speed 688 บาท"
+    ...    9. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่1 เลือกแพ็กเกจ)
+    ...    - เบอร์โทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่เลือก (4G Max Speed 688 บาท)
+    ...    - รายละเอียดแพ็กเกจ (ค่ารายเดือน688บ.โทร+VDO Call 300นาที เน็ตรวม20GB ใช้พื้นที่4G/3Gได้16GB และพื้นที่4Gได้4GB (เมื่อใช้ครบเน็ตหยุดทันที) AIS SUPER WiFiไม่จำกัด AIS Cloud+ 100GB ดูหนังจากAIS Play4เรื่อง/สัปดาห์ ส่วนเกินโทร1.5บ./นาที SMS3บ. MMS4บ. เน็ต99บ./GB นาน12รอบบิล)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    10. เลือก "ต่อไป"
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่2 เลือกวันมีผลใช้งาน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "รอบบิลถัดไป"
+    ...    13. เลือก "ต่อไป"
+    ...    14. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่3 ยืนยัน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - วันที่มีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    15. เลือก "ยืนยัน"
+    ...    16. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    17. จับภาพหน้าจอ
+    ...    18. เลือก "ตกลง"
+    ...    19. ตรวจสอบ SMS \ (2sms)
+    ...    "Your AIS SUPER WiFi Username:09xxxxxxxx. Password:xxxx."
+    ...    "4G Max Speed 688บ. โทร300นาที เน็ตรวม20GB ใช้พื้นที่4G/3G 16GB และ4G 4GB (เมื่อใช้ครบเน็ตหยุดทันที)AIS SUPER WiFi AIS Cloud+ AIS Play ดาวน์โหลดกด*357# ส่วนเกินโทร1.5บ./นาที SMS3บ. MMS4บ. เน็ต99บ./GB นาน12รอบบิล เริ่ม xx/xx/xxxx xx:xxถึงxx/xx/xxxx xx:xx"
+    ...    20. จับภาพหน้าจอ
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkAndNetPlan
+    Select Talk And Net Package Section    4GMaxSpeed
+    Select 4G MAX Speed Package 688 Bath
+    Verify Selected Package Postpaid    ${txtTalkAndNetPlan4GMaxSpeedPackage688BahtPackageName}    ${txtTalkAndNetPlan4GMaxSpeedPackage688BahtPackageDetail}
+    Confrim Select Package
+    Select Effective Package    NextBillingCycle
+    Confirm Select Effective
+    Verify Talk And Net Plan 4G Max Speed Pack Summary    ${txtTalkAndNetPlan4GMaxSpeedPackage688BahtPackageName}    ${txtPatternNextBillingCycleEffective}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    @{MessageExpect}    Create List    ${txtSMSTalkAndNetPlan4GMaxSpeed688Bath}
+    Verify Change Price Plan MyAIS    ${MessageExpect}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${lo_sms_timeout}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_2,4_2_Y_4_1] Change main package Talk & Net Plan Buffet x3 package 484 baht
+    [Documentation]    Source Number : 3PO
+    ...    Status : Active
+    ...    Language: EN
+    ...    Teststep
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Talk & Net Plan"
+    ...    5. Click "Buffet X3"
+    ...    6. Click "Buffet x3 package 484 Baht"
+    ...    7. Verify Page Detail Pack
+    ...    - Buffet x3 package 484 Baht
+    ...    - Monthly fee 484 Baht Free calls to AIS 10pm5pm, Unlimited Internet max speed at 512Kbps, Unlimited AIS WiFi. Exceed: Voice 0.015 B./Sec, VDO call 0.75 B./min, SMS 0.75 B., MMS 0.75 B. 12 bill cycles
+    ...    8. Click "Next"
+    ...    9. Click "Next day"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - Buffet x3 package 484 Baht
+    ...    For package change during bill cycle:
+    ...
+    ...    The current package: monthly fee will be fully charged
+    ...    The new package: monthly fee and usage quota will be prorated based on your actual days of usage.
+    ...
+    ...    For best value, we recommend you to change the package on the date nearest to you bill cycle date.
+    ...
+    ...    Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - Next day effective date: xx/xx/xxxx
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "Buffet x3 package 484 Baht, Free call to AIS during 10pm-5pm, Unlimited Internet max speed at 512Kbps, Unlimited AIS Wifi. Exceed: Voice 0.015 B./Sec, VDO call 0.75 B./min, SMS 0.75 B., MMS 0.75 B., 12 bill cycles. Startxx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx."
+    ...    17. Capture Screen
+    ...    -------------------------------------------------------------------------------------------------------------------------
+    ...    Language: TH
+    ...    Teststep
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. เลือก "แพ็กเกจโทรและเน็ต"
+    ...    5. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - iEntertain NonStop
+    ...    - 4G Max Speed
+    ...    - Buffet X3
+    ...    - Serenade Pack
+    ...    6. เลือก "Buffet X3"
+    ...    7. ตรวจสอบรายการ แพ็กเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    8. เลือกแพ็กเกจที่ 1 \ "แพ็กเกจบุฟเฟ่ต์ ไม่อั้น x3 484 บาท"
+    ...    9. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่1 เลือกแพ็กเกจ)
+    ...    - เบอร์โทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่เลือก (แพ็กเกจบุฟเฟ่ต์ ไม่อั้น x3 484 บาท)
+    ...    - รายละเอียดแพ็กเกจ (ค่าบริการรายเดือน 484 บาท โทรฟรีในเครือข่ายAIS 22.0017.00น. Internetไม่จำกัดที่ความเร็วสูงสุด 512Kbps, AIS WiFi ไม่จำกัด ส่วนเกินโทรวินาทีละ 0.015 บ., VDO call นาทีละ 0.75 บ., SMS 0.75 บ., MMS 0.75 บ. นาน 12 รอบบิล)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    10. เลือก "ต่อไป"
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่2 เลือกวันมีผลใช้งาน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "วันถัดไป"
+    ...    13. เลือก "ต่อไป"
+    ...    14. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่3 ยืนยัน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - วันที่มีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    15. เลือก "ยืนยัน"
+    ...    16. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    17. จับภาพหน้าจอ
+    ...    18. เลือก "ตกลง"
+    ...    19. ตรวจสอบ SMS
+    ...    "แพ็กเกจบุฟเฟ่ต์ ไม่อั้น x3 484 บาท โทรฟรีในเครือข่ายAIS 22.00-17.00น. Internetไม่จำกัดที่ความเร็วสูงสุด 512Kbps และAIS WiFiไม่จำกัด ส่วนเกินโทรวินาทีละ 0.015บ., VDO call นาทีละ 0.75บ., SMS 0.75บ., MMS 0.75บ. 12 รอบบิล เริ่มxx/xx/xxxx xx:xxถึงxx/xx/xxxx xx:xx"
+    ...    20. จับภาพหน้าจอ
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkAndNetPlan
+    Select Talk And Net Package Section    Buffetx3
+    Select Buffet 3x Package 484 Bath
+    Verify Selected Package Postpaid    ${txtBuffetx3PackageName}    ${txtBuffetx3PackageDetail}
+    Confrim Select Package
+    Select Effective Package    NextDay
+    Confirm Select Effective
+    Verify Buffetx3 Package Summary    ${txtBuffetx3PackageName}    ${txtPackageCondition}    ${txtPatternNextDayEffective}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    @{MessageExpect}    Create List    ${txtSMSBuffetx3Package484Baht}
+    Verify Change Price Plan MyAIS    ${MessageExpect}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${lo_sms_timeout}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_2,4_2_Y_5_1] Change main package Talk & Net Plan Serenade Pack 899
+    [Documentation]    Owner : Tinpan
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...    Teststep
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Talk & Net Plan"
+    ...    5. Click "Serenade Pack"
+    ...    6. Click "Serenade Pack 899"
+    ...    7. Verify Page Detail Pack
+    ...    - Serenade Pack 899
+    ...    - Monthly fee 899 Baht, call all network/VDO call 500mins, 3G/4G Internet max speed 24GB, Free AIS SUPER WiFi ,AIS Cloud+ 100 GB and Movies from AIS Play. Exceed:Voice/VDO call1.5B./min,3G/4G Net 99 B./GB,SMS 3B., MMS 4B.,12 bill cycles
+    ...    8. Click "Next"
+    ...    9. Click "Immediately"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - Serenade Pack 899
+    ...    For package change during bill cycle:
+    ...
+    ...    The current package: monthly fee will be fully charged
+    ...    The new package: monthly fee and usage quota will be prorated based on your actual days of usage.
+    ...
+    ...    For best value, we recommend you to change the package on the date nearest to you bill cycle date.
+    ...
+    ...    Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - Immediately after SMS confirmation.
+    ...    12. Click "Confirm"
+    ...    16. Verify SMS "Sorry. Your request cannot be completed at this time. Please try again later or contact AIS Call Center 1175"
+    ...    17. Capture Screen
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    -------------------------------------------------------------------------------------------------------------------
+    ...    Language: EN
+    ...    Teststep
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. เลือก "แพ็กเกจโทรและเน็ต"
+    ...    5. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - iEntertain NonStop
+    ...    - 4G Max Speed
+    ...    - Buffet X3
+    ...    - Serenade Pack
+    ...    6. เลือก "Serenade Pack"
+    ...    7. ตรวจสอบรายการ แพ็กเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    8. เลือกแพ็กเกจที่ 1 \ "Serenade Pack 899"
+    ...    9. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่1 เลือกแพ็กเกจ)
+    ...    - เบอร์โทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่เลือก (Serenade Pack 899)
+    ...    - รายละเอียดแพ็กเกจ (ค่าบริการเดือนละ 899 บาท,โทรทุกเครือข่าย/VDO call 500นาที, 3G/4G Internet จำนวน24GB, ฟรีAIS SUPER WiFi, AIS Cloud+100GBและหนังจาก AIS Play,ส่วนเกินโทร/VDO call นาทีละ 1.5บ., 3G/4G Net GB ละ 99 บ.,SMS 3บ., MMS 4บ. นาน12 รอบบิล)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    10. เลือก "ต่อไป"
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่2 เลือกวันมีผลใช้งาน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "มีผลทันที"
+    ...    13. เลือก "ต่อไป"
+    ...    14. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่3 ยืนยัน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - วันที่มีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    15. เลือก "ยืนยัน"
+    ...    16. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    17. จับภาพหน้าจอ
+    ...    18. เลือก "ตกลง"
+    ...    19. ตรวจสอบ SMS (2sms)
+    ...    "Your AIS SUPER WiFi Username:09xxxxxxxx. Password:xxxx."
+    ...    "ค่าบริการเดือนละ 899 บาท,โทรทุกเครือข่าย/VDO call 500นาที, 3G/4G Internet จำนวน24GB, ฟรีAIS SUPER WiFi, AIS Cloud+100GBและหนังจาก AIS Play,ส่วนเกินโทร/VDO call นาทีละ 1.5บ., 3G/4G Net GB ละ 99 บ.,SMS 3บ., MMS 4บ. นาน12 รอบบิล"
+    ...    20. จับภาพหน้าจอ
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkAndNetPlan
+    Select Talk And Net Package Section    SerenadePack
+    Select Serenade Pack 899
+    Verify Selected Package Postpaid    ${txtTalkAndNetPlanSerenadePackageName}    ${txtTalkAndNetPlanSerenadePackageDetail}
+    Confrim Select Package
+    Select Effective Package    Immediately
+    Confirm Select Effective
+    Verify Talk And Net Plan Serenade Pack Summary    ${txtTalkAndNetPlanSerenadePackageName}    ${txtPackageCondition}    ${txtPatternImmediatelyEffective}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    @{MessageExpect}    Create List    ${txtSMSTalkAndNetPlanSerenadePack899}
+    Verify Change Price Plan MyAIS    ${MessageExpect}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${lo_sms_timeout}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_2,4_2_Y_6_1] Change main package Internet Plan Net SIM Always package 199 bath
+    [Documentation]    Owner : Tinpan
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...    Language: EN
+    ...    Teststep
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Internet Plan"
+    ...    5. Click "Net SIM"
+    ...    6. Click "Net SIM Always package \ 199B."
+    ...    7. Verify Page Detail Pack
+    ...    - Net SIM Always package \ 199B.
+    ...    - Net SIM Package Monthly fee 199B. Internet 500MB at max speed, and continue at 128Kbps afterward. Exceed: Voice/VDO call 1.50B./min, SMS 3B., MMS 6B. Valid for 12 bill cycles
+    ...    8. Click "Next"
+    ...    9. Click "Next billing cycle"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - Net SIM Always package \ 199B.
+    ...    - Next billing cycle effective date: 08/03/2017
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "Net SIM Package Monthly fee 199B. Internet 500MB at max speed, and continue at 128Kpbs afterward, Exceed: Voice/VDO call 1.50B./min, SMS 3B., MMS 6B. Startxx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx."
+    ...    17. Capture Screen
+    ...    Language: TH
+    ...    Teststep
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. เลือก "แพ็กเกจอินเทอร์เน็ต"
+    ...    5. ตรวจสอบรายการ แพ็กเกจอินเทอร์เน็ต
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xx
+    ...    - เงื่อนไขบริการ
+    ...    6. เลือกแพ็กเกจที่ 1 \ "แพ็กเกจ Net SIM \ ใช้ได้ต่อเนื่อง 199บ."
+    ...    7. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่1 เลือกแพ็กเกจ)
+    ...    - เบอร์โทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่เลือก (แพ็กเกจ Net SIM \ ใช้ได้ต่อเนื่อง 199บ.)
+    ...    - รายละเอียดแพ็กเกจ (แพ็กเกจ Net SIM ค่าบริการรายเดือน 199บ. Internet ความเร็วสูงสุดจำนวน 500MB จากนั้นใช้ความเร็วสูงสุดที่ 128Kbps, ส่วนเกิน โทร/VDO call นาทีละ 1.50บ., SMS 3บ., MMS 6บ. นาน12 รอบบิล)
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไขบริการ
+    ...    8. เลือก "ต่อไป"
+    ...    9. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่2 เลือกวันมีผลใช้งาน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    11. เลือก "มีผลทันที"
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่3 ยืนยัน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - วันที่มีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    14. เลือก "ยืนยัน"
+    ...    15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    16. จับภาพหน้าจอ
+    ...    17. เลือก "ตกลง"
+    ...    18. ตรวจสอบ SMS
+    ...    "แพ็กเกจ Net SIM ค่าบริการรายเดือน 199บ. Internet ความเร็วสูงสุดจำนวน 500MB จากนั้นใช้ความเร็วสูงสุดที่ 128Kbps, ส่วนเกิน โทร/VDO call นาทีละ 1.50บ., SMS 3บ.,MMS 6บ. เริ่มxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx"
+    ...    19. จับภาพหน้าจอ
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    InternetPlan
+    Select net SIM Always Package 199 Bath
+    Verify Selected Package Postpaid    ${txtNetSimPackageName}    ${txtNetSimPackageDetail}
+    Confrim Select Package
+    Select Effective Package    NextBillingCycle
+    Confirm Select Effective
+    Verify Internet Plan Package Summary    ${txtNetSimPackageName}    ${txtPatternNextBillingCycleEffective}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    @{MessageExpect}    Create List    ${txtSMSInternetPlanNetSIMAlwayspackage199 bath}
+    Verify Change Price Plan MyAIS    ${MessageExpect}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${lo_sms_timeout}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_2,4_2_Y_7_1] Change main package Talk Plan Basic Package 450 bath per month
+    [Documentation]    Owner : Tinpan
+    ...    Language: TH
+    ...    Teststep
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Talk Plan"
+    ...    5. Click "Basic Package"
+    ...    6. Click "450 B/Mth: Voice 580Mins"
+    ...    7. Verify Page Detail Pack
+    ...    - 450 B/Mth: Voice 580Mins
+    ...    - Basic 450 Baht package. Monthly fee 450 Baht. Call all networks 580 minutes. Exceed rates: call 1.50B./min, Internet 1.50B./MB, SMS 3B., MMS 6B. Valid 12 bill cycles
+    ...    8. Click "Next"
+    ...    9. Click "Next day"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - 450 B/Mth: Voice 580Mins
+    ...    For package change during bill cycle:
+    ...
+    ...    The current package: monthly fee will be fully charged
+    ...    The new package: monthly fee and usage quota will be prorated based on your actual days of usage.
+    ...
+    ...    For best value, we recommend you to change the package on the date nearest to you bill cycle date.
+    ...
+    ...    Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - Next day effective date: xx/xx/xxxx
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "Basic 450 Baht package. Monthly fee 450 Baht. Call all networks 580 minutes. Exceed rates: call 1.50B./min, Internet 1.50B./MB, SMS 3B., MMS 6B. Start xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx"
+    ...    17. Capture Screen
+    ...    Language: TH
+    ...    Teststep
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. เลือก "แพ็กเกจสำหรับโทร"
+    ...    5. ตรวจสอบรายการ แพ็กเกจสำหรับโทร
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xx
+    ...    - เงื่อนไขบริการ
+    ...    6. เลือกแพ็กเกจที่ 2 \ "450 บ/ด: โทร 580นาที"
+    ...    7. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่1 เลือกแพ็กเกจ)
+    ...    - เบอร์โทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่เลือก (450 บ/ด: โทร 580นาที)
+    ...    - รายละเอียดแพ็กเกจ (แพ็กเริ่มต้น 450 บาท ค่าบริการรายเดือน 450 บาท โทรทุกเครือข่าย 580 นาที ส่วนเกิน โทรนาทีละ 1.50บ. Internet 1.50บ./MB SMS 3บ. MMS 6บ. นาน 12 รอบบิล)
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไขบริการ
+    ...    8. เลือก "ต่อไป"
+    ...    9. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่2 เลือกวันมีผลใช้งาน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    11. เลือก "มีผลทันที"
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" (ขั้นตอนที่3 ยืนยัน)
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - วันที่มีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    14. เลือก "ยืนยัน"
+    ...    15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    16. จับภาพหน้าจอ
+    ...    17. เลือก "ตกลง"
+    ...    18. ตรวจสอบ SMS
+    ...    "แพ็กเริ่มต้น 450 บาทค่าบริการรายเดือน 450 บาท โทรทุกเครือข่าย 580 นาที \ ส่วนเกิน โทรนาทีละ 1.50บ. Internet 1.50บ./MB SMS 3บ. MMS 6บ. เริ่มใช้ได้ตั้งแต่ xx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx"
+    ...    19. จับภาพหน้าจอ
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkPlan
+    Select Package 450 Bath Per Month Voice580 Minute
+    Verify Selected Package Postpaid    ${txtTalkPlanPackageName}    ${txtTalkPlanPackageDetail}
+    Confrim Select Package
+    Select Effective Package    NextDay
+    Confirm Select Effective
+    Verify Talk Plan Basic Package Summary    ${txtTalkPlanPackageName}    ${txtPackageCondition}    ${txtPatternNextDayEffective}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    @{MessageExpect}    Create List    ${txtSMSTalkPlanBasicPackage450 BathPerMonthVoice580Minutes}
+    Verify Change Price Plan MyAIS    ${MessageExpect}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${lo_sms_timeout}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_1_Prod] DummyLanguage
+    [Tags]    dummy
+    log    Lang TH (3PO,3BO)&EN(3PE,3BE)
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke    3PE    3BE    3PO    3BO
+    log    For Quick Smoke
+
+testRegex
+    Comment    ${str}    Convert To String    4G Max Speed 688B., Voice 300mins, Total Net 20GB (4G/3G=16GB, 4G=4GB)
+    Comment    Should Match Regexp    4G Max Speed 688B., Voice 300mins, Total Net 20GB (4G/3G=16GB, 4G=4GB) (to stop afterward), AIS SUPER WiFi, AIS Cloud+, AIS PLAY movies (download *357#), Exceed:Voice 1.5B/min, SMS 3B, MMS 4B, Net 99B/GB, 12 Bills, Start12/12/1234 12:12to12/12/1234 12:12.    [4G Max Speed 688B., Voice 300mins, Total Net 20GB (4G/3G=16GB, 4G=4GB) (to stop afterward), AIS SUPER WiFi, AIS Cloud+, AIS PLAY movies (download *357#), Exceed:Voice 1.5B/min, SMS 3B, MMS 4B, Net 99B/GB, 12 Bills, Start\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d\s*to\s*\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d.]
+    Comment    AIS Cloud\\+, AIS PLAY movies \(download \\*357\\#\), Exceed:Voice 1.5B\/min, SMS 3B, MMS 4B, Net 99B\/GB, 12 Bills, Start\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d to \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d.    [4G Max Speed 688B., Voice 300mins, Total Net 20GB (4G/3G=16GB, 4G=4GB) (to stop afterward), AIS SUPER WiFi, AIS Cloud+, AIS PLAY movies (download *357#), Exceed:Voice 1.5B/min, SMS 3B, MMS 4B, Net 99B/GB, 12 Bills, Start12/12/1234 12:12 to 12/12/1234 12:12.]
+    Comment    4G Max Speed 688B., Voice 300mins, Total Net 20GB (4G/3G=16GB, 4G=4GB) (to stop afterward), AIS SUPER WiFi, AIS Cloud+, AIS PLAY movies (download *357#), Exceed:Voice 1.5B/min, SMS 3B, MMS 4B, Net 99B/GB, 12 Bills, Start12/12/1234 12:12 to 12/12/1234 12:12.
+    Comment    [4G Max Speed 688B., Voice 300mins, Total Net 20GB \(4G/3G=16GB, 4G=4GB\)]
+    Comment    Should Match Regexp    You have got unlimited internet speed 512 Kbps & AIS WiFi, free call in AIS (except 5PM-10PM) 60min/time Exceed call 1.5 St./Second Other Period/Other network 1st min 1B. and the next second 1.5 St.    [You've got internet 2.5GB speed 384kbps and continue using at 64Kbps, unlimited AIS Wifi, \ free call in AIS \(except 5PM.*-10PM\) Call other No. 0.75B\/min]
+    Comment    Should Match Regexp    You have got unlimited internet speed 512 Kbps & AIS WiFi, free call in AIS (except 5PM-10PM)    You have got unlimited internet speed 512 Kbps & AIS WiFi, free call in AIS (except 5PM-10PM)
+    Comment    Should Match Regexp    You have got unlimited internet speed 512 Kbps & AIS WiFi, free call in AIS (except 5PM-10PM) 60min/time Exceed call 1.5 St./Second Other Period/Other network 1st min 1B. and the next second 1.5 St.    ^You have got unlimited internet speed 512 Kbps & AIS WiFi, free call in AIS \\(except 5PM-10PM\\) 60min\/time Exceed call 1.5 St.\/Second Other Period\/Other network 1st min 1B. and the next second 1.5 St.$
+    Comment    Should Match Regexp    Net SIM 299B. Internet max speed 1 GB, continue at 128 Kbps afterward & Unlimited AIS WiFi.    ^Net SIM 299B. Internet max speed 1 GB, continue at 128 Kbps afterward & Unlimited AIS WiFi.$
+    Comment    Should Match Regexp    โทรฟรีAIS เว้น17-22น.ครั้งละ1ชม.โทรเกิน1.5สต/วินาที โทรนอกเวลา/นอกเครือข่าย นาทีแรก1บ.วินาทีต่อไป1.5สต เน็ต 512Kbps ไม่จำกัด AIS WiFi    ^โทรฟรีAIS เว้น17-22น.ครั้งละ1ชม.โทรเกิน1.5สต\/วินาที โทรนอกเวลา\/นอกเครือข่าย นาทีแรก1บ.วินาทีต่อไป1.5สต เน็ต 512Kbps ไม่จำกัด AIS WiFi$
+    Comment    Should Match Regexp    คุณสามารถใช้Internetเล่นSocial+AIS Wifi+โทรเบอร์AISไม่อั้น โทรเครือข่ายอื่น75สต    ^คุณสามารถใช้Internetเล่นSocial\\+AIS Wifi\\+โทรเบอร์AISไม่อั้น โทรเครือข่ายอื่น75สต$
+    Comment    Should Match Regexp    มีผลวันถัดไป เริ่มใช้งาน: 01/04/2560    ^มีผลวันถัดไป เริ่มใช้งาน: \\d\\d\/\\d\\d\/\\d\\d\\d\\d$
+    Comment    Should Match Regexp    iEntertain Non-Stop 399 Baht, Voice 150mins, Net max speed 3GB after that non-stop net speed at 128Kbps, Unlimited AIS SUPER WiFi. Exceed:Voice/VDO call 1.5B./min, SMS 3B., MMS 4B. Start01/04/2017 00:00to31/03/2018 23:59.    ^iEntertain Non-Stop 399 Baht, Voice 150mins, Net max speed 3GB after that non-stop net speed at 128Kbps, Unlimited AIS SUPER WiFi. Exceed:Voice\/VDO call 1.5B.\/min, SMS 3B., MMS 4B. Start\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d.*to.*\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d.$
+    Comment    Should Match Regexp    iEntertain Non-Stop 399บาท โทร 150นาที เน็ตต่อเนื่องความเร็วสูงสุดจำนวน 3GB จากนั้นความเร็วที่ 128Kbps, AIS SUPER WiFi ไม่จำกัด ส่วนเกินโทร/VDO call นาทีละ 1.5บ. SMS 3บ. MMS 4บ. เริ่ม 01/04/2017 00:00ถึง31/03/2018 23:59    ^iEntertain Non-Stop 399บาท โทร 150นาที เน็ตต่อเนื่องความเร็วสูงสุดจำนวน 3GB จากนั้นความเร็วที่ 128Kbps, AIS SUPER WiFi ไม่จำกัด ส่วนเกินโทร/VDO call นาทีละ 1.5บ. SMS 3บ. MMS 4บ. เริ่ม \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d.*ถึง.*\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d$
+    Comment    Should Match Regexp    ค่าบริการเดือนละ 899 บาท,โทรทุกเครือข่าย/VDO call 500นาที, 3G/4G Internet จำนวน24GB, ฟรีAIS SUPER WiFi, AIS Cloud+100GBและหนังจาก AIS Play,ส่วนเกินโทร/VDO call นาทีละ 1.5บ., 3G/4G Net GB ละ 99 บ.,SMS 3บ., MMS 4บ. นาน12 รอบบิล    ^ค่าบริการเดือนละ 899 บาท,โทรทุกเครือข่าย\/VDO call 500นาที, 3G\/4G Internet จำนวน24GB, ฟรีAIS SUPER WiFi, AIS Cloud\\+100GBและหนังจาก AIS Play,ส่วนเกินโทร\/VDO call นาทีละ 1.5บ., 3G\/4G Net GB ละ 99 บ.,SMS 3บ., MMS 4บ. นาน12 รอบบิล$
+    Comment    Should Match Regexp    4G Max Speed 688บ. โทร300นาที เน็ตรวม20GB ใช้พื้นที่4G/3G 16GB และ4G 4GB (เมื่อใช้ครบเน็ตหยุดทันที)AIS SUPER WiFi AIS Cloud+ AIS Play ดาวน์โหลดกด*357# ส่วนเกินโทร1.5บ./นาที SMS3บ. MMS4บ. เน็ต99บ./GB นาน12รอบบิล เริ่ม 01/05/2017 00:00ถึง30/04/2018 23:59    ^4G Max Speed 688บ. โทร300นาที เน็ตรวม20GB ใช้พื้นที่4G\/3G 16GB และ4G 4GB \\(เมื่อใช้ครบเน็ตหยุดทันที\\)AIS SUPER WiFi AIS Cloud\\+ AIS Play ดาวน์โหลดกด\\*357\\# ส่วนเกินโทร1.5บ.\/นาที SMS3บ. MMS4บ. เน็ต99บ.\/GB นาน12รอบบิล เริ่ม \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\dถึง\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d.*$
+    Comment    Should Match Regexp    แพ็กเกจบุฟเฟ่ต์ ไม่อั้น x3 484 บาท โทรฟรีในเครือข่ายAIS 22.00-17.00น. Internetไม่จำกัดที่ความเร็วสูงสุด 512Kbps และAIS WiFiไม่จำกัด ส่วนเกินโทรวินาทีละ 0.015บ., VDO call นาทีละ 0.75บ., SMS 0.75บ., MMS 0.75บ. 12 รอบบิล เริ่ม11/11/1111 11:11ถึง11/11/1111 11:11    ^แพ็กเกจบุฟเฟ่ต์ ไม่อั้น x3 484 บาท โทรฟรีในเครือข่ายAIS 22.00-17.00น. Internetไม่จำกัดที่ความเร็วสูงสุด 512Kbps และAIS WiFiไม่จำกัด ส่วนเกินโทรวินาทีละ 0.015บ., VDO call นาทีละ 0.75บ., SMS 0.75บ., MMS 0.75บ. 12 รอบบิล เริ่ม\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\dถึง\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d.*$
+    Comment    Should Match Regexp    Serenade Pack 899บ./เดือน,โทรทุกเครือข่าย/VDO call 500นาที, 3G/4G Net 24GB, Free AIS SUPER WiFi, AIS Cloud+100GB, หนังจาก AIS Play,ส่วนเกินโทร/VDO call นาทีละ 1.5บ., 3G/4G Net 99 บ./GB, SMS 3บ., MMS 4บ., 12 รอบบิล, เริ่ม 03/04/2017 19:41ถึง30/04/2018 23:59    ^Serenade Pack 899บ.\/เดือน,โทรทุกเครือข่าย\/VDO call 500นาที, 3G\/4G Net 24GB, Free AIS SUPER WiFi, AIS Cloud\\+100GB, หนังจาก AIS Play,ส่วนเกินโทร\/VDO call นาทีละ 1.5บ., 3G\/4G Net 99 บ.\/GB, SMS 3บ., MMS 4บ., 12 รอบบิล, เริ่ม \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\dถึง\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d$
+    Comment    Should Match Regexp    แพ็กเกจ Net SIM ค่าบริการรายเดือน 199บ. Internet ความเร็วสูงสุดจำนวน 500MB จากนั้นใช้ความเร็วสูงสุดที่ 128Kbps, ส่วนเกิน โทร/VDO call นาทีละ 1.50บ., SMS 3บ.,MMS 6บ. เริ่ม11/11/1111 11:11 ถึง 11/11/1111 11:11    ^แพ็กเกจ Net SIM ค่าบริการรายเดือน 199บ. Internet ความเร็วสูงสุดจำนวน 500MB จากนั้นใช้ความเร็วสูงสุดที่ 128Kbps, ส่วนเกิน โทร\/VDO call นาทีละ 1.50บ., SMS 3บ.,MMS 6บ. เริ่ม\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d ถึง \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d$    แพ็กเริ่มต้น 450 บาทค่าบริการรายเดือน 450 บาท โทรทุกเครือข่าย 580 นาที \ ส่วนเกิน โทรนาทีละ 1.50บ. Internet 1.50บ.\/MB SMS 3บ. MMS 6บ. เริ่มใช้ได้ตั้งแต่ \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d.*ถึง.*\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d
+    Should Match Regexp    แพ็กเริ่มต้น 450 บาทค่าบริการรายเดือน 450 บาท โทรทุกเครือข่าย 580 นาที \ ส่วนเกิน โทรนาทีละ 1.50บ. Internet 1.50บ./MB SMS 3บ. MMS 6บ. เริ่มใช้ได้ตั้งแต่ 11/11/1111 11:11 ถึง 11/11/1111 11:11    ^แพ็กเริ่มต้น 450 บาทค่าบริการรายเดือน 450 บาท โทรทุกเครือข่าย 580 นาที \ ส่วนเกิน โทรนาทีละ 1.50บ. Internet 1.50บ.\/MB SMS 3บ. MMS 6บ. เริ่มใช้ได้ตั้งแต่ \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d.*ถึง.*\\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d$
+
+test
+    [Setup]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    sleep    3
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    sleep    300
+    Comment    ${TotalCancelSMS}=    Set Variable If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE' and '${ar_Lang}'=='TH'    3    2
+    Comment    log    ${TotalCancelSMS}
+
+[F3_Package_1,3_2_Y_1_1] Verify page Change price plan
+    [Documentation]    Owner : B
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...    TestStep
+    ...    Language: EN
+    ...    1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Change Price Plan""
+    ...    4. Verify \ Page ""Change Price Plan""
+    ...    - Mobile no.
+    ...    - Talk & Net Plan
+    ...    - Internet Plan
+    ...    - Talk Plan
+    ...    - Term & Condition
+    ...    5. Capture Screen"
+    ...    Language: TH
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจโทรและเน็ต
+    ...    - แพ็กเกจอินเทอร์เน็ต
+    ...    - แพ็กเกจสำหรับโทร
+    ...    -เงื่อนไขบริการ
+    ...    5.จับภาพหน้าจอ
+    [Tags]    success    3PE    3BE    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Verify Page Change Price Plan    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_Package_1,3_2_Y_2_1] Change price plan verify page Talk & Net Plan
+    [Documentation]    Owner : B
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...    Teststep
+    ...    Language:EN
+    ...    1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Change Price Plan""
+    ...    4. Click ""Talk & Net Plan""
+    ...    5. Verify menu Talk & Net Plan
+    ...    - Mobile no.
+    ...    - Talk & Net Plan
+    ...    - Package list
+    ...    - Term & Condition
+    ...    6. Capture Screen
+    ...    Teststep
+    ...    Language:TH
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจโทรและเน็ต"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจโทรและเน็ต
+    ...    - รายการของแพ็กเกจ
+    ...    -เงื่อนไขบริการ
+    ...    5.จับภาพหน้าจอ
+    [Tags]    success    3PE    3BE    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkAndNetPlan
+    Verify Page Change Price Plan Talk & Net Plan    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_Package_1,3_2_Y_3_1] Change price plan verify page Internet Plan
+    [Documentation]    Owner : B
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...    Teststep
+    ...    Language:EN
+    ...    1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Change Price Plan""
+    ...    4. Click ""Internet Plan""
+    ...    5. Verify menu Talk & Net Plan
+    ...    - Mobile no.
+    ...    - Internet Plan
+    ...    - Package list
+    ...    - Term & Condition
+    ...    6. Capture Screen
+    ...    Teststep
+    ...    Language:TH
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจอินเทอร์เน็ต"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจอินเทอร์เน็ต
+    ...    - รายการของแพ็กเกจ
+    ...    -เงื่อนไขบริการ
+    ...    5.จับภาพหน้าจอ
+    [Tags]    success    3PE    3BE    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    InternetPlan
+    Verify Page Change Price Plan Internet Plan    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_Package_1,3_2_Y_4_1] Change price plan verify page Talk Plan
+    [Documentation]    Owner : B
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...    1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Change Price Plan""
+    ...    4. Click ""Talk Plan""
+    ...    5. Verify menu Talk & Net Plan
+    ...    - Mobile no.
+    ...    - Buffet
+    ...    - Call to All Networks
+    ...    - Call to AIS
+    ...    6. Capture Screen"
+    [Tags]    success    3PE    3BE    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkPlan
+    Verify Page Change Price Plan Talk Plan_3PE    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_Package_1,3_2_Y_5_1] Change price plan Talk & Net Plan 512 Unlimited
+    [Documentation]    Owner : Tinpan
+    ...    Source Number : 3PE,3BE
+    ...    Status : Active
+    ...    Language :EN
+    ...    Testcase
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Talk & Net Plan"
+    ...    5. Select package (512 Unlimited)
+    ...    6. Verify page "Change Price Plan" step 1 Select package
+    ...    - Mobile number
+    ...    - Talk & Net Plan
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - Detial Package (Weekly Fee 128 Baht you can enjoy unlimited Internet 512 Kbps, unlimited AIS WiFi and free call in AIS except 5PM10PM (max 1hr/call exceed rate 1.5St./Second) Other period/Other network 1B. for 1st min and the next 1.5 St./second.)
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    7. Click "Next"
+    ...    8. Verify page "Change Price Plan" step 2 Confirm
+    ...    - Mobile number
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Term & Conditions
+    ...    9. Click "Confirm"
+    ...    10. Verify dialog message "Transaction processed successfully.
+    ...    Please wait for a confirmation SMS ."
+    ...    - "OK" botton
+    ...    11. Capture Screen
+    ...    12. Click "OK"
+    ...    13. Verify SMS : "You have got unlimited internet speed 512 Kbps & AIS WiFi, free call in AIS (except 5PM-10PM) 60min/time Exceed call 1.5 St./Second Other Period/Other network 1st min 1B. and the next second 1.5 St."
+    ...    14. Capture screen
+    ...    ---------------------------------------------------------------------------------------------------------------------------------
+    ...    Language :EN
+    ...    Testcase
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    * ยกเลิก 4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    5. เลือกแพ็กเกจโทรและเน็ต(512 อันลิมิเด็ต)
+    ...    6. ตรวจสอบเมนู "เปลี่ยนแพ็กเกจหลัก" step 1 เลือกแพ็กเกจ
+    ...    - หมายเลขทรศัพท์
+    ...    - แพ็กเกจโทรและเน็ต
+    ...    - Pack name เช็คได้ไหมว่าเป็น เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - รายละเอียดแพ็กเกจ (ค่าบริการสัปดาห์ละ 128 บาท ใช้อินเทอร์เน็ตความเร็วสูงสุด 512 Kbps ไม่จำกัด และ AIS WiFi ไม่จำกัด โทรฟรีใน AIS เว้น17.0022.00น. ครั้งละไม่เกิน 1ชม. โทรเกิน วินาทีละ 1.5 สต.โทรนอกเวลา/นอกเครือข่าย นาทีแรก1บ. ต่อไปวินาทีละ1.5สต.)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    7. เลือก "ต่อไป"
+    ...    8. ตรวจสอบ "เปลียนแพ็กเกจหลัก" step2 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - โปรดยืนยันแพ็กเกจที่คุณเลือกอีกครั้งก่อนคลิกปุ่มยืนยันเพื่อยืนยันคำขอของคุณ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    9. เลือก "ยืนยัน"
+    ...    10. ตรวจสอบข้อความ "ดำเนินการเรียบร้อยแล้วกรุณารอรับ SMS เพื่อยืนยันการทำรายการ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    11.จับภาพหน้าจอ
+    ...    12.เลือก "ตกลง"
+    ...    13.ตรวจสอบข้อความ"You have got unlimited internet speed 512 Kbps & AIS WiFi, free call in AIS (except 5PM-10PM) 60min/time Exceed call 1.5 St./Second Other Period/Other network 1st min 1B. and the next second 1.5 St."
+    ...    14.จับภาพหน้าจอ
+    ...
+    ...    ---------------------------------------
+    ...    3BE
+    ...    TH
+    ...
+    ...    "1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู ""แพ็กเกจ""
+    ...    3. เลือก ""เปลี่ยนแพ็กเกจหลัก""
+    ...    4. ตรวจสอบหน้า ""เปลี่ยนแพ็กเกจหลัก""
+    ...    5. เลือกแพ็กเกจโทรและเน็ต(512 อันลิมิเด็ต)
+    ...    6. ตรวจสอบเมนู ""เปลี่ยนแพ็กเกจหลัก"" step 1 เลือกแพ็กเกจ
+    ...    - หมายเลขทรศัพท์
+    ...    - แพ็กเกจโทรและเน็ต
+    ...    - Pack name เช็คได้ไหมว่าเป็น เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - รายละเอียดแพ็กเกจ (ค่าบริการสัปดาห์ละ 128 บาท ใช้อินเทอร์เน็ตความเร็วสูงสุด 512 Kbps ไม่จำกัด และ AIS WiFi ไม่จำกัด โทรฟรีใน AIS เว้น17.0022.00น. ครั้งละไม่เกิน 1ชม. โทรเกิน วินาทีละ 1.5 สต.โทรนอกเวลา/นอกเครือข่าย นาทีแรก1บ. ต่อไปวินาทีละ1.5สต.)
+    ...    - ปุ่ม ""กลับ""
+    ...    - ปุ่ม ""ต่อไป""
+    ...    - เงื่อนไขบริการ
+    ...    7. เลือก ""ต่อไป""
+    ...    8. ตรวจสอบ ""เปลียนแพ็กเกจหลัก"" step2 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - โปรดยืนยันแพ็กเกจที่คุณเลือกอีกครั้งก่อนคลิกปุ่มยืนยันเพื่อยืนยันคำขอของคุณ
+    ...    - ปุ่ม ""กลับ""
+    ...    - ปุ่ม ""ต่อไป""
+    ...    - เงื่อนไขบริการ
+    ...    9. เลือก ""ยืนยัน""
+    ...    10. ตรวจสอบข้อความ ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
+    ...    - ปุ่ม ""ยืนยัน""
+    ...    11.จับภาพหน้าจอ
+    ...    12.เลือก ""ตกลง""
+    ...    13.ตรวจสอบข้อความ ""โทรฟรีAIS เว้น17-22น.ครั้งละ1ชม.โทรเกิน1.5สต/วินาที โทรนอกเวลา/นอกเครือข่าย นาทีแรก1บ.วินาทีต่อไป1.5สต เน็ต 512Kbps ไม่จำกัด AIS WiFi""
+    ...    14.จับภาพหน้าจอ"
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkAndNetPlan
+    ${PackSelectedName}    Select Talk And Net Plan Package 512 Unlimited
+    Verify Page Change Price Plan Step 1 Select Package    ${Number}    ${txtPackageCategoryTalkAndNetPlan}    ${PackSelectedName}    ${txtTalkAndPlanPackage512Unlimited}
+    Confrim Select Package
+    Verify Change Price Plan Step 2 Confirm    ${Number}    ${PackSelectedName}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    ${TotalSubscribeSMS}=    Set Variable If    '${ar_NType}'=='3PE'    3    4
+    @{MessageExpect}    Create List    ${txtSMSmsg512Unlimited}
+    Verify SMS From AIS With Regex    ${MessageExpect}    ${TotalSubscribeSMS}    Android    ${virtual_device_1_SN}    ${lo_sms_timeout}    Subscribe
+    ${TotalSubscribeSMS}=    Set Variable If    '${ar_NType}'=='3PE'    3    4
+    Reset Package To Talk And Internet Plan Freedom Unlmited Package    ${TotalSubscribeSMS}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_Package_1,3_2_Y_6_1] Change price plan Internet Plan In case NetSIM 299B Internet max speed 1GB(NonStop)
+    [Documentation]    Owner : Tinpan
+    ...    Source Number : 3PE,3BE
+    ...    Status : Active
+    ...    Testcase
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Internet Plan"
+    ...    5. Select 1st package (NetSIM 299B Internet max speed 1GB(NonStop))
+    ...    6. Verify page "Change Price Plan" step 1 Select package
+    ...    - Mobile number
+    ...    - Internet Plan
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - Detial Package (Monthly Fee 299B. Internet with maximum speed total of 1 GB, continue at 128 Kbps afterward, Unlimited AIS WiFi. Call rate is 1.50 Baht/min for all networks, 24 hrs.)
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    7. Click "Next"
+    ...    8. Verify page "Change Price Plan" step 2 Confirm
+    ...    - Mobile number
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Term & Conditions
+    ...    10. Click "Confirm"
+    ...    11. Verify dialog message "Transaction processed successfully.
+    ...    Please wait for a confirmation SMS ."
+    ...    - "OK" botton
+    ...    12. Capture Screen
+    ...    13. Click "OK"
+    ...    14. Verify SMS : "Net SIM 299B. Internet max speed 1 GB, continue at 128 Kbps afterward & Unlimited AIS WiFi."
+    ...    15. Capture screen
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    InternetPlan
+    ${PackSelectedName}    Select Internet Plan NetSIM299B Internet Max Speed 1GB Non Stop
+    Verify Page Change Price Plan Step 1 Select Package    ${Number}    ${txtPackageCategoryInternetPlan}    ${PackSelectedName}    ${txtInternetPlanNetSIM299B}
+    Confrim Select Package
+    Verify Change Price Plan Step 2 Confirm    ${Number}    ${PackSelectedName}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    ${TotalSubscribeSMS}=    Set Variable If    '${ar_NType}'=='3PE'    3    4
+    @{MessageExpect}    Create List    ${txtSMSNetSIM299B}
+    Verify SMS From AIS With Regex    ${MessageExpect}    ${TotalSubscribeSMS}    Android    ${virtual_device_1_SN}    ${lo_sms_timeout}    Subscribe
+    ${TotalCancelSMS}=    Set Variable If    '${ar_NType}'=='3PE'    3    4
+    Reset Package To Talk And Internet Plan Freedom Unlmited Package    ${TotalCancelSMS}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_Package_1,3_2_Y_7_1] Change main package Talk Plan In case Buffet(Nighttime Buffet 159 Baht/month)
+    [Documentation]    Owner : Tinpan
+    ...    Source Number : 3PE,3BE
+    ...    Status : Active
+    ...    Testcase
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Talk Plan"
+    ...    5. Click "Buffet"
+    ...    6. Verify Package List
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xx
+    ...    7. Select package (Nighttime Buffet 159 Baht/month)
+    ...    8. Verify page "Change Price Plan" step 1 Select package
+    ...    - Mobile number
+    ...    - Internet Plan
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detial Package (Monthly fee 159 Baht, get call free in AIS during 10PM10AM, limit call usage 60 minutes/time, if over will be charged 1.50 Baht/min. Call rate to other network or other period is 2 Baht for first minute and 0.60 Baht per minute for later minute.)
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    9. Click "Next"
+    ...    10. Verify page "Change Price Plan" step 2 Confirm
+    ...    - Mobile number
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Term & Conditions
+    ...    11. Click "Confirm"
+    ...    12. Verify dialog message "Transaction processed successfully.
+    ...    Please wait for a confirmation SMS ."
+    ...    - "OK" botton
+    ...    13. Capture Screen
+    ...    14. Click "OK"
+    ...    15. Verify SMS : "โปรบุฟเฟ่ต์กลางคืน โทรฟรีในAIS4ทุ่ม-10โมง นอกนั้น60สต.นาทีแรก2บ."
+    ...    16. Capture screen
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkPlan
+    Select Talk Plan Section    Buffet
+    Verify Talk Plan Buffet Package List_3PE
+    ${PackSelectedName}    Select Talk Plan Buffet NightTime Package_3PE
+    Verify Page Change Price Plan Step 1 Select Package    ${Number}    ${txtPackageCategoryTalkPlan}    ${PackSelectedName}    ${txtTalkPlanNighttime159B}
+    Confrim Select Package
+    Verify Change Price Plan Step 2 Confirm    ${Number}    ${PackSelectedName}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    ${TotalSubscribeSMS}=    Set Variable If    '${ar_NType}'=='3PE'    1    3
+    @{MessageExpect}    Create List    ${txtSMSNighttime159B}
+    Verify SMS From AIS With Regex    ${MessageExpect}    ${TotalSubscribeSMS}    Android    ${virtual_device_1_SN}    ${lo_sms_timeout}    Subscribe
+    ${TotalCancelSMS}=    Set Variable If    '${ar_NType}'=='3PE'    3    3
+    Reset Package To Talk And Internet Plan Freedom Unlmited Package    ${TotalCancelSMS}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_Package_1,3_2_Y_8_1] Change main package Talk Plan In case Call to All Networks(Special 12Hour Package)
+    [Documentation]    Owner : Tinpan
+    ...    Source Number : 3PE,3BE
+    ...    Status : Active
+    ...    Testcase
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Talk Plan"
+    ...    5. Click "Call to All Networks"
+    ...    6. Verify Package List
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xx
+    ...    7. Select 2nd package (Special 12Hour Package)
+    ...    8. Verify page "Change Price Plan" step 1 Select package
+    ...    - Mobile number
+    ...    - Internet Plan
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detial Package (Calls in during 5AM5PM, get rate 25 satang per minute and 1 Baht for the first minute. For other period get rate 1.25 Baht/min. for all network.)
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    9. Click "Next"
+    ...    10. Verify page "Change Price Plan" step 2 Confirm
+    ...    - Mobile number
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Term & Conditions
+    ...    11. Click "Confirm"
+    ...    12. Verify dialog message "Transaction processed successfully.
+    ...    Please wait for a confirmation SMS ."
+    ...    - "OK" botton
+    ...    13. Capture Screen
+    ...    14. Click "OK"
+    ...    15. Verify SMS : "5-17น. นาทีละ25สต. นาทีแรก1บ. นอกเวลา1.25บ./นาที"
+    ...    16. Capture screen
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkPlan
+    Select Talk Plan Section    CalltoAllNetworks
+    Verify Talk Plan Call To All Networks Package List_3PE
+    ${PackSelectedName}    Select Talk Plan Call To All Network Special 12 Hour Package_3PE
+    Verify Page Change Price Plan Step 1 Select Package    ${Number}    ${txtPackageCategoryTalkPlan}    ${PackSelectedName}    ${txtTalkPlanSpecial12Hour}
+    Confrim Select Package
+    Verify Change Price Plan Step 2 Confirm    ${Number}    ${PackSelectedName}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    ${TotalSubscribeSMS}=    Set Variable If    '${ar_NType}'=='3PE'    1    2
+    @{MessageExpect}    Create List    ${txtSMSSpecial12Hour}
+    Verify SMS From AIS With Regex    ${MessageExpect}    ${TotalSubscribeSMS}    Android    ${virtual_device_1_SN}    ${lo_sms_timeout}    Subscribe
+    ${TotalCancelSMS}=    Set Variable If    '${ar_NType}'=='3PE'    3    3
+    Reset Package To Talk And Internet Plan Freedom Unlmited Package    ${TotalCancelSMS}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_Package_1,3_2_Y_9_1] Change main package Talk Plan In case Call to AIS(BestValue Talk Package)
+    [Documentation]    Owner : Tinpan
+    ...    Source Number : 3PE,3BE
+    ...    Status : Active
+    ...    Testcase
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Price Plan"
+    ...    4. Click "Talk Plan"
+    ...    5. Click "Call to AIS"
+    ...    6. Verify Package List
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xx
+    ...    7. Select 2nd package (BestValue Talk Package)
+    ...    8. Verify page "Change Price Plan" step 1 Select package
+    ...    - Mobile number
+    ...    - Internet Plan
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detial Package (Calls in AIS 3 Baht for the fist 10 minutes of each call (exceeding rate 1 Baht/mins.) For other networks call rate is 1.25 Baht/min.)
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    9. Click "Next"
+    ...    10. Verify page "Change Price Plan" step 2 Confirm
+    ...    - Mobile number
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 5.
+    ...    - Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Term & Conditions
+    ...    11. Click "Confirm"
+    ...    12. Verify dialog message "Transaction processed successfully.
+    ...    Please wait for a confirmation SMS ."
+    ...    - "OK" botton
+    ...    13. Capture Screen
+    ...    14. Click "OK"
+    ...    15. Verify SMS : "โปรโมชั่นโทรคุ้มโทรในAIS 3บ. โทรได้ 10นาที ส่วนเกินนอกAISนาทีละ 1.25บ."
+    ...    16. Capture screen
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkPlan
+    Select Talk Plan Section    CallToAIS
+    Verify Talk Plan Call To AIS Package List_3PE    ${ar_NType}
+    ${PackSelectedName}    Select Talk Plan Call To AIS BestValue Talk Package_3PE
+    Verify Page Change Price Plan Step 1 Select Package    ${Number}    ${txtPackageCategoryTalkPlan}    ${PackSelectedName}    ${txtTalkPlanBestValueTalkPackage}
+    Confrim Select Package
+    Verify Change Price Plan Step 2 Confirm    ${Number}    ${PackSelectedName}
+    Confirm Subscribe Package
+    Verify Dialog Message Subscibe Success
+    Confirm Dialog Message
+    ${TotalSubscribeSMS}=    Set Variable If    '${ar_NType}'=='3PE'    1    2
+    @{MessageExpect}    Create List    ${txtSMSBestValueTalk}
+    Verify SMS From AIS With Regex    ${MessageExpect}    ${TotalSubscribeSMS}    Android    ${virtual_device_1_SN}    ${lo_sms_timeout}    Subscribe
+    ${TotalCancelSMS}=    Set Variable If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE' and '${ar_Lang}'=='TH'    3    2
+    Reset Package To Talk And Internet Plan Freedom Unlmited Package    ${TotalCancelSMS}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Select Package Category
+    [Arguments]    ${PackageCategory}
+    [Documentation]    Category Name >>> TalkAndNetPlan, InternetPlan, TalkPlan
+    Click Mobile Element    ${btnCat${PackageCategory}}
+
+Verify Page Change Price Plan Postpaid
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblCatTalkAndNetPlan}    ${txtCatTalkAndNetPlan}
+    Mobile element text should be    ${lblCatInternetPlan}    ${txtCatInternetPlan}
+    Mobile element text should be    ${lblCatTalkTalkPlan}    ${txtCatTalkPlan}
+    Mobile Capture Screen At Verify Point    Change Price Plan Select Package Page
+
+Select Talk And Net Package Section
+    [Arguments]    ${sectionPackageName}
+    [Documentation]    Section Name List>>> IEntertainNonStop, 4GMaxSpeed , Buffetx3, SerenadePack \
+    Click Mobile Element    ${btnTalkAndNetPlanPackageSection${sectionPackageName}}
+
+Select IEntertain Package 399 Bath
+    Click Mobile Element    ${btnIEntertainNonStop399Bath}
+
+Verify Selected Package
+    [Arguments]    ${Number}    ${PackageCategory}    ${PackageName}
+    Run Keyword If    '${ar_NType}'=='3BO' or \ '${ar_NType}'=='3PO'    Verify Selected Package Postpaid
+    Run Keyword If    '${ar_NType}'=='3BE' or '${ar_NType}'=='3PE'    Verify Selected Package Prepaid    ${Number}    ${PackageCategory}    ${PackageName}
+
+Verify Selected Package Postpaid
+    [Arguments]    ${PackName}    ${PackDetail}
+    [Documentation]    Arg >>> Package Name , PackageDetail
+    Mobile element text should be    ${lblSelectedPackageName}    ${PackName}
+    Mobile element text should be    ${lblSelectedPackageDetail}    ${PackDetail}
+    Mobile Capture Screen At Verify Point    Selected Package
+
+Verify Selected Package Prepaid
+    [Arguments]    ${CustomerNumber}    ${PackageCategory}    ${PackageName}
+    Mobile element text should be    ${lblCustomerNumber}    ${CustomerNumber}
+    Mobile element text should be    ${lblPackageSelectedCategory}    ${PackageCategory}
+    Mobile element text should be    ${lblSelectedPackageName}    ${PackageName}
+    Mobile element text should be    ${lblSelectedPackageDetail}    ${txtTalkAndPlanPackage512Unlimited}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnConfirmSelect}
+    Wait Mobile Until Element Visible    ${lblTermAndCondition}
+    Mobile Capture Screen At Verify Point    Selected Package Prepaid
+
+Confrim Select Package
+    Click Mobile Element    ${btnConfirmSelect}
+
+Select Effective Package
+    [Arguments]    ${EffectiveTime}
+    [Documentation]    Effective time optional>>> NextBillingCycle, NextDay, Immediately
+    Click Mobile Element    ${btn${EffectiveTime}Effective}
+
+Confirm Select Effective
+    Click Mobile Element    ${btnConfirmSelect}
+
+Verify Buffetx3 Package Summary
+    [Arguments]    ${PackageName}    ${PackageCondition}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    Buffetx3 Package Summary
+
+Confirm Subscribe Package
+    Click Mobile Element    ${btnConfirmSubscribePackage}
+
+Verify Dialog Message Subscibe Success
+    Mobile element text should be    ${msgSubscribeSuccess}    ${txtSubscribeSuccess}
+    Mobile Capture Screen At Verify Point    Dialog Message
+
+Select Buffet 3x Package 484 Bath
+    Click Mobile Element    ${lblPackageTalkAndNetPlanBuffetx3Package484Bath}
+
+Select Package 450 Bath Per Month Voice580 Minute
+    Click Mobile Element    ${lblPackageTalkPlan450BathPerMonth}
+
+Verify Talk Plan Basic Package Summary
+    [Arguments]    ${PackageName}    ${PackageCondition}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    Talk Plan Basic Package Summary
+
+Confirm Dialog Message
+    [Documentation]    xpath=//*[@resource-id="com.ais.mimo.eservice:id/my_ais_library_dialog_btn_neutral"]
+    Click Mobile Element    ${btnOKDailogMessage}
+
+Select net SIM Always Package 199 Bath
+    Click Mobile Element    ${lblPackageInternetPlanNetSIMAlwayspackage199Bath}
+
+Verify Internet Plan Package Summary
+    [Arguments]    ${PackageName}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    Internet Plan Package Summary
+
+Select Serenade Pack 899
+    Click Mobile Element    ${lblPackageTalkAndNetPlanSerenadePack899}
+
+Verify Talk And Net Plan Serenade Pack Summary
+    [Arguments]    ${PackageName}    ${PackageCondition}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    Serenade Package Summary
+
+Select 4G MAX Speed Package 688 Bath
+    Click Mobile Element    ${lblPackageTalkAndNetPlan4GMaxSpeed688Bath}
+
+Verify Talk And Net Plan 4G Max Speed Pack Summary
+    [Arguments]    ${PackageName}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Comment    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    4G Max Speed Package Summary
+
+Verify Talk And Net Plan iEntertain Non Stop Pack Summary
+    [Arguments]    ${PackageName}    ${PackageEffective}
+    Mobile element text should be    ${lblSelectedPackageNameResult}    ${PackageName}
+    Swipe to element    ${btnConfirmSubscribePackage}
+    Comment    Mobile element text should match regexp    ${lblPackageCondition}    ${PackageCondition}
+    Mobile element text should match regexp whole string    ${lblSelectedPackageEffectiveResult}    ${PackageEffective}
+    Mobile Capture Screen At Verify Point    iEntertain Non Stop Package Summary
+
+Verify Change Price Plan MyAIS
+    [Arguments]    ${messageExpect}    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}    ${timeout}
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Log    In Wait and Verify SMS By Time Out
+    Sleep    ${timeout}
+    Comment    Wait SMS    ${platformName}    ${totalSMS}    ${timeout}
+    @{unreadElements}    Aisappium Get Webelements    ${lblUnreadNumber}
+    : FOR    ${eachUnread}    IN    @{unreadElements}
+    \    ${number}=    Convert To Integer    ${eachUnread.get_attribute('text')}
+    Log To Console    'total sms:' ${number}
+    Comment    @{messages}=    Read SMS    ${platformName}    0614231950    ${number}
+    Log    In Mood Read SMS
+    @{emptyList}=    Create List
+    @{messages}=    Create List
+    @{senderNameElements}    AISAppiumEx.Get WebElements    ${lblSenderName}
+    : FOR    ${senderNameElement}    IN    @{senderNameElements}
+    \    ${senderName}=    Convert To String    ${senderNameElement.get_attribute('text')}
+    \    @{messages}=    Run Keyword If    '${senderName}' == 'AIS'    mood Collect SMS Message    ${senderNameElement}    ${number}
+    \    Run Keyword If    @{messages} != @{emptyList}    Exit For Loop
+    Run Keyword If    @{messages} == @{emptyList}    FAIL    Not found sender to read SMS
+    Mobile Capture Screen At Verify Point    Change Price Plan SMS
+    Press Keycode    4
+    Log    Out Mood Read SMS
+    ${lengthOfMsgExpect}    Get Length    ${messageExpect}
+    Log To Console    'Message Ex Amount:' ${lengthOfMsgExpect}
+    ${indexOfExpect}    Set Variable    0
+    : FOR    ${indexOfExpect}    IN RANGE    ${lengthOfMsgExpect}
+    \    log    'SMS:'${messages}
+    \    log    'Expect:'@{messageExpect}[${indexOfExpect}]
+    \    Verify SMS With Regex    ${messages}    @{messageExpect}[${indexOfExpect}]
+    \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
+    Log    Out Wait and Verify SMS By Time Out
+
+Verify Internet Plan Select Package
+    [Arguments]    ${PackName}    ${PackDetail}
+    Mobile element text should be    ${lblSelectedPackageName}    ${PackName}
+    Mobile element text should match regexp    ${lblSelectedPackageDetail}    ${PackDetail}
+    Mobile Capture Screen At Verify Point    Selected Internet Package
+
+Verify Page Change Price Plan
+    [Arguments]    ${Number}
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Verify Page Change Price Plan Postpaid
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Verify Page Change Price Plan Prepaid    ${Number}
+
+Verify Page Change Price Plan Talk Plan_3PE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblCatTalkTalkPlan}    ${txtCatTalkPlan}
+    Mobile element text should be    ${lblTalkPlanBuffet}    ${txtTalkPlanBuffet}
+    Mobile element text should be    ${lblTalkPlanCallToAllNetworks}    ${txtTalkPlanCallToAllNetworks}
+    Mobile element text should be    ${lblTalkPlanCallToAIS}    ${txtTalkPlanCallToAIS}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Talk Plan
+
+Verify Page Change Price Plan Talk & Net Plan
+    [Arguments]    ${Number}
+    [Documentation]    เปลี่ยนจาก verify จากชื่อเป็น verify ว่ามี
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile check existing text    ${lblFirstPackage}
+    Comment    Mobile element text should be    ${lblTalk&NetPlanList}    ${txtCatTalkAndNetPlan}
+    Comment    Mobile element text should be    ${lblPackListiSmart399Baht}    ${txtPackListiSmart399Baht}
+    Comment    Mobile element text should be    ${lblPackListFreedomUnlimited}    ${txtPackListFreedomUnlimited}
+    Comment    Mobile element text should be    ${lblPackageNonStop123}    ${txtPackageNonStop123}
+    Comment    Mobile element text should be    ${lblPackage512Unlimited}    ${txtPackage512Unlimited}
+    Comment    Mobile element text should be    ${lblPackageiSmart299Baht}    ${txtPackageiSmart299Baht}
+    Mobile element text should be    ${lblTerm&Condition}    ${txtTerms&Conditions}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Talk & Net Plan Package list
+
+Verify Page Change Price Plan Internet Plan
+    [Arguments]    ${Number}
+    Mobile element text should be    ${ChangePricePlanTitle}    ${txtChangePricePlanTitle}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblInternetPlan}    ${txtInternetPlan}
+    Run Keyword If    "${ar_NType}"=="3BE" and "${ar_LANG}"=="TH"    Mobile element text should be    ${lblNetSIM299B}    ${txtNetSIM299B}${SPACE}
+    Run Keyword If    "${ar_LANG}"=="EN"    Mobile element text should be    ${lblNetSIM299B}    ${txtNetSIM299B}
+    Run Keyword If    "${ar_LANG}"=="EN"    Mobile element text should be    ${lblNetSIM399B}    ${txtNetSIM399B}
+    Run Keyword If    "${ar_NType}"=="3BE" and "${ar_LANG}"=="TH"    Mobile element text should be    ${lblNetSIM399B}    ${txtNetSIM399B}${SPACE}
+    Run Keyword If    "${ar_LANG}"=="EN"    Mobile element text should be    ${lblNetSIM499B}    ${txtNetSIM499B}
+    Run Keyword If    "${ar_NType}"=="3BE" and "${ar_LANG}"=="TH"    Mobile element text should be    ${lblNetSIM499B}    ${txtNetSIM499B}${SPACE}
+    Run Keyword If    "${ar_NType}"=="3PE"    Mobile element text should be    ${lblNetSIM699B}    ${txtNetSIM699B}
+    Mobile element text should be    ${lblTerm&Condition}    ${txtTerms&Conditions}
+    Mobile Capture Screen At Verify Point    Change Price Plan page Internet Plan Package List
+
+Select Talk And Net Plan Package 512 Unlimited
+    ${PackageName}    Get mobile text    ${lblTalkAndNetPlanPackage512Unlimited}
+    Comment    log    ${PackageName}
+    Click Mobile Element    ${lblTalkAndNetPlanPackage512Unlimited}
+    [Return]    ${PackageName}
+
+Verify Page Change Price Plan Step 1 Select Package
+    [Arguments]    ${CustomerNumber}    ${PackageCategory}    ${PackageName}    ${PackageDetail}
+    Mobile element text should be    ${lblCustomerNumber}    ${CustomerNumber}
+    Mobile element text should be    ${lblPackageSelectedCategory}    ${PackageCategory}
+    Mobile element text should be    ${lblSelectedPackageName}    ${PackageName}
+    Mobile element text should be    ${lblSelectedPackageDetail}    ${PackageDetail}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnConfirmSelect}
+    Wait Mobile Until Element Visible    ${lblTermAndCondition}
+    Mobile Capture Screen At Verify Point    Change Price Plan Step 1
+
+Verify Change Price Plan Step 2 Confirm
+    [Arguments]    ${CustomerNumber}    ${PackageName}
+    Mobile element text should be    ${lblCustomerNumber}    ${CustomerNumber}
+    Mobile element text should be    ${lblYouHaveSelect}    ${txtYouHaveSelect}
+    Mobile element text should be    ${lblPackageName}    ${PackageName}
+    Mobile element text should be    ${lblChangePricePlanWarningtext}    ${txtChangePricePlanWarningtext}
+    Wait Mobile Until Element Visible    ${btnConfirmSubscribePackage}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${lblTermAndCondition}
+    Mobile Capture Screen At Verify Point    Change Price Plan Step 2
+
+Verify SMS From AIS With Regex
+    [Arguments]    ${messageExpect}    ${totalSMS}    ${platformName}    ${udid}    ${timeout}    ${captureName}
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Log    In Wait and Verify SMS
+    Comment    sleep    2
+    Wait SMS    ${platformName}    ${totalSMS}    ${timeout}
+    Comment    @{messages}=    Read SMS    ${platformName}    AIS    ${totalSMS}
+    Log    In Mood Read SMS
+    @{emptyList}=    Create List
+    @{messages}=    Create List
+    @{senderNameElements}    AISAppiumEx.Get WebElements    ${lblSenderName}
+    : FOR    ${senderNameElement}    IN    @{senderNameElements}
+    \    ${senderName}=    Convert To String    ${senderNameElement.get_attribute('text')}
+    \    @{messages}=    Run Keyword If    '${senderName}' == 'AIS'    mood Collect SMS Message    ${senderNameElement}    ${totalSMS}
+    \    Run Keyword If    @{messages} != @{emptyList}    Exit For Loop
+    Run Keyword If    @{messages} == @{emptyList}    FAIL    Not found sender to read SMS
+    Mobile Capture Screen At Verify Point    ${captureName} SMS From Sender AIS
+    Press Keycode    4
+    Log    Out Mood Read SMS
+    ${lengthOfMsgExpect}    Get Length    ${messageExpect}
+    ${indexOfExpect}    Set Variable    0
+    : FOR    ${indexOfExpect}    IN RANGE    ${lengthOfMsgExpect}
+    \    log    @{messageExpect}[${indexOfExpect}]
+    \    Verify SMS With Regex    ${messages}    @{messageExpect}[${indexOfExpect}]
+    \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
+    Log    Out Wait and Verify SMS
+
+Select Talk&Net Plan Freedom Unlimited Package
+    Click Mobile Element    ${lblTalkAndNetFreedomUnlimitedPackage}
+
+Select Internet Plan NetSIM299B Internet Max Speed 1GB Non Stop
+    ${PackageName}    Get mobile text    ${lblInternetPlanNetsim299BMaxSpeed1GB}
+    Click Mobile Element    ${lblInternetPlanNetsim299BMaxSpeed1GB}
+    [Return]    ${PackageName}
+
+Select Talk Plan Section
+    [Arguments]    ${sectionName}
+    [Documentation]    Section Name List
+    ...    -Buffet
+    ...    -CalltoAllNetworks
+    ...    -CallToAIS
+    Click Mobile Element    ${lblTalkplanSection${sectionName}}
+
+Verify Talk Plan Buffet Package List_3PE
+    Mobile element text should be    ${lblTalkPlanBuffetSectionPackage55B}    ${txtTalkPlanSectionBuffet55BPackage}
+    Mobile element text should be    ${lblTalkPlanBuffetSectionPackage69B}    ${txtTalkPlanSectionBuffet69BPackage}
+    Mobile element text should be    ${lblTalkPlanBuffetSectionPackage159B}    ${txtTalkPlanSectionBuffet159BPackage}
+    Mobile element text should be    ${lblTalkPlanBuffetSectionPackage199B}    ${txtTalkPlanSectionBuffet199BPackage}
+
+Select Talk Plan Buffet NightTime Package_3PE
+    ${PackageName}    Get mobile text    ${lblTalkPlanBuffetSectionPackage159B}
+    Click Mobile Element    ${lblTalkPlanBuffetSectionPackage159B}
+    [Return]    ${PackageName}
+
+Verify Talk Plan Call To All Networks Package List_3PE
+    Mobile element text should be    ${lblTalkPlanCallToAllNetworkSectionPackagePro30}    ${txtTalkPlanCallToAllNetworkSectionPackagePro30}
+    Mobile element text should be    ${lblTalkPlanCallToAllNetworkSectionPackageSpecial12Hour}    ${txtTalkPlanCallToAllNetworkSectionPackageSpecial12Hour}
+    Mobile element text should be    ${lblTalkPlanCallToAllNetworkSectionPackagerViVi60}    ${txtTalkPlanCallToAllNetworkSectionPackagerViVi60}
+
+Select Talk Plan Call To All Network Special 12 Hour Package_3PE
+    ${PackageName}    Get mobile text    ${lblTalkPlanCallToAllNetworkSectionPackageSpecial12Hour}
+    Click Mobile Element    ${lblTalkPlanCallToAllNetworkSectionPackageSpecial12Hour}
+    [Return]    ${PackageName}
+
+Verify Talk Plan Call To AIS Package List_3PE
+    [Arguments]    ${Ntype}
+    Mobile element text should be    ${lblTalkPlanSectionCallToAISBestValueTalkPackage}    ${txtTalkPlanCallToAISSectionBestValueTalkPackage}
+    Run Keyword If    '${Ntype}'=='3BE'    Mobile element text should be    ${lblTalkPlanSectionCallToAISGroupCallPackage}    ${txtTalkPlanCallToAISSectionGroupCallPromotionPackage}
+
+Select Talk Plan Call To AIS BestValue Talk Package_3PE
+    ${PackageName}    Get mobile text    ${lblTalkPlanSectionCallToAISBestValueTalkPackage}
+    Click Mobile Element    ${lblTalkPlanSectionCallToAISBestValueTalkPackage}
+    [Return]    ${PackageName}
+
+Reset Package To Talk And Internet Plan Freedom Unlmited Package
+    [Arguments]    ${totalSMS}
+    Android Switch App    my AIS
+    Select Sub Menu    ChangePricePlan
+    Select Package Category    TalkAndNetPlan
+    Select Talk&Net Plan Freedom Unlimited Package
+    Confrim Select Package
+    Confirm Subscribe Package
+    Confirm Dialog Message
+    @{MessageExpect2}    Create List    ${txtSMSmsgFreedom}
+    Verify SMS From AIS With Regex    ${MessageExpect2}    ${totalSMS}    Android    ${virtual_device_1_SN}    ${lo_sms_timeout}    Cancel
+
+Verify Page Change Price Plan Prepaid
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblMobileNo}    ${Number}
+    Mobile element text should be    ${lblTerm&Condition}    ${txtTerms&Conditions}
+    Verify Page Change Price Plan Postpaid
+
+test return
+    [Arguments]    ${Ntype}
+    log    ${Ntype}
+    Run Keyword If    '${Ntype}'=='3PE'    log    3PE
+    Run Keyword If    '${Ntype}'=='3BE'    log    3BE

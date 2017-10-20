@@ -1,0 +1,36 @@
+*** Settings ***
+Resource          ../Localized/${ar_LANG}/${ar_NType}/HomeLocalized.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageRepository/iOS/HomeRepository.txt
+
+*** Keywords ***
+Verify Home Page
+    [Arguments]    ${Number}
+    Run Keyword If    '${ar_NType}'=='FBB'    Verify Home of FBB    ${Number}
+    ...    ELSE    Verify Home Of Boss And Non-Boss Postpaid Number    ${Number}
+
+Verify Home Of Boss And Non-Boss Postpaid Number
+    [Arguments]    ${Number}
+    Comment    Hamburger menu
+    AISAppiumEx.Wait Until Page Contains Element    ${btnHamburger}
+    Comment    Camera
+    AISAppiumEx.Wait Until Page Contains Element    ${btnCamera}
+    Comment    AIS Banner
+    AISAppiumEx.Wait Until Page Contains Element    ${imgAISbannerHome}
+    Comment    หน้าหลัก
+    RedefineKeywords.Mobile element text should be    ${lblHomePage}    ${txtMainPage}
+    Comment    ชื่อลูกค้า
+    ${UserName}    RedefineKeywords.Get mobile text    ${lblUserName}
+    Should Not Be Empty    ${UserName}
+    Comment    เบอร์โทรศัพท์
+    ${UserNumber}=    RedefineKeywords.Get mobile text    ${lblUserNumber}
+    Comment    ${PureUserNumber}=    String.Remove String    ${UserNumber}    -
+    Should Contain    ${txtLocalNumber}    ${UserNumber}
+    Comment    หน้าหลัก
+    RedefineKeywords.Mobile element text should be    ${lblMainPage}    ${txtMenuHome}
+    Comment    ยอดเงินคงเหลือ
+    RedefineKeywords.Mobile element text should be    ${lblCurrentBalance}    ${txtCurrentBalance}    120
+    Comment    ใช้งานได้ถึงวันที่
+    RedefineKeywords.Mobile element text should be    ${lblCurrentValidDate}    ${txtCurrentValidDate}    120
+    Comment    รายละเอียด
+    swipe in screen to element    ${btnHamburger}    up
+    RedefineKeywords.Mobile Capture Screen At Verify Point    Verify At Home Page

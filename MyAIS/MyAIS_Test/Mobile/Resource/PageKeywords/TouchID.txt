@@ -1,0 +1,243 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/TouchIDLocalized.txt
+Resource          ../PageRepository/${ar_OS}/TouchIDRepository.txt
+Resource          ../PageVariable/TouchIDVariable.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Keywords For Teardown With Reset Passcode
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    ${status}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnResetPasscodePage}    2
+    Run Keyword If    "${status}"=="False"    Logout
+    Run Keyword If    "${status}"=="False"    check survey
+    Run Keyword And Ignore Error    Reset Passcode
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+split number 6 digit
+    [Arguments]    ${Password}
+    ${PasswordLength}=    Get Length    ${Password}
+    @{Number}=    Run Keyword If    ${PasswordLength}==6    Convert To List    ${Password}
+    ...    ELSE    fail    please input 6 digit
+    [Return]    @{Number}
+
+Input Passcode
+    [Arguments]    ${Password}
+    @{Pass}=    split number 6 digit    ${Password}
+    : FOR    ${digit}    IN RANGE    0    6    1
+    \    Click Mobile Element    ${btnNumber@{Pass}[${digit}]}
+
+Verify Have Passcode lock
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Mobile Capture Screen At Verify Point    Verify is Have Passcode Lock
+
+Verify Dont Have Passcode Lock
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Wait Mobile Until Page Does Not Contain Element    ${btnChangePasscode}
+    Mobile Capture Screen At Verify Point    Verify is Dont Have Passcode Lock
+
+Select Hamburger
+    Comment    Swipe to element    ${btnSetting}    screen    right    0.01
+    Click Mobile Element    ${btnHamberger}
+
+Select Settings
+    Click Mobile Element    ${btnSettings}
+
+Input Correct Passcode
+    Input Passcode    ${CorrectPassword}
+
+Input Wrong Passcode N Round
+    [Arguments]    ${round}=1    ${isVerify}="NoVerify"
+    : FOR    ${index}    IN RANGE    0    ${round}    1
+    \    Input Passcode    ${WrongPassword}
+
+Select Passcode Menu
+    Click Mobile Element    ${mnuPasscodeLock}
+
+Reset Passcode
+    [Arguments]    ${isVerify}="NoVerify"
+    Click Mobile Element    ${btnResetPasscodePage}
+    Run Keyword If    ${isVerify}=="Verify"    Mobile element text should be    ${lblDialogTouchID}    ${txtDialogResetPasscode}
+    Run Keyword If    ${isVerify}=="Verify"    Mobile element text should be    ${btnCancelDialogTouchID}    ${txtDialogButtonCancel}
+    Run Keyword If    ${isVerify}=="Verify"    Mobile element text should be    ${btnOKDialogTouchID}    ${txtDialogButtonOk}
+    Run Keyword If    ${isVerify}=="Verify"    Mobile Capture Screen At Verify Point    In Reset Password
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Verify 6 Pin Lock
+    : FOR    ${index}    IN RANGE    1    7    1
+    \    Wait Mobile Until Element Visible    ${dotsPinlockPasscode${index}}
+    Mobile Capture Screen At Verify Point    Verify in 6 Pin Lock
+
+Close Pass Lock
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Click Mobile Element    ${swPasscodeLockPageSetting}
+
+Verify Dialog Reset Passcode
+    Mobile element text should be    ${lblDialogTouchID}    ${txtDialogClosePasscode}
+    Mobile Capture Screen At Verify Point    Verify in Dialog Reset Passcode
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Setup Active Passcode
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    ${statusResetBtn}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnResetPasscodePage}    10
+    Run Keyword If    ${statusResetBtn}    Reset Passcode
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamburger
+    Click Mobile Element    ${btnSetting}
+    Click Mobile Element    ${mnuPasscodeLock}
+    Click Mobile Element    ${swPasscodeLockPageSetting}
+    Input New Passcode    ${CorrectPassword}
+    Re-enter Your New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Logout
+
+Input New Passcode
+    [Arguments]    ${NewPasscode}
+    Input PassCode    ${NewPasscode}
+
+Re-enter Your New Passcode
+    [Arguments]    ${CorrectPassword}
+    Input PassCode    ${CorrectPassword}
+
+Forgot Password And Verify
+    Click Mobile Element    ${btnForgotPasscodePage}
+    Mobile element text should be    ${lblDialogTouchID}    ${txtDialogForgotPassCode}
+    Mobile Capture Screen At Verify Point    Verify Dialog Forgot Password
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Verify Manual Login Page
+    Mobile element text should be    ${lblLogin}    ${txtLoginText}
+    Wait Mobile Until Element Visible    ${fldNumberMobileLoginPage}
+    Wait Mobile Until Element Visible    ${btnOKLoginPage}
+    Wait Mobile Until Element Visible    ${btnLangLoginPage}
+    Mobile Capture Screen At Verify Point    Manual Login Page
+
+Login By Passcode
+    Sleep    2
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Input Correct Passcode
+    verify login
+
+Verify Passcode Page Setting
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Mobile element text should be    ${lblPasscodeLockPageSetting}    ${PasscodeLockSetting}
+    Mobile Capture Screen At Verify Point    Passcode Page Setting
+
+Input Passcode Enter Setting
+    [Arguments]    ${CorrectPassword}
+    Input PassCode    ${CorrectPassword}
+
+Change Passcode Successful
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Click Mobile Element    ${btnChangePasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourOldPasscode}
+    Input Passcode    ${OldPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourNewPasscode}
+    Input Passcode    ${NewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtReEnterYourNewPasscode}
+    Input Passcode    ${ReNewPasscode}
+    Mobile element text should be    ${DialogCreatedSuccessfully}    ${CreatedSuccessfully}
+    Mobile Capture Screen At Verify Point    Verify Change Passcode
+
+Change Passcode Fail Old Passcode Wrong
+    [Arguments]    ${OldPasscode}    ${Round}=1
+    Click Mobile Element    ${btnChangePasscode}
+    : FOR    ${index}    IN RANGE    0    ${Round}    1
+    \    Input Passcode    ${WrongPassword}
+    \    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourOldPasscode}
+    \    Verify 6 Pin Lock
+    Mobile Capture Screen At Verify Point    Verify Fail Old Passcode Wrong
+
+Change Passcode Fail Re Enter New Passcode Wrong
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Click Mobile Element    ${btnChangePasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourOldPasscode}
+    Input Passcode    ${OldPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourNewPasscode}
+    Input Passcode    ${NewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtReEnterYourNewPasscode}
+    Input Passcode    ${ReNewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtReEnterPasscodeNotMatch}
+    Mobile Capture Screen At Verify Point    Verify Fail Re Enter Passcode Wrong
+
+Verify Passcode Page Setting Have Change Passcode
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Mobile element text should be    ${lblPasscodeLockPageSetting}    ${PasscodeLockSetting}
+    Mobile element text should be    ${btnChangePasscode}    ${ChangePasscode}
+    Mobile Capture Screen At Verify Point    Passcode Page Setting Change Passcode
+
+Active Passcode
+    Click Mobile Element    ${swPasscodeLockPageSetting}
+
+Verify Dialog Created Successfully
+    Mobile element text should be    ${DialogCreatedSuccessfully}    ${CreatedSuccessfully}
+    Mobile Capture Screen At Verify Point    CreatedSuccessfully
+
+Login And Verify Login Passcode Success
+    [Arguments]    ${NumberNo}
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Input Correct Passcode
+    Mobile element text should be    ${lblMobileNo}    ${NumberNo}
+    Wait Mobile Until Element Visible    ${btnHamburger}
+    Wait Mobile Until Element Visible    ${lbUserAccount}
+    Comment    Wait Mobile Until Element Visible    ${conHomeSummary}    #cancel verify this point
+    Mobile Capture Screen At Verify Point    Verify Login Passcode Successful
+
+Login And Verify Login Passcode Fail
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Input Wrong Passcode N Round    1
+    Verify 6 Pin Lock
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourPasscode}
+    Mobile element text should be    ${btnResetPasscodePage}    ${txtResetButton}
+    Mobile Capture Screen At Verify Point    Verify Login Passcode Failed
+
+Verify Your Passcode Don't Match
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${YourPasscodeDon't MatchPleaseTryAgain}
+    Mobile Capture Screen At Verify Point    Your Password Don't Match
+    Click Mobile Element    ${btnCancelPasscodePage}
+
+Login Passcode Incorrect 3 Times
+    Input Wrong Passcode N Round    3
+
+Verify Dialog Reached Maximum Passcode Limit
+    Mobile element text should be    ${lblDialogTouchID}    ${ReachedMaximumPasscodeLimit}
+    Mobile Capture Screen At Verify Point    Reached Maximum Passcode Limit
+    Click Mobile Element    ${btnHaveOnlyOKDialog}
+
+Press Reset At Login Passcode Page
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Click Mobile Element    ${btnResetPasscodePage}
+
+Verify Dialog Set Your New Passcode
+    Mobile element text should be    ${lblDialogTouchID}    ${SetYourNewPasscode}
+    Mobile Capture Screen At Verify Point    Set Your New Password
+
+Confirm Set New Password
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Cancel Set New Password
+    Click Mobile Element    ${btnCancelDialogTouchID}
+
+Verify Enter Your Passcode Page
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourPasscode}
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}
+    Mobile Capture Screen At Verify Point    Enter Your Passcode
+
+check survey
+    ${StatusSurvey}=    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_toolbar_simple_tv_title" and (@text="แบบสอบถาม" or @text="Survey")]    10
+    Run Keyword If    ${StatusSurvey}    AISAppiumEx.Go Back

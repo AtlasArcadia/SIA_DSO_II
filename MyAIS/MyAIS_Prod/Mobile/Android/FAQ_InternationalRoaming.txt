@@ -1,0 +1,667 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
+
+*** Test Cases ***
+[F2_1-4_1-2_Y_26_Prod] Go to international roaming
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "International Roaming"
+    ...    5.Verify FAQ "International Roaming" Page
+    ...    *****OLD*****
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Why do i have to turn off my internet connection before \ \ \ \ \ \ \ \ travelling abroad?
+    ...    - How can i connect my phone to Wi-Fi when i am abroad?
+    ...    - How can i subscribe to an international Roaming package \ \ \ \ \ \ while i am abroad?
+    ...    *****New*****
+    ...    5.1 International Roaming
+    ...    5.2 Roaming Package&Roaming Service Rates
+    ...    6.click \ Roaming Package&Roaming Service Rates
+    ...    7.Verify Roaming Package &Roaming Service Rates
+    ...    -How to check International Roamingrates?
+    ...    -I want to use data roaming when iabroad? What should I do?
+    ...    -I want to make calls and send texts \ when I'm abroad? What should I do?
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.เลือก เมนู "การใช้งานในต่างประเทศ"
+    ...    5.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - ทำไมต้องเปิด Data ก่อนออกเดินทาง?
+    ...    จะใช้ Wi-Fi ที่ต่างประเทศได้อย่างไร?
+    ...    - อยู่ต่างประเทศ จะสมัครแพ็กเกจต้องทำอย่างไร?
+    [Tags]    success    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select Roaming Package & Roaming Services Rate
+    Verify Roaming Package & Roaming Service Rates Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_27_Prod] Go to international roaming verify fist question
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step** (*หมายเหตุ ui มีการเปลี่ยนแปลงในเวอร์ชั่น , b 8.0.13 เป็นต้นไป)
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "International Roaming"
+    ...    5.Verify FAQ "International Roaming" Page
+    ...    *****OLD*****
+    ...    "International Roaming" (Text)
+    ...    - Why do i have to turn off my internet connection before \ \ \ \ \ \ \ \ travelling abroad? \ (Fist question)
+    ...    - How can i connect my phone to Wi-Fi when i am abroad? ( Second question)
+    ...    - How can i subscribe to an international Roaming package \ \ \ \ \ \ while i am abroad? (Third question)
+    ...    *****New*****
+    ...    5.1 International Roaming
+    ...    5.2 Roaming Package&Roaming Service Rates
+    ...
+    ...    6.Verify FAQ Roaming Package&Roaming Service Rates Page
+    ...    - How to check International Roaming rates?
+    ...    - I want to use data roaming when I’m abroad? What should I do?
+    ...    - I want to make calls and send texts when I’m abroad? What should I do?
+    ...
+    ...    7.
+    ...    *****OLD*****
+    ...    Click "Fist question"
+    ...    *****New*****
+    ...    Click Roaming Package &Roaming Service Rates
+    ...
+    ...    8.
+    ...    *****OLD*****
+    ...    Verify Anser Page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...    *****New*****
+    ...    Click First Question
+    ...
+    ...    9.Verify "Answer" Page
+    ...    "International Roaming"
+    ...    "Roaming Package & Roaming Service Rates"
+    ...    - Other text (Use Regular expression = ".+")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.เลือก เมนู "การใช้งานในต่างประเทศ"
+    ...    5.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - ทำไมต้องเปิด Data ก่อนออกเดินทาง? \ (คำถามข้อที่1)
+    ...    จะใช้ Wi-Fi ที่ต่างประเทศได้อย่างไร? (คำถามข้อที่2)
+    ...    - อยู่ต่างประเทศ จะสมัครแพ็กเกจต้องทำอย่างไร? (คำถามข้อที่3)
+    ...    6.เลือก "คำถามข้อที่1"
+    ...    7.ตรวจสอบหน้าคำตอบ
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select Roaming Package & Roaming Services Rate
+    Verify Roaming Package & Roaming Service Rates Page
+    Select Roaming Package & Roaming Service Rates Question    1
+    Verify Roaming Package & Roaming Service Rates Answer Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_28_Prod] Go to international roaming verify second question
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "International Roaming"
+    ...    5.
+    ...    *****OLD******
+    ...    Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - Why do i have to turn off my internet connection before \ \ \ \ \ \ \ \ travelling abroad? \ (Fist question)
+    ...    - How can i connect my phone to Wi-Fi when i am abroad? ( Second question)
+    ...    - How can i subscribe to an international Roaming package \ \ \ \ \ \ while i am abroad? (Third question)
+    ...    *****New*****
+    ...    5.1 International Roaming
+    ...    5.2 Roaming Package & Roaming Service Rates
+    ...
+    ...    6.Verify FAQ Roaming Package&Roaming Service Rates Page
+    ...    - How to check International Roaming rates?
+    ...    - I want to use data roaming when I’m abroad? What should I do?
+    ...    - I want to make calls and send texts when I’m abroad? What should I do?
+    ...
+    ...    7.
+    ...    *****OLD*****
+    ...    Click "Second" question
+    ...    *****NEW*****
+    ...    Click Roaming Package & Roaming Service Rates
+    ...    8.
+    ...    *****OLD*****
+    ...    Verify "Answer" Page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...    *****NEW*****
+    ...    Click second Question
+    ...    9.Verify "Answer" Page
+    ...    "International Roaming"
+    ...    "Roaming Package & Roaming Service Rates"
+    ...    - Other text (Use Regular expression = ".+")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ==========================
+    ...    4.เลือก เมนู "การใช้งานในต่างประเทศ"
+    ...    5.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - ทำไมต้องเปิด Data ก่อนออกเดินทาง? \ (คำถามข้อที่1)
+    ...    จะใช้ Wi-Fi ที่ต่างประเทศได้อย่างไร? (คำถามข้อที่2)
+    ...    - อยู่ต่างประเทศ จะสมัครแพ็กเกจต้องทำอย่างไร? (คำถามข้อที่3)
+    ...    6.เลือก "คำถามข้อที่2"
+    ...    7.ตรวจสอบหน้าคำตอบ
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select Roaming Package & Roaming Services Rate
+    Verify Roaming Package & Roaming Service Rates Page
+    Select Roaming Package & Roaming Service Rates Question    2
+    Verify Roaming Package & Roaming Service Rates Answer Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_29_Prod] Go to international roaming verify third question
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "International Roaming"
+    ...    5.
+    ...    *****OLD******
+    ...    Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - Why do i have to turn off my internet connection before \ \ \ \ \ \ \ \ travelling abroad? \ (Fist question)
+    ...    - How can i connect my phone to Wi-Fi when i am abroad? ( Second question)
+    ...    - How can i subscribe to an international Roaming package \ \ \ \ \ \ while i am abroad? (Third question)
+    ...    *****New*****
+    ...    5.1 International Roaming
+    ...    5.2 Roaming Package & Roaming Service Rates
+    ...
+    ...    6.Verify FAQ Roaming Package&Roaming Service Rates Page
+    ...    - How to check International Roaming rates?
+    ...    - I want to use data roaming when I’m abroad? What should I do?
+    ...    - I want to make calls and send texts when I’m abroad? What should I do?
+    ...
+    ...    7.
+    ...    *****OLD*****
+    ...    Click Third question
+    ...    *****NEW*****
+    ...    Click Roaming Package & Roaming Service Rates
+    ...    8.
+    ...    *****OLD*****
+    ...    Verify "Answer" Page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...    *****NEW*****
+    ...    Click Third Question
+    ...    9.Verify "Answer" Page
+    ...    "International Roaming"
+    ...    "Roaming Package & Roaming Service Rates"
+    ...    - Other text (Use Regular expression = ".+")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.เลือก เมนู "การใช้งานในต่างประเทศ"
+    ...    5.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - ทำไมต้องเปิด Data ก่อนออกเดินทาง? \ (คำถามข้อที่1)
+    ...    จะใช้ Wi-Fi ที่ต่างประเทศได้อย่างไร? (คำถามข้อที่2)
+    ...    - อยู่ต่างประเทศ จะสมัครแพ็กเกจต้องทำอย่างไร? (คำถามข้อที่3)
+    ...    6.เลือก "คำถามข้อที่3"
+    ...    7.ตรวจสอบหน้าคำตอบ
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select Roaming Package & Roaming Services Rate
+    Verify Roaming Package & Roaming Service Rates Page
+    Select Roaming Package & Roaming Service Rates Question    3
+    Verify Roaming Package & Roaming Service Rates Answer Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_51_Prod] Go to international roaming - international roaming verify first question
+    [Documentation]    [F2_1-4_1-2_Y_51_Prod] Go to International Roaming - International Roaming Verify First question
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    ===EN===
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "International Roaming"
+    ...    5.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    6.Click "International Roaming"
+    ...    7.Verify "FAQ" page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    Click "First question"
+    ...    8.Verify "Answer" Page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    1
+    Verify International Roaming Asnwer Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_52_Prod] Go to international roaming - international roaming verify second question
+    [Documentation]    [F2_1-4_1-2_Y_52_Prod] Go to International Roaming - International Roaming Verify Second question
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    ===EN===
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "International Roaming"
+    ...    5.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    6.Click "International Roaming"
+    ...    7.Verify "FAQ" page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    Click "Second question"
+    ...    8.Verify "Answer" Page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    2
+    Verify International Roaming Asnwer Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_53_Prod] Go to international roaming - international roaming verify third question
+    [Documentation]    [F2_1-4_1-2_Y_53_Prod] Go to International Roaming - International Roaming Verify Third question
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    ===EN===
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "International Roaming"
+    ...    5.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    6.Click "International Roaming"
+    ...    7.Verify "FAQ" page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    Click "Third question"
+    ...    8.Verify "Answer" Page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    3
+    Verify International Roaming Asnwer Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_54_Prod] Go to international roaming - international roaming verify fourth question
+    [Documentation]    [F2_1-4_1-2_Y_54_Prod] Go to International Roaming - International Roaming Verify Fourth question
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    ===EN===
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "International Roaming"
+    ...    5.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    6.Click "International Roaming"
+    ...    7.Verify "FAQ" page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    Click Fourth question"
+    ...    8.Verify "Answer" Page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    4
+    Verify International Roaming Asnwer Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_55_Prod] Go to international roaming - international roaming verify fifth question
+    [Documentation]    [F2_1-4_1-2_Y_55_Prod] Go to International Roaming - International Roaming Verify Fifth question
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    ===EN===
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "International Roaming"
+    ...    5.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    6.Click "International Roaming"
+    ...    7.Verify "FAQ" page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    Click Fifth question"
+    ...    8.Verify "Answer" Page
+    ...    "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    5
+    Verify International Roaming Asnwer Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke

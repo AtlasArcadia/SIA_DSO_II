@@ -1,0 +1,1047 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/PointsAndPrivilegesLocalized.txt
+Resource          ../PageRepository/${ar_OS}/PointsAndPrivilegesRepository.txt
+Resource          ../PageRepository/Android/MyAISRepository.txt
+
+*** Keywords ***
+Keywords For TearDown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+All Teardown Keyword For Point and Privilege
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Get mylists titles
+    AISAppiumEx.Wait Until Element Is Visible    ${lblMyListTitle}    ${lo_general_timeout}
+    @{MylistTitle}    AISAppiumEx.Get Webelements    ${lblMyListTitle}
+    [Return]    @{MylistTitle}
+
+Find privileges menu
+    [Arguments]    ${mnuPriv}
+    ${objContain}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${objPrivContainer}
+    Run Keyword If    '${objContain}'!='True'    Swipe to element    ${mnuPriv}    ${objPrivContainer}
+    Comment    swipe in container to element    ${mnuPriv}    ${objPrivContainer}    left
+
+Find points menu
+    [Arguments]    ${mnuPoints}
+    AISAppiumEx.Wait Until Element Is Visible    ${objPointContainer}
+    Swipe to element    ${mnuPoints}    ${objPointContainer}    left
+
+Points and privileges search keyword
+    [Arguments]    ${keyword}    ${udid}
+    Run Keyword If    "${ar_OS}"=="Android"    Points and privileges search keyword Android    ${keyword}    ${udid}
+    Run Keyword If    "${ar_OS}"=="iOS"    Points and privileges search keyword iOS    ${keyword}
+
+Points and privileges search keyword Android
+    [Arguments]    ${keyword}    ${udid}
+    AISAppiumEx.Wait Until Element Is Visible    ${txtSearchBox}
+    &{Location}    Get Element Location    ${txtSearchBox}
+    &{Size}    AISAppiumEx.Get Element Size    ${txtSearchBox}
+    ${x}    Get From Dictionary    ${Location}    x
+    ${y}    Get From Dictionary    ${Location}    y
+    ${width}    Get From Dictionary    ${Size}    width
+    ${height}    Get From Dictionary    ${Size}    height
+    ${clickAtX}    Evaluate    int(${x}+${width}/5)
+    ${clickAtL}    Evaluate    int(${y}+${height}/2)
+    ${rcIME}=    Run And Return Rc    adb -s ${udid} shell ime set com.android.adbkeyboard/.AdbIME
+    Click A Point    ${clickAtX}    ${clickAtL}    2000
+    Click A Point    ${clickAtX}    ${clickAtL}    2000
+    ${command}=    Set Variable    adb -s ${udid} shell am broadcast -a ADB_INPUT_TEXT --es msg '${keyword}'
+    Log    ${command}
+    ${rcInputText}=    Run And Return Rc    ${command}
+    ${rcSearch}=    Run And Return Rc    adb -s ${udid} shell am broadcast -a ADB_EDITOR_CODE --ei code 3    # IME_ACTION_SEARCH
+
+Points and privileges search keyword iOS
+    [Arguments]    ${keyword}
+    Wait Mobile Until Element Visible    ${txtSearchBox}
+    Input Mobile Text    ${txtSearchBox}    ${keyword}
+    Click Mobile Element    ${btnReturnKeyboardiOS}
+
+Open MyAIS For Point And Privilege
+    [Arguments]    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    Log    In Open My AIS App
+    ${driver}    Aisappium Open Application    http://${remoteUrl}/wd/hub    platformName=${platformName}    platformVersion=${platformVersion}    udid=${udid}    appPackage=com.nextzy.myais.myais
+    ...    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity    deviceName=${remoteUrl}
+    Log    Quite Open My AIS App
+
+Login point and privilege
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    Run Keyword If    '${Network}'=='Wifi'    Login wifi point and privilege    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    ...    ${Number}
+    Run Keyword If    '${Network}'=='Data'    Log    auto login
+    verify login point and privilege
+
+Login wifi point and privilege
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}
+    Input mobile text    ${txtMoibleNumberTemp}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPasswordTemp}
+    chosen primary button point and privilege
+    Input mobile text    ${txtInputOTPTemp}    1111
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${btnOKGetOTPTemp}    60
+
+Choose language point and privilege
+    [Arguments]    ${Language}
+    ${Lang}    Get mobile text    ${btnLanguageTemp}
+    Log    ${Lang}
+    : FOR    ${INDEX}    IN RANGE    1    10
+    \    Run Keyword If    '${Language}'=='${Lang}'    Click Mobile Element    ${btnLanguageTemp}
+    \    ...    ELSE    Exit For Loop
+    \    ${Lang}    Get mobile text    ${btnLanguageTemp}
+
+select menu point and privilege
+    Swipe to element    ${mnuPointsAndPrivileges}    ${mnuContainerTemp}    left
+    Click Mobile Element    ${mnuPointsAndPrivileges}
+
+verify login point and privilege
+    ${rounds}    Evaluate    int(${lo_general_timeout}/3)
+    : FOR    ${INDEX}    IN RANGE    1    ${rounds}
+    \    ${statusConfirmTerm}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnConfirmTermTemp}    1
+    \    Run Keyword If    ${statusConfirmTerm}    Click Mobile Element    ${btnConfirmTermTemp}
+    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnDialogOkTemp}    1
+    \    ${statusUserAccount}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lbUserAccountTemp}    1
+    \    Exit For Loop If    ${statusUserAccount} or ${statusButtonDialogOk}
+    Log    ${statusButtonDialogOk}
+    Run Keyword If    ${statusButtonDialogOk}    Fail    Found some dialog pop up.
+    Log    ${statusUserAccount}
+    Run Keyword If    '${statusUserAccount}' != 'True'    Fail    Not found user account after login.
+
+chosen primary button point and privilege
+    [Arguments]    ${timeout}=${lo_general_timeout}
+    ${rounds}    Evaluate    int(${timeout}/2)
+    : FOR    ${INDEX}    IN RANGE    1    ${rounds}
+    \    ${statusPrimary}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnPrimaryTemp}    1
+    \    ${statusInputOTP}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${txtInputOTPTemp}    1
+    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnDialogOkTemp}    1
+    \    Exit For Loop If    ${statusPrimary} or ${statusInputOTP} or ${statusButtonDialogOk}
+    Run Keyword If    ${statusPrimary}    Click Mobile Element    ${btnPrimaryTemp}
+    Run Keyword If    ${statusButtonDialogOk}    Fail    Found some dialog pop up.
+
+Verify Point And Privileges Page
+    Wait Mobile Until Element Visible    ${lblUserName}
+    Wait Mobile Until Element Visible    ${lblUserNumber}
+    Wait Mobile Until Element Visible    ${lblSegment}
+    Wait Mobile Until Element Visible    ${lblMyAISPoint}
+    Wait Mobile Until Element Visible    ${btnMyList}
+    Wait Mobile Until Element Visible    ${btnRecent}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page 1
+    Swipe to element    ${lblSeemorePoint}    duration=2000
+    Wait Mobile Until Element Visible    ${lblSeemorePoint}
+    Comment    Swipe to element    ${lblSeemorePriv}    duration=2000
+    Swipe Element To Screen    ${lblSeemorePriv}
+    Wait Mobile Until Element Visible    ${lblSeemorePriv}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page 2
+    Comment    Swipe to element    ${lblSeemoreNearby}    duration=2000
+    Swipe Element To Screen    ${lblSeemoreNearby}    ratio=0.5
+    Wait Mobile Until Element Visible    ${lblSeemoreNearby}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page 3
+
+Verify Point And Privileges Page iOS
+    Wait Mobile Until Element Visible    ${lblUserName}
+    Get mobile text    ${lblUserName}
+    Wait Mobile Until Element Visible    ${lblUserNumber}
+    Get mobile text    ${lblUserNumber}
+    Wait Mobile Until Element Visible    ${lblSegment}
+    Wait Mobile Until Element Visible    ${lblMyAISPoint}
+    Wait Mobile Until Element Visible    ${btnMyList}
+    Wait Mobile Until Element Visible    ${btnRecent}
+    Wait Mobile Until Element Visible    ${imgCampaingPoint}    #${lblSeemorePoint}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page 1
+    Swipe Element To Screen    ${btnPrivFev}    #${lblSeemorePriv}
+    Wait Mobile Until Element Visible    ${imgCampaingPriv}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page 2
+    Swipe Element To Screen    ${btnNearbyFev2}    #${lblSeemoreNearby}
+    Wait Mobile Until Element Visible    ${imgCampaingNearby1}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page 3
+
+Verify MyLists Page
+    Mobile element text should be    ${lblHeader}    ${MyLists}
+    @{MylistTitle}    Get mylists titles
+    Mobile element text should be    @{MylistTitle}[0]    ${Privileges}
+    Mobile element text should be    @{MylistTitle}[1]    ${Points}
+    Mobile Capture Screen At Verify Point    My Lists Page
+
+Verify MyLists Page iOS
+    Mobile element text should be    ${lblHeader}    ${MyLists}
+    Wait Mobile Until Page Contains Element    ${MylistTitlePriv}
+    Wait Mobile Until Page Contains Element    ${MylistTitlePoint}
+    Mobile Capture Screen At Verify Point    My Lists Page
+
+Select Menu Points And Privileges
+    Run Keyword If    "${ar_OS}"=="Android"    Select Menu Points And Privileges Android
+    Run Keyword If    "${ar_OS}"=="iOS"    Select Menu Points And Privileges iOS
+
+Select Menu Points And Privileges Android
+    Select Menu    PointsAndPrivileges
+    swipe in container to element    ${mnuPointsAndPrivileges}    ${mnuContainer}    left
+    Click Mobile Element    ${mnuPointsAndPrivileges}
+    ${elementIsContain}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${DialogMessageRegister}    5
+    Run Keyword If    "${elementIsContain}"=="True"    Click Mobile Element    ${DialogMsgBtnNo}
+    Wait Mobile Until Element Visible    ${objCampaignPointFrist}
+
+Select Menu Points And Privileges iOS
+    Select Menu    PointsAndPrivileges
+    ${elementIsContain}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${DialogMessageRegister}    10
+    Run Keyword If    "${elementIsContain}"=="True"    Click Mobile Element    ${DialogMsgBtnNo}
+    Wait Mobile Until Element Visible    ${objCampaignPointFrist}
+    Wait Mobile Until Element Visible    ${lblSeemorePoint}
+
+Select First Privileges Campaign And Verify Campaign Name
+    Swipe to element    ${objCampaignPrivFirst}
+    Click Mobile Element    ${objCampaignPrivFirst}
+    Mobile Capture Screen At Verify Point    First Priv Campaign
+    Swipe to element    ${lblCampaignTitle}    ${objContentCampaign}    Direction=down
+    Comment    swipe in container to element    ${lblCampaignTitle}    ${objContentCampaign}    Direction=down
+    sleep    3
+    ${NameCampaign}    Get mobile text    ${lblCampaignTitle}
+    Click Mobile Element    ${btnBackPointAndPriv}
+    Click Mobile Element    ${btnRecent}
+    Click Mobile Element    ${lblRecentsPriv}
+    Mobile element text should be    ${lblNameRecents}    ${NameCampaign}
+    Mobile Capture Screen At Verify Point    Verify Recent Priv Campaign
+    [Return]    ${NameCampaign}
+
+Select First Privileges Campaign And Verify Campaign Name iOS
+    Swipe to element    ${objCampaignPrivFirst}
+    Click Mobile Element    ${objCampaignPrivFirst}
+    Mobile Capture Screen At Verify Point    First Priv Campaign
+    ${NameCampaign}    Get mobile text    ${lblCampaignNameTitle}
+    Click Mobile Element    ${btnBackPointAndPriv}
+    Sleep    2
+    Click Mobile Element    ${btnRecent}
+    Click Mobile Element    ${lblRecentsPriv}
+    Mobile element text should be    ${lblNameRecents}    ${NameCampaign}
+    Mobile Capture Screen At Verify Point    Verify Recent Priv Campaign
+    [Return]    ${NameCampaign}
+
+Verify Recent Privileges Campaign
+    [Arguments]    ${recentCampaign}
+    AISAppiumEx.Wait Until Element Is Visible    ${objCampaignPointFrist}
+    Click Mobile Element    ${btnRecent}
+    Click Mobile Element    ${lblRecentsPriv}
+    Mobile element text should be    ${lblNameRecents}    ${recentCampaign}
+    Mobile Capture Screen At Verify Point    Recent Privileges Campaign
+
+Verify Recent Privileges Campaign iOS
+    [Arguments]    ${recentCampaign}
+    AISAppiumEx.Wait Until Element Is Visible    ${objCampaignPointFrist}
+    Click Mobile Element    ${btnRecent}
+    Click Mobile Element    ${lblRecentsPriv}
+    Mobile element text should be    ${lblNameRecents}    ${recentCampaign}
+    Mobile Capture Screen At Verify Point    Recent Privileges Campaign
+
+Select Frist Points Campaign And Verify Campaign Name
+    Click Mobile Element    ${objCampaignPointFrist}
+    Mobile Capture Screen At Verify Point    First Point Campaign
+    Swipe to element    ${lblCampaignTitle}    ${objContentCampaign}    Direction=down
+    sleep    2
+    ${NameCampaign}    Get mobile text    ${lblCampaignTitle}
+    Click Mobile Element    ${btnBackPointAndPriv}
+    Click Mobile Element    ${btnRecent}
+    Click Mobile Element    ${lblRecentsPoint}
+    Mobile element text should be    ${lblNameRecents}    ${NameCampaign}
+    Mobile Capture Screen At Verify Point    Verufy Recent Point Campaign
+
+Select Frist Points Campaign And Verify Campaign Name iOS
+    Click Mobile Element    ${objCampaignPointFrist}
+    ${NameCampaign}    Get mobile text    ${lblCampaignNameTitle}
+    Click Mobile Element    ${btnBackPointAndPriv}
+    Click Mobile Element    ${btnRecent}
+    Click Mobile Element    ${lblRecentsPoint}
+    Mobile element text should be    ${lblNameRecents}    ${NameCampaign}
+    Mobile Capture Screen At Verify Point    Verufy Recent Point Campaign
+
+Go To Recents Menu
+    Click Mobile Element    ${btnRecent}
+
+Go To Recents Menu iOS
+    Click Mobile Element    ${btnRecent}
+
+Verify Recents Menu
+    Mobile element text should be    ${lblHeader}    ${Recents}
+    AISAppiumEx.Wait Until Element Is Visible    ${lblMyListTitle}    ${lo_general_timeout}
+    @{RecentsTitle}    AISAppiumEx.Get Webelements    ${lblMyListTitle}
+    Mobile element text should be    @{RecentsTitle}[0]    ${Privileges}
+    Mobile element text should be    @{RecentsTitle}[1]    ${Points}
+    Mobile Capture Screen At Verify Point    Verify Recent Menu
+
+Verify Recents Menu iOS
+    Mobile element text should be    ${lblHeader}    ${Recents}
+    Mobile element text should be    ${MylistTitlePriv}    ${Privileges}
+    Mobile element text should be    ${MylistTitlePoint}    ${Points}
+    Mobile Capture Screen At Verify Point    Verify Recent Menu
+
+Fevorite Privileges Campaign Verify And Return Campaign Name
+    Swipe to element    ${btnPrivFev}    ratio=0.4
+    sleep    2
+    Click Mobile Element    ${btnPrivFev}
+    Mobile Capture Screen At Verify Point    Favorite Priv
+    ${FevCamp}    Get mobile text    ${lblPrivCampaign}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Mobile Element Text Should Be    ${lblNameCampPriv}    ${FevCamp}
+    Mobile Capture Screen At Verify Point    Verify Favorite Priv
+    [Return]    ${FevCamp}
+
+Fevorite Privileges Campaign Verify And Return Campaign Name iOS
+    Swipe to element    ${btnPrivFev}    ratio=0.4
+    sleep    2
+    Click Mobile Element    ${btnPrivFev}
+    Mobile Capture Screen At Verify Point    Favorite Priv
+    ${FevCamp}    Get mobile text    ${lblPrivCampaign}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Mobile Element Text Should Be    ${lblNameCampPriv}    ${FevCamp}
+    Mobile Capture Screen At Verify Point    Verify Favorite Priv
+    [Return]    ${FevCamp}
+
+Verify Fevorite Privileges Campaign
+    [Arguments]    ${Campaign}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Mobile Element Text Should Be    ${lblNameCampPriv}    ${Campaign}
+    Mobile Capture Screen At Verify Point    Verify Fev Campaign
+
+Verify Fevorite Privileges Campaign iOS
+    [Arguments]    ${Campaign}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Mobile Element Text Should Be    ${lblNameCampPriv}    ${Campaign}
+    Mobile Capture Screen At Verify Point    Verify Fev Campaign
+
+Fevorite Point
+    Click Mobile Element    ${btnPointFev}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListPoints}
+    Mobile Capture Screen At Verify Point    Favorite Point
+
+Fevorite Point iOS
+    Click Mobile Element    ${btnPointFev}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListPoints}
+    Mobile Capture Screen At Verify Point    Favorite Point
+
+Unfavorite Point Campaign And Verify
+    Click Mobile Element    ${lblMyListPoints}
+    Click Mobile Element    ${btnMyListPointFev}
+    Click Mobile Element    ${btnBackPointAndPriv}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListPoints}
+    Wait Mobile Until Element Visible    ${lblEmptyView}
+    Mobile Capture Screen At Verify Point    Verify Unfavorite Point
+
+Unfavorite Point Campaign And Verify iOS
+    Click Mobile Element    ${lblMyListPoints}
+    Click Mobile Element    ${btnMyListPointFev}
+    Click Mobile Element    ${btnBackPointAndPriv}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListPoints}
+    Wait Mobile Until Element Visible    ${lblEmptyView}
+    Mobile Capture Screen At Verify Point    Verify Unfavorite Point
+
+Fevorite Point Campaign And Verify
+    Click Mobile Element    ${btnPointFev}
+    Mobile Capture Screen At Verify Point    Favorite Point
+    ${FevCamp}    Get mobile text    ${lblPointCampaign}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListPoints}
+    Mobile Element Text Should Be    ${lblNameCampPoints}    ${FevCamp}
+    Mobile Capture Screen At Verify Point    Verify Favorite Point
+
+Fevorite Point Campaign And Verify iOS
+    Click Mobile Element    ${btnPointFev}
+    Mobile Capture Screen At Verify Point    Favorite Point
+    ${FevCamp}    Get mobile text    ${lblPointCampaign}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListPoints}
+    Mobile Element Text Should Be    ${lblNameCampPoints}    ${FevCamp}
+    Mobile Capture Screen At Verify Point    Verify Favorite Point
+
+CancelFevorite Point Campaign And Verify iOS
+    Click Mobile Element    ${btnPointFev}
+    Mobile Capture Screen At Verify Point    Favorite Point
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListPoints}
+    Mobile Capture Screen At Verify Point    Verify CencelFavorite Point
+
+Unfevorite Point iOS
+    Click Mobile Element    ${btnMyListPointFev}
+
+Fevorite Privileges
+    Swipe to element    ${btnPrivFev}    ratio=0.4
+    sleep    2
+    Click Mobile Element    ${btnPrivFev}
+    Mobile Capture Screen At Verify Point    Favorite Priv
+
+Unfevorite Privileges Campaign And Verify
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Click Mobile Element    ${btnMyListPrivFev}
+    Click Mobile Element    ${btnBackPointAndPriv}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Wait Mobile Until Element Visible    ${lblEmptyView}
+    Mobile Capture Screen At Verify Point    Verify Unfavorite Priv
+
+Unfevorite Privileges Campaign And Verify iOS
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Click Mobile Element    ${btnMyListPrivFev}
+    Click Mobile Element    ${btnBackPointAndPriv}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Wait Mobile Until Element Visible    ${lblEmptyView}
+    Mobile Capture Screen At Verify Point    Verify Unfavorite Priv
+
+Fevorite Privileges Campaign And Verify
+    Swipe to element    ${btnPrivFev}    ratio=0.4
+    sleep    2
+    Click Mobile Element    ${btnPrivFev}
+    Mobile Capture Screen At Verify Point    Favorite Priv
+    ${FevCamp}    Get mobile text    ${lblPrivCampaign}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Mobile Element Text Should Be    ${lblNameCampPriv}    ${FevCamp}
+    Mobile Capture Screen At Verify Point    Verify Favorite Priv
+
+Fevorite Privileges Campaign And Verify iOS
+    Swipe to element    ${btnPrivFev}    ratio=0.4
+    sleep    2
+    Click Mobile Element    ${btnPrivFev}
+    Mobile Capture Screen At Verify Point    Favorite Priv
+    ${FevCamp}    Get mobile text    ${lblPrivCampaign}
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Mobile Element Text Should Be    ${lblNameCampPriv}    ${FevCamp}
+    Mobile Capture Screen At Verify Point    Verify Favorite Priv
+
+CancelFevorite Privileges Campaign And Verify iOS
+    Swipe to element    ${btnPrivFev}    ratio=0.4
+    sleep    2
+    Click Mobile Element    ${btnPrivFev}
+    Mobile Capture Screen At Verify Point    Favorite Priv
+    Click Mobile Element    ${btnMyList}
+    Click Mobile Element    ${lblMyListsPriv}
+    Mobile Capture Screen At Verify Point    Verify Cancel Favorite Priv
+
+Unfevorite Privileges
+    Click Mobile Element    ${btnMyListPrivFev}
+
+Unfevorite Privileges iOS
+    Click Mobile Element    ${btnMyListPrivFev}
+    Mobile Capture Screen At Verify Point    Unfevorite Privileges
+
+Go To MyLists
+    Click Mobile Element    ${btnMyList}
+
+Go To MyLists iOS
+    Click Mobile Element    ${btnMyList}
+
+Go To Privileges
+    Run Keyword If    "${ar_OS}"=="Android"    Go To Privileges Android
+    Run Keyword If    "${ar_OS}"=="iOS"    Go To Privileges iOS
+
+Go To Privileges Android
+    Comment    swipe in container to element    ${lblSeemorePriv}    ${MyAisMainContainer}    ratio=0.3
+    Comment    Swipe Element To Screen    ${lblSeemorePriv}    ratio=0.4
+    Swipe to element    ${lblSeemorePriv}    ratio=0.3
+    sleep    5
+    Click Mobile Element    ${lblSeemorePriv}
+    sleep    5
+    ${elementIsContain2}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblSeemorePriv}    10
+    Comment    Run Keyword If    "${elementIsContain}"=="True"    Click Mobile Element    ${lblSeemorePriv}
+    : FOR    ${INDEX}    IN RANGE    1    3
+    \    Run Keyword If    "${elementIsContain2}"=="True"    Click Mobile Element    ${lblSeemorePriv}
+    \    ${elementIsContain3}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblSeemorePriv}    10
+    \    Exit For Loop If    "${elementIsContain3}"=="False"
+
+Go To Privileges iOS
+    Swipe to element    ${lblSeemorePriv}    Direction=up
+    Click Mobile Element    ${lblSeemorePriv}
+
+Go To Privileges Nearby And Verify
+    Find privileges menu    ${lblPrivNearBy}
+    sleep    2
+    Click Mobile Element    ${lblPrivNearBy}
+    Mobile Capture Screen At Verify Point    Privileges Nearby Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePriv}
+    Click Mobile Element    ${lblCampaignNamePriv}
+    Swipe to element    ${lblCampaignTitle}    Direction=down
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Privileges Nearby Campaign
+
+Go To Privileges Food And Verify
+    Find privileges menu    ${lblPrivDrink}
+    sleep    2
+    Click Mobile Element    ${lblPrivDrink}
+    Mobile Capture Screen At Verify Point    Privileges Food Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePriv}
+    Click Mobile Element    ${lblCampaignNamePriv}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Privileges Food Campaign
+
+Go To Privileges Shopping And Verify
+    Find privileges menu    ${lblPrivShopping}
+    sleep    2
+    Click Mobile Element    ${lblPrivShopping}
+    Mobile Capture Screen At Verify Point    Privileges Shopping Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePriv}
+    Click Mobile Element    ${lblCampaignNamePriv}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Privileges Shopping Campaign
+
+Go To Privileges Entertainment And Verify
+    Find privileges menu    ${lblPrivEntertainment}
+    sleep    2
+    Click Mobile Element    ${lblPrivEntertainment}
+    Mobile Capture Screen At Verify Point    Privileges Entertainment Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePriv}
+    Click Mobile Element    ${lblCampaignNamePriv}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Privileges Entertainment Campaign
+
+Go To Privileges Travel And Verify
+    Swipe to element    ${lblPrivTravel}    Container=${mnuCollectionPoint}    Direction=left
+    Find privileges menu    ${lblPrivTravel}
+    sleep    2
+    Click Mobile Element    ${lblPrivTravel}
+    Mobile Capture Screen At Verify Point    Privileges Travel Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePriv}
+    Click Mobile Element    ${lblCampaignNamePriv}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Privileges Travel Campaign
+
+Go To Privileges Life Style And Verify
+    Swipe to element    ${lblPrivLifeStyle}    Container=${mnuCollectionPoint}    Direction=left
+    Find privileges menu    ${lblPrivLifeStyle}
+    sleep    2
+    Click Mobile Element    ${lblPrivLifeStyle}
+    Mobile Capture Screen At Verify Point    Privileges LifeStyle Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePriv}
+    Click Mobile Element    ${lblCampaignNamePriv}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Privileges LifeStyle Campaign
+    Mobile Capture Screen At Verify Point    Privileges Page
+
+Go To Privileges Serenade And Verify
+    Swipe to element    ${lblPrivSerenade}    Container=${mnuCollectionPoint}    Direction=left
+    Find privileges menu    ${lblPrivSerenade}
+    sleep    2
+    Click Mobile Element    ${lblPrivSerenade}
+    Mobile Capture Screen At Verify Point    Privileges Serenade Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePriv}
+    Click Mobile Element    ${lblCampaignNamePriv}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Privileges Serenade Campaign
+
+Go To Points
+    Swipe to element    ${lblSeemorePoint}    duration=2000    ratio=0.4
+    sleep    10
+    Click Mobile Element    ${lblSeemorePoint}
+    sleep    5
+
+Select More
+    [Arguments]    ${subPrivilledgeMenu}
+    Swipe to element    ${lblSeemore${subPrivilledgeMenu}}    Direction=up
+    Click Mobile Element    ${lblSeemore${subPrivilledgeMenu}}
+
+Select Point Menu
+    [Arguments]    ${pointMenu}
+    Swipe to element    ${lblPoint${pointMenu}}    Container=${mnuCollectionPoint}    Direction=left    ratio=0.2    Round=10    duration=1000    appium_info="noinfo"
+    Click Mobile Element    ${lblPoint${pointMenu}}
+
+Verify Point Campaign Category
+    [Arguments]    ${pointCat}    ${pointCatText}
+    Swipe to element    ${lblPoint${pointCat}}    Container=${mnuCollectionPoint}    Direction=left    ratio=0.2    Round=10    duration=1000    appium_info="noinfo"
+    Mobile element text should be    ${lblPoint${pointCat}}    ${pointCatText}
+
+Select First Campaign
+    [Return]    ${CampaingName}
+    ${CampaingName}=    Get mobile text    ${lblFirstCampaingName}
+    Log    ${CampaingName}
+    Click Mobile Element    ${lblFirstCampaing}
+
+Verify First Campaign in Nearby Page
+    [Arguments]    ${CampaingName}
+    Mobile element text should be    ${lblCampaingName}    ${CampaingName}    #PCampaign name
+    Mobile Capture Screen At Verify Point    First Campaign in Devices Discount Page
+
+Verify First Campaign in Food And Drink Page
+    [Arguments]    ${CampaingName}
+    Mobile element text should be    ${lblPointTitlePromotionDetail}    ${FoodAndDrink}    #Food And Drink
+    Mobile element text should be    ${lblCampaingName}    ${CampaingName}    #PCampaign name
+    Mobile Capture Screen At Verify Point    First Campaign in Devices Discount Page
+
+Verify First Campaign in Voice Call And Internet Page
+    [Arguments]    ${CampaingName}
+    Mobile element text should be    ${lblPointTitlePromotionDetail}    ${VoiceCallAndNet}    #Voice Call & Internet
+    Mobile element text should be    ${lblCampaingName}    ${CampaingName}    #PCampaign name
+    Mobile Capture Screen At Verify Point    First Campaign in Devices Discount Page
+
+Verify First Campaign in Shopping Page
+    [Arguments]    ${CampaingName}
+    Mobile element text should be    ${lblPointTitlePromotionDetail}    ${Shopping}    #Shopping
+    Mobile element text should be    ${lblCampaingName}    ${CampaingName}    #PCampaign name
+    Mobile Capture Screen At Verify Point    First Campaign in Devices Discount Page
+
+Verify First Campaign in Devices Discount Page
+    [Arguments]    ${CampaingName}
+    Mobile element text should be    ${lblPointTitlePromotionDetail}    ${DeviceDiscount}    #Device Discount
+    Mobile element text should be    ${lblCampaingName}    ${CampaingName}    #PCampaign name
+    Mobile Capture Screen At Verify Point    First Campaign in Devices Discount Page
+
+Verify First Campaign in Movie Tickets Page
+    [Arguments]    ${CampaingName}
+    Mobile element text should be    ${lblPointTitlePromotionDetail}    ${MovieTickets}    #Aunjai Collections
+    Mobile element text should be    ${lblCampaingName}    ${CampaingName}    #Campaign name
+    Mobile Capture Screen At Verify Point    First Campaign in Movie Tickets Page
+
+Verify First Campaign in Aunjai Collections Page
+    [Arguments]    ${CampaingName}
+    Mobile element text should be    ${lblPointTitlePromotionDetail}    ${AunjaiCollections}    #Aunjai Collections
+    Mobile element text should be    ${lblCampaingName}    ${CampaingName}    #Campaign name
+    Mobile Capture Screen At Verify Point    First Campaign in Aunjai Collections Page
+
+Verify First Campaign in Hot Rewards Page
+    [Arguments]    ${CampaingName}
+    Mobile element text should be    ${lblPointTitlePromotionDetail}    ${HotRewards}    #Hot Rewards
+    Mobile element text should be    ${lblCampaingName}    ${CampaingName}    #Campaign name
+    Mobile Capture Screen At Verify Point    First Campaign in Hot Rewards Page
+
+Verify Convert Point Page
+    Sleep    10
+    Mobile element text should be    ${lblConvertPointTitle}    ${ConvertPoints}    #Convert Points
+    Mobile Capture Screen At Verify Point    Convert Point Page
+
+Verify Points
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Points Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Points iOS
+
+Verify Points Android
+    Wait Mobile Until Element Visible    ${lblTitlePoint}
+    Find points menu    ${lblPointNearby}
+    Find points menu    ${lblPointFoodAndDrink}
+    Find points menu    ${lblPointFreeCallAndFreeNet}
+    Swipe to element    ${lblPointTicket}    Container=${mnuCollectionPoint}    Direction=left
+    Find points menu    ${lblPointFreeShopping}
+    Find points menu    ${lblPointDiscountPhone}
+    Find points menu    ${lblPointTicket}
+    Swipe to element    ${lblPointHotRewards}    Container=${mnuCollectionPoint}    Direction=left
+    Find points menu    ${lblPointAunJaiCollections}
+    Find points menu    ${lblPointHotRewards}
+    Comment    Find points menu    ${lblPointLuckyDraw}
+    Mobile Capture Screen At Verify Point    Points Page
+
+Verify Points iOS
+    Comment    *messages    Mobile element text should be    x
+    Verify Point Campaign Category    Nearby    ${Nearby}
+    Verify Point Campaign Category    FoodAndDrink    ${FoodAndDrink}
+    Verify Point Campaign Category    FreeCallAndFreeNet    ${VoiceCallAndNet}
+    Mobile Capture Screen At Verify Point    Point category 1
+    Verify Point Campaign Category    FreeShopping    ${Shopping}
+    Verify Point Campaign Category    DiscountPhone    ${DeviceDiscount}
+    Verify Point Campaign Category    Ticket    ${MovieTickets}
+    Mobile Capture Screen At Verify Point    Point category 2
+    Verify Point Campaign Category    AunJaiCollections    ${AunjaiCollections}
+    Verify Point Campaign Category    HotRewards    ${HotRewards}
+    Verify Point Campaign Category    ConvertPoint    ${ConvertPoints}
+    Mobile Capture Screen At Verify Point    Point category 3
+
+Go To Points Nearby And Verify
+    Find points menu    ${lblPointNearby}
+    sleep    2
+    Click Mobile Element    ${lblPointNearby}
+    Mobile Capture Screen At Verify Point    Points Nearby Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Click Mobile Element    ${lblCampaignNamePoint}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Points Nearby Campaign
+
+Go To Points Food And Drink And Verify
+    Find points menu    ${lblPointFoodAndDrink}
+    sleep    2
+    Click Mobile Element    ${lblPointFoodAndDrink}
+    Mobile Capture Screen At Verify Point    Points Food And Drink Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Click Mobile Element    ${lblCampaignNamePoint}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Points Food And Drink Campaign
+
+Go To Points Free Call And Free Net And Verify
+    Find points menu    ${lblPointFreeCallAndFreeNet}
+    sleep    2
+    Click Mobile Element    ${lblPointFreeCallAndFreeNet}
+    Mobile Capture Screen At Verify Point    Points Free Call And Free Net Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Click Mobile Element    ${lblCampaignNamePoint}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Comment    Mobile element text should be    ${txtNoResult}    ${NoResult}
+    Mobile Capture Screen At Verify Point    Points Free Call And Free Net Campaign
+
+Go To Points Free Shopping And Verify
+    swipe in container to element    ${lblPointFreeShopping}    ${mnuContainerPoint}    left
+    Find points menu    ${lblPointFreeShopping}
+    sleep    2
+    Click Mobile Element    ${lblPointFreeShopping}
+    Mobile Capture Screen At Verify Point    Points Free Shopping Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Click Mobile Element    ${lblCampaignNamePoint}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Points Shopping Campaign
+
+Go To Points Discount Phone And Verify
+    swipe in container to element    ${lblPointDiscountPhone}    ${mnuContainerPoint}    left
+    Find points menu    ${lblPointDiscountPhone}
+    sleep    2
+    Click Mobile Element    ${lblPointDiscountPhone}
+    Mobile Capture Screen At Verify Point    Points Discount Phone Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Click Mobile Element    ${lblCampaignNamePoint}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Comment    Mobile element text should be    ${txtNoResult}    ${NoResult}
+    Mobile Capture Screen At Verify Point    Points Discount Phone Campaign
+
+Go To Points Ticket And Verify
+    swipe in container to element    ${lblPointTicket}    ${mnuContainerPoint}    left
+    Find points menu    ${lblPointTicket}
+    sleep    2
+    Click Mobile Element    ${lblPointTicket}
+    Mobile Capture Screen At Verify Point    Points Ticket Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Click Mobile Element    ${lblCampaignNamePoint}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Points Ticket Campaign
+
+Go To Points Aunjai Collections And Verify
+    swipe in container to element    ${lblPointAunJaiCollections}    ${mnuContainerPoint}    left
+    Find points menu    ${lblPointAunJaiCollections}
+    sleep    2
+    Click Mobile Element    ${lblPointAunJaiCollections}
+    Mobile Capture Screen At Verify Point    Points Aunjai Collections Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Click Mobile Element    ${lblCampaignNamePoint}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Comment    Mobile element text should be    ${txtNoResult}    ${NoResult}
+    Mobile Capture Screen At Verify Point    Points Aunjai Collections Campaign
+
+Go To Points Hot Rewards And Verify
+    Find points menu    ${lblPointHotRewards}
+    sleep    2
+    Click Mobile Element    ${lblPointHotRewards}
+    Mobile Capture Screen At Verify Point    Points Hot Rewards Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Click Mobile Element    ${lblCampaignNamePoint}
+    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Points Hot Rewards Campaign
+
+Go To Nearby
+    Swipe to element    ${lblSeemoreNearby}    Direction=up
+    Click Mobile Element    ${lblSeemoreNearby}
+
+Verify Nearby
+    Wait Mobile Until Element Visible    ${lblNearbyHeader}
+    AISAppiumEx.Element Text Should Be    ${lblNearbyHeader}    ${Nearby}
+    Mobile Capture Screen At Verify Point    Verify Neary Page
+
+Verify Nearby Map Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Nearby Map Page Android
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Nearby Map Page iOS
+
+Verify Nearby Map Page Android
+    Mobile Capture Screen At Verify Point    Verify Nearyby Map Campaign
+    ${Name}    Get mobile text    ${lblNearbyCampaign}
+    Click Mobile Element    ${lblNearbyCampaign}
+    Swipe to element    ${lblCampaignTitle}    Direction=down
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Nearby Map Campaign
+
+Verify Nearby Map Page iOS
+    # Click Mobile Element    ${btnNearbyMap}
+    Wait Mobile Until Element Visible    ${objNearbyCampaignFirstMap}
+    ${Name}    Get mobile text    ${objNearbyCampaignFirstMap_name}
+    Mobile Capture Screen At Verify Point    Verify Nearyby Map Campaign
+    Click Mobile Element    ${objNearbyCampaignFirstMap}
+    Wait Mobile Until Element Visible    ${lblNearbyCampaignFirst}
+    Swipe to element    ${lblNearbyCampaignFirst}    Direction=down
+    Mobile element text should be    ${lblNearbyCampaignFirst}    ${Name}
+    Mobile Capture Screen At Verify Point    Nearby Map Campaign
+
+Go To Nearby List And Verify
+    Run Keyword If    "${ar_OS}"=="Android"    Go To Nearby List And Verify Android
+    Run Keyword If    "${ar_OS}"=="iOS"    Go To Nearby List And Verify iOS
+
+Go To Nearby List And Verify Android
+    Click Mobile Element    ${btnNearby}
+    Mobile Capture Screen At Verify Point    Verify Nearyby List Campaign
+    ${Name}    Get mobile text    ${lblNearbyCampaign}
+    Click Mobile Element    ${lblNearbyCampaign}
+    Swipe to element    ${lblCampaignTitle}    Direction=down
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Nearby List Campaign
+
+Go To Nearby List And Verify iOS
+    Click Mobile Element    ${btnNearbyList}
+    Wait Mobile Until Element Visible    ${objNearbyCampaignFirst}
+    ${Name}    Get mobile text    ${objNearbyCampaignFirst_name}
+    Mobile Capture Screen At Verify Point    Verify Nearyby List Campaign
+    Click Mobile Element    ${objNearbyCampaignFirst}
+    Wait Mobile Until Element Visible    ${lblNearbyCampaignFirst}
+    Swipe to element    ${lblNearbyCampaignFirst}    Direction=down
+    Mobile element text should be    ${lblNearbyCampaignFirst}    ${Name}
+    Mobile Capture Screen At Verify Point    Nearby List Campaign
+
+Verify Search Menu
+    Mobile element text should be    ${lblSearchAll}    ${All}
+    Mobile element text should be    ${lblSearchPoint}    ${Points}
+    Mobile element text should be    ${lblSearchPriv}    ${Privileges}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchResult}    ${lo_general_timeout}
+    Mobile Capture Screen At Verify Point    Verify Search Page
+
+Verify Search Menu Not Found Result
+    Points and privileges search keyword    ${NotFound}    ${virtual_device_1_SN}
+    AISAppiumEx.Wait Until Element Is Visible    ${lblSearchAll}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchPoint}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchPriv}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchResult}    ${lo_general_timeout}
+    ${searchResult}    Get mobile text    ${lblSearchResult}
+    Should Match Regexp    ${searchResult}    ${NotFoundResult}
+    Mobile Capture Screen At Verify Point    Verify Search Not Found
+
+Verify Search Menu All Tab
+    Points and privileges search keyword    ${Donut}    ${virtual_device_1_SN}
+    AISAppiumEx.Wait Until Element Is Visible    ${lblSearchAll}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchPoint}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchPriv}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchResult}    ${lo_general_timeout}
+    ${searchResult}    Get mobile text    ${lblSearchResult}
+    log    ${searchResult}
+    Should Match Regexp    ${searchResult}    ${FoundResult}
+    Mobile Capture Screen At Verify Point    Verify Search All
+
+Verify Search Menu Points Tab
+    Points and privileges search keyword    ${Donut}    ${virtual_device_1_SN}
+    Click Mobile Element    ${lblSearchPoint}
+    AISAppiumEx.Wait Until Element Is Visible    ${lblSearchAll}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchPoint}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchPriv}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchResult}    ${lo_general_timeout}
+    ${searchResult}    Get mobile text    ${lblSearchResult}
+    log    ${searchResult}
+    Should Match Regexp    ${searchResult}    ${FoundResult}
+    Mobile Capture Screen At Verify Point    Verify Search Points
+
+Verify Search Menu Privileges Tab
+    Points and privileges search keyword    ${Donut}    ${virtual_device_1_SN}
+    Click Mobile Element    ${lblSearchPriv}
+    AISAppiumEx.Wait Until Element Is Visible    ${lblSearchAll}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchPoint}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchPriv}    ${lo_general_timeout}
+    Aisappiumex.Wait Until Element Is Visible    ${lblSearchResult}    ${lo_general_timeout}
+    ${searchResult}    Get mobile text    ${lblSearchResult}
+    log    ${searchResult}
+    Should Match Regexp    ${searchResult}    ${FoundResult}
+    Mobile Capture Screen At Verify Point    Verify Search Privileges
+
+Verify Search Menu iOS
+    Mobile element text should be    ${fldSearchBox}    ${Test}
+    Wait Mobile Until Element Visible    ${lblSearchAll}    #Mobile element text should be    ${lblSearchAll}    ${All}
+    Wait Mobile Until Element Visible    ${lblSearchPoint}    #Mobile element text should be    ${lblSearchPoint}    ${Points}
+    Wait Mobile Until Element Visible    ${lblSearchPriv}    #Mobile element text should be    ${lblSearchPriv}    ${Privileges}
+    Mobile Capture Screen At Verify Point    Verify Search Page
+    Click Mobile Element    ${btnbacktopointAndPrivPage}
+
+Verify Search Menu Not Found Result iOS
+    Comment    Mobile element text should be    ${fldSearchBox}    ${NotFound}
+    Comment    Mobile element text should be    ${lblSearchAll}    ${All}
+    Comment    Mobile element text should be    ${lblSearchPoint}    ${Points}
+    Comment    Mobile element text should be    ${lblSearchPriv}    ${Privileges}
+    ${searchResult}    Get mobile text    ${lblSearchResult}
+    Should Match Regexp    ${searchResult}    ${NotFoundResult}
+    Mobile Capture Screen At Verify Point    Verify Search Not Found
+    Click Mobile Element    ${btnbacktopointAndPrivPage}
+
+Verify Search Menu All Tab iOS
+    Click Mobile Element    ${lblSearchAll}
+    Comment    Mobile element text should be    ${fldSearchBox}    ${NotFound}
+    Comment    Mobile element text should be    ${lblSearchAll}    ${All}
+    Comment    Mobile element text should be    ${lblSearchPoint}    ${Points}
+    Comment    Mobile element text should be    ${lblSearchPriv}    ${Privileges}
+    ${searchResult}    Get mobile text    ${lblSearchResult}
+    Should Match Regexp    ${searchResult}    ${NotFoundResult}
+    Mobile Capture Screen At Verify Point    Verify Search All
+    Click Mobile Element    ${btnbacktopointAndPrivPage}
+
+Verify Search Menu Points Tab iOS
+    Click Mobile Element    ${lblSearchPoint}
+    Comment    Mobile element text should be    ${fldSearchBox}    ${NotFound}
+    Comment    Mobile element text should be    ${lblSearchAll}    ${All}
+    Comment    Mobile element text should be    ${lblSearchPoint}    ${Points}
+    Comment    Mobile element text should be    ${lblSearchPriv}    ${Privileges}
+    ${searchResult}    Get mobile text    ${lblSearchResult}
+    Should Match Regexp    ${searchResult}    ${NotFoundResult}
+    Mobile Capture Screen At Verify Point    Verify Search Points
+    Click Mobile Element    ${btnbacktopointAndPrivPage}
+
+Verify Search Menu Privileges Tab iOS
+    Click Mobile Element    ${lblSearchPriv}
+    Comment    Mobile element text should be    ${fldSearchBox}    ${NotFound}
+    Comment    Mobile element text should be    ${lblSearchAll}    ${All}
+    Comment    Mobile element text should be    ${lblSearchPoint}    ${Points}
+    Comment    Mobile element text should be    ${lblSearchPriv}    ${Privileges}
+    ${searchResult}    Get mobile text    ${lblSearchResult}
+    Should Match Regexp    ${searchResult}    ${NotFoundResult}
+    Mobile Capture Screen At Verify Point    Verify Search Privileges
+    Click Mobile Element    ${btnbacktopointAndPrivPage}
+
+Verify Points Call Feature
+    Click Mobile Element    ${lblSearchPoint}
+    Mobile Capture Screen At Verify Point    Verify Search Point
+    Click Mobile Element    ${objResultSearchPointCampaign}
+    Swipe to element    ${btnCampaignCall}    duration=2000    ratio=0.4
+    Mobile Capture Screen At Verify Point    Verify Points Call
+
+Verify Points Map Feature
+    Click Mobile Element    ${lblSearchPoint}
+    Mobile Capture Screen At Verify Point    Verify Search Point
+    Click Mobile Element    ${objResultSearchPointCampaign}
+    Swipe to element    ${btnCampaignMap}    duration=2000    ratio=0.4
+    Click Mobile Element    ${btnCampaignMap}
+    AISAppiumEx.Wait Until Element Is Visible    ${objGoogleMap}
+    Mobile Capture Screen At Verify Point    Verify Points Map
+
+Verify Priv Call Feature
+    Click Mobile Element    ${lblSearchPriv}
+    Mobile Capture Screen At Verify Point    Verify Search Priv
+    Click Mobile Element    ${objResultSearchPrivCampaign}
+    Swipe to element    ${btnCampaignCall}    duration=2000    ratio=0.4
+    Mobile Capture Screen At Verify Point    Verify Priv Call
+
+Verify Priv Call Feature iOS
+    Wait Web Until Page Contains Element
+
+Go To Points Lucky Draw And Verify
+    Find points menu    ${lblPointLuckyDraw}
+    sleep    2
+    Click Mobile Element    ${lblPointLuckyDraw}
+    Mobile Capture Screen At Verify Point    Points Lucky Draw Menu
+    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Click Mobile Element    ${lblCampaignNamePoint}
+    Swipe to element    ${lblCampaignTitle}    Direction=up
+    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Mobile Capture Screen At Verify Point    Points Lucky Draw Campaign
+
+Verify Privileges
+    Wait Mobile Until Element Visible    ${lblTitlePrivileges}
+    Find privileges menu    ${lblPrivNearBy}
+    Find privileges menu    ${lblPrivDrink}
+    Find privileges menu    ${lblPrivShopping}
+    Find privileges menu    ${lblPrivEntertainment}
+    Mobile Capture Screen At Verify Point    Privileges Page1
+    Swipe to element    ${lblPrivSerenade}    Container=${mnuCollectionPoint}    Direction=left
+    Find privileges menu    ${lblPrivTravel}
+    Find privileges menu    ${lblPrivLifeStyle}
+    Find privileges menu    ${lblPrivSerenade}
+    Mobile Capture Screen At Verify Point    Privileges Page2
+
+Verify Priv Map Feature
+    Click Mobile Element    ${lblSearchPriv}
+    Mobile Capture Screen At Verify Point    Verify Search Priv
+    Click Mobile Element    ${objResultSearchPrivCampaign}
+    Swipe to element    ${btnCampaignMap}    duration=2000    ratio=0.4
+    Click Mobile Element    ${btnCampaignMap}
+    AISAppiumEx.Wait Until Element Is Visible    ${objGoogleMap}
+    Mobile Capture Screen At Verify Point    Verify Priv Map
+
+Select menu Hot Reward
+    sleep    10    # wait AIS Point loaded maybe it hidden cannot use any keyword
+    Comment    AISAppiumEx.Wait Until Element Is Visible    xpath=//*[@text="AIS Point"]
+    Comment    Select Menu    PointsAndPrivileges
+    swipe in container to element    ${mnuHotRewards}    ${mnuContainerPoint }    left
+    Click Mobile Element    ${mnuHotRewards}
+    Sleep    3
+    Mobile Capture Screen At Verify Point    HotRewards
+
+Go To Points Convert Point
+    Find points menu    ${lblConvertPoints}
+    sleep    2
+    Click Mobile Element    ${lblConvertPoints}
+    Sleep    3
+    Wait Mobile Until Page Contains Element    ${mnuConvertPoints}
+    Sleep    3
+    Mobile Capture Screen At Verify Point    Points Converts Point Menu
+    Comment    ${Name}    Get mobile text    ${lblCampaignNamePoint}
+    Comment    Click Mobile Element    ${lblCampaignNamePoint}
+    Comment    Swipe to element    ${lblCampaignTitle}    Direction=down    ratio=0.4
+    Comment    Mobile element text should be    ${lblCampaignTitle}    ${Name}
+    Comment    Mobile Capture Screen At Verify Point    Points Converts Point Campaing
+
+Verify Swipe Banner
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Swipe Banner iOS
+
+Verify Swipe Banner iOS
+    Wait Mobile Until Element Visible    ${lblPlivilegesBanner}
+    swipe in container to element    ${lblPlivilegesBanner}    ${lblPlivilegesBanner}    left
+    Wait Mobile Until Element Visible    ${lblPlivilegesBanner}
+    swipe in container to element    ${lblPlivilegesBanner}    ${lblPlivilegesBanner}    right
+    Wait Mobile Until Element Visible    ${lblPlivilegesBanner}
+
+Verify Current Points And Expire
+    Mobile check existing text in name    ${lblPointCurrentCustomerPoint}
+    Mobile check existing text in name    ${lblPointCurrentExpireCustomerPoint}
+
+Check Swipe Point Banner
+    Wait Mobile Until Page Contains Element    ${imgPointFirstBanner}
+    ${tar_Location}    AISAppiumEx.Get Element Location    ${imgPointFirstBanner}
+    ${tar_x}=    Evaluate    ${tar_Location}['x']
+    ${tar_y}=    Evaluate    ${tar_Location}['y']
+    &{tar_Size}    AISAppiumEx.Get Element Size    ${imgPointFirstBanner}
+    ${tar_width}    Collections.Get From Dictionary    ${tar_Size}    width
+    ${tar_height}    Collections.Get From Dictionary    ${tar_Size}    height
+    ${x}=    Evaluate    ${tar_x}+(${tar_width}*0.2)
+    ${open_x}=    Evaluate    -(${tar_width}*0.2)
+    ${off_x}=    Evaluate    ${tar_width}*0.8
+    ${y}=    Evaluate    ${tar_y}+(${tar_height}*0.5)
+    Log    ${x}
+    Log    ${open_x}
+    Log    ${off_x}
+    Log    ${y}
+    Swipe    ${off_x}    ${y}    ${open_x}    0    1000
+    Swipe    ${x}    ${y}    ${off_x}    0    1000
+    Comment    *messagesAisappium Click Element    ${imgPointFirstBanner}
+    Sleep    10
+
+Verify Select Banner And Redirect
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Select Banner And Redirect iOS
+
+Verify Select Banner And Redirect iOS
+    Wait Mobile Until Element Visible    ${txtURL}
+    ${url}    Get mobile attribute    ${txtURL}    value
+    Should Match Regexp    ${url}    ${urlPage}
+    Mobile Capture Screen At Verify Point    PivilegesBanner
+    Click Mobile Element    ${btnBackFromPage}

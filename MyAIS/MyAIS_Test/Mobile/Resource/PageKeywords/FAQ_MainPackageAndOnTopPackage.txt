@@ -1,0 +1,154 @@
+*** Settings ***
+Resource          ../PageRepository/${ar_OS}/FAQ_MainPackageAndOnTopPackageRepository.txt
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/FAQ_MainPackageAndOnTopPackageLocalized.txt
+Resource          ../../../../../Config/LocalConfig.txt
+
+*** Keywords ***
+Select Topic
+    [Arguments]    ${Topic}
+    Click Mobile Element    ${lblTopic${Topic}}
+
+Select AIS Fibre Question
+    [Arguments]    ${Question}
+    Click Mobile Element    ${lblPromotionAndPackageAISFibre_Q${Question}}
+
+Verify Main Package And On Top Package
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Mobile element name should be    ${lblTitleMainPackAndOnTopPackage}    ${nameMainPackageAndOnTopPackage}
+    Mobile element name should be    ${lblTopicAISPostpaid}    ${contentAISPostpaid}
+    Mobile element name should be    ${lblTopicAIS12Call}    ${contentAIS12Call}
+    Mobile element name should be    ${lblTopicAISFibre}    ${contentAISFibre}
+    Mobile Capture Screen At Verify Point    FAQ Main Package And On Top Package Page
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Promotion And Package Submenu
+    Select Sub Menu    PromotionAndPackage
+
+Verify Main Package And On Top Package FAQ Page
+    Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsAndPackages}
+    Mobile element name should be    ${lblAISPostpaid}    ${txtAISPostpaid}
+    Mobile element name should be    ${lblAIS12Call}    ${txtAIS12CallTopic}
+    Mobile element name should be    ${lblAISFibre}    ${txtAISFibre}
+    Mobile Capture Screen At Verify Point    Promotion and Packages FAQ Page
+    [Teardown]
+
+Select Help And Support Menu
+    [Timeout]
+    Select Menu    HelpAndSupport
+
+Select FAQ Promotion And Package
+    [Arguments]    ${FAQ}
+    Click Mobile Element    ${lbl${FAQ}}
+
+Verify AIS Postpaid Answer
+    [Arguments]    ${QuestionNumber}
+    Sleep    2
+    Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsAndPackages}
+    Mobile element name should be    ${lblAISPostpaidHead}    ${txtAISPostpaidTopic}
+    Wait Mobile Until Page Contains Element    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}
+    ${RealAnswer_FAQ}    Aisappium Get Element Attribute    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}    name
+    Should Match Regexp    "${RealAnswer_FAQ}"    .+
+    Mobile Capture Screen At Verify Point    AIS Postpaid Answer${QuestionNumber}
+
+Verify AIS Postpaid FAQ Page
+    Sleep    2
+    Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsAndPackages}
+    Mobile element name should be    ${lblAISPostpaidHead}    ${txtAISPostpaidTopic}
+    Check Promotion&Package Text In Question    1
+    Check Promotion&Package Text In Question    2
+    Check Promotion&Package Text In Question    3
+    Mobile Capture Screen At Verify Point    AIS Postpaid FAQ Page
+
+Select Promotion and Package Question
+    [Arguments]    ${QuestionNumber}
+    Comment    Click Mobile Element    ${lblPromotion&Package_FAQ${QuestionNumber}}
+    Comment    Click Mobile Element At Position    ${lblPromotion&Package_FAQ${QuestionNumber}}    top
+    Click Mobile Element    ${lblPromotion&Package_FAQ${QuestionNumber}}
+
+Verify FAQ Promotion And Package AIS 12Call Page
+    Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}
+    Mobile element name should be    ${lblFAQHead}    ${txtAIS12Call}
+    Check Promotion&Package Text In Question    1
+    Check Promotion&Package Text In Question    2
+    Mobile Capture Screen At Verify Point    FAQ Promotion And Package AIS 12Call Page
+
+Select Promotion And Package AIS 12Call Question
+    [Arguments]    ${Argument}
+    Click Mobile Element    ${lblPromotionAndPackageAIS12Call_FAQ${Argument}}
+
+Verify Promotion And Package AIS 12Call Question Page
+    Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}
+    Mobile element name should be    ${lblFAQHead}    ${txtAIS12Call}
+    Check AIS12Call Text In Question    1
+    Check AIS12Call Text In Question    2
+    Check AIS12Call Text In Question    3
+    Mobile Capture Screen At Verify Point    Verify Promotion and Package 12 Call Question Page
+
+Select Sub AIS 12Call Question
+    [Arguments]    ${Argument}
+    Click Mobile Element    ${lblPromotionAndPackageAIS12Call_FAQ${Argument}}
+
+Verify Promotion And Package AIS 12Call Answer
+    [Arguments]    ${QuestionNumber}
+    Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}    5
+    Mobile element name should be    ${lblFAQHead}    ${txtAIS12Call}    5
+    Wait Mobile Until Page Contains Element    ${lblAnswerAIS12Call_FAQ${QuestionNumber}}
+    ${RealAnswer_FAQ}    Aisappium Get Element Attribute    ${lblAnswerAIS12Call_FAQ${QuestionNumber}}    name
+    Should Match Regexp    "${RealAnswer_FAQ}"    .+
+    Log    ${RealAnswer_FAQ}
+    Mobile Capture Screen At Verify Point    Promotion And Package AIS 12Call Answer
+
+Verify FAQ Promotion And Package AIS Fibre Page
+    Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}
+    Mobile element name should be    ${lblFAQHead}    ${txtsubFibre}
+    Check Promotion&Package Text In Question    1
+    Check Promotion&Package Text In Question    2
+    Check Promotion&Package Text In Question    3
+    Mobile Capture Screen At Verify Point    FAQ Promotion And Package AIS Fibre Page
+
+Select Promotion And Package AIS Fibre Question
+    [Arguments]    ${Argument}
+    Comment    Click Mobile Element At Position    ${lblPromotionAndPackageAISFibre_FAQ${Argument}}    top    0.01
+    Click Mobile Element    ${lblPromotionAndPackageAISFibre_FAQ${Argument}}
+
+Verify Promotion And Package AIS Fibre Answer
+    [Arguments]    ${QuestionNumber}
+    Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}    5
+    Mobile element name should be    ${lblFAQHead}    ${txtsubFibre}    5
+    Wait Mobile Until Page Contains Element    ${lblAnswerAISFibre_FAQ${QuestionNumber}}
+    ${RealAnswer_FAQ}    Aisappium Get Element Attribute    ${lblAnswerAISFibre_FAQ${QuestionNumber}}    name
+    Should Match Regexp    "${RealAnswer_FAQ}"    .+
+    Log    ${RealAnswer_FAQ}
+    Mobile Capture Screen At Verify Point    Promotion And Package AIS Fibre Answer
+
+Check Promotion&Package Text In Question
+    [Arguments]    ${Argument}
+    Mobile check existing text in name    ${lblPromotion&Package_FAQ${Argument}}
+
+Check AIS12Call Text In Question
+    [Arguments]    ${noQuestion}
+    Mobile check existing text in name    ${lblPromotionAndPackageAIS12Call_FAQ${noQuestion}}
+
+Verify Topic AIS Fibre
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Mobile element name should be    ${lblTitleMainPackAndOnTopPackage}    ${nameMainPackageAndOnTopPackage}
+    Mobile element name should be    ${lblPromotionAndPackageAISFibre_Q1}    ${AISFibreQ1}
+    Mobile element name should be    ${lblPromotionAndPackageAISFibre_Q2}    ${AISFibreQ2}
+    Mobile element name should be    ${lblPromotionAndPackageAISFibre_Q3}    ${AISFibreQ3}
+    Mobile Capture Screen At Verify Point    Topic AIS Fibre
+
+Verify Answer AIS Fibre Topic
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Mobile element name should be    ${lblTitleMainPackAndOnTopPackage}    ${nameMainPackageAndOnTopPackage}
+    Mobile element name should be    ${lblTopicName}    ${topicNameAISFibre}
+    Mobile check existing text in name    ${lblAnswerAISFibre}
+    Mobile Capture Screen At Verify Point    Verify AIS Fibre Answer
