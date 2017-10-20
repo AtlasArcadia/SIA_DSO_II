@@ -201,7 +201,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Comment    Verify Bank
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_Y_6_2] Verify page Top Up Summary InCase: Without Verified AMEX
+[F1_TopupPayment_IOS_1_1-2_Y_6_2] Verify page top up summary incase: without verified AMEX
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisite
@@ -259,7 +259,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Go to TopUp by AMEX No CreditCard
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_Y_7_2] Verify Top Up In Case : Verified by Credit
+[F1_TopupPayment_IOS_1_1-2_Y_7_2] Verify top up in case : verified by credit
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisite
@@ -326,7 +326,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify TopUP Page Verified by Credit    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_Y_8_2] Verify page Top Up Summary InCase: Verified by Visa
+[F1_TopupPayment_IOS_1_1-2_Y_8_2] Verify page top up summary incase: verified by Visa
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisite
@@ -384,7 +384,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Go to TopUP by VISA CreditCard
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_Y_9_2] Verify page Top Up Summary InCase: Verified by MasterCard
+[F1_TopupPayment_IOS_1_1-2_Y_9_2] Verify page top up summary incase: verified by MasterCard
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisite
@@ -442,7 +442,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Go to TopUp by MasterCard CreditCard
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_Y_10_2] Verify page Top Up Summary InCase: Verified by JCB
+[F1_TopupPayment_IOS_1_1-2_Y_10_2] Verify page top up summary incase: verified by JCB
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisite
@@ -1457,7 +1457,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up MasterCard number not correct
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_46_2] Verify page Top Up/Payment InCase:Failed Without Verified by JCB/Wrong number
+[F1_TopupPayment_IOS_1_1-2_N_46_2] Verify page top up/payment incase:failed without verified by JCB/Wrong number
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1497,7 +1497,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verfy Pop up JCB number not correct
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_47_2] Verify page Top Up/Payment InCase:Failed Without Verified by AMEX/Wrong number
+[F1_TopupPayment_IOS_1_1-2_N_47_2] Verify page top up/payment incase:failed without verified by AMEX/Wrong number
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1537,7 +1537,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up AMEX number not correct
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_48_2] Verify page Top Up/Payment InCase:Failed Without Verified by E-Wallet/Wrong number
+[F1_TopupPayment_IOS_1_1-2_N_48_2] Verify page top up/payment incase:failed without verified by E-Wallet/Wrong number
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1577,7 +1577,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up EWallet number not correct
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_49_2] Verify page Top Up/Payment InCase:Failed Refill Card Channel/Wrong number
+[F1_TopupPayment_IOS_1_1-2_N_49_2] Verify page top up/payment incase:failed refill card channel/Wrong number
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1617,7 +1617,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up Refill Card number not correct
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_50_2] Verify page Top Up/Payment InCase:Failed Verified by Visa/Wrong number
+[F1_TopupPayment_IOS_1_1-2_N_50_2] Verify page top up/payment incase:failed verified by Visa/Wrong number
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1657,7 +1657,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up VISA has information number not correct
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_51_2] Verify page Top Up/Payment InCase:Failed Verified by MasterCard/Wrong number
+[F1_TopupPayment_IOS_1_1-2_N_51_2] Verify page top up/payment incase:failed verified by MasterCard/Wrong number
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1697,7 +1697,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up MasterCard has information number not correct
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_52_2] Verify page Top Up/Payment InCase:Failed Verified by JCB/Wrong number
+[F1_TopupPayment_IOS_1_1-2_N_52_2] Verify page top up/payment incase:failed verified by JCB/Wrong number
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1737,7 +1737,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verfy Pop up JCB has information number not correct
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_53_2] Verify page Top Up/Payment InCase:Failed Without Verified by Visa/Wrong System
+[F1_TopupPayment_IOS_1_1-2_N_53_2] Verify page top up/payment incase:failed without verified by Visa/Wrong System
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1779,7 +1779,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up VISA number different network
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_54_2] Verify page Top Up/Payment InCase:Failed Without Verified by MasterCard/Wrong System
+[F1_TopupPayment_IOS_1_1-2_N_54_2] Verify page top up/payment incase:failed without verified by MasterCard/Wrong System
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1821,7 +1821,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up MasterCard number different network
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_55_2] Verify page Top Up/Payment InCase:Failed Without Verified by JCB/Wrong System
+[F1_TopupPayment_IOS_1_1-2_N_55_2] Verify page top up/payment incase:failed without verified by JCB/Wrong System
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1863,7 +1863,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up JCB no information and differnt network
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_56_2] Verify page Top Up/Payment InCase:Failed Without Verified by AMEX/Wrong System
+[F1_TopupPayment_IOS_1_1-2_N_56_2] Verify page top up/payment incase:failed without verified by AMEX/Wrong System
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1905,7 +1905,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up AMEX no information and differnt network
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_57_2] Verify page Top Up/Payment InCase:Failed Verified by E-Wallet/Wrong System
+[F1_TopupPayment_IOS_1_1-2_N_57_2] Verify page top up/payment incase:failed verified by E-Wallet/Wrong System
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1947,7 +1947,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up EWallet no information and differnt network
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_58_2] Verify page Top Up/Payment InCase:Failed Refill Card Channel/Wrong System
+[F1_TopupPayment_IOS_1_1-2_N_58_2] Verify page top up/payment incase:failed Refill Card Channel/Wrong System
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -1989,7 +1989,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up RefillCard no information and differnt network
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_59_2] Verify page Top Up/Payment InCase:Failed Verified by Visa/Wrong System
+[F1_TopupPayment_IOS_1_1-2_N_59_2] Verify page top up/payment incase:failed verified by Visa/Wrong System
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2031,7 +2031,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up VISA has information and differnt network
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_60_2] Verify page Top Up/Payment InCase:Failed Verified by MasterCard/Wrong System
+[F1_TopupPayment_IOS_1_1-2_N_60_2] Verify page top up/payment incase:failed verified by MasterCard/Wrong System
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2073,7 +2073,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up MasterCard has information and differnt network
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_61_2] Verify page Top Up/Payment InCase:Failed Verified by JCB/Wrong System
+[F1_TopupPayment_IOS_1_1-2_N_61_2] Verify page top up/payment incase:failed verified by JCB/Wrong System
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2115,7 +2115,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up JCB has information and differnt network
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_62_2] Verify page Top Up/Payment InCase:Failed Without Verified by Visa/AIS postpaid(eg.0937019824)
+[F1_TopupPayment_IOS_1_1-2_N_62_2] Verify page top up/payment incase:failed without verified by Visa/AIS postpaid(eg.0937019824)
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2155,7 +2155,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up VISA no information and input postpaid
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_63_2] Verify page Top Up/Payment InCase:Failed Without Verified by MasterCard/AIS postpaid(eg.0937019824)
+[F1_TopupPayment_IOS_1_1-2_N_63_2] Verify page top up/payment incase:failed without verified by MasterCard/AIS postpaid(eg.0937019824)
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2195,7 +2195,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up MasterCard no information and input postpaid
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_64_2] Verify page Top Up/Payment InCase:Failed Without Verified by JCB/AIS postpaid(eg.0937019824)
+[F1_TopupPayment_IOS_1_1-2_N_64_2] Verify page top up/payment incase:failed without verified by JCB/AIS postpaid(eg.0937019824)
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2235,7 +2235,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up JCB no information and input postpaid
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_65_2] Verify page Top Up/Payment InCase:Failed Without Verified by AMEX/AIS postpaid(eg.0937019824)
+[F1_TopupPayment_IOS_1_1-2_N_65_2] Verify page top up/payment incase:failed without verified by AMEX/AIS postpaid(eg.0937019824)
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2275,7 +2275,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up AMEX no information and input postpaid
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_66_2] Verify page Top Up/Payment InCase:Failed E-Wallet/AIS postpaid(eg.0937019824)
+[F1_TopupPayment_IOS_1_1-2_N_66_2] Verify page top up/payment incase:failed E-Wallet/AIS postpaid(eg.0937019824)
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2315,7 +2315,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up EWallet and input postpaid
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_67_2] Verify page Top Up/Payment InCase:Failed Refill Card Channel/AIS postpaid(eg.0937019824)
+[F1_TopupPayment_IOS_1_1-2_N_67_2] Verify page top up/payment incase:failed Refill Card Channel/AIS postpaid(eg.0937019824)
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2355,7 +2355,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up RefilCard and input postpaid
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_68_2] Verify page Top Up/Payment InCase:Failed Verified by Visa/AIS postpaid(eg.0937019824)
+[F1_TopupPayment_IOS_1_1-2_N_68_2] Verify page top up/payment incase:failed verified by Visa/AIS postpaid(eg.0937019824)
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2395,7 +2395,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up VISA has information and input postpaid
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_69_2] Verify page Top Up/Payment InCase:Failed Verified by MasterCard/AIS postpaid(eg.0937019824)
+[F1_TopupPayment_IOS_1_1-2_N_69_2] Verify page top up/payment incase:failed verified by MasterCard/AIS postpaid(eg.0937019824)
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2435,7 +2435,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up MasterCard has information and input postpaid
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_70_2] Verify page Top Up/Payment InCase:Failed Verified by JCB/AIS postpaid(eg.0937019824)
+[F1_TopupPayment_IOS_1_1-2_N_70_2] Verify page top up/payment incase:failed verified by JCB/AIS postpaid(eg.0937019824)
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2475,7 +2475,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up JCB has information and input postpaid
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_71_2] Verify page Top Up/Payment InCase:Failed Without Verified/No Selected Payment
+[F1_TopupPayment_IOS_1_1-2_N_71_2] Verify page top up/payment incase:failed Without Verified/No Selected Payment
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2513,7 +2513,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up no information and no payment channel
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_72_2] Verify page Top Up/Payment InCase:Failed Without Verified by Visa/No Selected Payment
+[F1_TopupPayment_IOS_1_1-2_N_72_2] Verify page top up/payment incase:failed without verified by Visa/No Selected Payment
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2551,7 +2551,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up VISA no information and no amount
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_73_2] Verify page Top Up/Payment InCase:Failed Without Verified by MasterCard/No Selected Payment
+[F1_TopupPayment_IOS_1_1-2_N_73_2] Verify page top up/payment incase:failed without verified by MasterCard/No Selected Payment
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2589,7 +2589,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up MasterCard no information and no amount
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_74_2] Verify page Top Up/Payment InCase:Failed Without Verified by JCB/No Selected Payment
+[F1_TopupPayment_IOS_1_1-2_N_74_2] Verify page top up/payment incase:failed without verified by JCB/No Selected Payment
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2627,7 +2627,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up JCB no information and no amount
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_75_2] Verify page Top Up/Payment InCase:Failed Without Verified by AMEX/No Selected Payment
+[F1_TopupPayment_IOS_1_1-2_N_75_2] Verify page top up/payment incase:failed without verified by AMEX/No Selected Payment
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2665,7 +2665,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up Amax no information and no amount
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_76_2] Verify page Top Up/Payment InCase:Failed Without Verified by E-Wallet/No Selected Payment
+[F1_TopupPayment_IOS_1_1-2_N_76_2] Verify page top up/payment incase:failed without verified by E-Wallet/No Selected Payment
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2703,7 +2703,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up Ewallet no information and no amount
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_77_2] Verify page Top Up/Payment InCase:Failed Verified by Visa/No Selected Payment
+[F1_TopupPayment_IOS_1_1-2_N_77_2] Verify page top up/payment incase:failed verified by Visa/No Selected Payment
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2741,7 +2741,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up VISA has information and no amount
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_78_2] Verify page Top Up/Payment InCase:Failed Verified by MasterCard/No Selected Payment
+[F1_TopupPayment_IOS_1_1-2_N_78_2] Verify page top up/payment incase:failed verified by MasterCard/No Selected Payment
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2779,7 +2779,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up MasterCard has information and no amount
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_79_2] Verify page Top Up/Payment InCase:Failed Verified by JCB/No Selected Payment
+[F1_TopupPayment_IOS_1_1-2_N_79_2] Verify page top up/payment incase:failed verified by JCB/No Selected Payment
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
@@ -2817,7 +2817,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Pop up JCB has information and no amount
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TopupPayment_IOS_1_1-2_N_80_2] Verify page Top Up/Payment InCase:Failed No Refill Code
+[F1_TopupPayment_IOS_1_1-2_N_80_2] Verify page top up/payment incase:failed No Refill Code
     [Documentation]    Owner : Asma
     ...
     ...    Pre-Requisiteq1
