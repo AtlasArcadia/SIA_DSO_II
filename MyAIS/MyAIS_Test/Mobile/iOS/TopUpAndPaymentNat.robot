@@ -33,7 +33,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    -"Next" button
     ...    -Terms & Conditions
     ...    6.Capture Screen -
-    [Tags]    active    success    regression    demo
+    [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_CreditCard
@@ -185,7 +185,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    8.กดปุ่ม "ต่อไป"
     ...    9.ตรวจสอบ popup msg: กรุณากรอกยอดที่ต้องการชำระ
     ...    10.จับภาพหน้าจอ -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_NoCreditCard=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_NoCreditCard
@@ -266,7 +266,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    8.กดปุ่ม "ต่อไป"
     ...    9.ตรวจสอบ popup msg: กรุณากรอกยอดที่ต้องการชำระ
     ...    10.จับภาพหน้าจอ -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_NoCreditCard=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_NoCreditCard
@@ -293,7 +293,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    8.กดปุ่ม "ต่อไป"
     ...    9.ตรวจสอบ popup msg: กรุณากรอกยอดที่ต้องการชำระ
     ...    10.จับภาพหน้าจอ -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -320,7 +320,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    8.กดปุ่ม "ต่อไป"
     ...    9.ตรวจสอบ popup msg: กรุณากรอกยอดที่ต้องการชำระ
     ...    10.จับภาพหน้าจอ -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_CreditCard=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_CreditCard
@@ -347,7 +347,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    8.กดปุ่ม "ต่อไป"
     ...    9.ตรวจสอบ popup msg: กรุณากรอกยอดที่ต้องการชำระ
     ...    10.จับภาพหน้าจอ -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_CreditCard=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_CreditCard
@@ -400,7 +400,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    7.กดปุ่ม "ต่อไป"
     ...    8.ตรวจสอบ popup msg: กรุณาเลือกช่องทางการชำระ
     ...    9.จับภาพหน้าจอ -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_NoCreditCard=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_NoCreditCard
@@ -426,7 +426,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    7.กดปุ่ม "ต่อไป"
     ...    8.ตรวจสอบ popup msg: กรุณาเลือกช่องทางการชำระ
     ...    9.จับภาพหน้าจอ -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_CreditCard=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_CreditCard
@@ -499,7 +499,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    5.กดปุ่ม "ต่อไป"
     ...    6.เลือกช่องทางการชำระ(E-Wallet)
     ...    7.ตรวจสอบ popup msg: หมายเลขโทรศัพท์ไม่ถูกต้อง กรุณาตรวจสอบและระบุใหม่อีกครั้ง -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -524,7 +524,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     ...    6.เลือกช่องทางการชำระ(E-Wallet)
     ...    7.ตรวจสอบ popup msg: กรุณาระบุหมายเลขโทรศัพท์ในเครือข่ายเอไอเอส
     ...    8.จับภาพหน้าจอ \ -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
