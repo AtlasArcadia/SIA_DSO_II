@@ -5,11 +5,27 @@ Resource          ../Resource/PageKeywords/TouchID.txt
 *** Test Cases ***
 [F1_TouchID_IOS_1-4_1-2_Y_1_2]
     [Documentation]    **Owner:Tong**
-    ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
-    ...    Status : Active
+    ...    Status :  Active
+    ...
+    ...    *Pre-Requisite*
+    ...    '- ล็อกรหัส : ปิดการใช้งาน
+    ...    - ไม่มีการ Add Fingerprint ไว้ในเครื่องแล้ว
+    ...
+    ...    **Expected Result**
+    ...    1.ระบบแสดงที่หน้าจอ "การล็อกรหัส"
+    ...    - แสดงสัญลักษณ์ [<]
+    ...    - แสดงเมนู "ล็อกรหัส" [ปิด]
+    ...
+    ...    ***TestStep***
+    ...    1. เปิด App my AIS.
+    ...    2. Login ผ่าน 3G/4G หรือ กดรับ OTP
+    ...    3. เลือกเมนู Hamburger
+    ...    4. เลือกเมนู "ตั้งค่า"
+    ...    5. เลือก การล็อกรหัส ที่หน้า "ตั้งค่า"
+    ...    6. ตรวจสอบหน้าจอ "การล็อกรหัส"
     [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE    demo
+    ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -20,6 +36,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Select Hamburger
     Select Settings
     Select Passcode Menu
+    Verify Passcode Page Setting
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_2_2]
@@ -27,6 +44,25 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...    '- ล็อกรหัส : เปิดการใช้งาน
+    ...    - ไม่มีการ Add Fingerprint ไว้ในเครื่องแล้ว
+    ...
+    ...    **Expected Result**
+    ...    1.ระบบแสดงที่หน้าจอ "การล็อกรหัส"
+    ...    - แสดงสัญลักษณ์ [<]
+    ...    - แสดงเมนู "ล็อกรหัส" [เปิด]
+    ...    - แสดงเมนู "เปลี่ยนรหัส"
+    ...
+    ...    ***TestStep***
+    ...    1. เปิด App my AIS.
+    ...    2. ใส่รหัส ถูกต้อง ที่หน้า "ใส่รหัสของคุณ"
+    ...    3. เลือกเมนู Hamburger
+    ...    4. เลือกเมนู "ตั้งค่า"
+    ...    5. เลือก การล็อกรหัส ที่หน้า "ตั้งค่า"
+    ...    6. กรอกรหัสที่ตั้งค่าไว้
+    ...    7. ตรวจสอบหน้าจอ "การล็อกรหัส"
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -39,6 +75,8 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Select Hamburger
     Select Settings
     Select Passcode Menu
+    Verify Passcode Pin Setting
+    Disable Passcode
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_3_2]
@@ -46,18 +84,26 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE
+    ...    3BO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
-    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login with Passcode
     Choose Language    ${ar_LANG}
     Select Hamburger
     Select Settings
     Select Passcode Menu
+    Verify Passcode Enable TouchID
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_4_2]
@@ -65,6 +111,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -84,6 +136,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -103,6 +161,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -122,6 +186,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -141,6 +211,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -160,6 +236,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -179,6 +261,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -198,6 +286,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -217,6 +311,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -238,6 +338,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    fail    active    regression    3PO    3PE    3BO
     ...    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -256,6 +362,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    fail    active    regression    3PO    3PE    3BO
     ...    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -290,6 +402,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    fail    active    regression    3PO    3PE    3BO
     ...    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -308,6 +426,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    **Expected Result**
+    ...
+    ...    ***TestStep***
     [Tags]    fail    active    regression    3PO    3PE    3BO
     ...    3BE
     &{#dict_device_name}=    Create Dictionary

@@ -56,17 +56,20 @@ Select Hamburger Android
     Click Mobile Element    ${btnHamberger}
 
 Select Hamburger iOS
-    Click Mobile Element    ${btnHamberger}
+    ${statusHamberger}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnHamberger}
+    #${statusHambergerPasscode}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnHamberger}
+    Run Keyword If    ${statusHamberger}    Click Mobile Element    ${btnHamberger}
+    ...    ELSE    Click Mobile Element    ${btnHambergerPassCode}
 
 Select Settings
     Run Keyword If    "${ar_OS}"=="Android"    Select Settings Android
     ...    ELSE IF    "${ar_OS}"=="iOS"    Select Settings iOS
 
 Select Settings Android
-    Click Mobile Element    ${btnSettings}
+    Click Mobile Element    ${btnSetting}
 
 Select Settings iOS
-    Click Mobile Element    ${btnSettings}
+    Click Mobile Element    ${btnSetting}
 
 Input Correct Passcode
     Input Passcode    ${CorrectPassword}
@@ -100,7 +103,7 @@ Verify 6 Pin Lock
     \    Wait Mobile Until Element Visible    ${dotsPinlockPasscode${index}}
     Mobile Capture Screen At Verify Point    Verify in 6 Pin Lock
 
-Close Pass Lock
+Close PassLock
     Wait Mobile Until Element Visible    ${btnChangePasscode}
     Click Mobile Element    ${swPasscodeLockPageSetting}
 
@@ -110,6 +113,11 @@ Verify Dialog Reset Passcode
     Click Mobile Element    ${btnOKDialogTouchID}
 
 Setup Active Passcode
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    Run Keyword If    "${ar_OS}"=="Android"    Setup Active Passcode Android    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Setup Active Passcode iOS    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+
+Setup Active Passcode Android
     [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
     ${statusResetBtn}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnResetPasscodePage}    10
     Run Keyword If    ${statusResetBtn}    Reset Passcode
@@ -122,6 +130,18 @@ Setup Active Passcode
     Input New Passcode    ${CorrectPassword}
     Re-enter Your New Passcode    ${CorrectPassword}
     Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Logout
+
+Setup Active Passcode iOS
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    Comment    ${statusResetBtn}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnResetPasscodePage}    10
+    Comment    Run Keyword If    ${statusResetBtn}    Reset Passcode
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Verify Passcode Pin Setting
     Logout
 
 Input New Passcode
@@ -146,16 +166,35 @@ Verify Manual Login Page
     Mobile Capture Screen At Verify Point    Manual Login Page
 
 Login By Passcode
+    Run Keyword If    "${ar_OS}"=="Android"    Login By Passcode Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Login By Passcode iOS
+
+Login By Passcode Android
     Sleep    2
     Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
     Input Correct Passcode
     verify login
 
+Login By Passcode iOS
+    Wait Mobile Until Element Visible    ${btnNumber0}
+    Input Correct Passcode
+
 Verify Passcode Page Setting
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Passcode Page Setting Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Passcode Page Setting iOS
+
+Verify Passcode Page Setting Android
     Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
     Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
     Mobile element text should be    ${lblPasscodeLockPageSetting}    ${PasscodeLockSetting}
     Mobile Capture Screen At Verify Point    Passcode Page Setting
+
+Verify Passcode Page Setting iOS
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Mobile element text should be    ${lblPasscodeLockPageSetting}    ${PasscodeLockSetting}
+    Wait Mobile Until Element Visible    ${btnPasscodeLock}
+    Mobile Capture Screen At Verify Point    Verify Passcode Page Setting iOS
 
 Input Passcode Enter Setting
     [Arguments]    ${CorrectPassword}
@@ -261,3 +300,43 @@ Verify Enter Your Passcode Page
 check survey
     ${StatusSurvey}=    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_toolbar_simple_tv_title" and (@text="แบบสอบถาม" or @text="Survey")]    10
     Run Keyword If    ${StatusSurvey}    AISAppiumEx.Go Back
+
+Verify Passcode Pin Setting
+    Wait Mobile Until Element Visible    ${btnPasscodeLock}
+    Click Mobile Element    ${btnPasscodeLock}
+    : FOR    ${INDEX}    IN RANGE    0    6    1
+    \    Click Mobile Element    ${btnNumber1}
+    Sleep    2
+    : FOR    ${INDEX}    IN RANGE    0    6    1
+    \    Click Mobile Element    ${btnNumber1}
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
+    Wait Mobile Until Element Visible    ${lblPasscodeLockInPasscodePageSetting}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Mobile Capture Screen At Verify Point    Verify Passcode Pin Setting
+
+Verify Passcode Enable TouchID
+    Wait Mobile Until Element Visible    ${btnPasscodeLock}
+    Click Mobile Element    ${btnPasscodeLock}
+    : FOR    ${INDEX}    IN RANGE    0    6    1
+    \    Click Mobile Element    ${btnNumber1}
+    Sleep    2
+    : FOR    ${INDEX}    IN RANGE    0    6    1
+    \    Click Mobile Element    ${btnNumber1}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Click Mobile Element    ${btnTouchID}
+    Mobile Capture Screen At Verify Point    Verify Passcode Enable TouchID
+
+Login with Passcode
+    Wait Mobile Until Element Visible    ${lblTitleInputPasscodePage}    60
+    : FOR    ${INDEX}    IN RANGE    0    6    1
+    \    Click Mobile Element    ${btnNumber1}
+    Wait Mobile Until Element Visible     ${btnHamberger}    60
+
+Disable Passcode
+    Close Application
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}
+    Click Mobile Element    ${btnResetPasscodePage}
+    Wait Mobile Until Element Visible    ${btnConfirmReset}
+    Click Mobile Element    ${btnConfirmReset}
+
