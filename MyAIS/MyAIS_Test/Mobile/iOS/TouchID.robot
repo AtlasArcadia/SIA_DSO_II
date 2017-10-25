@@ -4,12 +4,12 @@ Resource          ../Resource/PageKeywords/TouchID.txt
 
 *** Test Cases ***
 [F1_TouchID_IOS_1-4_1-2_Y_1_2]
-    [Documentation]    **Owner:**
+    [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
     [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE
+    ...    3BO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -23,7 +23,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_2_2]
-    [Documentation]    **Owner:**
+    [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
@@ -42,7 +42,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_3_2]
-    [Documentation]    **Owner:**
+    [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
@@ -61,7 +61,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_4_2]
-    [Documentation]    **Owner:**
+    [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
@@ -80,7 +80,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_6_2]
-    [Documentation]    **Owner:**
+    [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
@@ -99,7 +99,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_7_2]
-    [Documentation]    **Owner:**
+    [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
@@ -118,7 +118,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_8_2]
-    [Documentation]    **Owner:**
+    [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active

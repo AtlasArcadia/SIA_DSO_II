@@ -49,10 +49,23 @@ Verify Dont Have Passcode Lock
     Mobile Capture Screen At Verify Point    Verify is Dont Have Passcode Lock
 
 Select Hamburger
-    Comment    Swipe to element    ${btnSetting}    screen    right    0.01
+    Run Keyword If    "${ar_OS}"=="Android"    Select Hamburger Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Hamburger iOS
+
+Select Hamburger Android
+    Click Mobile Element    ${btnHamberger}
+
+Select Hamburger iOS
     Click Mobile Element    ${btnHamberger}
 
 Select Settings
+    Run Keyword If    "${ar_OS}"=="Android"    Select Settings Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Settings iOS
+
+Select Settings Android
+    Click Mobile Element    ${btnSettings}
+
+Select Settings iOS
     Click Mobile Element    ${btnSettings}
 
 Input Correct Passcode
@@ -64,6 +77,13 @@ Input Wrong Passcode N Round
     \    Input Passcode    ${WrongPassword}
 
 Select Passcode Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Passcode Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Passcode Menu iOS
+
+Select Passcode Menu Android
+    Click Mobile Element    ${mnuPasscodeLock}
+
+Select Passcode Menu iOS
     Click Mobile Element    ${mnuPasscodeLock}
 
 Reset Passcode
