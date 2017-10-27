@@ -26,8 +26,9 @@ chosen primary button
 
 Choose Language
     [Arguments]    ${Language}    ${Environment}=Wifi
+    Wait Mobile Until Element Visible    ${lblTitle}    60
     ${title}    AISAppiumEx.Get Text    ${lblTitle}
-    Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='HOME' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    change language    ${Language}
+    Run Keyword If    ('${title}'=='HOME' and '${Language}'=='TH' ) or ('${title}'=='HOME' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    change language    ${Language}
 
 verify login
     ${rounds}    Evaluate    int(${lo_general_timeout}/3)
@@ -69,7 +70,8 @@ Login Wifi
     ...    ELSE    Input mobile text    ${txtInputOTP}    1111    60
     Run Keyword And Ignore Error    Hide keyboard
     Log    ${StatRequestOTP}
-    Run Keyword If    ${StatRequestOTP} or ${statusPrimary}    Click Mobile Element    ${btnOKGetOTPForRegisted}    60    ELSE    Click Mobile Element    ${btnOKGetOTP}    60
+    Run Keyword If    ${StatRequestOTP} or ${statusPrimary}    Click Mobile Element    ${btnOKGetOTPForRegisted}    60
+    ...    ELSE    Click Mobile Element    ${btnOKGetOTP}    60
 
 change language
     [Arguments]    ${Language}
