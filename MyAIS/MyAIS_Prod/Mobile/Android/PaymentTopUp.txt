@@ -3815,8 +3815,10 @@ Resource          ../Resource/PageKeywords/PaymentTopUp.txt
     Choose Language    ${ar_LANG}
     Select Menu Payment And Topup
     Select Sub Menu    TopUp
-    Choose Credit or Debit Card    AMEX
-    Verify Top up via AMEX No Credit Card Information
+    Run Keyword If    "${ar_NType}" == "3PO"    Choose Credit or Debit Card    AMEX
+    Run Keyword If    "${ar_NType}" == "3BO"    Choose Credit or Debit Card    JCB
+    Run Keyword If    "${ar_NType}" == "3PO"    Verify Top up via AMEX No Credit Card Information
+    Run Keyword If    "${ar_NType}" == "3BO"    Verify Top up via JCB No Credit Card Information    ${JCB}    ${CVV_JCB}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_PaymentTopUp_2_1-2_Y_8_1] Top up via (mPay)

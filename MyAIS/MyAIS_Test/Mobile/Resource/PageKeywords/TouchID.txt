@@ -44,9 +44,19 @@ Verify Have Passcode lock
     Mobile Capture Screen At Verify Point    Verify is Have Passcode Lock
 
 Verify Dont Have Passcode Lock
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dont Have Passcode Lock Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dont Have Passcode Lock iOS
+
+Verify Dont Have Passcode Lock Android
     Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
     Wait Mobile Until Page Does Not Contain Element    ${btnChangePasscode}
     Mobile Capture Screen At Verify Point    Verify is Dont Have Passcode Lock
+
+Verify Dont Have Passcode Lock iOS
+    Mobile element text should be    ${lblPasscodeLockInPasscodePageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    ${statusChangePasscode}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Should Be True    '${statusChangePasscode}'=='False'
+    Mobile Capture Screen At Verify Point    Verify Dont Have Passcode Lock
 
 Select Hamburger
     Run Keyword If    "${ar_OS}"=="Android"    Select Hamburger Android
@@ -172,13 +182,34 @@ Re-enter Your New Passcode
     Input PassCode    ${CorrectPassword}
 
 Forgot Password And Verify
+    Run Keyword If    "${ar_OS}"=="Android"    Forgot Password And Verify Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Forgot Password And Verify iOS
+
+Forgot Password And Verify Android
+    Click Mobile Element    ${btnForgotPasscodePage}
+    Mobile element text should be    ${lblDialogTouchID}    ${txtDialogForgotPassCode}
+    Mobile Capture Screen At Verify Point    Verify Dialog Forgot Password
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Forgot Password And Verify iOS
     Click Mobile Element    ${btnForgotPasscodePage}
     Mobile element text should be    ${lblDialogTouchID}    ${txtDialogForgotPassCode}
     Mobile Capture Screen At Verify Point    Verify Dialog Forgot Password
     Click Mobile Element    ${btnOKDialogTouchID}
 
 Verify Manual Login Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Manual Login Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Manual Login Page iOS
+
+Verify Manual Login Page Android
     Mobile element text should be    ${lblLogin}    ${txtLoginText}
+    Wait Mobile Until Element Visible    ${fldNumberMobileLoginPage}
+    Wait Mobile Until Element Visible    ${btnOKLoginPage}
+    Wait Mobile Until Element Visible    ${btnLangLoginPage}
+    Mobile Capture Screen At Verify Point    Manual Login Page
+
+Verify Manual Login Page iOS
+    Mobile element text should be    ${lblLogin}    ${LoginText}
     Wait Mobile Until Element Visible    ${fldNumberMobileLoginPage}
     Wait Mobile Until Element Visible    ${btnOKLoginPage}
     Wait Mobile Until Element Visible    ${btnLangLoginPage}
@@ -197,6 +228,7 @@ Login By Passcode Android
 Login By Passcode iOS
     Wait Mobile Until Element Visible    ${btnNumber0}
     Input Correct Passcode
+    verify login
 
 Verify Passcode Page Setting
     Run Keyword If    "${ar_OS}"=="Android"    Verify Passcode Page Setting Android
@@ -210,7 +242,7 @@ Verify Passcode Page Setting Android
 
 Verify Passcode Page Setting iOS
     Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
-    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${HeaderPasscodeLockPageSetting}
     Mobile element text should be    ${lblPasscodeLockPageSetting}    ${PasscodeLockSetting}
     Wait Mobile Until Element Visible    ${btnPasscodeLock}
     Mobile Capture Screen At Verify Point    Verify Passcode Page Setting iOS
