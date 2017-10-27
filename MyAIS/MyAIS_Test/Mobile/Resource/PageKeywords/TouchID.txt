@@ -320,12 +320,9 @@ check survey
     ${StatusSurvey}=    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_toolbar_simple_tv_title" and (@text="แบบสอบถาม" or @text="Survey")]    10
     Run Keyword If    ${StatusSurvey}    AISAppiumEx.Go Back
 
-Verify Passcode Pin Setting
-    Wait Mobile Until Element Visible    ${btnPasscodeLock}
-    Click Mobile Element    ${btnPasscodeLock}
-    Input Correct Passcode
-    Sleep    2
-    Input Correct Passcode
+Verify Passcode Enable
+    Wait Mobile Until Element Visible    ${lblEnterYourPasscode}
+    Input PassCode    ${CorrectPassword}
     Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
     Wait Mobile Until Element Visible    ${lblPasscodeLockInPasscodePageSetting}
     Wait Mobile Until Element Visible    ${btnChangePasscode}
@@ -346,7 +343,7 @@ Verify Passcode Disable TouchID
     Wait Mobile Until Element Visible    ${btnTouchID}
     Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting2}
     Wait Mobile Until Element Visible    ${btnChangePasscode}
-    Click Mobile Element    ${btnTouchID}
+    Comment    Click Mobile Element    ${btnTouchID}
     Mobile Capture Screen At Verify Point    Verify Passcode Disable TouchID
 
 Login with Passcode
@@ -375,4 +372,20 @@ Verify Login Disable Touch ID
     Wait Mobile Until Element Visible    ${lblTitleInputPasscodePage}    60
     Mobile Capture Screen At Verify Point    Verify Login Disable Touch ID
     Close Application
+
+Verify Popup Fingerprint to use MyAIS
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Wait Mobile Until Element Visible        60
+    Mobile Capture Screen At Verify Point    Verify Popup Fingerprint to use MyAIS
+    Close Application
+
+Verify Passcode Setting Success
+    Wait Mobile Until Element Visible    ${btnPasscodeLock}
+    Click Mobile Element    ${btnPasscodeLock}
+    Wait Mobile Until Element Visible    ${lblEnterYourNewPasscode}    30
+    Input New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${lblReEnterYourNewPasscode}    30
+    Re-enter Your New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${lblCreatedSuccessfully}    5
+    Mobile Capture Screen At Verify Point    Verify Passcode Setting Success
 
