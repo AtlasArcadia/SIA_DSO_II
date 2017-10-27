@@ -76,7 +76,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Select Settings
     Select Passcode Menu
     Verify Passcode Pin Setting
-    Disable Passcode
+    Comment    Disable Passcode
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_3_2]
@@ -104,6 +104,8 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Select Settings
     Select Passcode Menu
     Verify Passcode Enable TouchID
+    Logout
+    Verify Login With Touch ID
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_4_2]
@@ -124,11 +126,13 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
-    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login with Passcode
     Choose Language    ${ar_LANG}
     Select Hamburger
     Select Settings
     Select Passcode Menu
+    Verify Passcode Disable TouchID
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_6_2]

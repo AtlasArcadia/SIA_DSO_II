@@ -90,6 +90,10 @@ Select Passcode Menu iOS
     Click Mobile Element    ${mnuPasscodeLock}
 
 Reset Passcode
+    Run Keyword If    "${ar_OS}"=="Android"    Reset Passcode Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Reset Passcode iOS
+
+Reset Passcode Android
     [Arguments]    ${isVerify}="NoVerify"
     Click Mobile Element    ${btnResetPasscodePage}
     Run Keyword If    ${isVerify}=="Verify"    Mobile element text should be    ${lblDialogTouchID}    ${txtDialogResetPasscode}
@@ -97,6 +101,12 @@ Reset Passcode
     Run Keyword If    ${isVerify}=="Verify"    Mobile element text should be    ${btnOKDialogTouchID}    ${txtDialogButtonOk}
     Run Keyword If    ${isVerify}=="Verify"    Mobile Capture Screen At Verify Point    In Reset Password
     Click Mobile Element    ${btnOKDialogTouchID}
+
+Reset Passcode iOS
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}
+    Click Mobile Element    ${btnResetPasscodePage}
+    Wait Mobile Until Element Visible    ${btnConfirmReset}
+    Click Mobile Element     ${btnConfirmReset}
 
 Verify 6 Pin Lock
     : FOR    ${index}    IN RANGE    1    7    1
@@ -134,14 +144,22 @@ Setup Active Passcode Android
 
 Setup Active Passcode iOS
     [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
-    Comment    ${statusResetBtn}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnResetPasscodePage}    10
-    Comment    Run Keyword If    ${statusResetBtn}    Reset Passcode
+    ${DialogTouchID}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblTouchIDForMyAIS}    10
+    Run Keyword If    ${DialogTouchID}    Click Mobile Element    ${btnCancelLoginWithTouchID}
+    Sleep    2
+    ${statusResetBtn}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnResetPasscodePage}    10
+    Run Keyword If    ${statusResetBtn}    Reset Passcode
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}
     Select Hamburger
     Select Settings
     Select Passcode Menu
-    Verify Passcode Pin Setting
+    Click Mobile Element    ${btnPasscodeLock}
+    Sleep    2
+    Input New Passcode    ${CorrectPassword}
+    Sleep    2
+    Re-enter Your New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
     Logout
 
 Input New Passcode
@@ -313,18 +331,27 @@ Verify Passcode Pin Setting
     Mobile Capture Screen At Verify Point    Verify Passcode Pin Setting
 
 Verify Passcode Enable TouchID
-    Wait Mobile Until Element Visible    ${btnPasscodeLock}
-    Click Mobile Element    ${btnPasscodeLock}
-    Input Correct Passcode
     Sleep    2
     Input Correct Passcode
-    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Wait Mobile Until Element Visible    ${btnTouchID}
     Click Mobile Element    ${btnTouchID}
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting2}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Mobile Capture Screen At Verify Point    Verify Passcode Enable TouchID
+
+Verify Passcode Disable TouchID
+    Sleep    2
+    Input Correct Passcode
+    Wait Mobile Until Element Visible    ${btnTouchID}
+    Comment    Click Mobile Element    ${btnTouchID}
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting2}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
     Mobile Capture Screen At Verify Point    Verify Passcode Enable TouchID
 
 Login with Passcode
     Wait Mobile Until Element Visible    ${lblTitleInputPasscodePage}    60
     Input Correct Passcode
+    Wait Mobile Until Element Visible    ${lblTitle}
 
 Disable Passcode
     Close Application
@@ -333,4 +360,10 @@ Disable Passcode
     Click Mobile Element    ${btnResetPasscodePage}
     Wait Mobile Until Element Visible    ${btnConfirmReset}
     Click Mobile Element    ${btnConfirmReset}
+
+Verify Login With Touch ID
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Wait Mobile Until Element Visible    ${lblTouchIDForMyAIS}
+    Mobile Capture Screen At Verify Point    Verify Login With Touch ID
+    Close Application
 
