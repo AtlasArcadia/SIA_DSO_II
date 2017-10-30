@@ -5034,13 +5034,13 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     Verify Top up via (AIS Top Up)
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F4_PaymentTopUp_2,4_1-2_Y_1_2]Verify PaymentAndTopup
+[F4_PaymentTopUp_2,4_1-2_Y_1_2] Verify PaymentAndTopup
     [Documentation]    Lay
     ...
     ...
     ...    1.Login เข้าสู่ระบบ My AIS
     ...    2.กดเมนู "จ่ายบิล/เติมเงิน"
-    ...    3. ตรวจสอบ เมนู จ่ายบิล/เติมเงิน
+    ...    3.ตรวจสอบ หน้า จ่ายบิล/เติมเงิน
     ...    - "จ่ายบิล/เติมเงิน"
     ...    - "ชำระค่าบริการ"
     ...    - "ชำระค่าบริการหมายเลขอื่น"
@@ -5057,9 +5057,8 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     Verify Menu PaymentAndTopup
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F4_PaymentTopUp_2,4_1-2_Y_2_2]Verify Payment Page Not UsageBalance and Not CreditCard
+[F4_PaymentTopUp_2,4_1-2_Y_2_2] Verify Payment Page Not UsageBalance and Not CreditCard
     [Documentation]    Lay
-    ...
     ...
     ...    1.Login เข้าสู่ระบบ My AIS
     ...    2.กดเมนู "จ่ายบิล/เติมเงิน"
@@ -5073,11 +5072,13 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     ...    - textbox หลังข้อความ ยอดที่ต้องการชำระ
     ...    - ช่องทางการชำระ
     ...    - บัตรเครดิต/เดบิต
-    ...    - VISA \ \ \ \ \ \ \ \ \ \ - MasterCard \ \ \ - JCB \ \ \ \ \ \ \ \ \ \ \ \ - E-Wallet
+    ...    - VISA \ \ \ \ \ \ \ \ \ \ - MasterCard \ \ \ - JCB
+    ...    - AMERICAN EXPRESS \ \ \ \ \ \ \ \ \ \ \ - E-Wallet
     ...    - Mpay
     ...    ข้อความ "ตรวจสอบรายการการชำระค่าบริการของคุณอีกครั้ง แล้วกดปุ่ม ต่อไป \ \ \ เพื่อทำรายการ"
     ...    - ปุ่ม "ต่อไป"
     ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไข
     ...    5.จับภาพหน้าจอ
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_NoUsageAndCard=include
@@ -5091,7 +5092,7 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     Verify Payment Page Not UsageBalance and Not CreditCard    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F4_PaymentTopUp_2,4_1-2_Y_4_2]Verify Payment Page Not UsageBalance And Have CreditCard
+[F4_PaymentTopUp_2,4_1-2_Y_4_2] Verify Payment Page Not UsageBalance And Have CreditCard
     [Documentation]    Lay
     ...
     ...    1.Login เข้าสู่ระบบ My AIS
@@ -5105,16 +5106,18 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     ...    - ยอดที่ต้องการชำระ
     ...    - textbox หลัง ยอดที่ต้องการชำระ
     ...    - ช่องทางการชำระ
-    ...    - บัตรเครดิต/เดบิต
-    ...    - จัดการข้อมูลบัตร
-    ...    - VISA \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
-    ...    - MasterCard \ \ \ \ \ (xxxx xx** **** xxxx)
-    ...    - JCB \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - บัตรเครดิต/เดบิต (มีบัตรอย่างใดอย่างหนึ่งหรือมากกว่าหนึ่งอันก็ได้)
+    ...    - จัดการข้อมูลบัตร (ตรวจสอบ format จะต้องเป็น ตัวเลข 6 หลัก ดอกจัน 6 หลัก \ \ \ \ \ \ \ \ \ \ \ \ ตัวเลข 4 หลัก)
+    ...    - VISA \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - MasterCard \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - JCB \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - AMERICAN EXPRESS \ \ \ (xxxx xx** **** xxxx)
     ...    - อื่นๆ \ \ \ \ \ \ \ \ \ \ \ \ \ - E-Wallet
     ...    - Mpay
     ...    ข้อความ "ตรวจสอบรายการการชำระค่าบริการของคุณอีกครั้ง แล้วกดปุ่ม ต่อไป \ \ \ เพื่อทำรายการ"
     ...    - ปุ่ม "ต่อไป"
     ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไข
     ...    5.จับภาพหน้าจอ
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -5128,7 +5131,7 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     Verify Payment Page Not UsageBalance and Have CreditCard    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F4_PaymentTopUp_2,4_1-2_Y_3_2]Verify Payment Page Have Balance and Not CreditCard
+[F4_PaymentTopUp_2,4_1-2_Y_3_2] Verify Payment Page Have Balance and Not CreditCard
     [Documentation]    Lay
     ...
     ...    1.Login เข้าสู่ระบบ My AIS
@@ -5148,11 +5151,13 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     ...    - VISA
     ...    - MasterCard
     ...    - JCB
+    ...    - AMERICAN EXPRESS
     ...    - E-Wallet
     ...    - Mpay
     ...    ข้อความ "ตรวจสอบรายการการชำระค่าบริการของคุณอีกครั้งแล้วกดปุ่ม ต่อไป \ \ \ \ เพื่อทำรายการ"
     ...    - ปุ่ม "ต่อไป"
     ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไข
     ...    5.จับภาพหน้าจอ
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_NoCreditCard=include
@@ -5166,7 +5171,7 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     Verify Payment Page Have UsageBalance and Not CreditCard    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F4_PaymentTopUp_2,4_1-2_Y_5_2]Verify Payment Page Have Balance and Have CreditCard
+[F4_PaymentTopUp_2,4_1-2_Y_5_2] Verify Payment Page Have Balance and Have CreditCard
     [Documentation]    Lay
     ...
     ...    1.Login เข้าสู่ระบบ My AIS
@@ -5182,16 +5187,18 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     ...    - รวมค่าบริการ
     ...    - ยอดที่ต้องการชำระ
     ...    - ช่องทางการชำระ
-    ...    - บัตรเครดิต/เดบิต
-    ...    - จัดการข้อมูลบัตร
-    ...    - VISA \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
-    ...    - MasterCard \ \ \ \ \ (xxxx xx** **** xxxx)
-    ...    - JCB \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - บัตรเครดิต/เดบิต \ (มีบัตรอย่างใดอย่างหนึ่งหรือมากกว่าหนึ่งอันก็ได้)
+    ...    - จัดการข้อมูลบัตร \ (ตรวจสอบ format จะต้องเป็น ตัวเลข 6 หลัก ดอกจัน 6 \ หลัก \ \ \ \ \ \ \ \ \ ตัวเลข 4 หลัก)
+    ...    - VISA \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - MasterCard \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - JCB \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - AMERICAN EXPRESS \ \ \ (xxxx xx** **** xxxx)
     ...    - อื่นๆ \ - E-Wallet
     ...    - Mpay
     ...    ข้อความ "ตรวจสอบรายการการชำระค่าบริการของคุณอีกครั้งแล้วกดปุ่ม ต่อไป \ \ \ \ เพื่อทำรายการ"
     ...    - ปุ่ม "ต่อไป"
     ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไข
     ...    5.จับภาพหน้าจอ
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_CreditCard=include
@@ -5205,25 +5212,81 @@ Resource          ../Resource/PageKeywords/PaymentAndTopupPostpaid.txt
     Verify Payment Page Have UsageBalance and Have CreditCard    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-Pay to another Payment detail page incase have usage and no credit card information
-    [Documentation]    owner : Pu
+[F4_PaymentTopUp_2,4_1-2_Y_9_1] Verify Top up Have CreditCard
+    [Documentation]    owner : Lay
+    ...
+    ...    1.Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "จ่ายบิล/เติมเงิน"
+    ...    3.กดเมนู "เติมเงิน"
+    ...    4.ตรวจสอบหน้า เติมเงิน
+    ...    - เติมเงิน
+    ...    - หมายเลขโทรศัพท์
+    ...    - ระบุหมายเลขโทรศัพท์ที่ต้องการเติมเงิน
+    ...    - หมายเลขโทรศัพท์ (Textbox)
+    ...    - เลือกช่องทางการเติมเงิน
+    ...    - บัตรเครดิต/เดบิต \ \ (มีบัตรอย่างใดอย่างหนึ่งหรือมากกว่าหนึ่งอันก็ได้)
+    ...    - จัดการข้อมูลบัตร \ \ (ตรวจสอบ format จะต้องเป็น ตัวเลข 6 หลัก ดอกจัน 6 \ หลัก \ \ \ \ \ \ \ \ \ ตัวเลข 4 หลัก)
+    ...    - VISA \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - MasterCard \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - JCB \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - AMERICAN EXPRESS \ \ \ (xxxx xx** **** xxxx)
+    ...    - อื่นๆ
+    ...    - E-Wallet
+    ...    - Mpay
+    ...    - AIS Top Up
+    ...    - รูปบัตรเติมเงิน
+    ...    - เลือกจำนวนเงินที่ต้องการเติมเงิน
+    ...    - 10,20,30,40,100,200,300,เพิ่มเติม
+    ...    ข้อความ"กรุณาตรวจสอบรายการเติมเงินของคุณ \ \ อีกครั้ง
+    ...    แล้วกด ต่อไป เพื่อทำรายการ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    5.จับภาพหน้าจอ
     [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_NoCreditCard=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_NoCreditCard
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_CreditCard=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_CreditCard
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select menuPaymentAndTopup
-    Select Sub Menu    PayToAnotherNumber
-    Input Number sub menu Pay to another number    ${AISPostpaidOutstandingBalance}
-    Sleep    3
-    Verify Payment page have usage and No Credit card information (Pay to another)    ${AISPostpaidOutstandingBalance}
+    Select Sub Menu    TopUp
+    Verify Top Up have Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F4_PaymentTopUp_2,4_1-2_Y_6_2] Pay to another Payment detail page incase no usage and no credit card information
-    [Documentation]    owner : Pu
+    [Documentation]    owner : Lay
+    ...
+    ...    1.Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "จ่ายบิล/เติมเงิน"
+    ...    3.กดเมนู "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    4.ตรวจสอบหน้า ชำระค่าบริการ
+    ...    - ชำระค่าบริการ
+    ...    - หมายเลขโทรศัพท์ (เบอร์เรา)
+    ...    - รายละเอียดค่าใช้บริการ
+    ...    - ระบุหมายเลขที่ต้องการชำระค่าบริการ
+    ...    - หมายเลขโทรศัพท์/อินเทอร์เน็ต(Textbox)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    5.ระบุหมายเลขที่ต้องการชำระค่าบริการ
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7.ตรวจสอบหน้า ชำระค่าบริการ
+    ...    - ชำระค่าบริการ
+    ...    - หมายเลขโทรศัพท์ (ต้องตรงกับหมายเลขที่กรอกในTextbox)
+    ...    - รายละเอียดค่าใช้บริการ
+    ...    ข้อความ "ไม่มียอดค้างชำระ"
+    ...    - ยอดที่ต้องการชำระ
+    ...    - textbox หลังข้อความ ยอดที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - บัตรเครดิต/เดบิต
+    ...    - VISA \ \ \ \ \ \ \ \ \ \ - MasterCard \ \ \ - JCB \ \ \ \ \ \ \ \ \ \ - AMERICAN EXPRESS \ - E-Wallet
+    ...    - Mpay
+    ...    ข้อความ "ตรวจสอบรายการการชำระค่าบริการของคุณอีกครั้ง แล้วกดปุ่ม ต่อไป \ \ \ เพื่อทำรายการ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไข
+    ...    8.จับภาพหน้าจอ
     [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_NoCreditCard=include
@@ -5241,19 +5304,96 @@ Pay to another Payment detail page incase have usage and no credit card informat
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F4_PaymentTopUp_2,4_1-2_Y_7_2] Pay to another Payment detail page incase have usage and have credit card information
-    [Documentation]    Owner : Pu
+    [Documentation]    Owner : Lay
+    ...
+    ...    1.Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "จ่ายบิล/เติมเงิน"
+    ...    3.กดเมนู "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    4.ตรวจสอบหน้า ชำระค่าบริการ
+    ...    - ชำระค่าบริการ
+    ...    - หมายเลขโทรศัพท์ (เบอร์เรา)
+    ...    - รายละเอียดค่าใช้บริการ
+    ...    - ระบุหมายเลขที่ต้องการชำระค่าบริการ
+    ...    - หมายเลขโทรศัพท์/อินเทอร์เน็ต(Textbox)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    5.ระบุหมายเลขที่ต้องการชำระค่าบริการ
+    ...    6.กดปุ่ม "ต่อไป"
+    ...    7.ตรวจสอบหน้า ชำระค่าบริการ
+    ...    - ชำระค่าบริการ
+    ...    - หมายเลขโทรศัพท์ (ต้องตรงกับหมายเลขที่กรอกในTextbox)
+    ...    - รายละเอียดค่าใช้บริการ
+    ...    - รอบบิล
+    ...    - กำหนดชำระ
+    ...    - ค่าบริการ
+    ...    - รวมค่าบริการ
+    ...    - ยอดที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - บัตรเครดิต/เดบิต (มีบัตรอย่างใดอย่างหนึ่งหรือมากกว่าหนึ่งอันก็ได้)
+    ...    - จัดการข้อมูลบัตร (ตรวจสอบ format จะต้องเป็น ตัวเลข 6 หลัก ดอกจัน 6 \ \ \ หลัก \ ตัวเลข 4 หลัก)
+    ...    - VISA \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - MasterCard \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - JCB \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (xxxx xx** **** xxxx)
+    ...    - AMERICAN EXPRESS \ \ \ (xxxx xx** **** xxxx)
+    ...    - อื่นๆ \ - E-Wallet
+    ...    - Mpay
+    ...    ข้อความ "ตรวจสอบรายการการชำระค่าบริการของคุณอีกครั้งแล้วกดปุ่ม ต่อไป \ \ \ \ เพื่อทำรายการ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไขบริการ
+    ...    8.จับภาพหน้าจอ
     [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_CreditCard=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_CreditCard
-    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_NoCreditCard=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_NoCreditCard
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
-    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
     Select menuPaymentAndTopup
     Select Sub Menu    PayToAnotherNumber
     Verify Payment page Pay to another number    ${Number}
     Input Number sub menu Pay to another number    ${AISPostpaidOutstandingBalance}
     Sleep    3
     Verify Payment page have usage and have Credit card information (Pay to another)    ${AISPostpaidOutstandingBalance}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PaymentTopUp_2,4_1-2_Y_8_1] Verify Top up no CreditCard infirmation
+    [Documentation]    owner : Lay
+    ...
+    ...    1.Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "จ่ายบิล/เติมเงิน"
+    ...    3.กดเมนู "เติมเงิน"
+    ...    4.ตรวจสอบหน้า เติมเงิน
+    ...    - เติมเงิน
+    ...    - หมายเลขโทรศัพท์
+    ...    - ระบุหมายเลขโทรศัพท์ที่ต้องการเติมเงิน
+    ...    - หมายเลขโทรศัพท์ (Textbox)
+    ...    - เลือกช่องทางการเติมเงิน
+    ...    - บัตรเครดิต/เดบิต \ - VISA
+    ...    - MasterCard
+    ...    - JCB
+    ...    - AMERICAN EXPRESS
+    ...    - E-Wallet
+    ...    - Mpay
+    ...    - AIS Top Up
+    ...    - รูปบัตรเติมเงิน
+    ...    - เลือกจำนวนเงินที่ต้องการเติมเงิน
+    ...    - 10,20,30,40,100,200,300,เพิ่มเติม
+    ...    ข้อความ"กรุณาตรวจสอบรายการเติมเงินของคุณอีกครั้ง
+    ...    แล้วกด ต่อไป เพื่อทำรายการ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    5.จับภาพหน้าจอ
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_NoCreditCard=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_NoCreditCard
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select menuPaymentAndTopup
+    Select Sub Menu    TopUp
+    Verify Top up no CreditCard
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
