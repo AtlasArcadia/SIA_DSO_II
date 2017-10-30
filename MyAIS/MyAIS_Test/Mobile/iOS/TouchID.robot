@@ -3,7 +3,7 @@ Resource          ../../../../Config/LocalConfig.txt
 Resource          ../Resource/PageKeywords/TouchID.txt
 
 *** Test Cases ***
-[F1_TouchID_IOS_1-4_1-2_Y_1_2]
+[F1_TouchID_IOS_1-4_1-2_Y_1_2] Verify Passcode Lock Disable
     [Documentation]    **Owner:Tong**
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status :  Active
@@ -31,8 +31,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
-    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
-    Login with Passcode
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}
     Select Hamburger
     Select Settings
@@ -40,7 +39,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Verify Passcode Page Setting
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TouchID_IOS_1-4_1-2_Y_2_2]
+[F1_TouchID_IOS_1-4_1-2_Y_2_2] Verify TouchID Support Passcode Lock and no add Finger Print
     [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
@@ -81,17 +80,33 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Disable Passcode
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TouchID_IOS_1-4_1-2_Y_3_2]
+[F1_TouchID_IOS_1-4_1-2_Y_3_2] Verify TouchID Support Passcode Lock and add Finger Print (Enable Finger Print)
     [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
     ...
     ...    *Pre-Requisite*
+    ...    - ล็อกรหัส : เปิดการใช้งาน
+    ...    - Finger Print : เปิดการใช้งาน Fingerprint
+    ...    - มีการ Add Fingerprint ไว้ในเครื่องแล้ว
     ...
     ...    **Expected Result**
+    ...    1.ระบบแสดงที่หน้าจอ "การล็อกรหัส & Touch ID"
+    ...    - แสดงสัญลักษณ์ [<]
+    ...    - แสดงเมนู "ล็อกรหัส" [เปิด]
+    ...    - แสดงเมนู "เปลี่ยนรหัส"
+    ...    - แสดงเมนู "Touch ID"  [เปิด]
     ...
     ...    ***TestStep***
+    ...    1. เปิด App my AIS.
+    ...    2. ใส่รหัส ถูกต้อง ที่หน้า "ใส่รหัสของคุณ"
+    ...    3. เลือกเมนู Hamburger
+    ...    4. เลือกเมนู "ตั้งค่า"
+    ...    5. เลือก การล็อกรหัส ที่หน้า "ตั้งค่า"
+    ...    6. สแกนนิ้ว หรือ กรอกรหัสที่ตั้งค่าไว้
+    ...    7. ตรวจสอบหน้าจอ "การล็อกรหัส"
+    ...
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -110,19 +125,35 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Verify Login Enable Touch ID
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TouchID_IOS_1-4_1-2_Y_4_2]
+[F1_TouchID_IOS_1-4_1-2_Y_4_2] Verify TouchID Support Passcode Lock and add Finger Print (Disable Finger Print)
     [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
     ...
     ...    *Pre-Requisite*
+    ...    - ล็อกรหัส : เปิดการใช้งาน
+    ...    - Finger Print : ปิดการใช้งาน Fingerprint
+    ...    - มีการ Add Fingerprint ไว้ในเครื่องแล้ว
     ...
     ...    **Expected Result**
+    ...    1.ระบบแสดงที่หน้าจอ "การล็อกรหัส & Touch ID"
+    ...    - แสดงสัญลักษณ์ [<]
+    ...    - แสดงเมนู "ล็อกรหัส" [เปิด]
+    ...    - แสดงเมนู "เปลี่ยนรหัส"
+    ...    - แสดงเมนู "Touch ID" [ปิด]
     ...
     ...    ***TestStep***
+    ...    1. เปิด App my AIS.
+    ...    2. ใส่รหัส ถูกต้อง ที่หน้า "ใส่รหัสของคุณ"
+    ...    3. เลือกเมนู Hamburger
+    ...    4. เลือกเมนู "ตั้งค่า"
+    ...    5. เลือก การล็อกรหัส ที่หน้า "ตั้งค่า"
+    ...    6. กรอกรหัสที่ตั้งค่าไว้
+    ...    7. ตรวจสอบหน้าจอ "การล็อกรหัส"
+    ...
     [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE
+    ...    3BO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -139,17 +170,25 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Verify Login Disable Touch ID
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TouchID_IOS_1-4_1-2_Y_6_2]
+[F1_TouchID_IOS_1-4_1-2_Y_6_2] Verify TouchID Support Passcode Lock and no add Finger Print (Disable Finger Print)
     [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
     ...
     ...    *Pre-Requisite*
+    ...    - ล็อกรหัส : เปิดการใช้งาน
+    ...    - Finger Print : เปิดการใช้งาน Fingerprint
+    ...    - ไม่มีการ Add Fingerprint ไว้ในเครื่องแล้ว
     ...
     ...    **Expected Result**
+    ...    แสดง Popup
+    ...    -fingerprint เพื่อใช้งาน my AIS
     ...
     ...    ***TestStep***
+    ...    1. เปิด App my AIS.
+    ...    2. ตรวจสอบ Popup "fingerprint เพื่อใช้งาน my Ais"
+    ...
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -168,43 +207,27 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Verify Popup Fingerprint to use MyAIS
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_TouchID_IOS_1-4_1-2_Y_7_2]
+[F1_TouchID_IOS_1-4_1-2_Y_7_2] Verify Settint Passcode Lock First Time
     [Documentation]    **Owner:Tong**
     ...
     ...    Source Number : 3PE,3BE ,3PO,3BO
     ...    Status : Active
     ...
     ...    *Pre-Requisite*
+    ...    - ยังไม่เคยมีการตั้งค่าล็อกรหัส
     ...
     ...    **Expected Result**
+    ...    1.แสดง Popup "กำหนดรหัสเรียบร้อย"
     ...
     ...    ***TestStep***
-    [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE    demo
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
-    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
-    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
-    Choose Language    ${ar_LANG}
-    Select Hamburger
-    Select Settings
-    Select Passcode Menu
-    Verify Passcode Setting Success
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_TouchID_IOS_1-4_1-2_Y_8_2]
-    [Documentation]    **Owner:Tong**
+    ...    1.ล็อกอิน "My AIS"
+    ...    2.เลือกเมนู "ตั้งค่า"
+    ...    3. เลือกเมนู "การล็อกรหัส & Fingerprint"
+    ...    4. เปิดการใช้งาน ฟังก์ชั่น "ล็อกรหัส"
+    ...    5. ระบุรหัสผ่านที่ต้องการ [ตัวเลข 6 หลัก]
+    ...    6. ยืนยันรหัสผ่านอีกครั้ง [ตัวเลข 6 หลัก]
+    ...    7. แสดง Popup "กำหนดรหัสเรียบร้อย"
     ...
-    ...    Source Number : 3PE,3BE ,3PO,3BO
-    ...    Status : Active
-    ...
-    ...    *Pre-Requisite*
-    ...
-    ...    **Expected Result**
-    ...
-    ...    ***TestStep***
     [Tags]    success    active    regression    sanity    3PO    3PE
     ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
@@ -217,6 +240,44 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Select Hamburger
     Select Settings
     Select Passcode Menu
+    Verify Passcode Setting Success
+    Disable Passcode
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_TouchID_IOS_1-4_1-2_Y_8_2] Verify Settint Passcode Lock First Time and Passcode Setting Don't Match
+    [Documentation]    **Owner:Tong**
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...    - ยังไม่เคยมีการตั้งค่าล็อกรหัส
+    ...
+    ...    **Expected Result**
+    ...    1.แสดงการแจ้งเตือน "รหัสไม่ถูกต้อง กรุณาทำการตั้งรหัสใหม่"
+    ...
+    ...    ***TestStep***
+    ...    1.ล็อกอิน "My AIS"
+    ...    2.เลือกเมนู "ตั้งค่า"
+    ...    3. เลือกเมนู "การล็อกรหัส & Fingerprint"
+    ...    4. เปิดการใช้งาน ฟังก์ชั่น "ล็อกรหัส"
+    ...    5. ระบุรหัสผ่านที่ต้องการ [ตัวเลข 6 หลัก]
+    ...    6. ยืนยันรหัสผ่านอีกครั้งไม่ตรงกับรหัสผ่านที่ต้องการ
+    ...    7. แสดงการแจ้งเตือน "รหัสไม่ถูกต้อง กรุณาทำการตั้งรหัสใหม่"
+    ...
+    [Tags]    success    active    regression    sanity    3PO    3PE
+    ...    3BO    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Verify Passcode Setting Don't Match
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_9_2]

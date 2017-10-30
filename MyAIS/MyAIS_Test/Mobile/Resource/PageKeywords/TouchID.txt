@@ -355,7 +355,7 @@ check survey
 Verify Passcode Enable
     Wait Mobile Until Element Visible    ${lblEnterYourPasscode}
     Input PassCode    ${CorrectPassword}
-    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting2}
     Wait Mobile Until Element Visible    ${lblPasscodeLockInPasscodePageSetting}
     Wait Mobile Until Element Visible    ${btnChangePasscode}
     Mobile Capture Screen At Verify Point    Verify Passcode Pin Setting
@@ -386,7 +386,7 @@ Login with Passcode
     Wait Mobile Until Element Visible    ${lblTitle}
 
 Disable Passcode
-    Close Application
+    Logout
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Wait Mobile Until Element Visible    ${btnResetPasscodePage}
     Click Mobile Element    ${btnResetPasscodePage}
@@ -403,7 +403,7 @@ Verify Login Disable Touch ID
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Wait Mobile Until Element Visible    ${lblTitleInputPasscodePage}    60
     Mobile Capture Screen At Verify Point    Verify Login Disable Touch ID
-    Close Application
+    Click Mobile Element    ${btnCancelLoginWithTouchID}
 
 Verify Popup Fingerprint to use MyAIS
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
@@ -418,6 +418,16 @@ Verify Passcode Setting Success
     Input New Passcode    ${CorrectPassword}
     Wait Mobile Until Element Visible    ${lblReEnterYourNewPasscode}    30
     Re-enter Your New Passcode    ${CorrectPassword}
-    Wait Mobile Until Element Visible    ${lblCreatedSuccessfully}    5
+    Comment    Wait Mobile Until Element Visible    ${lblCreatedSuccessfully}    5
     Mobile Capture Screen At Verify Point    Verify Passcode Setting Success
 
+Verify Passcode Setting Don't Match
+    Wait Mobile Until Element Visible    ${btnPasscodeLock}
+    Click Mobile Element    ${btnPasscodeLock}
+    Wait Mobile Until Element Visible    ${lblEnterYourNewPasscode}    30
+    Input New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${lblReEnterYourNewPasscode}    30
+    Input PassCode    ${WrongPassword}
+    Wait Mobile Until Element Visible    ${lblYourpasscodeDon'tMatch}    30
+    Mobile Capture Screen At Verify Point    Verify Passcode Setting Not Match
+    Click Mobile Element    ${btnCancelPasscodePage}
