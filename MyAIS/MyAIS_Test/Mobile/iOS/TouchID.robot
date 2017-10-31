@@ -123,6 +123,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Verify Passcode Enable TouchID
     Logout
     Verify Login Enable Touch ID
+    Disable TouchID Login Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_4_2] Verify TouchID Support Passcode Lock and add Finger Print (Disable Finger Print)
@@ -165,9 +166,16 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Select Hamburger
     Select Settings
     Select Passcode Menu
+    Verify Passcode Enable TouchID
+    Logout
+    Login with Passcode
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
     Verify Passcode Disable TouchID
     Logout
     Verify Login Disable Touch ID
+    Disable TouchID Login Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_6_2] Verify TouchID Support Passcode Lock and no add Finger Print (Disable Finger Print)
