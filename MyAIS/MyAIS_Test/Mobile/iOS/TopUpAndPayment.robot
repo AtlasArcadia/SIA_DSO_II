@@ -3168,7 +3168,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Confirm Select TopUp Detail    ${btnNextForCardChannalHaveCard}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_1_2] Verify page payment
+[F2_TopupPayment_IOS_1_1-2_Y_1_2] Verify page payment
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3196,7 +3196,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Page    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_2_2] Verify page payment not have usagebalance and not have creditcard
+[F2_TopupPayment_IOS_1_1-2_Y_2_2] Verify page payment not have usagebalance and not have creditcard
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3240,7 +3240,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Page No UsageBalance And No CreditCard Mobile Number    ${AISPostpaidNumber}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_3_2] Verify page payment not have usagebalance and have creditcard
+[F2_TopupPayment_IOS_1_1-2_Y_3_2] Verify page payment not have usagebalance and have creditcard
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3285,7 +3285,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Page No UsageBalance And Have CreditCard Mobile Number    ${AISPostpaidNumber}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_4_2] Verify page payment have usagebalance and not have creditcard
+[F2_TopupPayment_IOS_1_1-2_Y_4_2] Verify page payment have usagebalance and not have creditcard
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3331,7 +3331,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Page Have UsageBalance And No CreditCard    ${AISBosPostpaidHaveOutStandingBalanceNoCreditCard}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_5_2] Verify page payment outstanding balance add credit card
+[F2_TopupPayment_IOS_1_1-2_Y_5_2] Verify page payment outstanding balance add credit card
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3378,7 +3378,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Page Have UsageBalance And Have CreditCard Mobile Number    ${AISNonBosPostpaidHaveOutStandingBalanceHaveCreditCard}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_6_2] Verify page payment manage card
+[F2_TopupPayment_IOS_1_1-2_Y_6_2] Verify page payment manage card
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3411,7 +3411,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify page Manage Credit Card    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_7_2] Verify popup msg would you like to remove this card on page remove card
+[F2_TopupPayment_IOS_1_1-2_Y_7_2] Verify popup msg would you like to remove this card on page remove card
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3445,7 +3445,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Delete Card Popup Message
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_8_2] Verify page payment detail By VISA have outstanding balance and no creditCard
+[F2_TopupPayment_IOS_1_1-2_Y_8_2] Verify page payment detail By VISA have outstanding balance and no creditCard
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3489,7 +3489,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Detail Page By VISA Have Outstanding Balance And No Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_9_2] Verify page payment detail outstanding balance by masterCard in case no creditCard
+[F2_TopupPayment_IOS_1_1-2_Y_9_2] Verify page payment detail outstanding balance by masterCard in case no creditCard
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3533,7 +3533,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Detail Page By MasterCard Have Outstanding Balance And No Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_10_2] Verify page payment detail outstanding balance by JCB in case no creditCard
+[F2_TopupPayment_IOS_1_1-2_Y_10_2] Verify page payment detail outstanding balance by JCB in case no creditCard
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3577,7 +3577,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Detail Page By JCB Have Outstanding Balance And No Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_11_2] Verify page payment detail outstanding balance by AMEX in case no creditCard
+[F2_TopupPayment_IOS_1_1-2_Y_11_2] Verify page payment detail outstanding balance by AMEX in case no creditCard
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3617,7 +3617,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Detail Page AMEX Channal    ${AISBosPostpaidHaveOutStandingBalanceNoCreditCard}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_12_2] Verify page payment detail outstanding balance by E-wallet in case no creditCard
+[F2_TopupPayment_IOS_1_1-2_Y_12_2] Verify page payment detail outstanding balance by E-wallet in case no creditCard
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3655,7 +3655,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Detail Page E Wallet Channal    ${AISBosPostpaidHaveOutStandingBalanceNoCreditCard}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_13_2] Verify page payment detail outstanding balance by VISA
+[F2_TopupPayment_IOS_1_1-2_Y_13_2] Verify page payment detail outstanding balance by VISA
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3696,7 +3696,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Page Select VISA Channel Have Outstanding Balance And Have Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_14_2] Verify page payment detail outstanding balance by MasterCard
+[F2_TopupPayment_IOS_1_1-2_Y_14_2] Verify page payment detail outstanding balance by MasterCard
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
@@ -3737,7 +3737,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     Verify Payment Page Select MasterCard Channel Have Outstanding Balance And Have Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_TopupPayment_IOS_1_1_Y_15_2] Verify page payment detail outstanding balance by JCB
+[F2_TopupPayment_IOS_1_1-2_Y_15_2] Verify page payment detail outstanding balance by JCB
     [Documentation]    Owner : Tinpan
     ...    Ntype : 3PE
     ...    Status : Active
