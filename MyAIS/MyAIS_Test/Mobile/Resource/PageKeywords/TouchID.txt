@@ -502,7 +502,6 @@ Login with Passcode
     Wait Mobile Until Element Visible    ${lblTitle}
 
 Disable Passcode
-    Logout
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     ${btnTouchID}    Run Keyword And Return Status    Wait Mobile Until Element Visible        ${btnCancelDialogTouchID}
     Run Keyword If	'${btnTouchID}'=='True'    Click Mobile Element        ${btnCancelDialogTouchID}
@@ -514,6 +513,8 @@ Disable Passcode
 Verify Login Enable Touch ID
     Wait Mobile Until Element Visible    ${lblTouchIDForMyAIS}
     Mobile Capture Screen At Verify Point    Verify Login Enable Touch ID
+    Wait Mobile Until Element Visible     ${btnCancelDialogTouchID}    30
+    Click Mobile Element     ${btnCancelDialogTouchID}
 
 Verify Login Disable Touch ID
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
@@ -553,8 +554,6 @@ Verify Passcode Setting Don't Match
     Click Mobile Element    ${btnCancelPasscodePage}
 
 Disable TouchID Login Page
-    Wait Mobile Until Element Visible     ${btnCancelDialogTouchID}    30
-    Click Mobile Element     ${btnCancelDialogTouchID}
     Wait Mobile Until Element Visible    ${btnResetPasscodePage}    30
     Click Mobile Element    ${btnResetPasscodePage}
     Wait Mobile Until Element Visible    ${btnConfirmReset}    30
