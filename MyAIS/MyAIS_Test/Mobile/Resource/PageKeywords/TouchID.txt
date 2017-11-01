@@ -19,6 +19,10 @@ Keywords For Teardown With Reset Passcode
     Run Keyword If Test Failed    Capture Screen with Specific name
     Run Keyword If Test Failed    Log Dialog Msg From MyAIS
     ${status}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnResetPasscodePage}    2
+    ${statusPasscodePage}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnCancelDialogTouchID}    2
+    ${statusDialogBtnOk}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnOKDialogTouchID}    2
+    Run Keyword If    ${statusPasscodePage} and ("${ar_OS}"=="iOS")    Click Mobile Element    ${btnCancelDialogTouchID}
+    Run Keyword If    ${statusDialogBtnOk} and ("${ar_OS}"=="iOS")    Click Mobile Element    ${btnOKDialogTouchID}
     Run Keyword If    "${status}"=="False"    Logout
     Run Keyword If    "${status}"=="False"    check survey
     Run Keyword And Ignore Error    Reset Passcode
@@ -53,7 +57,7 @@ Verify Dont Have Passcode Lock Android
     Mobile Capture Screen At Verify Point    Verify is Dont Have Passcode Lock
 
 Verify Dont Have Passcode Lock iOS
-    Mobile element text should be    ${lblPasscodeLockInPasscodePageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Mobile element text should be    ${lblPasscodeLockInPasscodePageSetting}    ${HeaderPasscodeLockPageSetting}
     ${statusChangePasscode}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnChangePasscode}
     Should Be True    '${statusChangePasscode}'=='False'
     Mobile Capture Screen At Verify Point    Verify Dont Have Passcode Lock
@@ -117,10 +121,20 @@ Reset Passcode iOS
     Click Mobile Element    ${btnResetPasscodePage}
     Wait Mobile Until Element Visible    ${btnConfirmReset}
     Click Mobile Element     ${btnConfirmReset}
+    Sleep    3
 
 Verify 6 Pin Lock
+    Run Keyword If    "${ar_OS}"=="Android"    Verify 6 Pin Lock Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify 6 Pin Lock iOS
+
+Verify 6 Pin Lock Android
     : FOR    ${index}    IN RANGE    1    7    1
     \    Wait Mobile Until Element Visible    ${dotsPinlockPasscode${index}}
+    Mobile Capture Screen At Verify Point    Verify in 6 Pin Lock
+
+Verify 6 Pin Lock iOS
+    : FOR    ${index}    IN RANGE    1    7    1
+    \    Wait Mobile Until Element Visible    ${btnNumber${index}}
     Mobile Capture Screen At Verify Point    Verify in 6 Pin Lock
 
 Close PassLock
@@ -128,7 +142,16 @@ Close PassLock
     Click Mobile Element    ${swPasscodeLockPageSetting}
 
 Verify Dialog Reset Passcode
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Reset Passcode Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dialog Reset Passcode iOS
+
+Verify Dialog Reset Passcode Android
     Mobile element text should be    ${lblDialogTouchID}    ${txtDialogClosePasscode}
+    Mobile Capture Screen At Verify Point    Verify in Dialog Reset Passcode
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Verify Dialog Reset Passcode iOS
+    Mobile element text should be    ${lblDialogTouchID}    ${DialogClosePasscode}
     Mobile Capture Screen At Verify Point    Verify in Dialog Reset Passcode
     Click Mobile Element    ${btnOKDialogTouchID}
 
@@ -193,7 +216,7 @@ Forgot Password And Verify Android
 
 Forgot Password And Verify iOS
     Click Mobile Element    ${btnForgotPasscodePage}
-    Mobile element text should be    ${lblDialogTouchID}    ${txtDialogForgotPassCode}
+    Mobile element text should be    ${lblDialogTouchID}    ${DialogForgotPassCode}
     Mobile Capture Screen At Verify Point    Verify Dialog Forgot Password
     Click Mobile Element    ${btnOKDialogTouchID}
 
@@ -228,6 +251,7 @@ Login By Passcode Android
 Login By Passcode iOS
     Wait Mobile Until Element Visible    ${btnNumber0}
     Input Correct Passcode
+    Sleep    5
     verify login
 
 Verify Passcode Page Setting
@@ -253,6 +277,11 @@ Input Passcode Enter Setting
 
 Change Passcode Successful
     [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Run Keyword If    "${ar_OS}"=="Android"    Change Passcode Successful Android    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Change Passcode Successful iOS    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+
+Change Passcode Successful Android
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
     Click Mobile Element    ${btnChangePasscode}
     Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourOldPasscode}
     Input Passcode    ${OldPasscode}
@@ -263,7 +292,24 @@ Change Passcode Successful
     Mobile element text should be    ${DialogCreatedSuccessfully}    ${CreatedSuccessfully}
     Mobile Capture Screen At Verify Point    Verify Change Passcode
 
+Change Passcode Successful iOS
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Click Mobile Element    ${btnChangePasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourOldPasscode}
+    Input Passcode    ${OldPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourNewPasscode}
+    Input Passcode    ${NewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${ReEnterYourNewPasscode}
+    Input Passcode    ${ReNewPasscode}
+    #Mobile element text should be    ${DialogCreatedSuccessfully}    ${CreatedSuccessfully}
+    Mobile Capture Screen At Verify Point    Verify Change Passcode
+
 Change Passcode Fail Old Passcode Wrong
+    [Arguments]    ${OldPasscode}    ${Round}=1
+    Run Keyword If    "${ar_OS}"=="Android"    Change Passcode Fail Old Passcode Wrong Android    ${OldPasscode}    ${Round}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Change Passcode Fail Old Passcode Wrong iOS    ${OldPasscode}    ${Round}
+
+Change Passcode Fail Old Passcode Wrong Android
     [Arguments]    ${OldPasscode}    ${Round}=1
     Click Mobile Element    ${btnChangePasscode}
     : FOR    ${index}    IN RANGE    0    ${Round}    1
@@ -272,7 +318,21 @@ Change Passcode Fail Old Passcode Wrong
     \    Verify 6 Pin Lock
     Mobile Capture Screen At Verify Point    Verify Fail Old Passcode Wrong
 
+Change Passcode Fail Old Passcode Wrong iOS
+    [Arguments]    ${OldPasscode}    ${Round}=1
+    Click Mobile Element    ${btnChangePasscode}
+    : FOR    ${index}    IN RANGE    0    ${Round}    1
+    \    Input Passcode    ${WrongPassword}
+    \    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourOldPasscode}
+    \    Verify 6 Pin Lock
+    Mobile Capture Screen At Verify Point    Verify Fail Old Passcode Wrong
+
 Change Passcode Fail Re Enter New Passcode Wrong
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Run Keyword If    "${ar_OS}"=="Android"    Change Passcode Fail Re Enter New Passcode Wrong Android    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Change Passcode Fail Re Enter New Passcode Wrong iOS    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+
+Change Passcode Fail Re Enter New Passcode Wrong Android
     [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
     Click Mobile Element    ${btnChangePasscode}
     Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourOldPasscode}
@@ -282,6 +342,18 @@ Change Passcode Fail Re Enter New Passcode Wrong
     Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtReEnterYourNewPasscode}
     Input Passcode    ${ReNewPasscode}
     Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtReEnterPasscodeNotMatch}
+    Mobile Capture Screen At Verify Point    Verify Fail Re Enter Passcode Wrong
+
+Change Passcode Fail Re Enter New Passcode Wrong iOS
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Click Mobile Element    ${btnChangePasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourOldPasscode}
+    Input Passcode    ${OldPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourNewPasscode}
+    Input Passcode    ${NewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${ReEnterYourNewPasscode}
+    Input Passcode    ${ReNewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${ReEnterPasscodeNotMatch}
     Mobile Capture Screen At Verify Point    Verify Fail Re Enter Passcode Wrong
 
 Verify Passcode Page Setting Have Change Passcode
@@ -299,6 +371,11 @@ Verify Dialog Created Successfully
     Mobile Capture Screen At Verify Point    CreatedSuccessfully
 
 Login And Verify Login Passcode Success
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Login And Verify Login Passcode Success Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Login And Verify Login Passcode Success iOS    ${Number}
+
+Login And Verify Login Passcode Success Android
     [Arguments]    ${NumberNo}
     Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
     Input Correct Passcode
@@ -308,12 +385,35 @@ Login And Verify Login Passcode Success
     Comment    Wait Mobile Until Element Visible    ${conHomeSummary}    #cancel verify this point
     Mobile Capture Screen At Verify Point    Verify Login Passcode Successful
 
+Login And Verify Login Passcode Success iOS
+    [Arguments]    ${Number}
+    ${statusHamberger}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnHamberger}
+    Run Keyword If    ${statusHamberger}    Wait Mobile Until Element Visible    ${btnHamberger}
+    ...    ELSE    Wait Mobile Until Element Visible    ${btnHambergerPassCode}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNo}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Wait Mobile Until Element Visible    ${lbUserAccount}
+    Mobile Capture Screen At Verify Point    Verify Login Passcode Successful
+
 Login And Verify Login Passcode Fail
+    Run Keyword If    "${ar_OS}"=="Android"    Login And Verify Login Passcode Fail Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Login And Verify Login Passcode Fail iOS
+
+Login And Verify Login Passcode Fail Android
     Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
     Input Wrong Passcode N Round    1
     Verify 6 Pin Lock
     Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourPasscode}
     Mobile element text should be    ${btnResetPasscodePage}    ${txtResetButton}
+    Mobile Capture Screen At Verify Point    Verify Login Passcode Failed
+
+Login And Verify Login Passcode Fail iOS
+    Input Wrong Passcode N Round    1
+    Verify 6 Pin Lock
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourPasscode}
+    Mobile element text should be    ${btnResetPasscodePage}    ${ResetButton}
     Mobile Capture Screen At Verify Point    Verify Login Passcode Failed
 
 Verify Your Passcode Don't Match
@@ -330,7 +430,14 @@ Verify Dialog Reached Maximum Passcode Limit
     Click Mobile Element    ${btnHaveOnlyOKDialog}
 
 Press Reset At Login Passcode Page
+    Run Keyword If    "${ar_OS}"=="Android"    Press Reset At Login Passcode Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Press Reset At Login Passcode Page iOS
+
+Press Reset At Login Passcode Page Android
     Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Click Mobile Element    ${btnResetPasscodePage}
+
+Press Reset At Login Passcode Page iOS
     Click Mobile Element    ${btnResetPasscodePage}
 
 Verify Dialog Set Your New Passcode
@@ -344,7 +451,16 @@ Cancel Set New Password
     Click Mobile Element    ${btnCancelDialogTouchID}
 
 Verify Enter Your Passcode Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Enter Your Passcode Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Enter Your Passcode Page iOS
+
+Verify Enter Your Passcode Page Android
     Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourPasscode}
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}
+    Mobile Capture Screen At Verify Point    Enter Your Passcode
+
+Verify Enter Your Passcode Page iOS
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourPasscode}
     Wait Mobile Until Element Visible    ${btnResetPasscodePage}
     Mobile Capture Screen At Verify Point    Enter Your Passcode
 
