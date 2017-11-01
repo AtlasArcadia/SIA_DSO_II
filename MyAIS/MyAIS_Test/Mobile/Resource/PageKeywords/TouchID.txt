@@ -491,7 +491,7 @@ Verify Passcode Disable TouchID
     Wait Mobile Until Element Visible    ${btnTouchID}
     Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting2}
     Wait Mobile Until Element Visible    ${btnChangePasscode}
-    Comment    Click Mobile Element    ${btnTouchID}
+    Click Mobile Element    ${btnTouchID}
     Mobile Capture Screen At Verify Point    Verify Passcode Disable TouchID
 
 Login with Passcode
@@ -504,22 +504,26 @@ Login with Passcode
 Disable Passcode
     Logout
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    ${btnTouchID}    Run Keyword And Return Status    Wait Mobile Until Element Visible        ${btnCancelDialogTouchID}
+    Run Keyword If	'${btnTouchID}'=='True'    Click Mobile Element        ${btnCancelDialogTouchID}
     Wait Mobile Until Element Visible    ${btnResetPasscodePage}
     Click Mobile Element    ${btnResetPasscodePage}
     Wait Mobile Until Element Visible    ${btnConfirmReset}
     Click Mobile Element    ${btnConfirmReset}
 
 Verify Login Enable Touch ID
-    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Wait Mobile Until Element Visible    ${lblTouchIDForMyAIS}
     Mobile Capture Screen At Verify Point    Verify Login Enable Touch ID
-    Close Application
 
 Verify Login Disable Touch ID
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Wait Mobile Until Element Visible    ${lblTitleInputPasscodePage}    60
     Mobile Capture Screen At Verify Point    Verify Login Disable Touch ID
     Click Mobile Element    ${btnCancelLoginWithTouchID}
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}
+    Click Mobile Element    ${btnResetPasscodePage}
+    Wait Mobile Until Element Visible    ${btnConfirmReset}
+    Click Mobile Element    ${btnConfirmReset}
 
 Verify Popup Fingerprint to use MyAIS
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
@@ -547,3 +551,11 @@ Verify Passcode Setting Don't Match
     Wait Mobile Until Element Visible    ${lblYourpasscodeDon'tMatch}    30
     Mobile Capture Screen At Verify Point    Verify Passcode Setting Not Match
     Click Mobile Element    ${btnCancelPasscodePage}
+
+Disable TouchID Login Page
+    Wait Mobile Until Element Visible     ${btnCancelDialogTouchID}    30
+    Click Mobile Element     ${btnCancelDialogTouchID}
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}    30
+    Click Mobile Element    ${btnResetPasscodePage}
+    Wait Mobile Until Element Visible    ${btnConfirmReset}    30
+    Click Mobile Element    ${btnConfirmReset}
