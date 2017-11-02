@@ -124,7 +124,6 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Verify Passcode Enable TouchID
     Logout
     Verify Login Enable Touch ID
-    Disable Passcode
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_4_2] Verify TouchID Support Passcode Lock and add Finger Print (Disable Finger Print)
