@@ -77,6 +77,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Select Settings
     Select Passcode Menu
     Verify Passcode Enable
+    Logout
     Disable Passcode
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
@@ -108,7 +109,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...    7. ตรวจสอบหน้าจอ "การล็อกรหัส"
     ...
     [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE
+    ...    3BO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -123,7 +124,6 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Verify Passcode Enable TouchID
     Logout
     Verify Login Enable Touch ID
-    Disable TouchID Login Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_4_2] Verify TouchID Support Passcode Lock and add Finger Print (Disable Finger Print)
@@ -249,6 +249,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Select Settings
     Select Passcode Menu
     Verify Passcode Setting Success
+    Logout
     Disable Passcode
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
