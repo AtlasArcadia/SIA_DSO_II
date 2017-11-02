@@ -306,13 +306,13 @@ Logout
     Log    ${statusLoginContainer}
     Return From Keyword If    ${statusLoginContainer}    On Login page. Logout isn't necessary.
     : FOR    ${index}    IN RANGE    1    10
-    \    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${lblDetailContainer}
+    \    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${lblDetailContainer}    2
     \    Run Keyword If    ("${elementIsContain}"=="False") and ("${ar_OS}"=="Android")    AISAppiumEx.Go Back
     \    Run Keyword If    ("${elementIsContain}"=="False") and ("${ar_OS}"=="iOS")    Click Mobile Element    ${btnBackPage}
     \    Run Keyword And Ignore Error    Aisappium Click Element    ${ExitMyAISApplication}
     \    Exit For Loop If    "${elementIsContain}"=="True"
     Run Keyword If    "${ar_OS}"=="Android"    Swipe to element    ${btnLogout}    screen    right    0.01
-    Run Keyword If    "${ar_OS}"=="iOS"    Swipe to element    ${btnLogout}
+    Run Keyword If    "${ar_OS}"=="iOS" and ${elementIsContain}    Swipe to element    ${btnLogout}
     Wait Mobile Until Element Visible    ${btnLogout}
     Aisappium Click Element    ${btnLogout}
     Comment    wait until logout success

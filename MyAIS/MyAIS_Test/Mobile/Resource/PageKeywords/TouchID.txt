@@ -10,8 +10,11 @@ Keywords For Teardown
     [Arguments]    ${#dict_device_name}
     Run Keyword If Test Failed    Capture Screen with Specific name
     Run Keyword If Test Failed    Log Dialog Msg From MyAIS
-    Run Keyword And Ignore Error    Logout
-    Run Keyword And Continue On Failure    Close Application
+    #เพิ่ม status มาเพื่อเช็คว่าอยู่หน้่าล็อคอินหรือไม่ ถ้าอยู่ จะให้ ปิดแอพเลย จะได้ไม่ต้องรอล็อคเอ้านาน by Asma
+    ${status}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblLogin}    2
+    Run Keyword If    "${status}"=="False"    Run Keyword And Ignore Error    Logout
+    Run Keyword If    "${status}"=="False"    Run Keyword And Continue On Failure    Close Application
+    Run Keyword If    ${status}    Close Application
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
 Keywords For Teardown With Reset Passcode

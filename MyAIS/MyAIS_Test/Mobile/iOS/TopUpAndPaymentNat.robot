@@ -172,7 +172,7 @@ Resource          ../Resource/PageKeywords/TopUpAndPayment.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_TopupPayment_IOS_1_1_N_17_2] Verify popup msg by VISA in case no information and Input amount 0 Baht
-    [Documentation]    *** Owner: Nat***
+    [Documentation]    *** Owner: Nat,Asma***
     ...    Source Number : 3PE
     ...    Status : Active
     ...    1.Login เข้าสู่ระบบ My AIS
