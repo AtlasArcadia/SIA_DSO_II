@@ -109,7 +109,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...    7. ตรวจสอบหน้าจอ "การล็อกรหัส"
     ...
     [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE    demo
+    ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -124,6 +124,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Verify Passcode Enable TouchID
     Logout
     Verify Login Enable Touch ID
+    Disable TouchID Login Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_TouchID_IOS_1-4_1-2_Y_4_2] Verify TouchID Support Passcode Lock and add Finger Print (Disable Finger Print)
@@ -166,12 +167,6 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     Select Hamburger
     Select Settings
     Select Passcode Menu
-    Verify Passcode Enable TouchID
-    Logout
-    Login with Passcode
-    Select Hamburger
-    Select Settings
-    Select Passcode Menu
     Verify Passcode Disable TouchID
     Logout
     Verify Login Disable Touch ID
@@ -198,7 +193,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...    2. ตรวจสอบ Popup "fingerprint เพื่อใช้งาน my Ais"
     ...
     [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE
+    ...    3BO    3BE    Reject
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -345,7 +340,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...    6. กดปุ่ม "ตกลง" เพิ่มทำการยกเลิกการตั้งค่า ล็อกรหัส
     ...    7. Login เข้าใช้งานอัตโนมัติทันที กรณีใช้งาน 3G/4G หรือ อยู่ที่หน้าขอรับ OTP กรณีที่เชื่อมต่อผ่าน WiFi
     [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE    demo
+    ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -527,7 +522,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...    - แสดงข้อความ ""Enter your passcode""
     ...    - จุดวงกลม 6 จุดโยก
     ...    - ปุ่ม [รีเซ็ต]"
-    [Tags]    fail    active    regression    3PO    3PE    3BO
+    [Tags]    fail    active    regression    3PO    3PE    3BO    demo
     ...    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
