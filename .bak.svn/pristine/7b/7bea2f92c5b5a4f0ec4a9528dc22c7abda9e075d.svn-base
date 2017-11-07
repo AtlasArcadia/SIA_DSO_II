@@ -1,0 +1,119 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Emerald_TypeN.txt
+Resource          Resource/PageKeywords/DigitalSerenadeProfileCommon.txt
+
+*** Test Cases ***
+[F1_Emerald_3_1_Y_1_1] Serenade Emerald New
+    [Documentation]    *Owner* : Joe,Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - New ได้รับสิทธิ์เซเรเนดจากการใช้งานในรอบปีที่ผ่านมา
+    ...
+    ...    *Pre-requisite*
+    ...    '- Serenade Emerald Customer - New
+    ...    - Ntype 3BE
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    5.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...
+    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - เอไอเอส เซเรเนด มีความยินดีอย่างยิ่งที่มีโอกาสต้อนรับ
+    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ เอ็มเมอรัลด์
+    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
+    ...    - ความพิเศษนี้มอบให้คุณโดยพิจารณาจากการใช้งานในรอบปีที่ผ่านมา
+    [Tags]    active    success
+    New
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_New_TypeN=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_New_TypeN
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Profile Page New    ${Number}    Emerald    N
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Emerald_3_1_Y_1_2] Serenade Emerald Sustain
+    [Documentation]    Owner: Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - New ได้รับสิทธิ์เซเรเนดจากการใช้งานในรอบปีที่ผ่านมา
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Emerald Customer - Sustain
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    5.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - เอไอเอส เซเรเนด มีความยินดีที่มีโอกาสดูแล
+    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - ในฐานะ ลูกค้าเอไอเอส เซเรเนด ระดับ เอ็มเมอรัลด์อีกครั้ง
+    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
+    ...    - ความพิเศษนี้มอบให้คุณโดยพิจารณาจากการใช้งานในรอบปีที่ผ่านมา
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Emerald_3_1_Y_1_3] Serenade Emerald Downgrade
+    [Documentation]    *Owner* : Joe,Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - Downgrade ได้รับสิทธิ์เซเรเนดจากการใช้งานในรอบปีที่ผ่านมา
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Emerald Customer - Downgrade
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    5.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...
+    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - เอไอเอส เซเรเนด มีความยินดีที่มีโอกาสดูแล
+    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ เอ็มเมอรัลด์
+    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
+    ...    - ความพิเศษนี้มอบให้คุณโดยพิจารณาจากการใช้งานในรอบปีที่ผ่านมา
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Downgrade_TypeN=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Downgrade_TypeN
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Profile Page Downgrade    ${Number}    Emerald    N
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_Test] Smoke Test
+    [Tags]    smoke
+    log    Smoke Test

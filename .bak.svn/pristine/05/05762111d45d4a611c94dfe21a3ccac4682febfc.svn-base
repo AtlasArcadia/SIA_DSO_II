@@ -1,0 +1,2697 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/TransferPoint.txt
+Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctionKeywords.txt
+
+*** Test Cases ***
+[F3_PointsWebMobile_0_1_Y_2_1] Verify points transfer page
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก โอนคะแนน
+    ...    3.verify URL : http://10.104.240.168/points/transferPoint/transferCard
+    ...    4. verify page โอนคะแนน
+    ...    5. จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แสดงหน้า โอนคะแนน
+    ...    - เมนูหน้าแรก
+    ...    - เมนูเกี่ยวกับเอไอเอ พอยท์
+    ...    - โอนคะแนน
+    ...    - แลกของรางวัล
+    ...    - Banner
+    ...    - \ Card ที่ให้ทำการโอนคะแนน
+    ...    >> PTT
+    ...    >> The 1 Card"
+    [Tags]    active    regression    success    sanity    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NTYPE}
+    Open chrome mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Select Menu    TransferPoint
+    Verify Transfer Point Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_0_1_Y_2_2] Verify page the one card
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก โอนคะแนน
+    ...    3 ตรวจสอบ The 1 Card
+    ...    4. เลือก The 1 Card
+    ...    5. verify page The 1 Card
+    ...    6. จับภาพหน้าจอ
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แสดงรูป The 1 Card, text ""AIS ให้คุณได้มากกว่า ด้วยสิทธิพิเศษมากมาย!!
+    ...    สามารถโอนคะแนน AIS Points เป็นคะแนน The 1 Card
+    ...    ได้ผ่านช่องทาง Website และ my AIS Application""
+    ...
+    ...    - แสดงรายละเอียดเกี่ยวกับ The 1 Card
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข ^"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NTYPE}
+    Open chrome mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Select Menu    TransferPoint
+    Select Card    TheOneCard
+    Verify Card Page    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_0_1_Y_2_3] Verify back button
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก โอนคะแนน
+    ...    3 เลือก The 1 Card
+    ...    4 เลือกปุ่ม ""กลับ""
+    ...    5 verify URL : http://10.104.240.168/points/transferPoint/transferCard
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    กลับมาที่หน้า โอนคะแนน
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NTYPE}
+    Open chrome mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Select Menu    TransferPoint
+    Select Card    TheOneCard
+    Click Back Button In Transfer Selection Page
+    Verify Url    ${urlTransferCardPage}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_0_1_Y_2_4] Verify Transfer Point Button
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก โอนคะแนน
+    ...    3 เลือก The 1 Card
+    ...    4 เลือกปุ่ม ""โอนคะแนน""
+    ...    5 \ verify pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "- แสดง pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    >> ""หมายเลขโทรศัพท์ของคุณ""
+    ...    >> ช่องกรอกหมายเลขโทรศัพท์
+    ...    >> ปุ่ม รับรหัสผ่าน
+    ...    >> ""ระบุรหัสผ่านที่ได้รับทาง SMS เพื่อเข้าสู่ระบบ
+    ...    รหัสผ่านของคุณมีอายุการใช้งาน 15 นาที""
+    ...    >> ช่องกรอก OTP
+    ...    >> ปุ่ม ตกลง"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NTYPE}
+    Open chrome mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Select Menu    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button In Transfer Selection Page
+    Verify Popup Register and Login Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_Smoke_0_0_Y_0] Smoke run
+    [Tags]    smoke    3PO    3PE    MPay    nonNTYPE
+    log    smoke
+
+[F0_Dummy_0_0_Y_1] Dummy EN Lang
+    [Tags]    dummy    3PO    3PE    MPay    nonNTYPE
+    log    dummy en
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_1] Verify Transfer Point Page
+    [Documentation]    *Owner* Oum
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4.verify URL : http://10.104.240.168/points/transferPoint/transferCard
+    ...    5. verify page โอนคะแนน
+    ...    6. จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *1
+    ...    แสดงหน้า โอนคะแนน
+    ...    - เมนูหน้าแรก
+    ...    - เมนูเกี่ยวกับเอไอเอ พอยท์
+    ...    - โอนคะแนน
+    ...    - แลกของรางวัล
+    ...    - Banner \ >>> web mobile ไม่มี
+    ...    - Card ที่ให้ทำการโอนคะแนน
+    ...    >> KBank
+    ...    >> PTT
+    ...    >> The 1 Card
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Verify Page Transfer Point
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_2] Verify The One Card Page
+    [Documentation]    *Owner* Oum
+    ...    verify page The 1 Card
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 ตรวจสอบ The 1 Card
+    ...    5. เลือก The 1 Card
+    ...    6. verify page The 1 Card
+    ...    7. จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expect result*
+    ...    *1
+    ...    แสดงรูป The 1 Card, text "AIS ให้คุณได้มากกว่า ด้วยสิทธิพิเศษมากมาย!!
+    ...    สามารถโอนคะแนน AIS Points เป็นคะแนน The 1 Card
+    ...    ได้ผ่านช่องทาง Website และ my AIS Application"
+    ...
+    ...    - แสดงรายละเอียดเกี่ยวกับ The 1 Card
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข ^
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Verify The One Card Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_3] Verify Back Button On The One Card Page
+    [Documentation]    *Owner* Oum
+    ...    Page The 1 Card
+    ...    - verify ปุ่ม กลับ
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก The 1 Card
+    ...    5 เลือกปุ่ม "กลับ"
+    ...    6 verify URL : http://10.104.240.168/points/transferPoint/transferCard
+    ...
+    ...    *Expect result*
+    ...    กลับมาที่หน้า โอนคะแนน
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Click Back Button
+    Verify Url    ${urlTransferCardPage}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_4] Verify Transfer Point Button On The One Card Page
+    [Documentation]    *Owner* Oum
+    ...    Page The 1 Card
+    ...    - verify ปุ่ม โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก The 1 Card
+    ...    5 เลือกปุ่ม "โอนคะแนน"
+    ...    6 \ แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    7 Capture screen
+    ...
+    ...    *Expect result*
+    ...    '- แสดง pop up page "ข้อกำหนดและเงื่อนไข"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Click Transfer Point Button
+    Verify Pop Up Term And Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_5] Verify The Number Of Card
+    [Documentation]    *Owner* Oum
+    ...    'ตรวจสอบจำนวน Card ที่ให้ทำการโอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    '1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4. ตรวจสอบจำนวน card ที่ให้ทำการโอนคะแนน
+    ...    5. capture screen
+    ...
+    ...
+    ...
+    ...    *Expect result*
+    ...    '1
+    ...    แสดงจำนวน card ที่ให้ทำการโอนคะแนนได้ = 3
+    ...    - KBank
+    ...    - PTT
+    ...    - The 1 card
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Wait Web Until Page Does Not Visible Element    ${lblLoadingProgress}
+    Verify The Number Card    3
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_6] Verify Page Term And Condition On The One Card Page
+    [Documentation]    *Owner* Oum
+    ...    'The 1 Card
+    ...    - Verify page ข้อกำหนดและเงื่อนไข
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    7. ตรวจสอบหน้า ข้อกำหนดและเงื่อนไข (1)
+    ...    8. Capture Screen
+    ...
+    ...
+    ...    *Expect result*
+    ...    1
+    ...    แสดงหน้าต่าง ข้อกำหนดและเงื่อนไข
+    ...    - แสดงรายละเอียดข้อกำหนดและเงื่อนไข
+    ...    - เลื่อนลงเพื่อตรวจสอบข้อกำหนดและเงื่อนไข
+    ...    - check box ยอมรับข้อตกลง
+    ...    - ปุ่ม ต่อไป
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Click Transfer Point Button
+    Verify Pop UpTerm And Condition Detail On The One Card Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_7] Verify Transfer Point Case Not Select Term And Condition
+    [Documentation]    *Owner* Oum
+    ...    The 1 Card
+    ...    - กด โอนคะแนน กรณีไม่กดตกลงเงื่อนไขและข้อตกลง
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก The 1 Card
+    ...    5 กดปุ่ม โอนคะแนน (1)
+    ...    6. ไม่เลือก check box ยอมรับข้อตกลง (2)
+    ...    7. Capture Screen
+    ...
+    ...
+    ...    *Expect result*
+    ...    '1
+    ...    แสดงหน้าต่าง ข้อกำหนดและเงื่อนไข
+    ...
+    ...    2
+    ...    ไม่สามารถกด ปุ่ม ต่อไป
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Click Transfer Point Button
+    Verify Term And Condition
+    Verify Disable Next Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_8] Verify Transfer Point Case Select Term And Condition
+    [Documentation]    *Owner* Oum
+    ...    The 1 Card
+    ...    - กด โอนคะแนน กรณีกดตกลงเงื่อนไขและข้อตกลง
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    '1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4.เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน (1)
+    ...    6. เลือก check box ยอมรับข้อตกลง (2)
+    ...    7. Capture Screen
+    ...
+    ...    *Expect result*
+    ...    '1
+    ...    แสดงหน้าต่าง ข้อกำหนดและเงื่อนไข
+    ...
+    ...    2
+    ...    สามารถกด ปุ่ม ต่อไป
+    ...    แสดงหน้า โอนคะแนน Url : http://10.104.240.168/points/transferPoint/transfer
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Click Transfer Point Button
+    Accept Condition And Click Next Button
+    Verify Url    ${urlConfirmTransferPoint}
+    Web Capture Screen At Verify Point    accept and confirm
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_N_2_9] Verify Transfer Point Case Input Incomplete ID Card
+    [Documentation]    *Owner* Oum
+    ...    The 1 Card
+    ...    - โอนคะแนน กรณีใส่ ID card ไม่ครบ
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.แสดงหน้า โอนคะแนน
+    ...    10.ใส่ ID Card ไม่ครบ และคลิก ตกลง
+    ...    11.ตรวจสอบ error message (1)
+    ...    12. Capture screen
+    ...
+    ...    *Expect result*
+    ...    1
+    ...    ตรวจสอบ error message "หมายเลข The 1 Card ที่คุณระบุไม่ถูกต้อง กรุณาตรวจสอบและทำรายการใหม่อีกครั้ง"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    1111
+    Confirm Id Card
+    Verify Error Input Card Wrong ID    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_10] Verify Transfer Point Case Add Point
+    [Documentation]    *Owner* Oum
+    ...    'The 1 Card
+    ...    โอนคะแนน Points
+    ...    Verify ปุ่ม (+) เพิ่มคะแนนที่ต้องการโอน
+    ...
+    ...
+    ...    *Pre - Requisite*
+    ...    '- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...
+    ...
+    ...    *Test Step Descripttion*
+    ...    '1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.แสดงหน้า โอนคะแนน
+    ...    10.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    11. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    12. คลิกปุ่ม + 1 ครั้ง (1)
+    ...    13. เปรียบเทียบคะแนนหลังกด + (2)
+    ...
+    ...
+    ...    *Expect result*
+    ...    '1
+    ...    สามารถกดปุ่ม + ได้
+    ...
+    ...    2
+    ...    ที่ช่องคะแนนที่ต้องการโอนเพิ่มขึ้น 50 คะแนน
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[TheOneCard]
+    Confirm Id Card
+    Verify Click Button Add Point On The One Card Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_11] Verify Transfer Point Case Decrease Point
+    [Documentation]    *Owner* Oum
+    ...    The 1 Card
+    ...    โอนคะแนน Points
+    ...    Verify ปุ่ม (-) ลดคะแนนที่ต้องการโอน
+    ...
+    ...    *Pre - Requisite*
+    ...    '- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...    - กดเพิ่มคะแนนที่ต้องการโอนก่อน 1 ครั้ง
+    ...
+    ...
+    ...    *Test Step Descripttion*
+    ...    '1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.แสดงหน้า โอนคะแนน
+    ...    10.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    11. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    12. คลิกปุ่ม + 1 ครั้ง
+    ...    13. คลิกปุ่ม - 1 ครั้ง (1)
+    ...    14. เปรียบเทียบคะแนนหลังกด - (2)
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    '1
+    ...    สามารถกดปุ่ม - ได้
+    ...
+    ...    2
+    ...    ที่ช่องคะแนนที่ต้องการโอนลดลง
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[TheOneCard]
+    Confirm Id Card
+    Verify Decrease Point On The One Card Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_N_2_12] Verify Transfer Point Case Not Enough Point
+    [Documentation]    *Owner* Oum
+    ...    'The 1 Card
+    ...    โอนคะแนน Points
+    ...    (กรณีมีจำนวน Points น้อยกว่า Point Transfer Min ตามที่ set ไว้ที่หน้า PRC )
+    ...
+    ...
+    ...    *Pre - Requisite*
+    ...    '- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...    - จำนวนพอยท์คงเหลือ 30 พอยท์
+    ...
+    ...    *Test Step Descripttion*
+    ...    '1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup error msg.(1)
+    ...    7. Capture screen
+    ...
+    ...    *Expect result*
+    ...    '1
+    ...    แสดง Popup ข้อความ "คะแนน "เอไอเอส พอยท์" ของคุณไม่เพียงพอสำหรับการทำรายการ "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Make The One Card Transfer
+    Verify Not Enough Point
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_13] Verify Transfer Point Case Transfer Max Point
+    [Documentation]    *Owner* Oum
+    ...    'The 1 Card
+    ...    โอนคะแนน Points
+    ...    (กรณี กดคะแนนที่ต้องการโอนมากกว่า Point Transfer Max ตามที่ set ไว้ที่หน้า PRC \ )
+    ...
+    ...
+    ...    *Pre - Requisite*
+    ...    '- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...
+    ...
+    ...    *Test Step Descripttion*
+    ...    '1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.แสดงหน้า โอนคะแนน
+    ...    10.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    11. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    12. คลิกปุ่ม + จนสุด (1)
+    ...    13. Capture screen
+    ...
+    ...
+    ...    *Expect result*
+    ...    'ไม่สามารถเพิ่ม Point ที่จะแลกเกินจำนวน Point Transfer Max ได้
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[TheOneCard]
+    Confirm Id Card
+    ${before}=    Get Current Point
+    Click Plus Point Transfer Until Max    200
+    Web Capture Screen At Verify Point    Button Plus Cannot Press
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_14] Verify Transfer Point Case Cancel Transfer
+    [Documentation]    *Owner* Oum
+    ...    The 1 Card
+    ...    โอนคะแนน Points
+    ...    - In case ยกเลิกโอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...
+    ...
+    ...    *Test Step Descripttion*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. Login เข้าสู่ระบบ
+    ...    3. เก็บค่าคะแนนตั้งต้น
+    ...    4.เลือก โอนคะแนน
+    ...    5. เลือก The 1 Card
+    ...    6. กดปุ่ม โอนคะแนน
+    ...    7. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    8. เลือก check box ยอมรับข้อตกลง
+    ...    9. กดปุ่ม ต่อไป
+    ...    10.แสดงหน้า โอนคะแนน
+    ...    11.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    12. กำหนดคะแนนที่ต้องการโอน = 50
+    ...    13. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    14.คลิกปุ่ม โอนคะแนน
+    ...    15.แสดง Popup "ยืนยันทำรายการ"
+    ...    16.คลิกปุ่ม \ ยกเลิก
+    ...    17. แสดงหน้า โอนคะแนน
+    ...    18.ตรวจสอบจำนวนคะแนนปัจจุบัน
+    ...    19. เปรียบเทียบคะแนนตั้งต้นกับคะแนนปัจจุบัน (1)
+    ...
+    ...
+    ...    *Expect result*
+    ...    1
+    ...    จำนวนคะแนนจะต้องเท่าเดิม
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Url    ${urlTransferCardPage}
+    Reload Page
+    Select Card Type    TheOneCard
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[TheOneCard]
+    Confirm Id Card
+    Verify Transfer Cancel    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_15] Verify Transfer Point Case Transfer 50 Point
+    [Documentation]    *Owner* Oum
+    ...    'The 1 Card
+    ...    โอนคะแนน Points
+    ...    - In case โอนคะแนน 50 คะแนนสำเร็จ
+    ...
+    ...    *Pre - Requisite*
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...
+    ...
+    ...    *Test Step Descripttion*
+    ...    '1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. Login เข้าสู่ระบบ
+    ...    3. เก็บค่าคะแนนตั้งต้น
+    ...    4.เลือก โอนคะแนน
+    ...    5. เลือก The 1 Card
+    ...    6. กดปุ่ม โอนคะแนน
+    ...    7. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    8. เลือก check box ยอมรับข้อตกลง
+    ...    9. กดปุ่ม ต่อไป
+    ...    10.แสดงหน้า โอนคะแนน
+    ...    11.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    12. กำหนดคะแนนที่ต้องการโอน = 50
+    ...    13. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    14. Capture screen
+    ...    15.คลิกปุ่ม โอนคะแนน
+    ...    16. ตรวจสอบ Popup "ยืนยันทำรายการ" (1)
+    ...    17.คลิกปุ่ม \ ยืนยัน
+    ...    18. แสดงหน้า โอนคะแนนสำเร็จ (2)
+    ...    19. Capture screen
+    ...    20.ตรวจสอบจำนวนคะแนนปัจจุบัน (3)
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    '1
+    ...    ตรวจสอบ Popup "ยืนยันทำรายการ"
+    ...    - ยืนยันทำรายการ
+    ...    >> โอนคะแนน"เอไอเอส พอยท์" จำนวน 50 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าแรก)
+    ...    >> เป็นคะแนน "The 1 Card" จำนวน 400 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่แสดงในหน้าแรก)
+    ...    - ปุ่ม ยืนยัน
+    ...    - ปุ่ม ยกเลิก
+    ...
+    ...    2
+    ...    แสดงหน้า โอนคะแนนสำเร็จ
+    ...    - URL : http://10.104.240.168/points/transferPoint/resultแสดงหน้า โอนคะแนนสำเร็จ
+    ...    - รูปเครื่องหมายถูก
+    ...    - The 1 Card ทำการโอน "เอไอเอส พอยท์" 50 คะแนน เรียบร้อยแล้ว คุณสามารถตรวจสอบคะแนน The 1 Card ได้ในวัรถัดไป
+    ...    - ปุ่ม กลับสู่หน้าหลัก
+    ...    - ปุ่ม โอนคะแนนอีกครั้ง
+    ...
+    ...    3
+    ...    คะแนนปัจจุบันจะต้องลดลง 50 คะแนน
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${StartCurrentPoints}=    Get Current Point
+    Select Transfer Point Menu
+    Reload Page
+    Select Card Type    TheOneCard
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[TheOneCard]
+    Confirm Id Card
+    ${AISPoints}=    Set AIS Points To    50
+    ${ReceivePoint}=    Get Web Text    ${lblTheOneCardPointReceive}
+    Web Capture Screen At Verify Point    Verify Transfer and Recieve Points
+    Click Web Element    ${btnTransferTransferPointsPage}
+    Verify Popup Confirm Transfer Points    AISPoint    50    TheOneCard    400
+    Click Web Element    ${btnPopupConfirm}
+    Verify Url    ${urlTransferPointResultPage}
+    Verify Result Page    TheOneCard
+    Calculate Diff Point When Success Transfer Point    ${StartCurrentPoints}    ${AISPoints}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_16] Verify Transfer Point Case Transfer Point Success And Redirect To Transfer Page
+    [Documentation]    *Owner* Oum
+    ...    The 1 Card
+    ...    โอนคะแนน Points
+    ...
+    ...    - In case เมื่อโอนคะแนนสำเร็จ คลิกปุ่ม "โอนคะแนนอีกครั้ง" ที่หน้า Result จะ redirect ไปที่หน้าโอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...
+    ...
+    ...    *Test Step Descripttion*
+    ...    '1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. Login เข้าสู่ระบบ
+    ...    3. เก็บค่าคะแนนตั้งต้น
+    ...    4.เลือก โอนคะแนน
+    ...    5. เลือก The 1 Card
+    ...    6. กดปุ่ม โอนคะแนน
+    ...    7. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    8. เลือก check box ยอมรับข้อตกลง
+    ...    9. กดปุ่ม ต่อไป
+    ...    10.แสดงหน้า โอนคะแนน
+    ...    11.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    12. กำหนดคะแนนที่ต้องการโอน = 50
+    ...    13. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    14.คลิกปุ่ม โอนคะแนน
+    ...    15. ตรวจสอบ Popup "ยืนยันทำรายการ" (1)
+    ...    16.คลิกปุ่ม \ ยืนยัน
+    ...    17. แสดงหน้า โอนคะแนนสำเร็จ (2)
+    ...    18.ตรวจสอบจำนวนคะแนนปัจจุบัน (3)
+    ...    19. Capture screen
+    ...    20. คลิกปุ่ม "โอนคะแนนอีกครั้ง" (4)
+    ...    21. Capture screen
+    ...
+    ...
+    ...    *Expect result*
+    ...    1
+    ...    ตรวจสอบ Popup "ยืนยันทำรายการ"
+    ...    - ยืนยันทำรายการ
+    ...    >> โอนคะแนน"เอไอเอส พอยท์" จำนวน 50 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าแรก)
+    ...    >> เป็นคะแนน "The 1 Card" จำนวน 400 คะแนน
+    ...    - ปุ่ม ยืนยัน
+    ...    - ปุ่ม ยกเลิก
+    ...
+    ...    2
+    ...    แสดงหน้า โอนคะแนนสำเร็จ
+    ...    URL : http://10.104.240.168/points/transferPoint/result
+    ...
+    ...    3
+    ...    คะแนนปัจจุบันจะต้องลดลง 50 คะแนน
+    ...
+    ...    4
+    ...    กลับไปที่หน้าโอนคะแนน
+    ...    - URL : http://10.104.240.168/points/transferPoint/transfer
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${StartCurrentPoints}=    Get Current Point
+    Select Transfer Point Menu
+    Reload Page
+    Select Card Type    TheOneCard
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[TheOneCard]
+    Confirm Id Card
+    ${AISPoints}=    Set AIS Points To    50
+    ${ReceivePoint}=    Get Web Text    ${lblTheOneCardPointReceive}
+    Web Capture Screen At Verify Point    Verify Transfer and Recieve Points
+    ${StartCurrentPoints}=    Get Current Point
+    Click Web Element    ${btnTransferTransferPointsPage}
+    Verify Popup Confirm Transfer Points    AISPoint    50    TheOneCard    400
+    Click Web Element    ${btnPopupConfirm}
+    Verify Url    ${urlTransferPointResultPage}
+    ${ResultPoints}    Get Current Point
+    ${sum}    Evaluate    ${StartCurrentPoints}-${ResultPoints}
+    Run Keyword If    "${sum}" == "50"    Web Capture Screen At Verify Point    Verify Current Point After Transfered
+    ...    ELSE    Fail
+    Click Web Element    ${btnResultTransferAgain}
+    Verify Url    ${urlConfirmTransferPoint}
+    Web Capture Screen At Verify Point    Verify Go To Transfer Page Again
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_17] Transfer points in case when finish transfer back to main
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3. เก็บค่าคะแนนตั้งต้น
+    ...    4.เลือก โอนคะแนน
+    ...    5. เลือก The 1 Card
+    ...    6. กดปุ่ม โอนคะแนน
+    ...    7. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    8. เลือก check box ยอมรับข้อตกลง
+    ...    9. กดปุ่ม ต่อไป
+    ...    10.แสดงหน้า โอนคะแนน
+    ...    11.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    12. กำหนดคะแนนที่ต้องการโอน = 50
+    ...    13. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    14.คลิกปุ่ม โอนคะแนน
+    ...    15. ตรวจสอบ Popup ""ยืนยันทำรายการ"" (1)
+    ...    16.คลิกปุ่ม \ ยืนยัน
+    ...    17. แสดงหน้า โอนคะแนนสำเร็จ (2)
+    ...    18.ตรวจสอบจำนวนคะแนนปัจจุบัน (3)
+    ...    19. Capture screen
+    ...    20. คลิกปุ่ม ""กลับสู่หน้าหลัก"" (4)
+    ...    21. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    "1
+    ...    ตรวจสอบ Popup ""ยืนยันทำรายการ""
+    ...    - ยืนยันทำรายการ
+    ...    >> โอนคะแนน""เอไอเอส พอยท์"" จำนวน 50 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าแรก)
+    ...    >> เป็นคะแนน ""The 1 Card"" จำนวน 400 คะแนน
+    ...    - ปุ่ม ยืนยัน
+    ...    - ปุ่ม ยกเลิก
+    ...    2
+    ...    แสดงหน้า โอนคะแนนสำเร็จ
+    ...    - URL : http://10.104.240.168/points/transferPoint/result
+    ...    - รูปเครื่องหมายถูก
+    ...    - The 1 Card ทำการโอน ""เอไอเอส พอยท์"" 50 คะแนน เรียบร้อยแล้ว คุณสามารถตรวจสอบคะแนน The 1 Card ได้ในวัรถัดไป
+    ...    - ปุ่ม กลับสู่หน้าหลัก
+    ...    - ปุ่ม โอนคะแนนอีกครั้ง
+    ...
+    ...    3
+    ...    คะแนนปัจจุบันจะต้องลดลง 50 คะแนน
+    ...
+    ...    4
+    ...    กลับไปที่หน้าหลัก
+    ...    - http://10.104.240.168/points/transferPoint/transferCard"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${StartPoints}=    Get Current Point
+    Select Transfer Point Menu
+    Reload Page
+    Select The One Card
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[TheOneCard]
+    Confirm Id Card
+    ${AISPoints}=    Set AIS Points To    50
+    ${recievePoint}=    Get Current Recieve Point    TheOneCard
+    Should Be Equal    ${recievePoint}    400
+    Click Web Element    ${btnTransferTransferPointsPage}
+    Verify Popup Confirm Transfer Points    AISPoint    50    TheOneCard    400
+    Click Web Element    ${btnPopupConfirm}
+    Verify Url    ${urlTransferPointResultPage}
+    Verify Result Page    TheOneCard
+    Calculate Diff Point When Success Transfer Point    ${StartPoints}    ${AISPoints}
+    Click Web Element    ${btnResultBackToHome}
+    Verify Url    ${urlTransferCardPage}
+    Web Capture Screen At Verify Point    Back To Home
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_18] Transfer points in case not input ID card
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.ตรวจสอบหน้า โอนคะแนน (1)
+    ...    10. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    - URL : http://10.104.240.168/points/transferPoint/transfer
+    ...    - รูป The 1 Card
+    ...    - The 1 Card
+    ...    - ช่องกรอกหมายเลข The 1 Card ""กรุณาระบุหมายเลข The 1 Card""
+    ...    - ปุ่ม ตกลง
+    ...    - เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
+    ...    - ปุ่ม +
+    ...    - ปุ่ม -
+    ...    - ลูกศร
+    ...    - The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    ...
+    ...
+    ...    "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select The One Card
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Verify Transfer Page No ID Card    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_19] Verify transfer points page in case input ID card
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.ตรวจสอบหน้า โอนคะแนน (1)
+    ...    10. Capture screen
+    ...    10. ใส่ ID บัตร
+    ...    11. กด ตกลง
+    ...    12.ตรวจสอบหน้า โอนคะแนน (2)
+    ...    13. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    - URL : http://10.104.240.168/points/transferPoint/transfer
+    ...    - รูป The 1 Card
+    ...    - The 1 Card
+    ...    - ช่องกรอกหมายเลข The 1 Card ""กรุณาระบุหมายเลข The 1 Card"" (Verify ก่อนใส่ ID บัตร)
+    ...    - ปุ่ม ตกลง
+    ...    - เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
+    ...    - ปุ่ม +
+    ...    - ปุ่ม -
+    ...    - ลูกศร
+    ...    - The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    ...
+    ...    2
+    ...    - รูป The 1 Card
+    ...    - The 1 Card
+    ...    - ชื่อผู้ถือบัตร:
+    ...    - เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
+    ...    - ปุ่ม +
+    ...    - ปุ่ม -
+    ...    - ลูกศร
+    ...    - The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    ...
+    ...
+    ...    "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select The One Card
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Verify Transfer Page No ID Card    TheOneCard
+    Input ID card    &{IDCard}[TheOneCard]
+    Confirm Id Card
+    Verify Transfer Page With ID Card    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_20] Hide and show term and condition in transfer page
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9. กด ข้อกำหนดและเงื่อนไข ครั้งที่ 1 (1)
+    ...    12. Capture screen
+    ...    9. กด ข้อกำหนดและเงื่อนไข ครั้งที่ 2 (2)
+    ...    12. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    - แสดงข้อกำหนดและเงื่อนไข
+    ...
+    ...    2
+    ...    - ซ่อนข้อกำหนดและเงื่อนไข
+    ...    "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select The One Card
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Verify Transfer Page No ID Card    TheOneCard
+    Verify Transfer Term And Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_21] Verify transfer points page
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2113289303
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก The 1 Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    10. กำหนดคะแนนที่ต้องการโอน = 50
+    ...    11. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    12.คลิกปุ่ม โอนคะแนน
+    ...    13.คลิกปุ่ม \ ยืนยัน
+    ...    14. กลับไปหน้าแรก
+    ...    15. เลือกเมนู โอนคะแนน
+    ...    16. เลือก The 1 Card
+    ...    17. กดปุ่ม โอนคะแนน (1)
+    ...    18.แสดงหน้า โอนคะแนน"
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    - จะต้องไม่ขึ้นหน้า pop up ข้อตกลงและเงื่อนไข"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select The One Card
+    Make The One Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[TheOneCard]
+    Confirm Id Card
+    Set AIS Points To    50
+    ${ReceivePoint}=    Get Web Text    ${lblTheOneCardPointReceive}
+    Should Be Equal    ${ReceivePoint}    400
+    Click Web Element    ${btnTransferTransferPointsPage}
+    Click Web Element    ${btnPopupConfirm}
+    Click Web Element    ${btnResultBackToHome}
+    Select Menu    Home
+    Select Menu    TransferPoint
+    Reload Page
+    Select Card    TheOneCard
+    Make The One Card Transfer
+    Wait Web Until Page Does Not Visible Element    ${txtTermAndCondition}
+    Web Capture Screen At Verify Point    Verify No Term And Condition Popup
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_22] Check transfer points term and condition
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875"
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    7. ตรวจสอบหน้า ข้อกำหนดและเงื่อนไข (1)
+    ...    8. Capture Screen
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    แสดงหน้าต่าง ข้อกำหนดและเงื่อนไข
+    ...    - แสดงรายละเอียดข้อกำหนดและเงื่อนไข
+    ...    - เลื่อนลงเพื่อตรวจสอบข้อกำหนดและเงื่อนไข
+    ...    - check box ยอมรับข้อตกลง
+    ...    - ปุ่ม ต่อไป"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Verify Term And Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_23] Transfer in case not accept term and condition
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875"
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก PTT Blue Card
+    ...    5 กดปุ่ม โอนคะแนน (1)
+    ...    6. ไม่เลือก check box ยอมรับข้อตกลง (2)
+    ...    7. Capture Screen
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    แสดงหน้าต่าง ข้อกำหนดและเงื่อนไข
+    ...
+    ...    2
+    ...    ไม่สามารถกด ปุ่ม ต่อไป"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Verify Not Accept Term And Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_24] Transfer in case accept term and condition
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875"
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4.เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน (1)
+    ...    6. เลือก check box ยอมรับข้อตกลง (2)
+    ...    7. Capture Screen
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    แสดงหน้าต่าง ข้อกำหนดและเงื่อนไข
+    ...
+    ...    2
+    ...    สามารถกด ปุ่ม ต่อไป
+    ...    แสดงหน้า โอนคะแนน Url : http://10.104.240.168/points/transferPoint/transfer"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Verify Transfer Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_N_2_25] Verify input wrong ID card
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 55558810"
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.แสดงหน้า โอนคะแนน
+    ...    10.ใส่ ID Card ไม่ครบ และคลิก ตกลง
+    ...    11.ตรวจสอบ error message (1)
+    ...    12. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    "1
+    ...    ตรวจสอบ error message ""หมายเลข PTT Blue Card ที่คุณระบุไม่ถูกต้อง กรุณาตรวจสอบและทำรายการใหม่อีกครั้ง""
+    ...
+    ...
+    ...    "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[WrongDigit]
+    Confirm Id Card
+    Verify Error Input Card Wrong ID    PTTBlueCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_26] Transfer points verify plus points
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.แสดงหน้า โอนคะแนน
+    ...    10.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    11. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    12. คลิกปุ่ม + 1 ครั้ง (1)
+    ...    13. เปรียบเทียบคะแนนหลังกด + (2)
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    สามารถกดปุ่ม + ได้
+    ...
+    ...    2
+    ...    ที่ช่องคะแนนที่ต้องการโอนเพิ่มขึ้น 50 คะแนน
+    ...    "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[PTTBlueCard]
+    Confirm Id Card
+    Verify PTT Blue Card Point Increase
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_27] Transfer points verify minus points
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - กดเพิ่มคะแนนที่ต้องการโอนก่อน 1 ครั้ง
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.แสดงหน้า โอนคะแนน
+    ...    10.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    11. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    12. คลิกปุ่ม + 1 ครั้ง
+    ...    13. คลิกปุ่ม - 1 ครั้ง (1)
+    ...    14. เปรียบเทียบคะแนนหลังกด - (2)
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    "1
+    ...    สามารถกดปุ่ม - ได้
+    ...
+    ...    2
+    ...    ที่ช่องคะแนนที่ต้องการโอนลดลง
+    ...    "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[PTTBlueCard]
+    Confirm Id Card
+    Verify Current Transfer Point Are Not Change
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_N_2_28] Transfer points in case points less than min
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - จำนวนพอยท์คงเหลือ 30 พอยท์"
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup error msg.(1)
+    ...    7. Capture screen
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    "1
+    ...    แสดง Popup ข้อความ ""คะแนน ""เอไอเอส พอยท์"" ของคุณไม่เพียงพอสำหรับการทำรายการ """
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Verify Not Enough Point
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_29] Transfer points until max
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.แสดงหน้า โอนคะแนน
+    ...    10.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    11. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    12. คลิกปุ่ม + จนสุด (1)
+    ...    13. Capture screen
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    ไม่สามารถเพิ่ม Point ที่จะแลกเกินจำนวน Point Transfer Max ได้
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[PTTBlueCard]
+    Confirm Id Card
+    ${before}=    Get Current Point
+    Click Plus Point Transfer Until Max    400
+    Web Capture Screen At Verify Point    Button Plus Cannot Press
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_30] Transfer points in case cancel transfer
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3. เก็บค่าคะแนนตั้งต้น
+    ...    4.เลือก โอนคะแนน
+    ...    5. เลือก PTT Blue Card
+    ...    6. กดปุ่ม โอนคะแนน
+    ...    7. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    8. เลือก check box ยอมรับข้อตกลง
+    ...    9. กดปุ่ม ต่อไป
+    ...    10.แสดงหน้า โอนคะแนน
+    ...    11.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    12. กำหนดคะแนนที่ต้องการโอน = 100
+    ...    13. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    14.คลิกปุ่ม โอนคะแนน
+    ...    15.แสดง Popup ""ยืนยันทำรายการ""
+    ...    16.คลิกปุ่ม \ ยกเลิก
+    ...    17. แสดงหน้า โอนคะแนน
+    ...    18.ตรวจสอบจำนวนคะแนนปัจจุบัน
+    ...    19. เปรียบเทียบคะแนนตั้งต้นกับคะแนนปัจจุบัน (1)
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    จำนวนคะแนนจะต้องเท่าเดิม"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[PTTBlueCard]
+    Confirm Id Card
+    Verify Transfer Cancel    PTTBlueCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_31] Transfer points in case success transfer 50 points
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3. เก็บค่าคะแนนตั้งต้น
+    ...    4.เลือก โอนคะแนน
+    ...    5. เลือก PTT Blue Card
+    ...    6. กดปุ่ม โอนคะแนน
+    ...    7. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    8. เลือก check box ยอมรับข้อตกลง
+    ...    9. กดปุ่ม ต่อไป
+    ...    10.แสดงหน้า โอนคะแนน
+    ...    11.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    12. กำหนดคะแนนที่ต้องการโอน = 100
+    ...    13. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    14. Capture screen
+    ...    15.คลิกปุ่ม โอนคะแนน
+    ...    16. ตรวจสอบ Popup ""ยืนยันทำรายการ"" (1)
+    ...    17.คลิกปุ่ม \ ยืนยัน
+    ...    18. แสดงหน้า โอนคะแนนสำเร็จ (2)
+    ...    19. Capture screen
+    ...    20.ตรวจสอบจำนวนคะแนนปัจจุบัน (3)
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    ตรวจสอบ Popup ""ยืนยันทำรายการ""
+    ...    - ยืนยันทำรายการ
+    ...    >> โอนคะแนน""เอไอเอส พอยท์"" จำนวน 100 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าแรก)
+    ...    >> เป็นคะแนน ""PTT Blue Card"" จำนวน 400 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่แสดงในหน้าแรก)
+    ...    - ปุ่ม ยืนยัน
+    ...    - ปุ่ม ยกเลิก
+    ...
+    ...    2
+    ...    แสดงหน้า โอนคะแนนสำเร็จ
+    ...    - URL : http://10.104.240.168/points/transferPoint/resultแสดงหน้า โอนคะแนนสำเร็จ
+    ...    - รูปเครื่องหมายถูก
+    ...    - PTT Blue Card ทำการโอน ""เอไอเอส พอยท์"" 100 คะแนน เรียบร้อยแล้ว คุณสามารถตรวจสอบคะแนน PTT Blue Card ได้ในวัรถัดไป
+    ...    - ปุ่ม กลับสู่หน้าหลัก
+    ...    - ปุ่ม โอนคะแนนอีกครั้ง
+    ...
+    ...    3
+    ...    คะแนนปัจจุบันจะต้องลดลง 50 คะแนน"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${StartCurrentPoints}=    Get Current Point
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[PTTBlueCard]
+    Confirm Id Card
+    ${AISPoints}=    Set AIS Points To    100
+    ${ReceivePoint}=    Get Web Text    ${lblPTTBlueCardPointReceive}
+    Web Capture Screen At Verify Point    Verify Transfer and Recieve Points
+    Click Web Element    ${btnTransferTransferPointsPage}
+    Verify Popup Confirm Transfer Points    AISPoint    100    PTTBlueCard    400
+    Click Web Element    ${btnPopupConfirm}
+    Verify Url    ${urlTransferPointResultPage}
+    Verify Result Page    PTTBlueCard
+    Calculate Diff Point When Success Transfer Point    ${StartCurrentPoints}    ${AISPoints}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_32] Transfer points in case back to transfer page when finish
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3. เก็บค่าคะแนนตั้งต้น
+    ...    4.เลือก โอนคะแนน
+    ...    5. เลือก PTT Blue Card
+    ...    6. กดปุ่ม โอนคะแนน
+    ...    7. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    8. เลือก check box ยอมรับข้อตกลง
+    ...    9. กดปุ่ม ต่อไป
+    ...    10.แสดงหน้า โอนคะแนน
+    ...    11.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    12. กำหนดคะแนนที่ต้องการโอน = 100
+    ...    13. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    14.คลิกปุ่ม โอนคะแนน
+    ...    15. ตรวจสอบ Popup ""ยืนยันทำรายการ"" (1)
+    ...    16.คลิกปุ่ม \ ยืนยัน
+    ...    17. แสดงหน้า โอนคะแนนสำเร็จ (2)
+    ...    18.ตรวจสอบจำนวนคะแนนปัจจุบัน (3)
+    ...    19. Capture screen
+    ...    20. คลิกปุ่ม ""โอนคะแนนอีกครั้ง"" (4)
+    ...    21. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    ตรวจสอบ Popup ""ยืนยันทำรายการ""
+    ...    - ยืนยันทำรายการ
+    ...    >> โอนคะแนน""เอไอเอส พอยท์"" จำนวน 100 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าแรก)
+    ...    >> เป็นคะแนน ""PTT Blue Card"" จำนวน 400 คะแนน
+    ...    - ปุ่ม ยืนยัน
+    ...    - ปุ่ม ยกเลิก
+    ...
+    ...    2
+    ...    แสดงหน้า โอนคะแนนสำเร็จ
+    ...    URL : http://10.104.240.168/points/transferPoint/result
+    ...
+    ...    3
+    ...    คะแนนปัจจุบันจะต้องลดลง 100 คะแนน
+    ...
+    ...    4
+    ...    กลับไปที่หน้าโอนคะแนน
+    ...    - URL : http://10.104.240.168/points/transferPoint/transfer"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[PTTBlueCard]
+    Confirm Id Card
+    ${AISPoints}=    Set AIS Points To    100
+    ${ReceivePoint}=    Get Web Text    ${lblTheOneCardPointReceive}
+    Web Capture Screen At Verify Point    Verify Transfer and Recieve Points
+    ${StartCurrentPoints}=    Get Current Point
+    Click Web Element    ${btnTransferTransferPointsPage}
+    Verify Popup Confirm Transfer Points    AISPoint    100    PTTBlueCard    400
+    Click Web Element    ${btnPopupConfirm}
+    Verify Url    ${urlTransferPointResultPage}
+    ${ResultPoints}    Get Current Point
+    ${sum}    Evaluate    ${StartCurrentPoints}-${ResultPoints}
+    Run Keyword If    "${sum}" == "100"    Web Capture Screen At Verify Point    Verify Current Point After Transfered
+    ...    ELSE    Fail
+    Click Web Element    ${btnResultTransferAgain}
+    Verify Url    ${urlConfirmTransferPoint}
+    Web Capture Screen At Verify Point    Verify Go To Transfer Page Again
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_33] Transfer points in case when finish transfer back to main
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...    *** Test - Step
+    ...
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3. เก็บค่าคะแนนตั้งต้น
+    ...    4.เลือก โอนคะแนน
+    ...    5. เลือก PTT Blue Card
+    ...    6. กดปุ่ม โอนคะแนน
+    ...    7. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    8. เลือก check box ยอมรับข้อตกลง
+    ...    9. กดปุ่ม ต่อไป
+    ...    10.แสดงหน้า โอนคะแนน
+    ...    11.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    12. กำหนดคะแนนที่ต้องการโอน = 100
+    ...    13. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    14.คลิกปุ่ม โอนคะแนน
+    ...    15. ตรวจสอบ Popup ""ยืนยันทำรายการ"" (1)
+    ...    16.คลิกปุ่ม \ ยืนยัน
+    ...    17. แสดงหน้า โอนคะแนนสำเร็จ (2)
+    ...    18.ตรวจสอบจำนวนคะแนนปัจจุบัน (3)
+    ...    19. Capture screen
+    ...    20. คลิกปุ่ม ""กลับสู่หน้าหลัก"" (4)
+    ...    21. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    "1
+    ...    ตรวจสอบ Popup ""ยืนยันทำรายการ""
+    ...    - ยืนยันทำรายการ
+    ...    >> โอนคะแนน""เอไอเอส พอยท์"" จำนวน 100 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าแรก)
+    ...    >> เป็นคะแนน ""PTT Blue Card"" จำนวน 400 คะแนน
+    ...    - ปุ่ม ยืนยัน
+    ...    - ปุ่ม ยกเลิก
+    ...    2
+    ...    แสดงหน้า โอนคะแนนสำเร็จ
+    ...    - URL : http://10.104.240.168/points/transferPoint/result
+    ...    - รูปเครื่องหมายถูก
+    ...    - PTT Blue Card ทำการโอน ""เอไอเอส พอยท์"" 100 คะแนน เรียบร้อยแล้ว คุณสามารถตรวจสอบคะแนน PTT Blue Card ได้ในวัรถัดไป
+    ...    - ปุ่ม กลับสู่หน้าหลัก
+    ...    - ปุ่ม โอนคะแนนอีกครั้ง
+    ...
+    ...    3
+    ...    คะแนนปัจจุบันจะต้องลดลง 50 คะแนน
+    ...
+    ...    4
+    ...    กลับไปที่หน้าหลัก
+    ...    - http://10.104.240.168/points/transferPoint/transferCard"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[PTTBlueCard]
+    Confirm Id Card
+    ${AISPoints}=    Set AIS Points To    100
+    ${ReceivePoint}=    Get Value    ${lblTheOneCardPointReceive}
+    Web Capture Screen At Verify Point    Verify Transfer and Recieve Points
+    ${StartCurrentPoints}=    Get Current Point
+    Click Web Element    ${btnTransferTransferPointsPage}
+    Verify Popup Confirm Transfer Points    AISPoint    100    PTTBlueCard    400
+    Click Web Element    ${btnPopupConfirm}
+    Verify Url    ${urlTransferPointResultPage}
+    Verify Result Page    PTTBlueCard
+    Calculate Diff Point When Success Transfer Point    ${StartCurrentPoints}    ${AISPoints}
+    Click Web Element    ${btnResultBackToHome}
+    Verify Url    ${urlTransferCardPage}
+    Web Capture Screen At Verify Point    Back To Transfer Point Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_34] Transfer points in case not input ID card
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875"
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.ตรวจสอบหน้า โอนคะแนน (1)
+    ...    10. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    "1
+    ...    - URL : http://10.104.240.168/points/transferPoint/transfer
+    ...    - รูป PTT Blue Card
+    ...    - PTT Blue Card
+    ...    - ช่องกรอกหมายเลข PTT Blue Card ""กรุณาระบุหมายเลข PTT Blue Card""
+    ...    - ปุ่ม ตกลง
+    ...    - เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 100
+    ...    - ปุ่ม +
+    ...    - ปุ่ม -
+    ...    - ลูกศร
+    ...    - PTT Blue Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    ...
+    ...
+    ...    "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Verify Transfer Page No ID Card    PTTBlueCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_35] Verify transfer points page in case input ID card
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9. .ใส่ ID บัตร
+    ...    10. กด ตกลง
+    ...    11.ตรวจสอบหน้า โอนคะแนน (1)
+    ...    12. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "1
+    ...    - URL : http://10.104.240.168/points/transferPoint/transfer
+    ...    - รูป PTT Blue Card
+    ...    - PTT Blue Card
+    ...    - ช่องกรอกหมายเลข PTT Blue Card ""กรุณาระบุหมายเลข PTT Blue Card""
+    ...    - ปุ่ม ตกลง
+    ...    - ชื่อผู้ถือบัตร:
+    ...    - เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 100
+    ...    - ปุ่ม +
+    ...    - ปุ่ม -
+    ...    - ลูกศร
+    ...    - PTT Blue Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    ...
+    ...
+    ...    "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Verify Transfer Page No ID Card    PTTBlueCard
+    Input ID card    &{IDCard}[PTTBlueCard]
+    Confirm Id Card
+    Verify Transfer Page With ID Card    PTTBlueCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_36] Hide and show term and condition in transfer page
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...
+    ...    *** Test - Step
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9. กด ข้อกำหนดและเงื่อนไข ครั้งที่ 1 (1)
+    ...    12. Capture screen
+    ...    9. กด ข้อกำหนดและเงื่อนไข ครั้งที่ 2 (2)
+    ...    12. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    "1
+    ...    - แสดงข้อกำหนดและเงื่อนไข
+    ...
+    ...    2
+    ...    - ซ่อนข้อกำหนดและเงื่อนไข
+    ...    "
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Verify Transfer Term And Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_37] Verify transfer points page
+    [Documentation]    *** Owner : Now ***
+    ...
+    ...
+    ...
+    ...    *** Source - Requisite ***
+    ...
+    ...    "- เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...    "
+    ...
+    ...
+    ...    *** Test - Step
+    ...
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2. Login เข้าสู่ระบบ
+    ...    3.เลือก โอนคะแนน
+    ...    4. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน
+    ...    6. แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    7. เลือก check box ยอมรับข้อตกลง
+    ...    8. กดปุ่ม ต่อไป
+    ...    9.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    10. กำหนดคะแนนที่ต้องการโอน = 100
+    ...    11. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    12.คลิกปุ่ม โอนคะแนน
+    ...    13.คลิกปุ่ม \ ยืนยัน
+    ...    14. กลับไปหน้าแรก
+    ...    15. เลือกเมนู โอนคะแนน
+    ...    16. เลือก PTT Blue Card
+    ...    17. กดปุ่ม โอนคะแนน (1)
+    ...    18.แสดงหน้า โอนคะแนน"
+    ...
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    "1
+    ...    - จะต้องไม่ขึ้นหน้า pop up ข้อตกลงและเงื่อนไข"
+    [Tags]    active    regression    success    3PO    3PE    MPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Transfer Point Menu
+    Reload Page
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Accept Condition And Click Next Button
+    Input ID card    &{IDCard}[PTTBlueCard]
+    Confirm Id Card
+    Set AIS Points To    100
+    ${ReceivePoint}=    Get Web Text    ${lblTheOneCardPointReceive}
+    Should Be Equal    ${ReceivePoint}    400
+    Click Web Element    ${btnTransferTransferPointsPage}
+    Click Web Element    ${btnPopupConfirm}
+    Click Web Element    ${btnResultBackToHome}
+    Select Menu    Home
+    Select Menu    TransferPoint
+    Select PTT Blue Card
+    Make PTT Blue Card Transfer
+    Wait Web Until Page Does Not Visible Element    ${txtTermAndCondition}
+    Web Capture Screen At Verify Point    Verify No Term And Condition Popup
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_38] Verify page PTT Card
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 ตรวจสอบ PTT Card
+    ...    5. เลือก PTT Card
+    ...    6. verify page PTT Card
+    ...    7. จับภาพหน้าจอ
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "1
+    ...    แสดงรูป PTT Card, text "AIS ให้คุณได้มากกว่า ด้วยสิทธิพิเศษมากมาย!!
+    ...    สามารถโอนคะแนน AIS Points เป็นคะแนน PTT Card
+    ...    ได้ผ่านช่องทาง Website และ my AIS Application"
+    ...
+    ...    - แสดงรายละเอียดเกี่ยวกับ PTT Card
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข ^
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify page PTT Card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_39] Verify Button back in page PTT Card
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก PTT Card
+    ...    5 เลือกปุ่ม "กลับ"
+    ...    6 verify URL : http://10.104.240.168/points/transferPoint/transferCard"
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    กลับมาที่หน้า โอนคะแนน
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify PTT Card Button back
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_40] Verify Button Transfer point in page PTT Card
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก PTT Card
+    ...    5 เลือกปุ่ม "โอนคะแนน"
+    ...    6 แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    7 Capture screen"
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "- แสดง pop up page "ข้อกำหนดและเงื่อนไข""
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify PTT Card Button Transfer Point
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_41] Verify page KBank Card
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 ตรวจสอบ KBank Card
+    ...    5. เลือก KBank Card
+    ...    6. verify page KBank Card
+    ...    7. จับภาพหน้าจอ"
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แสดงรูป KBank Transfer to AIS Point
+    ...
+    ...    - แสดงรายละเอียดเกี่ยวกับ KBank Card
+    ...    - ปุ่ม กลับ
+    ...    - ข้อกำหนดและเงื่อนไข ^"
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify KBank Card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_42] Verify Button back in page KBank Card
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก KBank Card
+    ...    5 เลือกปุ่ม "กลับ"
+    ...    6 verify URL : http://10.104.240.168/points/transferPoint/transferCard
+    ...    "
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "กลับมาที่หน้า โอนคะแนน"
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify KBank Card Button back
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_43] Verify Terms and Conditions in page KBank Card in case it show
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก KBank Card
+    ...    5 เลือกปุ่ม
+    ...    6 verify ข้อกำหนดและเงื่อนไข "
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    KBank Transfer to AIS Point >> Test 1. คะแนนสะสม KBank Card ทุก 500 คะแนน โอนเป็นคะแนน AIS Points ได้ 80 คะแนน สามารถโอนได้ไม่จำกัดจำนวนครั้ง
+    ...    2.สามารถโอนคะแนนสะสม KBank Card ไปเป็น AIS Point ได้ที่ http://kbankcard.askkbank.com/TH/Reward/Pages/InstantRewards.aspx
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Terms and Conditions show in KBank Card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_44] Verify Terms and Conditions in page KBank Card in case itn't show
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก KBank Card
+    ...    5 เลือกปุ่ม
+    ...    6 verify ข้อกำหนดและเงื่อนไข
+    ...    ""
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    ข้อกำหนดและเงื่อนไข
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Terms and Conditions itn't show in KBank Card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_45] Verify Terms and Conditions in page PTT Blue Card in case it show
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก PTT Blue Card
+    ...    5 เลือกปุ่ม "^"
+    ...    6 verify ข้อกำหนดและเงื่อนไข ^"
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    1. คะแนนสะสม AIS Points ทุก 100 คะแนน โอนเป็นคะแนน PTT Blue Card ได้ 400 คะแนน และสามารถโอนได้ไม่จำกัดจำนวนครั้ง
+    ...    2. คะแนนสะสม PTT Blue Card ทุก 500 คะแนน โอนเป็นคะแนน AIS Points ได้ 80 คะแนน สามารถโอนได้ไม่จำกัดจำนวนครั้ง
+    ...    3.สามารถโอนคะแนนสะสม PTT Blue Card ไปเป็น AIS Point ได้ที่ www.pttbluecard.com และโอนคะแนนสะสม AIS Point ไปเป็นคะแนนสะสม PTT Blue Card ได้ที่ www.ais.co.th/points
+    ...    4.รับสิทธิ์การโอนคะแนนที่เว็บไซต์ โดยใช้
+    ...
+    ...    - หมายเลขบัตร PTT Blue Card
+    ...    - หมายเลขโทรศัพท์มือถือ AIS โดยชื่อเจ้าของบัตร PTT Blue Card และ เจ้าของหมายเลขโทรศัพท์ไม่จำเป็นต้องเป็นบุคคลเดียวกัน
+    ...
+    ...    5.หากทำการโอนคะแนนแล้ว ระบบจะตัดคะแนนสะสมทันที และไม่สามารถยกเลิก เปลี่ยนแปลง หรือคืนเป็นเงินสดได้
+    ...    6.หลังทำรายการเสร็จสมบูรณ์ คะแนนสะสม AIS Point จะสามารถใช้ได้ทันที
+    ...    7.หลังทำรายการเสร็จสมบูรณ์ คะแนนสะสม PTT Blue Card จะสามารถใช้ได้ในวันถัดไป
+    ...    8.คะแนนสะสมที่ถูกโอนมาเป็น AIS Point ระหว่างวันที่ 1 มิถุนายน 2560 ถึงวันที่ 31ธันวาคม 2560 จะหมดอายุวันที่ 31 มีนาคม 2561 ส่วนคะแนนที่โอนตั้งแต่วันที่ 1 มกราคม 2561 เป็นต้นไปจะหมดอายุวันที่ 31 ธันวาคม 2561
+    ...    9.คะแนนสะสม PTT Blue Card มีอายุ 2 ปี นับจากวันที่คะแนนสะสมเข้าระบบ โดยบริษัทฯ จะทำการตัดคะแนนสะสมที่หมดอายุปีละ 2 ครั้ง ในวันที่ 30 มิถุนายน และวันที่ 31 ธันวาคม ของทุกปี
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Terms and Conditions it show in PTT Blue Card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_46] Verify Terms and Conditions in page PTT Blue Card in case itn't show
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก PTT Blue Card
+    ...    5 เลือกปุ่ม
+    ...    6 verify ข้อกำหนดและเงื่อนไข "
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    ข้อกำหนดและเงื่อนไข
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Terms and Conditions itn't show in PTT Blue Card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_47] Verify Terms and Conditions in page The 1 Card in case it show
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก The 1 Card
+    ...    5 เลือกปุ่ม "^"
+    ...    6 verify ข้อกำหนดและเงื่อนไข ^"
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    1. คะแนนสะสม AIS Points ขั้นต่ำที่สามารถโอนได้คือ 50 คะแนน และสามารถโอนได้สูงสุดไม่เกิน 200 คะแนนต่อครั้ง
+    ...    2. คะแนนสะสม The 1 Card ขั้นต่ำที่สามารถโอนได้คือ 400 คะแนน และสามารถโอนได้สูงสุดไม่เกิน 1,600 คะแนนต่อครั้ง
+    ...    3. สามารถโอนคะแนนได้ที่เว็บไซต์ www.ais.co.th/points หรือ my AIS Application โดยใช้
+    ...    - หมายเลขโทรศัพท์ AIS
+    ...    - หมายเลขบัตร The 1 Card โดยชื่อเจ้าของบัตร The 1 Card และชื่อเจ้าของหมายเลขโทรศัพท์ ไม่จำเป็นต้องเป็นบุคคลเดียวกัน
+    ...
+    ...    4. หากทำการโอนคะแนนแล้ว ระบบจะตัดคะแนนสะสม AIS Points ทันที และไม่สามารถยกเลิก เปลี่ยนแปลง หรือคืนเป็นเงินสดได้
+    ...    5. หลังทำรายการเสร็จสมบูรณ์ คะแนน The 1 Card จะสามารถใช้ได้ในวันถัดไป
+    ...    6. คะแนน The 1 Card มีอายุ 2 ปี นับจากวันที่คะแนนสะสมเข้าระบบ โดยบริษัทฯ จะทำการประมวลคะแนนสะสมทุกสิ้นปีปฏิทิน
+    ...    7. คะแนนสะสม AIS Points จะหมดอายุในวันที่ 31 มีนาคม 2561
+    ...    8. บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไข โดยไม่ต้องแจ้งให้ทราบล่วงหน้า
+    ...    9. สามารถตรวจสอบรายละเอียดเพิ่มเติมที่ www.ais.co.th/points และ www.the-1-card.com หรือ The 1 Card Call Center โทร. 02-660-1000 "
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Terms and Conditions it show in The 1 Card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PointsWebMobile_1,2,11,12_1_Y_2_48] Verify Terms and Conditions in page The 1 Card in case itn't show
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก The 1 Card
+    ...    5 เลือกปุ่ม
+    ...    6 verify ข้อกำหนดและเงื่อนไข "
+    ...
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    ข้อกำหนดและเงื่อนไข "
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    TransferPoint
+    Verify Terms and Conditions itn't show in The 1 Card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

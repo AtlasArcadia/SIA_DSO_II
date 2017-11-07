@@ -1,0 +1,22 @@
+*** Settings ***
+Library           ../../../Library/Mobile/AISAppiumEx.py
+Resource          ../../../Common/Keywords/RedefineKeywords.txt
+Resource          ../Repository/PhoneGISRepository.txt
+
+*** Keywords ***
+android check balance
+    [Arguments]    ${Times}    ${CallSIMNumber}=1
+    Log    In android check balance
+    Click Mobile Element    ${btnShowKeypad}
+    Clear Text    ${fldNumberPhone}
+    Input Mobile Text    ${fldNumberPhone}    *121#
+    Click Mobile Element    ${btnCall}
+    Click Mobile Element    ${btnCallSIM${CallSIMNumber}}
+    ${Message}    Get mobile text    ${DialogMassage}
+    ${balance}    Should Match Regexp    ${Message}    \\d+[.]*\\d*
+    Log    ${balance}
+    Mobile Capture Screen At Verify Point    Android Check Balance Dialog ${Times}
+    Click Mobile Element    ${btnCancelDialog}
+    Log    Out android check balance
+    Close Application
+    [Return]    ${balance}

@@ -1,0 +1,565 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/TouchIDLocalized.txt
+Resource          ../PageRepository/${ar_OS}/TouchIDRepository.txt
+Resource          ../PageVariable/TouchIDVariable.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    #เพิ่ม status มาเพื่อเช็คว่าอยู่หน้่าล็อคอินหรือไม่ ถ้าอยู่ จะให้ ปิดแอพเลย จะได้ไม่ต้องรอล็อคเอ้านาน by Asma
+    ${status}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblLogin}    2
+    Run Keyword If    "${status}"=="False"    Run Keyword And Ignore Error    Logout
+    Run Keyword If    "${status}"=="False"    Run Keyword And Continue On Failure    Close Application
+    Run Keyword If    ${status}    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Keywords For Teardown With Reset Passcode
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    ${status}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnResetPasscodePage}    2
+    ${statusPasscodePage}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnCancelDialogTouchID}    2
+    ${statusDialogBtnOk}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnOKDialogTouchID}    2
+    Run Keyword If    ${statusPasscodePage} and ("${ar_OS}"=="iOS")    Click Mobile Element    ${btnCancelDialogTouchID}
+    Run Keyword If    ${statusDialogBtnOk} and ("${ar_OS}"=="iOS")    Click Mobile Element    ${btnOKDialogTouchID}
+    Run Keyword If    "${status}"=="False"    Logout
+    Run Keyword If    "${status}"=="False"    check survey
+    Run Keyword And Ignore Error    Reset Passcode
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+split number 6 digit
+    [Arguments]    ${Password}
+    ${PasswordLength}=    Get Length    ${Password}
+    @{Number}=    Run Keyword If    ${PasswordLength}==6    Convert To List    ${Password}
+    ...    ELSE    fail    please input 6 digit
+    [Return]    @{Number}
+
+Input Passcode
+    [Arguments]    ${Password}
+    @{Pass}=    split number 6 digit    ${Password}
+    : FOR    ${digit}    IN RANGE    0    6    1
+    \    Click Mobile Element    ${btnNumber@{Pass}[${digit}]}
+
+Verify Have Passcode lock
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Mobile Capture Screen At Verify Point    Verify is Have Passcode Lock
+
+Verify Dont Have Passcode Lock
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dont Have Passcode Lock Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dont Have Passcode Lock iOS
+
+Verify Dont Have Passcode Lock Android
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Wait Mobile Until Page Does Not Contain Element    ${btnChangePasscode}
+    Mobile Capture Screen At Verify Point    Verify is Dont Have Passcode Lock
+
+Verify Dont Have Passcode Lock iOS
+    Mobile element text should be    ${lblPasscodeLockInPasscodePageSetting}    ${HeaderPasscodeLockPageSetting}
+    ${statusChangePasscode}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Should Be True    '${statusChangePasscode}'=='False'
+    Mobile Capture Screen At Verify Point    Verify Dont Have Passcode Lock
+
+Select Hamburger
+    Run Keyword If    "${ar_OS}"=="Android"    Select Hamburger Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Hamburger iOS
+
+Select Hamburger Android
+    Click Mobile Element    ${btnHamberger}
+
+Select Hamburger iOS
+    ${statusHamberger}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnHamberger}
+    #${statusHambergerPasscode}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnHamberger}
+    Run Keyword If    ${statusHamberger}    Click Mobile Element    ${btnHamberger}
+    ...    ELSE    Click Mobile Element    ${btnHambergerPassCode}
+
+Select Settings
+    Run Keyword If    "${ar_OS}"=="Android"    Select Settings Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Settings iOS
+
+Select Settings Android
+    Click Mobile Element    ${btnSetting}
+
+Select Settings iOS
+    Click Mobile Element    ${btnSetting}
+
+Input Correct Passcode
+    Input Passcode    ${CorrectPassword}
+
+Input Wrong Passcode N Round
+    [Arguments]    ${round}=1    ${isVerify}="NoVerify"
+    : FOR    ${index}    IN RANGE    0    ${round}    1
+    \    Input Passcode    ${WrongPassword}
+
+Select Passcode Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Passcode Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Passcode Menu iOS
+
+Select Passcode Menu Android
+    Click Mobile Element    ${mnuPasscodeLock}
+
+Select Passcode Menu iOS
+    Click Mobile Element    ${mnuPasscodeLock}
+
+Reset Passcode
+    Run Keyword If    "${ar_OS}"=="Android"    Reset Passcode Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Reset Passcode iOS
+
+Reset Passcode Android
+    [Arguments]    ${isVerify}="NoVerify"
+    Click Mobile Element    ${btnResetPasscodePage}
+    Run Keyword If    ${isVerify}=="Verify"    Mobile element text should be    ${lblDialogTouchID}    ${txtDialogResetPasscode}
+    Run Keyword If    ${isVerify}=="Verify"    Mobile element text should be    ${btnCancelDialogTouchID}    ${txtDialogButtonCancel}
+    Run Keyword If    ${isVerify}=="Verify"    Mobile element text should be    ${btnOKDialogTouchID}    ${txtDialogButtonOk}
+    Run Keyword If    ${isVerify}=="Verify"    Mobile Capture Screen At Verify Point    In Reset Password
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Reset Passcode iOS
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}
+    Click Mobile Element    ${btnResetPasscodePage}
+    Wait Mobile Until Element Visible    ${btnConfirmReset}
+    Click Mobile Element     ${btnConfirmReset}
+    Sleep    3
+
+Verify 6 Pin Lock
+    Run Keyword If    "${ar_OS}"=="Android"    Verify 6 Pin Lock Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify 6 Pin Lock iOS
+
+Verify 6 Pin Lock Android
+    : FOR    ${index}    IN RANGE    1    7    1
+    \    Wait Mobile Until Element Visible    ${dotsPinlockPasscode${index}}
+    Mobile Capture Screen At Verify Point    Verify in 6 Pin Lock
+
+Verify 6 Pin Lock iOS
+    : FOR    ${index}    IN RANGE    1    7    1
+    \    Wait Mobile Until Element Visible    ${btnNumber${index}}
+    Mobile Capture Screen At Verify Point    Verify in 6 Pin Lock
+
+Close PassLock
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Click Mobile Element    ${swPasscodeLockPageSetting}
+
+Verify Dialog Reset Passcode
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Reset Passcode Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dialog Reset Passcode iOS
+
+Verify Dialog Reset Passcode Android
+    Mobile element text should be    ${lblDialogTouchID}    ${txtDialogClosePasscode}
+    Mobile Capture Screen At Verify Point    Verify in Dialog Reset Passcode
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Verify Dialog Reset Passcode iOS
+    Mobile element text should be    ${lblDialogTouchID}    ${DialogClosePasscode}
+    Mobile Capture Screen At Verify Point    Verify in Dialog Reset Passcode
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Setup Active Passcode
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    Run Keyword If    "${ar_OS}"=="Android"    Setup Active Passcode Android    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Setup Active Passcode iOS    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+
+Setup Active Passcode Android
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    ${statusResetBtn}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnResetPasscodePage}    10
+    Run Keyword If    ${statusResetBtn}    Reset Passcode
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamburger
+    Click Mobile Element    ${btnSetting}
+    Click Mobile Element    ${mnuPasscodeLock}
+    Click Mobile Element    ${swPasscodeLockPageSetting}
+    Input New Passcode    ${CorrectPassword}
+    Re-enter Your New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Logout
+
+Setup Active Passcode iOS
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    ${DialogTouchID}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblTouchIDForMyAIS}    10
+    Run Keyword If    ${DialogTouchID}    Click Mobile Element    ${btnCancelLoginWithTouchID}
+    Sleep    2
+    ${statusResetBtn}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnResetPasscodePage}    10
+    Run Keyword If    ${statusResetBtn}    Reset Passcode
+    Wait Mobile Until Element Visible    ${txtMoibleNumber}    60
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Click Mobile Element    ${btnPasscodeLock}
+    Wait Mobile Until Element Visible    ${lblEnterYourNewPasscode}    30
+    Sleep    2
+    Input New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${lblReEnterYourNewPasscode}    30
+    Sleep    2
+    Re-enter Your New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Logout
+
+Input New Passcode
+    [Arguments]    ${NewPasscode}
+    Input PassCode    ${NewPasscode}
+
+Re-enter Your New Passcode
+    [Arguments]    ${CorrectPassword}
+    Input PassCode    ${CorrectPassword}
+
+Forgot Password And Verify
+    Run Keyword If    "${ar_OS}"=="Android"    Forgot Password And Verify Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Forgot Password And Verify iOS
+
+Forgot Password And Verify Android
+    Click Mobile Element    ${btnForgotPasscodePage}
+    Mobile element text should be    ${lblDialogTouchID}    ${txtDialogForgotPassCode}
+    Mobile Capture Screen At Verify Point    Verify Dialog Forgot Password
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Forgot Password And Verify iOS
+    Click Mobile Element    ${btnForgotPasscodePage}
+    Mobile element text should be    ${lblDialogTouchID}    ${DialogForgotPassCode}
+    Mobile Capture Screen At Verify Point    Verify Dialog Forgot Password
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Verify Manual Login Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Manual Login Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Manual Login Page iOS
+
+Verify Manual Login Page Android
+    Mobile element text should be    ${lblLogin}    ${txtLoginText}
+    Wait Mobile Until Element Visible    ${fldNumberMobileLoginPage}
+    Wait Mobile Until Element Visible    ${btnOKLoginPage}
+    Wait Mobile Until Element Visible    ${btnLangLoginPage}
+    Mobile Capture Screen At Verify Point    Manual Login Page
+
+Verify Manual Login Page iOS
+    Mobile element text should be    ${lblLogin}    ${LoginText}
+    Wait Mobile Until Element Visible    ${fldNumberMobileLoginPage}
+    Wait Mobile Until Element Visible    ${btnOKLoginPage}
+    Wait Mobile Until Element Visible    ${btnLangLoginPage}
+    Mobile Capture Screen At Verify Point    Manual Login Page
+
+Login By Passcode
+    Run Keyword If    "${ar_OS}"=="Android"    Login By Passcode Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Login By Passcode iOS
+
+Login By Passcode Android
+    Sleep    2
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Input Correct Passcode
+    verify login
+
+Login By Passcode iOS
+    Wait Mobile Until Element Visible    ${btnNumber0}
+    Input Correct Passcode
+    Sleep    5
+    verify login
+
+Verify Passcode Page Setting
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Passcode Page Setting Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Passcode Page Setting iOS
+
+Verify Passcode Page Setting Android
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Mobile element text should be    ${lblPasscodeLockPageSetting}    ${PasscodeLockSetting}
+    Mobile Capture Screen At Verify Point    Passcode Page Setting
+
+Verify Passcode Page Setting iOS
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${HeaderPasscodeLockPageSetting}
+    Mobile element text should be    ${lblPasscodeLockPageSetting}    ${PasscodeLockSetting}
+    Wait Mobile Until Element Visible    ${btnPasscodeLock}
+    Mobile Capture Screen At Verify Point    Verify Passcode Page Setting iOS
+
+Input Passcode Enter Setting
+    [Arguments]    ${CorrectPassword}
+    Input PassCode    ${CorrectPassword}
+
+Change Passcode Successful
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Run Keyword If    "${ar_OS}"=="Android"    Change Passcode Successful Android    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Change Passcode Successful iOS    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+
+Change Passcode Successful Android
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Click Mobile Element    ${btnChangePasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourOldPasscode}
+    Input Passcode    ${OldPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourNewPasscode}
+    Input Passcode    ${NewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtReEnterYourNewPasscode}
+    Input Passcode    ${ReNewPasscode}
+    Mobile element text should be    ${DialogCreatedSuccessfully}    ${CreatedSuccessfully}
+    Mobile Capture Screen At Verify Point    Verify Change Passcode
+
+Change Passcode Successful iOS
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Click Mobile Element    ${btnChangePasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourOldPasscode}
+    Input Passcode    ${OldPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourNewPasscode}
+    Input Passcode    ${NewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${ReEnterYourNewPasscode}
+    Input Passcode    ${ReNewPasscode}
+    #Mobile element text should be    ${DialogCreatedSuccessfully}    ${CreatedSuccessfully}
+    Mobile Capture Screen At Verify Point    Verify Change Passcode
+
+Change Passcode Fail Old Passcode Wrong
+    [Arguments]    ${OldPasscode}    ${Round}=1
+    Run Keyword If    "${ar_OS}"=="Android"    Change Passcode Fail Old Passcode Wrong Android    ${OldPasscode}    ${Round}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Change Passcode Fail Old Passcode Wrong iOS    ${OldPasscode}    ${Round}
+
+Change Passcode Fail Old Passcode Wrong Android
+    [Arguments]    ${OldPasscode}    ${Round}=1
+    Click Mobile Element    ${btnChangePasscode}
+    : FOR    ${index}    IN RANGE    0    ${Round}    1
+    \    Input Passcode    ${WrongPassword}
+    \    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourOldPasscode}
+    \    Verify 6 Pin Lock
+    Mobile Capture Screen At Verify Point    Verify Fail Old Passcode Wrong
+
+Change Passcode Fail Old Passcode Wrong iOS
+    [Arguments]    ${OldPasscode}    ${Round}=1
+    Click Mobile Element    ${btnChangePasscode}
+    : FOR    ${index}    IN RANGE    0    ${Round}    1
+    \    Input Passcode    ${WrongPassword}
+    \    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourOldPasscode}
+    \    Verify 6 Pin Lock
+    Mobile Capture Screen At Verify Point    Verify Fail Old Passcode Wrong
+
+Change Passcode Fail Re Enter New Passcode Wrong
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Run Keyword If    "${ar_OS}"=="Android"    Change Passcode Fail Re Enter New Passcode Wrong Android    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Change Passcode Fail Re Enter New Passcode Wrong iOS    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+
+Change Passcode Fail Re Enter New Passcode Wrong Android
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Click Mobile Element    ${btnChangePasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourOldPasscode}
+    Input Passcode    ${OldPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourNewPasscode}
+    Input Passcode    ${NewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtReEnterYourNewPasscode}
+    Input Passcode    ${ReNewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtReEnterPasscodeNotMatch}
+    Mobile Capture Screen At Verify Point    Verify Fail Re Enter Passcode Wrong
+
+Change Passcode Fail Re Enter New Passcode Wrong iOS
+    [Arguments]    ${OldPasscode}    ${NewPasscode}    ${ReNewPasscode}
+    Click Mobile Element    ${btnChangePasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourOldPasscode}
+    Input Passcode    ${OldPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourNewPasscode}
+    Input Passcode    ${NewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${ReEnterYourNewPasscode}
+    Input Passcode    ${ReNewPasscode}
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${ReEnterPasscodeNotMatch}
+    Mobile Capture Screen At Verify Point    Verify Fail Re Enter Passcode Wrong
+
+Verify Passcode Page Setting Have Change Passcode
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting}
+    Mobile element text should be    ${lblHeaderPasscodeLockPageSetting}    ${txtHeaderPasscodeLockPageSetting}
+    Mobile element text should be    ${lblPasscodeLockPageSetting}    ${PasscodeLockSetting}
+    Mobile element text should be    ${btnChangePasscode}    ${ChangePasscode}
+    Mobile Capture Screen At Verify Point    Passcode Page Setting Change Passcode
+
+Active Passcode
+    Click Mobile Element    ${swPasscodeLockPageSetting}
+
+Verify Dialog Created Successfully
+    Mobile element text should be    ${DialogCreatedSuccessfully}    ${CreatedSuccessfully}
+    Mobile Capture Screen At Verify Point    CreatedSuccessfully
+
+Login And Verify Login Passcode Success
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Login And Verify Login Passcode Success Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Login And Verify Login Passcode Success iOS    ${Number}
+
+Login And Verify Login Passcode Success Android
+    [Arguments]    ${NumberNo}
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Input Correct Passcode
+    Mobile element text should be    ${lblMobileNo}    ${NumberNo}
+    Wait Mobile Until Element Visible    ${btnHamburger}
+    Wait Mobile Until Element Visible    ${lbUserAccount}
+    Comment    Wait Mobile Until Element Visible    ${conHomeSummary}    #cancel verify this point
+    Mobile Capture Screen At Verify Point    Verify Login Passcode Successful
+
+Login And Verify Login Passcode Success iOS
+    [Arguments]    ${Number}
+    ${statusHamberger}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnHamberger}
+    Run Keyword If    ${statusHamberger}    Wait Mobile Until Element Visible    ${btnHamberger}
+    ...    ELSE    Wait Mobile Until Element Visible    ${btnHambergerPassCode}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNo}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Wait Mobile Until Element Visible    ${lbUserAccount}
+    Mobile Capture Screen At Verify Point    Verify Login Passcode Successful
+
+Login And Verify Login Passcode Fail
+    Run Keyword If    "${ar_OS}"=="Android"    Login And Verify Login Passcode Fail Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Login And Verify Login Passcode Fail iOS
+
+Login And Verify Login Passcode Fail Android
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Input Wrong Passcode N Round    1
+    Verify 6 Pin Lock
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourPasscode}
+    Mobile element text should be    ${btnResetPasscodePage}    ${txtResetButton}
+    Mobile Capture Screen At Verify Point    Verify Login Passcode Failed
+
+Login And Verify Login Passcode Fail iOS
+    Input Wrong Passcode N Round    1
+    Verify 6 Pin Lock
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourPasscode}
+    Mobile element text should be    ${btnResetPasscodePage}    ${ResetButton}
+    Mobile Capture Screen At Verify Point    Verify Login Passcode Failed
+
+Verify Your Passcode Don't Match
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${YourPasscodeDon't MatchPleaseTryAgain}
+    Mobile Capture Screen At Verify Point    Your Password Don't Match
+    Click Mobile Element    ${btnCancelPasscodePage}
+
+Login Passcode Incorrect 3 Times
+    Input Wrong Passcode N Round    3
+
+Verify Dialog Reached Maximum Passcode Limit
+    Mobile element text should be    ${lblDialogTouchID}    ${ReachedMaximumPasscodeLimit}
+    Mobile Capture Screen At Verify Point    Reached Maximum Passcode Limit
+    Click Mobile Element    ${btnHaveOnlyOKDialog}
+
+Press Reset At Login Passcode Page
+    Run Keyword If    "${ar_OS}"=="Android"    Press Reset At Login Passcode Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Press Reset At Login Passcode Page iOS
+
+Press Reset At Login Passcode Page Android
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Click Mobile Element    ${btnResetPasscodePage}
+
+Press Reset At Login Passcode Page iOS
+    Click Mobile Element    ${btnResetPasscodePage}
+
+Verify Dialog Set Your New Passcode
+    Mobile element text should be    ${lblDialogTouchID}    ${SetYourNewPasscode}
+    Mobile Capture Screen At Verify Point    Set Your New Password
+
+Confirm Set New Password
+    Click Mobile Element    ${btnOKDialogTouchID}
+
+Cancel Set New Password
+    Click Mobile Element    ${btnCancelDialogTouchID}
+
+Verify Enter Your Passcode Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Enter Your Passcode Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Enter Your Passcode Page iOS
+
+Verify Enter Your Passcode Page Android
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${txtEnterYourPasscode}
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}
+    Mobile Capture Screen At Verify Point    Enter Your Passcode
+
+Verify Enter Your Passcode Page iOS
+    Mobile element text should be    ${lblTitleInputPasscodePage}    ${EnterYourPasscode}
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}
+    Mobile Capture Screen At Verify Point    Enter Your Passcode
+
+check survey
+    ${StatusSurvey}=    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_toolbar_simple_tv_title" and (@text="แบบสอบถาม" or @text="Survey")]    10
+    Run Keyword If    ${StatusSurvey}    AISAppiumEx.Go Back
+
+Verify Passcode Enable
+    Wait Mobile Until Element Visible    ${lblEnterYourPasscode}    30
+    Input PassCode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting2}
+    Wait Mobile Until Element Visible    ${lblPasscodeLockInPasscodePageSetting}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Mobile Capture Screen At Verify Point    Verify Passcode Pin Setting
+
+Verify Passcode Enable TouchID
+    Sleep    2
+    Input Correct Passcode
+    Wait Mobile Until Element Visible    ${btnTouchID}
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting2}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Click Mobile Element    ${btnTouchID}
+    Mobile Capture Screen At Verify Point    Verify Passcode Enable TouchID
+
+Verify Passcode Disable TouchID
+    Sleep    2
+    Input Correct Passcode
+    Wait Mobile Until Element Visible    ${btnTouchID}
+    Wait Mobile Until Element Visible    ${btnBackInPasscodePageSetting2}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Comment    Click Mobile Element    ${btnTouchID}
+    Mobile Capture Screen At Verify Point    Verify Passcode Disable TouchID
+
+Login with Passcode
+    ${DialogTouchID}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblTouchIDForMyAIS}    10
+    Run Keyword If    ${DialogTouchID}    Click Mobile Element    ${btnCancelLoginWithTouchID}
+    Wait Mobile Until Element Visible    ${lblTitleInputPasscodePage}    60
+    Sleep    2
+    Input Correct Passcode
+    Wait Mobile Until Element Visible    ${lblTitle}
+
+Disable Passcode
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    ${btnTouchID}    Run Keyword And Return Status    Wait Mobile Until Element Visible        ${btnCancelDialogTouchID}
+    Run Keyword If	'${btnTouchID}'=='True'    Click Mobile Element        ${btnCancelDialogTouchID}
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}
+    Click Mobile Element    ${btnResetPasscodePage}
+    Wait Mobile Until Element Visible    ${btnConfirmReset}
+    Click Mobile Element    ${btnConfirmReset}
+
+Verify Login Enable Touch ID
+    Wait Mobile Until Element Visible    ${lblTouchIDForMyAIS}
+    Mobile Capture Screen At Verify Point    Verify Login Enable Touch ID
+    Wait Mobile Until Element Visible     ${btnCancelDialogTouchID}    30
+    Click Mobile Element     ${btnCancelDialogTouchID}
+
+Verify Login Disable Touch ID
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Wait Mobile Until Element Visible    ${lblTitleInputPasscodePage}    60
+    Mobile Capture Screen At Verify Point    Verify Login Disable Touch ID
+
+Verify Popup Fingerprint to use MyAIS
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Wait Mobile Until Element Visible        60
+    Mobile Capture Screen At Verify Point    Verify Popup Fingerprint to use MyAIS
+    Close Application
+
+Verify Passcode Setting Success
+    Wait Mobile Until Element Visible    ${btnPasscodeLock}
+    Click Mobile Element    ${btnPasscodeLock}
+    Wait Mobile Until Element Visible    ${lblEnterYourNewPasscode}    30
+    Input New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${lblReEnterYourNewPasscode}    30
+    Re-enter Your New Passcode    ${CorrectPassword}
+    Comment    Wait Mobile Until Element Visible    ${lblCreatedSuccessfully}    5
+    Mobile Capture Screen At Verify Point    Verify Passcode Setting Success
+
+Verify Passcode Setting Don't Match
+    Wait Mobile Until Element Visible    ${btnPasscodeLock}
+    Click Mobile Element    ${btnPasscodeLock}
+    Wait Mobile Until Element Visible    ${lblEnterYourNewPasscode}    30
+    Input New Passcode    ${CorrectPassword}
+    Wait Mobile Until Element Visible    ${lblReEnterYourNewPasscode}    30
+    Input PassCode    ${WrongPassword}
+    Wait Mobile Until Element Visible    ${lblYourpasscodeDon'tMatch}    30
+    Mobile Capture Screen At Verify Point    Verify Passcode Setting Not Match
+    Click Mobile Element    ${btnCancelPasscodePage}
+
+Disable TouchID Login Page
+    ${DialogTouchID}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblTouchIDForMyAIS}    10
+    Run Keyword If    ${DialogTouchID}    Click Mobile Element    ${btnCancelLoginWithTouchID}
+    Wait Mobile Until Element Visible    ${btnResetPasscodePage}    30
+    Sleep    2
+    Click Mobile Element    ${btnResetPasscodePage}
+    Wait Mobile Until Element Visible    ${btnConfirmReset}    30
+    Sleep    2
+    Click Mobile Element    ${btnConfirmReset}

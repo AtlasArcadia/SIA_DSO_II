@@ -1,0 +1,416 @@
+*** Settings ***
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Home.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/MyAccount.txt
+Resource          ../PageRepository/Android/Event_3PORepository.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/DomesticPackage_YourCurrentPackage.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Domestic_ChangePricePlan.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/BalanceAndUsageDetail.txt
+Resource          ../PageRepository/Android/Event_PostpaidRepository.txt
+Resource          ../../../../../Config/LocalConfig.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/Event_3POLocalized.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Prepaid.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/MyAccount.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Prepaid.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemaining_Prepaid.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/TopUp.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/TouchID.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Prepaid.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/CallingMelody.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/TouchID.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/DomesticsPackage_CancelOnTopPackage.txt
+
+*** Keywords ***
+Log Number And Time
+    [Arguments]    ${Number}
+    Log    Mobile number = ${Number}
+    ${time} =    Get Time
+    Log    Current time = ${time}
+
+Check Switch Language
+    ${checkedOld}    AISAppiumEx.Get Element Attribute    ${btnSwitchLanguage}    checked
+    Click Mobile Element    ${btnSwitchLanguage}
+    Wait Mobile Until Element Visible    ${btnSwitchLanguage}
+    ${checkedNew}    AISAppiumEx.Get Element Attribute    ${btnSwitchLanguage}    checked
+    Run Keyword If    "${checkedOld}" != "${checkedNew}"    Log    Change Language Pass
+    ...    ELSE IF    "${checkedOld}" == "${checkedNew}"    Log    Fail
+
+Payment Channals Select Credit
+    Select Credit Card
+    Log Number And Time    0933319510
+    Swipe to element    ${btnBackPagePayment}
+    Click Mobile Element    ${btnBackPagePayment}
+
+Select Credit Card
+    Wait Mobile Until Element Visible    ${chkCreditCard}
+    Click Mobile Element    ${chkCreditCard}
+
+Select Dedit Card
+    Wait Mobile Until Element Visible    ${chkDeditCard}
+    Click Mobile Element    ${chkDeditCard}
+
+Select mPAY Wallet
+    Wait Mobile Until Element Visible    ${chkPAYWallet}
+    Click Mobile Element    ${chkPAYWallet}
+
+Select Card Type PayBill
+    [Arguments]    ${CardType}
+    Click Mobile Element    ${CreditCardTypePaybill}
+    Click Mobile Element    ${chkCreditCard${CardType}}
+
+Next Page Payment
+    Swipe Element To Screen    ${btnNextPagePayment}
+    Click Mobile Element    ${btnNextPagePayment}
+
+Back Page Payment
+    Swipe Element To Screen    ${btnBackPagePayment}
+    Click Mobile Element    ${btnBackPagePayment}
+
+Click Dialog
+    Click Mobile Element    ${dlgPleaseEnterTheAmountToBePaid}
+
+Input Payment amount
+    Input Text via ADB Keyboard    ${txtPaymentAmount}    9    52039f5fc01a93a7
+
+Confirm Payment
+    Click Mobile Element    ${btnNextPagePayment}
+
+Select Payment To another Number
+    Click Mobile Element    ${lblAnotherNumber}
+
+Input Destination Number Paybill
+    Input Text via ADB Keyboard    ${fldMobileNumber}    ${DestinationNumber}    ${virtual_device_1_SN}
+
+Input Destination Number TopUp
+    Input Text via ADB Keyboard    ${txtMobileNumberTopUp}    ${DestinationNumber}    ${virtual_device_1_SN}
+
+Payment Channals Select
+    Select Credit Card
+    Swipe to element    ${btnBackPagePayment}
+    Click Mobile Element    ${btnBackPagePayment}
+    Log Number And Time    0933319510
+    Next Page Payment
+    Select Dedit Card
+    Swipe to element    ${btnBackPagePayment}
+    Click Mobile Element    ${btnBackPagePayment}
+    Log Number And Time    0933319510
+    Next Page Payment
+    Select mPAY Wallet
+    Swipe to element    ${btnBackPagePayment}
+    Click Mobile Element    ${btnBackPagePayment}
+    Log Number And Time    0933319510
+
+Payment on Debit Card for Another Number
+    Input Payment amount
+    Select Dedit Card
+    Next Page Payment
+    Confirm Payment
+
+Payment on Crebit Card for Another Number
+    Input Payment amount
+    Select Credit Card
+    Select Card Type PayBill    VISA
+    Next Page Payment
+    Confirm Payment
+
+Payment on mPAY Wallet for Another Number
+    Input Payment amount
+    Select mPAY Wallet
+    Next Page Payment
+    Confirm Payment
+
+Back To Credit Card Select
+    Click Mobile Element    ${bntBackToSelectCreditCard}
+
+Select Credit Card TopUp
+    Wait Mobile Until Element Visible    ${chkCreditCardTopUp}
+    Click Mobile Element    ${chkCreditCardTopUp}
+
+Select Dedit Card TopUp
+    Wait Mobile Until Element Visible    ${chkDeditCardTopUp}
+    Click Mobile Element    ${chkDeditCardTopUp}
+
+Select mPAY Wallet TopUp
+    Wait Mobile Until Element Visible    ${chkPAYWalletTopUp}
+    Click Mobile Element    ${chkPAYWalletTopUp}
+
+Select AIS TopUp
+    Wait Mobile Until Element Visible    ${chkAISTopUp}
+    Click Mobile Element    ${chkAISTopUp}
+
+Select Top Up Amount
+    Click Mobile Element    ${ddlSelectTopUpAmount}
+    Click Mobile Element    ${ddlTopUp20B}
+
+Next Page Top Up
+    Swipe Element To Screen    ${btnNextPageTopUp}
+    Click Mobile Element    ${btnNextPageTopUp}
+
+Verify Header
+    [Arguments]    ${headername}
+    Mobile element text should be    ${txtHeader}    ${headername}
+
+Login Case Have My Account
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}
+    ...    ${PasswordMyAIS}
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    ${statusChoiceLogin}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnChoicePassword}    1
+    Run Keyword If    "${statusChoiceLogin}"=="True"    Click Mobile Element    ${btnChoicePassword}
+    chosen primary button
+    Input mobile text    ${txtInputOTP}    ${PasswordMyAIS}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${btnOKGetOTP}    60
+    verify login
+
+Click Next To Confirm Top Up
+    Swipe to element    ${btnTopupNext}
+    Click Mobile Element    ${btnTopupNext}
+
+Confirm Top Up
+    Click Mobile Element    ${btnConfirmTopUp}
+
+Click Dailog Popup
+    Click Mobile Element    ${bntDailogPopup}
+
+Input Citizen ID
+    [Arguments]    ${ID}
+    Click Mobile Element    ${fldCitizenID}
+    Input Mobile Text    ${fldCitizenID}    ${ID}
+    Run Keyword And Ignore Error    Hide keyboard
+
+OK iSWOP Customber Only
+    Click Mobile Element    ${btnDialogiSWOP}
+
+Back To Top Up Channal
+    Click Mobile Element    ${btnBackToTopUpChannal}
+
+Click Subscribe
+    Click Mobile Element    ${btnApplyAISeStatement}
+
+Click Create my AIS
+    Click Mobile Element    ${btnCreateMyAIS_NoAccount}
+
+Click Terms and Conditions
+    Click Mobile Element    ${btnTermAndCondition}
+
+Input Email for Create MyAIS
+    [Arguments]    ${udid}
+    Comment    Input Mobile Text    ${fldInputEmail}    ${txtEmail}
+    Input Text via ADB Keyboard    ${fldInputEmail}    ${EmailForCreateAccount}    ${udid}
+
+Next Page To Enter Password
+    Click Mobile Element    ${btnNextPageCreateMyAIS}
+
+Next Page Other Ontop
+    Click Mobile Element    ${btnNextPageOtherOnTop}
+
+Input Password myAIS
+    [Arguments]    ${udid}
+    Input Text via ADB Keyboard    ${fldEnterEmail}    ${txtPasswordForCreateAccount}    ${udid}
+    Input Text via ADB Keyboard    ${fldReEnterEmail}    ${txtPasswordForCreateAccount}    ${udid}
+
+Next Page To terms and Condititions
+    Click Mobile Element    ${btnNexEnterPassword}
+
+Accept Terms and Conditition
+    Click Mobile Element    ${btnAcceptTermsAndConditition}
+
+Confirm Create MyAIS
+    Click Mobile Element    ${btnConfirmCreateMyAIS}
+
+Continue To Next Step Apply Roaming
+    Click Mobile Element    ${btnContinueApplyRoaming}
+
+Select Data Package Roaming
+    Click Mobile Element    ${ddlPackageTypeApplyRoamingPackagePage}
+    Swipe to element    ${itmDataApplyRoamingPackagePage}    ${lstPackageTypeApplyRoamingPackagePage}
+    Click Mobile Element    ${itmDataApplyRoamingPackagePage}
+
+Select Package Entertainment
+    Click Mobile Element    ${btnApplyEntertainmentOnTop}
+
+Confirm Package Entertainment
+    Click Mobile Element    ${btnConfirmEntertainmentOnTop}
+
+Select Terms and Conditition
+    Swipe Element To Screen    ${btnEntertainmentTermsAndConditition}
+    Click Mobile Element    ${btnEntertainmentTermsAndConditition}
+
+Log Out My AIS
+    Click Mobile Element    ${btnLogout}
+
+Login with Passcode Success
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Input Correct Passcode
+    Comment    Mobile element text should be    ${lblMobileNo}    ${NumberNo}
+    Comment    Wait Mobile Until Element Visible    ${btnHamburger}
+    Comment    Wait Mobile Until Element Visible    ${lbUserAccount}
+    Comment    Comment    Wait Mobile Until Element Visible    ${conHomeSummary}    #cancel verify this point
+    Comment    Mobile Capture Screen At Verify Point    Verify Login Passcode Successful
+
+Select Package Cancel Ontop Package
+    Click Mobile Element    ${btnConfirmCancelOnTopPackage}
+
+Cancel Package Ontop
+    Click Mobile Element    ${btnCancelPackageOnTop}
+
+Add Number
+    Click Mobile Element    ${btnAddNumberMyAisAccount}
+
+Input Add Number
+    Click Mobile Element    ${fldAddNumber}
+    Input Mobile Text    ${fldAddNumber}    ${AddNumberMyAccount}
+
+Confirm Add Number
+    Click Mobile Element    ${btnConfirmAddNumber}
+
+Select Card Type Top Up
+    [Arguments]    ${CardType}
+    Click Mobile Element    ${CreditCardTypeTopUp}
+    Click Mobile Element    ${chkCreditCard${CardType}}
+
+CitizenID Visible
+    [Arguments]    ${ID}
+    ${status}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${txtID_Number}    10
+    log    ${status}
+    Run Keyword If    ${status}    Input ID Citizen    ${ID}
+    ...    ELSE    Run Keyword And Return
+
+Select Internet/Value Added Service
+    Click Mobile Element    ${btnIInternetandValueAddedService}
+
+Select Talk And Net OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalkAndNet}
+
+Select first Package mao mao 19B
+    Swipe Element To Screen    ${SubOnTopTalkAndNetCombo19B}
+    ${element}    Aisappium Get Webelement    ${SubOnTopTalkAndNetCombo19B}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopTalkAndNetCombo19B}
+
+Confirm Package OtherOntop
+    Swipe to element    ${btnConfirmSubscribePackage}    screen    up    0.4
+    Click Mobile Element    ${btnConfirmPackageOtherOntop}
+
+Confirm First Package
+    Click Mobile Element    ${btnNextPage}
+
+Confirm Next Page
+    Click Mobile Element    ${btnNextPageOtherOnTop}
+
+Select Max Speed Internet
+    Wait Mobile Until Element Visible    ${lblMaxSpeedInternet}
+    Click Mobile Element At Position    ${lblMaxSpeedInternet}    below    0.1
+
+Select Max Speed Internet 49 Baht
+    Click Mobile Element    ${btn49Baht}
+    Sleep    2
+    Click Mobile Element    ${btn49Baht}
+    ${packname}    Get mobile attribute    ${btn49Baht}    name
+    log    ${packname}
+    [Return]    ${packname}
+
+Click Confirm Button InternetOntop
+    Swipe element to specific area    ${btnSwitchLanguageEN}    0    0    0    0    down
+    Click Mobile Element    ${btnConfirmInternetOntop}
+
+Close Popup Confirm Summary
+    Click Mobile Element    ${btnDialogOk}
+
+Show DropDown List
+    Click Mobile Element    ${lblDropDownList}
+    Click Mobile Element    ${lblDropDownList}
+
+Edit Password myAIS
+    Click Mobile Element    ${btnEditPassWordmyAIS}
+
+Change Your Password
+    [Arguments]    ${CurrentPassword}
+    Input Mobile Text    ${fldCurrentPasssword}    ${CurrentPassword}    #Current Password
+    Input Mobile Text    ${fldNewPasssword}    ${CurrentPassword}    #New Password
+    Input Mobile Text    ${fldReNewPasssword}    ${CurrentPassword}    #ReNew Password
+
+Save Change Password
+    Click Mobile Element    ${btnSaveChangePassword}
+
+Edit Main Number myAIS
+    Click Mobile Element    ${lblChangeMaster_EditMainNumber}    #edit main number
+
+Forgot Password
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}
+    ...    ${PasswordMyAIS}
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    ${statusForgotpassword}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblForgotPassword}    1
+    Run Keyword If    "${statusForgotpassword}"=="True"    Click Mobile Element    ${lblForgotPassword}
+
+Forgot Password And Request Password
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}
+    ...    ${PasswordMyAIS}
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    ${statusForgotpassword}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblForgotPassword}    1
+    Run Keyword If    "${statusForgotpassword}"=="True"    Click Mobile Element    ${lblForgotPassword}
+    Click Mobile Element    ${btnRequestPassword}
+
+Input New Password
+    [Arguments]    ${PasswordMyAIS}
+    Wait Mobile Until Element Visible    ${fldEnterOTP}
+    Input Mobile Text    ${fldEnterOTP}    1111
+    Run Keyword And Ignore Error    Hide keyboard
+    Input Mobile Text    ${fldNewPassswordForgotPassword}    ${PasswordMyAIS}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${fldReNewPassswordForgotPassword}
+    Input Mobile Text    ${fldReNewPassswordForgotPassword}    ${PasswordMyAIS}
+    Run Keyword And Ignore Error    Hide keyboard
+
+Confirm New Password
+    Click Mobile Element    ${btnConfirmNewPassword}
+
+Tear Down For Forget Password
+    [Arguments]    ${#dict_device_name}
+    Comment    Run Keyword If Test Failed    Capture Screen with Specific name
+    Comment    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Go to Roaming from Home
+    Comment    AISAppiumEx.Wait Until Element Is Visible    ${lblCurrentBalance}    30
+    ${text}=    Get mobile text    ${lblContainer}
+    Run Keyword If    '${text}'=='${txtCardCurrentUsage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    2    left
+    Comment    Ë¹éÒáÃ¡à»ç¹á¾ç¡à¡¨»Ñ¨¨ØºÑ¹
+    Run Keyword If    '${text}'=='${txtCardCurrentPackage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    2    left
+    Comment    Ë¹éÒáÃ¡à»ç¹á¾ç¡à¡¨¤§àËÅ×Í
+    Comment    Run Keyword If    '${text}'=='${txtValidPackage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    4
+    ...    left
+    Comment    Ë¹éÒáÃ¡à»ç¹ AIS Cloud
+    Run Keyword If    '${text}'=='${txtCardAISCloud}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    1    left
+    ${text}=    Get mobile text    ${lblContainer}
+    Comment    Ë¹éÒáÃ¡à»ç¹á¾ç¡à¡¨»Ñ¨¨ØºÑ¹
+    Comment    Run Keyword If    '${text}'=='${txtCardCurrentPackage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    2
+    ...    left
+    Comment    Ë¹éÒáÃ¡à»ç¹á¾ç¡à¡¨¤§àËÅ×Í
+    Comment    Run Keyword If    '${text}'=='${txtValidPackage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    3
+    ...    left
+    Comment    Ë¹éÒáÃ¡à»ç¹ AIS Cloud
+    Run Keyword If    '${text}'=='${txtCardAISCloud}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    1    left
+
+Enter New Main Number
+    Input Mobile Text    ${fldEnterNewMainNumber}    ${AddNumberMyAccount}
+
+Edit Main Number
+    Click Mobile Element    ${lblChangeMaster_EditMainNumber}    #edit main number
+
+Add Member
+    Click Mobile Element    ${btnAddNumberMyAisAccount}
+
+Set Member
+    Wait Mobile Until Page Contains Element    ${txtRequestOTP}
+    Click Mobile Element    ${txtRequestOTP}
+    Input Mobile Text    ${edtAddMemberOTP}    1111
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${btnRegisConfirm}

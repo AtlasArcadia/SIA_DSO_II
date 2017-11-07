@@ -1,0 +1,152 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/ConsultAgent.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F1_Help_1-6_1-2_Y_1_2] Go to Ask Aunjai menu
+    [Documentation]    [F1_Help_1-4,6_1-2_Y_1_2] Go to Ask Aunjai menu
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE,FBB
+    ...    Status : Active
+    ...
+    ...    Owner : It
+    ...
+    ...    ===========EN========
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS Fibre
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Ask Aunjai"
+    ...    5.Verify Consult agent "Ask Aunjai" Page
+    ...    "ถามอุ่นใจ"
+    ...
+    ...    ======TH============
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • \ แพ็กเกจหลัก/แพ็กเกจเสริม
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    • แคมเปญและสิทธิพิเศษ
+    ...
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.กด เมนู "ถาม อุ่นใจ"
+    ...    5.ตรวจสอบหน้าผู้ช่วย "ถาม อุ่นใจ"
+    ...    "ถามอุ่นใจ"
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Verify Menu Help And Support
+    Select Ask Aunjai Submenu
+    Verify AskAunjai Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Help_1-6_1-2_Y_2_2] Verify Help And Support page
+    [Documentation]    [F1_Help_1-4,6_1-2_Y_2_2] Verify Help And Support page
+    ...
+    ...    Owner: It
+    ...
+    ...
+    ...    *EN*
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS Fibre
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...
+    ...
+    ...    *TH*
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • แพ็กเกจหลัก/แพ็กเกจเสริม
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    • แคมเปญและสิทธิพิเศษ
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Help And Support Menu
+    Verify Menu Help And Support
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify AskAunjai Page
+    Sleep    20
+    Mobile element name should be    ${txtHeadAskAunjai}    ${AskAunjai}
+    Mobile Capture Screen At Verify Point    AskAunjai Page
+
+Select Help And Support Menu
+    Select Menu    HelpAndSupport
+
+Select Ask Aunjai Submenu
+    Select Sub Menu    AskAunjai
+
+Verify Menu Help And Support
+    Mobile element text should be    ${txtConsultAgent}    ${lblConsultAgent}
+    Mobile element text should be    ${subMnuAskAunjai}    ${lblAskAunJai}
+    Mobile element text should be    ${txtFAQ}    ${lblFAQ}
+    Mobile element text should be    ${subMnuMainPackageAndOnTopPackage}    ${lblMainPackageAndOnTopPackage}
+    Mobile element text should be    ${subMnuInternetAndAISFiber}    ${lblInternetAndAISFIBRE}
+    Mobile element text should be    ${subMnuYourBalanceAndStatement}    ${lblYourBalanceAndStatement}
+    Mobile element text should be    ${subMnuInternationalRoaming}    ${lblInternationalRoaming}
+    Mobile element text should be    ${subMnuSMSCancellation/Inquiries}    ${lblSMSCancellationOrInquiries}
+    Swipe to element    ${subMnuHowToUse}    screen
+    Mobile element text should be    ${txtHowToUse}    ${lblHowToUseApplication}
+    Mobile element text should be    ${subMnuHowToUse}    ${lblHowToUse}
+    Mobile Capture Screen At Verify Point    HowToUse_VerifyPage

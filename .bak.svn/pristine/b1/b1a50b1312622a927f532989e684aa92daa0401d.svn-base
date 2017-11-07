@@ -1,0 +1,459 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
+
+*** Test Cases ***
+[F2_2,4_1-2_Y_56_Prod] Go to Special campaign & Privileges
+    [Documentation]    *Owner Mon*
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Special campaign & Privileges"
+    ...    5.Verify FAQ "Special campaign & Privileges" Page
+    ...    "Special campaign & Privileges" (Text)
+    ...    - Serenade privileges
+    ...    - Serenade Card & Stricker
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    • แคมเปญและสิทธิพิเศษ
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.เลือก เมนู "แคมเปญและสิทธิพิเศษ"
+    ...    5.ตรวจสอบหน้าถามตอบ "แคมเปญและสิทธิพิเศษ"
+    ...    "แคมเปญและสิทธิพิเศษ" (Text)
+    ...    - สิทธิพิเศษในการเป็นเซเรเนด
+    ...    - บัตรเซเรเนดและสติ๊กเกอร์จอดรถ
+    [Tags]    success    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    HelpAndSupport
+    Select Sub Menu    SpecialCampaignAndPrivileges
+    Verify Special Campaign And Privileges
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_2,4_1-2_Y_57_Prod] Go to Special campaign And Privileges Serenade privileges Verify First question
+    [Documentation]    *Owner: Mon*
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Special campaign & Privileges"
+    ...    5.Verify FAQ "Special campaign & Privileges" Page
+    ...    "Special campaign & Privileges" (Text)
+    ...    - Serenade privileges
+    ...    - Serenade Card & Stricker
+    ...    6.Click "Serenade privileges"
+    ...    7.Verify "FAQ" page
+    ...    "Special campaign & Privileges" (Text)
+    ...    "Serenade privileges" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    Click "First question"
+    ...    8.Verify "Answer" Page
+    ...    "Special campaign & Privileges" (Text)
+    ...    "Serenade privileges" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    • แคมเปญและสิทธิพิเศษ
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.เลือก เมนู "แคมเปญและสิทธิพิเศษ"
+    ...    5.ตรวจสอบหน้าถามตอบ "แคมเปญและสิทธิพิเศษ"
+    ...    "แคมเปญและสิทธิพิเศษ" (Text)
+    ...    - สิทธิพิเศษในการเป็นเซเรเนด
+    ...    - บัตรเซเรเนดและสติ๊กเกอร์จอดรถ
+    ...    6.เลือก "สิทธิพิเศษในการเป็นเซเรเนด"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    8.เลือก " คำถามข้อที่ 1 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    HelpAndSupport
+    Select Sub Menu    SpecialCampaignAndPrivileges
+    Comment    Verify Special Campaign And Privileges
+    Select Topic    SerenadePrivileges
+    Verify Topic Serenade Privileges
+    Select Serenade Privileges Question    1
+    Verify Answer Serenade Privileges    1
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_2,4_1-2_Y_58_Prod] Go to Special campaign And Privileges Serenade privileges Verify Second question
+    [Documentation]    *Owner: Mon*
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Special campaign & Privileges"
+    ...    5.Verify FAQ "Special campaign & Privileges" Page
+    ...    "Special campaign & Privileges" (Text)
+    ...    - Serenade privileges
+    ...    - Serenade Card & Stricker
+    ...    6.Click "Serenade privileges"
+    ...    7.Verify "FAQ" page
+    ...    "Special campaign & Privileges" (Text)
+    ...    "Serenade privileges" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    Click "Second question"
+    ...    8.Verify "Answer" Page
+    ...    "Special campaign & Privileges" (Text)
+    ...    "Serenade privileges" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    • แคมเปญและสิทธิพิเศษ
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.เลือก เมนู "แคมเปญและสิทธิพิเศษ"
+    ...    5.ตรวจสอบหน้าถามตอบ "แคมเปญและสิทธิพิเศษ"
+    ...    "แคมเปญและสิทธิพิเศษ" (Text)
+    ...    - สิทธิพิเศษในการเป็นเซเรเนด
+    ...    - บัตรเซเรเนดและสติ๊กเกอร์จอดรถ
+    ...    6.เลือก "สิทธิพิเศษในการเป็นเซเรเนด"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    8.เลือก " คำถามข้อที่ 2 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    HelpAndSupport
+    Select Sub Menu    SpecialCampaignAndPrivileges
+    Comment    Verify Special Campaign And Privileges
+    Select Topic    SerenadePrivileges
+    Verify Topic Serenade Privileges
+    Select Serenade Privileges Question    2
+    Verify Answer Serenade Privileges    2
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_2,4_1-2_Y_59_Prod] Go to Special campaign & Privileges - Serenade Card & Stricker Verify First question
+    [Documentation]    *Owner: Mon*
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Special campaign & Privileges"
+    ...    5.Verify FAQ "Special campaign & Privileges" Page
+    ...    "Special campaign & Privileges" (Text)
+    ...    - Serenade privileges
+    ...    - Serenade Card & Stricker
+    ...    6.Click "Serenade Card & Stricker"
+    ...    7.Verify "FAQ" page
+    ...    "Special campaign & Privileges" (Text)
+    ...    "Serenade Card & Stricker" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    Click "First question"
+    ...    8.Verify "Answer" Page
+    ...    "Special campaign & Privileges" (Text)
+    ...    "Serenade Card & Stricker" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    • แคมเปญและสิทธิพิเศษ
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.เลือก เมนู "แคมเปญและสิทธิพิเศษ"
+    ...    5.ตรวจสอบหน้าถามตอบ "แคมเปญและสิทธิพิเศษ"
+    ...    "แคมเปญและสิทธิพิเศษ" (Text)
+    ...    - สิทธิพิเศษในการเป็นเซเรเนด
+    ...    - บัตรเซเรเนดและสติ๊กเกอร์จอดรถ
+    ...    6.เลือก "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    8.เลือก " คำถามข้อที่ 1 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    HelpAndSupport
+    Select Sub Menu    SpecialCampaignAndPrivileges
+    Comment    Verify Special Campaign And Privileges
+    Select Topic    SenadeCardAndSticker
+    Verify Topic Serenade Card And Sticker
+    Select Serenade Card And Sticker Question    1
+    Verify Answer Serenade Card And Sticker    1
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_2,4_1-2_Y_60_Prod] Go to Special campaign & Privileges - Serenade Card & Stricker Verify Second question
+    [Documentation]    *Owner: Mon*
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Special campaign & Privileges"
+    ...    5.Verify FAQ "Special campaign & Privileges" Page
+    ...    "Special campaign & Privileges" (Text)
+    ...    - Serenade privileges
+    ...    - Serenade Card & Stricker
+    ...    6.Click "Serenade Card & Stricker"
+    ...    7.Verify "FAQ" page
+    ...    "Special campaign & Privileges" (Text)
+    ...    "Serenade Card & Stricker" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    Click "Second question"
+    ...    8.Verify "Answer" Page
+    ...    "Special campaign & Privileges" (Text)
+    ...    "Serenade Card & Stricker" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    • แคมเปญและสิทธิพิเศษ
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.เลือก เมนู "แคมเปญและสิทธิพิเศษ"
+    ...    5.ตรวจสอบหน้าถามตอบ "แคมเปญและสิทธิพิเศษ"
+    ...    "แคมเปญและสิทธิพิเศษ" (Text)
+    ...    - สิทธิพิเศษในการเป็นเซเรเนด
+    ...    - บัตรเซเรเนดและสติ๊กเกอร์จอดรถ
+    ...    6.เลือก "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    8.เลือก " คำถามข้อที่ 2 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
+    ...    "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    HelpAndSupport
+    Select Sub Menu    SpecialCampaignAndPrivileges
+    Comment    Verify Special Campaign And Privileges
+    Select Topic    SenadeCardAndSticker
+    Verify Topic Serenade Card And Sticker
+    Select Serenade Card And Sticker Question    2
+    Verify Answer Serenade Card And Sticker    2
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0] Smoke test
+    [Tags]    smoke
+    log    smoke for quick test
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Verify Special Campaign And Privileges
+    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblTopicSerenadePrivileges}    ${contentSerenadePrivileges}
+    Mobile element name should be    ${lblTopicSenadeCardAndSticker}    ${contentSerenadeCardAndSticker}
+    Mobile Capture Screen At Verify Point    FAQ Special Campaign And Privileges
+
+Verify Topic Serenade Privileges
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
+    Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile check existing text in name    ${lblSerenadePrivileges_Q1}
+    Mobile check existing text in name    ${lblSerenadePrivileges_Q2}
+    Mobile Capture Screen At Verify Point    Topic Serenade Privileges
+
+Verify Answer Serenade Privileges
+    [Arguments]    ${Question}
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
+    Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Comment    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblTopicTitle}    ${topicNameSerenadePrivileges}
+    Mobile check existing text in name    ${lblAnswerSerenadePrivileges}
+    Mobile Capture Screen At Verify Point    Answer Serenade Privileges ${Question}
+
+Verify Topic Serenade Card And Sticker
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
+    Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Comment    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile check existing text in name    ${lblSerenadeCardAndSticker_Q1}
+    Mobile check existing text in name    ${lblSerenadeCardAndSticker_Q2}
+    Mobile Capture Screen At Verify Point    Topic Serenade Card And Sticker
+
+Verify Answer Serenade Card And Sticker
+    [Arguments]    ${Question}
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
+    Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Comment    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblTopicTitle}    ${topicNameSerenadeCardSticker}
+    Mobile check existing text in name    ${lblAnswerSerenadeCardAndSticker}
+    Mobile Capture Screen At Verify Point    Answer Serenade Card And Sticker ${Question}

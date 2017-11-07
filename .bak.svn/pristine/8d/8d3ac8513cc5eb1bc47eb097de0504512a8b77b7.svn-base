@@ -1,0 +1,445 @@
+*** Settings ***
+Resource          Resource/PageKeywords/Home.txt
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/PrivilegeCommon.txt
+Resource          Resource/PageKeywords/MenuSpecial.txt
+
+*** Test Cases ***
+[F2_PrivWeb_0_2_Y_1_1] Verify page menu special
+    [Documentation]    **Owner:tik***
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือกไฮไลท์(*1)
+    ...    3.ตรวจสอบหน้าไฮไลท์
+    ...    4. capture screen
+    ...
+    ...    *1
+    ...    - Banner
+    ...    - AIS Privilege คูปอง ส่วนลดร้านค้า สิทธิพิเศษต่างๆ
+    ...    - Menu list
+    ...    >หน้าแรก
+    ...    >ไฮไลท์
+    ...    >อาหารและเครื่องดื่ม
+    ...    >ช้อปปิ้ง
+    ...    >บันเทิง
+    ...    >ท่องเที่ยว
+    ...    >สุขภาพและความงาม
+    ...    - จำนวนหน้า campaingn list
+    ...    - Campaign list
+    ...    >Foot Master Health
+    ...    >Health avenue clinic
+    ...    >Balanze by HydroHealth
+    ...    >Yuthika
+    ...    >Farm Design
+    ...    >China White
+    ...    - Serenad menu list
+    ...    >Serenade
+    ...    >Serenade Privilege
+    ...    >Serenade Club
+    ...    >How to be serenade
+    ...    >Serenade Group Privilge
+    ...    - Birthday Privilege
+    ...    - เพื่อนของเรา
+    ...    - ลงทะเบียนเพื่อรับข่าวสาร
+    ...    - ร่วมโครงการกับเราสำหรับร้านค้า
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Maximize Browser Window
+    ${ar_LANG}    Get Web Text    ${btnLanguage}
+    select menu    Specail
+    Verify Menubar
+    Verify Campaingbar
+    Verify Special CampaignList
+    Verify Serenade Menu
+    Verify BirthdayPrivilege
+    Verify OurFriend
+    Verify Newsletter
+    Verify JoinCampaign
+    Web Capture Screen At Verify Point    special pic 1
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PrivWeb_0_2_Y_1_2] Verify page campaign : Foot Master Health
+    [Documentation]    **Owner:Tik***
+    ...
+    ...    ***Test Step***
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "Special"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Foot Master Health"(*1)
+    ...    4.กด View detail
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    ***Verify Point***
+    ...
+    ...    *1
+    ...    - Foot Master Health
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Foot Master Health)
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - Location
+    ...    - Conditions
+    ...    - Related Deal
+    ...    >Farm Design
+    ...    >Studio 21 Origina...
+    ...    >THANN SANCTUARY
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuSpecail}
+    ${CampaignName}=    Verify Campaign Foot Master Health
+    Click Web Element    ${brnDesc1SpecialPage1}
+    Verify Campaign Foot Master Health Detail Page    ${CampaignName}
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PrivWeb_0_2_Y_1_3] Verify page campaign : Health avenue clinic
+    [Documentation]    Owner : tik
+    ...
+    ...    ***Test Step***
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "ไฮไลท์"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Health avenue clinic"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - Health avenue clinic
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Health avenue clinic)
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ที่ตั้ง
+    ...    - ดีลที่เกียวข้อง
+    ...    >Farm Designi
+    ...    >Studio 21 Origina...
+    ...    >THANN SANCTUARY
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuSpecail}
+    ${CampaignName}=    Verify Campaign Health avenue clinic
+    Click Web Element    ${brnDesc2SpecialPage1}
+    Verify Campaign Health Avenue Clinic Detail Page    ${CampaignName}
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PrivWeb_0_2_Y_1_4] Verify page campaign : Balanze by HydroHealth
+    [Documentation]    Owner : tik
+    ...
+    ...    ***Test Step***
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "ไฮไลท์"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Balanze by HydroHealth"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - Balanze by HydroHealth
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Balanze by HydroHealth)
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ที่ตั้ง
+    ...    - ดีลที่เกียวข้อง
+    ...    >Farm Designi
+    ...    >Studio 21 Origina...
+    ...    >THANN SANCTUARY
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuSpecail}
+    ${CampaignName}=    Verify Campaign Balanze by HydroHealth
+    Click Web Element    ${brnDesc3SpecialPage1}
+    Verify Campaign Balanze by HydroHealth Detail Page    ${CampaignName}
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PrivWeb_0_2_Y_1_5] Verify page campaign : Yuthika
+    [Documentation]    Owner : tik
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "ไฮไลท์"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Yuthika"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - Yuthika
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Yuthika)
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ที่ตั้ง
+    ...    - ดีลที่เกียวข้อง
+    ...    >Farm Designi
+    ...    >Studio 21 Origina...
+    ...    >THANN SANCTUARY
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuSpecail}
+    ${CampaignName}=    Verify Campaign Yuthika
+    Click Web Element    ${brnDesc4SpecialPage1}
+    Verify Campaign Yuthika Detail Page    ${CampaignName}
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PrivWeb_0_2_Y_1_6] Verify page campaign : Farm Design
+    [Documentation]    Owner : tik
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "ไฮไลท์"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Farm Design"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - Farm Design
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Farm Design)
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ที่ตั้ง
+    ...    - ดีลที่เกียวข้อง
+    ...    >Studio 21 Origina...
+    ...    >THANN SANCTUARY
+    ...    >THANN
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuSpecail}
+    ${CampaignName}=    Verify Campaign Farm Design
+    Click Web Element    ${brnDesc5SpecialPage1}
+    Verify Campaign Farm Design Detail Page    ${CampaignName}
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PrivWeb_0_2_Y_1_7] Verify page campaign : China White
+    [Documentation]    Owner : tik
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "ไฮไลท์"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "China White"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - China White
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (China White)
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ที่ตั้ง
+    ...    - ดีลที่เกียวข้อง
+    ...    >Farm Designi
+    ...    >Studio 21 Origina...
+    ...    >THANN SANCTUARY
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuSpecail}
+    ${CampaignName}=    Verify Campaign China White
+    Click Web Element    ${brnDesc6SpecialPage1}
+    Verify Campaign China White Detail Page    ${CampaignName}
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    Smoke test
+
+*** Keywords ***
+Verify Special CampaignList
+    Scroll Web To Element    ${txtNameMenu1SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu1SpecialPage1}    ${FootMasterHealth}
+    Web Capture Screen At Verify Point    campaign 1 page1
+    Scroll Web To Element    ${txtNameMenu2SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu2SpecialPage1}    ${HealthAvenueClinic}
+    Web Capture Screen At Verify Point    campaign 2 page1
+    Scroll Web To Element    ${txtNameMenu3SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu3SpecialPage1}    ${BalanzeByHydroHealth}
+    Web Capture Screen At Verify Point    campaign 3 page1
+    Scroll Web To Element    ${txtNameMenu4SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu4SpecialPage1}    ${Yuthika}
+    Web Capture Screen At Verify Point    campaign 4 page1
+    Scroll Web To Element    ${txtNameMenu5SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu5SpecialPage1}    ${FarmDesign}
+    Web Capture Screen At Verify Point    campaign 5 page1
+    Scroll Web To Element    ${txtNameMenu6SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu6SpecialPage1}    ${ChinaWhite}
+    Web Capture Screen At Verify Point    campaign 6 page1
+
+Verify Campaign Foot Master Health
+    Scroll Web To Element    ${imgMenu1SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu1SpecialPage1}    ${FootMasterHealth}
+    ${CampaignName}=    Get web Text    ${txtNameMenu1SpecialPage1}
+    Web Element Should Be Visible    ${imgMenu1SpecialPage1}
+    Web check existing text    ${txtDesc1SpecialPage1}
+    Element Should Be Visible    ${btnFacebook1SpecialPage1}
+    Element Should Be Visible    ${btnTweet1SpecialPage1}
+    Element Should Be Visible    ${btnEmail1SpecialPage1}
+    Element Should Be Visible    ${brnDesc1SpecialPage1}
+    Web Capture Screen At Verify Point    pic footMasterhealth0
+    [Return]    ${CampaignName}
+
+Verify Campaign Foot Master Health Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtNamePage2}    ${CampaignName}
+    Web check existing text    ${txtDescPage2}
+    Web Element Trim Text Should Be    ${imgLocationPage2}    ${Location}
+    Web Element Trim Text Should Be    ${imgCoditionPage2}    ${Condition}
+    Web Capture Screen At Verify Point    pic footMasterhealth1
+    Scroll Web To Element    ${imgDealRelate}
+    Web Element Should Be Visible    ${imgDealRelate}
+    Web Element Trim Text Should Be    ${txtRelateDeal1}    ${FarmDesign}
+    Web Element Trim Text Should Be    ${txtRelateDeal2}    ${Studio21Origina}
+    Web Element Trim Text Should Be    ${txtRelateDeal3}    ${ThannSanctuary}
+    Web Capture Screen At Verify Point    pic footMasterhealth2
+
+Verify Campaign Health avenue clinic
+    Scroll Web To Element    ${imgMenu2SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu2SpecialPage1}    ${HealthAvenueClinic}
+    ${CampaignName}=    Get web Text    ${txtNameMenu2SpecialPage1}
+    Web Element Should Be Visible    ${imgMenu2SpecialPage1}
+    Web check existing text    ${txtDesc2SpecialPage1}
+    Element Should Be Visible    ${btnFacebook2SpecialPage1}
+    Element Should Be Visible    ${btnTweet2SpecialPage1}
+    Element Should Be Visible    ${btnEmail2SpecialPage1}
+    Element Should Be Visible    ${brnDesc2SpecialPage1}
+    Web Capture Screen At Verify Point    pic HealthAvenueClinic0
+    [Return]    ${CampaignName}
+
+Verify Campaign Health Avenue Clinic Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtNamePage2}    ${CampaignName}
+    Web check existing text    ${txtDescPage2}
+    Web Element Trim Text Should Be    ${imgLocationPage2}    ${Location}
+    Web Element Trim Text Should Be    ${imgCoditionPage2}    ${Condition}
+    Web Capture Screen At Verify Point    pic ClinicAvenueClinic1
+    Scroll Web To Element    ${imgDealRelate}
+    Web Element Should Be Visible    ${imgDealRelate}
+    Web Element Trim Text Should Be    ${txtRelateDeal1}    ${FarmDesign}
+    Web Element Trim Text Should Be    ${txtRelateDeal2}    ${Studio21Origina}
+    Web Element Trim Text Should Be    ${txtRelateDeal3}    ${ThannSanctuary}
+    Web Capture Screen At Verify Point    pic ClinicAvenueClinic2
+
+Verify Campaign Balanze by HydroHealth
+    Scroll Web To Element    ${imgMenu3SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu3SpecialPage1}    ${BalanzeByHydroHealth}
+    ${CampaignName}=    Get web Text    ${txtNameMenu3SpecialPage1}
+    Web Element Should Be Visible    ${imgMenu3SpecialPage1}
+    Web check existing text    ${txtDesc3SpecialPage1}
+    Element Should Be Visible    ${btnFacebook3SpecialPage1}
+    Element Should Be Visible    ${btnTweet3SpecialPage1}
+    Element Should Be Visible    ${btnEmail3SpecialPage1}
+    Element Should Be Visible    ${brnDesc3SpecialPage1}
+    Web Capture Screen At Verify Point    pic BalanzeByHydroHealth0
+    [Return]    ${CampaignName}
+
+Verify Campaign Balanze by HydroHealth Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtNamePage2}    ${CampaignName}
+    Web check existing text    ${txtDescPage2}
+    Web Element Trim Text Should Be    ${imgLocationPage2}    ${Location}
+    Web Element Trim Text Should Be    ${imgCoditionPage2}    ${Condition}
+    Web Capture Screen At Verify Point    pic BalanzeByHydroHealth1
+    Scroll Web To Element    ${imgDealRelate}
+    Web Element Should Be Visible    ${imgDealRelate}
+    Web Element Trim Text Should Be    ${txtRelateDeal1}    ${FarmDesign}
+    Web Element Trim Text Should Be    ${txtRelateDeal2}    ${Studio21Origina}
+    Web Element Trim Text Should Be    ${txtRelateDeal3}    ${ThannSanctuary}
+    Web Capture Screen At Verify Point    pic BalanzeByHydroHealth2
+
+Verify Campaign Yuthika
+    Scroll Web To Element    ${imgMenu4SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu4SpecialPage1}    ${Yuthika}
+    ${CampaignName}=    Get web Text    ${txtNameMenu4SpecialPage1}
+    Web Element Should Be Visible    ${imgMenu4SpecialPage1}
+    Web check existing text    ${txtDesc4SpecialPage1}
+    Element Should Be Visible    ${btnFacebook4SpecialPage1}
+    Element Should Be Visible    ${btnTweet4SpecialPage1}
+    Element Should Be Visible    ${btnEmail4SpecialPage1}
+    Element Should Be Visible    ${brnDesc4SpecialPage1}
+    Web Capture Screen At Verify Point    pic Yuthika0
+    [Return]    ${CampaignName}
+
+Verify Campaign Yuthika Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtNamePage2}    ${CampaignName}
+    Web check existing text    ${txtDescPage2}
+    Web Element Trim Text Should Be    ${imgLocationPage2}    ${Location}
+    Web Element Trim Text Should Be    ${imgCoditionPage2}    ${Condition}
+    Web Capture Screen At Verify Point    pic Yuthika1
+    Scroll Web To Element    ${imgDealRelate}
+    Web Element Should Be Visible    ${imgDealRelate}
+    Web Element Trim Text Should Be    ${txtRelateDeal1}    ${FarmDesign}
+    Web Element Trim Text Should Be    ${txtRelateDeal2}    ${Studio21Origina}
+    Web Element Trim Text Should Be    ${txtRelateDeal3}    ${ThannSanctuary}
+    Web Capture Screen At Verify Point    pic Yuthika2
+
+Verify Campaign Farm Design
+    Scroll Web To Element    ${imgMenu5SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu5SpecialPage1}    ${FarmDesign}
+    ${CampaignName}=    Get web Text    ${txtNameMenu5SpecialPage1}
+    Web Element Should Be Visible    ${imgMenu5SpecialPage1}
+    Web check existing text    ${txtDesc5SpecialPage1}
+    Element Should Be Visible    ${btnFacebook5SpecialPage1}
+    Element Should Be Visible    ${btnTweet5SpecialPage1}
+    Element Should Be Visible    ${btnEmail5SpecialPage1}
+    Element Should Be Visible    ${brnDesc5SpecialPage1}
+    Web Capture Screen At Verify Point    pic Farm Design0
+    [Return]    ${CampaignName}
+
+Verify Campaign Farm Design Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtNamePage2}    ${CampaignName}
+    Web check existing text    ${txtDescPage2}
+    Web Element Trim Text Should Be    ${imgLocationPage2}    ${Location}
+    Web Element Trim Text Should Be    ${imgCoditionPage2}    ${Condition}
+    Web Capture Screen At Verify Point    pic Farm Design1
+    Scroll Web To Element    ${imgDealRelate}
+    Web Element Should Be Visible    ${imgDealRelate}
+    Web Element Trim Text Should Be    ${txtRelateDeal1}    ${Studio21Origina}
+    Web Element Trim Text Should Be    ${txtRelateDeal2}    ${ThannSanctuary}
+    Web Element Trim Text Should Be    ${txtRelateDeal3}    ${Thann}
+    Web Capture Screen At Verify Point    pic Farm Design2
+
+Verify Campaign China White
+    Scroll Web To Element    ${imgMenu6SpecialPage1}
+    Web Element Trim Text Should Be    ${txtNameMenu6SpecialPage1}    ${ChinaWhite}
+    ${CampaignName}=    Get web Text    ${txtNameMenu6SpecialPage1}
+    Web Element Should Be Visible    ${imgMenu6SpecialPage1}
+    Web check existing text    ${txtDesc6SpecialPage1}
+    Element Should Be Visible    ${btnFacebook6SpecialPage1}
+    Element Should Be Visible    ${btnTweet6SpecialPage1}
+    Element Should Be Visible    ${btnEmail6SpecialPage1}
+    Element Should Be Visible    ${brnDesc6SpecialPage1}
+    Web Capture Screen At Verify Point    pic China White0
+    [Return]    ${CampaignName}
+
+Verify Campaign China White Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtNamePage2}    ${CampaignName}
+    Web check existing text    ${txtDescPage2}
+    Web Element Trim Text Should Be    ${imgLocationPage2}    ${Location}
+    Web Element Trim Text Should Be    ${imgCoditionPage2}    ${Condition}
+    Web Capture Screen At Verify Point    pic China White1
+    Scroll Web To Element    ${imgDealRelate}
+    Web Element Should Be Visible    ${imgDealRelate}
+    Web Element Trim Text Should Be    ${txtRelateDeal1}    ${FarmDesign}
+    Web Element Trim Text Should Be    ${txtRelateDeal2}    ${Studio21Origina}
+    Web Element Trim Text Should Be    ${txtRelateDeal3}    ${ThannSanctuary}
+    Web Capture Screen At Verify Point    pic China White2

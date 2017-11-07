@@ -1,0 +1,28 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/MyAISCommon.txt
+
+*** Test Cases ***
+[F1_2_3_4] TestOpenWeb1
+    [Tags]    3PO    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_local_config_file_path_copy}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    Open Web Browser    ${virtual_device_1_URL}    gc    ${lo_IPSelenium}
+    Open Browser    ${virtual_device_1_URL}    gc    remote_url=${lo_IPSelenium}
+    sleep    10
+    Run Keyword And Continue On Failure    Close All Browsers
+    [Teardown]    Release Virtual Local Configurations    ${lo_local_config_file_path_copy}    ${#dict_device_name}
+
+[F2_5_6_7] TestOpenWeb2
+    [Tags]    3PE    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_local_config_file_path_copy}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    Open Web Browser    ${virtual_device_1_URL}    gc    ${lo_IPSelenium}
+    Open Browser    ${virtual_device_1_URL}    gc    remote_url=${lo_IPSelenium}
+    sleep    10
+    Run Keyword And Continue On Failure    Close All Browsers
+    [Teardown]    Release Virtual Local Configurations    ${lo_local_config_file_path_copy}    ${#dict_device_name}
+
+[test] TestOpenWeb3
+    [Tags]    Teemo
+    Open Application    http://10.239.223.118:4725/wd/hub    platformName=iOS    platformVersion=9.1    app=settings

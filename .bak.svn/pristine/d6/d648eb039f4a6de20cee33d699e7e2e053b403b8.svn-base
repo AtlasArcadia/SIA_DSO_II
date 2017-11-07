@@ -1,0 +1,544 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/TouchID.txt
+
+*** Test Cases ***
+[F1_TouchID_1-6_1-2_Y_1_2] Verify passcode lock page
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...    '- Passcode Lock: ปิดการใช้งาน
+    ...    - ไม่มีการ Add Fingerprint ไว้ในเครื่องแล้ว
+    ...
+    ...    *Expected Result*
+    ...    1.ระบบแสดงที่หน้าจอ "Passcode Lock"
+    ...    - แสดงสัญลักษณ์ [<]
+    ...    - แสดงเมนู " Passcode Lock" [ปิด]
+    ...
+    ...    *Test Step--EN--TH*
+    ...    1. เปิด App my AIS.
+    ...    2. Login ผ่าน 3G/4G หรือ กดรับ OTP
+    ...    3. เลือกเมนู Hamburger
+    ...    4. เลือกเมนู "Setting"
+    ...    5. เลือก Passcode Lock ที่หน้า "Setting"
+    ...    6. ตรวจสอบหน้าจอ "Passcode Lock"
+    [Tags]    success    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Verify Passcode Page Setting
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_Y_5_2] Verify passcode lock page active passcode
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...    '- Passcode Lock: เปิดการใช้งาน
+    ...    - โทรศัพท์ไม่รองรับการใช้งาน Touch ID
+    ...
+    ...    *Expected Result*
+    ...    1.ระบบแสดงที่หน้าจอ "การ Passcode Lock"
+    ...    - แสดงสัญลักษณ์ [<]
+    ...    - แสดงเมนู " Passcode Lock" [เปิด]
+    ...    - แสดงเมนู "เปลี่ยนรหัส"
+    ...
+    ...    *Test Step--EN--TH*
+    ...    1. เปิด App my AIS.
+    ...    2. ใส่รหัส ถูกต้อง ที่หน้า "Enter your passcode"
+    ...    3. เลือกเมนู Hamburger
+    ...    4. เลือกเมนู "Setting"
+    ...    5. เลือก การ Passcode Lock ที่หน้า "Setting"
+    ...    6. กรอกรหัสที่Settingไว้
+    ...    7. ตรวจสอบหน้าจอ "การ Passcode Lock"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}=    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login By Passcode
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Input Passcode Enter Setting    ${CorrectPassword}
+    Verify Passcode Page Setting Have Change Passcode
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_Y_7_2] Create pasccode lock success
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...
+    ...    '- ยังไม่เคยมีการSetting Passcode Lock
+    ...
+    ...    *Expected Result*
+    ...
+    ...    '1.แสดง Popup "Created successfully"
+    ...
+    ...    *Test Step--EN--TH*
+    ...
+    ...    1.ล็อกอิน "My AIS"
+    ...    2.เลือกเมนู "Setting"
+    ...    3. เลือกเมนู "การ Passcode Lock & Fingerprint"
+    ...    4. เปิดการใช้งาน ฟังก์ชั่น " Passcode Lock"
+    ...    5. ระบุรหัสผ่านที่ต้องการ [ตัวเลข 6 หลัก]
+    ...    6. ยืนยันรหัสผ่านอีกครั้ง [ตัวเลข 6 หลัก]
+    ...    7. แสดง Popup "Created successfully"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}=    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Active Passcode
+    Input New Passcode    ${CorrectPassword}
+    Re-enter Your New Passcode    ${CorrectPassword}
+    Verify Dialog Created Successfully
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_Y_8_2] Input re enter new passcode incorrect
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    *Pre-Requisite*
+    ...    '- ยังไม่เคยมีการSetting Passcode Lock
+    ...
+    ...    *Expected Result*
+    ...    '1.แสดงการแจ้งเตือน "Re-enter new passcode. Your passcode don't match. Please try again"
+    ...
+    ...    *Test Step--EN--TH*
+    ...    1.ล็อกอิน "My AIS"
+    ...    2.เลือกเมนู "Setting"
+    ...    3. เลือกเมนู "การ Passcode Lock& Fingerprint"
+    ...    4. เปิดการใช้งาน ฟังก์ชั่น " Passcode Lock"
+    ...    5. ระบุรหัสผ่านที่ต้องการ [ตัวเลข 6 หลัก]
+    ...    6. ยืนยันรหัสผ่านอีกครั้งไม่ตรงกับรหัสผ่านที่ต้องการ
+    ...    7. แสดงการแจ้งเตือน "Re-enter new passcode. Your passcode don't match. Please try again"
+    [Tags]    success    active    regression    bug_en
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Active Passcode
+    Input New Passcode    ${CorrectPassword}
+    Re-enter Your New Passcode    ${WrongPassword}
+    Verify Your Passcode Don't Match
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_Y_9_2] Cancel setting passcode lock by close passcode
+    [Documentation]    **Owner:Now**
+    ...
+    ...    *Source*
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    - มีการSetting Passcode Lock ไว้แล้ว
+    ...
+    ...
+    ...    *Step*
+    ...    "1.ล็อกอิน ""My AIS""
+    ...    2.เลือกเมนู ""Setting""
+    ...    3. เลือกเมนู ""การ Passcode Lock & Fingerprint""
+    ...    4. Enter your passcode
+    ...    5. เข้าสู่หน้าเมนู ""การ Passcode Lock & Fingerprint""
+    ...    6. เลือกปิด ฟังก์ชั่น "" Passcode Lock ""
+    ...    7. แสดงการแจ้งเตือน ""my AIS will reset our passcode. Please, set your new passcode""
+    ...    8. กดปุ่ม ""OK""
+    ...    9. ปิดฟังก์ชั่น \ Passcode Lock สำเร็จ"
+    ...
+    ...
+    ...    *verify point*
+    ...    1. ยกเลิกการใช้งาน Passcode Lock ผ่านปุ่ม "Passcode Lock" ในเมนู "การ Passcode Lock& Touch ID"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login By Passcode
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Input Correct Passcode
+    Close PassLock
+    Verify Dialog Reset Passcode
+    Verify Dont Have Passcode Lock
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_Y_10_2] Disable setting passcode lock by forgot passcode
+    [Documentation]    **Owner:Now**
+    ...
+    ...    *Source*
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    ยกเลิกการSetting Passcode Lock
+    ...
+    ...    *Step*
+    ...    "1.ล็อกอิน ""My AIS""
+    ...    2.เลือกเมนู ""Setting""
+    ...    3. เลือกเมนู ""การ Passcode Lock&Fingerprint""
+    ...    4. กดปุ่ม ""ลืมรหัส"" ในหน้า ""Enter your passcode""
+    ...    5. แสดง Popup ""Set your new passcode?""
+    ...    6. กดปุ่ม ""OK"" เพิ่มทำการยกเลิกการSetting Passcode Lock
+    ...    7.ตรวจสอบ Login เข้าใช้งานอัตโนมัติทันที กรณีใช้งาน 3G/4G หรือ อยู่ที่หน้าขอรับ OTP กรณีที่เชื่อมต่อผ่าน WiFi"
+    ...
+    ...
+    ...
+    ...
+    ...    *verify point*
+    ...    1. ยกเลิกการใช้งาน Passcode Lock ผ่านปุ่ม " Passcode Lock" ในเมนู "การ Passcode Lock& Touch ID""
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login By Passcode
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Forgot Password And Verify
+    Verify Manual Login Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_Y_11_2] Change passcode on the screen successfully
+    [Documentation]    **Owner:Now**
+    ...
+    ...    *Source*
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    - มีการกำหนดรหัสไว้แล้ว
+    ...
+    ...
+    ...
+    ...    *Step*
+    ...    "1.เข้าสู่แอพพลิเคชั่น MyAIS
+    ...    2. เลือกเมนู Hamburger
+    ...    3. เลือกเมนู ""Setting""
+    ...    4. เลือกเมนู ""การ Passcode Lock& Fingerprint""
+    ...    5. ใส่ รหัส ถูกต้อง
+    ...    6. เลือกเมนู ""Change Passcode""
+    ...    7.ใส่รหัสเดิม
+    ...    8.กำหนดรหัสที่ต้องการเปลี่ยน
+    ...    9.ยืนยันรหัสที่ต้องการเปลี่ยน
+    ...    10.จับภาพหน้าจอหลังจากเปลี่ยนรหัสแล้ว"
+    ...
+    ...
+    ...
+    ...    *verify point*
+    ...    "1.ระบบจะแสดง Popup : Created successfully"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login By Passcode
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Input Correct Passcode
+    Change Passcode Successful    ${CorrectPassword}    ${CorrectPassword}    ${CorrectPassword}
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_N_12_2] Change passcode by input new passcode with wrong passcode one time
+    [Documentation]    **Owner:Now**
+    ...
+    ...    *Source*
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    "ใส่ ยืนยันรหัสใหม่ไม่ถูกต้อง ของหน้าจอ ""การ Passcode Lock& Fingerprint""
+    ...    - ใส่ผิดได้แค่ครั้งเดียว
+    ...
+    ...
+    ...    *Step*
+    ...    "1.เข้าสู่แอพพลิเคชั่นMyAIS
+    ...    2. เลือกเมนู Hamburger
+    ...    3. เลือกเมนู ""Setting""
+    ...    4. เลือกเมนู ""การ Passcode Lock& Fingerprint""
+    ...    5. ใส่ รหัส ถูกต้อง
+    ...    6. เลือกเมนู ""Change Passcode""
+    ...    7. ใส่ รหัสเดิม ถูกต้อง
+    ...    8. ใส่ รหัสใหม่
+    ...    9. ใส่ ยืนยันรหัสใหม่ ไม่ถูกต้อง
+    ...    10.ตรวจสอบ ""Re-enter new passcode. Your passcode don't match. Please try again"""
+    ...
+    ...
+    ...
+    ...    *verify point*
+    ...    "1.ระบบจะแสดง:
+    ...    - ปุ่ม [ยกเลิก]
+    ...    - ข้อความ ""รหัสไม่ถูกต้อง Re-enter new passcode. Your passcode don't match. Please try again""
+    ...    - จุดวงกลม 6 จุด"
+    [Tags]    fail    active    regression    bug_en
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login By Passcode
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Input Correct Passcode
+    Change Passcode Fail Re Enter New Passcode Wrong    ${CorrectPassword}    ${CorrectPassword}    ${WrongPassword}
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_N_13_2] Input wrong old passcode on the screen
+    [Documentation]    **Owner:Now**
+    ...
+    ...    *Source*
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    "ใส่ รหัสเดิมไม่ถูกต้อง ของหน้าจอ ""การ Passcode Lock& Fingerprint""
+    ...    - ใส่ผิดกี่ครั้งก็ได้จนกว่าจะใส่รหัสถูกต้อง
+    ...    ***ตอนกดเมนู ""เปลี่ยนรหัส"""
+    ...
+    ...
+    ...    *Step*
+    ...    "1.เข้าสู่แอพพลิเคชั่น MyAIS
+    ...    2. เลือกเมนู Hamburger
+    ...    3. เลือกเมนู ""Setting""
+    ...    4. เลือกเมนู ""การ Passcode Lock& Fingerprint""
+    ...    5. ใส่ รหัส ถูกต้อง
+    ...    6. เลือกเมนู ""Change Passcode""
+    ...    7. ใส่ รหัสเดิม ไม่ถูกต้อง (2 ครั้งขึ้นไป)
+    ...    8.ตรวจสอบหน้า ""Enter your old passcode"""
+    ...
+    ...
+    ...
+    ...    *verify point*
+    ...    "1.- ระบบจะยังแสดง:
+    ...    - แสดงปุ่ม [ยกเลิก]
+    ...    - ยังคงแสดงข้อความ ""Enter your old passcod""
+    ...    - จุดวงกลม 6 จุด"
+    [Tags]    fail    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login By Passcode
+    Select Hamburger
+    Select Settings
+    Select Passcode Menu
+    Input Correct Passcode
+    Change Passcode Fail Old Passcode Wrong    ${WrongPassword}    3
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_N_14_2] Verify home page after login by passcode successfully
+    [Documentation]    **Owner:Now**
+    ...
+    ...    *Source*
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    "กรณีที่ระบบแสดงหน้า ""Enter your passcode""
+    ...    => ทำการใส่รหัส ถูกต้อง"
+    ...
+    ...
+    ...    *Step*
+    ...    "1. เปิด App my AIS.
+    ...    2. ใส่รหัส ถูกต้อง ที่หน้า ""Enter your passcode""
+    ...    3.ตรวจสอบหน้าหลักของ ""my AIS"""
+    ...
+    ...
+    ...
+    ...    *verify point*
+    ...    "1.ระบบจะแสดงหน้าหลัก ""my AIS""
+    ...    - แสดงเมนู Hamburger
+    ...    - เบอร์โทรศัพท์
+    ...    - แสดงชื่อหผู้ใช้งาน
+    ...    - แสดง ""แพ็กเกจคงเหลือ"""
+    [Tags]    fail    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login And Verify Login Passcode Success    ${Number}
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_N_15_2] Verify login input wrong passcode 1 time
+    [Documentation]    **Owner:Now**
+    ...
+    ...    *Source*
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    "กรณีที่ระบบแสดงหน้า ""Enter your passcode""
+    ...    => ทำการใส่รหัส ไม่ถูกต้อง"
+    ...
+    ...
+    ...    *Step*
+    ...    "1. เปิด App my AIS.
+    ...    2. ใส่รหัส ไม่ถูกต้อง ที่หน้า ""Enter your passcode""
+    ...    3.ตรวจสอบหน้า ""Enter your passcode"""
+    ...
+    ...
+    ...
+    ...    *verify point*
+    ...    "1.ระบบจะแสดงหน้ากรอกรหัส :
+    ...    - แสดงข้อความ ""Enter your passcode""
+    ...    - จุดวงกลม 6 จุดโยก
+    ...    - ปุ่ม [รีเซ็ต]"
+    [Tags]    fail    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login And Verify Login Passcode Fail
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_N_16_2] Verify login input passcode wrong 3 times
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    *Expected Result*
+    ...    1.ระบบจะแสดง Pop-up แจ้ง
+    ...    - "คุณใส่รหัสผิดเกินจำนวน
+    ...    ที่กำหนด ระบบจะรีเซ็ตรหัสของคุณ, กรุณาทำการตั้งรหัสใหม่"
+    ...    - ปุ่ม [ตกลง]
+    ...    3. แสดงหน้าจอ "Log in"
+    ...    - ปุ่มเปลียน ภาษา " EN "
+    ...    - ข้อความ "ล็อกอิน"
+    ...    - ปุ่ม "ตกลง"
+    ...
+    ...    *Test Step--EN--TH*
+    ...    1. เปิด App my AIS.
+    ...    2. ใส่รหัส ไม่ถูกต้อง 3 ครั้ง ที่หน้า "Enter your passcode"
+    ...    3. กดปุ่ม [ตกลง]
+    ...    4.ตรวจสอบ Pop-up แจ้ง "you have reached maximum passcode limit.my AIS will reset your passcode. Please set your new passcode."
+    ...    5.ตรวจสอบ "โปรแกรมแสดงหน้าจอ Login"
+    [Tags]    fail    active    regression    bug_en
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}=    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login Passcode Incorrect 3 Times
+    Verify Dialog Reached Maximum Passcode Limit
+    Verify Manual Login Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_N_17_2] Reset youe passcode in login page
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    *Expected Result*
+    ...    1.ระบบจะแสดง Pop-up แจ้ง "Set your new passcode?"
+    ...    - ปุ่ม [ยกเลิก]
+    ...    - ปุ่ม [ตกลง]
+    ...
+    ...    *Test Step--EN--TH*
+    ...    1. เปิด App my AIS.
+    ...    2. กดปุ่ม [รีเซ็ต] ที่หน้า "Enter your passcode"
+    ...    3.ตรวจสอบ Popup "Set your new passcode?"
+    ...    4.กดปุ่ม "ตกลง"
+    ...    5.ตรวจสอบ "โปรแกรมแสดงหน้าจอ Login"
+    [Tags]    fail    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}=    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Press Reset At Login Passcode Page
+    Confirm Set New Password
+    Verify Manual Login Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_TouchID_1-6_1-2_N_18_2] Press reset and press cancel on dialog for return to login passcode
+    [Documentation]    **Owner:Eng**
+    ...
+    ...    Source Number : 3PE,3BE ,3PO,3BO,FBB,IPE
+    ...    Status : Active
+    ...
+    ...    *Expected Result*
+    ...    1.ระบบจะปิด Pop-up แจ้ง "คุณต้องการตั้งรหัสใหม่?"
+    ...    2.ระบบจะแสดงหน้ากรอกรหัส :
+    ...    - แสดงข้อความ "Enter your passcode"
+    ...    - ปุ่ม [รีเซ็ต]
+    ...
+    ...    *Test Step--EN--TH*
+    ...    1. เปิด App my AIS.
+    ...    2. กดปุ่ม [รีเซ็ต] ที่หน้า "Enter your passcode"
+    ...    3. กดปุ่ม [ยกเลิก] ที่ Pop-up แจ้ง "คุณต้องการตั้งรหัสใหม่?"
+    ...    4.ตรวจสอบหน้า"Enter your passcode"
+    [Tags]    fail    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}=    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Press Reset At Login Passcode Page
+    Cancel Set New Password
+    Verify Enter Your Passcode Page
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    log    test smoke
+
+test
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+
+*** Keywords ***

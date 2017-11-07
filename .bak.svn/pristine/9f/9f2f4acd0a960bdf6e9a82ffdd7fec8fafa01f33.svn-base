@@ -1,0 +1,27 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_MainIconLocalized.txt
+Resource          ../PageRepository/Gold_MainIconRepository.txt
+Resource          ../PageVariable/Gold_MainIconVariable.txt
+
+*** Keywords ***
+Select Main Icon
+    [Arguments]    ${IconName}
+    Scroll Web To Element    ${HeaderIcon${IconName}}
+    Web Element Should Be Visible    ${HeaderIcon${IconName}}
+    Click Web Element    ${HeaderIcon${IconName}}
+
+Verify Main Icon Page
+    [Arguments]    ${IconName}    ${IconNameLocator}    ${IconText}
+    Scroll Web To Element    ${IconNameLocator}
+    sleep    2s
+    Web Element Text Should Be    ${IconNameLocator}    ${IconText}    #Check text header
+    Web Capture Screen At Verify Point    ${IconName}
+
+Verify All Main Icon
+    Scroll Web To Element    ${HeaderIconPrivilege}
+    Web Element Should Be Visible    ${HeaderIconPrivilege}
+    Web Element Should Be Visible    ${HeaderIconService}
+    Web Element Should Be Visible    ${HeaderIconActivities}
+    Web Element Should Be Visible    ${HeaderIconCenter}
+    Web Capture Screen At Verify Point    Verify All Main Icon

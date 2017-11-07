@@ -1,0 +1,179 @@
+*** Settings ***
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Home.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Package.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/TopUp.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Login.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RegisterAISFibreAndCoverageChecking.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RequestAndChangeWifiPassword.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/CallingMelody.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/BalanceTransfer.txt.
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Domestic_ChangePricePlan.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/MyAccount.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/ValidityTransfer.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/TouchID.txt
+Resource          ../../../../../Config/LocalConfig.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/Event_3PELocalized.txt
+Resource          ../PageRepository/Android/Event_3PERepository.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPackage.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Prepaid.txt
+
+*** Keywords ***
+Verify Title Header
+    [Arguments]    ${titleName}
+    Mobile element text should be    ${txtTitleHeader}    ${Header${titleName}}
+
+Log Number And Time
+    [Arguments]    ${Number}
+    Log    Mobile number = ${Number}
+    ${time} =    Get Time
+    Log    Current time = ${time}
+
+Select TopUp With 10 Baht Amount
+    Click Mobile Element    ${ddlSelectTopUpAmount}
+    Click Mobile Element    ${ddl10Baht}    #Select 10 Baht
+
+Click Confirm Balance and Valid Transfer
+    Click Mobile Element    ${btnConfirmDailogMessage}
+    Click Mobile Element    ${btnOkDialog}
+
+Click Button Next Topup
+    Click Mobile Element    ${btnTopUpNext}
+
+Select Package Entertainment
+    Click Mobile Element    ${btnApplyEntertainmentOnTop}
+
+Confirm Package Entertainment
+    [Arguments]    ${Number}
+    Click Mobile Element    ${btnConfirmEntertainmentOnTop}
+    Log Number And Time    ${Number}
+    Mobile Capture Screen At Verify Point    confirm entertainment on top
+    Click Mobile Element    ${btnOKConfirmEntertainmentOnTop}
+
+Login Case Have My Account
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    ${statusChoiceLogin}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnChoicePassword}    1
+    Run Keyword If    "${statusChoiceLogin}"=="True"    Click Mobile Element    ${btnChoicePassword}
+    chosen primary button
+    Input mobile text    ${txtInputOTP}    Test@2017
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${btnOKGetOTP}    60
+    verify login
+
+View Forget Password
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${txtInputMobileNo}
+    Input mobile text    ${txtInputMobileNo}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnLoginOK}
+    Wait Mobile Until Element Visible    ${lblForgetPassword}
+    Click mobile element    ${lblForgetPassword}
+
+Tear Down For Forget Password
+    [Arguments]    ${#dict_device_name}
+    Comment    Run Keyword If Test Failed    Capture Screen with Specific name
+    Comment    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Confirm Forget Password
+    Input mobile text    ${lblRequestOTP}    1111
+    Run Keyword And Ignore Error    Hide keyboard
+    Input Mobile Text    ${lblNewPassword}    Test@2017
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${lblConfirmPassword}
+    Input Mobile Text    ${lblConfirmPassword}    Test@2017
+    Run Keyword And Ignore Error    Hide keyboard
+    Mobile Capture Screen At Verify Point    forget password
+    Click mobile element    ${btnOKForgetPassword}
+    Wait Mobile Until Element Visible    ${btnConfirmforgetPassword}
+    Click mobile element    ${btnConfirmforgetPassword}
+
+Edit Password myAIS
+    Click Mobile Element    ${btnEditPassWordmyAIS}
+
+View Register Terms and Condition
+    [Arguments]    ${Number}
+    Click Mobile Element    ${RegisterTermAndCondition}
+    Log Number And Time    ${Number}
+    Wait Mobile Until Element Visible    ${btnRegisterTermAndCondition}
+    Sleep    2
+    Click Mobile Element    ${btnRegisterTermAndCondition}
+
+Register Input Email
+    Wait Mobile Until Element Visible    ${btnRegisEdt}
+    Input Mobile Text    ${btnRegisEdt}    test@gmail.com
+    Click Mobile Element    ${btnRegisNext}
+
+Register Set Password
+    Comment    Wait Mobile Until Element Visible    ${btnRegisMockNumber}
+    Comment    Click Mobile Element    ${btnRegisMockNumber}
+    Wait Mobile Until Element Visible    ${edtRegisPassword}
+    Input Mobile Text    ${edtRegisPassword}    Test@2017
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${edtRegisPasswordConfirm}
+    Input Mobile Text    ${edtRegisPasswordConfirm}    Test@2017
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${btnRegisNext}
+
+Register Accept Term Condition
+    Comment    Wait Mobile Until Element Visible    ${btnRegisNext}
+    Click Mobile Element    ${btnRegisNext}
+
+Register Confirm Seccess
+    Comment    Wait Mobile Until Element Visible    ${btnRegisConfirm}
+    Click Mobile Element    ${btnRegisConfirm}
+
+Save Change Password
+    Click Mobile Element    ${btnSaveChangePassword}
+
+Set Change Password
+    Wait Mobile Until Element Visible    ${fldCurrentPasssword}
+    Input Mobile Text    ${fldCurrentPasssword}    Test@2017
+    Run Keyword And Ignore Error    Hide keyboard
+    Input Mobile Text    ${fldNewPasssword}    Test@2017
+    Run Keyword And Ignore Error    Hide keyboard
+    Input Mobile Text    ${fldReNewPasssword}    Test@2017
+    Run Keyword And Ignore Error    Hide keyboard
+
+Add Member
+    Click Mobile Element    ${btnAddNumberMyAisAccount}
+
+Login Case Have My Account2
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}
+    ...    ${PasswordMyAIS}
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    ${statusChoiceLogin}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnChoicePassword}    1
+    Run Keyword If    "${statusChoiceLogin}"=="True"    Click Mobile Element    ${btnChoicePassword}
+    chosen primary button
+    Input mobile text    ${txtInputOTP}    ${PasswordMyAIS}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${btnOKGetOTP}    60
+    verify login
+
+Input Add Number
+    [Arguments]    ${Number}
+    Click Mobile Element    ${fldAddNumber}
+    Input Mobile Text    ${fldAddNumber}    ${Number}
+
+Confirm Add Number
+    Click Mobile Element    ${btnConfirmAddNumber}
+
+Select Card Type Top Up
+    [Arguments]    ${CardType}
+    Click Mobile Element    ${CreditCardTypeTopUp}
+    Click Mobile Element    ${chkCreditCard${CardType}}
+
+Edit Main Number myAIS
+    Click Mobile Element    ${lblChangeMaster_EditMainNumber}    #edit main number
+
+Set Member
+    Wait Mobile Until Page Contains Element    ${txtRequestOTP}
+    Click Mobile Element    ${txtRequestOTP}
+    Input Mobile Text    ${edtAddMemberOTP}    1111
+    Run Keyword And Ignore Error    Hide keyboard
+    Click Mobile Element    ${btnRegisConfirm}

@@ -1,0 +1,134 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../PageRepository/${ar_OS}/QuickMenu_VerifyMenuRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/QuickMenu_VerifyMenuLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Verify Top up Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${Topup}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblEnterDestinationNumberTopup}    ${EnterDestinationNumberYouWishToTopup}
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${PleaseSelectTopupChannels}
+    Mobile element text should be    ${lbSelectTopupAmount}    ${SelectTopupAmount}
+    Mobile Capture Screen At Verify Point    Topup Page
+
+Select Quick Menu
+    [Arguments]    ${QuickMenuNam}
+    Click Mobile Element    ${btnQuickMenu}
+    Click Mobile Element    ${btn${QuickMenuNam}QM}
+
+Verify Ask Aunjai Page
+    Comment    Mobile element text should be    ${lblHeadTitlePage}    ${AskAunjai}
+    Run Keyword If    "${ar_NType}" == "3PE" or "${ar_NType}" == "3BE"    Mobile element text should be    ${lblHeadTitlePage}    ${AskAunjai}
+    Run Keyword If    "${ar_NType}" == "3PO" or "${ar_NType}" == "3BO"    Mobile element text should be    ${lblHeadTitlePage}    ${AskAunjai}
+    Mobile Capture Screen At Verify Point    Ask Aunjai
+
+Verify Apply OnTop Package Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${ApplyOtherOnTopPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblTalkAndNetOnTopPackage}    ${TalkAndNetOnTopPackage}
+    Mobile Capture Screen At Verify Point    Apply OnTop Package
+
+Verify Point And Privileges Page
+    Mobile element text should be    ${lblPointsAndPrivileges}    ${PointsAndPrivileges}
+    Mobile element text should be    ${lblPoints}    ${Points}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page (1)
+    Swipe Element To Screen    ${lblPrivileges}
+    Mobile element text should be    ${lblPrivileges}    ${Privileges}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page (2)
+    Swipe Element To Screen    ${lblNearby}
+    Mobile element text should be    ${lblNearby}    ${Nearby}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page (3)
+
+Verify Register AISFibre And Coverage Checking
+    sleep    5
+    Mobile element text should be    ${lblHeadTitlePage}    ${RegisterAISFibreAndCoverageChecking}
+    Mobile Capture Screen At Verify Point    Register AISFibre And Coverage Checking
+
+Verify Search Keyword Page
+    Mobile element text should be    ${lblHeadTitlePage}    ${AllMenu}
+    Mobile element text should be    ${txtSearchKeyword}    ${Search}
+    Mobile Capture Screen At Verify Point    Search Keyword
+
+Select Quick Menu And Close Quick Menu
+    Click Mobile Element    ${btnQuickMenu}
+    Click Mobile Element    ${btnCloseQM}
+
+Verify Home Page
+    Run Keyword If    "${ar_NType}" == "3PE" or "${ar_NType}" == "3BE"    Verify Home Page 3PE 3BE
+    Run Keyword If    "${ar_NType}" == "FBB"    Verify Home Page FBB
+    Run Keyword If    "${ar_NType}" == "3PO" or "${ar_NType}" == "3BO"    Verify Home Page for Postpaid
+
+Verify Home Page 3PE 3BE
+    Mobile element text should be    ${lblHomePage}    ${Home}
+    Mobile element text should be    ${lblRemainingBalance}    ${RemainingBalance}
+    Mobile element text should be    ${lblValidUntil}    ${ValidUntil}
+    Mobile element text should be    ${lblAISPoint}    ${AISPoint}
+    Mobile Capture Screen At Verify Point    Home
+
+Verify Home Page FBB
+    Mobile element text should be    ${lblHomePage}    ${Home}
+    Mobile element text should be    ${lblBalance}    ${Balance}
+    Mobile element text should be    ${lblAISPoint}    ${AISPoint}
+    Mobile element text should be    ${lblCurrentPackage}    ${CurrentPackage}
+    Mobile element text should be    ${lblYourCurrentPackage}    ${YourCurrentPackage}
+    Mobile element text should be    ${lblYourValueAddedService}    ${YourValueAddedService}
+    Mobile Capture Screen At Verify Point    Home
+
+Verify Payment Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Does Not Contain Element    ${lblTopUpProgressBar}
+    Mobile element text should be    ${lblHeadTitlePage}    ${Payment}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblYourUsageCharges}    ${YourUsageCharges}
+    Mobile element text should be    ${lblPaymentChannels}    ${PaymentChannels}
+    Mobile Capture Screen At Verify Point    Payment Page
+
+Verify Home Page for Postpaid
+    Mobile element text should be    ${lblHomePage}    ${Home}
+    Mobile element text should be    ${lblCurrentCharges}    ${CurrentUsages}
+    Mobile Capture Screen At Verify Point    Home
+
+Verify Payment
+    Sleep    5
+    Mobile element text should be    ${lblHeadPayment}    ${Payment}
+    Mobile element text should be    ${lblYourUsageCharges}    ${UsageDetail}
+    Mobile element text should be    ${lblPaymentChannels}    ${PaymentChannel}
+    Mobile Capture Screen At Verify Point    Payment
+
+Verify OnTop package page Postpaid
+    Mobile element text should be    ${lblHeadTitlePage}    ${ApplyOtherOnTopPackage}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile Capture Screen At Verify Point    OnTop Pagkage
+
+Verify Point and Privilegs page Postpaid
+    sleep    10
+    Mobile element text should be    ${lblPointsAndPrivileges}    ${PointsAndPrivileges}
+    Mobile element text should be    ${lblNearby}    ${Nearby}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page (3)
+    Swipe Element To Screen    ${lblPrivileges}
+    Mobile element text should be    ${lblPrivileges}    ${Privileges}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page (2)
+    Swipe Element To Screen    ${lblPoints}
+    Mobile element text should be    ${lblPoints}    ${Points}
+    Mobile Capture Screen At Verify Point    Point And Privileges Page (1)
+
+Verify AISFibre page Postpaid
+    Mobile element text should be    ${lblHeadTitlePage}    ${RegisterAISFibre}
+    Mobile Capture Screen At Verify Point    AISFibre
+
+Verify homepage Postpaid
+    Mobile element text should be    ${lblHomePage}    ${Home}
+    Mobile element text should be    ${lblCurrentUsages}    ${CurrentUsages}
+    Mobile Capture Screen At Verify Point    Home

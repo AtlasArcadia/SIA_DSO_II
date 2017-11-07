@@ -1,0 +1,11 @@
+*** Settings ***
+Resource          ../../Andriod/Keywords/PhoneGISKeywords.txt
+Resource          ../../iOS/Keywords/PhoneIosKeywords.txt
+
+*** Keywords ***
+Check Balance
+    [Arguments]    ${os}    ${CallSIMNumber}    ${Times}
+    [Documentation]    ${Times} = Times of check your balance
+    ${balance}    Run Keyword If    '${os}' == 'Android'    android check balance    ${Times}    ${CallSIMNumber}
+    ...    ELSE IF    '${os}' == 'iOS'    ios check balances
+    [Return]    ${balance}

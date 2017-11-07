@@ -1,0 +1,33 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/MyAccountLocalized.txt
+Resource          ../PageRepository/${ar_OS}/MyAccountRepository.txt
+
+*** Keywords ***
+Close Twitter App
+    [Arguments]    ${SN}
+    sleep    2
+    ${command}=    Set Variable    adb -s \ ${SN} shell am kill com.twitter.android
+    Log    ${command}
+    ${rc}=    Run And Return Rc    ${command}
+    Log    ${rc}
+    Sleep    2
+
+Close Line App
+    [Arguments]    ${SN}
+    sleep    2
+    ${command}=    Set Variable    adb -s \ ${SN} shell am kill jp.naver.line.android
+    Log    ${command}
+    ${rc}=    Run And Return Rc    ${command}
+    Log    ${rc}
+    Sleep    2
+
+Close Facebook App
+    [Arguments]    ${SN}
+    sleep    2
+    ${command}=    Set Variable    adb -s \ ${SN} shell am kill com.facebook.katana
+    Log    ${command}
+    ${rc}=    Run And Return Rc    ${command}
+    Log    ${rc}
+    Sleep    2

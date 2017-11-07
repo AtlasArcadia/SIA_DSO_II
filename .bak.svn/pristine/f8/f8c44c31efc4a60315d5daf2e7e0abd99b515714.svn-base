@@ -1,0 +1,89 @@
+*** Settings ***
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/ParallelLocalConfigKeyWord.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RunOnFailKeyword.txt
+Resource          ../../../../../AisRobotBuffet/Web/Generic/Keywords/WebGenericKeyword.txt
+Resource          ../../../../../AisRobotBuffet/Mobile/Andriod/Keywords/SmsMoodKeywords.txt
+Resource          ../PageVariable/DegitalSerenadeCommonVariable.txt
+Resource          ../PageRepository/LoginRepository.txt
+Resource          ../PageRepository/DigitalSerenadeCommonRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/DegitalSerenadeCommonLocalized.txt
+
+*** Keywords ***
+Verify Link
+    [Arguments]    ${url}
+    Location Should Be    ${url}
+    Web Capture Screen At Verify Point    Verify url
+
+Verify Profile Page
+    [Arguments]    ${Segment}    ${Type}
+
+Login Serenade
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}    ${Close}=true
+    Sleep    5
+    Input Web Text    ${txtMobileNo}    ${MobileNumber}
+    Click Web Element    ${btnRequestOTP}
+    Open SMS App    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${PlatfromName}    1    ${lo_sms_timeout}    AIS
+    ${time}=    Evaluate    str(time.time())    time
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${PlatfromName}    AIS    1
+    Log    @{messages}[0]
+    @{OTP}=    Get Regexp Matches    @{messages}[0]    \\d\\d\\d\\d
+    Run Keyword If    "${Close}" =="true"    Close SMS App    ${PlatfromName}    ${SN}
+    Input Web Text    ${txtInputOTP}    @{OTP}[0]
+    Click Web Element    ${btnSubmit}
+    Comment    Wait Until Element Is Not Visible    ${btnSubmit}    ${lo_general_timeout}
+
+Open Browser Serenade
+    [Arguments]    ${IPSelenium}    ${lang}=en    ${block_location}=${False}
+    ${dc}=    create google disire capabilities    ${lang}    ${block_location}
+    Run Keyword If    "${ar_Browser}" == "ff"    Open Browser    ${URLSerenade}    ff    ${ff_Profile}
+    ...    ELSE    Open Web Browser    ${URLSerenade}    ${ar_BROWSER}    http://${IPSelenium}/wd/hub    desired_capabilities=${dc}
+    Run Keyword If    "${ar_Browser}" != "ff"    Maximize Browser Window
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Serenade_Test_local_config_file_path}    ${#selenium_hub}
+
+Verify Profile
+    [Arguments]    ${LifeCycle}    ${Number}    ${SegmentProfile}    ${type}    ${Segment}
+    sleep    5s
+    Scroll Web To Element    ${lblPlatinumNumberProfile}    #swipe to profile page
+    Run Keyword If    "${LifeCycle}"=="Sustain"    Web Element Text Should Be    ${lblPlatinumGreetingProfile}    ${SustainGreetingProfile}
+    Run Keyword If    "${LifeCycle}"=="Downgrade"    Web Element Text Should Be    ${lblPlatinumGreetingProfile}    ${DowngradeGreetingProfile}
+    Run Keyword If    "${LifeCycle}"=="New"    Web Element Text Should Be    ${lblPlatinumGreetingProfile}    ${NewGreetingProfile}
+    ${Number}    Replace String    ${MobileNo}    [number]    ${Number}
+    Web Element Text Should Be    ${lblPlatinumNumberProfile}    ${Number}    #Verify mobile number
+    Verify Segment Profile    ${SegmentProfile}
+    ${tempTimePeriodProfile}    Get Web Text    ${lblPlatinumTimePeriodProfile}
+    ${tempTimePeriodProfile}    Should Match Regexp    ${tempTimePeriodProfile}    \\d.*
+    ${TimePeriodProfile}    Replace String    ${TimePeriodProfile}    x    ${tempTimePeriodProfile}
+    Web Element Text Should Be    ${lblPlatinumTimePeriodProfile}    ${TimePeriodProfile}    #Time
+    Verify Amendment Type    ${Segment}    ${type}
+    Web Capture Screen At Verify Point    profile
+
+Verify Segment Profile
+    [Arguments]    ${Segment}
+    Run Keyword If    "${Segment}" == "PlatinumDowngrade"    Web Element Text Should Be    ${lblPlatinumSegmentProfile}    ${PlatinumSegmentProfile_Downgrade}    #PlatinumDowngrade
+    Run Keyword If    "${Segment}" == "PlatinumNew"    Web Element Text Should Be    ${lblPlatinumSegmentProfile}    ${PlatinumSegmentProfile_New}    #PlatinumNew
+    Run Keyword If    "${Segment}" == "PlatinumSustain"    Web Element Text Should Be    ${lblPlatinumSegmentProfile}    ${PlatinumSegmentProfile_Sustain}    #PlatinumSustain
+    Run Keyword If    "${Segment}" == "GoldDowngrade"    Web Element Text Should Be    ${lblPlatinumSegmentProfile}    ${GoldSegmentProfile_Downgrade}    #GoldDowngrade
+    Run Keyword If    "${Segment}" == "GoldNew"    Web Element Text Should Be    ${lblPlatinumSegmentProfile}    ${GoldSegmentProfile_New}    #GoldNew
+    Run Keyword If    "${Segment}" == "GoldSustain"    Web Element Text Should Be    ${lblPlatinumSegmentProfile}    ${GoldSegmentProfile_Sustain}    #GoldSustain
+    Run Keyword If    "${Segment}" == "EmeraldDowngrade"    Web Element Text Should Be    ${lblPlatinumSegmentProfile}    ${EmeraldSegmentProfile_Downgrade}    #EmeraldDowngrade
+    Run Keyword If    "${Segment}" == "EmeraldNew"    Web Element Text Should Be    ${lblPlatinumSegmentProfile}    ${EmeraldSegmentProfile_New}    #EmeraldNew
+    Run Keyword If    "${Segment}" == "EmeraldSustain"    Web Element Text Should Be    ${lblPlatinumSegmentProfile}    ${EmeraldSegmentProfile_Sustain}    #EmeraldSustain
+
+Verify Amendment Type
+    [Arguments]    ${Segment}    ${Amendment}
+    Web Element Text Should Be    ${lbl${Segment}AmendmentTypeProfile1}    ${${Segment}Amendment_Type${Amendment}}
+
+Verify URL New Window
+    [Arguments]    ${URL}    ${imgCaptureName}
+    Sleep    30s
+    Select Window    url=${URL}
+    Location Should Be    ${URL}
+    Web Capture Screen At Verify Point    ${imgCaptureName}

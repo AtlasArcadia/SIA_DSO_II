@@ -1,0 +1,204 @@
+*** Settings ***
+Resource          ../PageRepository/${ar_OS}/FAQ_InternetAndAISFibreRepository.txt
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/FAQ_InternetAndAisFibreLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Select Help And Support Menu
+    Select Menu    HelpAndSupport
+
+Select Internet And Ais Fibre Submenu
+    Select Sub Menu    InternetAndAISFiber
+
+Select AIS Fibre Usage
+    Click Mobile Element    ${subMnuAISFibreUsage}
+
+Veriify Internet And AIS Fibre Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${subMnuInternetProblem}    ${txtSubMnuInternetProblem}
+    Mobile element name should be    ${subMnuAISFibreUsage}    ${txtSubMnuAisFibreUsage}
+    Mobile element name should be    ${subMnuAISFibre/AISPlaybox/WifiIssues}    ${txtSubMnuAISFibre/AISPlaybox/Wi-FiIssues}
+    Mobile Capture Screen At Verify Point    FAQ Internet And AIS Fibre Page
+
+Verify AIS Fibre Usage Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblAISFibreUsage}    ${txtLblAISFibreUsage}
+    Mobile check existing text in name    ${lblAisFibreIssuesQuestion1}
+    Mobile check existing text in name    ${lblAisFibreIssuesQuestion2}
+    Mobile Capture Screen At Verify Point    Verify AIS Fibre Usage
+
+Select AIS Usage Question
+    [Arguments]    ${NoQuestion}
+    Comment    Swipe To    ${lblAISUsageFibreQuestion${NoQuestion}}
+    Swipe element to specific area    ${lblAISUsageFibreQuestion${NoQuestion}}
+    Click Mobile Element    ${lblAISUsageFibreQuestion${NoQuestion}}
+
+Verify AIS Fibre Answer Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblAISFibreUsage}    ${txtLblAISFibreUsage}
+    Mobile check existing text in name    ${lblAISUsageFibreAnswer}
+    Mobile Capture Screen At Verify Point    Verify AIS FIbre Usage Answer
+
+Select AIS Fibre And AIS Playbox And Wifi Issues Submenu
+    Click Mobile Element    ${subMnuAISFibre/AISPlaybox/WifiIssues}
+
+Verify AIS Fibre And AIS Playbox And Wifi Issues
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblAISFibre/AISPlaybox/WifiIssuesPage}    ${txtLblAISFibreAISPlayboxWifiIssues}
+    Mobile check existing text in name    ${subMnuAISFibreIssues}    ${txtSubMnuAISFibreIssues}
+    Mobile check existing text in name    ${subMnuAISPlayboxIssues}    ${txtSubMnuAisPlayboxIssues}
+    Mobile check existing text in name    ${subMnuWifiIssues}    ${txtSubMnuWifiIssues}
+    Comment    Wait Mobile Until Page Contains Element    ${lblAisFibreIssuesQuestion1}
+    Mobile Capture Screen At Verify Point    FAQ Internet And Ais Fibre AIS Fibre AIS Playbox Wifi Issues Page
+
+Select Wifi Issues Submenu
+    Click Mobile Element    ${subMnuWifiIssues}
+
+Verify Wifi Issues Question Page
+    Sleep    5
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblWifiIssues}    ${txtLblWifiIssues}
+    Mobile check existing text in name    ${lblWifiIssuesQuestion1}
+    Mobile check existing text in name    ${lblWifiIssuesQuestion2}
+    Mobile check existing text in name    ${lblWifiIssuesQuestion3}
+    Mobile Capture Screen At Verify Point    Verify Wifi Issues Question
+
+Select Wifi Issues Question
+    [Arguments]    ${NoQuestion}
+    Comment    Swipe To    ${lblWifiIssuesQuestion${NoQuestion}}
+    Swipe element to specific area    ${lblWifiIssuesQuestion${NoQuestion}}
+    Click Mobile Element    ${lblWifiIssuesQuestion${NoQuestion}}
+
+Verify Wifi Issues Answer
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblWifiIssues}    ${txtLblWifiIssues}
+    Mobile check existing text in name    ${lblWifiIssuesAnswer}
+    Mobile Capture Screen At Verify Point    Verify AIS Wifi Issues Answer
+
+Verify FAQ Internet And AIS Fibre Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${subMnuInternetProblem}    ${txtSubMnuInternetProblem}
+    Mobile element name should be    ${subMnuAISFibreUsage}    ${txtSubMnuAisFibreUsage}
+    Mobile element name should be    ${subMnuAISFibre/AISPlaybox/WifiIssues}    ${txtSubMnuAISFibre/AISPlaybox/Wi-FiIssues}
+    Mobile Capture Screen At Verify Point    FAQ Internet And AIS Fibre Page
+
+Select Internet Problem
+    Click Mobile Element    ${subMnuInternetProblem}
+
+Verify FAQ Internet And AIS Fibre Internet Problem Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblInternetProblem}    ${txtLblInternetProblem}
+    Check Internet Problem Text In Question    1
+    Check Internet Problem Text In Question    2
+    Check Internet Problem Text In Question    3
+    Mobile Capture Screen At Verify Point    FAQ Internet And Ais Fibre Internet Problem Page
+
+Select Internet and AISFibre Question
+    [Arguments]    ${noQuestion}
+    Click Mobile Element    ${lblInternetProblemQuestion${noQuestion}}
+
+Verify Internet Problem Answer Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblInternetProblem}    ${txtLblInternetProblem}
+    Comment    Check Other Text In Internet and Fibre    ${lblOtherText}
+    Mobile check existing text in name    ${lblOtherText}
+    Mobile Capture Screen At Verify Point    Internet Problem Answer Page
+
+Check Internet Problem Text In Question
+    [Arguments]    ${noQuestion}
+    Mobile check existing text in name    ${lblInternetProblemQuestion${noQuestion}}
+
+Select AIS Fibre AIS Playbox Wifi Issue
+    Click Mobile Element    ${subMnuAISFibre/AISPlaybox/WifiIssues}
+
+Verify FAQ Internet And Ais Fibre AIS Fibre/AIS Playbox/Wifi Issues Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblAISFibre/AISPlaybox/WifiIssuesPage}    ${txtLblAISFibreAISPlayboxWifiIssues}
+    Comment    Mobile check existing text in name    ${subMnuAISFibreIssues}    ${txtSubMnuAISFibreIssues}
+    Comment    Mobile check existing text in name    ${subMnuAISPlayboxIssues}    ${txtSubMnuAisPlayboxIssues}
+    Comment    Mobile check existing text in name    ${subMnuWifiIssues}    ${txtSubMnuWifiIssues}
+    Mobile check existing text in name    ${subMnuAISFibreIssues}
+    Mobile check existing text in name    ${subMnuAISPlayboxIssues}
+    Mobile check existing text in name    ${subMnuWifiIssues}
+    Comment    Wait Mobile Until Page Contains Element    ${lblAisFibreIssuesQuestion1}
+    Mobile Capture Screen At Verify Point    FAQ Internet And Ais Fibre AIS Fibre AIS Playbox Wifi Issues Page
+
+Select Sub menu AIS Fibre Issues
+    Click Mobile Element    ${subMnuAISFibreIssues}
+
+Verify AIS Fibre Issues Question Page
+    Sleep    5
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblAISFibreIssues}    ${txtLblAisFibreIssues}
+    Check AIS Fibre Issues Text In Question    1
+    Check AIS Fibre Issues Text In Question    2
+    Check AIS Fibre Issues Text In Question    3
+    Mobile Capture Screen At Verify Point    Verify Ais Fibre Issues Question
+
+Check AIS Fibre Issues Text In Question
+    [Arguments]    ${noQuestion}
+    Mobile check existing text in name    ${lblAisFibreIssuesQuestion${noQuestion}}
+
+Select AIS Fibre Issues Question
+    [Arguments]    ${noQuestion}
+    Click Mobile Element    ${lblAisFibreIssuesQuestion${noQuestion}}
+
+Verify AIS Issuse Answer Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblAISFibreIssues}    ${txtLblAisFibreIssues}
+    Check Other Text In Internet and Fibre    ${lblOtherText}
+    Mobile Capture Screen At Verify Point    AIS Issuse Answer Page
+
+Check Other Text In Internet and Fibre
+    [Arguments]    ${locator}
+    ${ans}=    Get mobile attribute    ${locator}    name
+    log    ${ans}
+    ${verifyText}    Should Match Regexp    ${ans}    .+
+    log    ${verifyText}
+
+Select Sub Menu AIS Playbox Issues
+    Click Mobile Element    ${subMnuAISPlayboxIssues}
+
+Verify AIS Playbox Issues Question Page
+    Sleep    5
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblAISPlayboxIssues}    ${txtLblAISPlayboxIssues}
+    Check AIS Playbox Issues Text In Question    1
+    Check AIS Playbox Issues Text In Question    2
+    Check AIS Playbox Issues Text In Question    3
+    Check AIS Playbox Issues Text In Question    4
+    Mobile Capture Screen At Verify Point    Verify Ais Playbox Issues Question
+
+Select AIS Playbox Issues Question
+    [Arguments]    ${noQuestion}
+    Comment    Swipe To    ${lblAISPlayboxIssuesQuestion${noQuestion}}    screen    0.3
+    Swipe element to specific area    ${lblAISPlayboxIssuesQuestion${noQuestion}}
+    Click Mobile Element    ${lblAISPlayboxIssuesQuestion${noQuestion}}
+
+Check AIS Playbox Issues Text In Question
+    [Arguments]    ${noQuestion}
+    Mobile check existing text in name    ${lblAISPlayboxIssuesQuestion${noQuestion}}
+
+Verify AIS Playbox Issues Answer Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblAISPlayboxIssues}    ${txtLblAISPlayboxIssues}
+    Check Other Text In Internet and Fibre    ${lblOtherText}
+    Mobile Capture Screen At Verify Point    AIS Playbox Issues Answer
+
+Select Sub Menu Wifi Issues
+    Click Mobile Element    ${subMnuWifiIssues}
+
+Verify Wifi Issues Answer Page
+    Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
+    Mobile element name should be    ${lblWifiIssues}    ${txtLblWifiIssues}
+    Check Other Text In Internet and Fibre    ${lblOtherText}
+    Mobile Capture Screen At Verify Point    AIS Wifi Issues Answer

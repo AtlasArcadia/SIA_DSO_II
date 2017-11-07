@@ -1,0 +1,28 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageVariable/Platinum_ParkingVariable.txt
+Resource          ../PageRepository/Platinum_ParkingRepository.txt
+Resource          ../PageRepository/DigitalSerenadeCommonRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ParkingLocalized.txt
+
+*** Keywords ***
+Verify Parking
+    Scroll Web To Element    ${imgParking}
+    sleep    5s
+    Click Web Element    ${btn}
+    Web Capture Screen At Verify Point    List Parking
+
+Verify Date Match Wih Profile Page
+    Scroll Web To Element    ${lblPlatinumNumberProfile}
+    ${tempTimePeriodProfile}    Get Web Text    ${lblPlatinumTimePeriodProfile}
+    ${tempTimePeriodProfile}    Should Match Regexp    ${tempTimePeriodProfile}    \\d.*
+    Comment    ${TimePeriodProfile}    Replace String    ${TimePeriodProfile}    x    ${tempTimePeriodProfile}
+    ${tempmonth}    Get Substring    ${tempTimePeriodProfile}    13    15
+    ${tempyear}    Get Substring    ${tempTimePeriodProfile}    19
+    Web Capture Screen At Verify Point    profile
+    Scroll Web To Element    ${imgParking}
+    sleep    5s
+    ${temp}    Selenium2Library.Get Element Attribute    ${SmallImginImgParking}@src
+    Log    ${temp}
+    Should Match Regexp    ${temp}    .+platinum.+
+    Web Capture Screen At Verify Point    parking

@@ -1,0 +1,119 @@
+*** Settings ***
+Resource          PrivilegeCommon.txt
+Resource          ../PageRepository/FoodandBeverageRepository.txt
+Resource          ../Localized/${ar_LANG}/FoodandBeverageLocalized.txt
+
+*** Keywords ***
+Verify All Menu
+    Verify Menu bar
+    Verify Serenade Menu
+
+Verify Main Menu Central Food Hall
+    Scroll Web To Element    ${boxListNumber1}
+    Web Element Should Be Visible    ${imgMenuNumber1}
+    Web Element Text Should Be    ${lblTitleMenuNumber1}    ${CentralFoodHall}
+    ${TitleMenu}    Get Web Text    ${lblTitleMenuNumber1}
+    Web check existing text    ${lblDetailMainMenuNumer1}
+    Web Element Should Be Visible    ${btnDetailMenuNumber1}
+    Web Element Should Be Visible    ${btnLikeFacebookMenuNumber1}
+    Web Element Should Be Visible    ${btnTweetMenuNumber1}
+    Web Element Should Be Visible    ${btnMailMenuNumber1}
+    Web Capture Screen At Verify Point    Menu CentralFoodHall
+
+Get Title Name
+    [Arguments]    ${locator}
+    ${title}=    Get Web Text    ${locator}
+    [Return]    ${title}
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Privilege_Prod_local_config_file_path}    ${#selenium_hub}
+
+Verify Campaign
+    [Arguments]    ${CampaginName}    ${Condition}    ${Relate}    ${RelateCampagin1}    ${RelateCampagin2}    ${RelateCampagin3}
+    Web Element Text Should Be    ${lblSubTitleMenu}    ${CampaginName}
+    Web Element Should Be Visible    ${lblSubLogoMenu}
+    Web check existing text    ${lblSubDetailMenu}
+    Web Element Trim Text Should Be    ${lblTitleCondition}    ${Condition}
+    Web Capture Screen At Verify Point    Verify in ${CampaginName} First Picture
+    Scroll Web To Element    ${lblSubLogoRelateDeal}
+    Web Element Trim Text Should Be    ${lblRelatedDealFood}    ${Relate}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop1Food}    ${RelateCampagin1}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop2Food}    ${RelateCampagin2}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop3Food}    ${RelateCampagin3}
+    Web Capture Screen At Verify Point    Verify in ${CampaginName} Second Picture
+
+Verify campagin in food page
+    [Arguments]    ${Name}    ${ListMenuNo}
+    ${title}=    Get Title Name    ${lblTitleMenuFoodPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${imgMenuFoodPageFoodPageNumber${ListMenuNo}}
+    Web Element Text Should Be    ${lblTitleMenuFoodPageNumber${ListMenuNo}}    ${Name}
+    Web check existing text    ${lblDetailMainMenuFoodPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnDetailMenuFoodPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnLikeFacebookMenuFoodPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnTweetMenuFoodPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnMailMenuFoodPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${imgSymbolMenuFoodPageNumber${ListMenuNo}}
+    Click Web Element    ${btnDetailMenuFoodPageNumber${ListMenuNo}}
+    [Return]    ${title}
+
+Verify Central Food Hall Campaign
+    ${title}    Verify campagin in food page    ${CentralFoodHall}    2
+    Verify Campaign    ${title}    ${Condition}    ${RelateDeal}    ${CoffeebeanRelate}    ${TimsumRelate}    ${TtimeRelate}
+
+Verify Coffee Bean Campaign
+    ${title}    Verify campagin in food page    ${Coffeebean}    1
+    Verify Campaign    ${title}    ${Condition}    ${RelateDeal}    ${TimsumRelate}    ${TtimeRelate}    ${TumlaiRelate}
+
+Verify Hello Yogurt Premium Campaign
+    ${title}    Verify campagin in food page    ${HelloYogurtPremium}    3
+    Verify Campaign    ${title}    ${Condition}    ${RelateDeal}    ${CoffeebeanRelate}    ${TimsumRelate}    ${TtimeRelate}
+
+Verify Hello Yogurt Express Campaign
+    ${title}    Verify campagin in food page    ${HelloYogurtExpress}    4
+    Verify Campaign    ${title}    ${Condition}    ${RelateDeal}    ${CoffeebeanRelate}    ${TimsumRelate}    ${TtimeRelate}
+
+Verify 94 Coffee Campaign
+    ${title}    Verify campagin in food page    ${94Coffee}    5
+    Verify Campaign    ${title}    ${Condition}    ${RelateDeal}    ${CoffeebeanRelate}    ${TimsumRelate}    ${TtimeRelate}
+
+Verify Mister Donut Campaign
+    ${title}    Verify campagin in food page    ${MisterDonut}    6
+    Verify Campaign    ${title}    ${Condition}    ${RelateDeal}    ${CoffeebeanRelate}    ${TimsumRelate}    ${TtimeRelate}
+
+Verify Food Page
+    Web Element Should Be Visible    ${Banner}
+    Web Element Text Should Be    ${lblFoodTitle}    ${FoodTitle}
+    Web Element Should Be Visible    ${lblPageLessThanPage}
+    Web Element Should Be Visible    ${lblCurrentPage}
+    Web Element Should Be Visible    ${lblMoreThanPage}
+    Verify Menubar
+    Web Capture Screen At Verify Point    Verify In Menu Bar And Campaign Page
+    Verify Serenade Menu
+    Web Capture Screen At Verify Point    Verify In Serenade Menu
+    Scroll Web To Element    ${lblTitleMenuFoodPageNumber1}
+    Web Capture Screen At Verify Point    Verify In Campagin 1
+    Web Element Text Should Be    ${lblTitleMenuFoodPageNumber1}    ${Coffeebean}
+    Scroll Web To Element    ${lblTitleMenuFoodPageNumber2}
+    Web Capture Screen At Verify Point    Verify In Campagin 2
+    Web Element Text Should Be    ${lblTitleMenuFoodPageNumber2}    ${CentralFoodHall}
+    Scroll Web To Element    ${lblTitleMenuFoodPageNumber3}
+    Web Capture Screen At Verify Point    Verify In Campagin 3
+    Web Element Text Should Be    ${lblTitleMenuFoodPageNumber3}    ${HelloYogurtPremium}
+    Scroll Web To Element    ${lblTitleMenuFoodPageNumber4}
+    Web Capture Screen At Verify Point    Verify In Campagin 4
+    Web Element Text Should Be    ${lblTitleMenuFoodPageNumber4}    ${HelloYogurtExpress}
+    Scroll Web To Element    ${lblTitleMenuFoodPageNumber5}
+    Web Capture Screen At Verify Point    Verify In Campagin 5
+    Web Element Text Should Be    ${lblTitleMenuFoodPageNumber5}    ${94Coffee}
+    Scroll Web To Element    ${lblTitleMenuFoodPageNumber6}
+    Web Capture Screen At Verify Point    Verify In Campagin 6
+    Web Element Text Should Be    ${lblTitleMenuFoodPageNumber6}    ${MisterDonut}
+    Scroll Web To Element    ${mnuBirthDayPrivilege}
+    Verify BirthdayPrivilege
+    Verify OurFriend
+    Verify Newsletter
+    Verify JoinCampaign
+    Web Capture Screen At Verify Point    Verify In Food Page

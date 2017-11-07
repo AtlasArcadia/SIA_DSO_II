@@ -1,0 +1,777 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/HomeLocalized.txt
+Resource          ../PageRepository/${ar_OS}/HomeRepository.txt
+
+*** Keywords ***
+Select Language
+    [Arguments]    ${Language}
+    Click Mobile Element    ${btnHamburger}
+    Click Mobile Element    ${btnSettings}
+    AISAppiumEx.Wait Until Page Contains Element    ${btnSwitchLanguage}    5s
+    ${checked}    AISAppiumEx.Get Element Attribute    ${btnSwitchLanguage}    checked
+    Run Keyword If    ('${Language}'=='TH') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchLanguage}
+    Run Keyword If    ('${Language}'=='EN') and ('${checked}'=='true')    Click Mobile Element    ${btnSwitchLanguage}
+    Click Mobile Element    ${btnBack}
+    ${title}    Get Mobile Text    ${lblTitle}
+    Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    fail    change lange not working
+    Comment    Click Mobile Element    ${mnuPackage}
+    AISAppiumEx.Wait Until Page Contains Element    ${conHomeSummary}    5s
+
+Swipe To Cloud Plus
+    AISAppiumEx.Wait Until Element Is Visible    ${lblRemainingBalance}    30
+    swipe in container to element by wait until visible N time    ${lblAisCloud}    ${lblSummaryInfoContainer}    2    left
+
+Verify Not Register Cloud Plus page
+    swipe in container to element by wait until visible N time    ${txtLinkRegisterCloud}    ${lblSummaryInfoContainer}    1    up
+    Click Mobile Element    ${txtLinkRegisterCloud}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${lblColudPlus}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${btnCloudPlusLanguageTH}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${btnCloudPlusLanguageEN}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${imgCloudPlus}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusMobileNo}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusPassword}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusEmail}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${btnRegisterCloudPlus}    10
+    Mobile Capture Screen At Verify Point    Capture Verify Not Register Cloud Plus page
+
+Verify Already Register Cloud Plus page
+    swipe in container to element by wait until visible N time    ${txtLinkRegisterCloud}    ${lblSummaryInfoContainer}    1    up
+    Click Mobile Element    ${txtLinkRegisterCloud}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${lblColudPlus}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${btnCloudPlusLanguageTH}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${btnCloudPlusLanguageEN}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${imgCloudPlus}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusMobileNo}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusPassword}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${btnLoginCloudPlus}    10
+    ${ForgotPasswordCloudPlus}=    Get mobile attribute    ${lblForgotPasswordCloudPlus}    name
+    Should Be Equal    ${ForgotPasswordCloudPlus}    ${txtForgotPasswordCloudPlus}
+    ${NotRegisteredCloudPlus}=    Get mobile attribute    ${lblNotRegisteredCloudPlus}    name
+    Should Be Equal    ${NotRegisteredCloudPlus}    ${txtNotRegisteredCloudPlus}
+    ${CreateAnAccountCloudPlus}=    Get mobile attribute    ${lblCreateAnAccountCloudPlus}    name
+    Should Be Equal    ${CreateAnAccountCloudPlus}    ${txtCreateAnAccountCloudPlus}
+    Mobile Capture Screen At Verify Point    Capture Verify Already Register Cloud Plus page
+
+Swipe To Roaming
+    AISAppiumEx.Wait Until Element Is Visible    ${lblRemainingBalance}    30
+    swipe in container to element by wait until visible N time    ${lblAISRoaming}    ${lblSummaryInfoContainer}    3    left
+
+Verify Apply Roaming Packages page
+    [Arguments]    ${MobileNo}
+    swipe in container to element by wait until visible N time    ${txtLinkMore}    ${lblSummaryInfoContainer}    1    up
+    Click Mobile Element    ${txtLinkMore}    10
+    Mobile element text should be    ${lblRoaming}    ${txtApplyRoamingPackage}
+    Mobile element text should be    ${lblRoamingMobileNo}    ${MobileNo}
+    Mobile element text should be    ${lblRoamingCountryApplyRoamingPackage}    ${txtRoamingCountry}
+    Mobile element text should be    ${lblCustomerTypeApplyRoamingPackage}    ${txtCustomerType}
+    Mobile element text should be    ${lblPackageTypeApplyRoamingPackage}    ${txtPackageType}
+    AISAppiumEx.Wait Until Element Is Visible    ${btnContinueApplyRoamingPackage}
+    Mobile element text should be    ${lblTermAndCondition}    ${txtTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Capture Verify Apply Roaming Packages page
+
+Verify Current Package And Remaining page
+    [Arguments]    ${MobileNo}
+    swipe in container to element by wait until visible N time    ${txtLinkMore}    ${lblSummaryInfoContainer}    1    up
+    Click Mobile Element    ${txtLinkMore}    10
+    Mobile element text should be    ${lblRoaming}    ${txtCurrentPackageAndRemaining}
+    Mobile element text should be    ${lblRoamingMobileNo}    ${MobileNo}
+    AISAppiumEx.Wait Until Element Is Visible    ${lblRoamingRemainingPackage}
+    Mobile Capture Screen At Verify Point    Capture Verify Current Package And Remaining page
+
+Swipe To Roaming with out Remaining Package
+    AISAppiumEx.Wait Until Element Is Visible    ${lblRemainingBalance}    30
+    swipe in container to element by wait until visible N time    ${lblAISRoaming}    ${lblSummaryInfoContainer}    2    left
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Current Package No Remaining Package
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Current Package No Remaining Package Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Current Package No Remaining Package iOS
+
+Verify Current Package No Remaining Package Android
+    Comment    แพ็กเกจปัจจุบัน
+    Mobile element text should be    ${lblCardCurrentPackage}    ${txtCardCurrentPackage}
+    Comment    แพ็กเกจปัจจุบันของคุณ
+    Mobile element text should be    ${lblCurrentPackage}    ${txtCurrentPackage}
+    Comment    บริการเสริม
+    Mobile element text should be    ${lblTitleYourValueAddedService}    ${txtTitleYourValueAddedService}
+    Comment    Mobile Capture Screen At Verify Point    Verify Current Package (No Remaining Package)
+    Comment    รายละเอียด
+    Swipe Element To Screen    ${lblCardCurrentPackage}    up
+    Mobile element text should be    ${lblMore}    ${txtMore}
+    Mobile Capture Screen At Verify Point    Verify Current Package (No Remaining Package)
+
+Verify Current Package No Remaining Package iOS
+    Wait Mobile Until Element Visible    ${lblCardCurrentPackage}
+    Mobile element text should be    ${lblCardCurrentPackage}    ${CardCurrentPackage}    #"แพ็กเกจปัจจุบัน"
+    Mobile element text should be    ${lblCurrentPackage}    ${CurrentPackage}    #แพ็กเกจปัจจุบันของคุณ
+    Mobile element text should be    ${lblTitleYourValueAddedService}    ${TitleYourValueAddedService}    #บริการเสริม
+    Wait Mobile Until Element Visible    ${btnQuickMenu}    #btnQuickMenu
+    Mobile element text should be    ${lblMore}    ${More}    #รายละเอียด
+    Mobile Capture Screen At Verify Point    Verify Current Package (No Remaining Package)
+
+Verify Current Package Remaining Package
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Current Package Remaining Package Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Current Package Remaining Package iOS
+
+Verify Current Package Remaining Package Android
+    Comment    แพ็กเกจคงเหลือ
+    Mobile element text should be    ${lblValidPackage}    ${txtValidPackage}
+    Comment    รายละเอียด
+    Swipe Element To Screen    ${lblValidPackage}    up
+    Mobile element text should be    ${lblMore}    ${txtMore}
+    Mobile Capture Screen At Verify Point    Verify Current Package (Remaining Package)
+
+Verify Current Package Remaining Package iOS
+    Wait Mobile Until Element Visible    ${lblValidPackage}
+    Mobile element text should be    ${lblValidPackage}    ${ValidPackage}    #แพ็กเกจคงเหลือ
+    Wait Mobile Until Element Visible    ${btnQuickMenu}    #btnQuickMenu
+    Mobile element text should be    ${lblMore}    ${More}    #รายละเอียด
+    Mobile Capture Screen At Verify Point    Verify Current Package (Remaining Package)
+
+Swipe AIS Cloud+ storage
+    AISAppiumEx.Wait Until Page Contains    ${lblContainer}    5
+    swipe in container to element    ${lblCardAISCloud}    ${lblSummaryInfoContainer}    left
+
+Verify AIS Cloud+ storage No Register
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Cloud+ storage No Register Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Cloud+ storage No Register iOS
+
+Verify AIS Cloud+ storage No Register Android
+    Comment    พื้นที่ใช้งาน AIS Cloud+
+    Mobile element text should be    ${lblCardAISCloud}    ${txtCardAISCloud}
+    Comment    Photo
+    Mobile element text should be    ${lblPhotos}    ${txtPhotos}
+    Comment    Videos
+    Mobile element text should be    ${lblVideos}    ${txtVideos}
+    Comment    Music
+    Mobile element text should be    ${lblMusic}    ${txtMusic}
+    Comment    Files
+    Mobile element text should be    ${lblFiles}    ${txtFiles}
+    Comment    สมัครฟรี
+    Swipe Element To Screen    ${lblCardAISCloud}    up
+    Mobile element text should be    ${lblRegisterCloud}    ${txtRegisterCloud}
+    Mobile Capture Screen At Verify Point    Verify AIS Cloud+ storage (No Register)
+
+Verify AIS Cloud+ storage No Register iOS
+    swipe in container to element    ${lblCardRoaming}    ${lblSummaryInfoContainer}    left
+    Mobile element text should be    ${lblCardAISCloud}    ${txtCardAISCloud}
+    Mobile element text should be    ${lblPhotos}    ${txtPhotos}
+    Mobile element text should be    ${lblVideos}    ${txtVideos}
+    Mobile element text should be    ${lblMusic}    ${txtMusic}
+    Mobile element text should be    ${lblFiles}    ${txtFiles}
+    Mobile element text should be    ${lblRegisterCloud}    ${txtRegisterCloud}
+    Mobile Capture Screen At Verify Point    Verify AIS Cloud+ storage (No Register)
+
+Verify AIS Cloud+ storage Register
+    Comment    พื้นที่ใช้งาน AIS Cloud+
+    Mobile element text should be    ${lblCardAISCloud}    ${txtCardAISCloud}
+    Comment    Photo
+    Mobile element text should be    ${lblPhotos}    ${txtPhotos}
+    Comment    Videos
+    Mobile element text should be    ${lblVideos}    ${txtVideos}
+    Comment    Music
+    Mobile element text should be    ${lblMusic}    ${txtMusic}
+    Comment    Files
+    Mobile element text should be    ${lblFiles}    ${txtFiles}
+    Comment    ดูข้อมูล
+    Mobile element text should be    ${lblViewCloud}    ${txtViewCloud}
+    Mobile Capture Screen At Verify Point    Verify AIS Cloud+ storage (Register)
+
+Verify Current Roaming Package No Package
+    Comment    แพ็กเกจโรมมิ่งปัจจุบัน
+    Mobile element text should be    ${lblCardRoaming}    ${txtCardRoaming}
+    Comment    คุณยังไม่ได้สมัครแพ็กเกจโรมมิ่ง
+    Mobile element text should be    ${lblNoRoamingPackage}    ${txtNoRoamingPackage}
+    Comment    คุณสามารถสมัคร แพ็กเกจโรมมิ่งในราคาสุดคุ้ม เพื่อใช้งานอินเทอร์เน็ต/โทรและส่ง SMS ขณะอยู่ที่ต่างประเทศ
+    Mobile element text should be    ${lblNoRoamingPackageDescription}    ${txtNoRoamingPackageDescription}
+    Comment    รายละเอียด
+    Swipe Element To Screen    ${lblCardRoaming}    up
+    Mobile element text should be    ${lblMore}    ${txtMore}
+    Mobile Capture Screen At Verify Point    Verify Current Roaming Package (No Package)
+
+Verify Current Roaming Package Have Package
+    Comment    แพ็กเกจโรมมิ่งปัจจุบัน
+    Mobile element text should be    ${lblCardRoaming}    ${txtCardRoaming}
+    Comment    รายละเอียด
+    swipe in screen to element    ${lblMore}    up
+    Mobile element text should be    ${lblMore}    ${txtMore}
+    Mobile Capture Screen At Verify Point    Verify Current Roaming Package (Have Package)
+
+
+Verify AIS Cloud+ storage No Register From Home Page
+    [Arguments]    ${Number}
+    Comment    พื้นที่ใช้งาน AIS Cloud+
+    Mobile element text should be    ${lblCardAISCloud}    ${txtCardAISCloud}
+    Comment    TH
+    AISAppiumEx.Wait Until Element Is Visible    ${btnCloudPlusLanguageTH}    10
+    Comment    EN
+    AISAppiumEx.Wait Until Element Is Visible    ${btnCloudPlusLanguageEN}    10
+    Comment    Cloud+
+    AISAppiumEx.Wait Until Element Is Visible    ${imgCloudPlus}    10
+    Comment    เบอร์โทรศัพท์
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusMobileNo}    10
+    Comment    รหัสผ่าน
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusPassword}    10
+    Comment    อีเมล
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusEmail}    10
+    Comment    การลงทะเบียน
+    AISAppiumEx.Wait Until Element Is Visible    ${btnRegisterCloudPlus}    10
+    Mobile Capture Screen At Verify Point    Capture Verify Not Register Cloud Plus page
+
+Verify AIS Cloud+ storage Register From Home Page
+    Comment    พื้นที่ใช้งาน AIS Cloud+
+    Mobile element text should be    ${lblCardAISCloud}    ${txtCardAISCloud}
+    Comment    TH
+    AISAppiumEx.Wait Until Element Is Visible    ${btnCloudPlusLanguageTH}    10
+    Comment    EN
+    AISAppiumEx.Wait Until Element Is Visible    ${btnCloudPlusLanguageEN}    10
+    Comment    Cloud+
+    AISAppiumEx.Wait Until Element Is Visible    ${imgCloudPlus}    10
+    Comment    เบอร์โทรศัพท์
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusMobileNo}    10
+    Comment    รหัสผ่าน
+    AISAppiumEx.Wait Until Element Is Visible    ${txtCloudPlusPassword}    10
+    AISAppiumEx.Wait Until Element Is Visible    ${btnLoginCloudPlus}    10
+    ${ForgotPasswordCloudPlus}=    Get mobile attribute    ${lblForgotPasswordCloudPlus}    name
+    Should Be Equal    ${ForgotPasswordCloudPlus}    ${txtForgotPasswordCloudPlus}
+    ${NotRegisteredCloudPlus}=    Get mobile attribute    ${lblNotRegisteredCloudPlus}    name
+    Should Be Equal    ${NotRegisteredCloudPlus}    ${txtNotRegisteredCloudPlus}
+    ${CreateAnAccountCloudPlus}=    Get mobile attribute    ${lblCreateAnAccountCloudPlus}    name
+    Should Be Equal    ${CreateAnAccountCloudPlus}    ${txtCreateAnAccountCloudPlus}
+    Mobile Capture Screen At Verify Point    Capture Verify Already Register Cloud Plus page
+
+Verify Apply Roaming Package No Package From Home Page
+    [Arguments]    ${Number}
+    Comment    สมัครแพ็กเกจโรมมิ่ง
+    Mobile element text should be    ${lblTitleApplyRoamingPackage}    ${txtTitleApplyRoamingPackage}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblNumber}    ${Number}
+    Comment    ประเทศที่ต้องการสมัคร
+    Mobile element text should be    ${lblRoamingCountry}    ${txtRoamingCountry}
+    Comment    ระบบของหมายเลขที่ต้องการสมัคร
+    Mobile element text should be    ${lblCustomerType}    ${txtCustomerType}
+    Comment    ประเภทแพ็กเกจที่ต้องการ
+    Mobile element text should be    ${lblPackageType}    ${txtPackageType}
+    Comment    ดำเนินการต่อ
+    AISAppiumEx.Wait Until Element Is Visible    ${btnContinueApplyRoamingPackage}
+    Comment    เงื่อนไขบริการ
+    Mobile element text should be    ${lblMsgConditions}    ${txtMsgConditions}
+    Mobile Capture Screen At Verify Point    Verify Apply Roaming Package(No Package) From Home Page
+
+Verify Current Package & Remaining Have Package From Home Page
+    [Arguments]    ${Number}
+    Comment    แพ็กเกจปัจจุบัน/ยอดคงเหลือ
+    Mobile element text should be    ${lblCurrentPackageAndRemaining}    ${txtCurrentPackageAndRemaining}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblNumberCurrentPackageAndRemaining}    ${Number}
+    Comment    ตรวจสอบว่ามีรายการแพ๊กเกจ
+    AISAppiumEx.Element Should Not Contain Text    ${lblPackageList}    ${txtPackageList}
+    Mobile Capture Screen At Verify Point    Capture Verify Current Package And Remaining page
+
+Verify Top Up page From Remaining Balance Home Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Top Up page From Remaining Balance Home Page Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Top Up page From Remaining Balance Home Page iOS    ${Number}
+
+Verify Top Up page From Remaining Balance Home Page Android
+    [Arguments]    ${Number}
+    Comment    Hamburger Menu
+    AISAppiumEx.Wait Until Page Contains Element    ${btnHamburger}
+    Comment    Camera
+    AISAppiumEx.Wait Until Page Contains Element    ${btnCamera}
+    Comment    AIS Banner
+    Wait Mobile Until Element Visible    ${imgAISbannerTopUp}
+    Comment    เติมเงิน
+    Mobile element text should be    ${lblHeaderTopUp}    ${txtHeaderTopUp}
+    Comment    ชื่อลูกค้า
+    ${UserName}    Get mobile text    ${lblUserName}
+    Should Not Be Empty    ${UserName}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblUserNumber}    ${Number}
+    Comment    เติมเงิน (แท๊ป)
+    Mobile element text should be    ${lblTabTopUp}    ${txtTabTopUp}
+    Comment    เลือกช่องทางการเติมเงิน
+    Mobile element text should be    ${lblSelectTopUpChannel}    ${txtSelectTopUpChannel}
+    Comment    บัตรเครดิต
+    swipe in screen out from element    ${btnHamburger}
+    Mobile element text should be    ${lblChxBoxCreditCard}    ${txtChxBoxCreditCard}
+    Comment    บัตรเดบิต
+    Mobile element text should be    ${lblChxBoxDebitCard}    ${txtChxBoxDebitCard}
+    Comment    mPAY Wallet
+    Mobile element text should be    ${lblChxBoxMPay}    ${txtChxBoxMPay}
+    Comment    บัตรเติมเงิน
+    Mobile element text should be    ${lblChxBoxCashcard}    ${txtChxBoxCashcard}
+    Comment    ระบุหมายเลขโทรศัพท์ที่ต้องการเติมเงิน
+    Mobile element text should be    ${lblTapDestinationNumber}    ${txtTapDestinationNumber}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblUserNumber}    ${Number}
+    Comment    เลือกจำนวนที่ต้องการเติมเงิน
+    Mobile element text should be    ${lblTapSelectTopUpAmount}    ${txtTapSelectTopUpAmount}
+    Comment    ระบุ
+    Mobile element text should be    ${lblSelectBoxPleaseSelect}    ${txtSelectBoxPleaseSelect}
+    Comment    กรุณาตรวจสอบรายการเติมเงินของคุณอีกครั้ง แล้วกด ต่อไป เพื่อทำรายการ
+    Mobile element text should be    ${lblBeforeConfirm}    ${txtBeforeConfirm}
+    Comment    ปุ่ม ต่อไป
+    AISAppiumEx.Wait Until Page Contains Element    ${btnNext}
+    Mobile Capture Screen At Verify Point    Verify Top Up page (From Remaining Balance Home Page)
+
+Verify Top Up page From Remaining Balance Home Page iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element   ${TitleTopUp}
+    ${Number}    Get mobile text    ${lblUserNumber}
+    Mobile element text should be    ${lblUserNumber}    ${Number}
+    Mobile element text should be    ${lblEnterdestinationnumber}    ${TapDestinationNumber}
+    Wait Mobile Until Element Visible    ${fldNumberTopup}
+    Mobile element text should be    ${lblSelectTopUpChannels}    ${SelectTopUpChannel}
+    Wait Mobile Until Element Visible    ${lblCreditAndDebit}
+    Wait Mobile Until Element Visible    ${btnVISACard}
+    Wait Mobile Until Element Visible    ${btnMasterCard}
+    Wait Mobile Until Element Visible    ${btnJCBCard}
+    Wait Mobile Until Element Visible    ${btnAMEXCard}
+    Wait Mobile Until Element Visible    ${btnEWallet}
+    Wait Mobile Until Element Visible    ${btnRefillCard}
+    Mobile Capture Screen At Verify Point    Verify Top Up page (From Remaining Balance Home Page) 1
+    Swipe to element    ${btnNextTopUp}
+    Mobile element text should be    ${lblSelectTopUpAmount}    ${TapSelectTopUpAmount}
+    : FOR    ${count}    IN RANGE    0    8    1
+    \    Wait Mobile Until Element Visible    @{SelectTopUp}[${Count}]
+    \    ${Number}    Get mobile text    @{SelectTopUp}[${Count}]
+    Mobile element text should be    ${lblVerifyYourTopup}    ${BeforeConfirm}
+    Wait Mobile Until Element Visible    ${btnNextTopUp}
+    Wait Mobile Until Element Visible    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Top Up page (From Remaining Balance Home Page) 2
+
+Verify Top Up page From Valid Until Home Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Top Up page From Valid Until Home Page Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Top Up page From Valid Until Home Page iOS    ${Number}
+
+Verify Top Up page From Valid Until Home Page Android
+    [Arguments]    ${Number}
+    Comment    Hamburger Menu
+    AISAppiumEx.Wait Until Page Contains Element    ${btnHamburger}
+    Comment    Camera
+    AISAppiumEx.Wait Until Page Contains Element    ${btnCamera}
+    Comment    AIS Banner
+    Wait Mobile Until Element Visible    ${imgAISbannerTopUp}
+    Comment    เติมเงิน
+    Mobile element text should be    ${lblHeaderTopUp}    ${txtHeaderTopUp}
+    Comment    ชื่อลูกค้า
+    ${UserName}    Get mobile text    ${lblUserName}
+    Should Not Be Empty    ${UserName}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblUserNumber}    ${Number}
+    Comment    เติมเงิน (แท๊ป)
+    Mobile element text should be    ${lblTabTopUp}    ${txtTabTopUp}
+    Comment    เลือกช่องทางการเติมเงิน
+    Mobile element text should be    ${lblSelectTopUpChannel}    ${txtSelectTopUpChannel}
+    Comment    บัตรเครดิต
+    swipe in screen out from element    ${btnHamburger}
+    Mobile element text should be    ${lblChxBoxCreditCard}    ${txtChxBoxCreditCard}
+    Comment    บัตรเดบิต
+    Mobile element text should be    ${lblChxBoxDebitCard}    ${txtChxBoxDebitCard}
+    Comment    mPAY Wallet
+    Mobile element text should be    ${lblChxBoxMPay}    ${txtChxBoxMPay}
+    Comment    บัตรเติมเงิน
+    Mobile element text should be    ${lblChxBoxCashcard}    ${txtChxBoxCashcard}
+    Comment    ระบุหมายเลขโทรศัพท์ที่ต้องการเติมเงิน
+    Mobile element text should be    ${lblTapDestinationNumber}    ${txtTapDestinationNumber}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblUserNumber}    ${Number}
+    Comment    เลือกจำนวนที่ต้องการเติมเงิน
+    Mobile element text should be    ${lblTapSelectTopUpAmount}    ${txtTapSelectTopUpAmount}
+    Comment    ระบุ
+    Mobile element text should be    ${lblSelectBoxPleaseSelect}    ${txtSelectBoxPleaseSelect}
+    Comment    กรุณาตรวจสอบรายการเติมเงินของคุณอีกครั้ง แล้วกด ต่อไป เพื่อทำรายการ
+    Mobile element text should be    ${lblBeforeConfirm}    ${txtBeforeConfirm}
+    Comment    ปุ่ม ต่อไป
+    AISAppiumEx.Wait Until Page Contains Element    ${btnNext}
+    Mobile Capture Screen At Verify Point    Verify Top Up page (From Valid Until Home Page)
+
+Verify Top Up page From Valid Until Home Page iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element   ${TitleTopUp}
+    ${Number}    Get Mobile Text    ${lblUserNumber}
+    Should Match Regexp    ${Number}    ${UserMobileNumber}
+    Mobile element text should be    ${lblEnterdestinationnumber}    ${TapDestinationNumber}
+    Wait Mobile Until Element Visible    ${fldNumberTopup}
+    Mobile element text should be    ${lblSelectTopUpChannels}    ${SelectTopUpChannel}
+    Wait Mobile Until Element Visible    ${lblCreditAndDebit}
+    Wait Mobile Until Element Visible    ${btnVISACard}
+    Wait Mobile Until Element Visible    ${btnMasterCard}
+    Wait Mobile Until Element Visible    ${btnJCBCard}
+    Wait Mobile Until Element Visible    ${btnAMEXCard}
+    Wait Mobile Until Element Visible    ${btnEWallet}
+    Wait Mobile Until Element Visible    ${btnRefillCard}
+    Mobile Capture Screen At Verify Point    Verify Top Up page (From Valid Until Home Page) 1
+    Swipe to element    ${btnNextTopUp}
+    Mobile element text should be    ${lblSelectTopUpAmount}    ${TapSelectTopUpAmount}
+    : FOR    ${count}    IN RANGE    0    8    1
+    \    Wait Mobile Until Element Visible    @{SelectTopUp}[${Count}]
+    \    ${Number}    Get mobile text    @{SelectTopUp}[${Count}]
+    Mobile element text should be    ${lblVerifyYourTopup}    ${BeforeConfirm}
+    Wait Mobile Until Element Visible    ${btnNextTopUp}
+    Wait Mobile Until Element Visible    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Top Up page (From Valid Until Home Page) 2
+
+Verify Camera First time
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Camera First time Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Camera First time iOS
+
+Verify Camera First time Android
+    Mobile Capture Screen At Verify Point    Verify Camera (1)
+    Comment    กดปุ่มอณุญาติ
+    Click Mobile Element    ${btnAllowPermission}
+    Comment    สแกน
+    Comment    Mobile element text should be    ${lblCamera}    ${txtCamera}
+    Mobile Capture Screen At Verify Point    Verify Camera (First time)
+
+Verify Camera First time iOS
+    Mobile Capture Screen At Verify Point    Verify Camera (1)
+    Comment    กดปุ่มอณุญาติ
+    Click Mobile Element    ${btnAllowPermission}
+    Comment    สแกน
+    Comment    Mobile element text should be    ${lblCamera}    ${txtCamera}
+    Mobile Capture Screen At Verify Point    Verify Camera (First time)
+    Click Mobile Element    ${btnCancelCamera}
+
+Verify Camera
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Camera Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Camera iOS
+
+Verify Camera Android
+    Comment    สแกน
+    Comment    Mobile element text should be    ${lblCamera}    ${txtCamera}
+    Mobile Capture Screen At Verify Point    Verify Camera
+    Click Mobile Element    ${btnCancelCamera}
+
+Verify Camera iOS
+    Comment    สแกน
+    Comment    Mobile element text should be    ${lblCamera}    ${txtCamera}
+    Mobile Capture Screen At Verify Point    Verify Camera
+    Click Mobile Element    ${btnCancelCamera}
+
+Verify Hamburger Menu
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Hamburger Menu Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Hamburger Menu iOS    ${Number}
+
+Verify Hamburger Menu Android
+    [Arguments]    ${Number}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblNumberHamburger}    ${Number}
+    Comment    สมัคร myAIS
+    Mobile element text should be    ${lblmnuRegister}    ${txtmnuRegister}
+    Comment    ข้อมูลของคุณ
+    Mobile element text should be    ${lblmnuMyProfile}    ${txtmnuMyProfile}
+    Comment    AIS Online Store
+    Mobile element text should be    ${lblmnuAISOnlineStore}    ${txtmnuAISOnlineStore}
+    Comment    AIS Website
+    Mobile element text should be    ${lblmnuAISWebsite}    ${txtmnuAISWebsite}
+    Comment    AIS Facebook
+    Mobile element text should be    ${lblmnuAISFacebook}    ${txtmnuAISFacebook}
+    Comment    AIS Twitter
+    Mobile element text should be    ${lblmnuAISTwitter}    ${txtmnuAISTwitter}
+    Comment    AIS Line
+    Mobile element text should be    ${lblmnuAISLine}    ${txtmnuAISLine}
+    Comment    ตั้งค่า
+    Mobile element text should be    ${lblmnuSettings}    ${txtmnuSettings}
+    Comment    ออกจากระบบ
+    Mobile element text should be    ${lblmnuLogout}    ${txtmnuLogout}
+    Mobile Capture Screen At Verify Point    Verify Hamburger Menu
+
+Verify Hamburger Menu iOS
+    [Arguments]    ${Number}
+    ${NumberMatch}    Get Mobile Text    ${lblNumberHamburger}
+    Should Match Regexp    ${NumberMatch}    ${UserMobileNumber}
+    Mobile element text should be    ${lblmnuRegister}    ${mnuRegister}
+    Mobile element text should be    ${lblmnuMyProfile}    ${mnuMyProfile}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${CreditAndDebitCard}
+    Mobile element text should be    ${lblmnuAISOnlineStore}    ${mnuAISOnlineStore}
+    Mobile element text should be    ${lblmnuAISWebsite}    ${mnuAISWebsite}
+    Mobile element text should be    ${lblmnuAISFacebook}    ${mnuAISFacebook}
+    Mobile element text should be    ${lblmnuAISTwitter}    ${mnuAISTwitter}
+    Mobile element text should be    ${lblmnuAISLine}    ${mnuAISLine}
+    Mobile element text should be    ${lblmnuSettings}    ${mnuSettings}
+    Mobile element text should be    ${lblmnuLogout}    ${mnuLogout}
+    Mobile Capture Screen At Verify Point    Verify Hamburger Menu
+
+Verify Home Page
+    [Arguments]    ${Number}
+    Run Keyword If    '${ar_NType}'=='FBB'    Verify Home of FBB    ${Number}
+    ...    ELSE    Verify Home Of Boss And Non-Boss Postpaid Number    ${Number}
+
+Swip Roaming Package
+    swipe in container to element    ${lblCardRoaming}    ${lblSummaryInfoContainer}    left
+
+Verify Your Current Package Page From Current Package Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Your Current Package Page From Current Package Page Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Your Current Package Page From Current Package Page iOS    ${Number}
+
+Verify Your Current Package Page From Current Package Page Android
+    [Arguments]    ${Number}
+    Comment    แพ็กเกจปัจจุบันของคุณ
+    Mobile element text should be    ${lblTitleCurrentPackage}    ${txtTitleCurrentPackage}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblNumberCurrentPackage}    ${Number}
+    Comment    แพ็กเกจหลัก
+    Mobile element text should be    ${lblHeaderCurrentPackage}    ${txtHeaderCurrentPackage}
+    swipe in screen to element    ${btnChangePricePlan}
+    Comment    ปุ่มเปลี่ยนแพ็กเกจหลัก
+    AISAppiumEx.Wait Until Element Is Visible    ${btnChangePricePlan}
+    Comment    แพ็กเกจ Internet
+    Mobile element text should be    ${lblHeaderPackageInternet}    ${txtHeaderPackageInternet}
+    Comment    ปุ่มสมัครแพ็กเสริม
+    swipe in screen to element    ${lblMsgConditions}
+    AISAppiumEx.Wait Until Element Is Visible    ${btnApplyPackage}
+    swipe in screen to element    ${lblMsgConditions}
+    Comment    เงื่อนไขบริการ
+    Mobile element text should be    ${lblMsgConditions}    ${txtMsgConditions}
+    Mobile Capture Screen At Verify Point    Verify Your Current Package Page (From Current Package Page)
+
+Verify Your Current Package Page From Current Package Page iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblCurrentPackage}    30
+    Click Mobile Element    ${lblMore}
+    Mobile element text should be    ${lblCurrentPackage}    ${CurrentPackage}    #แพ็กเกจปัจจุบันของคุณ
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblHeaderCurrentPackage}    ${HeaderCurrentPackage}    #แพ็กเกจหลัก
+    Wait Mobile Until Element Visible    ${lblChangePackage}    #ปุ่ม "เปลี่ยนแพ็กหลัก"
+    Swipe to element    ${lblMsgConditions}
+    Mobile element text should be    ${lblHeaderPackageInternet}    ${HeaderPackageInternet}    #Internet Package
+    Wait Mobile Until Element Visible    ${btnApplyPackage}    #ปุ่ม "สมัครแพ็กเสริม"
+    Mobile element text should be    ${lblMsgConditions}    ${MsgConditions}    #เงื่อนไขบริการ
+    Mobile Capture Screen At Verify Point    Verify Your Current Package Page (From Current Package Page)
+
+Verify Your Current Package Page From Remaining Package Page
+    [Arguments]    ${Number}
+    Comment    แพ็กเกจปัจจุบันของคุณ
+    Mobile element text should be    ${lblTitleCurrentPackage}    ${txtTitleCurrentPackage}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblNumberCurrentPackage}    ${Number}
+    Comment    แพ็กเกจหลัก
+    Mobile element text should be    ${lblHeaderCurrentPackage}    ${txtHeaderCurrentPackage}
+    swipe in screen to element    ${btnChangePricePlan}    up
+    Comment    ปุ่มเปลี่ยนแพ็กเกจหลัก
+    AISAppiumEx.Wait Until Element Is Visible    ${btnChangePricePlan}
+    Comment    ปุ่มสมัครแพ็กเสริม
+    swipe in screen to element    ${lblMsgConditions}
+    AISAppiumEx.Wait Until Element Is Visible    ${btnApplyPackage}
+    Comment    เงื่อนไขบริการ
+    Mobile element text should be    ${lblMsgConditions}    ${txtMsgConditions}
+    Mobile Capture Screen At Verify Point    Verify Your Current Package Page (From Remaining Package Page)
+
+Swipe Current Package
+    swipe in container to element    ${lblCardCurrentPackage}    ${lblSummaryInfoContainer}    left
+
+Go to AIS Cloud
+    Run Keyword If    "${ar_OS}"=="Android"    Go to AIS Cloud Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Go to AIS Cloud iOS
+
+Go to AIS Cloud Android
+    AISAppiumEx.Wait Until Element Is Visible    ${lblCurrentBalance}    30
+    ${text}=    Get mobile text    ${lblContainer}
+    Run Keyword If    '${text}'=='${txtCardCurrentPackage}'    swipe in container to element by wait until visible N time    ${lblCardAISCloud}    ${lblSummaryInfoContainer}    1    left
+    Run Keyword If    '${text}'=='${txtValidPackage}'    swipe in container to element by wait until visible N time    ${lblCardAISCloud}    ${lblSummaryInfoContainer}    2    left
+    ${text}=    Get mobile text    ${lblContainer}
+    Run Keyword If    '${text}'=='${txtCardCurrentPackage}'    swipe in container to element by wait until visible N time    ${lblCardAISCloud}    ${lblSummaryInfoContainer}    1
+    Run Keyword If    '${text}'=='${txtValidPackage}'    swipe in container to element by wait until visible N time    ${lblCardAISCloud}    ${lblSummaryInfoContainer}    2
+
+Go to AIS Cloud iOS
+    Wait Mobile Until Element Visible    ${BoxResultpage}    30
+    AIS Cloud Not Visible
+    Mobile Capture Screen At Verify Point    AIS Cloud
+
+AIS Cloud Not Visible
+    : FOR    ${SwipeAisCloud}    IN RANGE    0    3
+    \    Comment    Click Mobile Element    ${mnuPackage}
+    \    Comment    Click Mobile Element    ${mnuHome}
+    \    Swipe By Percent    50   40    50    99    #Up
+    \    Comment    ${AISCloud}    Wait Mobile Until Page Does Not Contain Element    ${lblAISCloud}
+    \    Comment    Run Keyword if    "${AISCloud}"=="None"    Swipe By Percent    90    50    1    50
+    \    ${AisCloudVisible}    Run Keyword And Return Status    Wait Mobile Until Element Visible    id=พื้นที่ใช้งาน AIS Cloud+    #${lblAISCloud}
+    \    Run Keyword If    '${AisCloudVisible}'=='True'    Exit For Loop
+    \    ${SwipeAisCloud}    Set Variable    ${SwipeAisCloud}+1
+
+Verify Register Free
+    Click Mobile Element    ${lblRegisterFree}
+
+Go to Roaming
+    Comment    AISAppiumEx.Wait Until Element Is Visible    ${lblCurrentBalance}    30
+    ${text}=    Get mobile text    ${lblContainer}
+    Run Keyword If    '${text}'=='${txtCardCurrentUsage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    4    left
+    Comment    หน้าแรกเป็นแพ็กเกจปัจจุบัน
+    Run Keyword If    '${text}'=='${txtCardCurrentPackage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    2    left
+    Comment    หน้าแรกเป็นแพ็กเกจคงเหลือ
+    Run Keyword If    '${text}'=='${txtValidPackage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    4    left
+    Comment    หน้าแรกเป็น AIS Cloud
+    Run Keyword If    '${text}'=='${txtCardAISCloud}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    1    left
+    Comment    ${text}=    Get mobile text    ${lblContainer}
+    Comment    หน้าแรกเป็นแพ็กเกจปัจจุบัน
+    Comment    Run Keyword If    '${text}'=='${txtCardCurrentPackage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    2
+    ...    left
+    Comment    หน้าแรกเป็นแพ็กเกจคงเหลือ
+    Comment    Run Keyword If    '${text}'=='${txtValidPackage}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    3
+    ...    left
+    Comment    หน้าแรกเป็น AIS Cloud
+    Run Keyword If    '${text}'=='${txtCardAISCloud}'    swipe in container to element by wait until visible N time    ${lblCardRoaming}    ${lblSummaryInfoContainer}    1    left
+
+Go to Current
+    Return From Keyword If    '${ar_NType}'=='FBB'
+    AISAppiumEx.Wait Until Element Is Visible    ${lblCurrentBalance}    30
+    ${text}=    Get mobile text    ${lblContainer}
+    Comment    หน้าแรกเป็นแพ็กเกจคงเหลือ
+    Run Keyword If    '${text}'=='${txtValidPackage}'    swipe in container to element by wait until visible N time    ${lblCardCurrentPackage}    ${lblSummaryInfoContainer}    1    left
+
+Check AIS Cloud Show First Time
+    [Arguments]    ${ar_LANG}
+    ${text}=    Get mobile text    ${lblContainer}
+    Run Keyword If    '${text}'=='${txtCardAISCloud}' and '${ar_LANG}'=='TH'    Choose Language    EN    ${ar_NETWORK}
+    Run Keyword If    '${text}'=='${txtCardAISCloud}' and '${ar_LANG}'=='EN'    Choose Language    TH    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+
+Verify Home Of Boss And Non-Boss Postpaid Number
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    VVerify Home Of Boss And Non-Boss Postpaid Number Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Home Of Boss And Non-Boss Postpaid Number iOS    ${Number}
+
+Verify Home Of Boss And Non-Boss Postpaid Number Android
+    [Arguments]    ${Number}
+    Comment    Hamburger menu
+    AISAppiumEx.Wait Until Page Contains Element    ${btnHamburger}
+    Comment    Camera
+    AISAppiumEx.Wait Until Page Contains Element    ${btnCamera}
+    Comment    AIS Banner
+    AISAppiumEx.Wait Until Page Contains Element    ${imgAISbannerHome}
+    Comment    หน้าหลัก
+    Mobile element text should be    ${lblHomePage}    ${txtMainPage}
+    Comment    ชื่อลูกค้า
+    ${UserName}    Get mobile text    ${lblUserName}
+    Should Not Be Empty    ${UserName}
+    Comment    เบอร์โทรศัพท์
+    ${UserNumber}=    Get mobile text    ${lblUserNumber}
+    Should Contain    ${Number}    ${UserNumber}
+    Comment    หน้าหลัก
+    Mobile element text should be    ${lblMainPage}    ${txtMainPage}
+    Comment    ยอดเงินคงเหลือ
+    Mobile element text should be    ${lblCurrentBalance}    ${txtCurrentBalance}
+    Comment    ใช้งานได้ถึงวันที่
+    Mobile element text should be    ${lblCurrentValidDate}    ${txtCurrentValidDate}
+    Comment    รายละเอียด
+    swipe in screen to element    ${btnHamburger}    up
+    Mobile Capture Screen At Verify Point    Verify At Home Page
+
+Verify Home Of Boss And Non-Boss Postpaid Number iOS
+    [Arguments]    ${Number}
+    AISAppiumEx.Wait Until Page Contains Element    ${btnHamburger}
+    AISAppiumEx.Wait Until Page Contains Element    ${btnCamera}
+    AISAppiumEx.Wait Until Page Contains Element    ${imgAISbannerHome}
+    Mobile element text should be    ${lblHomePage}    ${MainPage}
+    ${UserName}    Get mobile text    ${lblUserName}
+    Should Not Be Empty    ${UserName}
+    ${UserNumber}=    Get mobile text    ${lblUserNumberHome}
+    Should Match Regexp    ${UserNumber}    ${UserMobileNumber}
+    Mobile element text should be    ${lblMainPage}    ${MainPage}
+    Mobile element text should be    ${btnRemaining}    ${CurrentBalance}
+    Mobile element text should be    ${btnValidUntil}    ${CurrentValidDate}
+    Mobile element text should be    ${btnPointHome}    ${PointHome}
+    Wait Mobile Until Element Visible    ${btnMoreHome}
+    Wait Mobile Until Element Visible    ${btnQuickMenuList}
+    Comment    swipe in screen to element    ${btnHamburger}    up
+    Mobile Capture Screen At Verify Point    Verify At Home Page
+
+Verify Home of FBB
+    [Arguments]    ${Number}
+    Comment    Hamburger menu
+    AISAppiumEx.Wait Until Page Contains Element    ${btnHamburger}
+    Comment    Camera
+    AISAppiumEx.Wait Until Page Contains Element    ${btnCamera}
+    Comment    AIS Banner
+    AISAppiumEx.Wait Until Page Contains Element    ${imgAISbannerHome}
+    Comment    หน้าหลัก
+    Mobile element text should be    ${lblHomePage}    ${txtMainPage}
+    Comment    ชื่อลูกค้า
+    ${UserName}    Get mobile text    ${lblUserName}
+    Should Not Be Empty    ${UserName}
+    Comment    เบอร์โทรศัพท์
+    ${UserNumber}=    Get mobile text    ${lblUserNumber}
+    Should Contain    ${Number}    ${UserNumber}
+    Comment    หน้าหลัก
+    Mobile element text should be    ${lblMainPage}    ${txtMainPage}
+    Comment    ยอดเงินคงเหลือ
+    Mobile element text should be    ${lblBalanceFBB}    ${txtBalance}
+    Comment    ใช้งานได้ถึงวันที่
+    Comment    Mobile element text should be    ${lblCurrentValidDate}    ${txtCurrentValidDate}
+    Comment    รายละเอียด
+    swipe in screen to element    ${lblMore}    up
+    Mobile Capture Screen At Verify Point    Verify At Home Page
+
+Verify Page Menu Home In Case FBB
+    Mobile element text should be    ${lblCurrentPackage}    ${txtCurrentPackage}
+    Mobile element text should be    ${lblYourCurrentPackage}    ${txtYourCurrentPackage}
+    Mobile element text should be    ${lblYourValueAddedService}    ${txtYourValueAddedService}
+    Mobile element text should be    ${lblMore}    ${txtMore}
+    Mobile Capture Screen At Verify Point    Verify At Home Page current01
+
+Verify Page Bill AIS Fibre In Case: Go to "Bill AIS Fibre" page (From Balance Home Page)
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblBillfiberTitle}
+    comment
+    Mobile element text should be    ${lblNumber}    ${Number}
+    Wait Mobile Until Element Visible    ${btnPaymentToAnotherNumber}
+    Comment    Mobile element text should be    ${btnPaymentToAnotherNumber}    ${txtPaymentToAnotherNumber}
+    Mobile element text should be    ${btnViewAllBills}    ${txtViewAllBills}
+    Mobile element text should be    ${lblYouUsageCharge}    ${txtYouUsageCharge}
+    Mobile element text should be    ${lblPaymentChanels}    ${txtPaymentChanels}
+    Mobile element text should be    ${btnNextBill}    ${txtNextBill}
+    Mobile element text should be    ${btnBackBill}    ${txtNextBill}
+    Swipe to element    ${linkTermCondition}
+    Mobile element text should be    ${linkTermCondition}    ${txtTermCondition}
+    Mobile Capture Screen At Verify Point    bill pic 01
+
+Verify Page Your Current Package In Case: Go to "Your Current Package" page FBB
+    [Arguments]    ${Number}
+    Comment    แพ็กเกจปัจจุบันของคุณ
+    Mobile element text should be    ${lblTitleCurrentPackage}    ${txtTitleCurrentPackage}
+    Comment    เบอร์โทรศัพท์
+    Mobile element text should be    ${lblNumberCurrentPackage}    ${Number}
+    Comment    แพ็กเกจหลัก
+    Mobile element text should be    ${lblPricePlan}    ${txtPricePlan}
+    Comment    แพ็คเกจเสริม
+    Mobile element text should be    ${lblOnTopPackage}    ${txtOnTopPackage}
+    comment
+    Mobile Capture Screen At Verify Point    Verify Your Current Package Page (From Current Package Page)
+
+Select Hamberger
+    Wait Mobile Until Page Contains Element    ${btnHamburger}
+    Click Mobile Element    ${btnHamburger}
+
+Select Remaining Balance
+    Wait Mobile Until Page Contains Element    ${btnRemaining}
+    Click Mobile Element    ${btnRemaining}
+
+Select Valid Until
+    Wait Mobile Until Page Contains Element    ${btnValidUntil}
+    Click Mobile Element    ${btnValidUntil}
+
+Select Camera
+    Wait Mobile Until Page Contains Element    ${btnCamera}
+    Click Mobile Element    ${btnCamera}
+
+
+
+
+

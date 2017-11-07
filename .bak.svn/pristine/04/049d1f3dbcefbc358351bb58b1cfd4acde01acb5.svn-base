@@ -1,0 +1,30 @@
+*** Settings ***
+Resource          resource/PageKeywords/Topup.txt
+Resource          ../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+Verify Bank Page
+    &{#dict_device_name}=    Create Dictionary
+    log  ${lo_MyAIS_local_config_file_path}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    log to console     Pass
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    log to console     ${virtual_device_1_IPAppium}
+    #${appiumInfo}    Open My AIS    192.168.78.128:4444    iOS    10.3    f3ba442c16aebd6aff1272605c9bf04f829d03e1
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    #${driver}    Aisappium Open Application    http://192.168.78.128:4723/wd/hub    alias=MyAIS    platformName=iOS    platformVersion=10.3    deviceName=iPhone7
+    #...    udid=9f6b3327647267b6fb356568a73611e5b1c429c4    app=com.ais.mimo.eservice.inhouse1
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_Network}
+    Choose Language    ${ar_LANG}
+    Select Menu    TopUp
+    Select TopUp Channel    DebitCard
+    Clear Destination Number Field
+    Input Destination Number    ${AISNonBosPrepaidNumberTest2}
+    Select TopUp With Minimum Amount    #100 Baht
+    Click Next Button
+    Verify Summary Top Up Debit Card Page
+    Confirm Summary Top Up
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+

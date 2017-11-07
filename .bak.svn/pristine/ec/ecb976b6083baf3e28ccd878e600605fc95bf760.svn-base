@@ -1,0 +1,108 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/RegisterAISFibreAndCoverageChecking.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F3_Service_1-4_1,2_Y_1_1] Register AIS fibre
+    [Documentation]    Owner : Mon,B
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Register AIS Fibre/Check Coverage"
+    ...    4. Verify page only
+    ...
+    ...    F3_Service_1_2_Y_1_1
+    ...    Register AIS Fibre Case :Verify ""Register AIS Fibre"" page
+    ...    Source Number : 3PE,3BE
+    ...    Status : Active
+    ...
+    ...    ----- EN ------
+    ...    1. Login My AIS
+    ...    2. Click menu ""Service""
+    ...    3. Click sub menu ""Register AIS Fibre/Coverage Checking
+    ...    4. Verify ""AIS Fibre"" page \ (Logo AIS)
+    ...    5. Capture screen
+    ...
+    ...    ----- TH -----
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู ""บริการ""
+    ...    3. เลือกsub เมนู ""สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ""
+    ...    4. ตรวจสอบหน้า ""AIS Fibre"" (Logo AIS)
+    ...    5. Capture screen
+    [Tags]    success    service    debug    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Service Menu
+    Select RegisterAISFibre CheckCoverage Submenu
+    Verify Page AIS Fibre
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[Dummy Test Case] Log for TH lang
+    [Tags]    dummy
+    Log    Dummy test case
+
+[Perf-17] Go to Register Ais Fibre And Coverage Page
+    [Documentation]    **Owner:Now**
+    ...
+    ...    "1. Login to my AIS
+    ...    2. Select Service
+    ...    3. Click Register AIS Fibre/Coverage Checking
+    ...
+    ...
+    ...    * จับเวลาตั้งแต่ Click Register AIS Fibre/Coverage Checking จนถึงโหลดหน้า web สำเร็จ"
+    [Tags]    perf_17
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_myAIS_Perf_config_file_path_test}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Verify Login Postpaid
+    Select Service Menu
+    Select RegisterAISFibre CheckCoverage Submenu
+    ${StartTime}    Get Current Date
+    Wait Mobile Until Element Visible    ${lblTopBar}
+    ${EndTime}    Get Current Date
+    ${ElapsedTime}    Subtract Date From Date    ${EndTime}    ${StartTime}    verbose
+    Log    Time Used ${ElapsedTime}
+    [Teardown]    Teardown For Data Mobile    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke.
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Verify Page AIS Fibre
+    [Arguments]    ${SN}=${EMPTY}
+    Comment    Wait Mobile Until Page Contains Element    ${txtAISFibreRegistration}
+    Wait Mobile Until Page Contains Element    ${lblAisLogo}
+    Mobile Capture Screen At Verify Point    AIS_Fiber_Registration_On_Page    ${SN}
+
+Select Service Menu
+    Select Menu    Service
+
+Select RegisterAISFibre CheckCoverage Submenu
+    Select Sub Menu    RegisterAISFibre/CheckCoverage
+
+Teardown For Data Mobile
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_myAIS_Perf_config_file_path_test}    ${#dict_device_name}

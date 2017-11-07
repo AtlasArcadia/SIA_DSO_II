@@ -1,0 +1,3464 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/DomesticPackage.txt
+
+*** Test Cases ***
+[F1_2,4_1-2_Y_1_Test] Verify page menu package
+    [Documentation]    [F1_2_2_Y_1_Test] Verify page menu package
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ====EN====
+    ...    Test Step
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3.Verify Page should be displayed
+    ...    "Domestic Pacakge" at header
+    ...    - Current Package & Service
+    ...    - Change Main Package
+    ...    - Apply On-Top Package
+    ...    - Extra value Pacakge
+    ...    - Cancel On-Top Pacakge
+    ...    "Roaming Pacakge" at header
+    ...    - Current Package & Remaining
+    ...    - Apply Roaming Package
+    ...    - Roaming Service Rates
+    ...    4. Capture screen
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. ตรวจสอบสิ่งที่ปรากฎ
+    ...    Header "แพ็กเกจในประเทศ"
+    ...    - แพ็กเกจปัจจุบันและบริการเสริม
+    ...    - เปลี่ยนแพ็กเกจหลัก
+    ...    - สมัครแพ็กเสริม
+    ...    - แพ็กเสริมสุดคุ้ม
+    ...    - ยกเลิกแพ็กเสริม
+    ...    Header "แพ็กเกจโรมมิ่ง"
+    ...    - แพ็กเกจปัจจุบัน/ยอดคงเหลือ
+    ...    - สมัครแพ็กเกจโรมมิ่ง
+    ...    - อัตราค่าบริการโรมมิ่ง
+    ...    4. จับภาพหน้าจอ
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Verify Page Menu Package    ${ar_NType}
+    Swipe to element    ${btnMenu}    screen    down
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_2,4_1-2_Y_1_Test] Verify page Current Package have main package only
+    [Documentation]    [F2_2_2_Y_1_Test] Verify page "Current Package" have main package only
+    ...
+    ...    Owner :Eng
+    ...
+    ...    ====EN====
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Current Package & Service"
+    ...
+    ...    3PO and 3BO แยก keyword Verify เพราะ Flow in page not same
+    ...    ======================================
+    ...    4. Verify \ Page "Current Package & Service"
+    ...    - "Current Package & Service" text view
+    ...    - "<" button
+    ...    - Mobile No.
+    ...    - "Main Pacakge" box
+    ...    - Package name
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    - "Change Packge" button
+    ...    5. Capture Screen
+    ...
+    ...    +++++++++++++++++++++++++
+    ...    No enter to Change Main Package
+    ...    6. Click "Change Pacakge" button
+    ...    7. Verify page "Change Main Package"
+    ...    - "Change Main Package" text view
+    ...    - "<" button
+    ...    - Mobile No.
+    ...    - Your billing cycle
+    ...
+    ...    ====TH====
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    - "แพ็กเกจปัจจุบันและบริการเสริม" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก"
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    5. จับภาพหน้าจอ
+    ...    6. เลือก ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    7. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    - "เปลี่ยนแพ็กเกจหลัก" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Page Current Package Main Package Only    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_2,4_1-2_Y_2_Test] Verify page Current Package have main1 on top(Xtra Net)
+    [Documentation]    [F2_2,4_2_Y_2_Test] Verify page "Current Package" have main+1 on top(Xtra Net:InternetOne-Time)
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ====EN====
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Current Package & Service"
+    ...
+    ...
+    ...    3PO and 3BO แยก keyword Verify เพราะ Flow in page not same
+    ...    ======================================
+    ...
+    ...    4. Verify \ Page "Current Package & Service"
+    ...    - "Current Package & Service" text view
+    ...    - "<" button
+    ...    - Mobile No.
+    ...    - "Main Package" box
+    ...    - Package name
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    - "Change Packge" button
+    ...
+    ...    - "On-Top Pacakge" box
+    ...    - Package name
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    - "Apply Packge" button
+    ...    5. Capture Screen
+    ...
+    ...    ====TH====
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    - "แพ็กเกจปัจจุบันและบริการเสริม" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก"
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    - "สมัครแพ็กเสริม" box
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "สมัครแพ็กเสริม"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    MainAndOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MainAndOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Page Current Package Main+On-Top Package    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_2,4_1-2_Y_3_Test] Verify page Current Package have main2 on-top(Xtra Net and Xtra Talk)
+    [Documentation]    [F2_2_2_Y_3_Test] Verify page "Current Package" have main+2on-top(Xtra Net:InternetOne-Time + Xtra Talk:MaoMao)
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ====EN====
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Current Package & Service"
+    ...
+    ...
+    ...    3PO and 3BO แยก keyword Verify เพราะ Flow in page not same
+    ...    ======================================
+    ...
+    ...    4. Verify \ Page "Current Package & Service"
+    ...    - "Current Package & Service" text view
+    ...    - "<" button
+    ...    - Mobile No.
+    ...    - "Main Package" box
+    ...    - Package name
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    - "Change Packge" button
+    ...
+    ...    - "On-Top Pacakge" box
+    ...    - Package name 1
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    - Package name 2
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    - "Apply Packge" button
+    ...    5. Capture Screen
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    - "แพ็กเกจปัจจุบันและบริการเสริม" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก"
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    - "สมัครแพ็กเสริม" box
+    ...    - ชื่อแพ็กเกจ 1
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ชื่อแพ็กเกจ 2
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "สมัครแพ็กเสริม"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    MainAndTwoOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MainAndTwoOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Page Current Package Main+2 On-Top Package    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_2,4_1-2_Y_1_Test] Verify page Apply On-Top package
+    [Documentation]    Owner : Mac (Rukpong)(EN),Eng(TH)
+    ...
+    ...    ====EN====
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply On-Top Package"
+    ...    4. Verify \ Page "Apply On-Top Package"
+    ...    - Change Main Package (**fix Apply On-Top Package)
+    ...    - "<" button
+    ...    - Mobile number
+    ...    - You billing cycle
+    ...    - Xtra Talk
+    ...    - Xtra Net
+    ...    - Xtra Pack
+    ...    5. Capture Screen
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเสริม"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    - เปลี่ยนแพ็กเกจหลัก
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณ
+    ...    - แพ็กเกจเน้นคุย
+    ...    - แพ็กเกจเล่นเน็ต
+    ...    - แพ็กเกจคุยและเล่นเน็ต
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_2,4_1-2_Y_1_Test] Cancel On-Top Package - Not have Ontop package
+    [Documentation]    Owner : Mac (Rukpong)
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Cancel On-Top Package"
+    ...    4. Verify \ Page "Cancel On-Top Package"
+    ...    5. Verify dialog msg. "You mobile no. does not have on-top packages, or your on-top package cannot be canceled."
+    ...    6. Capture Screen
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    NotHaveOnTopPackage=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_NotHaveOnTopPackage
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    CancelOnTopPackage
+    Verify Cancel On Top Package Not Have Package
+    Verify Dialog Message Cancel On Top Not Have Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_1_Test] Verify page change main package
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Main Package"
+    ...    4. Verify \ Page "Change Main Package"
+    ...    - Change Main Package
+    ...    - "<" button
+    ...    - Mobile number
+    ...    - You billing cycle
+    ...    - iSWOP
+    ...    - Xtra Pack
+    ...    - Xtra Net
+    ...    - Xtra Talk
+    ...    - iSWOP NON-Stop package
+    ...    - Package list
+    ...    -Term & Condition
+    ...    5. Capture Screen
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    - เปลี่ยนแพ็กเกจหลัก
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณ
+    ...    - iSWOP
+    ...    - แพ็กเกจคุยและเล่นเน็ต
+    ...    - แพ็กเกจเล่นเน็ต
+    ...    - แพ็กเกจเน้นคุย
+    ...    - แพ็กเกจ iSWOP NON-Stop
+    ...    - รายการแพ็จเกจ
+    ...    - เงื่อนไขบริการ
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangeMainPackage
+    Verify Change Main Package Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_2_Test] Change main package Xtra Pack in case - 4G max speed immediately
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO ,3BO
+    ...    Status : Active
+    ...
+    ...    ***Update UI 19/01/2017 iSWOP Not Show in Change Main Package ***
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Main Package"
+    ...    4. Verify \ Page "Change Main Package"
+    ...    5. Click Xtra Pack
+    ...    6. Verify menu Xtra Pack
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - Other Packages
+    ...    7. Click 4G Max Speed
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Change Main Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Pack
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Change Main Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Change Main Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture Screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package"
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    5. เลือกแพ็กเกจคุยและเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - แพ็กเกจอื่นๆ
+    ...    7. เลือก 4G Max Speed
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจคุยและเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangeMainPackage
+    Verify Change Main Package Page    ${Number}
+    Select Main Package Type    XtraPack    #eg iSWOP,XtraPack,XtraNet,XtraTalk
+    Verify Xtra Pack Category    #verify xtra pack package page
+    Select Xtra Pack Package    4GMaxSpeed    #Click \ 4GMaxSpeed,iSmartiEntertainNonStop,SerenadePack ,OtherPackage
+    Verify Main Package List
+    ${PackageName}=    Select Main Package By Index    1    #Select First package & Return Package Name
+    Verify Package Detail Page(Step1)    ${Number}    ${PackageName}
+    Select Main Package
+    Verify Select Package Effective Date(Step 2)    ${Number}
+    Select Effective Date    Immediately
+    Verify Selected Package(step 3)    ${Number}    ${PackageName}
+    Confirm Select Package
+    Verify Dialog Change Package Success    ${msgChangeMainPackageSuccess}
+    Confirm Dialog Change Package Success
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_3_Test] Change main package Xtra Pack in case - iSmart immediately
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Main Package"
+    ...    4. Verify \ Page "Change Main Package"
+    ...    5. Click Xtra Pack
+    ...    6. Verify menu Xtra Pack
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - Other Packages
+    ...    7. Click iSmart
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 3rd package
+    ...    11. Verify page "Change Main Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Pack
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Change Main Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Change Main Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package"
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    5. เลือกแพ็กเกจคุยและเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - แพ็กเกจอื่นๆ
+    ...    7. เลือก iSmart
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือก แพ็กเกจลำดับที่3
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจคุยและเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangeMainPackage
+    Verify Change Main Package Page    ${Number}
+    Select Main Package Type    XtraPack    #eg iSWOP,XtraPack,XtraNet,XtraTalk
+    Verify Xtra Pack Category    #verify xtra pack package page
+    Select Xtra Pack Package    iSmart    #Click 4GMaxSpeed,iSmart,iEntertainNonStop,SerenadePack ,OtherPackage
+    Verify Main Package List
+    ${PackageName}=    Select Main Package By Index    1    #Select First package & Return Package Name
+    Verify Package Detail Page(Step1)    ${Number}    ${PackageName}
+    Select Main Package
+    Verify Select Package Effective Date(Step 2)    ${Number}
+    Select Effective Date    Immediately
+    Verify Selected Package(step 3)    ${Number}    ${PackageName}
+    Confirm Select Package
+    Verify Dialog Change Package Success    ${msgChangeMainPackageSuccess}
+    Confirm Dialog Change Package Success
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_4_Test] Change main package Xtra Pack in case - iEntertain Non-Stop immediatly
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Main Package"
+    ...    4. Verify \ Page "Change Main Package"
+    ...    5. Click Xtra Pack
+    ...    6. Verify menu Xtra Pack
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - Other Packages
+    ...    7. Click iEntertain Non-Stop
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1rd package
+    ...    11. Verify page "Change Main Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Pack
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Change Main Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Change Main Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package"
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    5. เลือกแพ็กเกจคุยและเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - แพ็กเกจอื่นๆ
+    ...    7. เลือก iEntertain Non-Stop
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือก แพ็กเกจลำดับที่1
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจคุยและเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangeMainPackage
+    Verify Change Main Package Page    ${Number}
+    Select Main Package Type    XtraPack    #eg iSWOP,XtraPack,XtraNet,XtraTalk
+    Verify Xtra Pack Category    #verify xtra pack package page
+    Select Xtra Pack Package    iEntertainNonStop    #Click 4GMaxSpeed,iSmart,iEntertainNonStop,SerenadePack ,OtherPackage
+    Verify Main Package List
+    ${PackageName}=    Select Main Package By Index    1    #Select First package & Return Package Name
+    Verify Package Detail Page(Step1)    ${Number}    ${PackageName}
+    Select Main Package
+    Verify Select Package Effective Date(Step 2)    ${Number}
+    Select Effective Date    Immediately
+    Verify Selected Package(step 3)    ${Number}    ${PackageName}
+    Confirm Select Package
+    Verify Dialog Change Package Success    ${msgChangeMainPackageSuccess}
+    Confirm Dialog Change Package Success
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_5_Test] Change Main package Xtra Pack in case - Serenade Pack immediatly
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Main Package"
+    ...    4. Verify \ Page "Change Main Package"
+    ...    5. Click Xtra Pack
+    ...    6. Verify menu Xtra Pack
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - Other Packages
+    ...    7. Click Serenade Pack
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1rd package
+    ...    11. Verify page "Change Main Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Pack
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Change Main Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Change Main Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package"
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    5. เลือกแพ็กเกจคุยและเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - แพ็กเกจอื่นๆ
+    ...    7. เลือก Serenade Pack
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือก แพ็กเกจลำดับที่1
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจคุยและเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangeMainPackage
+    Verify Change Main Package Page    ${Number}
+    Select Main Package Type    XtraPack    #eg iSWOP,XtraPack,XtraNet,XtraTalk
+    Verify Xtra Pack Category    #verify xtra pack package page
+    Select Xtra Pack Package    SerenadePack    #Click 4GMaxSpeed,iSmart,iEntertainNonStop,SerenadePack ,OtherPackage
+    Verify Main Package List
+    ${PackageName}=    Select Main Package By Index    1    #Select First package & Return Package Name
+    Verify Package Detail Page(Step1)    ${Number}    ${PackageName}
+    Select Main Package
+    Verify Select Package Effective Date(Step 2)    ${Number}
+    Select Effective Date    Immediately
+    Verify Selected Package(step 3)    ${Number}    ${PackageName}
+    Confirm Select Package
+    Verify Dialog Change Package Success    ${msgChangeMainPackageSuccess}
+    Confirm Dialog Change Package Success
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_6_Test] Change Main package Xtra Pack in case - Other Packages immediatly
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Main Package"
+    ...    4. Verify \ Page "Change Main Package"
+    ...    5. Click Xtra Pack
+    ...    6. Verify menu Xtra Pack
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - Other Packages
+    ...    7. Click Other Packages
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Change Main Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Pack
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Change Main Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Change Main Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture dialog msg.
+    ...    20. Click "OK"
+    ...    21. verify page "Package"
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    5. เลือกแพ็กเกจคุยและเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - แพ็กเกจอื่นๆ
+    ...    7. เลือกแพ็กเกจอื่นๆ
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจคุยและเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพ dialog message
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangeMainPackage
+    Verify Change Main Package Page    ${Number}
+    Verify Xtra Pack Category    #verify xtra pack package page
+    Select Xtra Pack Package    OtherPackage    #Click 4GMaxSpeed,iSmart,iEntertainNonStop,SerenadePack ,OtherPackage
+    Verify Main Package List
+    ${PackageName}=    Select Main Package By Index    1    #Select First package & Return Package Name
+    Verify Package Detail Page(Step1)    ${Number}    ${PackageName}
+    Select Main Package
+    Verify Select Package Effective Date(Step 2)    ${Number}
+    Select Effective Date    Immediately
+    Verify Selected Package(step 3)    ${Number}    ${PackageName}
+    Confirm Select Package
+    Verify Dialog Change Package Success    ${msgChangeMainPackageSuccess}
+    Confirm Dialog Change Package Success
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_7_Test] Change main package Xtra Net in case - Net SIM immediatly
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Main Package"
+    ...    4. Verify \ Page "Change Main Package"
+    ...    5. Click Xtra Net
+    ...    6. Verify menu Xtra Net
+    ...    7. Verify Net SIM
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 2nd package
+    ...    11. Verify page "Change Main Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Net
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Change Main Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Change Main Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package"
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    5. เลือกแพ็กเกจเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจเล่นเน็ต
+    ...    7. ตรวจสอบ Net SIM
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือก 2nd แพ็กเกจ
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangeMainPackage
+    Verify Change Main Package Page    ${Number}
+    Select Main Package Type    XtraNet    #eg iSWOP,XtraPack,XtraNet,XtraTalk
+    Verify Xtra Net Package List
+    ${PackageName}=    Select Main Package By Index    2    #Select \ Package
+    Verify Package Detail Page(Step1)    ${Number}    ${PackageName}
+    Select Main Package
+    Verify Select Package Effective Date(Step 2)    ${Number}
+    Select Effective Date    Immediately
+    Verify Selected Package(step 3)    ${Number}    ${PackageName}
+    Confirm Select Package
+    Verify Dialog Change Package Success    ${msgChangeMainPackageSuccess}
+    Confirm Dialog Change Package Success
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_8_Test] Change main package Xtra Talk in case - basic package immediatly
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO , 3BO
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Main Package"
+    ...    4. Verify \ Page "Change Main Package"
+    ...    5. Click Xtra Talk
+    ...    6. Verify menu Xtra Talk
+    ...    - Basic Package
+    ...    - Other Packages
+    ...    7. Click Basic Package
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Change Main Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Talk
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Change Main Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Change Main Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture dialog msg.
+    ...    20. Click "OK"
+    ...    21. verify page "Package"
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    5. เลือกแพ็กเกจเน้นคุย
+    ...    6. ตรวจสอบเมนู แพ็กเกจเน้นคุย
+    ...    - แพ็กเริ่มต้น
+    ...    - แพ็กเกจอื่นๆ
+    ...    7. เลือก แพ็กเริ่มต้น
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเน้นคุย
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพ dialog message
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangeMainPackage
+    Verify Change Main Package Page    ${Number}
+    Select Main Package Type    XtraTalk    #eg iSWOP,XtraPack,XtraNet,XtraTalk
+    Verify Xtra Talk Category
+    Verify Main Package List    #verify Package List
+    ${PackageName}=    Select Main Package By Index    1
+    Verify Package Detail Page(Step1)    ${Number}    ${PackageName}
+    Select Main Package
+    Verify Select Package Effective Date(Step 2)    ${Number}
+    Select Effective Date    Immediately
+    Verify Selected Package(step 3)    ${Number}    ${PackageName}
+    Confirm Select Package
+    Verify Dialog Change Package Success    ${msgChangeMainPackageSuccess}
+    Confirm Dialog Change Package Success
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_9_Test] Change main package Xtra Talk in case - other packages immediately
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO & 3BO
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Change Main Package"
+    ...    4. Verify \ Page "Change Main Package"
+    ...    5. Click Xtra Talk
+    ...    6. Verify menu Xtra Talk
+    ...    - Basic Package
+    ...    - Other Packages
+    ...    7. Click Other Packages
+    ...    8. Verify package list
+    ...    - package 1
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Change Main Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Talk
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Change Main Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Change Main Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package"
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "เปลี่ยนแพ็กเกจหลัก"
+    ...    4. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    5. เลือกแพ็กเกจเน้นคุย
+    ...    6. ตรวจสอบเมนู แพ็กเกจเน้นคุย
+    ...    - แพ็กเริ่มต้น
+    ...    - แพ็กเกจอื่นๆ
+    ...    7. เลือกแพ็กเกจอื่นๆ
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเน้นคุย
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangeMainPackage
+    Verify Change Main Package Page    ${Number}
+    Select Main Package Type    XtraTalk    #eg iSWOP,XtraPack,XtraNet,XtraTalk
+    Verify Xtra Talk Category
+    Select Sub Main Package    Other    #eg Basic,Other
+    Verify Main Package List    #verify Package List
+    ${PackageName}=    Select Main Package By Index    1
+    Verify Package Detail Page(Step1)    ${Number}    ${PackageName}
+    Select Main Package
+    Verify Select Package Effective Date(Step 2)    ${Number}
+    Select Effective Date    Immediately
+    Verify Selected Package(step 3)    ${Number}    ${PackageName}
+    Confirm Select Package
+    Verify Dialog Change Package Success    ${msgChangeMainPackageSuccess}
+    Confirm Dialog Change Package Success
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_2,4_1-2_Y_10_Test] Change Main package from current package&service page - 4G max speed immediately
+    [Documentation]    Owner : Tinpan
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO & 3BO
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Current Package & Service"
+    ...    4. Verify \ Page "Current Package & Service"
+    ...    - "Current Package & Service" text view
+    ...    - "<" button
+    ...    - Mobile No.
+    ...    - "Main Pacakge" box
+    ...    - Package name
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    - "Change Packge" button
+    ...    6. Click "Change Pacakge" button
+    ...    7. Verify page "Change Main Package"
+    ...    - "Change Main Package" text view
+    ...    - "<" button
+    ...    - Mobile No.
+    ...    - Your billing cycle
+    ...    8. Click Xtra Pack
+    ...    9. Verify menu Xtra Pack
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - Other Packages
+    ...    10. Click 4G Max Speed
+    ...    11. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    12. Capture Screen
+    ...    13. Click 1st package
+    ...    14. Verify page "Change Main Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Pack
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    15. Click "Next"
+    ...    16. Verify page "Change Main Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    17. Click "Immediately"
+    ...    18. Click "Next"
+    ...    19. Verify page "Change Main Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    20. Click "Confirm"
+    ...    21. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    22. Capture screen
+    ...    23. Click "OK"
+    ...    24. verify page "Current Package&Service"
+    ...    --------------------------------------------------------------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    - "แพ็กเกจปัจจุบันและบริการเสริม" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก"
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    6. เลือก ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    7. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    - "เปลี่ยนแพ็กเกจหลัก" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    8. เลือกแพ็กเกจคุยและเล่นเน็ต
+    ...    9. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    - 4G Max Speed
+    ...    - iSmart
+    ...    - iEntertain Non-Stop
+    ...    - Serenade Pack
+    ...    - แพ็กเกจอื่นๆ
+    ...    10. เลือก 4G Max Speed
+    ...    11. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    12. จับภาพหน้าจอ
+    ...    13. เลือกแพ็กเกจลำดับที่ 1
+    ...    14. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจคุยและเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    17. เลือก "มีผลทันที"
+    ...    18. เลือก "ต่อไป"
+    ...    19. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    20. เลือก "ยืนยัน"
+    ...    21. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    22. จับภาพหน้าจอ
+    ...    23. เลือก "ตกลง"
+    ...    24. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    CurrentPackage
+    Verify Current Package - Main Package    ${Number}
+    Change Main Package From Current Package    #click change package button
+    Verify Change Main Package Page    ${Number}    #verify change main package
+    Select Main Package Type    XtraPack    #Select & capture SCreen
+    Verify Xtra Pack Category    #verify xtra pack
+    Select Xtra Pack Package    4GMaxSpeed    #Click \ 4GMaxSpeed,iSmartiEntertainNonStop,SerenadePack ,OtherPackage
+    Verify Main Package List
+    ${PackageName}=    Select Main Package By Index    1    #Select First package & Return Package Name
+    Verify Package Detail Page(Step1)    ${Number}    ${PackageName}
+    Select Main Package
+    Verify Select Package Effective Date(Step 2)    ${Number}
+    Select Effective Date    Immediately
+    Verify Selected Package(step 3)    ${Number}    ${PackageName}
+    Confirm Select Package
+    Verify Dialog Change Package Success    ${msgChangeMainPackageSuccess}
+    Confirm Dialog Change Package Success
+    Verify Current Package After Change Main Package Success    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_2,4_1-2_Y_2_Test] Apply On-Top package Xtra talk - Monthly package Immediately
+    [Documentation]    Owner : Mac (Rukpong)(EN),Eng(TH)
+    ...
+    ...    ====EN====
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply On-Top Package"
+    ...    4. Verify \ Page "Apply On-Top Package"
+    ...    5. Click Xtra Talk
+    ...    6. Verify menu Xtra Talk
+    ...    - Monthly Package
+    ...    - Mao Mao
+    ...    7. Click Monthly Package
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Apply On-Top Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Talk
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Apply On-Top Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Apply On-Top Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package" ** (Change to "Thank you. You will get a confirmation SMS when the transaction is completed shortly.")
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเสริม"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    5. เลือกแพ็กเกจเน้นคุย
+    ...    6. ตรวจสอบเมนู แพ็กเกจเน้นคุย
+    ...    - แบบต่อเนื่องทุกเดือน
+    ...    - เหมา เหมา
+    ...    7. เลือก แบบต่อเนื่องทุกเดือน
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเน้นคุย
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select And Verify Talk OnTop Package
+    Select And Verify Monthly Package
+    ${firstPackage}=    Select First On Top Package
+    Verify Page step 1 Select Package    ${Number}    ${firstPackage}
+    Confirm Package
+    Verify page step 2 Select effective    ${Number}
+    Select Immediately
+    Confirm Package
+    Verify page Step 3 Confirm    ${Number}    ${firstPackage}
+    Confirm Package And Comfirm Effective Date
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_2,4_1-2_Y_3_Test] Apply On-Top package Xtra talk - Mao Mao Immediately
+    [Documentation]    Owner : Mac (Rukpong)(EN),Eng(TH)
+    ...
+    ...    ====EN====
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply On-Top Package"
+    ...    4. Verify \ Page "Apply On-Top Package"
+    ...    5. Click Xtra Talk
+    ...    6. Verify menu Xtra Talk
+    ...    - Monthly Package
+    ...    - Mao Mao
+    ...    7. Click Mao Mao
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Apply On-Top Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Talk
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Apply On-Top Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Apply On-Top Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package" ** (Change to "Thank you. You will get a confirmation SMS when the transaction is completed shortly.")
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเสริม"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    5. เลือกแพ็กเกจเน้นคุย
+    ...    6. ตรวจสอบเมนู แพ็กเกจเน้นคุย
+    ...    - แบบต่อเนื่องทุกเดือน
+    ...    - เหมา เหมา
+    ...    7. เลือก เหมา เหมา
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเน้นคุย
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select And Verify Talk OnTop Package
+    Select And Verify Talk One Time Package
+    ${firstPackage}=    Select First On Top Package
+    Verify Page step 1 Select Package    ${Number}    ${firstPackage}
+    Confirm Package
+    Verify page step 2 Select effective    ${Number}
+    Select Immediately
+    Confirm Package
+    Verify page Step 3 Confirm    ${Number}    ${firstPackage}
+    Confirm Package And Comfirm Effective Date
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_2,4_1-2_Y_4_Test] Apply On-Top package Xtra Net - Internet Mounthly Immediately
+    [Documentation]    Owner : Mac (Rukpong)(EN),Eng(TH)
+    ...
+    ...    ====EN====
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply On-Top Package"
+    ...    4. Verify \ Page "Apply On-Top Package"
+    ...    5. Click Xtra Net
+    ...    6. Verify menu Xtra Net
+    ...    - Internet Monthly
+    ...    - InternetOne-Time
+    ...    - Wifi
+    ...    7. Click Internet Monthly
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Apply On-Top Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Net
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Apply On-Top Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Apply On-Top Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package" ** (Change to "Thank you. You will get a confirmation SMS when the transaction is completed shortly.")
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเสริม"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    5. เลือกแพ็กเกจเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจเล่นเน็ต
+    ...    - Internet รายเดือน
+    ...    - เหมา เหมา Internet
+    ...    - Wifi
+    ...    7. เลือก Internet รายเดือน
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select And Verify Net OnTop Package
+    Select And Verify Internet Monthly
+    ${firstPackage}=    Select First On Top Package
+    Verify Page step 1 Select Package    ${Number}    ${firstPackage}
+    Confirm Package
+    Verify page step 2 Select effective    ${Number}
+    Select Immediately
+    Confirm Package
+    Verify page Step 3 Confirm    ${Number}    ${firstPackage}
+    Confirm Package And Comfirm Effective Date
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_2,4_1-2_Y_5_Test] Apply On-Top package Xtra Net - InternetOne-Time Immediately
+    [Documentation]    Owner : Mac (Rukpong)(EN),ENG(TH)
+    ...
+    ...    ====EN====
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply On-Top Package"
+    ...    4. Verify \ Page "Apply On-Top Package"
+    ...    5. Click Xtra Net
+    ...    6. Verify menu Xtra Net
+    ...    - Internet Monthly
+    ...    - InternetOne-Time
+    ...    - Wifi
+    ...    7. Click InternetOne-Time
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Apply On-Top Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Net
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Apply On-Top Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Apply On-Top Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package" ** (Change to "Thank you. You will get a confirmation SMS when the transaction is completed shortly.")
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเสริม"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    5. เลือกแพ็กเกจเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจเล่นเน็ต
+    ...    - Internet รายเดือน
+    ...    - เหมา เหมา Internet
+    ...    - Wifi
+    ...    7. เลือก เหมา เหมา Internet
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select And Verify Net OnTop Package
+    Select And Verify Internet One-Time
+    ${firstPackage}=    Select First On Top Package
+    Verify Page step 1 Select Package    ${Number}    ${firstPackage}
+    Confirm Package
+    Verify page step 2 Select effective    ${Number}
+    Select Immediately
+    Confirm Package
+    Verify page Step 3 Confirm    ${Number}    ${firstPackage}
+    Confirm Package And Comfirm Effective Date
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_2,4_1-2_Y_6_Test] Apply On-Top package Xtra Net - Wifi Immediately
+    [Documentation]    Owner : Mac (Rukpong)(EN),Eng(TH)
+    ...
+    ...    ====EN====
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply On-Top Package"
+    ...    4. Verify \ Page "Apply On-Top Package"
+    ...    5. Click Xtra Net
+    ...    6. Verify menu Xtra Net
+    ...    - Internet Monthly
+    ...    - InternetOne-Time
+    ...    - Wifi
+    ...    7. Click Wifi
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Apply On-Top Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Net
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Apply On-Top Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Apply On-Top Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture screen
+    ...    20. Click "OK"
+    ...    21. verify page "Package" ** (Change to "Thank you. You will get a confirmation SMS when the transaction is completed shortly.")
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเสริม"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    5. เลือกแพ็กเกจเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจเล่นเน็ต
+    ...    - Internet รายเดือน
+    ...    - เหมา เหมา Internet
+    ...    - Wifi
+    ...    7. เลือก Wifi
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพหน้าจอ
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select And Verify Net OnTop Package
+    Select And Verify Wifi
+    ${firstPackage}=    Select First On Top Package
+    Verify Page step 1 Select Package    ${Number}    ${firstPackage}
+    Confirm Package
+    Verify page step 2 Select effective    ${Number}
+    Select Immediately
+    Confirm Package
+    Verify page Step 3 Confirm    ${Number}    ${firstPackage}
+    Confirm Package And Comfirm Effective Date
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_2,4_1-2_Y_7_Test] Apply On-Top package Xtra Pack -One Time Immediately
+    [Documentation]    Owner : Mac (Rukpong)(EN),Eng(TH)
+    ...
+    ...    ====EN====
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply On-Top Package"
+    ...    4. Verify \ Page "Apply On-Top Package"
+    ...    5. Click Xtra Pack
+    ...    6. Verify menu Xtra Pack
+    ...    7. Verify Mao Mao Combo
+    ...    8. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    9. Capture Screen
+    ...    10. Click 1st package
+    ...    11. Verify page "Apply On-Top Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Pack
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    12. Click "Next"
+    ...    13. Verify page "Apply On-Top Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    14. Click "Immediately"
+    ...    15. Click "Next"
+    ...    16. Verify page "Apply On-Top Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    17. Click "Confirm"
+    ...    18. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    19. Capture dialog msg.
+    ...    20. Click "OK"
+    ...    21. verify page "Package"
+    ...    22. Click "Current Package & Service"
+    ...    23. Verify \ Page "Current Package & Service"
+    ...    - "Current Package & Service" text view
+    ...    - "<" button
+    ...    - Mobile No.
+    ...    - "Main Pacakge" box
+    ...    - Package name
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    24. Capture Screen
+    ...    25. Click "OK"
+    ...    26. verify page "Package" ** (Change to "Thank you. You will get a confirmation SMS when the transaction is completed shortly.")
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเสริม"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    5. เลือกแพ็กเกจคุยและเล่นเน็ต
+    ...    6. ตรวจสอบเมนู แพ็กเกจคุยและเล่นเน็ต
+    ...    7. ตรวจสอบ เหมา เหมา Combo
+    ...    8. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    9. จับภาพหน้าจอ
+    ...    10. เลือกแพ็กเกจลำดับที่ 1
+    ...    11. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจคุยและเล่นเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    14. เลือก "มีผลทันที"
+    ...    15. เลือก "ต่อไป"
+    ...    16. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    17. เลือก "ยืนยัน"
+    ...    18. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    19. จับภาพ dialog message
+    ...    20. เลือก "ตกลง"
+    ...    21. ตรวจสอบหน้า "แพ็กเกจ"
+    ...    22. เลือก "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    23. ตรวจสอบหน้า "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    - "แพ็กเกจปัจจุบันและบริการเสริม" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก"
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    24. จับภาพหน้าจอ
+    ...    25. เลือก "ตกลง"
+    ...    26. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select And Verify Talk And Net OnTop Package
+    Verify Talk And Net One Time
+    ${firstPackage}=    Select First On Top Package
+    Verify Page step 1 Select Package    ${Number}    ${firstPackage}
+    Confirm Package
+    Verify page step 2 Select effective    ${Number}
+    Select Immediately
+    Confirm Package
+    Verify page Step 3 Confirm    ${Number}    ${firstPackage}
+    Confirm Package And Comfirm Effective Date
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_2,4_1-2_Y_8_Test] Apply On-Top package Xtra talk from current package&service page - Monthly package Immediately
+    [Documentation]    Owner : Mac (Rukpong)(EN),ENG(TH)
+    ...
+    ...    ====EN====
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...    ===Remark ===========
+    ...    Condition: Need Apply On Top Package before Verify Page Current Package
+    ...    ===================
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Current Package & Service"
+    ...    4. Verify \ Page "Current Package & Service"
+    ...    - "Current Package & Service" text view
+    ...    - "<" button
+    ...    - Mobile No.
+    ...    - "Main Package" box
+    ...    - Package name
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    - "Change Packge" button
+    ...
+    ...    - "On-Top Pacakge" box
+    ...    - Package name
+    ...    - Expired date dd/mm/yyyy hh:mm:ss
+    ...    - "Apply Packge" button
+    ...    5. Click "Apply On-Top Package"
+    ...    6. Verify \ Page "Apply On-Top Package"
+    ...    7. Click Xtra Talk
+    ...    8. Verify menu Xtra Talk
+    ...    - Monthly Package
+    ...    - Mao Mao
+    ...    9. Click Monthly Package
+    ...    10. Verify package list
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xxx
+    ...    11. Capture Screen
+    ...    12. Click 1st package
+    ...    13. Verify page "Apply On-Top Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Xtra Talk
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - Detial Package
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    - Term & Conditions
+    ...    14. Click "Next"
+    ...    15. Verify page "Apply On-Top Package" step 2 Select effective
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Select package effective date
+    ...    - Next billing cycle
+    ...    - Next day
+    ...    - Immediately
+    ...    - "Back" botton
+    ...    - "Next" botton
+    ...    16. Click "Immediately"
+    ...    17. Click "Next"
+    ...    18. Verify page "Apply On-Top Package" Step 3 Confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - For package chabge during bill cycle:
+    ...    - Package effective date
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    - Terms & Conditions
+    ...    19. Click "Confirm"
+    ...    20. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    - "OK" botton
+    ...    21. Capture screen
+    ...    22. Click "OK"
+    ...    23. verify page "Package" ** (change to verify page "Current Package")
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    - "แพ็กเกจปัจจุบันและบริการเสริม" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก"
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...
+    ...    - "สมัครแพ็กเสริม" box
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "สมัครแพ็กเสริม"
+    ...    5. เลือก "สมัครแพ็กเสริม"
+    ...    6. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    7. เลือกแพ็กเกจเน้นคุย
+    ...    8. ตรวจสอบเมนู แพ็กเกจเน้นคุย
+    ...    - แบบต่อเนื่องทุกเดือน
+    ...    - เหมา เหมา
+    ...    9. เลือก แบบต่อเนื่องทุกเดือน
+    ...    10. ตรวจสอบ รายการแพ็จเกจ
+    ...    - แพ็กเกจ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    11. จับภาพหน้าจอ
+    ...    12. เลือกแพ็กเกจลำดับที่ 1
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเน้นคุย
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    14. เลือก "ต่อไป"
+    ...    15. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    16. เลือก "มีผลทันที"
+    ...    17. เลือก "ต่อไป"
+    ...    18. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 10
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    19. เลือก "ยืนยัน"
+    ...    20. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    21. จับภาพหน้าจอ
+    ...    22. เลือก "ตกลง"
+    ...    23. ตรวจสอบหน้า "แพ็กเกจ"
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ApplyOnTopPackage=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_ApplyOnTopPackage
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Current Package - Main Package And On Top Package    ${Number}
+    Apply On Top Package
+    Verify On Top Package    ${Number}
+    Select And Verify Talk OnTop Package
+    Select And Verify Monthly Package
+    ${firstPackage}=    Select First On Top Package
+    Verify Page step 1 Select Package    ${Number}    ${firstPackage}
+    Confirm Package
+    Verify page step 2 Select effective    ${Number}
+    Select Immediately
+    Confirm Package
+    Verify page Step 3 Confirm    ${Number}    ${firstPackage}
+    Confirm Package And Comfirm Effective Date
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Verify Current Package - Appy On Top Package    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_2,4_1-2_Y_2_Test] Cancel On-Top Package - have Ontop package
+    [Documentation]    Owner : Fang
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...    ===Remark ===========
+    ...    19/12/2016
+    ...    Condition: Apply On Top Package before Cancel
+    ...    20/12/2016
+    ...    Need Phone number :
+    ...    0932019540 (3PO)
+    ...
+    ...    0933510503 (3BO)
+    ...    ==================
+    ...
+    ...    *Test Step*
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Cancel On-Top Package"
+    ...    4. Verify \ Page "Cancel On-Top Package"
+    ...    5. Verify page "Cancel On-Top Package" step 1 Select package
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - On-Top Package
+    ...    - Package name
+    ...    - Term & Conditions
+    ...    6. Click "package"
+    ...    7. Verify page "Cancel On-Top Package" step 2 confirm
+    ...    - "<" botton
+    ...    - Mobile number
+    ...    - Your billing cycle
+    ...    - Detail
+    ...    - "Confirm" botton
+    ...    - "Back" botton
+    ...    - Term & Condition
+    ...    8. Click "Confirm"
+    ...    9. Verify dialog message "You will get a confirmation SMS when the transaction is completed shortly"
+    ...    ===Remark 19/12/2016====
+    ...    msg have "."
+    ...    =================
+    ...    - "OK" botton
+    ...    10. Capture dialog msg.
+    [Tags]    non_regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    CancelOnTopHavePackge=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_CancelOnTopHavePackge
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    CancelOnTopPackage
+    Verify Page Cancel On Top Package Step 1 Select Package    ${Number}
+    Select On Top Package
+    Verify Page Cancel On Top Package Step 2 Confirm    ${Number}
+    Confirm Cancel On Top Package
+    Verify Dialog Message Cancle On Top
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Page Menu Package
+    [Arguments]    ${ar_NType}
+    Run Keyword If    '${ar_NType}'=='FBB'    Verify Page Menu Package Of FBB Number
+    ...    ELSE    Verify Page Menu Package Of Boss And Non-Boss Postpaid Number
+
+Verify Page Current Package Main Package Only_3PO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lblMainPackageName}    ${CurrentMainPackageName}
+    Mobile element text should match regexp    ${expired_date_mainpackage}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only
+
+Verify Page Current Package Main+On-Top Package_3PO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lblMainPackageName}    ${CurrentMainPackageName}
+    Mobile element text should match regexp    ${expired_date_mainpackage}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblOnTopPackageOne}    ${CurrentOnTopPackageNameOne}
+    Mobile element text should match regexp    ${expired_date_ontoppackageOne}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCancel_OnTopPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package
+
+Verify Page Current Package Main+2 On-Top Package_3PO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lblMainPackageName}    ${CurrentMainPackageName}
+    Mobile element text should match regexp    ${expired_date_mainpackage}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblOnTopPackageOne}    ${CurrentOnTopPackageNameOne}
+    Mobile element text should match regexp    ${expired_date_ontoppackageOne}    ${txtExpiredDate}
+    Mobile element text should be    ${lblOnTopPackageTwo}    ${CurrentOnTopPackageNameTwo}
+    Swipe to element    ${btnCurrent_ApplyPackage}
+    Mobile element text should match regexp    ${expired_date_ontoppackageTwo}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCancel_OnTopPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package OnTopPackage
+
+Verify Page Current Package Main Package Only
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Page Current Package Main Package Only_3PO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Page Current Package Main Package Only_3BO    ${Number}
+
+Verify Page Current Package Main+On-Top Package
+    [Arguments]    ${Number}
+    Log To Console    in Verify naja
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Page Current Package Main+On-Top Package_3PO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Page Current Package Main+On-Top Package_3BO    ${Number}
+    Run Keyword If    "${ar_NType}"=="FBB"    Verify Page Current Package Main+On-Top Package_FBB    ${Number}
+
+Verify Page Current Package Main+2 On-Top Package
+    [Arguments]    ${Number}
+    Log To Console    Main + 2 OnTop
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Page Current Package Main+2 On-Top Package_3PO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Page Current Package Main+2 On-Top Package_3BO    ${Number}
+
+Verify Page Current Package Main Package Only_3BO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
+    Swipe Element To Screen    ${lblHeadCurrentPackageAndService}    screen    up    0.35
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lblMainPackageName}    ${CurrentMainPackageName}
+    Mobile element text should match regexp    ${expired_date_mainpackage}    ${txtExpiredDate}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only
+    Swipe to element    ${btnCurrent_ChangePackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+
+Verify Page Current Package Main+On-Top Package_3BO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lblMainPackageName}    ${CurrentMainPackageName}
+    Mobile element text should match regexp    ${expired_date_mainpackage}    ${txtExpiredDate}
+    Swipe Element To Screen    ${lblHeadMainPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package MainPackage
+    Swipe Element To Screen    ${lblHeadOnTopPackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblOnTopPackageOne}    ${CurrentOnTopPackageNameOne}
+    Mobile element text should match regexp    ${expired_date_ontoppackageOne}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCancel_OnTopPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package OnTopPackage
+
+Verify Page Current Package Main+2 On-Top Package_3BO
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Swipe Element To Screen    ${lblHeadMainPackage}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lblMainPackageName}    ${CurrentMainPackageName}
+    Mobile element text should match regexp    ${expired_date_mainpackage}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package MainPackage
+    Swipe Element To Screen    ${lblHeadOnTopPackage}    screen    up    0.5
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblOnTopPackageOne}    ${CurrentOnTopPackageNameOne}
+    Mobile element text should match regexp    ${expired_date_ontoppackageOne}    ${txtExpiredDate}
+    Mobile element text should be    ${lblOnTopPackageTwo}    ${CurrentOnTopPackageNameTwo}
+    Mobile element text should match regexp    ${expired_date_ontoppackageTwo}    ${txtExpiredDate}
+    Swipe to element    ${btnCurrent_ApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCancel_OnTopPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package OnTopPackage
+
+Verify Change Main Package Page
+    [Arguments]    ${customerNumber}
+    Wait Mobile Until Page Contains Element    ${lblChangeMainPackageTitle}    #CheckTitle
+    Wait Mobile Until Page Contains Element    ${btnChangeMainPackageTitleBack}    #Check btn Back
+    Mobile element text in name should match regexp whole string    ${lblCustomerNumber}    ${customerNumber}
+    Mobile element text should match regexp    ${lblChangeMainPackageBillCycle}    ${txtChangeMainPackageBillCycle}
+    Comment    Mobile element name should be    ${lblChangeMainiSWOPPackage}    ${txtISWOP}
+    Mobile element name should be    ${lblChangeMainTalkAndNetPlanPackage}    ${txtTalkAndNetPlanCategory}
+    Mobile element name should be    ${lblChangeMainInternetPlanPackage}    ${txtInternetPlanCategory}
+    Mobile element name should be    ${lblChangeMainTalkPlan}    ${txtTalkPlanCategory}
+    Comment    Mobile element name should be    ${lblMainPackageTypeTitle}    ${txtiSWOPNONPackage}
+    Comment    Mobile element name should be    ${lblTermAndCondition}    ${txtTerm&Condition}
+    Mobile Capture Screen At Verify Point    Change Main Package Page
+
+Verify On Top Package
+    [Arguments]    ${numberMobile}
+    Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${numberMobile}
+    Mobile check existing text    ${lblApplyOnTopYourBillingCycle}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTalkAndNet}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopNet}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTalk}
+    Mobile Capture Screen At Verify Point    Verify Page On Top Package
+
+Select Main Package Type
+    [Arguments]    ${packageType}
+    [Documentation]    \#eg iSWOP,XtraPack,XtraNet,XtraTalk
+    Click Mobile Element    ${btn${packageType}Package}
+    Comment    Wait Mobile Until Page Contains Element    ${lblChangeMainPackageBillCycle}
+    Comment    Wait Mobile Until Page Contains Element    ${btniSWOPPackage}
+    Comment    Wait Mobile Until Page Contains Element    ${btnXtraPackPackage}
+    Comment    Wait Mobile Until Page Contains Element    ${btnXtraNetPackage}
+    Comment    Wait Mobile Until Page Contains Element    ${btnXtraTalkPackage}
+    Comment    Wait Mobile Until Page Contains Element    ${lblXtraTalk}
+    Comment    Wait Mobile Until Page Contains Element    ${lblXtraNet}
+    Comment    Wait Mobile Until Page Contains Element    ${lblXtraPack}
+    Comment    Mobile Capture Screen At Verify Point    Verify Page
+
+Verify Cancel On Top Package Not Have Package
+    Wait Mobile Until Page Contains Element    ${titleCancelOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnBack}
+
+Verify Dialog Message Cancel On Top Not Have Package
+    Mobile element text should be    ${msgCancelOnTopNotHavePackage}    ${txtCancelNotHavePackage}
+    Mobile Capture Screen At Verify Point    Cancel On Top Not Have Package
+
+Verify Xtra Net Package List
+    Mobile check existing text    ${lblMainPackageTypeTitle}    #Net Sim
+    Mobile check existing text    ${lblNetSimPackage}    #Net sim package 1
+    Mobile Capture Screen At Verify Point    Xtra net package list
+
+Select Xtra Net Package And Return Package Name
+    [Arguments]    ${PackageNumber}
+    ${packageName}=    Get mobile text    ${lblNetSimPackage${PackageNumber}}
+    log    ${packageName}
+    Click Mobile Element    ${lblNetSimPackage${PackageNumber}}
+    [Return]    ${packageName}
+
+Verify Package Detail Page(Step1)
+    [Arguments]    ${customerNumber}    ${PackageName}
+    Mobile element text should be    ${lblChangeMainPackageTitle}    ${txtChangeMainPackageTitle}    #CheckTitle
+    Wait Mobile Until Page Contains Element    ${btnChangeMainPackageTitleBack}    #Check btn Back
+    Mobile element text in name should match regexp whole string    ${lblCustomerNumber}    ${customerNumber}    #verify customer number
+    Mobile element text should match regexp whole string    ${lblChangeMainPackageBillCycle}    ${txtChangeMainPackageBillCycle}
+    Mobile check existing text    ${lblPackageCategoryName}    #verify package category eg. Xtra Pack ,XtraNet,Xtratalk
+    Mobile element name should be    ${lblPackageNameSelected}    ${PackageName}    #verify package name
+    Mobile check existing text    ${lblPackageDescription}    # package desc
+    Comment    Swipe to element    ${lblTermAndCondition}
+    Wait Mobile Until Page Contains Element    ${btnChangeMainPackageBack}
+    Wait Mobile Until Page Contains Element    ${btnChangeMainPackageNext}
+    Comment    Mobile element text should be    ${lblTermAndCondition}    ${txtTerm&Condition}    #in 20170119 Tern& Condition Disappear
+    Mobile Capture Screen At Verify Point    Step1PackageDetail
+
+Select And Verify Talk OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalk}
+    Mobile element text should be    ${btnApplyOnTopMonthlyPackage}    ${txtApplyOnTopMonthlyPackage}
+    Mobile element text should be    ${btnApplyOnTopTalkOneTime}    ${txtApplyOnTopOneTime}
+    Mobile Capture Screen At Verify Point    Verify Talk Apply On Top
+
+Select And Verify Monthly Package
+    Click Mobile Element    ${btnApplyOnTopMonthlyPackage}
+    Mobile check existing text    ${subApplyOnTopPackage}
+    Mobile Capture Screen At Verify Point    Monthly Package Apply On Top
+
+Verify Package List Monthly Package
+    Mobile check existing text    ${AllNetwork25min}
+
+Select First On Top Package
+    ${element}    Aisappium Get Webelement    ${subApplyOnTopPackage}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${subApplyOnTopPackage}
+    [Return]    ${package}
+
+Verify Page step 1 Select Package
+    [Arguments]    ${numberMobile}    ${package}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${numberMobile}
+    Mobile check existing text    ${lblApplyOnTopYourBillingCycle}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopXtraTalkStepOne}
+    Mobile element text should be    ${lblApplyOnTopSelectPackage}    ${package}
+    Mobile check existing text    ${lblApplyOnTopDetailPackage}
+    Swipe to element    ${btnApplyOnTopConfirmBack}    screen
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmNext}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Step 1
+
+Confirm Package
+    Click Mobile Element    ${btnApplyOnTopConfirmNext}
+
+Verify page step 2 Select effective
+    [Arguments]    ${numberMobile}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${numberMobile}
+    Mobile check existing text    ${lblApplyOnTopYourBillingCycle}
+    Mobile element text should be    ${lblApplyOnTopSelectPackageEffective}    ${ApplyOnTopSelectPackageEffective}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopNextBillingCycle}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopNextDay}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopImmediately}
+    Swipe to element    ${btnApplyOnTopConfirmNext}    screen
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmNext}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Step 2
+
+Select Immediately
+    Click Mobile Element    ${btnApplyOnTopImmediately}
+
+Verify page Step 3 Confirm
+    [Arguments]    ${numberMobile}    ${package}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${numberMobile}
+    Mobile check existing text    ${lblApplyOnTopYourBillingCycle}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopYouHaveSelected}
+    Mobile element text should be    ${lblApplyOnTopPackageSelect}    ${package}
+    Mobile Capture Screen At Verify Point    Verify Step 3 (1)    ${SN}
+    Swipe to element    ${lblApplyOnTopPackageEffectiveDate}    screen
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopPackageEffectiveDate}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopEffectiveSelect}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirm}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Step 3 (2)    ${SN}
+
+Verify Dialog Change Package Success
+    [Arguments]    ${successText}
+    Mobile element text in name should match regexp whole string    ${lblConfirmDailogChangePackageSuccess}    ${successText}
+    Mobile Capture Screen At Verify Point    Change Package Success
+
+Select Main Package
+    Click Mobile Element    ${btnChangeMainPackageNext}
+
+Verify Select Package Effective Date(Step 2)
+    [Arguments]    ${customerNumber}
+    Mobile element text should be    ${lblChangeMainPackageTitle}    ${txtChangeMainPackageTitle}
+    Wait Mobile Until Page Contains Element    ${btnChangeMainPackageTitleBack}    #Check btn title Back
+    Mobile element text in name should match regexp whole string    ${lblCustomerNumber}    ${customerNumber}    #verify customer number
+    Mobile element text should match regexp whole string    ${lblChangeMainPackageBillCycle}    ${txtChangeMainPackageBillCycle}
+    Mobile element text should be    ${lblSelectPackageEffectiveDate}    ${txtChangeMainPackageSelectPackageEffectiveDate}
+    Mobile element text should be    ${lblNextbillingcycleEffective}    ${txtChangeMainPackageNextBillCycle}
+    Mobile element text should be    ${lblNextdayEffective}    ${txtChangeMainPackageNextDay}
+    Mobile element text should be    ${lblImmediatelyEffective}    ${txtChangeMainPackageImmediately}
+    Mobile Capture Screen At Verify Point    Step2PackageEffectivedetail
+    Comment    Swipe to element    ${lblTermAndCondition}    #in 20170119 Tern& Condition Disappear
+
+Select Effective Date
+    [Arguments]    ${EffectiveDate}
+    Click Mobile Element    ${lbl${EffectiveDate}Effective}
+    Click Mobile Element    ${btnChangeMainPackageNext}
+
+Verify Selected Package(step 3)
+    [Arguments]    ${customerNumber}    ${PackageName}
+    Mobile element text should be    ${lblChangeMainPackageTitle}    ${txtChangeMainPackageTitle}    #CheckTitle
+    Wait Mobile Until Page Contains Element    ${btnChangeMainPackageTitleBack}    #Check btn Back
+    Mobile element text in name should match regexp whole string    ${lblCustomerNumber}    ${customerNumber}    #verify customer number
+    Mobile element text should match regexp whole string    ${lblChangeMainPackageBillCycle}    ${txtChangeMainPackageBillCycle}
+    Mobile element text should be    ${lblYouHaveSelected}    ${txtChangeMainPackageYouSelectedPackage}
+    Mobile element name should be    ${lblMainPackageSelected}    ${PackageName}    # Verify Package Name
+    Mobile check existing text    ${lblRemarkPackage}    # For Package Change bla....
+    Swipe to element    ${btnChangeMainPackageConfirmSelectedPackage}
+    Mobile element text should be    ${lblChangeMainPackageEffectiveDateTitle}    ${txtChangeMainPackageEffectiveDate}    #${lblSelectPackageEffectiveDate}    #${lblChangeMainPackageEffectiveDateTitle}
+    Mobile check existing text    ${btnChangeMainPackageConfirmSelectedPackage}
+    Mobile element text should be    ${btnChangeMainPackageConfirmSelectedPackage}    ${txtChangeMainPackageConfirm}
+    Wait Mobile Until Page Contains Element    ${btnChangeMainPackageBack}
+    Mobile element text should be    ${btnChangeMainPackageBack}    ${txtChangeMainPackageCancel}
+    Comment    Mobile check existing text    ${lblTermAndCondition}
+    Mobile Capture Screen At Verify Point    Step3ConfirmSelectPackagePage
+
+Select Sub Main Package
+    [Arguments]    ${SubPackageTypeName}
+    Click Mobile Element    ${list${SubPackageTypeName}Package}
+
+Confirm Dialog Change Package Success
+    Click Mobile Element    ${btnOkChangePackageSuccess}
+
+Select And Verify Talk One Time Package
+    Click Mobile Element    ${btnApplyOnTopTalkOneTime}
+    Mobile check existing text    ${subApplyOnTopPackage}
+    Mobile Capture Screen At Verify Point    Mao Mao Package Apply On Top
+
+Select And Verify Net OnTop Package
+    Click Mobile Element    ${lblApplyOnTopNet}
+    Mobile element text should be    ${btnApplyOnTopInternetMonthly}    ${txtApplyOnTopInternetMonthly}
+    Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${txtApplyOnTopInternetOneTime}
+    Mobile element text should be    ${btnApplyOnTopWifi}    ${txtApplyOnTopWifi}
+    Mobile Capture Screen At Verify Point    Verify Net Apply On Top
+
+Select And Verify Internet Monthly
+    Click Mobile Element    ${btnApplyOnTopInternetMonthly}
+    Mobile check existing text    ${subApplyOnTopPackage}
+    Mobile Capture Screen At Verify Point    Verify Page Apply On Top List Package
+
+Select And Verify Internet One-Time
+    Click Mobile Element    ${btnApplyOnTopInternetOneTime}
+    Mobile check existing text    ${subApplyOnTopPackage}
+    Mobile Capture Screen At Verify Point    Internet One-Time Apply On Top
+
+Select And Verify Wifi
+    Click Mobile Element    ${btnApplyOnTopWifi}
+    Mobile check existing text    ${subApplyOnTopPackage}
+    Mobile Capture Screen At Verify Point    Wifi Apply On Top
+
+Select Main Package By Index
+    [Arguments]    ${PackageNUmber}
+    @{element}    Aisappium Get Webelements    ${lblMainPackage}
+    ${idx}=    Evaluate    int(${PackageNUmber})-1
+    log    ${idx}
+    ${packageName}=    AISAppiumEx.Get Text    @{element}[${idx}]
+    Click Mobile Element    ${lblFirstPackage} and @text="${packageName}"]
+    [Return]    ${packageName}
+
+Verify Main Package List
+    Mobile check existing text    ${lblMainPackage}
+    Mobile Capture Screen At Verify Point    Package List
+
+Select And Verify Talk And Net OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalkAndNet}
+    Mobile element text should be    ${lblApplyOnTopTalkAndNetOneTime}    ${ApplyOnTopTalkAndNetOneTime}
+    Mobile Capture Screen At Verify Point    Verify Talk And Net Apply On Top
+
+Verify Talk And Net One Time
+    #Sub On Top Package Talk And Net One Time is showed
+    Comment    Click Mobile Element    ${btnApplyOnTopMaoMaoCombo}
+    Mobile check existing text    ${subApplyOnTopPackage}
+    Mobile Capture Screen At Verify Point    Talk And Net Apply On Top
+
+Confirm Package And Comfirm Effective Date
+    Click Mobile Element    ${btnApplyOnTopConfirm}
+
+Confirm Select Package
+    Click Mobile Element    ${btnChangeMainPackageConfirmSelectedPackage}
+
+Change Main Package From Current Package
+    Click Mobile Element    ${btnCurrent_ChangePackage}
+
+Verify Xtra Pack Category
+    Mobile element name should be    ${listXtraPack4GMaxSpeed}    ${lblXtraPack4GMaxSpeed}
+    Comment    Mobile element name should be    ${listXtraPackiSmart}    ${lblXtraPackiSmart}
+    Mobile element name should be    ${listXtraPackiEntertainNonStop}    ${lblXtraPackiEntertainNonStop}
+    Mobile element name should be    ${listXtraPackSerenadePack}    ${lblXtraPackSerenadePack}
+    Comment    Mobile element name should be    ${listXtraPackOtherPackage}    ${lblXtraPackOtherPackages}
+    Comment    Click Mobile Element    ${btnApplyOnTopConfirm}
+    Mobile Capture Screen At Verify Point    Xtra Pack Category
+
+Verify Dialog Apply On Top Package
+    [Arguments]    ${successText}
+    Mobile element text should match regexp whole string    ${lblApplyOnTopConfirmDailogChangePackageSuccess}    ${successText}
+    Mobile Capture Screen At Verify Point    Change Package Success
+
+Confirm Dialog On Top Package
+    Click Mobile Element    ${btnApplyOnTopOkChangePackageSuccess}
+
+Select Xtra Pack Package
+    [Arguments]    ${Xtracategory}
+    Mobile check existing text    ${listXtraPack${Xtracategory}}
+    Click Mobile Element    ${listXtraPack${Xtracategory}}
+    Mobile Capture Screen At Verify Point    Xtra Pack Package
+
+Verify Page Cancel On Top Package Step 1 Select Package
+    [Arguments]    ${numberMobile}
+    Wait Mobile Until Page Contains Element    ${titleCancelOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnCancelOnTopBackToPrevious}
+    Mobile element text should be    ${lblCancelOnTopNumberPhone}    ${numberMobile}
+    Mobile check existing text    ${lblCancelOnTopYourBillingCycle}
+    Mobile check existing text    ${lblCancelOnTopHeader}
+    Mobile check existing text    ${lblCancelOnTopName}
+    Swipe to element    ${lblTermsAndConditionsCancelOnTop}    ${lblListPackgeCancelOnTop}
+    Wait Mobile Until Page Contains Element    ${lblTermsAndConditionsCancelOnTop}
+    Mobile Capture Screen At Verify Point    Cancel On Top Package Step 1 Select Package    ${SN}
+    Swipe to element    ${lblCancelOnTopHeader}    ${lblListPackgeCancelOnTop}    down
+
+Select On Top Package
+    Click Mobile Element    ${lblCancelOnTop}
+
+Verify Page Cancel On Top Package Step 2 Confirm
+    [Arguments]    ${numberMobile}
+    Wait Mobile Until Page Contains Element    ${titleCancelOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnCancelOnTopBackToPrevious}
+    Mobile element text should be    ${lblCancelOnTopNumberPhone}    ${numberMobile}
+    Mobile check existing text    ${lblCancelOnTopYourBillingCycle}
+    Mobile check existing text    ${lblCancelOnTopHeader}
+    Mobile check existing text    ${lblDetailCancelOnTop}
+    Wait Mobile Until Page Contains Element    ${btnConfirmCancelOnTop}
+    Wait Mobile Until Page Contains Element    ${btnBackCancelOnTop}
+    Swipe to element    ${lblTermsAndConditionsCancelOnTop}    screen
+    Wait Mobile Until Page Contains Element    ${lblTermsAndConditionsCancelOnTop}
+    Mobile Capture Screen At Verify Point    Cancel On Top Package Step 2 Confirm
+
+Confirm Cancel On Top Package
+    Swipe to element    ${btnConfirmCancelOnTop}    screen
+    Click Mobile Element    ${btnConfirmCancelOnTop}
+
+Verify Dialog Message Cancle On Top
+    Mobile element text should be    ${lblDialogCancelOnTop}    ${msgConfirmCancelOnTop}
+    Wait Mobile Until Page Contains Element    ${btnCancelOnTopOK}
+    Mobile Capture Screen At Verify Point    Dialog Message Cancel On Top
+    Click Mobile Element    ${btnCancelOnTopOK}
+
+Verify Current Package - Main Package And On Top Package
+    [Arguments]    ${numberMobile}
+    Mobile element text should be    ${titleCurrentPackageAndService}    ${lblCurrentPackageAndService}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageAndServiceBack}
+    Mobile element text should be    ${lblCurrentPackageAndServiceNumberPhone}    ${numberMobile}
+    Swipe Element To Screen    ${msgBoxMainPackage}
+    Mobile element text should be    ${msgBoxMainPackage}    ${txtMainPackage}
+    Mobile check existing text    ${lblNameMainPackage}
+    Mobile element text should match regexp    ${lblExpiredDateMainPackage}    ${txtExpiredDateMainPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageAndServiceChangePackage}
+    Swipe Element To Screen    ${msgBoxOnTopPackage}    screen    ratio=0.3
+    Mobile element text should be    ${msgBoxOnTopPackage}    ${txtOnTopPackage}
+    Mobile check existing text    ${lblNameApplyOnTopPackage}
+    Mobile element text should match regexp    ${lblExpiredDateApplyPackage}    ${txtExpiredDateApplyPackage}
+    Swipe to element    ${btnCurrentPackageAndServiceApplyPackage}    screen
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageAndServiceApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageAndServiceCancelOnTop}
+    Mobile Capture Screen At Verify Point    Verify Page Current Package And Service
+
+Verify Current Package - Main Package
+    [Arguments]    ${MobileNumber}
+    Mobile element name should be    ${lblCurrentPackageTitleChangeMainPackage}    ${txtCurrentPackageChangeMainPackage}
+    Wait Mobile Until Page Contains Element    ${btnChangeMainPackageTitleBack}
+    Mobile element name should be    ${lblCurrentPackageNumberChangeMainPackage}    ${MobileNumber}
+    Mobile check existing text    ${lblCurrentPackageNameChangemainPackage}
+    Mobile element text in name should match regexp whole string    ${lblCurrentPackageExpireDateChangeMainPackage}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnChangeCurrentPackageChangeMainPackage}
+    Mobile Capture Screen At Verify Point    Current Package Page
+
+Verify Xtra Talk Category
+    Mobile element name should be    xpath=//android.support.v7.widget.RecyclerView[@index="0"]/android.widget.LinearLayout[@index="3"]/android.widget.LinearLayout[@index="0"]/android.widget.TextView[@index="0"]    ${lblBasicPackage}    #${listBasicPackage}
+    Comment    Mobile element name should be    ${listOtherPackage}    ${lblOtherPackage}
+    Mobile Capture Screen At Verify Point    Xtra Talk category
+
+Apply On Top Package
+    Click Mobile Element    ${btnCurrentPackageAndServiceApplyPackage}
+
+Verify Current Package - Appy On Top Package
+    [Arguments]    ${numberMobile}
+    Mobile element text should be    ${titleCurrentPackageAndService}    ${lblCurrentPackageAndService}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageAndServiceBack}
+    Swipe to element    ${lblCurrentPackageAndServiceNumberPhone}    screen    down
+    Mobile element text should be    ${lblCurrentPackageAndServiceNumberPhone}    ${numberMobile}
+    Mobile element text should be    ${msgBoxMainPackage}    ${txtMainPackage}
+    Mobile check existing text    ${lblNameMainPackage}
+    Swipe to element    ${btnCurrentPackageAndServiceChangePackage}    screen    ratio=0.3
+    Mobile element text should match regexp    ${lblExpiredDateMainPackage}    ${txtExpiredDateMainPackage}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageAndServiceChangePackage}
+    Swipe Element To Screen    ${msgBoxOnTopPackage}
+    Mobile element text should be    ${msgBoxOnTopPackage}    ${txtOnTopPackage}
+    Mobile check existing text    ${lblNameApplyOnTopPackage}
+    Mobile element text should match regexp    ${lblExpiredDateApplyPackage}    ${txtExpiredDateApplyPackage}
+    Swipe to element    ${btnCurrentPackageAndServiceApplyPackage}    screen
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageAndServiceApplyPackage}
+    Mobile Capture Screen At Verify Point    Verify Page Current Apply On Top
+
+Verify Current Package After Change Main Package Success
+    [Arguments]    ${MobileNumber}
+    Mobile element name should be    ${lblCurrentPackageTitleChangeMainPackage}    ${txtCurrentPackageChangeMainPackage}
+    Wait Mobile Until Page Contains Element    ${btnChangeMainPackageTitleBack}
+    Mobile element name should be    ${lblCurrentPackageNumberChangeMainPackage}    ${MobileNumber}
+    Mobile check existing text    ${lblCurrentPackageNameChangemainPackage}
+    Mobile element text in name should match regexp whole string    ${lblCurrentPackageExpireDateChangeMainPackage}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnChangeCurrentPackageChangeMainPackage}
+    Mobile Capture Screen At Verify Point    CurrentPackageAfterChangeMainSuccess
+
+Teardown For Data Mobile
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Talk OnTop Package
+    Run Keyword If    ${ar_NType}=="3PE"    Select Talk OnTop Package 3PE
+    Run Keyword If    ${ar_NType}=="3PO"    Select Talk OnTop Package 3PO
+
+Select Talk OnTop Package 3PO
+    Click Mobile Element    ${lblApplyOnTopTalk_3PO}
+
+Select Talk OnTop Package 3PE
+    Click Mobile Element    ${lblApplyOnTopTalk_3PE}
+
+Select Sub Menu Talk OnTop
+    Run Keyword If    ${ar_NType}=="3PE"    Select Sub Menu Talk OnTop 3PE
+    Run Keyword If    ${ar_NType}=="3PO"    Select Sub Menu Talk OnTop 3PO
+
+Select Sub Menu Talk OnTop 3PO
+    Click Mobile Element    ${btnApplyOnTopMonthlyPackage}
+
+Select Sub Menu Talk OnTop 3PE
+    Click Mobile Element    ${btnApplyOnTopMaoMaoPackage_3PE}
+
+Verify Page Menu Package Of Boss And Non-Boss Postpaid Number
+    Wait Mobile Until Page Contains Element    ${lblDomesticPackage}    60
+    Swipe to element    ${subMnuRoamingServiceRates}
+    Mobile element text should be    ${lblDomesticPackage}    ${txtDomesticPackage}
+    Mobile element text should be    ${subMnuYourCurrentPackage}    ${YourCurrentPackage}
+    Mobile element text should be    ${subMnuExtravaluePackage}    ${ExtravaluePackage}
+    Mobile element text should be    ${subMnuApplyOtherOnTopPackages}    ${ApplyOtherOnTopPackages}
+    Mobile element text should be    ${subMnuChangePricePlan}    ${ChangePricePlan}
+    Mobile element text should be    ${lblRoamingPackage}    ${txtRoamingPackage}
+    Mobile element text should be    ${subMnuCurrentPackageRoaming}    ${txtCurrentPackageRoaming}
+    Mobile element text should be    ${subMnuApplyRoamingPackage}    ${txtApplyRoamingPackage}
+    Mobile element text should be    ${subMnuRoamingServiceRates}    ${txtRoamingServiceRates}
+    Mobile Capture Screen At Verify Point    Verify Menu Package
+
+Verify Page Menu Package Of FBB Number
+    Mobile element text should be    ${subMnuYourCurrentPackage}    ${YourCurrentPackage}
+    Mobile Capture Screen At Verify Point    Menu Package FBB
+
+Verify Page Current Package Main+On-Top Package_FBB
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lblMainPackageName}    ${CurrentMainPackageName}
+    Mobile element text should match regexp    ${expired_date_mainpackage}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile element text should be    ${lblHeadOnTopPackage}    ${MsgHeadOnTopPackage}
+    Mobile element text should be    ${lblOnTopPackageOne}    ${CurrentOnTopPackageNameOne}
+    Mobile element text should match regexp    ${expired_date_ontoppackageOne}    ${txtExpiredDate}
+    Mobile element text should be    ${lblOnTopPackageTwo}    ${CurrentOnTopPackageNameTwo}
+    Swipe to element    ${btnCurrent_ApplyPackage}
+    Mobile element text should match regexp    ${expired_date_ontoppackageTwo}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ApplyPackage}
+    Wait Mobile Until Page Contains Element    ${btnCancel_OnTopPackage}
+    Mobile Capture Screen At Verify Point    Current Package Main+2OnTop Package OnTopPackage
+
+Verify Page Current Package Main Package Only_FBB
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnCurrentPackageBack}
+    Mobile element text should be    ${lblHeadCurrentPackageAndService}    ${txtHeadCurrentPackageAndService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadMainPackage}    ${txtHeadMainPackage}
+    Mobile element text should be    ${lblMainPackageName}    ${CurrentMainPackageName}
+    Mobile element text should match regexp    ${expired_date_mainpackage}    ${txtExpiredDate}
+    Wait Mobile Until Page Contains Element    ${btnCurrent_ChangePackage}
+    Mobile Capture Screen At Verify Point    Current Package Main Package Only

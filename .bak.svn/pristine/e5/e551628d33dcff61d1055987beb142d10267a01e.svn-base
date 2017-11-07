@@ -1,0 +1,1976 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/BillAISPostpaid.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F1_2,4_1-2_N_4_Test] Payment to self number amount=0 Baht credit card (VISA)
+    [Documentation]    [F1_2,4_2_N_4_Test]Payment to self number amount=0 Baht Credit (VISA)
+    ...
+    ...    Owner : ENG
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set "Your payment amount" \ = 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (VISA)
+    ...    9.Click "Next" Button
+    ...    10.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลิอกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือกประเภทบัตร (VISA)
+    ...    9.กดปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบ Dialog message"กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Set Your Payment Amount    0
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoVISA}
+    Submit Payment Information
+    Verify Message    ${msgDialog}    ${messageEnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_5_Test] Payment to self number amount=0 Baht credit card (MASTER)
+    [Documentation]    [F1_2,4_2_N_5_Test]Payment to self number amount=0 Baht Credit (MASTER)
+    ...
+    ...    Owner : ENG
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set "Your payment amount" \ = 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (Master Card)
+    ...    9.Click "Next" Button
+    ...    10.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลิอกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือกประเภทบัตร (MASTER)
+    ...    9.กดปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบ Dialog message"กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Set Your Payment Amount    0
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoMASTER}
+    Submit Payment Information
+    Verify Message    ${msgDialog}    ${messageEnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_6_Test] Payment to self number amount=0 Baht debit card
+    [Documentation]    [F1_2,4_2_N_6_Test]Payment to self number amount=0 Baht Debit
+    ...
+    ...    Owner : ENG
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set "Your payment amount" \ = 0
+    ...    7.Select Payment channels (Debit Card)
+    ...    8.Click "Next" Button
+    ...    9.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลิอกช่องทางการชำระ (บัตรเดบิต)
+    ...    8.กดปุ่ม "ต่อไป"
+    ...    9.ตรวจสอบ Dialog message"กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Set Your Payment Amount    0
+    Select Payment Channel    ${rdoDeditCard}
+    Submit Payment Information
+    Verify Message    ${msgDialog}    ${messageEnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_7_Test] Payment to self number via credit card not select card type
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Verify ""Bill AIS Postpaid""
+    ...    ""Your usage charges""
+    ...    ""Payment channels""
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set ""Your payment amount"" \ > 0
+    ...    7.Do not select Payment channels
+    ...
+    ...    ------- v1 ---------------
+    ...    8.Click ""Next"" Button
+    ...    9.Verify dialog message ""Please select the type of card""
+    ...
+    ...    ---------- v2 15/12/2016----------------
+    ...    9.Set "Your payment amount" \ > 0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Do not select "card type"
+    ...    12.Click "Next" Button
+    ...    13.Verify dialog message "Please select card type"
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลิอกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.ไม่เลือกประเภทบัตร
+    ...    9.กดปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบ Dialog message"กรุณาเลือกประเภทบัตร"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoCreditCard}
+    Submit Payment Information
+    Verify Message    ${msgDialog}    ${messagePleaseSelectCardType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_8_Test] Payment to self number via mPAY wallet insufficient balance
+    [Documentation]    [F1_2,4_2_N_8_Test]Payment to self number via mPAY Wallet Insufficient balance
+    ...
+    ...    Owner : ENG
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set "Your payment amount" \ >0
+    ...    7.Select Payment channels (mPAY Wallet)
+    ...    8.Click "Next" Button
+    ...    9.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    10.Click "OK" button
+    ...    11. Verify "mPAY page" (verify object in page)
+    ...    12.Login to mPAY
+    ...    - Input number
+    ...    - Input OTP
+    ...    - Input PIN code
+    ...    13.Verify "Payment details" at mPAY
+    ...    - Service
+    ...    - Payment method
+    ...    - mPAY Wallet balance
+    ...    - Total amount
+    ...    14.Input PIN code
+    ...    15.Click "Next" button
+    ...    16.Verify error message "Your mPAY Wallet is not sufficient,please refill your mPAY Wallet before making transection."
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    - mPAY Wallet
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (mPAY Wallet)
+    ...    8.กด ปุ่ม "ต่อไป"
+    ...    9.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - จำนวนเงิน
+    ...    10.กด ปุ่ม "ตกลง"
+    ...    11.ตรวจสอบหน้า "mPAY"
+    ...    12.ล๊อคอิน mPAY
+    ...    - กรอกหมายเลขโทรศัพท์ (โดยปกติแล้วระบบจะทำการ auto detect หมายเลขโทรศํพท์เองอยู่แล้ว)
+    ...    - กรอก OTP
+    ...    - กรอก PIN code
+    ...    13.Verify "Payment details" at mPAY
+    ...    - Service
+    ...    - Payment method
+    ...    - mPAY Wallet balance
+    ...    - Total amount
+    ...    14.Input PIN code
+    ...    15.Click "Next" button
+    ...    16.Verify error message "Your mPAY Wallet is not sufficient,please refill your mPAY Wallet before making transection."
+    [Tags]    fail    mPay    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_mPayNoMoney=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_mPayNoMoney
+    ${PINmPay}    Get From Dictionary    ${virtual_device_1_PIN_mPay}    ${ar_NType}_mPayNoMoney
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Comment    Set Your Payment Amount    100
+    Select Payment Channel    ${rdomPayWallet}
+    Submit Payment Information
+    Verify Payment Information    ${msgmPayWallet}
+    Confirm Payment Information
+    ${appiumInfoNew}    Login mPay    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}
+    ...    ${PINmPay}
+    Verify Payment Details mPay Page
+    Confirm PIN mPay    ${PINmPay}    ${virtual_device_1_SN}
+    Verify Please Refill Your mPAY
+    [Teardown]    Keywords For Teardown mPay    ${#dict_device_name}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+
+[F1_2,4_1-2_N_12_Test] Payment to another number not input number
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Click ""Payment to another number"" icon
+    ...    6.Input destination number (Wrong digit)
+    ...    7.Click ""Next"" button
+    ...    8.Verify dialog message ""You have entered incorrect phone number.Please check and try again.""
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.ไม่ต้องกรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจาสอบ dialog message "หมายเลขโทรศัพท์ไม่ถูกต้อง กรุณาตรวจสอบและระบุใหม่อีกครั้ง"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Confirm Destination Number
+    Verify Message    ${msgDialog}    ${messageNotInputDesNumber}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_13_Test] Payment to another number input wrong digits
+    [Documentation]    Owner: Fang
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO , 3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Click ""Payment to another number"" icon
+    ...    6.Input destination number (Wrong digit)
+    ...    7.Click ""Next"" button
+    ...    8.Verify dialog message ""You have entered incorrect phone number.Please check and try again.""
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (ไม่ครบ 10 หลัก)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจาสอบ dialog message "หมายเลขโทรศัพท์ไม่ถูกต้อง กรุณาตรวจสอบและระบุใหม่อีกครั้ง"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Wrong Digit Number    093701
+    Verify Message Wrong Digit Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_14_Test] Payment to another number input wrong format
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Click ""Payment to another number"" icon
+    ...    6.Input destination number (Wrong digit)
+    ...    7.Click ""Next"" button
+    ...    8.Verify dialog message ""You have entered incorrect phone number.Please check and try again.""
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (ไม่ถูกรูปแบบเช่น 6666666666)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจาสอบ dialog message "หมายเลขโทรศัพท์ไม่ถูกต้อง กรุณาตรวจสอบและระบุใหม่อีกครั้ง"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    1234567890
+    Confirm Destination Number
+    Verify Message    ${msgDialog}    ${messageNumberWrongFormat}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_15_Test] Payment to another number input AIS prepaid number
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Click "Payment to another number" icon
+    ...    6.Input destination number (AIS Prepaid number)
+    ...    7.Click "Next" button
+    ...    *revised*
+    ...    old => 8.Verify dialog message "Destination number you have entered is One-2-Call! number. If you want to top up please click here."
+    ...    new => 8.Verify dialog message "Destination number you have entered is One-2-Call! number. Please check and try again."
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (กรอกหมายเลขปลายทางเป็นเบอร์ในระบบเติมเงิน)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    *revised*
+    ...    old => 8.ตรวจาสอบ dialog message "หมายเลขที่คุณระบุเป็นหมายเลขในระบบเติมเงิน หากคุณต้องการเติมเงินให้ให้หมายเลขนี้ คลิกที่นี่"
+    ...    new => 8.ตรวจาสอบ dialog message "หมายเลขที่คุณระบุเป็นหมายเลขในระบบเติมเงิน กรุณาตรวจสอบและระบุใหม่อีกครั้ง"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPrepaidNumberTest}
+    Confirm Destination Number
+    Verify Message    ${msgDialog}    ${messageInputPrepaidNumber}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_16_Test] Payment to another number input other network number (non AIS)
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Click "Payment to another number" icon
+    ...    6.Input destination number (Non AIS)
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please specify your AIS mobile number."
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (กรอกหมายเลขปลายทางไม่ใช่เบอร์ในเครือข่าย AIS)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจาสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ในเครือข่ายเอไอเอส"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${DtacNumber}
+    Confirm Destination Number
+    Verify Message    ${msgDialog}    ${messageNotAISNumber}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_17_Test] Payment to another amount=0 Baht credit card (VISA)
+    [Documentation]    [F1_2,4_2_N_17_Test]Payment to another amount=0 Baht Credit (VISA)
+    ...
+    ...    Owner : ENG
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Click "Payment to another number" icon
+    ...    6.Input destination mobile number (08xxx, 09xxx, 06xxx)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    9.Set "Your payment amount" \ = 0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select "card type" (VISA)
+    ...    12.Click "Next" Button
+    ...    13.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ = 0
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือก "ประเภทบัตร" (VISA)
+    ...    12.กด ปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบ dialog message "กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPostpaidNumberTest}
+    Confirm Destination Number
+    Verify Bill AIS Postpaid To Another Information
+    Set Your Payment Amount    0
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoVISA}
+    Submit Payment Information
+    Verify Message    ${msgDialog}    ${messageEnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_18_Test] Payment to another amount=0 Baht credit card (MASTER)
+    [Documentation]    [F1_2,4_2_N_18_Test]Payment to another amount=0 Baht Credit (MASTER)
+    ...
+    ...    Owner : ENG
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Click "Payment to another number" icon
+    ...    6.Input destination mobile number (08xxx, 09xxx, 06xxx)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    9.Set "Your payment amount" \ = 0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select "card type" (Master)
+    ...    12.Click "Next" Button
+    ...    13.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ = 0
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือก "ประเภทบัตร" (MASTER)
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPostpaidNumberTest}
+    Confirm Destination Number
+    Verify Bill AIS Postpaid To Another Information
+    Set Your Payment Amount    0
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoMASTER}
+    Submit Payment Information
+    Verify Message    ${msgDialog}    ${messageEnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_19_Test] Payment to another amount=0 Baht debit card
+    [Documentation]    [F1_2,4_2_N_19_Test]Payment to another amount=0 Baht Debit
+    ...
+    ...    Owner : ENG
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Click "Payment to another number" icon
+    ...    6.Input destination mobile number (08xxx, 09xxx, 06xxx)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    9.Set "Your payment amount" \ = 0
+    ...    10.Select Payment channels (Debit Card)
+    ...    11.Click "Next" Button
+    ...    12.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ = 0
+    ...    10.เลือกช่องทางการชำระ (บัตรเดบิต)
+    ...    11.กด ปุ่ม "ต่อไป"
+    ...    12.ตรวจสอบ dialog message "กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPostpaidNumberTest}
+    Confirm Destination Number
+    Verify Bill AIS Postpaid To Another Information
+    Set Your Payment Amount    0
+    Select Payment Channel    ${rdoDeditCard}
+    Submit Payment Information
+    Verify Message    ${msgDialog}    ${messageEnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_20_Test] Payment to another number via credit card not select card type
+    [Documentation]    [F1_2,4_2_N_20_Test]Payment to self number Set payment amount = 0 Baht
+    ...
+    ...    Owner : ENG
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Click "Payment to another number" icon
+    ...    6.Input destination mobile number (08xxx, 09xxx, 06xxx)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    9.Set "Your payment amount" \ > 0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Do not select "card type"
+    ...    12.Click "Next" Button
+    ...    13.Verify dialog message "Please select card type"
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ = 0
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.ไม่เลือก "ประเภทบัตร"
+    ...    12.กด ปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบ dialog message "กรุณาเลือกประเภทบัตร"
+    [Tags]    fail    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPostpaidNumberTest}
+    Confirm Destination Number
+    Verify Bill AIS Postpaid To Another Information
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoCreditCard}
+    Submit Payment Information
+    Verify Message    ${msgDialog}    ${messagePleaseSelectCardType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_21_Test] Payment to another number via mPAY wallet insufficient balance
+    [Documentation]    [F1_2,4_2_N_21_Test]Payment to another number via mPAY Wallet Insufficient balance
+    ...
+    ...    Owner : ENG
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    4.Click "Payment to another number" icon
+    ...    5.Input destination number
+    ...    6.Click "Next" button
+    ...    5.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set "Your payment amount" \ >0
+    ...    7.Select Payment channels (mPAY Wallet)
+    ...    8.Click "Next" Button
+    ...    9.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    11.Click "OK" button
+    ...    12. Verify "mPAY page" (verify object in page)
+    ...    13.Login to mPAY
+    ...    - Input number
+    ...    - Input OTP
+    ...    - Input PIN code
+    ...    14.Verify "Payment details" at mPAY
+    ...    - Service
+    ...    - Payment method
+    ...    - mPAY Wallet balance
+    ...    - Total amount
+    ...    15.Input PIN code
+    ...    16.Click "Next" button
+    ...    17.Verify error message "Your mPAY Wallet is not sufficient,please refill your mPAY Wallet before making transection."
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ > 0
+    ...    10.เลือกช่องทางการชำระ (mPAY Wallet)
+    ...    11.กด ปุ่ม "ต่อไป"
+    ...    12.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - จำนวนเงิน
+    ...    13.กด ปุ่ม "ตกลง"
+    ...    14.ตรวจสอบหน้า "mPAY"
+    ...    15.ล๊อคอิน mPAY
+    ...    - กรอกหมายเลขโทรศัพท์ (โดยปกติแล้วระบบจะทำการ auto detect หมายเลขโทรศํพท์เองอยู่แล้ว)
+    ...    - กรอก OTP
+    ...    - กรอก PIN code
+    ...    16.ตรวจสอบหน้า"รายละเอียดรายการ" ที่หน้า mPAY
+    ...    - บริการ
+    ...    - ชำระเงินด้วย
+    ...    - ยอดเงิน mPAY Wallet
+    ...    - จำนวนเงินสุทธิ
+    ...    17.กรอก PIN code
+    ...    18.กดปุ่ม "ต่อไป"
+    ...    19.ตรวจสอบ error message "จำนวนเงินใน mPAY Wallet ไม่พอกรุณาตรวจสอบยอดหรือเติมเงินก่อนใช้บริการ"
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_mPayNoMoney=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_mPayNoMoney
+    ${PINmPay}    Get From Dictionary    ${virtual_device_1_PIN_mPay}    ${ar_NType}_mPayNoMoney
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${OutstandingBalanceNumber}
+    Confirm Destination Number
+    Verify Bill AIS Postpaid To Another Information
+    Select Payment Channel    ${rdomPayWallet}
+    Submit Payment Information
+    Verify Payment Information    ${msgmPayWallet}
+    Confirm Payment Information
+    ${appiumInfoNew}    Login mPay    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}
+    ...    ${PINmPay}
+    Verify Payment Details mPay Page
+    Confirm PIN mPay    ${PINmPay}    ${virtual_device_1_SN}
+    Verify Please Refill Your mPAY
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_1_Test] Payment to self number via credit card (VISA)
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    "1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Verify ""Bill AIS Postpaid""
+    ...    ""Your usage charges""
+    ...    ""Payment channels""
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set ""Your payment amount"" \ >0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select ""card type"" (VISA)
+    ...    9.Click ""Next"" Button
+    ...    10.Verify ""Payment details""
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    11.Click ""OK"" button
+    ...    12. Verify ""Bank page"" (verify object in page)"
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือก "ประเภทบัตร" (VISA)
+    ...    9.กด ปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    11.กด ปุ่ม "ตกลง"
+    ...    12.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    debug    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoVISA}
+    Submit Payment Information
+    Verify Payment Information    ${msgCreditCard}
+    Confirm Payment Information
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_2_Test] Payment to self number via credit card (MASTER)
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Verify ""Bill AIS Postpaid""
+    ...    ""Your usage charges""
+    ...    ""Payment channels""
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set ""Your payment amount"" > 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select ""card type"" (MASTER)
+    ...    9.Click ""Next"" Button
+    ...    10.Verify ""Payment details""
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    11.Click ""OK"" button
+    ...    12. Verify ""Bank page"" (verify object in page)
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือก "ประเภทบัตร" (MASTER)
+    ...    9.กด ปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    11.กด ปุ่ม "ตกลง"
+    ...    12.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    debug    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoMASTER}
+    Submit Payment Information
+    Verify Payment Information    ${msgCreditCard}
+    Confirm Payment Information
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_23_Test] Payment to self number via credit card (JCB)
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" \ >0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (JCB)
+    ...    9.Click "Next" Button
+    ...    10.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    11.Capture screen
+    ...    12.Click "OK" button
+    ...    13. Verify "Bank page" (verify object in page)
+    ...    14.Capture screen
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือก "ประเภทบัตร" (JCB)
+    ...    9.กด ปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    11.Capture screen
+    ...    12.กด ปุ่ม "ตกลง"
+    ...    13.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    ...    14.Capture screen
+    [Tags]    success    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoJCB}
+    Submit Payment Information
+    Verify Payment Information    ${msgCreditCard}
+    Confirm Payment Information
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_3_Test] Payment to self number via debit card
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Verify ""Bill AIS Postpaid""
+    ...    ""Your usage charges""
+    ...    ""Payment channels""
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set ""Your payment amount""
+    ...    7.Select Payment channels (Debit Card)
+    ...    8.Click ""Next"" Button
+    ...    9.Verify ""Payment details""
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    10.Click ""OK"" button
+    ...    11. Verify ""Bank page"" (verify object in page)
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเดบิต)
+    ...    8.กด ปุ่ม "ต่อไป"
+    ...    9.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - จำนวนเงิน
+    ...    10.กด ปุ่ม "ตกลง"
+    ...    11.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    debug    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoDeditCard}
+    Submit Payment Information
+    Verify Payment Information    ${msgDebitCard}
+    Confirm Payment Information
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_9_Test] Payment to another number via credit card (VISA)
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    "1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Click ""Payment to another number"" icon
+    ...    6.Input destination mobile number (08xxx, 09xxx, 06xxx)
+    ...    7.Click ""Next"" button
+    ...    8.Verify ""Bill AIS Postpaid""
+    ...    ""Your usage charges""
+    ...    ""Payment channels""
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    9.Set ""Your payment amount"" \ >0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select ""card type"" (VISA)
+    ...    12.Click ""Next"" Button
+    ...    13.Verify ""Payment details""
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    14.Click ""OK"" button
+    ...    15. Verify ""Bank page"" (verify object in page)"
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" > 0 Baht
+    ...    10.เลิอกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือกประเภทบัตร (VISA)
+    ...    12.กดปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    14.กด ปุ่ม "ตกลง"
+    ...    15.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPostpaidNumberTest}
+    Confirm Destination Number
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoVISA}
+    Submit Payment Information
+    Verify Payment Information    ${msgCreditCard}
+    Confirm Payment Information
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_10_Test] Payment to another number via credit card (MASTER)
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    "1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Click ""Payment to another number"" icon
+    ...    6.Input destination mobile number (08xxx, 09xxx, 06xxx)
+    ...    7.Click ""Next"" button
+    ...    8.Verify ""Bill AIS Postpaid""
+    ...    ""Your usage charges""
+    ...    ""Payment channels""
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    9.Set ""Your payment amount"" \ >0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select ""card type"" (MASTER)
+    ...    12.Click ""Next"" Button
+    ...    13.Verify ""Payment details""
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    14.Click ""OK"" button
+    ...    15. Verify ""Bank page"" (verify object in page)"
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" > 0 Baht
+    ...    10.เลิอกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือกประเภทบัตร (MASTER)
+    ...    12.กดปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    14.กด ปุ่ม "ตกลง"
+    ...    15.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPostpaidNumberTest}
+    Confirm Destination Number
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoMASTER}
+    Submit Payment Information
+    Verify Payment Information    ${msgCreditCard}
+    Confirm Payment Information
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_24_Test] Payment to another number via credit card (JCB)
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    "1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Click ""Payment to another number"" icon
+    ...    6.Input destination mobile number (08xxx, 09xxx, 06xxx)
+    ...    7.Click ""Next"" button
+    ...    8.Verify ""Bill AIS Postpaid""
+    ...    ""Your usage charges""
+    ...    ""Payment channels""
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    9.Set ""Your payment amount"" \ >0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select ""card type"" (MASTER)
+    ...    12.Click ""Next"" Button
+    ...    13.Verify ""Payment details""
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    14.Click ""OK"" button
+    ...    15. Verify ""Bank page"" (verify object in page)"
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" > 0 Baht
+    ...    10.เลิอกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือกประเภทบัตร (MASTER)
+    ...    12.กดปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    14.กด ปุ่ม "ตกลง"
+    ...    15.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPostpaidNumberTest}
+    Confirm Destination Number
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoCreditCard}
+    Select Card Type    ${rdoJCB}
+    Submit Payment Information
+    Verify Payment Information    ${msgCreditCard}
+    Confirm Payment Information
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_11_Test] Payment to another number via debit card
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3PO
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...    EN
+    ...    "1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Click ""Payment to another number"" icon
+    ...    6.Input destination mobile number (08xxx, 09xxx, 06xxx)
+    ...    7.Click ""Next"" button
+    ...    8.Verify ""Bill AIS Postpaid""
+    ...    ""Your usage charges""
+    ...    ""Payment channels""
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    9.Set ""Your payment amount"" \ >0
+    ...    10.Select Payment channels (Debit Card)
+    ...    11.Click ""Next"" Button
+    ...    12.Verify ""Payment details""
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    13.Click ""OK"" button
+    ...    14. Verify ""Bank page"" (verify object in page)"
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" > 0 Baht
+    ...    10.เลิอกช่องทางการชำระ (บัตรเดบิต)
+    ...    11.กดปุ่ม "ต่อไป"
+    ...    12.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - จำนวนเงิน
+    ...    13.กด ปุ่ม "ตกลง"
+    ...    14.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPostpaidNumberTest}
+    Confirm Destination Number
+    Set Your Payment Amount    100
+    Select Payment Channel    ${rdoDeditCard}
+    Submit Payment Information
+    Verify Payment Information    ${msgDebitCard}
+    Confirm Payment Information
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_25_Test] Payment to another number : Verify Bill AIS Postpaid page
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    EN
+    ...    "1.Login to My AIS Application
+    ...    2.Click Menu ""Payment/Top Up""
+    ...    3. Verify Menu ""Payment/Top Up""
+    ...    - ""Bill AIS Postpaid""
+    ...    - ""Top Up""
+    ...    4.Click Menu ""Bill AIS Postpaid""
+    ...    5.Verify ""Bill AIS Postpaid""
+    ...    ""Your usage charges""
+    ...    ""Payment channels""
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set ""Your payment amount"" \ >0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select ""card type"" (VISA)
+    ...    9.Click ""Next"" Button
+    ...    10.Verify ""Payment details""
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    11.Click ""OK"" button
+    ...    12. Verify ""Bank page"" (verify object in page)"
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือก "ประเภทบัตร" (VISA)
+    ...    9.กด ปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    11.กด ปุ่ม "ตกลง"
+    ...    12.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Payment To Another Number
+    Input Destination Number    ${AISPostpaidNumberTest}
+    Confirm Destination Number
+    Verify Bill AIS Postpaid To Another Header
+    Verify Bill AIS Postpaid To Another Information
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_22_Test] Payment to self number via mPAY Wallet In case : Mobile number have Outstanding balance. (wait Outstanding balance)
+    [Documentation]    [F1_2,4_1-2_Y_22_Test] Payment to self number via mPAY Wallet In case : Mobile number have Outstanding balance. (wait Outstanding balance)
+    ...
+    ...    Owner : Mon
+    ...
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment/Top Up"
+    ...    3. Verify Menu "Payment/Top Up"
+    ...    - "Bill AIS Postpaid"
+    ...    - "Top Up"
+    ...    4.Click Menu "Bill AIS Postpaid"
+    ...    5.Verify "Bill AIS Postpaid"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    - mPAY Wallet
+    ...    6.Set "Your payment amount"
+    ...    7.Select Payment channels (mPAY Wallet)
+    ...    8.Click "Next" Button
+    ...    9.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    10.Click "OK" button
+    ...    11. Verify "mPAY page" (verify object in page)
+    ...    12.Login to mPAY
+    ...    - Input number
+    ...    - Input OTP
+    ...    - Input PIN code
+    ...    13.Verify "Payment details" at mPAY
+    ...    - Service
+    ...    - Payment method
+    ...    - mPAY Wallet balance
+    ...    - Total amount
+    ...    14.Input PIN code
+    ...    15.Click "Next" button
+    ...
+    ...    TH
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู "ชำระค่าบริการ/เติมเงิน"
+    ...    - "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    - "เติมเงิน"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส รายเดือน"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    - mPAY Wallet
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (mPAY Wallet)
+    ...    8.กด ปุ่ม "ต่อไป"
+    ...    9.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - จำนวนเงิน
+    ...    10.กด ปุ่ม "ตกลง"
+    ...    11.ตรวจสอบหน้า "mPAY"
+    [Tags]    mPay    success    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_mPayHaveMoney=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_mPayHaveMoney
+    ${PINmPay}    Get From Dictionary    ${virtual_device_1_PIN_mPay}    ${ar_NType}_mPayHaveMoney
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Payment Topup Menu
+    Verify Menu Payment/Topup
+    Select BillAISPostpaid Submenu
+    Verify Bill AIS Postpaid Information
+    Set Your Payment Amount    1
+    Select Payment Channel    ${rdomPayWallet}
+    Submit Payment Information
+    Verify Payment Information    ${msgmPayWallet}
+    Confirm Payment Information
+    ${appiumInfoNew}    Login mPay    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}
+    ...    ${PINmPay}
+    Verify Payment Details mPay Page
+    Confirm PIN mPay    ${PINmPay}    ${virtual_device_1_SN}
+    Clear SMS mPay    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown mPay    ${#dict_device_name}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+
+[Perf-16] PaymentTopup
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${StartTime}    Get Current Date
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    verify login
+    Select Payment Topup Menu
+    ${EndTime}    Get Current Date
+    ${ElapsedTime}    Subtract Date From Date    ${EndTime}    ${StartTime}    verbose
+    [Teardown]    Teardown For Data Mobile    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke.
+
+*** Keywords ***
+Verify Menu Payment/Topup
+    Wait Mobile Until Page Contains Element    ${subMnuBillAISPostpaid}
+    Wait Mobile Until Page Contains Element    ${subMnuTopUp}
+    Sleep    2
+    Mobile Capture Screen At Verify Point    Menu Payment And Topup
+
+Verify Message Wrong Digit Number
+    AISAppiumEx.Element Text Should Be    ${msgDialog}    ${messageWrongDigitNumber}
+    Mobile Capture Screen At Verify Point    Message Wrong Digit Number
+    Click Mobile Element    ${btnOkDialogMsg}
+
+Payment To Another Number
+    Wait Mobile Until Page Contains Element    ${btnPaytoAnotherNumber}    10s
+    Click Mobile Element    ${btnPaytoAnotherNumber}
+
+Input Wrong Digit Number
+    [Arguments]    ${AnotherNumber}
+    Input Mobile Text    ${txtInputAnotherNumber}    ${AnotherNumber}
+    Run Keyword And Ignore Error    Hide Keyboard
+    Click Mobile Element    ${btnNext}
+
+Verify Bill AIS Postpaid Information
+    Mobile element text should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element text should be    ${lblPaymentChannal}    ${txtPaymentChannels}
+    Mobile element text should be    ${rdoCreditCard}    ${txtCreditCard}
+    Mobile element text should be    ${rdoDeditCard}    ${txtDebitCard}
+    Mobile Capture Screen At Verify Point    Bill AIS Postpaid Information
+
+Set Your Payment Amount
+    [Arguments]    ${Amount}
+    AISAppiumEx.Wait Until Element Is Visible    ${txtInputPayAmount}
+    &{Location}    Get Element Location    ${txtInputPayAmount}
+    &{Size}    AISAppiumEx.Get Element Size    ${txtInputPayAmount}
+    ${x}    Get From Dictionary    ${Location}    x
+    ${y}    Get From Dictionary    ${Location}    y
+    ${width}    Get From Dictionary    ${Size}    width
+    ${height}    Get From Dictionary    ${Size}    height
+    ${clickAtX}    Evaluate    int(${x}+${width}/2)
+    ${clickAtL}    Evaluate    int(${y}+${height}/2)
+    AISAppiumEx.Click Element At Coordinates    ${clickAtX}    ${clickAtL}
+    Input Mobile Text    ${txtInputPayAmount}    ${Amount}
+    Run Keyword And Ignore Error    Press Keycode    66
+    Run Keyword And Ignore Error    Hide Keyboard
+
+Select Payment Channel
+    [Arguments]    ${Channel}
+    Click Mobile Element    ${Channel}
+
+Select Card Type
+    [Arguments]    ${cardType}
+    Click Mobile Element    ${btnSelectCreditCardType}
+    Click Mobile Element    ${cardType}
+
+Submit Payment Information
+    Swipe to element    ${btnNext}
+    sleep    5
+    Click Mobile Element    ${btnNext}
+
+Confirm Payment Information
+    Click Mobile Element    ${btnConfirmPaymentDetails}
+
+Verify Bank Page
+    Wait Mobile Until Page Contains Element    ${imgBangkokBank}
+    Mobile Capture Screen At Verify Point    Bank Page
+
+Verify Message
+    [Arguments]    ${locator}    ${msg}
+    Mobile Element Text Should Be    ${locator}    ${msg}
+    Mobile Capture Screen At Verify Point    Message
+
+Input Destination Number
+    [Arguments]    ${Number}
+    Input Mobile Text    ${txtInputAnotherNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide Keyboard
+
+Confirm Destination Number
+    Click Mobile Element    ${btnNext}
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Payment Information
+    [Arguments]    ${cardType}
+    Wait Mobile Until Page Contains Element    ${lbDestinationNumber}
+    Wait Mobile Until Page Contains Element    ${lbPaymentChannels}
+    Mobile element text should be    ${lbPaymentValue}    ${cardType}
+    Mobile Capture Screen At Verify Point    Payment Information
+
+Verify Payment Details mPay Page
+    Sleep    10
+    Mobile element name should be    ${lblService}    ${txtService}
+    Mobile element name should be    ${lblPaymentMethod}    ${txtPaymentMethod}
+    Mobile element name should be    ${lblmPAYWalletBalance}    ${txtmPAYWalletBalance}
+    Mobile element name should be    ${lblTotalAmount}    ${txtTotalAmount}
+    Mobile Capture Screen At Verify Point    Payment Details mPay Page
+
+Confirm PIN mPay
+    [Arguments]    ${PIN}    ${SN}
+    Swipe to element    ${txtInputPINmPayDetailPage}
+    Input Mobile Text    ${txtInputPINmPayDetailPage}    ${PIN}
+    Run Keyword And Ignore Error    Hide Keyboard
+    Swipe to element    ${btnOKPINmPayDetailPage}
+    Click Mobile Element    ${btnOKPINmPayDetailPage}
+    Mobile Capture Screen At Verify Point    Comfirm PIN mPay    ${SN}
+
+Verify Please Refill Your mPAY
+    Sleep    10
+    Swipe to element    ${lblErrorMsgmPay}
+    Mobile element name should be    ${lblErrorMsgmPay}    ${txtPleaseRefillYourmPAY}
+    Mobile Capture Screen At Verify Point    Please Refill Your mPAY
+
+Keywords For Teardown mPay
+    [Arguments]    ${#dict_device_name}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Payment Topup Menu
+    Select Menu    Payment/Topup
+
+Select BillAISPostpaid Submenu
+    Select Sub Menu    BillAISPostpaid
+
+Verify Bill AIS Postpaid To Another Information
+    Sleep    3
+    Mobile element text should be    ${lblYourUsageChargesToAnotherPage}    ${txtYourUsageCharges}
+    Mobile element text should be    ${lblPaymentChannal}    ${txtPaymentChannels}
+    Mobile element text should be    ${rdoCreditCard}    ${txtCreditCard}
+    Mobile element text should be    ${rdoDeditCard}    ${txtDebitCard}
+    Mobile Capture Screen At Verify Point    Bill AIS Postpaid To Another Information
+
+Verify Bill AIS Postpaid To Another Header
+    ${fullname}    Get mobile text    ${lblFullDesName}
+    ${Number}    Get mobile text    ${lblFullDesNumber}
+    Log    ${fullname}
+    Should Match Regexp    ${fullname}    [a-zA-Zก-ฮ]{3,}xxx [a-zA-Zก-ฮ]{3,}xxx
+    Log    ${Number}
+    Should Match Regexp    ${Number}    [0-9]{10,}
+    Mobile Capture Screen At Verify Point    Header
+
+Clear SMS mPay
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    ${appiumInfoNew}    Open SMS App    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${Platfrom_Name}    1    ${lo_sms_timeout}    mPAY
+    Mobile Capture Screen At Verify Point    Wait SMS mPay    ${SN}
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${Platfrom_Name}    mPAY    1
+    Log    @{messages}[0]
+
+Teardown For Data Mobile
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}

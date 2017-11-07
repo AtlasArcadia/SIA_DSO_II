@@ -1,0 +1,179 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../PageRepository/${ar_OS}/ValidityTransferRopository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/ValidityTransferLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Validity Transfer Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${fldMobileNumber}
+    Mobile Capture Screen At Verify Point    Validity Transfer Top Page
+    Mobile element name should be    ${fldMobileNumber}    ${Number}
+    Mobile element name should be    ${lblDescription}    ${txtDescription}
+    Mobile element name should be    ${lblEnterDesNumber}    ${txtEnterDesNumber}
+    Mobile element name should be    ${lblTransferAmount}    ${txtTransferAmount}
+    Swipe to element    ${lblTermAndCondition}
+    Mobile element name should be    ${btnOK}    ${txtOK}
+    Mobile element name should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    Validity Transfer below Page
+
+Input Destination Number
+    [Arguments]    ${DestinationNumber}
+    Click Mobile Element    ${fldDestinationNumber}
+    Input Mobile Text    ${fldDestinationNumber}    ${DestinationNumber}
+    Hide Keyboard
+
+Select Amount Of Day
+    Click Mobile Element    ${fldSelectDay}
+    Click Mobile Element    ${rdoMinimumDate}
+
+Click OK Button
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+
+Click Confirm Button
+    Click Mobile Element    ${btnConfirm}
+
+Verify Making Transfer To Destination Number
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    ${txtMakeFiveDayTransfer}    Replace String    ${txtMakeFiveDayTransfer}    [Number]    ${Number}
+    Mobile element name should be    ${msgDialog}    ${txtMakeFiveDayTransfer}
+    Mobile Capture Screen At Verify Point    Verify Transfer
+
+Verify Transaction Successfully
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtTransactionSuccessful}
+    Mobile Capture Screen At Verify Point    Verify Transaction successful
+    Click Mobile Element    ${btnOKFinish}
+
+Verify The Number Must Be AIS Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtMustBe12CallNumber}
+    Mobile Capture Screen At Verify Point    Verify Number Must Be AIS Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Cannot Transfer To Self Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtCannotUseSelfNumber}
+    Mobile Capture Screen At Verify Point    Verify Transfer To Self Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Please Input Correct Destination Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtEnterCorrectDestinationNumber}
+    Mobile Capture Screen At Verify Point    Verify Enter Correct Destination Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Not Select Amount
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtSelectAmount}
+    Mobile Capture Screen At Verify Point    Verify Please Select Amount
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Not 12Call Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtNot12CallNumber}
+    Mobile Capture Screen At Verify Point    Verify Destination Number Not 123 Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Insufficient Balance
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtInsufficientBalance}
+    Mobile Capture Screen At Verify Point    Verify Balance Not Sufficient
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Mobile Number Not Eligible
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtMobileNumberNotEligible}
+    Mobile Capture Screen At Verify Point    Verify Mobile Number Not Eligible Validity Transfer Service
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Transfer Insufficient Validity
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${fldMobileNumber}
+    Mobile Capture Screen At Verify Point    Validity Transfer Upper Page
+    Mobile element name should be    ${fldMobileNumber}    ${Number}
+    Mobile element name should be    ${lblDescription}    ${txtDescription}
+    Mobile element name should be    ${lblEnterDesNumber}    ${txtEnterDesNumber}
+    Mobile element name should be    ${lblTransferAmount}    ${txtTransferAmount}
+    Wait Mobile Until Page Contains Element    ${ddlInsufficientValidity}
+    Mobile element name should be    ${ddlInsufficientValidityText}    ${txtInsufficientValidity}
+    Swipe to element    ${lblTermAndCondition}
+    Mobile element name should be    ${btnOK}    ${txtOK}
+    Mobile element name should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    Validity Transfer Lower Page
+
+Verify Balance Checking Unavailable
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtBalanceCheckingUnavailable}
+    Mobile Capture Screen At Verify Point    Verify Unavailable Balance Checking
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Destination Number Not Eligible
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtDesNumberNotEligible}
+    Mobile Capture Screen At Verify Point    Verify Des Number Not Eligible
+    Click Mobile Element    ${btnOKFinish}
+
+Verify This Service Unavailable
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtThisServiceUnavailableAtTheMoment}
+    Mobile Capture Screen At Verify Point    Verify Service Unavailable At Moment
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Service Reserve For AIS Prepaid
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtServiceReserveForOnlyAISPrepaid}
+    Mobile Capture Screen At Verify Point    Verify Service Reserve For AIS Prepaid Customer
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Service Unavailable
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtServiceUnavailable}
+    Mobile Capture Screen At Verify Point    Verify Service Unvailable Cause Of Max Validity
+    Click Mobile Element    ${btnOKFinish}
+
+Set Destination Number
+    [Arguments]    ${ar_NType}
+    Run Keyword If    '${ar_NType}'=='3PE'    Input Destination Number
+
+Input Suspend Number
+    ${Number}    Set Variable If    '${ar_NType}' == '3PE'    ${AISNonBosPrepaidSuspensionNumberTest}    #Suspend Number
+    ${Number}    Set Variable If    '${ar_NType}' == '3BE'    ${AISNonBosPrepaidSuspensionNumberTest}    ${Number}    #Suspend Number
+    ${Number}    Set Variable If    '${ar_NType}' == 'IPE'    ${AIS_IPESuspend}    ${Number}    #Suspend Number_IPE
+    log    ${Number}
+    Input Destination Number    ${Number}
+    [Return]    ${Number}
+
+Input Max Validity Number
+    ${Number}    Set Variable If    '${ar_NType}' == '3BE'    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest}    #MaxValidity
+    ${Number}    Set Variable If    '${ar_NType}' == '3PE'    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest}    ${Number}
+    ${Number}    Set Variable If    '${ar_NType}' == 'IPE'    ${AIS_IPEMaxValidity}    ${Number}    #MaxValidity_IPE
+    log    ${Number}
+    Input Destination Number    ${Number}
+    [Return]    ${Number}
+
+Input Blacklist Number
+    ${Number}    Set Variable If    '${ar_NType}' == '3PE'    ${AISNonBosPrepaidBlacklistNumberTest}
+    ${Number}    Set Variable If    '${ar_NType}' == '3BE'    ${Number}    ${AISNonBosPrepaidBlacklistNumberTest}
+    ${Number}    Set Variable If    '${ar_NType}' == 'IPE'    ${Number}    ${AIS_IPEBlacklist}
+    log    ${Number}
+    Input Destination Number    ${Number}
+    [Return]    ${Number}
+
+Input Number And Click Confirm
+    Input Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Select Amount Of Day    #5Days
+    Click OK Button
+    Verify Making Transfer To Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Click Confirm Button

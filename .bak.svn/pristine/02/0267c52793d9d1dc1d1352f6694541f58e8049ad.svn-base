@@ -1,0 +1,89 @@
+*** Settings ***
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
+Resource          ../PageRepository/PointsCommonRepository.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/ParallelLocalConfigKeyWord.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RunOnFailKeyword.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/PointsCommonLocalized.txt
+Resource          ../../../../../AisRobotBuffet/Web/Generic/Keywords/WebGenericKeyword.txt
+Resource          ../PageVariable/PointsCommonVariable.txt
+Resource          ../../../../../AisRobotBuffet/Mobile/Andriod/Keywords/SmsMoodKeywords.txt
+
+*** Keywords ***
+Open Browser Point Web
+    [Arguments]    ${lang}    ${IPSelenium}
+    Open Web Browser    ${urlAISPointProd}    ${ar_BROWSER}    http://${IPSelenium}/wd/hub
+    Maximize Browser Window
+    #have only TH Lang
+    Comment    Sleep    1
+    Comment    ${langOld}    Get Web Text    ${btnLanguage}
+    Comment    Run Keyword If    "${langOld}"=="EN" and "${lang}" == "EN"    Click Web Element    ${btnLanguage}
+    Comment    Run Keyword If    "${langOld}"=="TH" and "${lang}" == "TH"    Click Web Element    ${btnLanguage}
+    Comment    Sleep    1
+    Comment    ${langNew}    Get Web Text    ${btnLanguage}
+    Comment    Run Keyword If    "${langNew}"=="TH" and "${lang}" == "EN"    Log    Change Language EN Success
+    ...    ELSE IF    "${langNew}"=="EN" and "${lang}" == "TH"    Log    Change Language TH Success
+    Comment    Run Keyword If    "${langNew}"=="EN" and "${lang}" == "EN"    Fail
+    Comment    Run Keyword If    "${langNew}"=="TH" and "${lang}" == "TH"    Fail
+
+Select Menu
+    [Arguments]    ${Menu}
+    Sleep    2
+    Scroll Web To Element    ${mnu${Menu}}
+    Wait Web Until Page Contains Element    ${mnu${Menu}}
+    Click Web Element    ${mnu${Menu}}
+
+Verify Link
+    [Arguments]    ${link}
+    sleep    5
+    ${getLink}    Get Location
+    log    ${getLink}
+    log    ${link}
+    Location Should Be    ${link}
+
+Verify Menu Bar
+    Web Element Text Should Be    ${mnuHome}    ${Home}
+    Web Element Text Should Be    ${mnuAISPoints}    ${AISPoint}
+    Web Element Text Should Be    ${mnuTransferPoint}    ${TransferPoint}
+    Web Element Text Should Be    ${mnuReward}    ${Reward}
+
+Verify Popup To Join AIS Points
+    ${text}=    Get Web Text    ${lblYourNumberPopupRegisterAISPoints}
+    ${resultYourName}=    Should Match Regexp    ${text}    ${YourNumber}
+    Web Element Text Should Be    ${btnAboutAISPointsGetOTP}    ${AboutAISPointGetOTP}
+    Web Element Text Should Be    ${btnAboutAISPointsOK}    ${AboutAISPointOK}
+    Web Element Text Should Be    ${lblSpecifyOTPExpire15Min}    ${SpecifyOTPExpire15Min}
+    Web Capture Screen At Verify Point    Verify in Link Login AIS Point
+
+Login Pointweb
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}
+    Sleep    2
+    Click Web Element    ${lblLogin}
+    Input Web Text    ${txtInputMobileNumber}    ${MobileNumber}
+    Click Web Element    ${btnGetOTP}
+    Open SMS App    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${PlatfromName}    1    ${lo_sms_timeout}    AIS
+    ${time}=    Evaluate    str(time.time())    time
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${PlatfromName}    AIS    1
+    Log    @{messages}[0]
+    @{OTP}=    Get Regexp Matches    @{messages}[0]    \\d\\d\\d\\d
+    Close SMS App    ${PlatfromName}    ${SN}
+    Input Web Text    ${txtInputOTP}    @{OTP}[0]
+    Click Web Element    ${btnLogInOTP}
+    Wait Until Element Is Not Visible    ${btnLogInOTP}    ${lo_general_timeout}
+
+Logout Ponitweb
+    Scroll Web To Element    ${lblLogout}
+    Web Element Should Be Visible    ${lblLogout}
+    Sleep    1
+    Click Web Element    ${lblLogout}
+
+Get Current Point
+    sleep    2s
+    Wait Web Until Page Contains Element    ${lblCurrentPoints}
+    ${element}=    Selenium2Library.Get Webelement    ${lblCurrentPoints}
+    ${CurrentPoints}=    Set Variable    ${element.get_attribute('innerHTML')}
+    ${newPoint}=    Remove String    ${CurrentPoints}    พอยท์
+    ${newPoint}=    Remove String    ${newPoint}    ${SPACE}
+    ${newPoint}=    Convert To Integer    ${newPoint}
+    [Return]    ${newPoint}

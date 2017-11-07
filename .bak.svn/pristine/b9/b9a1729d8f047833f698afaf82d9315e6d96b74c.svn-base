@@ -1,0 +1,93 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../PageRepository/${ar_OS}/PaymentToPostpaidNumberRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/PaymentToPostpaidNumberLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Feature Payment
+    Mobile element text should be    ${lblMnuTitlePayment}    ${Payment}
+    Mobile element text should be    ${subMnuPaymentBillAISFibre}    ${PaymentBillAISFibre}
+    Mobile Capture Screen At Verify Point    Feature Payment
+
+Select Payment Bill AIS Fibre
+    Click Mobile Element    ${subMnuPaymentBillAISFibre}
+
+Verify Payment Page
+    Mobile element text should be    ${lblYourUsageCharges}    ${YourUsageCharges}
+    Mobile element text should be    ${lblPaymentChannels}    ${PaymentChannels}
+    Mobile element text should be    ${rdoCreditCard}    ${CreditCard}
+    Mobile element text should be    ${rdoDebitCard}    ${DebitCard}
+    Mobile Capture Screen At Verify Point    Payment Page
+
+Set Your payment amount 100 B
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    100
+    Hide Keyboard
+
+Select Payment Channels
+    [Arguments]    ${Channel}
+    Click Mobile Element    ${rdo${Channel}}
+
+Select Card Type
+    [Arguments]    ${Channel}
+    Click Mobile Element    ${btnSelectCardType}
+    Click Mobile Element    ${rdo${Channel}}
+
+Click Next To Summary
+    Swipe Element To Screen    ${btnPaymentNextPage}
+    Click Mobile Element    ${btnPaymentNextPage}
+
+Confirm Top Payment
+    Click Mobile Element    ${btnPaymentNextPage}
+
+Verify Bank Page
+    Mobile element name should be    ${logoBangkokBank}    ${LogoBangkok}
+    Mobile Capture Screen At Verify Point    Bank Page
+
+Select Payment to Fiber another number
+    Click Mobile Element    ${btnPaymentToAnotherNumber}
+
+Verify Payment Details Credit Card
+    Mobile element text should be    ${lblTitlePaymentDetail}    ${PaymentDetail}
+    Mobile element text should be    ${lblDestinationNumberDetail}    ${DestinationNumberDetail}
+    Mobile element text should be    ${lblPaymentChannelsDetail}    ${PaymentChannelsDetail}
+    Mobile element text should be    ${lblCardTypeDetail}    ${CardTypeDetail}
+    Mobile element text should be    ${lblAmountDetail}    ${AmountDetail}
+    Mobile Capture Screen At Verify Point    Payment Detail Credit Card
+
+Verify Payment Details Debit Card
+    Mobile element text should be    ${lblTitlePaymentDetail}    ${PaymentDetail}
+    Mobile element text should be    ${lblDestinationNumberDetail}    ${DestinationNumberDetail}
+    Mobile element text should be    ${lblPaymentChannelsDetail}    ${PaymentChannelsDetail}
+    Mobile element text should be    ${lblAmountDetail}    ${AmountDetail}
+    Mobile Capture Screen At Verify Point    Payment Detail Debit Card
+
+Input Destination Number
+    [Arguments]    ${MobileNumber}
+    Input Mobile Text    ${txtMobileNumber}    ${MobileNumber}
+
+Confirm Destination Number
+    Click Mobile Element    ${btnPaymentNextPage}
+
+Verify Bill AIS Fibre
+    [Arguments]    ${MobileNumber}
+    Mobile element text should be    ${lblMobileNumber}    ${MobileNumber}
+    Mobile check existing text    ${lblNameOfDestinationNumber}
+    Mobile element text should be    ${lblPaymentChannels}    ${PaymentChannels}
+    Mobile element text should be    ${rdoCreditCard}    ${CreditCard}
+    Mobile element text should be    ${rdoDebitCard}    ${DebitCard}
+    Mobile Capture Screen At Verify Point    Bill AIS Fibre Page
+
+Verify AMEX Bank Page
+    Click Mobile Element    ${btnEnterToAMEXBank}
+    Mobile element name should be    ${logoBrandAMEX}    ${BrandAmex}
+    Mobile Capture Screen At Verify Point    AMEX Bank Page

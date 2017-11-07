@@ -1,0 +1,14 @@
+*** Settings ***
+Resource          ../../../Common/Keywords/RedefineKeywords.txt
+
+*** Keywords ***
+Web Element Trim Text Should Be
+    [Arguments]    ${locator}    ${text}
+    [Documentation]    Trim space front and end of text & check text
+    ...
+    ...    ตัด space หน้าและหลัง ของข้อความ และ เช็คข้อความ
+    Web Element Should Be Visible    ${locator}
+    ${result}=    Selenium2Library.Get Webelement    ${locator}
+    ${GetText}    Set Variable    ${result.get_attribute('innerHTML')}
+    ${ActualText}=    Strip String    ${SPACE}${GetText}${SPACE}
+    Should Be Equal    ${ActualText}    ${text}

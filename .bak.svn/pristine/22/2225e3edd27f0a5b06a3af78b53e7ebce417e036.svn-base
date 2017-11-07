@@ -1,0 +1,95 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Other.txt
+Resource          Resource/PageVariable/CommonVariable.txt
+
+*** Test Cases ***
+[F10_PrivWeb_0_1-2_Y_1_1] Our Friend
+    [Documentation]    F9_PrivWeb_0_1_Y_1_6
+    ...    Birthday Privilege
+    ...    Owner : B
+    ...    1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...    2.ตรวจสอบหน้าแรก(*1)
+    ...    3.เลือก Serenade Group Privilge
+    ...    4.ตรวจสอบlink(*2)
+    ...    5.จับภาพหน้าจอ
+    ...    "*1
+    ...    - Serenad menu list
+    ...    >Serenade
+    ...    >Serenade Privilege
+    ...    >Serenade Club
+    ...    >Serenade Service
+    ...    >How to be serenade
+    ...    >Serenade Group Privilge
+    ...    >Birthday Privilege
+    ...    *2
+    ...    - http://www.ais.co.th/privilege/birthday/
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Comment    Open Browser Privilege Web    ${ar_LANG}
+    Verify Our Friend Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F10_PrivWeb_0_1-2_Y_2_1] Newsletter registration
+    [Documentation]    F10_PrivWeb_0_2_Y_1_2
+    ...    Newsletter registration
+    ...    Owner : B
+    ...    1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...    2.ตรวจสอบหน้า Newsletter registration(*1)
+    ...    3.เลือก Newsletter registration
+    ...    4.ตรวจสอบlink(*2)
+    ...    5.จับภาพหน้าจอ
+    ...    " "*1
+    ...    - ""Newsletter registration""
+    ...    *2
+    ...    - http://www.ais.co.th/eservice.html
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Comment    Open Browser Privilege Web    ${ar_LANG}
+    Verify Newsletter Main Page
+    Click Web Image    ${ImgNewsLetter}
+    Verify Newsletter Registration Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F10_PrivWeb_0_1-2_Y_3_1] For businesses that would like to join the campaign
+    [Documentation]    F10_PrivWeb_0_2_Y_1_3
+    ...    For businessesthat would like to join the campaign
+    ...    Owner : B
+    ...    1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...    2.ตรวจสอบหน้า For businessesthat would like to join the campaign(*1)
+    ...    3.เลือก For businessesthat would like to join the campaign
+    ...    4.ตรวจสอบlink(*2)
+    ...    5.ตรวจสอบหน้า For businessesthat would like to join the campaign (*3)
+    ...    6.จับภาพหน้าจอ
+    ...    " "*1
+    ...    - ""For businessesthat would like to join the campaign""
+    ...    *2
+    ...    - http://www.ais.co.th/privilege/en/partner-with-us.aspx#tips
+    ...
+    ...    *3
+    ...    - For businessesthat would like to join the campaign
+    ...    > Conditions
+    ...    > Your benefits
+    ...    > Documents required
+    ...    > Download Application
+    ...    > Application Form"
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Comment    Open Browser Privilege Web    ${ar_LANG}
+    Web Element Should Be Visible    ${ImgBusinessesCampaign}
+    Scroll Web To Element    ${ImgBusinessesCampaign}
+    Web Capture Screen At Verify Point    Main Business Campaign
+    Click Web Image    ${ImgBusinessesCampaign}
+    Verify URL Other Tab    ${partnerURL}
+    Verify Partner With Us Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    Smoke test

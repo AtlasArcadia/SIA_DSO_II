@@ -1,0 +1,19 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageVariable/Emerald_ActivityVariable.txt
+Resource          ../PageRepository/Emerald_ActivityRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_ActivityLocalized.txt
+
+*** Keywords ***
+Click And Verify Video URL
+    sleep    10
+    Scroll Web To Element    ${Activities}
+    sleep    5
+    Select Frame    //*[@id="activities"]/div/div[2]/div/iframe    #Select iFrame
+    Click Web Element    ${clipAISSerenadeTrip}
+    Verify URL New Window    ${linkAISExclusiveTrip}    VDO link
+
+Verify Youtube Page
+    Comment    Web Element Should Be Visible    ${logoYoutube}
+    Web Element Text Should Be    ${txtTitleVideo}    ${TitleVideoName}
+    Web Capture Screen At Verify Point    AIS Serenade Exclusive Trip German 2017

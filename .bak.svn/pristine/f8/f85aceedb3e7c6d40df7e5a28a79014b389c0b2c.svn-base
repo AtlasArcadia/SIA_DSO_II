@@ -1,0 +1,103 @@
+*** Settings ***
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
+Resource          ../PageRepository/PrivilegeRepository.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/ParallelLocalConfigKeyWord.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RunOnFailKeyword.txt
+Resource          ../Localized/${ar_LANG}/PrivilegeLocalized.txt
+Resource          ../../../../../AisRobotBuffet/Web/Generic/Keywords/WebGenericKeyword.txt
+
+*** Keywords ***
+Open Browser Privilege Web
+    [Arguments]    ${Lang}    ${IPSelenium}
+    Open Web Browser    ${urlPrivilegeWeb}    ${ar_BROWSER}    http://${IPSelenium}/wd/hub
+    Maximize Browser Window
+    Sleep    1
+    ${langOld}    Get Web Text    ${btnLanguage}
+    Run Keyword If    "${langOld}"=="EN" and "${lang}" == "EN"    Click Web Element    ${btnLanguage}
+    Run Keyword If    "${langOld}"=="TH" and "${lang}" == "TH"    Click Web Element    ${btnLanguage}
+    Sleep    1
+    ${langNew}    Get Web Text    ${btnLanguage}
+    Run Keyword If    "${langNew}"=="TH" and "${lang}" == "EN"    Log    Change Language EN Success
+    ...    ELSE IF    "${langNew}"=="EN" and "${lang}" == "TH"    Log    Change Language TH Success
+    Run Keyword If    "${langNew}"=="EN" and "${lang}" == "EN"    Fail
+    Run Keyword If    "${langNew}"=="TH" and "${lang}" == "TH"    Fail
+
+Verify Serenade Menu
+    Selenium2Library.Wait Until Element Is Visible    ${mnuSerenade}
+    Web Element Trim Text Should Be    ${mnuSerenadePrivilege}    ${txtSerenadePrivilege}
+    Web Element Trim Text Should Be    ${mnuSerenadeClub}    ${txtSerenadeClub}
+    Web Element Trim Text Should Be    ${mnuSerenadeServices}    ${txtSerenadeServices}
+    Web Element Trim Text Should Be    ${mnuHowToBeSerenade}    ${txtHowtobeSerenade}
+    Run Keyword If    '${ar_LANG}'=="TH"    Selenium2Library.Wait Until Element Is Visible    ${mnuSerenadeGroupPrivilege}
+    Web Capture Screen At Verify Point    Serenade Menu
+
+Get Text From Locator
+    [Documentation]    use only id not full xpath
+    ...
+    ...
+    ...    Example: //*[@id="traval_nav3"] >>> \ full xpath
+    ...
+    ...    use this text \ >>> traval_nav3 \ \ as \ ${idLocator}
+    ...
+    ...
+    ...
+    ...
+    ...    ***Using Javascript***
+    ${Rawtext}    Execute Javascript    return document.getElementById('${idLocator}').text
+    ${Text}=    Strip String    ${SPACE}${Rawtext}${SPACE}
+    [Return]    ${text}
+
+Select Menu
+    [Arguments]    ${menuName}
+    [Documentation]    *Select menu in privilege*
+    ...    Menu List (5/18/2017)
+    ...    -Home
+    ...    -Specail
+    ...    -FoodAndBeverage
+    ...    -Shopping
+    ...    -Entertainment
+    ...    -Travel
+    ...    -HealthAndBeauty
+    Web Capture Screen At Verify Point    Menu List
+    Click Web Element    ${mnu${menuName}}
+
+Verify Menubar
+    Web Element Trim Text Should Be    ${txtMnuHome}    ${txtHome}
+    Web Element Trim Text Should Be    ${txtMnuSpecail}    ${txtSpecial}
+    Web Element Trim Text Should Be    ${txtMnuFoodAndBeverage}    ${txtFoodandBeverage}
+    Web Element Trim Text Should Be    ${txtMnuShopping}    ${txtShopping}
+    Web Element Trim Text Should Be    ${txtMnuEntertainment}    ${txtEntertainment}
+    Web Element Trim Text Should Be    ${txtMnuTravel}    ${txtTravel}
+    Web Element Trim Text Should Be    ${txtMnuHealthAndBeauty}    ${txtHealthyandBeauty}
+
+Verify BirthdayPrivilege
+    Web Element Should Be Visible    ${mnuBirthDayPrivilege}
+
+Verify OurFriend
+    Web Element Should Be Visible    ${headOurFriend}
+
+Verify Newsletter
+    Web Element Should Be Visible    ${mnuNewsLetterRegister}
+
+Verify JoinCampaign
+    Web Element Should Be Visible    ${mnuJoinCampaign}
+
+Verify URL Other Tab
+    [Arguments]    ${urlOtherTab}
+    Sleep    2
+    ${partnerUrl}    Set Variable    ${urlOtherTab}
+    Wait Until Keyword Succeeds    10s    1s    Select Window    url=${partnerUrl}
+    ${targetUrl}    Get Location
+    Run Keyword If    '${partnerUrl}'!='${targetUrl}'    Fail
+    Web Capture Screen At Verify Point    URL Other Tab
+
+Verify Campaingbar
+    Scroll Web To Element    ${CampaingnList_Home}
+    Web Element Should Be Visible    ${CampaingnList_Home}
+    Web Element Should Be Visible    ${CampaingnList_btnLeft}
+    Web Element Should Be Visible    ${CampaingnList_btnRight}
+    Web Element Should Be Visible    ${numbCampaing}
+    @{NumberOfContent}    Selenium2Library.Get Webelements    ${lstCampaing}
+    ${NumberOfList}    Get Length    ${NumberOfContent}
+    Log    Number Of List : ${NumberOfList}
+    Web Capture Screen At Verify Point    Verify Shopping 1

@@ -1,0 +1,35 @@
+*** Settings ***
+Library           ../../../AisRobotBuffet/Library/General/ExecuteFeature.py
+Library           ../../../AisRobotBuffet/Library/Web/WebManeger.py
+Resource          Config/NtypeOfFeatureConfig.txt
+
+*** Test Cases ***
+Home
+    [Tags]    home
+    Run Keyword If    "${ar_LANG}=="TH"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Test\\Mobile\\    Home    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=${ar_Tag}AND${ar_NType}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Test\\Mobile\\    Home    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=dummyAND${ar_NType}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+    Run Keyword If    "${ar_LANG}=="EN"    Execute Feature    ${CURDIR}\\    Z:\\Output\\Test\\Mobile\\    Home    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=smokeAND${ar_NType}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
+
+Reward
+    [Tags]    reward
+    Run Keyword If    '${ar_LANG}'=='TH'    Execute Feature    ${CURDIR}\\    Z:\\Output\\Test\\Mobile\\    Reward    list_of_NType=none
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    Run Keyword If    '${ar_LANG}'=='EN'    Execute Feature    ${CURDIR}\\    Z:\\Output\\Test\\Mobile\\    Reward    list_of_NType=none
+    ...    language=${ar_LANG}    tag=dummy    browser=${ar_BROWSER}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+
+TransferPoint
+    [Tags]    transferpoint
+    Run Keyword If    '${ar_LANG}'=='TH'    Execute Feature    ${CURDIR}\\    Z:\\Output\\Test\\Mobile\\    TransferPoint    list_of_NType=none
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    Run Keyword If    '${ar_LANG}'=='EN'    Execute Feature    ${CURDIR}\\    Z:\\Output\\Test\\Mobile\\    TransferPoint    list_of_NType=none
+    ...    language=${ar_LANG}    tag=dummy    browser=${ar_BROWSER}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+
+AISPoint
+    [Tags]    aispoint
+    Run Keyword If    '${ar_LANG}'=='TH'    Execute Feature    ${CURDIR}\\    Z:\\Output\\Test\\Mobile\\    AISPoint     list_of_NType=none
+    ...    language=${ar_LANG}    browser=${ar_BROWSER}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    Run Keyword If    '${ar_LANG}'=='EN'    Execute Feature    ${CURDIR}\\    Z:\\Output\\Test\\Mobile\\    AISPoint    list_of_NType=none
+    ...    language=${ar_LANG}    tag=dummy    browser=${ar_BROWSER}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True

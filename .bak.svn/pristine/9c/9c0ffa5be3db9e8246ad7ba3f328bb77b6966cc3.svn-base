@@ -1,0 +1,2287 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F8_Package_1-4_2_Y_1_1] Subscribe data Package Immediate In case countries with states
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue""
+    ...    8. Verify Roaming Pack
+    ...    - NonStop DataRoam Zone A 1Day Selected Networks \ NonStop, 500 MB with max speed* 1Day
+    ...    - 350
+    ...    9. Select first package(NonStop DataRoam Zone A 1Day Selected Networks \ NonStop, 500 MB with max speed* 1Day)
+    ...    10. Select ""Immedieat""
+    ...    11. Click ""Subscribe"" button
+    ...    12. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone A 1Day Selected Networks
+    ...    - 350 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    (Thailand Time)
+    ...    13. Click ""Confirm"" button
+    ...    14. Verify popup msg ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    15. Capture screen
+    ...    16. Click ""OK""
+    ...    17. Verify SMS ""Non-Stop DataRoam Zone A 1Day (500MB at max speed & after used up, get unlimited usage at speed 64kbps) 350 Baht starting from 22/02/2017 14:11 to 23/02/2017 14:11 (TH Time). Select network specified in the package only, please check at www.ais.co.th/roaming/NonStopZoneA.html""
+    ...    18. Capture screen"
+    ...
+    ...    -new update-
+    ...    *3PE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    10. Select first package (NonStop DataRoam Zone A 1Day Selected Networks \ NonStop, 500 MB with max speed* 1Day)
+    ...    11. Select ""Immedieat"" (radio button)
+    ...    12. Click ""Subscribe"" button
+    ...    13. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone A 1Day Selected Networks
+    ...    - 350 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    14. Click ""Confirm"" button
+    ...    15. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    16. Capture screen
+    ...    17. Click ""OK""
+    ...    18. Verify SMS ""Zone A Non-Stop DataRoam 1Day Selected Networks starting from \ 09/03/2017 11.44 to \ 10/03/2017 11.44 (Thailand Time)""
+    ...    19. Capture screen "
+    ...
+    ...
+    ...    *3BE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    10. Select first package (NonStop DataRoam Zone A 1Day Selected Networks \ NonStop, 500 MB with max speed* 1Day)
+    ...    11. Select ""Immedieat"" (radio button)
+    ...    12. Click ""Subscribe"" button
+    ...    13. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone A 1Day Selected Networks
+    ...    - 350 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    14. Click ""Confirm"" button
+    ...    15. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    16. Capture screen
+    ...    17. Click ""OK""
+    ...    18. Verify SMS ""Non-Stop DataRoam Zone A 1Day (500MB at max speed & after used up, get unlimited usage at speed 64kbps) 350 Baht starting from 09/03/2017 11:44 to 10/03/2017 11:44 (TH Time). Select network specified in the package only, please check at www.ais.co.th/roaming/NonStopZoneA.html""
+    ...    19. Capture screen"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_RoamingPackage_${ar_LANG}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RoamingPackage_${ar_LANG}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select roaming country roaming immediate data countries with state
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To Data
+    ${CountryType}    ${CustomerType}    ${PackageType}    Get Country Customer And Package Type
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${CustomerType}    ${PackageType}
+    Select package immediate data countries with state
+    Select Immediate Button
+    Select Subscribe Button
+    Verify package summary immediate data countries with state
+    Select Confirm In Summary Page
+    Verify Popup Msg Alert Subscribed And Close
+    Verify sms immediate data countries with state    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_2_1] Subscribe data package immediate in case have only countries
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. China)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue""
+    ...    8. Verify Roaming Pack
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day
+    ...    - 450
+    ...    8. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (China)
+    ...    - Customer type (AIS Postpaid)
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    9. Select first package(NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day)
+    ...    10. Select ""Immedieat""
+    ...    11. Click ""Subscribe"" button
+    ...    12. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China
+    ...    - 450 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    (Thailand Time)
+    ...    13. Click ""Confirm"" button
+    ...    14. Verify popup msg ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    15. Capture screen
+    ...    16. Click ""OK""
+    ...    17. Verify SMS ""...""
+    ...    17. Verify SMS ""Non-Stop DataRoam Zone B 1Day (500MB at max speed & after used up, get unlimited usage at speed 64kbps) 450 Baht starting from 28/02/2017 14:02 to 01/03/2017 14:02 (TH Time). Select network specified in the package only, please check at www.ais.co.th/roaming/NonStopZoneB.html""
+    ...    18. Capture screen"
+    ...
+    ...    -new update-
+    ...    *3PE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. China)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (China)
+    ...    - Customer type
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    10. Select first package (NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day)
+    ...    11. Select ""Immedieat"" (radio button)
+    ...    12. Click ""Subscribe"" button
+    ...    13. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China
+    ...    - 450 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    14. Click ""Confirm"" button
+    ...    15. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    16. Capture screen
+    ...    17. Click ""OK""
+    ...    18. Verify SMS ""Zone B Non-Stop DataRoam 1Day Selected Networks starting from \ 09/03/2017 11.52 to \ 10/03/2017 11.52 (Thailand Time)""
+    ...    19. Capture screen "
+    ...
+    ...
+    ...    *3BE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. China)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (China)
+    ...    - Customer type
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    10. Select first package (NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day)
+    ...    11. Select ""Immedieat"" (radio button)
+    ...    12. Click ""Subscribe"" button
+    ...    13. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China
+    ...    - 450 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    14. Click ""Confirm"" button
+    ...    15. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    16. Capture screen
+    ...    17. Click ""OK""
+    ...    18. Verify SMS ""Non-Stop DataRoam Zone B 1Day (500MB at max speed & after used up, get unlimited usage at speed 64kbps) 450 Baht starting from 09/03/2017 11:44 to 10/03/2017 11:44 (TH Time). Select network specified in the package only, please check at www.ais.co.th/roaming/NonStopZoneB.html""
+    ...    19. Capture screen "
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_RoamingPackage_${ar_LANG}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RoamingPackage_${ar_LANG}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select roaming country roaming immediate data countries without state
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To Data
+    ${CountryType}    ${CustomerType}    ${PackageType}    Get Country Customer And Package Type
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${CustomerType}    ${PackageType}
+    Select package immediate data countries without state
+    Select Immediate Button
+    Select Subscribe Button
+    Verify package summary immediate data countries without state
+    Select Confirm In Summary Page
+    Verify Popup Msg Alert Subscribed And Close
+    Verify sms immediate data countries without state    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_3_1] Subscribe voice package immediate in case countries with states
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    Have IR Service
+    ...    *remark*
+    ...
+    ...    price 1350
+    ...    validity 7
+    ...    SMS:Hot Deal Voice Roam 1350Baht 150Mins for calling to phone in Thailand/roaming country & receiving call excludes roaming in ship/airplane. Starting from 03/03/2017 11:42 to 10/03/2017 11:42 (Thailand Time). Check at www.ais.co.th/roaming/Hotdealvoice/hotdeal.html
+    ...
+    ...
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice)
+    ...    6. Select ""Package type"" (Voice & SMS)
+    ...    7. Click ""Continue""
+    ...    8. Verify Roaming Pack
+    ...    - Zone 1 Roam Like Home 1Day \ Unlimited* 1Day
+    ...    - 350
+    ...    8. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type (AIS Postpaid)
+    ...    - Package type (Voice & SMS)
+    ...    - List Of Package
+    ...    9. Select first package(Zone 1 Roam Like Home 1Day \ Unlimited* 1Day)
+    ...    10. Select ""Immedieat""
+    ...    11. Click ""Subscribe"" button
+    ...    12. Verify "" Package summary"" page
+    ...    - Zone 1 Roam Like Home 1Day
+    ...    - 350 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    (Thailand Time)
+    ...    13. Click ""Confirm"" button
+    ...    14. Verify popup msg ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    15. Capture screen
+    ...    16. Click ""OK""
+    ...    17. Verify SMS ""...""
+    ...    17. Verify SMS ""Zone1 RoamLikeHome with Unlimited local call &call to Thai, DataRoam 200MB at max speed &after used up,get unlimited usage at speed 64kbps, special rate of receiving call 5B/Min & SMS 5B/SMS starting from xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx (TH Time). Check network at Ais.co.th/ren""
+    ...    18. Capture screen"
+    ...
+    ...    -new update-
+    ...    *3PE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice & SMS)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type
+    ...    - Package type(Voice & SMS)
+    ...    - List Of Package
+    ...    10. Select first package (World SMS Roam 30 SMS \ 30SMS 7Day)
+    ...    11. Select ""Immedieat"" (radio button)
+    ...    12. Click ""Subscribe"" button
+    ...    13. Verify "" Package summary"" page
+    ...    - World SMS Roam 30 SMS \ 30SMS 7Day
+    ...    - xxx (Price)
+    ...    - x (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    14. Click ""Confirm"" button
+    ...    15. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    16. Capture screen
+    ...    17. Click ""OK""
+    ...    18. Verify SMS ""You can enjoy SMS Roaming Pack, \ 300 Baht for 30 SMS Roaming, 7 days (Excl. VAT).""
+    ...    19. Capture screen "
+    ...
+    ...
+    ...    *3BE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice & SMS)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type
+    ...    - Package type(Voice & SMS)
+    ...    - List Of Package
+    ...    10. Select first package (World SMS Roam 30 SMS \ 30SMS 7Day)
+    ...    11. Select ""Immedieat"" (radio button)
+    ...    12. Click ""Subscribe"" button
+    ...    13. Verify "" Package summary"" page
+    ...    - World SMS Roam 30 SMS \ 30SMS 7Day
+    ...    - xxx (Price)
+    ...    - x (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    14. Click ""Confirm"" button
+    ...    15. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    16. Capture screen
+    ...    17. Click ""OK""
+    ...    18. Verify SMS ""SMS Roaming Package 30 SMS 300 Baht starting from 09/03/2017 11:44 - 10/03/2017 11:44 (Thailand Time). Please set sms center number to +66818110888 or contact AIS CALL CENTER, dial +6622719000""
+    ...    19. Capture screen "
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_RoamingPackage_${ar_LANG}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RoamingPackage_${ar_LANG}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select roaming country roaming immediate voice countries with state
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To VoiceAndSMS
+    ${CountryType}    ${CustomerType}    ${PackageType}    Get Country Customer And Package Type
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${CustomerType}    ${PackageType}
+    Select package immediate voice countries with state
+    Select Immediate Button
+    Select Subscribe Button
+    Verify package summary immediate voice countries with state
+    Select Confirm In Summary Page
+    Verify Popup Msg Alert Subscribed And Close
+    Verify sms immediate voice countries with state    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_4_1] Subscribe voice package immediate in case have only countries
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. China)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice)
+    ...    6. Select ""Package type"" (Voice & SMS)
+    ...    7. Click ""Continue""
+    ...    8. Verify Roaming Pack
+    ...    - Zone 2 Roam Like Home 1Day \ Unlimited* 1Day
+    ...    - 499
+    ...    8. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (China)
+    ...    - Customer type (AIS Postpaid)
+    ...    - Package type (Voice & SMS)
+    ...    - List Of Package
+    ...    9. Select first package(Zone 2 Roam Like Home 1Day \ Unlimited* 1Day)
+    ...    9. Select first package(Super Value VoiceRoam 20 Min 7 Day)
+    ...    10. Select ""Immedieat""
+    ...    11. Click ""Subscribe"" button
+    ...    12. Verify "" Package summary"" page
+    ...    - Zone 2 Roam Like Home 1Day
+    ...    - 499 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    (Thailand Time)
+    ...    12. Verify "" Package summary"" page
+    ...    - Super Value VoiceRoam 20 Min 7 Day
+    ...    - 350 (Price)
+    ...    - 7 (Validity(Day))
+    ...    13. Click ""Confirm"" button
+    ...    14. Verify popup msg ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    15. Capture screen
+    ...    16. Click ""OK""
+    ...    17. Verify SMS ""...""
+    ...    17. Verify SMS ""Super Value VoiceRoam 20 Mins for calling to phone in Thailand/roaming country & receiving call excludes roaming in ship/airplane. starting from xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx (Thailand Time). Check at ""
+    ...    18. Capture screen"
+    ...
+    ...    -new update-
+    ...    *3PE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Japan)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice & SMS)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Japan)
+    ...    - Customer type
+    ...    - Package type (Voice & SMS)
+    ...    - List Of Package
+    ...    10. Select first package (World SMS Roam 30 SMS \ 30SMS 7Day)
+    ...    11. Select ""Immedieat"" (radio button)
+    ...    12. Click ""Subscribe"" button
+    ...    13. Verify "" Package summary"" page
+    ...    - World SMS Roam 30 SMS \ 30SMS 7Day
+    ...    - xxx (Price)
+    ...    - x (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    14. Click ""Confirm"" button
+    ...    15. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    16. Capture screen
+    ...    17. Click ""OK""
+    ...    18. Verify SMS ""You can enjoy SMS Roaming Pack, \ 300 Baht for 30 SMS Roaming, 7 days (Excl. VAT).""
+    ...    19. Capture screen"
+    ...
+    ...
+    ...    *3BE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Japan)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice & SMS)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Japan)
+    ...    - Customer type
+    ...    - Package type (Voice & SMS)
+    ...    - List Of Package
+    ...    10. Select first package (World SMS Roam 30 SMS \ 30SMS 7Day)
+    ...    11. Select ""Immedieat"" (radio button)
+    ...    12. Click ""Subscribe"" button
+    ...    13. Verify "" Package summary"" page
+    ...    - World SMS Roam 30 SMS \ 30SMS 7Day
+    ...    - xxx (Price)
+    ...    - x (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    14. Click ""Confirm"" button
+    ...    15. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    16. Capture screen
+    ...    17. Click ""OK""
+    ...    18. Verify SMS ""SMS Roaming Package 30 SMS 300 Baht starting from 09/03/2017 11:44 - 10/03/2017 11:44 (Thailand Time). Please set sms center number to +66818110888 or contact AIS CALL CENTER, dial +6622719000""
+    ...    19. Capture screen"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_RoamingPackage_${ar_LANG}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RoamingPackage_${ar_LANG}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select roaming country roaming immediate voice countries without state
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To VoiceAndSMS
+    ${CountryType}    ${CustomerType}    ${PackageType}    Get Country Customer And Package Type
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${CustomerType}    ${PackageType}
+    Select package immediate voice countries without state
+    Select Immediate Button
+    Select Subscribe Button
+    Verify package summary immediate voice countries without state
+    Select Confirm In Summary Page
+    Verify Popup Msg Alert Subscribed And Close
+    Verify sms immediate voice countries without state    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_5_1] Subscribe data package future in case countries with states
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue""
+    ...    8. Verify Roaming Pack
+    ...    - NonStop DataRoam Zone A 1Day Selected Networks \ NonStop, 500 MB with max speed* 1Day
+    ...    - 350
+    ...    8. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type (AIS Postpaid)
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    9. Select first package(NonStop DataRoam Zone A 1Day Selected Networks \ NonStop, 500 MB with max speed* 1Day)
+    ...    10. Select ""Specify start date(not more than 30 days in advance)""
+    ...    11. Set Date(xx/xx/xxxx)
+    ...    12. Set Time(xx:xx)
+    ...    13. Select ""State"" (eg. Victoria)
+    ...    14. Verify Package Start/End
+    ...    - The start and end date of your selected package are based on Thailand time.
+    ...    - Package starts on xx Feb xxxx, xx:xx
+    ...    - Package ends on xx Feb xxxx, xx:xx
+    ...    14. Click ""Subscribe"" button
+    ...    15. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone A 1Day Selected Networks
+    ...    - 350 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    (Thailand Time)
+    ...    16. Click ""Confirm"" button
+    ...    17. Verify popup msg ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    18. Capture screen
+    ...    19. Click ""OK""
+    ...    20. Verify SMS ""...""
+    ...    20. Verify SMS ""Non-Stop DataRoam Zone A 1Day (500MB at max speed & after used up, get unlimited usage at speed 64kbps) 350 Baht starting from xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx (TH Time). Select network specified in the package only, please check at www.ais.co.th/roaming/NonStopZoneA.html""
+    ...    21. Capture screen"
+    ...
+    ...    -new update-
+    ...    *3PE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    10. Select first package (NonStop DataRoam Zone A 1Day Selected Networks \ NonStop, 500 MB with max speed* 1Day)
+    ...    11. \ Select ""Specify start date"" (radio button)
+    ...    12. Set date (Current date)
+    ...    13. Set time (Current time)
+    ...    14. Select ""State"" (eg. Victoria)
+    ...    15. Click ""Subscribe"" button
+    ...    16. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone A 1Day Selected Networks
+    ...    - 350 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    17. Click ""Confirm"" button
+    ...    18. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    19. Capture screen
+    ...    20. Click ""OK""
+    ...    21. Verify SMS ""You have requested to subscribe Zone A Non-Stop DataRoam 1Day Selected Networks. \ Your balance will be deducted 374.50 Baht on 17/03/2017 16:09 TH time. \ Please top up to maintain sufficient balance.""
+    ...    22. Capture screen "
+    ...
+    ...    *3BE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    10. Select first package (NonStop DataRoam Zone A 1Day Selected Networks \ NonStop, 500 MB with max speed* 1Day)
+    ...    11. \ Select ""Specify start date"" (radio button)
+    ...    12. Set date (Current date)
+    ...    13. Set time (Current time)
+    ...    14. Select ""State"" (eg. Victoria)
+    ...    15. Click ""Subscribe"" button
+    ...    16. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone A 1Day Selected Networks
+    ...    - 350 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    17. Click ""Confirm"" button
+    ...    18. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    19. Capture screen
+    ...    20. Click ""OK""
+    ...    21. Verify SMS ""Non-Stop DataRoam Zone A 1Day (500MB at max speed & after used up, get unlimited usage at speed 64kbps) 350 Baht starting from 09/03/2017 11:44 to 10/03/2017 11:44 (TH Time). Select network specified in the package only, please check at www.ais.co.th/roaming/NonStopZoneA.html""
+    ...    22. Capture screen "
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_RoamingPackage_${ar_LANG}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RoamingPackage_${ar_LANG}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select roaming country roaming future data countries with state
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To Data
+    ${CountryType}    ${CustomerType}    ${PackageType}    Get Country Customer And Package Type
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${CustomerType}    ${PackageType}
+    Select package future data countries with state by
+    Select Specify Start Date Button
+    Click Mobile Element    ${btnChoosingDate}
+    set date the day after tomorrow
+    Click Mobile Element    ${btnOkSelectTime}
+    Select State To Victoria
+    Select Subscribe Button
+    Verify package summary future data countries with state
+    Select Confirm In Summary Page
+    Verify Popup Msg Alert Subscribed And Close
+    Verify sms future data countries with state    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_6_1] Subscribe data package future in case have only countries
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. China)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue""
+    ...    8. Verify Roaming Pack
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day
+    ...    - 450
+    ...    8. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (China)
+    ...    - Customer type (AIS Postpaid)
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    9. Select first package(NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day)
+    ...    10. Select ""Specify start date(not more than 30 days in advance)""
+    ...    11. Set Date(xx/xx/xxxx)
+    ...    12. Set Time(xx:xx)
+    ...    13. Verify Package Start/End
+    ...    - The start and end date of your selected package are based on Thailand time.
+    ...    - Package starts on xx Feb xxxx, xx:xx
+    ...    - Package ends on xx Feb xxxx, xx:xx
+    ...    13. Click ""Subscribe"" button
+    ...    14. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China
+    ...    - 450 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    (Thailand Time)
+    ...    15. Click ""Confirm"" button
+    ...    16. Verify popup msg ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    17. Capture screen
+    ...    18. Click ""OK""
+    ...    19. Verify SMS ""...""
+    ...    19. Verify SMS ""Non-Stop DataRoam Zone B 1Day (500MB at max speed & after used up, get unlimited usage at speed 64kbps) 450 Baht starting from xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx (TH Time). Select network specified in the package only, please check at www.ais.co.th/roaming/NonStopZoneB.html""
+    ...    20. Capture screen"
+    ...
+    ...    -new update-
+    ...    *3PE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. China)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (China)
+    ...    - Customer type
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    10. Select first package (NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day)
+    ...    11. \ Select ""Specify start date"" (radio button)
+    ...    12. Set date (Current date)
+    ...    13. Set time (Current time)
+    ...    14. Click ""Subscribe"" button
+    ...    15. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China
+    ...    - 450 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    16. Click ""Confirm"" button
+    ...    17. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    18. Capture screen
+    ...    19. Click ""OK""
+    ...    20. Verify SMS ""You have requested to subscribe Zone B Non-Stop DataRoam 1Day Selected Networks. \ Your balance will be deducted 481.50 Baht on 18/03/2017 16:54 TH time. \ Please top up to maintain sufficient balance.""
+    ...    21. Capture screen "
+    ...
+    ...
+    ...    *3BE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. China)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (China)
+    ...    - Customer type
+    ...    - Package type (Data)
+    ...    - List Of Package
+    ...    10. Select first package (NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day)
+    ...    11. \ Select ""Specify start date"" (radio button)
+    ...    12. Set date (Current date)
+    ...    13. Set time (Current time)
+    ...    14. Click ""Subscribe"" button
+    ...    15. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China
+    ...    - 450 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    16. Click ""Confirm"" button
+    ...    17. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    18. Capture screen
+    ...    19. Click ""OK""
+    ...    20. Verify SMS ""Non-Stop DataRoam Zone B 1Day (500MB at max speed & after used up, get unlimited usage at speed 64kbps) 450 Baht starting from 09/03/2017 11:44 to 10/03/2017 11:44 (TH Time). Select network specified in the package only, please check at www.ais.co.th/roaming/NonStopZoneB.html""
+    ...    21. Capture screen"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_RoamingPackage_${ar_LANG}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RoamingPackage_${ar_LANG}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select roaming country roaming future data countries without state
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To Data
+    ${CountryType}    ${CustomerType}    ${PackageType}    Get Country Customer And Package Type
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${CustomerType}    ${PackageType}
+    Select package future data countries without state
+    Select Specify Start Date Button
+    Click Mobile Element    ${btnChoosingDate}
+    set date the day after tomorrow
+    Click Mobile Element    ${btnOkSelectTime}
+    Select Subscribe Button
+    Verify package summary future data countries without state
+    Select Confirm In Summary Page
+    Verify Popup Msg Alert Subscribed And Close
+    Verify sms future data countries without state    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_7_1] Subscribe voice package future in case countries with states
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    *remark*
+    ...    Package >> Hot Deal Voice Roam 150Minutes \ 150* 7วัน
+    ...    SMS: Hot Deal Voice Roam 1350Baht 150Mins for calling to phone in Thailand/roaming country & receiving call excludes roaming in ship/airplane. Starting from xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx (Thailand Time). Check at www.ais.co.th/roaming/Hotdealvoice/hotdeal.html
+    ...
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice & SMS)
+    ...    7. Click ""Continue""
+    ...    8. Verify Roaming Pack
+    ...    - Zone 1 Roam Like Home 1Day \ Unlimited* 1Day
+    ...    - 350
+    ...    8. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type (AIS Postpaid)
+    ...    - Package type (Voice & SMS)
+    ...    - List Of Package
+    ...    9. Select first package(Zone 1 Roam Like Home 1Day \ Unlimited* 1Day)
+    ...    10. Select ""Specify start date(not more than 30 days in advance)""
+    ...    11. Set Date(xx/xx/xxxx)
+    ...    12. Set Time(xx:xx)
+    ...    13. Select ""State"" (eg. Victoria)
+    ...    14. Verify Package Start/End
+    ...    - The start and end date of your selected package are based on Thailand time.
+    ...    - Package starts on xx Feb xxxx, xx:xx
+    ...    - Package ends on xx Feb xxxx, xx:xx
+    ...    14. Click ""Subscribe"" button
+    ...    15. Verify "" Package summary"" page
+    ...    - Zone 1 Roam Like Home 1Day
+    ...    - 350 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    (Thailand Time)
+    ...    16. Click ""Confirm"" button
+    ...    17. Verify popup msg ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    18. Capture screen
+    ...    19. Click ""OK""
+    ...    20. Verify SMS ""...""
+    ...    20. Verify SMS ""Zone1 RoamLikeHome with Unlimited local call &call to Thai, DataRoam 200MB at max speed &after used up,get unlimited usage at speed 64kbps, special rate of receiving call 5B/Min & SMS 5B/SMS starting from xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx (TH Time). Check network at Ais.co.th/ren""
+    ...    21. Capture screen"
+    ...
+    ...    -new update-
+    ...    *3PE*"1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type
+    ...    - Package type (Voice)
+    ...    - List Of Package
+    ...    10. Select first package (World SMS Roam 30 SMS \ 30SMS 7Day)
+    ...    11. \ Select ""Specify start date"" (radio button)
+    ...    12. Set date (Current date)
+    ...    13. Set time (Current time)
+    ...    14. Select ""State"" (eg. Victoria)
+    ...    15. Click ""Subscribe"" button
+    ...    16. Verify "" Package summary"" page
+    ...    - World SMS Roam 30 SMS \ 30SMS 7Day
+    ...    - xxx (Price)
+    ...    - x (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    17. Click ""Confirm"" button
+    ...    18. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    19. Capture screen
+    ...    20. Click ""OK""
+    ...    21. Verify SMS ""You have requested to subscribe 300 Baht for 30 SMS Roaming, 7 days (Excl. VAT). \ Your balance will be deducted 321.00 Baht on 17/03/2017 16:13 TH time. \ Please top up to maintain sufficient balance.""
+    ...    22. Capture screen "
+    ...
+    ...    *3BE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Australia)
+    ...    - Customer type
+    ...    - Package type (Voice)
+    ...    - List Of Package
+    ...    10. Select first package (World SMS Roam 30 SMS \ 30SMS 7Day)
+    ...    11. \ Select ""Specify start date"" (radio button)
+    ...    12. Set date (Current date)
+    ...    13. Set time (Current time)
+    ...    14. Select ""State"" (eg. Victoria)
+    ...    15. Click ""Subscribe"" button
+    ...    16. Verify "" Package summary"" page
+    ...    - World SMS Roam 30 SMS \ 30SMS 7Day
+    ...    - xxx (Price)
+    ...    - x (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    17. Click ""Confirm"" button
+    ...    18. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    19. Capture screen
+    ...    20. Click ""OK""
+    ...    21. Verify SMS ""SMS Roaming Package 30 SMS 300 Baht starting from 09/03/2017 11:44 - 10/03/2017 11:44 (Thailand Time). Please set sms center number to +66818110888 or contact AIS CALL CENTER, dial +6622719000""
+    ...    22. Capture screen "
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_RoamingPackage_${ar_LANG}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RoamingPackage_${ar_LANG}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select roaming country roaming future voice countries with state
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To VoiceAndSMS
+    ${CountryType}    ${CustomerType}    ${PackageType}    Get Country Customer And Package Type
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${CustomerType}    ${PackageType}
+    Select package future voice countries with state
+    Select Specify Start Date Button
+    Click Mobile Element    ${btnChoosingDate}
+    set date the day after tomorrow
+    Click Mobile Element    ${btnOkSelectTime}
+    Select State To Victoria
+    Select Subscribe Button
+    Verify package summary future voice countries with state
+    Select Confirm In Summary Page
+    Verify Popup Msg Alert Subscribed And Close
+    Verify sms future voice countries with state    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_8_1] Subscribe voice package future in case have only countries
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Package"" menu
+    ...    4. Select ""Roaming country"" (eg. China)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice)
+    ...    6. Select ""Package type"" (Voice & SMS)
+    ...    7. Click ""Continue""
+    ...    8. Verify Roaming Pack
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day
+    ...    - 450
+    ...    8. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (China)
+    ...    - Customer type (AIS Postpaid)
+    ...    - Package type (Voice & SMS)
+    ...    - List Of Package
+    ...    9. Select first package(NonStop DataRoam Zone B 1Day All Networks in China \ NonStop, 500 MB with max speed* 1Day)
+    ...    9. Select package(Super Value VoiceRoam 40 Min 7 Day)
+    ...    10. Select ""Specify start date(not more than 30 days in advance)""
+    ...    11. Set Date(xx/xx/xxxx)
+    ...    12. Set Time(xx:xx)
+    ...    13. Verify Package Start/End
+    ...    - The start and end date of your selected package are based on Thailand time.
+    ...    - Package starts on xx Feb xxxx, xx:xx
+    ...    - Package ends on xx Feb xxxx, xx:xx
+    ...    14. Click ""Subscribe"" button
+    ...    15. Verify "" Package summary"" page
+    ...    - NonStop DataRoam Zone B 1Day All Networks in China
+    ...    - 450 (Price)
+    ...    - 1 (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    (Thailand Time)
+    ...    15. Verify "" Package summary"" page
+    ...    - Super Value VoiceRoam 40 Min 7 Day
+    ...    - 660 (Price)
+    ...    - 7 (Validity(Day))
+    ...    16. Click ""Confirm"" button
+    ...    17. Verify popup msg ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device offon before using your package.""
+    ...    18. Capture screen
+    ...    19. Click ""OK""
+    ...    20. Verify SMS ""...""
+    ...    20. Verify SMS ""Super Value VoiceRoam 40 Mins for calling to phone in Thailand/roaming country & receiving call excludes roaming in ship/airplane. starting from xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx (Thailand Time). Check at ""
+    ...    21. Capture screen"
+    ...
+    ...    -new update-
+    ...    *3PE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Japan)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Japan)
+    ...    - Customer type
+    ...    - Package type (Voice)
+    ...    - List Of Package
+    ...    10. Select first package (World SMS Roam 30 SMS \ 30SMS 7Day)
+    ...    11. \ Select ""Specify start date"" (radio button)
+    ...    12. Set date (Current date)
+    ...    13. Set time (Current time)
+    ...    14. Click ""Subscribe"" button
+    ...    15. Verify "" Package summary"" page
+    ...    - World SMS Roam 30 SMS \ 30SMS 7Day
+    ...    - xxx (Price)
+    ...    - x (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    16. Click ""Confirm"" button
+    ...    17. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    18. Capture screen
+    ...    19. Click ""OK""
+    ...    20. Verify SMS ""You have requested to subscribe 300 Baht for 30 SMS Roaming, 7 days (Excl. VAT). \ Your balance will be deducted 321.00 Baht on 17/03/2017 17:18 TH time. \ Please top up to maintain sufficient balance.""
+    ...    21. Capture screen "
+    ...
+    ...
+    ...    *3BE*
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Japan)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (Voice)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Verify Roaming Pack
+    ...    - Mobile no.
+    ...    - Country (Japan)
+    ...    - Customer type
+    ...    - Package type (Voice)
+    ...    - List Of Package
+    ...    10. Select first package (World SMS Roam 30 SMS \ 30SMS 7Day)
+    ...    11. \ Select ""Specify start date"" (radio button)
+    ...    12. Set date (Current date)
+    ...    13. Set time (Current time)
+    ...    14. Click ""Subscribe"" button
+    ...    15. Verify "" Package summary"" page
+    ...    - World SMS Roam 30 SMS \ 30SMS 7Day
+    ...    - xxx (Price)
+    ...    - x (Validity(Day))
+    ...    - After receiving SMS/Email confirmation (Start from)
+    ...    - As SMS/Email confirmation (To)
+    ...    16. Click ""Confirm"" button
+    ...    17. Verify dialog message ""Your subscribed package will be ready for use after receiving SMS or email confirmation. When your subscribed package is effective, please turn your device off-on before using your package.""
+    ...    18. Capture screen
+    ...    19. Click ""OK""
+    ...    20. Verify SMS ""SMS Roaming Package 30 SMS 300 Baht starting from 09/03/2017 11:44 - 10/03/2017 11:44 (Thailand Time). Please set sms center number to +66818110888 or contact AIS CALL CENTER, dial +6622719000""
+    ...    21. Capture screen "
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_RoamingPackage_${ar_LANG}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RoamingPackage_${ar_LANG}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select roaming country roaming future voice countries without state
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To VoiceAndSMS
+    ${CountryType}    ${CustomerType}    ${PackageType}    Get Country Customer And Package Type
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${CustomerType}    ${PackageType}
+    Select package future voice countries without state
+    Select Specify Start Date Button
+    Click Mobile Element    ${btnChoosingDate}
+    set date the day after tomorrow
+    Click Mobile Element    ${btnOkSelectTime}
+    Select Subscribe Button
+    Verify package summary future voice countries without state
+    Select Confirm In Summary Page
+    Verify Popup Msg Alert Subscribed And Close
+    Verify sms future voice countries without state    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_9_1] Apply roaming packages verify page apply roaming packages
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Verify ""Apply Roaming Packages"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Roaming country
+    ...    - Customer type (auto detect)
+    ...    - Package type
+    ...    5. Capture screen"
+    [Tags]    success    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_10_1] Apply roaming packages verify page package list
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Capture screen
+    ...    8. Click ""Continue"" button
+    ...    9.Verify ""Packages List"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Country
+    ...    - Customer type (auto detect)
+    ...    - Package type
+    ...    - List of package (Check object visible)
+    ...    10. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To Data
+    ${CountryType}    ${CustomerType}    ${PackageType}    Get Country Customer And Package Type
+    Mobile Capture Screen At Verify Point    Verify In Apply Roaming Package Page
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${CustomerType}    ${PackageType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_11_1] Apply roaming packages verify page package detail
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Click ""Detail"" at first package
+    ...    10. Verify ""Package Detail"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Package
+    ...    - Rate
+    ...    - Amount of data usage
+    ...    - Validity
+    ...    - Roaming countries (label)
+    ...    11. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Mobile Capture Screen At Verify Point    Verify In Select Package page
+    Select Detail First Package
+    Verify Detail First Package Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_12_1] Apply roaming packages verify page specify effective date from package list page
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Select first package
+    ...    10. Verify ""Specify Effective Date"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Specify Effective Date Of Your Selected Package (label)
+    ...    11. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Select First Package In Select Package Page
+    Verify Specify Effective Date    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_13_1] Apply roaming packages verify page specify effective date from package detail page
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Click ""Detail"" at first package
+    ...    10. Click ""Next"" button
+    ...    11. Verify ""Specify Effective Date"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Specify Effective Date Of Your Selected Package (label)
+    ...    12. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Mobile Capture Screen At Verify Point    Verify In Select Package Page
+    Select Detail First Package
+    Click Next On Detail Page
+    Verify Specify Effective Date    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_14_1] Apply roaming packages verify page package summary
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Select first package
+    ...    10. Select ""Immedieat"" (radio button)
+    ...    11. Click ""Subscribe"" button
+    ...    12. Verify "" Package summary"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Package Subscription Confirmation (label)
+    ...    13. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    #Select ""Customer type"" (auto detect)
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Mobile Capture Screen At Verify Point    Capture Screen In Select Package Roaming page
+    Select First Package In Select Package Page
+    Select Immediate Button
+    Select Subscribe Button
+    Verify Package Summary Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_15_1] Check convert time china only
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (Chaina)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" ( Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Select first package
+    ...    10. Select ""Specify start date"" (radio button)
+    ...    11. Set date = Tomorrow
+    ...    12. Set Time = ""00:00""
+    ...    13. Verify ""Converted to Thailand time""
+    ...    ""Date and time converted to Thailand time.""
+    ...    - Date dd mm yyyy Time hh:mm \ eg. Date 21 Dec 2016 Time 23:00
+    ...    (*Thai time should be Current Date and time = 23:00 )
+    ...    14. Verify ""Package start and end""
+    ...    ""The start and end date of your selected package are \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ based on Thailand time.""
+    ...    - Package starts on dd mm yyyy \ hh:mm
+    ...    eg. Package starts on 21 Dec 2016 23:00 \ \ \ \ \ \ \ \ \ - Package ends on dd mm yyyy \ hh:mm ( end time can be equal start time+23:59 hr. or start time+24:00 hr.)
+    ...    eg. Package ends on 22 Dec 2016 22:59
+    ...    or \ Package ends on 22 Dec 2016 23:00
+    ...    15. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To China
+    #Auto Detact
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Select First Package In Select Package Page
+    Select Specify Start Date Button
+    Set Date Tomorrow And Time 00:00
+    Verify Converted To Thailand Time
+    Verify End And Start Time
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_16_1] Error apply roaming packages page not select roaming country
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Verify ""Apply Roaming Packages"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Roaming country
+    ...    - Customer type (auto detect)
+    ...    - Package type
+    ...    5. Select Customer type (auto detect)
+    ...    6. Select Package type (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Verify dialog message ""Please select a country.""
+    ...    9. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Verify Dialog Message No Country Select
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_17_1] Error apply roaming packages page not select customer type
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Verify ""Apply Roaming Packages"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Roaming country
+    ...    - Customer type (auto detect)
+    ...    - Package type
+    ...    5. Select Roaming country (eg. Australia)
+    ...    6. Select Customer type \ = ""Please select""
+    ...    7. Select Package type (eg. Data)
+    ...    8. Click ""Continue"" button
+    ...    9. Verify dialog message ""Please select your customer type.""
+    ...    10. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select Roaming Country To Australia
+    Select Customer Type To Please Select
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Verify Dialog Message No Customer Type
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_18_1] Error Apply roaming packages page not select package type
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Verify ""Apply Roaming Packages"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Roaming country
+    ...    - Customer type (auto detect)
+    ...    - Package type
+    ...    5. Select Roaming country (eg. Australia)
+    ...    6. Select Customer type (auto detect)
+    ...    7. Click ""Continue"" button
+    ...    8. Verify dialog message ""Please select a package type.""
+    ...    9. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
+    Select Roaming Country To Australia
+    Select Package Type To Please Select
+    Click Continue On Apply Roaming Package Page
+    Verify Dialog Message No Package Type
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_19_1] Error select effective date not select effective Date
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Select first package
+    ...    9. Verify ""Specify Effective Date"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Specify Effective Date Of Your Selected Package (label)
+    ...    10. Select ""Specify start date"" radio button
+    ...    11. Click ""Subscribe"" button
+    ...    12.Verify dialog message ""Please specify start time.""
+    ...    13. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+    Verify Specify Effective Date    ${Number}
+    Select Specify Start Date Button
+    Select Subscribe Button
+    Verify No Start Time
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_20_1] Error select effective date less than current date
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" \ England
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Select first package
+    ...    9. Verify ""Specify Effective Date"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Specify Effective Date Of Your Selected Package (label)
+    ...    10. Select ""Specify start date"" radio button
+    ...    11. Set date (Yesterday)
+    ...    12. Set time (Current time)
+    ...    13. Click ""Subscribe"" button
+    ...    14.Verify dialog message ""Please select start date after current date.""
+    ...    15. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To England
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Select Non Stop Data Roam ZoneC 1Day Selected Networks
+    Verify Specify Effective Date    ${Number}
+    Select Specify Start Date Button
+    Set Specific Date To The Date Yesterday
+    Select Subscribe Button
+    Verify Dialog Message Select Yesterday
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_21_1] Error select effective date more than 30 days in advance
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" \ England
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Select first package
+    ...    9. Verify ""Specify Effective Date"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Specify Effective Date Of Your Selected Package (label)
+    ...    10. Select ""Specify start date"" radio button
+    ...    11. Set date (Current date + 30 days)
+    ...    12. Set time (Current time)
+    ...    13. Click ""Subscribe"" button
+    ...    14.Verify dialog message ""Please select start date more than 30 days.""
+    ...    15. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To England
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Select Non Stop Data Roam ZoneC 1Day Selected Networks
+    Verify Specify Effective Date    ${Number}
+    Select Specify Start Date Button
+    Set Specify Date More Than 30 Days
+    Select Subscribe Button
+    Verify Dialog Message Select More Than 30 Days
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_22_1] Error select effective date In case countries with states not select state
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" \ Australia
+    ...    5. Select ""Customer type"" (auto detect)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Select first package
+    ...    9. Verify ""Specify Effective Date"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Specify Effective Date Of Your Selected Package (label)
+    ...    10. Select ""Specify start date"" radio button
+    ...    11. Set date (Current date)
+    ...    12. Set time (Current time)
+    ...    13. Click ""Subscribe"" button
+    ...    14.Verify dialog message ""Select State First""
+    ...    15. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Select First Package In Select Package Page
+    Verify Specify Effective Date    ${Number}
+    Select Specify Start Date Button
+    Set Current Date
+    Select Subscribe Button
+    Verify Dialog Message No Select State
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_Package_1-4_2_Y_23_1] Error Subscribe package wrong customer type
+    [Documentation]    **Owner:Now**
+    ...
+    ...    Source Number : 3PO, 3BO,3BE,3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...
+    ...    "1. Login MyAIS.
+    ...    2. Click ""Package"" menu
+    ...    3. Click ""Apply Roaming Packages"" menu
+    ...    4. Select ""Roaming country"" (eg. Australia)
+    ...    5. Select ""Customer type"" (AIS One-2-Call!)
+    ...    6. Select ""Package type"" (eg. Data)
+    ...    7. Click ""Continue"" button
+    ...    8. Capture screen
+    ...    9. Select first package
+    ...    10. Select ""Immedieat"" (radio button)
+    ...    11. Click ""Subscribe"" button
+    ...    12. Verify "" Package summary"" page
+    ...    - Header ""Apply Roaming Packages""
+    ...    - Number
+    ...    - Package Subscription Confirmation (label)
+    ...    13. Click ""Confirm"" button
+    ...    14. Verify dialog message ""You are subscribing to the package(s) of AIS One-2-Call!,your current customer type is AIS Postpaid. Please re-select customer type to AIS Postpaid and subscribe to the package again.""
+    ...    15. Capture screen"
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    Select Customer Type By nType
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page
+    Mobile Capture Screen At Verify Point    Verify In Select Package Page
+    Select First Package In Select Package Page
+    Select Immediate Button
+    Select Subscribe Button
+    Verify Package Summary Page    ${Number}
+    Select Confirm In Summary Page
+    Verify Dialog Message Current AIS Postpaid But Select AIS 12Call
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Prod] Smoke Test
+    [Tags]    smoke
+    log    Smoke for quick test
+
+*** Keywords ***
+Click Next On Detail Page
+    Swipe to element    ${btnNextDetailPage}
+    Click Mobile Element    ${btnNextDetailPage}
+
+Click Continue On Apply Roaming Package Page
+    Click Mobile Element    ${btnContinueApplyRoaming}
+
+Get Country Customer And Package Type
+    ${Country}=    Get mobile text    ${itmDdlRoamingCountryApplyRoamingPackagePage}
+    ${Customer}=    Get mobile text    ${itmDdlCustomerTypeApplyRoamingPackagePage}
+    ${Package}=    Get mobile text    ${itmDdlPackageTypeApplyRoamingPackagePage}
+    [Return]    ${Country}    ${Customer}    ${Package}
+
+Select Package Menu
+    Select Menu    Package
+
+Select Apply Roaming Package Submenu
+    Select Sub Menu    ApplyRoamingPackage
+
+Set Current Date
+    Click Mobile Element    ${btnChoosingDate}
+    Click Mobile Element    ${btnOkSelectTime}
+
+Select Roaming Country To Australia
+    Select roaming country to    Australia
+
+Select Roaming Country To China
+    Select roaming country to    China
+
+Select Roaming Country To England
+    Select roaming country to    England
+
+Select Roaming Country To Please Select
+    Select roaming country to    PleaseSelect
+
+Select Customer Type To Please Select
+    Select customer type to    PleaseSelect
+
+Select Customer Type To AIS Postpaid
+    Select customer type to    AISPostpaid
+
+Select Customer Type To AIS One2Call
+    Select customer type to    One2Call
+
+Select Package Type To Please Select
+    Select package type to    PleaseSelect
+
+Select Package Type To Data
+    Select package type to    Data
+
+Select Package Type To VoiceAndSMS
+    Select package type to    VoiceAndSMS
+
+Select Detail First Package
+    Click Mobile Element    ${lblFirstPackageDetailSelectRoamingPackagePage}
+
+Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+    Select roaming package to    NonStopDataRoamZoneA1DaySelectedNetworks
+
+Select Hot Deal Voice Roam 150 Minutes Package
+    Select roaming package to    HotDealVoiceRoam150Minutes
+
+Select Super Value Voice Roam 20 Min 7 Day Package
+    Select roaming package to    SuperValueVoiceRoam20Min7Day
+
+Select Non Stop Data Roam Zone B 1 Day All Networks In China Package
+    Select roaming package to    NonStopDataRoamZoneB1DayAllNetworksInChina
+
+Select Non Stop Data Roam ZoneC 1Day Selected Networks
+    Select roaming package to    NonStopDataRoamZoneC1DaySelectedNetworks
+
+Select Super Value Voice Roam 40 Min 7 Day Package
+    Select roaming package to    SuperValueVoiceRoam40Min7Day
+
+Select Specify Start Date Button
+    Click Mobile Element    ${rboSpecifyEffectiveDateSpecifyDate}
+
+Select Subscribe Button
+    Swipe to element    ${btnSubscribeSpecifyEffectiveDate}    screen
+    Click Mobile Element    ${btnSubscribeSpecifyEffectiveDate}
+
+Select Confirm In Summary Page
+    Click Mobile Element    ${btnConfirmSummaryPage}
+
+Select Immediate Button
+    Click Mobile Element    ${rboSpecifyEffectiveDateImmediate}
+
+Set Specify Date More Than 30 Days
+    Click Mobile Element    ${btnChoosingDate}
+    set date more than 30 days
+    Click Mobile Element    ${btnOkSelectTime}
+
+Set Specific Date To The Date Yesterday
+    Click Mobile Element    ${btnChoosingDate}
+    set date the day before yesterday
+    Click Mobile Element    ${btnOkSelectTime}
+
+Select First Package In Select Package Page
+    Click Mobile Element    ${lblFirstPackageSelectRoamingPackagePage}
+
+Set Date Tomorrow And Time 00:00
+    Click Mobile Element    ${btnChoosingDate}
+    set date tomorrow
+    set time 00:00
+    Click Mobile Element    ${btnOkSelectTime}
+
+Select State To Victoria
+    Select state to    Victoria
+
+Verify Apply Roaming Package Page
+    [Arguments]    ${MobileNo}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblHeader}    ${txtHeaderApplyRoamingPackage}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblMobileNumber}    ${MobileNo}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblRoamingCountryApplyRoamingPackagePage}    ${txtRoamingPackage}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblCustomerTypeApplyRoamingPackagePage}    ${txtCustomerType}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblPackageTypeApplyRoamingPackagePage}    ${txtPackageType}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Wait Mobile Until Element Visible    ${btnContinueApplyRoaming}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Wait Mobile Until Element Visible    ${lblTermAndCondition}
+    Mobile Capture Screen At Verify Point    Verify In Apply Roaming Package Page
+
+Verify Package Roaming Page
+    [Arguments]    ${MobileNo}    ${CountryType}    ${CustomerType}    ${PackageType}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblHeader}    ${txtHeaderApplyRoamingPackage}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblMobileNumber}    ${MobileNo}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblCountrySelectRoamingPackagePage}    ${CountryType}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblCustomerTypeSelectRoamingPackagePage}    ${CustomerType}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblPackageTypeSelectRoamingPackagePage}    ${PackageType}
+    Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Wait Mobile Until Element Visible    ${lblFirstPackageSelectRoamingPackagePage}
+    Mobile Capture Screen At Verify Point    Verify In Package Roaming Page
+
+Verify Dialog Message No Country Select
+    Mobile element text should be    ${lblDialog}    ${txtDialogMessageNoCountrySelect}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Please Select Country
+
+Verify Dialog Message No Customer Type
+    Mobile element text should be    ${lblDialog}    ${txtDialogMessageNoCustomerTypeSelect}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Please Select Customer Type
+
+Verify Dialog Message No Package Type
+    Mobile element text should be    ${lblDialog}    ${txtDialogMessageNoPackageTypeSelect}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Please Select Package
+
+Verify Specify Effective Date
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeader}    ${txtHeaderApplyRoamingPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblSpecifyEffectiveDateOfYourSelectedPackage}    ${txtSpecifyEffectiveDate}
+    Mobile Capture Screen At Verify Point    Verify In Specify Page
+
+Verify Popup Msg Alert Subscribed And Close
+    Mobile element name should be    ${lblDialog}    ${txtDialogYourSubscribedPackageWillBeReady}
+    Mobile Capture Screen At Verify Point    Verify In Dialog After Subscribe
+    Click Mobile Element    ${btnDialogOk}
+
+Verify Dialog Message Select Yesterday
+    Mobile element text should be    ${lblDialog}    ${txtDialogMessageSelectYesterday}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Specify Date Yesterday
+
+Verify Dialog Message Select More Than 30 Days
+    Mobile element text should be    ${lblDialog}    ${txtDialogMessageSelectMoreThan30Days}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Specify Date More Than 30 Days
+
+Verify Package Summary Page
+    [Arguments]    ${NoMobile}
+    Mobile element text should be    ${lblHeader}    ${txtHeaderApplyRoamingPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${NoMobile}
+    Wait Mobile Until Element Visible    ${lblPackageSubscriptionConfirm}
+    Wait Mobile Until Element Visible    ${btnCancelSummaryPage}
+    Wait Mobile Until Element Visible    ${btnEditSummaryPage}
+    Wait Mobile Until Element Visible    ${btnConfirmSummaryPage}
+    Mobile Capture Screen At Verify Point    Verify In Package Summary Page
+
+Verify No Start Time
+    Mobile element text should be    ${lblDialog}    ${txtDialogMessageNoStartTime}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message No Specify Start Time
+
+Verify Detail First Package Page
+    [Arguments]    ${NoMobile}
+    Mobile check existing text    ${lblHeader}    ${txtHeaderApplyRoamingPackage}
+    Mobile check existing text    ${lblMobileNumber}    ${NoMobile}
+    Wait Mobile Until Element Visible    ${lblPackageNameDetailPage}
+    Wait Mobile Until Element Visible    ${lblPackageRateDetailPage}
+    Wait Mobile Until Element Visible    ${lblPackageAmountDetailPage}
+    Wait Mobile Until Element Visible    ${lblPackageValidityDetailPage}
+    Wait Mobile Until Element Visible    ${lblMobileNetworkDetailPage}
+    Wait Mobile Until Element Visible    ${lblHandsetDisplayDetailPage}
+    Mobile Capture Screen At Verify Point    Verify In Detail First Package Page
+
+Verify Dialog Message Current AIS Postpaid But Select AIS 12Call
+    Mobile element text should be    ${lblDialog}    ${txtDialogCurrentAISPostpaidSelectAIS12Call}
+    Mobile Capture Screen At Verify Point    Verify in \ Dialog Message Current AIS Postpaid But Select AIS12Call
+    Click Mobile Element    ${btnOKDialog}
+
+Verify Dialog Message No Select State
+    Mobile element text should be    ${lblDialog}    ${txtDialogMessageNoStateSelect}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Specify Date Yesterday
+
+Verify Converted To Thailand Time
+    [Documentation]    13. Verify ""Converted to Thailand time""
+    ...    ""Date and time converted to Thailand time.""
+    ...    - Date dd mm yyyy Time hh:mm \ eg. Date 21 Dec 2016 Time 23:00
+    ...    (*Thai time should be Current Date and time = 23:00 )
+    ...    14. Verify ""Package start and end""
+    ...    ""The start and end date of your selected package are \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ based on Thailand time.""
+    ...    - Package starts on dd mm yyyy \ hh:mm
+    ...    eg. Package starts on 21 Dec 2016 23:00 \ \ \ \ \ \ \ \ \ - Package ends on dd mm yyyy \ hh:mm ( end time can be equal start time+23:59 hr. or start time+24:00 hr.)
+    ...    eg. Package ends on 22 Dec 2016 22:59
+    ...    or \ Package ends on 22 Dec 2016 23:00
+    Swipe to element    ${lblPackageEndDate}
+    Mobile element text should be    ${lblConvertDateTimeToThailandTime}    ${txtDateStartAndEndBaseOnThailand}
+    Mobile element text should match regexp    ${lblConvertDateTimeToThailandTimeDetail}    ${txtConVertDateTimeToThailandTimeRex}
+    Mobile element text should be    ${lblStartAndEndDateThailandTime}    ${txtTheStartAndEndDateOfYourSelected}
+    Mobile Capture Screen At Verify Point    Verify In Converted To Thailand Time
+
+Verify SMS Non Stop Data Roam Zone B 1 Day
+    [Arguments]    ${Period}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${Period}"=="immediate"    Verify subscribe sms immediate    NonStopDataRoamZoneB1DayAllNetworksInChina    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${Period}"=="future"    Verify subscribe sms future    NonStopDataRoamZoneB1DayAllNetworksInChina    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify SMS Non Stop Data Roam Zone A1 Day
+    [Arguments]    ${Period}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${Period}"=="immediate"    Verify subscribe sms immediate    NonStopDataRoamZoneA1DaySelectedNetworks    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${Period}"=="future"    Verify subscribe sms future    NonStopDataRoamZoneA1DaySelectedNetworks    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify SMS Hot Deal Voice Roam 150 Mins
+    [Arguments]    ${Period}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${Period}"=="immediate"    Verify subscribe sms immediate    HotDealVoiceRoam150Mins    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${Period}"=="future"    Verify subscribe sms future    HotDealVoiceRoam150Mins    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify SMS Super Value Voice Roam 20 Mins
+    [Arguments]    ${Period}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${Period}"=="immediate"    Verify subscribe sms immediate    SuperValueVoiceRoam20Min7Day    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${Period}"=="future"    Verify subscribe sms future    SuperValueVoiceRoam20Min7Day    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify SMS Super Value Voice Roam 40 Mins
+    [Arguments]    ${Period}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${Period}"=="immediate"    Verify subscribe sms immediate    SuperValueVoiceRoam40Min7Day    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${Period}"=="future"    Verify subscribe sms future    SuperValueVoiceRoam40Min7Day    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify Hot Deal Voice Roam 150 Min Summary Page immediate
+    Verify summary page immediate to    HotDealVoiceRoam150Minutes
+
+Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Immediate
+    Verify summary page immediate to    NonStopDataRoamZoneB1DayAllNetworksInChina
+
+Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Future
+    Verify summary page future to    NonStopDataRoamZoneB1DayAllNetworksInChina
+
+Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Immediate
+    Verify summary page immediate to    NonStopDataRoamZoneA1DaySelectedNetworks
+
+Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Future
+    Verify summary page future to    NonStopDataRoamZoneA1DaySelectedNetworks
+
+Verify Super Value Voice Roam 20 Min 7 Day Summary Page Immediate
+    Verify summary page immediate to    SuperValueVoiceRoam20Min7Day
+
+Verify Hot Deal Voice Roam 150 Min Summary Page Future
+    Verify summary page future to    HotDealVoiceRoam150Minutes
+
+Verify Super Value Voice Roam 40 Min 7 Day Summary Page Future
+    Verify summary page future to    SuperValueVoiceRoam40Min7Day
+
+Verify End And Start Time
+    [Documentation]    13. Verify ""Converted to Thailand time""
+    ...    ""Date and time converted to Thailand time.""
+    ...    - Date dd mm yyyy Time hh:mm \ eg. Date 21 Dec 2016 Time 23:00
+    ...    (*Thai time should be Current Date and time = 23:00 )
+    ...    14. Verify ""Package start and end""
+    ...    ""The start and end date of your selected package are \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ based on Thailand time.""
+    ...    - Package starts on dd mm yyyy \ hh:mm
+    ...    eg. Package starts on 21 Dec 2016 23:00 \ \ \ \ \ \ \ \ \ - Package ends on dd mm yyyy \ hh:mm ( end time can be equal start time+23:59 hr. or start time+24:00 hr.)
+    ...    eg. Package ends on 22 Dec 2016 22:59
+    ...    or \ Package ends on 22 Dec 2016 23:00
+    Swipe to element    ${lblPackageEndDate}
+    Mobile element text should match regexp    ${lblPackageStartDate}    ${txtStartDateRex}
+    Mobile element text should match regexp    ${lblPackageEndDate}    ${txtEndDateRex}
+    Mobile Capture Screen At Verify Point    Verify In End And Start Time
+
+Select package immediate data countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+
+Select package immediate data countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Non Stop Data Roam Zone B 1 Day All Networks In China Package
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Non Stop Data Roam Zone B 1 Day All Networks In China Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Non Stop Data Roam Zone B 1 Day All Networks In China Package
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Non Stop Data Roam Zone B 1 Day All Networks In China Package
+
+Select package immediate voice countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Hot Deal Voice Roam 150 Minutes Package
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Hot Deal Voice Roam 150 Minutes Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Select World SMS Roam 30 SMS Package
+    Run Keyword If    "${ar_NType}"=="3BE"    Select World SMS Roam 30 SMS Package
+
+Select package immediate voice countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Super Value Voice Roam 20 Min 7 Day Package
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Super Value Voice Roam 20 Min 7 Day Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Select World SMS Roam 30 SMS Package
+    Run Keyword If    "${ar_NType}"=="3BE"    Select World SMS Roam 30 SMS Package
+
+Select package future data countries with state by
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
+
+Select package future data countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Non Stop Data Roam Zone B 1 Day All Networks In China Package
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Non Stop Data Roam Zone B 1 Day All Networks In China Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Non Stop Data Roam Zone B 1 Day All Networks In China Package
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Non Stop Data Roam Zone B 1 Day All Networks In China Package
+
+Select package future voice countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Hot Deal Voice Roam 150 Minutes Package
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Hot Deal Voice Roam 150 Minutes Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Select World SMS Roam 30 SMS Package
+    Run Keyword If    "${ar_NType}"=="3BE"    Select World SMS Roam 30 SMS Package
+
+Select package future voice countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Super Value Voice Roam 40 Min 7 Day Package
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Super Value Voice Roam 40 Min 7 Day Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Select World SMS Roam 30 SMS Package
+    Run Keyword If    "${ar_NType}"=="3BE"    Select World SMS Roam 30 SMS Package
+
+Verify package summary immediate data countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Immediate
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Immediate
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Immediate
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Immediate
+
+Verify package summary immediate data countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Immediate
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Immediate
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Immediate
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Immediate
+
+Verify package summary immediate voice countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Hot Deal Voice Roam 150 Min Summary Page immediate
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Hot Deal Voice Roam 150 Min Summary Page immediate
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify World SMS Roam 30 SMS Summary Page immediate
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify World SMS Roam 30 SMS Summary Page immediate
+
+Verify package summary immediate voice countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Super Value Voice Roam 20 Min 7 Day Summary Page Immediate
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Super Value Voice Roam 20 Min 7 Day Summary Page Immediate
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify World SMS Roam 30 SMS Summary Page immediate
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify World SMS Roam 30 SMS Summary Page immediate
+
+Verify package summary future data countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify Non Stop Data Roam Zone A 1 Day Selected Networks Summary Page Future
+
+Verify package summary future data countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify Non Stop Data Roam Zone B 1 Day All Networks In China Summary Page Future
+
+Verify package summary future voice countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Hot Deal Voice Roam 150 Min Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Hot Deal Voice Roam 150 Min Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify World SMS Roam 30 SMS Summary Page future
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify World SMS Roam 30 SMS Summary Page future
+
+Verify package summary future voice countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Super Value Voice Roam 40 Min 7 Day Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify Super Value Voice Roam 40 Min 7 Day Summary Page Future
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify World SMS Roam 30 SMS Summary Page future
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify World SMS Roam 30 SMS Summary Page future
+
+Verify sms immediate data countries with state
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS Non Stop Data Roam Zone A1 Day    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS Non Stop Data Roam Zone A1 Day    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS Non Stop Data Roam Zone A1 Day    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS Non Stop Data Roam Zone A1 Day    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify sms immediate data countries without state
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS Non Stop Data Roam Zone B 1 Day    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS Non Stop Data Roam Zone B 1 Day    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS Non Stop Data Roam Zone B 1 Day    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS Non Stop Data Roam Zone B 1 Day    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify sms immediate voice countries with state
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS Hot Deal Voice Roam 150 Mins    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS Hot Deal Voice Roam 150 Mins    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS World SMS Roam 30 SMS    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS World SMS Roam 30 SMS    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify sms immediate voice countries without state
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS Super Value Voice Roam 20 Mins    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS Super Value Voice Roam 20 Mins    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS World SMS Roam 30 SMS    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS World SMS Roam 30 SMS    immediate    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify sms future data countries with state
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS Non Stop Data Roam Zone A1 Day    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS Non Stop Data Roam Zone A1 Day    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS Non Stop Data Roam Zone A1 Day    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS Non Stop Data Roam Zone A1 Day    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify sms future data countries without state
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS Non Stop Data Roam Zone B 1 Day    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS Non Stop Data Roam Zone B 1 Day    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS Non Stop Data Roam Zone B 1 Day    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS Non Stop Data Roam Zone B 1 Day    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify sms future voice countries with state
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS Hot Deal Voice Roam 150 Mins    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS Hot Deal Voice Roam 150 Mins    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS World SMS Roam 30 SMS    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS World SMS Roam 30 SMS    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify sms future voice countries without state
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify SMS Super Value Voice Roam 40 Mins    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify SMS Super Value Voice Roam 40 Mins    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS World SMS Roam 30 SMS    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS World SMS Roam 30 SMS    future    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Select Roaming Country To Japan
+    Select roaming country to    Japan
+
+Select roaming country roaming immediate data countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Roaming Country To Australia
+
+Select roaming country roaming immediate data countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Roaming Country To China
+
+Select roaming country roaming immediate voice countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Roaming Country To Australia
+
+Select roaming country roaming immediate voice countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Roaming Country To Japan
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Roaming Country To Japan
+
+Select roaming country roaming future data countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Roaming Country To Australia
+
+Select roaming country roaming future data countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Roaming Country To China
+
+Select roaming country roaming future voice countries with state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Roaming Country To Australia
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Roaming Country To Australia
+
+Select roaming country roaming future voice countries without state
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Roaming Country To China
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Roaming Country To Japan
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Roaming Country To Japan
+
+Select World SMS Roam 30 SMS Package
+    Select roaming package to    WorldSMSRoam30SMS
+
+Verify World SMS Roam 30 SMS Summary Page immediate
+    Verify summary page immediate to    WorldSMSRoam30SMS
+
+Verify SMS World SMS Roam 30 SMS
+    [Arguments]    ${Period}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    [Documentation]    You can enjoy SMS Roaming Pack, \ 300 Baht for 30 SMS Roaming, 7 days \\(Excl. VAT\\).
+    Run Keyword If    "${Period}"=="immediate"    Verify subscribe sms immediate    WorldSMSRoam30SMS    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+    Run Keyword If    "${Period}"=="future"    Verify subscribe sms future    WorldSMSRoam30SMS    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}
+    ...    ${SN}
+
+Verify World SMS Roam 30 SMS Summary Page future
+    Verify summary page future to    WorldSMSRoam30SMS
+
+Select Customer Type By nType
+    [Documentation]    prepaid select AIS Postpaid \ postpaid select AIS 12call
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Customer Type To AIS One2Call
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Customer Type To AIS One2Call
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Customer Type To AIS Postpaid
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Customer Type To AIS Postpaid

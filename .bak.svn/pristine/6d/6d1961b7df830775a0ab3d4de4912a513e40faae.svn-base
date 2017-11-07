@@ -1,0 +1,79 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageVariable/Emerald_NewsAndShareVariable.txt
+Resource          ../PageRepository/Emerald_NewsAndShareRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_NewsAndShareLocalized.txt
+
+*** Keywords ***
+Select Online News And Update Channels
+    [Arguments]    ${location}    ${imgCaptureName}
+    Sleep    3s
+    Scroll Web To Element    ${location}
+    Sleep    2s
+    Web Capture Screen At Verify Point    ${imgCaptureName}
+    Click Web Element    ${location}
+
+Verify URL Update News eService
+    Sleep    15s
+    Select Window    title=AIS eService บริการออนไลน์ จัดการทุกเรื่องง่ายๆ ได้ 24 ชม.
+    ${URL}=    Get Location
+    Should Match Regexp    ${URL}    ${URLUpdateNewsEService}
+    Web Capture Screen At Verify Point    Update News eService Page
+
+Verify Line Page
+    Web Element Should Be Visible    ${imgLineLogo}
+    Web Element Text Should Be    ${imgLineLogo}    ${Line}
+    Web Element Should Be Visible    ${imgLineQRCode}
+    Web Element Text Should Be    ${lblLine}    ${LineText}
+    Web Capture Screen At Verify Point    LINE Page
+
+Verify Facebook Page
+    Web Element Should Be Visible    ${imgFacebookLogo}    #โลโก้ Facebook
+    Web Element Text Should Be    ${lblFacebook}    ${FacebookSecure}    #การตรวจสอบสถานะความปลอดภัย (กรณีที่ไม่ได้ login facebook ไว้)
+    Web Capture Screen At Verify Point    Facebook Page
+
+Verify Contact Us Page
+    Web Element Should Be Visible    ${imgContactBanner}    #Banner (contact us แจ้งเรื่องที่ต้องการติดต่อ ช่องทางใหม่ ที่ดูแล สะดวกและรวดเร็วยิ่งขึ้น)
+    Web Element Text Should Be    ${lblContactUs}    ${ContactUs}     #แจ้งความต้องการของคุณที่นี่ค่ะ
+    Web Capture Screen At Verify Point    Contect Us Page
+
+Verify Share To Facebook Not Login
+    Scroll Web To Element    ${btnShareToFacebook}
+    Click Web Element    ${btnShareToFacebook}
+    Sleep    10
+    Select Window    url=${URLShareLoginFacebook}
+    Verify Link    ${URLShareLoginFacebook}
+    Maximize Browser Window
+    Scroll Web To Element    ${imgFacebook}
+    Web Element Should Be Visible    ${imgFacebook}
+    Web Element Should Be Visible    ${lblFacebookLoginPage}
+    Web Capture Screen At Verify Point    Verify Share to facebook with no login
+
+Verify Popup Condition
+    Scroll Web To Element    ${btnToConditionSerenade}
+    Sleep    3s
+    Click Web Element    ${btnToConditionSerenade}
+    Web Element Text Should Be    ${lblConditionPopupHeaderDetail}    ${ConditionPopupHeaderDetail}
+    Web Element Text Should Be    ${lblConditionPopupHeaderRequest}    ${ConditionPopupHeaderRequest}
+    Web Element Text Should Be    ${lblConditionPopupHeaderCondition}    ${ConditionPopupHeaderCondition}
+    Web Capture Screen At Verify Point    Verify Condition Popup
+
+Verify Image Share Segment
+    Sleep    15s
+    Scroll Web To Element    ${imgSerenadeShare}
+    Web Element Should Be Visible    ${imgSerenadeShare}
+    Web Capture Screen At Verify Point    Verify Img Serenade share
+
+Verify News
+    Web Element Should Be Visible    ${imgLineLogo}
+    Web Element Text Should Be    ${imgLineLogo}    ${Line}
+    Web Element Should Be Visible    ${imgLineQRCode}
+    Web Element Text Should Be    ${lblLine}    ${LineText}
+    Web Capture Screen At Verify Point    LINE Web Page
+
+Verify eService Page
+    Select Frame    //iframe[@id="MainIframe"]
+    Web Element Should Be Visible    ${imgeServiceAISlogo}
+    Web Element Text Should Be    ${lbleServiceLogin}    ${eServiceLogin}
+    Web Element Text Should Be    ${lbleService}    ${eServiceText}
+    Web Capture Screen At Verify Point    eService Page

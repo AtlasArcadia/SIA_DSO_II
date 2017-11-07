@@ -1,0 +1,239 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/QuickMenu_VerifyButtonLocalized.txt
+Resource          ../PageRepository/${ar_OS}/Quickmenu_VerifyButtonRepository.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Select Menu And Verify Quick Menu
+    [Arguments]    ${Menu}
+    Click Mobile Element    ${mnu${Menu}}
+    ${AISPoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${diglogAISPoint}    1
+    Run Keyword If    ${AISPoint}    Click Mobile Element    ${btnCancelAISPoint}
+    Wait Mobile Until Element Visible    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Verify ${Menu} Quick Menu
+
+Verify Current Package Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}" == "3PE"    Verify Current Package Page 3PE    ${Number}
+    Run Keyword If    "${ar_NType}" == "3BE"    Verify Current Package Page 3BE    ${Number}
+    Run Keyword If    "${ar_NType}" == "FBB"    Verify Current Package Page FBB    ${Number}
+    Run Keyword If    "${ar_NType}" == "3PO"    Verify Current Package Page 3PO    ${Number}
+    Run Keyword If    "${ar_NType}" == "3BO"    Verify Current Package Page 3BO    ${Number}
+    Run Keyword If    "${ar_NType}" == "IPE"    Verify Current Package Page IPE    ${Number}
+
+Verify Current Package Page 3PE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${YourCurrentPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblPricePlanCurrentPackage}    ${PricePlan}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Current Package Page
+
+Verify Current Package Page 3BE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${YourCurrentPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblPricePlanCurrentPackage}    ${PricePlan}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Current Package Page
+
+Verify Usage Detail Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${UsageDetails}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Usage Detail Page
+
+Verify Payment Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${Payment}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeadBoxYourUsageCharges}    ${YourUsageCharges}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Payment Page
+
+Select Button Recents
+    Click Mobile Element    ${btnRecentsPointAndPrivileges}
+
+Verify Recents Page
+    Mobile element text should be    ${lblHeadTitleRecentsPage}    ${Recents}
+    Mobile element text should be    ${lblPrivilegesAtRecentsPage}    ${Privileges}
+    Mobile element text should be    ${lblPointsAtRecentsPage}    ${Points}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Recent Page
+
+Verify International Roaming
+    Mobile element text should be    ${lblHeadTitlePage}    ${FAQ}
+    Mobile element name should be    ${lblInternationalRoaming}    ${InternationalRoaming}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    International Roaming
+
+Verify Top up Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${Topup}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblEnterDestinationNumberTopup}    ${EnterDestinationNumberYouWishToTopup}
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${PleaseSelectTopupChannels}
+    Mobile element text should be    ${lbSelectTopupAmount}    ${SelectTopupAmount}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Topup Page
+
+Verify Validity Transfer Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${ValidityTransfer}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblEnterDestinationNumberValidityTransfer}    ${EnterDestinationNumber}
+    Mobile element text should be    ${lblTransferAmountPerDays}    ${TransferAmountPerDays}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Validity Transfer Page
+
+Select Quick Menu
+    Click Mobile Element    ${btnQuickMenu}
+
+Verify Quick Menu
+    Run Keyword If    "${ar_NType}" == "3PE" or "${ar_NType}" == "3BE"    Verify Quick Menu 3PE 3BE
+    Run Keyword If    "${ar_NType}" == "FBB"    Verify Quick Menu FBB
+    Run Keyword If    "${ar_NType}" == "IPE"    Verify Quick Menu IPE
+
+Verify Quick Menu 3PE 3BE
+    Mobile element text should be    ${btnAskAunjaiQM}    ${AskAunjaiQM}
+    Mobile element text should be    ${btnTopupQM}    ${TopUpQM}
+    Mobile element text should be    ${btnApplyOnTopPackageQM}    ${ApplyOnTopPackageQM}
+    Mobile element text should be    ${btnPointsPrivilegesQM}    ${PointsPrivilegesQM}
+    Mobile element text should be    ${btnRegisterAISFibreQM}    ${RegisterAISFibreQM}
+    Mobile element text should be    ${btnSearchQM}    ${SearchQM}
+    Wait Mobile Until Element Visible    ${btnCloseQM}
+    Mobile Capture Screen At Verify Point    Qiuck Menu
+
+Verify Quick Menu FBB
+    Mobile element text should be    ${btnAskAunjaiQM}    ${AskAunjaiQM}
+    Mobile element text should be    ${btnPaymentQM}    ${PaymentQM}
+    Mobile element text should be    ${btnPointsPrivilegesQM}    ${PointsPrivilegesQM}
+    Mobile element text should be    ${btnSearchQM}    ${SearchQM}
+    Wait Mobile Until Element Visible    ${btnCloseQM}
+    Mobile Capture Screen At Verify Point    Qiuck Menu
+
+Verify Current Package Page FBB
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${YourCurrentPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblPricePlanCurrentPackage}    ${PricePlan}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Current Package Page
+
+Select Description Current Package
+    Swipe Element To Screen    ${btnDescriptionCurrentPackage}
+    Click Mobile Element    ${btnDescriptionCurrentPackage}
+
+Verify AIS eStatement Page
+    Mobile element text should be    ${lblHeadTitlePage}    ${AISeStatement}
+    Mobile element text should be    ${lblFastOrSafe}    ${FastOrSafe}
+    Mobile element text should be    ${lblHasslefree}    ${Hasslefree}
+    Mobile element text should be    ${lblStayUptodate}    ${StayUptodate}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    AIS eStatment Page
+
+Verify Current Package Page 3PO
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${YourCurrentPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Current Package Page
+
+Wait Until Calling Melody Load Finished
+    [Arguments]    ${timeout}=${lo_general_timeout}
+    log    wait load finished
+    Wait Until Keyword Succeeds    ${timeout}    3    AISAppiumEx.Page Should Not Contain Element    ${lblDialogCalling}
+    Wait Until Keyword Succeeds    30 sec    5 sec    wait Calling Melody Loaded
+    Run Keyword And Ignore Error    Swipe To    no_target    up    0.3    5
+    Wait Until Keyword Succeeds    30 sec    5 sec    wait Calling Melody Loaded
+
+wait Calling Melody Loaded
+    AISAppiumEx.Wait Until Element Is Visible    xpath=//*[@resource-id="smartbanner"]/android.view.View[@index="0"]/android.view.View[@index="2" and @content-desc="VIEW"]    ${lo_general_timeout}
+    Comment    AISAppiumEx.Wait Until Page Contains Element    ${btnViewBanner}    ${lo_general_timeout}
+    sleep    1
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblDialogCalling}    ${lo_general_timeout}
+    sleep    1
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblDialogCalling}    ${lo_general_timeout}
+    sleep    1
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblDialogCalling}    ${lo_general_timeout}
+
+Verify Current Package Page 3BO
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${YourCurrentPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Current Package Page
+
+Verify Current Package Page IPE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${YourCurrentPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblPricePlanCurrentPackage}    ${PricePlan}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Current Package Page
+
+Verify Quick Menu IPE
+    Mobile element text should be    ${btnAskAunjaiQM}    ${AskAunjaiQM}
+    Mobile element text should be    ${btnTopupQM}    ${TopUpQM}
+    Mobile element text should be    ${btnApplyOnTopPackageQM}    ${ApplyOnTopPackageQM}
+    Mobile element text should be    ${btnPointsPrivilegesQM}    ${PointsPrivilegesQM}
+    Mobile element text should be    ${btnRegisterAISFibreQM}    ${RegisterAISFibreQM}
+    Mobile element text should be    ${btnSearchQM}    ${SearchQM}
+    Wait Mobile Until Element Visible    ${btnCloseQM}
+    Mobile Capture Screen At Verify Point    Qiuck Menu
+
+Select Remaining Balance
+    Click Mobile Element    ${btnRemainingBalance}
+
+Verify Quick Menu 3PO 3BO
+    Mobile element text should be    ${btnAskAunjaiQM}    ${AskAunjaiQM}
+    Mobile element text should be    ${btnPaymentQM}    ${PaymentQM}
+    Mobile element text should be    ${btnApplyOnTopPackageQM}    ${ApplyOnTopPackageQM}
+    Mobile element text should be    ${btnPointsPrivilegesQM}    ${PointsPrivilegesQM}
+    Mobile element text should be    ${btnRegisterAISFibreQM}    ${RegisterAISFibreQM}
+    Mobile element text should be    ${btnSearchQM}    ${SearchQM}
+    Wait Mobile Until Element Visible    ${btnCloseQM}
+
+Verify Ask Aunjai Postpaid
+    Sleep    5
+    Click Mobile Element    ${lblAskAunjai}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    AskAunjai
+
+Verify calling melody
+    Click Mobile Element    ${lblCalling}
+    Sleep    20
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Callind Melody
+
+Verify Payment
+    Select Sub Menu    Payment
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Payment
+
+Verify Your Balance Postpaid
+    Click Mobile Element    ${lblYourBalance}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Yourbalance
+
+Verify package page Postpaid
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    YourCurrent Package
+
+Verify Seemore Privileges
+    Sleep    10
+    Swipe to element    ${lblPrivileges}
+    Sleep    5
+    Click Mobile Element    ${lblSeemorePrivilege}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Privilege

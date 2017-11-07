@@ -1,0 +1,1032 @@
+*** Settings ***
+Resource          Resource/PageKeywords/Event_Corp.txt
+
+*** Test Cases ***
+[F1_Event_10_1_Y_1_2] APP_VIEW_HOME
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า Home
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Mobile element text should be    ${lblHomePage}    ${txtMainPage}
+    Mobile Capture Screen At Verify Point    Home
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_2_2] APP_VIEW_HOME_REMAINING_PACK
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า Home > Remaining Pack
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Mobile element text should be    ${lblValidPackage}    ${txtValidPackage}
+    Swipe Element To Screen    ${lblValidPackage}    up
+    Mobile element text should be    ${lblMore}    ${txtMore}    #click more
+    Click Mobile Element    ${lblMore}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_3_2] APP_VIEW_HOME_FEED_CONTENT
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า Home > Feed Content
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Swipe to element    ${lblContent}
+    Click Mobile Element    ${lblContent}
+    Wait Mobile Until Element Visible    ${lblExtraPoint}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_4_2] APP_VIEW_HOME_CAMPAIGN
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า Home > Campaign
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Swipe to element    ${lblCampaign}
+    Click Mobile Element    ${lblCampaign}
+    Wait Mobile Until Element Visible    ${dialogCampaign}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_5_2] APP_VIEW_HOME_CURRENT_PACK
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า Home > Current Pack
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to Current
+    Click Mobile Element    ${lblCurrentPackageHome}
+    Mobile element text should be    ${lblCurrentPackage}    ${txtCurrentPackage}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_6_2] APP_VIEW_HOME_CLOUD_PLUS
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า Home > Cloud
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to AIS Cloud
+    Mobile element text should be    ${lblCardAISCloud}    ${txtCardAISCloud}
+    Click Mobile Element    ${lblCardAISCloud}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_7_2] APP_VIEW_HOME_CURRENT_USAGES
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า Home > Current Usage
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Wait Mobile Until Element Visible    ${lblCurrentUsagesHome}    30
+    Mobile element text should be    ${lblContainer}    ${txtValidPackage}
+    Swipe Element To Screen    ${lblCurrentUsagesHome}    up
+    Mobile element text should be    ${lblMore}    ${txtMore}
+    Click Mobile Element    ${lblMore}
+    Click Mobile Element    ${btnOK}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_8_2] APP_VIEW_SETTING
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า "Setting"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Hamberger
+    Click Mobile Element    ${mnuSetting}
+    Wait Mobile Until Page Contains Element    ${btnToggleLanguage}
+    Comment    Mobile Capture Screen At Verify Point    setting
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_9_2] APP_SETTING_CHANGE_LANGUAGE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    Setting > เปลี่ยนภาษา
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Hamberger
+    Click Mobile Element    ${mnuSetting}
+    Wait Mobile Until Page Contains Element    ${btnToggleLanguage}
+    Click Mobile Element    ${btnToggleLanguage}
+    Log Number And Time    ${Number}
+    Comment    Mobile Capture Screen At Verify Point    change lang
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_10_2] APP_SETTING_TERMS_CONDITION
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    กดปุ่ม Terms & conditions หน้า Setting
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Hamberger
+    Click Mobile Element    ${mnuSetting}
+    Swipe to element    ${lblSettingTermsAndConditions}
+    Click Mobile Element    ${btnTermAndConditionSetting}
+    Wait Mobile Until Page Contains Element    ${lblTermAndConditionSetting}
+    Comment    Mobile Capture Screen At Verify Point    term and condition
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_11_2] APP_VIEW_CURRENT_PACKAGE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า “Current Package”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Mobile element text should be    ${lblPackage_MobileNumber}    ${Number}
+    Log Number And Time    ${Number}
+    Mobile Capture Screen At Verify Point    current package
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[reject][F1_Event_10_1_Y_12_2] APP_VIEW_CANCEL_ONTOP_PACKAGE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า “Cancel On-Top Package”
+    Comment    Reject
+    [Teardown]
+
+[reject][F1_Event_10_1_Y_13_2] APP_CONFIRM_CANCEL_ONTOP_PACKAGE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    กดปุ่ม “ตกลง” ในหน้า “Cancel On-Top Package”
+    Comment    Reject
+    [Teardown]
+
+[F1_Event_10_1_Y_14_2] APP_VIEW_VERIFY_ID_CARD
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า “Verify ID Card”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    UsageDetailHistory
+    Verify Title Header    UsageDetailHistory
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_15_2] APP_CONFIRM_VERIFY_ID_CARD
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    กดปุ่ม “ตกลง” ในหน้า “Verify ID Card”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    UsageDetailHistory
+    Input ID Citizen    ${ID_Citizen}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_16_2] APP_VIEW_USAGE_DETAILS_HISTORY
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า "ค่าใช้บริการย้อนหลัง"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    UsageDetailHistory
+    Input ID Citizen    ${ID_Citizen}
+    Select Internet and Value Added Service
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_17_2] APP_VIEW_CURRENT_CHARGE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า "ค่าใช้บริการระหว่างรอบบิล"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+    Select Sub Menu    YourCurrentChange(Unbilled)
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_18_2] APP_VIEW_SERVICE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า “Service”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_19_2] APP_VIEW_FIBRE_REGISTER_CHECK_COVERAGE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า “Fibre Register check/ Coverage”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Service
+    Select Sub Menu    CorpRegisterAISFibre/CheckCoverage
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_20_2] APP_VIEW_WIFI_REQUEST_CHANGE_PASSWORD
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า “Request/Change WiFi Password ขอรับ/เปลี่ยนรหัส WiFi”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Service
+    Select Sub Menu    RequestChangeWiFiPassword
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_21_2] APP_VIEW_APPLY_ROAMING_PACKAGE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า “Roaming Package Registration”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Sub Menu    CorpApplyRoamingPackage
+    Verify Header    ${txtHeaderApplyRoamingPackage}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_22_2] APP_CONFIRM_APPLY_ROAMING_PACKAGE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    กดปุ่ม “ตกลง” ในหน้า “Roaming Package Registration”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Package Menu
+    Select Sub Menu    CorpApplyRoamingPackage
+    Select roaming country to    Australia
+    Select Data Package Roaming
+    Continue To Next Step Apply Roaming
+    RoamingPackage_ApplyRoamingPackage_Prepaid.Select package immediate data countries with state
+    Select Immediate Button
+    Select Subscribe Button
+    Select Confirm In Summary Page
+    Click Mobile Element    ${btnOK}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_23_2] APP_VIEW_ROAMING_SERVICE_RATE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า “Roaming Service Rate”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    CorpRoamingServiceRates
+    Verify Header    ${txtHeadRoamingServiceRates}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_24_2] APP_VIEW_ROAMING_CURRENT_PACKAGE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า "Current Package & Remaining”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    CorpCurrentPackageAndRemaining
+    Verify Header    ${txtHeadCurrentPackageAndRemaining}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[Reject][F1_Event_10_1_Y_25_2] APP_LOGIN_WITH_OTP
+
+[F1_Event_10_1_Y_26_2] APP_LOGIN_WITH_PRIMARY_OTP
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Prepaid
+    ...    Status : Active
+    ...
+    ...    *Expected Result*
+    ...    กดปุ่ม “เบอร์หลัก” ในหน้า Secondary OTP
+    ...
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    chosen primary button
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_27_2] APP_LOGIN_WITH_SECONDARY_OTP
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Prepaid
+    ...    Status : Active
+    ...
+    ...    *Expected Result*
+    ...    กดปุ่ม “email รอง" หรือ "เบอร์รอง” ในหน้า Secondary OTP
+    ...
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    Click mobile element    ${btnEmail}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[Reject][F1_Event_10_1_Y_28_2] APP_LOGIN_BYPASS
+
+[F1_Event_10_1_Y_29_2] APP_LOGIN_TERMS_CONDITION
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Prepaid
+    ...    Status : Active
+    ...
+    ...    *Expected Result*
+    ...    กดปุ่ม Terms & conditions หน้า login
+    ...
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Swipe to element    ${lblSettingTermsAndConditions}
+    Click Mobile Element    ${btnTermAndConditionSetting}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[reject][F1_Event_10_1_Y_30_2] APP_VIEW_MYAIS_PROFILE
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า “My Profile”
+    Reject
+    [Teardown]
+
+[reject][F1_Event_10_1_Y_31_2] APP_VIEW_REGISTER
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    กด "Create my AIS"
+    Reject
+    [Teardown]
+
+[reject][F1_Event_10_1_Y_32_2] APP_REGISTER_TERMS_CONDITION
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    กด "Terms & conditions"
+    Reject
+    [Teardown]
+
+[reject][F1_Event_10_1_Y_33_2] APP_COMFIRM_REGISTER
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    ยืนยัน "Create my AIS"
+    Reject
+    [Teardown]
+
+[reject][F1_Event_10_1_Y_34_2] APP_VIEW_REGISTER_ADDMEMBER
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    กด "Add Member"
+    Reject
+    [Teardown]
+
+[reject][F1_Event_10_1_Y_35_2] APP_CONFIRM_REGISTER_ADDMEMBER
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    ยืนยัน "Add Member"
+    Reject
+    [Teardown]
+
+[Reject][F1_Event_10_1_Y_36_2] APP_VIEW_FORGET_PASSWORD
+    Comment    Reject
+
+[Reject][F1_Event_10_1_Y_37_2] APP_CONFIRM_RESET_PASSWORD
+    Comment    Reject
+
+[Reject][F1_Event_10_1_Y_38_2] APP_VIEW_CHANGE_PASSWORD
+    Comment    Reject
+
+[Reject][F1_Event_10_1_Y_39_2] APP_CONFIRM_CHANGE_PASSWORD
+    Comment    Reject
+
+[Reject][F1_Event_10_1_Y_40_2] APP_VIEW_CHANGE_MASTER
+    Comment    Reject
+
+[Reject][F1_Event_10_1_Y_41_2] APP_CONFIRM_CHANGE_MASTER
+    Comment    Reject
+
+[Reject][F1_Event_10_1_Y_42_2] APP_LOGIN_WITH_PASSWORD
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Log Number And Time    ${Number}
+
+[Reject][F1_Event_10_1_Y_43_2] APP_VIEW_MYAIS_ACCOUNT
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Select Hamberger
+    Select Sub Menu Hamberger    Register
+    Verify Title Header    CreatemyAIS
+    Mobile Capture Screen At Verify Point    My Account
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_44_2] APP_VIEW_AIS_ONLINE_STORE
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    เลือกเมนู AIS Online Store
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Select Hamberger
+    Select Sub Menu Hamberger    AISOnlineStore
+    Verify Title Header    AISOnlineStore
+    Mobile Capture Screen At Verify Point    AISOnlineStore
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_45_2] APP_VIEW_AIS_WEBSITE
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    เลือกเมนู AIS Website
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Hamberger
+    Select Sub Menu Hamberger    AISWebsite
+    Log Number And Time    ${Number}
+    Verify Title Header    AISWebsite
+    Mobile Capture Screen At Verify Point    AISWebsite
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_46_2] APP_VIEW_AIS FACEBOOK
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    เลือกเมนู AIS Facbook
+    [Setup]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Hamberger
+    Select Sub Menu Hamberger    AISFacebook
+    Log Number And Time    ${Number}
+    Verify Title Header    AISFacebook
+    Mobile Capture Screen At Verify Point    AISFacebook
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_47_2] APP_VIEW_AIS_TWITTER
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    เลือกเมนู AIS Twitter
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Hamberger
+    Select Sub Menu Hamberger    AISTwitter
+    Log Number And Time    ${Number}
+    Verify Title Header    AISTwitter
+    Mobile Capture Screen At Verify Point    AISTwitter
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_48_2] APP_VIEW_AIS LINE
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    เลือกเมนู AIS Line
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Select Hamberger
+    Select Sub Menu Hamberger    AISLine
+    Log Number And Time    ${Number}
+    Verify Title Header    AISLine
+    Mobile Capture Screen At Verify Point    AISLine
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_49_2] APP_VIEW_HOME
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    เลือกเมนู หน้าหลัก
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Mobile element text should be    ${lblHomePage}    ${txtMainPage}
+    Mobile Capture Screen At Verify Point    Home
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_50_2] APP_VIEW_PACKAGE
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    เลือกเมนู แพ็กเกจ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Select Menu    Package
+    Log Number And Time    ${Number}
+    Wait Mobile Until Element Visible    ${txtMenuPackage}
+    Mobile Capture Screen At Verify Point    Package
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_51_2] APP_VIEW_SERVICE
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    เลือกเมนู บริการ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Select Menu    Service
+    Log Number And Time    ${Number}
+    Wait Mobile Until Element Visible    ${lblService}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[reject][F1_Event_10_1_Y_52_2] APP_VIEW_POINT_PRIVILAGE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Comment    Wait Mobile Until Element Visible    ${txtMenuBalanceUsage}
+    Log Number And Time    ${Number}
+
+[reject][F1_Event_10_1_Y_53_2] APP_VIEW_HELP_SUPPORT
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Select Menu    HelpAndSupport
+    Wait Mobile Until Element Visible    ${txtMenuFAQ}
+    Log Number And Time    ${Number}
+
+[reject][F1_Event_10_1_Y_54_2] APP_VIEW_CHANGE_MASTER
+    Comment    Reject
+
+[reject][F1_Event_10_1_Y_55_2] APP_CHANGE_MASTER_VERIFY_IDENTITY
+    Comment    Reject
+
+[reject][F1_Event_10_1_Y_56_2] APP_CHANGE_MASTER_REQUEST_OTP
+    Comment    Reject
+
+[reject][F1_Event_10_1_Y_57_2] APP_CHANGE_MASTER_CONFIRM_OTP
+    Comment    Reject
+
+[reject][F1_Event_10_1_Y_58_2] APP_CONFIRM_CHANGE_MASTER
+    Comment    Reject
+
+[F1_Event_10_1_Y_59_2] APP_VIEW_HOME_CURRENT_ROAMING_PACK
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    แสดงหน้า Home > Remaining Pack
+    [Setup]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to Roaming
+    Comment    Go to Roaming from Home
+    Swipe Element To Screen    ${lblCardRoaming}
+    Click Mobile Element    ${lblMore}
+    Verify Apply Roaming Package No Package From Home Page    ${Number}
+    Log Number And Time    ${Number}
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_60_2] APP_SETTING_PASSCODE_LOCK
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    Setting > passcode lock & fingerprint
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[reject][F1_Event_10_1_Y_61_2] APP_VIEW_TOPUP_MPAY
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Select Menu    TopUp
+    Select TopUp Channel    mPAYWallet
+    TopUp.Input Destination Number    ${AISBosPrepaidNumberTest}
+    Select TopUp With 10 Baht Amount
+    Click Button Next Topup
+    Log Number And Time    ${Number}
+    Confirm Summary Top Up
+    Log Number And Time    ${Number}
+
+[F1_Event_10_1_Y_62_2] APP_LOGIN_WITH_PASSCODE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Setup Active Passcode    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Login with Passcode Success
+    Log Number And Time    ${Number}
+    Mobile Capture Screen At Verify Point    login using passcode
+    [Teardown]    Keywords For Teardown With Reset Passcode    ${#dict_device_name}
+
+[F1_Event_10_1_Y_63_2] APP_VIEW_LOGOUT
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    กด Logout
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu Hamberger    LogOutMyAIS
+    Log Number And Time    ${Number}
+    Mobile Capture Screen At Verify Point    view logout
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}
+
+[F1_Event_10_1_Y_64_2] APP_VIEW_GREAT_SAVING_ROAMING_PACKAGE
+    [Documentation]    *Owner* : Ae
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Corp
+    ...
+    ...    *Expected Result*
+    ...
+    ...    กดปุ่ม “Great Saving Roaming Packages” ในหน้า “Roaming Service Rates”
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Swipe to element    ${RoamingServiceRates}
+    Click Mobile Element    ${RoamingServiceRates}
+    Click Great Saving Roaming Packages Button
+    Log Number And Time    ${Number}
+    Mobile Capture Screen At Verify Point    view great saving
+    [Teardown]    Home.Keywords For Teardown    ${#dict_device_name}

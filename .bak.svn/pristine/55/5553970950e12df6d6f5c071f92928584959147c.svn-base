@@ -1,0 +1,66 @@
+*** Settings ***
+Library           Collections
+Library           ../../Library/General/ParallelConfigLibrary.py
+Library           String
+
+*** Keywords ***
+Take And Define Virtual Local Configuration
+    [Arguments]    ${#dict_device_name}    ${local_config_file_path}    ${key_name}    ${timeout}    &{key_tag}
+    &{local_config_data}=    Wait Until Keyword Succeeds    ${timeout}s    1s    Take Virtual Local Config    ${local_config_file_path}    ${key_name}
+    ...    ${key_tag}
+    Comment    Log To Console    ${local_config_data}
+    @{items}=    Get Dictionary Items    ${local_config_data}
+    : FOR    ${key}    ${value}    IN    @{items}
+    \    Comment    Log    ${key} : ${value}
+    \    Set Test Variable    ${${key}}    ${value}
+    \    Comment    Set Test Variable    ${${${key_name}_#device_name}}    ${${key_name}_#timestamp}
+    \    Comment
+    \    Comment    ${device_name}    Set Variable    ${${key_name} _#device_name}
+    \    Comment    ${timestamp}    Set Variable    ${${key_name} _#timestamp}
+    ${device_name}=    Set Variable    ${${key_name} _#device_name}:${key_name}
+    ${timestamp}    Set Variable    ${${key_name} _#timestamp}
+    Log    ${key_name}
+    Log    ${device_name}
+    Log    ${timestamp}
+    Set To Dictionary    ${#dict_device_name}    ${device_name}=${timestamp}
+    [Return]    ${#dict_device_name}
+
+Release Virtual Local Configurations
+    [Arguments]    ${local_config_file_path}    ${#list_device_name}    ${timeout}=120
+    @{items}=    Get Dictionary Items    ${#list_device_name}
+    : FOR    ${device_name}    ${timestamp}    IN    @{items}
+    \    Log To Console    ${device_name} : ${timestamp}
+    \    Wait Until Keyword Succeeds    ${timeout} s    1 s    Release Virtual Local Config    ${local_config_file_path}    ${device_name}
+    \    ...    ${timestamp}
+
+Test Take
+    [Arguments]    ${#dict_device_name}    ${local_config_file_path}    ${key_name}    ${timeout}    &{key_tag}
+    &{local_config_data}=    Wait Until Keyword Succeeds    ${timeout}s    1s    Take Virtual Local Config    ${local_config_file_path}    ${key_name}
+    ...    ${key_tag}
+    Log To Console    ${local_config_data}
+    @{items}=    Get Dictionary Items    ${local_config_data}
+    : FOR    ${key}    ${value}    IN    @{items}
+    \    Comment    Log    ${key} : ${value}
+    \    Set Test Variable    ${${key}}    ${value}
+    \    Comment    Set Test Variable    ${${${key_name}_#device_name}}    ${${key_name}_#timestamp}
+    ${device_name}    Set Variable    ${${key_name} _#device_name}
+    ${timestamp}    Set Variable    ${${key_name} _#timestamp}
+    Set To Dictionary    ${#dict_device_name}    ${device_name}=${timestamp}
+    [Return]    ${#dict_device_name}
+
+Take And Define PIN Card Top Up
+    [Arguments]    ${local_config_file_path}    ${key_name}    ${timeout}    &{key_tag}
+    ${#PIN_Card_TopUp}=    Create Dictionary
+    &{local_config_data}=    Wait Until Keyword Succeeds    ${timeout}s    1s    Take Virtual Local Config    ${local_config_file_path}    ${key_name}
+    ...    ${key_tag}
+    Comment    Log To Console    ${local_config_data}
+    @{items}=    Get Dictionary Items    ${local_config_data}
+    :FOR    ${key}    ${value}    IN    @{items}
+    \    Set Test Variable    ${${key}}    ${value}
+    ${device_name}=    Set Variable    ${${key_name} _#device_name}:${key_name}
+    ${timestamp}    Set Variable    ${${key_name} _#timestamp}
+    Log    ${key_name}
+    Log    ${device_name}
+    Log    ${timestamp}
+    Set To Dictionary    ${#PIN_Card_TopUp}    ${device_name}=${timestamp}
+    [Return]    ${#PIN_Card_TopUp}

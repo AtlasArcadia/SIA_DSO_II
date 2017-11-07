@@ -1,0 +1,180 @@
+*** Settings ***
+Resource          ../PageRepository/Entertainment.txt
+Resource          PrivilegeCommon.txt
+Resource          ../Localized/${ar_LANG}/EntertainmentLocalized.txt
+
+*** Keywords ***
+Verify Campaign Kidzania Bangkok
+    Web Element Should Be Visible    ${imgKidzaniaMainPage}
+    Web Element Trim Text Should Be    ${txtKidzaniaNameMainPage}    Kidzania Bangkok
+    ${CampaignName}=    Get Web Text    ${txtKidzaniaNameMainPage}
+    Web check existing text    ${txtKidzaniaDetailMainPage}
+    Element Should Be Visible    ${btnKidzaniaDetailMainPage}
+    Element Should Be Visible    ${btnLikeMainPage}
+    Element Should Be Visible    ${btnTweetMainPage}
+    Element Should Be Visible    ${btnSymbolKidzaniaMainPage}
+    Element Should Be Visible    ${btnMailKidzaniaMainPage}
+    Web Capture Screen At Verify Point    Campaign Kidzania
+    [Return]    ${CampaignName}
+
+Verify Embassy Campaign
+    Scroll Web To Element    ${imgEmbassyMainPage}
+    Element Should Be Visible    ${imgEmbassyMainPage}
+    Web Element Trim Text Should Be    ${txtEmbassyNameMainPage}    Embassy Diplomat Screens by AIS
+    ${CampaignName}=    Get Web Text    ${txtEmbassyNameMainPage}
+    Element Should Be Visible    ${txtEmbassyDetailMainPage}
+    Element Should Be Visible    ${btnEmbassyDetailMainPage}
+    Element Should Be Visible    ${btnLikeMainPage}
+    Element Should Be Visible    ${btnTweetMainPage}
+    Element Should Be Visible    ${btnSymbolEmbassyMainPage}
+    Element Should Be Visible    ${btnMailEmbassyMainPage}
+    Web Capture Screen At Verify Point    Embassy
+    [Return]    ${CampaignName}
+
+Verify SF Cinema
+    Scroll Web To Element    ${imgSFCinemaMainPage}
+    Element Should Be Visible    ${imgSFCinemaMainPage}
+    Web Element Trim Text Should Be    ${txtSFCinemaNameMainPage}    ดูหนังราคาพิเศษ @ โรงภาพยนตร์ในเครือ SF
+    ${CampaignName}=    Get Web Text    ${txtSFCinemaNameMainPage}
+    Web check existing text    ${txtSFCinemaDetailMainPage}
+    Element Should Be Visible    ${txtSFCinemaDetailMainPage}
+    Element Should Be Visible    ${btnLikeMainPage}
+    Element Should Be Visible    ${btnTweetMainPage}
+    Element Should Be Visible    ${btnSymbolSFCinemaMainPage}
+    Element Should Be Visible    ${btnMailSFCinemaMainPage}
+    Web Capture Screen At Verify Point    SF cinema
+    [Return]    ${CampaignName}
+
+Verify Coliseum
+    Scroll Web To Element    ${imgColiseumMainPage}
+    Element Should Be Visible    ${imgColiseumMainPage}
+    Web Element Trim Text Should Be    ${txtColiseumNameMainPage}    โรงภาพยนตร์ Coliseum
+    ${CampaignName}=    Get Web Text    ${txtColiseumNameMainPage}
+    Web check existing text    ${txtColiseumDetailMainPage}
+    Element Should Be Visible    ${btnColiseumDetailMainPage}
+    Element Should Be Visible    ${btnLikeMainPage}
+    Element Should Be Visible    ${btnTweetMainPage}
+    Element Should Be Visible    ${btnSymbolColiseumMainPage}
+    Element Should Be Visible    ${btnMailColiseumMainPage}
+    Web Capture Screen At Verify Point    Coliseum
+    [Return]    ${CampaignName}
+
+Verify Major Group
+    Scroll Web To Element    ${imgMajorMainPage}
+    Element Should Be Visible    ${imgMajorMainPage}
+    Web Element Trim Text Should Be    ${txtMajorNameMainPage}    โรงภาพยนตร์ในเครือ Major Cineplex
+    ${CampaignName}=    Get Web Text    ${txtMajorNameMainPage}
+    Web check existing text    ${txtMajorDetailMainPage}
+    Element Should Be Visible    ${btnMajorDetailMainPage}
+    Element Should Be Visible    ${btnLikeMainPage}
+    Element Should Be Visible    ${btnTweetMainPage}
+    Element Should Be Visible    ${btnSymbolMajorMainPage}
+    Element Should Be Visible    ${btnMailMajorMainPage}
+    Web Capture Screen At Verify Point    Major
+    [Return]    ${CampaignName}
+
+Verify AIS Dino Farm
+    Scroll Web To Element    ${imgDinoFarmMainPage}
+    Element Should Be Visible    ${imgDinoFarmMainPage}
+    Web Element Trim Text Should Be    ${txtDinoFarmNameMainPage}    AIS Dino Farm
+    ${CampaignName}=    Get Web Text    ${txtDinoFarmNameMainPage}
+    Web check existing text    ${txtDinoFarmDetailMainPage}
+    Element Should Be Visible    ${btnDinoFarmDetailMainPage}
+    Element Should Be Visible    ${btnLikeMainPage}
+    Element Should Be Visible    ${btnTweetMainPage}
+    Element Should Be Visible    ${btnSymbolDinoFarmMainPage}
+    Element Should Be Visible    ${btnMailDinoFarmMainPage}
+    Web Capture Screen At Verify Point    AIS Dino Farm
+    [Return]    ${CampaignName}
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Privilege_Prod_local_config_file_path}    ${#selenium_hub}
+
+Verify Related Deal
+    [Arguments]    ${DealNo}    ${DealName}
+    Web Element Trim Text Should Be    ${txt${DealNo}Deal}    ${DealName}
+
+Verify Kidzania Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtKidzaniaDetailPage}    ${CampaignName}
+    Web Element Should Be Visible    ${symbolKidzaniaDetailPage}
+    Web check existing text    ${txtDetailOfKidzaniaDetailPage}
+    Web Element Trim Text Should Be    ${txtConditionKidzaniaDetailPage}    ${ConditionKidzaniaDetailPage}    #เงื่อนไข
+    Web Element Trim Text Should Be    ${txtGalleryKidzaniaDetailPage}    ${GalleryKidzaniaDetailPage}    #Gallery
+    Web Element Trim Text Should Be    ${txtRelatedDealKidzaniaDetailPage}    ${RelatedDealKidzaniaDetailPage}    #RelatedDeal
+    Web Capture Screen At Verify Point    Campaign Kidzania Page Top
+
+Verify Campaign List Of Entertainment
+    Scroll Web To Element    ${txtCampaignKidzaniaBkk}
+    Web Element Trim Text Should Be    ${txtCampaignKidzaniaBkk}    ${CampaignKidzaniaBkk}
+    Web Capture Screen At Verify Point    Kidzania
+    Scroll Web To Element    ${txtEmbassyDiplomatScreenbyAIS}
+    Web Element Trim Text Should Be    ${txtEmbassyDiplomatScreenbyAIS}    ${EmbassyDiplomatScreenbyAIS}
+    Web Capture Screen At Verify Point    Embassy
+    Scroll Web To Element    ${txtSFCinema}
+    Web Element Trim Text Should Be    ${txtSFCinema}    ${SFCinema}
+    Web Capture Screen At Verify Point    SF
+    Scroll Web To Element    ${txtColiseumTheatre}
+    Web Element Trim Text Should Be    ${txtColiseumTheatre}    ${ColiseumTheatre}
+    Web Capture Screen At Verify Point    Coliseum
+    Scroll Web To Element    ${txtMajorCineplexTheatre}
+    Web Element Trim Text Should Be    ${txtMajorCineplexTheatre}    ${MajorCineplexTheatre}
+    Web Capture Screen At Verify Point    Major
+    Scroll Web To Element    ${txtDinoFarm}
+    Web Element Trim Text Should Be    ${txtDinoFarm}    ${DinoFarm}
+    Web Capture Screen At Verify Point    Dino Farm
+
+Verify Embassy Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtKidzaniaDetailPage}    ${CampaignName}
+    Web Element Should Be Visible    ${symbolKidzaniaDetailPage}
+    Web check existing text    ${txtDetailOfKidzaniaDetailPage}
+    Web Element Trim Text Should Be    ${txtConditionKidzaniaDetailPage}    ${ConditionKidzaniaDetailPage}    #เงื่อนไข
+    Comment    Web Element Trim Text Should Be    ${txtGalleryKidzaniaDetailPage}    gallery
+    Web Capture Screen At Verify Point    Embassy Detail
+
+Verify SF Theatre Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtKidzaniaDetailPage}    ${CampaignName}
+    Web Element Should Be Visible    ${symbolKidzaniaDetailPage}
+    Web check existing text    ${txtDetailOfKidzaniaDetailPage}
+    Web Element Trim Text Should Be    ${txtConditionKidzaniaDetailPage}    ${ConditionKidzaniaDetailPage}    #เงื่อนไข
+    Comment    Web Element Trim Text Should Be    ${txtGalleryKidzaniaDetailPage}    gallery
+    Web Capture Screen At Verify Point    detail SF
+
+Verify Coloseum Theatre Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtKidzaniaDetailPage}    ${CampaignName}
+    Web Element Should Be Visible    ${symbolKidzaniaDetailPage}
+    Web check existing text    ${txtDetailOfKidzaniaDetailPage}
+    Web Element Trim Text Should Be    ${txtConditionKidzaniaDetailPage}    ${ConditionKidzaniaDetailPage}    #เงื่อนไข
+    Comment    Web Element Trim Text Should Be    ${txtGalleryKidzaniaDetailPage}    gallery
+    Web Capture Screen At Verify Point    Coloseum detail
+
+Verify Major Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${txtKidzaniaDetailPage}    ${CampaignName}
+    Web Element Should Be Visible    ${symbolKidzaniaDetailPage}
+    Web check existing text    ${txtDetailOfKidzaniaDetailPage}
+    Web Element Trim Text Should Be    ${txtConditionKidzaniaDetailPage}    ${ConditionKidzaniaDetailPage}    #เงื่อนไข
+    Comment    Web Element Trim Text Should Be    ${txtGalleryKidzaniaDetailPage}    gallery
+    Web Capture Screen At Verify Point    Major Detail
+
+Verify AIS Dino Farm Detail Page
+    [Arguments]    ${CampaignName}
+    Web Element Trim Text Should Be    ${txtKidzaniaDetailPage}    ${CampaignName}
+    Web Element Should Be Visible    ${symbolKidzaniaDetailPage}
+    Web check existing text    ${txtDetailOfKidzaniaDetailPage}
+    Web Element Trim Text Should Be    ${txtConditionKidzaniaDetailPage}    ${ConditionKidzaniaDetailPage}    #เงื่อนไข
+    Comment    Web Element Trim Text Should Be    ${txtGalleryKidzaniaDetailPage}    gallery
+    Web Capture Screen At Verify Point    Dino Farm Detail
+
+Scroll To Related Deal
+    Scroll Web To Element    ${txtTitleRelatedDeal}
+
+Verify Related Deal Title
+    Scroll To Related Deal
+    Web Element Trim Text Should Be    ${txtRelatedDealKidzaniaDetailPage}    ${RelatedDealKidzaniaDetailPage}

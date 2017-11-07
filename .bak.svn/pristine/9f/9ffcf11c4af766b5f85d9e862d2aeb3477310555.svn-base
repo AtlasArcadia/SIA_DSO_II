@@ -1,0 +1,2038 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../PageRepository/${ar_OS}/QuickMenu_SearchRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/QuickMenu_SearchLocalized.txt
+Resource          ../PageVariable/QuickMenu_SearchVariable.txt
+
+*** Keywords ***
+Keywords For TearDown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Keywords For TearDown Without Logout
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Input Keyword
+    [Arguments]    ${THword}    ${virtual_device_1_SN}
+    Input Text via ADB Keyboard    ${fldSearch}    ${THword}    ${virtual_device_1_SN}
+
+Input Search Keyword
+    [Arguments]    ${Keyword}    ${auto_hide_keyboard}=True
+    [Documentation]    This keyword use for platform iOS.
+    ...    keyboard will auto hide. (Default hide keyboard=True)
+    ...    ** It can input argument for set auto hide keyboard by 'True' or 'False' **
+    Input Mobile Text    ${fldSearchKeyword}    ${Keyword}
+    Run Keyword If    '${auto_hide_keyboard}'=='True'    Hide Keyboard
+    ...    ELSE    Log To Console    Keyboard is still activated.
+
+Swipe To Character
+    [Arguments]    ${character}
+    Swipe to element    ${Char_${character}}
+
+Verify Result Contain บ
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Result Contain บ for Android
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Result Contain บ for iOS
+
+Verify Result Contain บ for Android
+    Mobile element text should be    ${lblInternetAndValueAddedService}    ${txtInternetAndValueAddedService}    #Internet / บริการเสริม
+    Mobile element text should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWiFiPassword}    #ขอรับ/เปลี่ยนรหัส WiFi
+    Mobile element text should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}    #ข้อมูลบัตรเครดิต/เดบิต
+    Mobile element text should be    ${lblPayment}    ${txtPayment}    #ชำระค่าบริการ
+    Mobile element text should be    ${lblTopUpAndPayment}    ${txtTopUpAndPayment}    #เติมเงิน/จ่ายบิล
+    Swipe to element    ${lblRoamingServiceRates}
+    Mobile Capture Screen At Verify Point    Result บ top
+    Mobile element text should be    ${lblService}    ${txtService}    #บริการ
+    Mobile element text should be    ${lblCurrentPackageAndRemaining}    ${txtCurrentPackageAndRemaining}    #แพ็กเกจปัจจุบัน/ยอดคงเหลือ
+    Mobile element text should be    ${lblYourCurrentPackage}    ${txtYourCurrent Package}    #แพ็กเกจปัจจุบันของคุณ
+    Mobile element text should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}    #สมัคร AIS Fibre/เช็กพื้นที่ให้บริการ
+    Mobile element text should be    ${lblLogOut}    ${txtLogOut}    #ออกจากระบบ
+    Mobile element text should be    ${lblRoamingServiceRates}    ${txtRoamingServiceRates}    #อัตราค่าบรืการโรมมิง
+    Mobile Capture Screen At Verify Point    Result บ below
+
+Verify Result Contain บ for iOS
+    Mobile element text should be    ${lblTitleAllMenu}    ${AllMenu}    #AllMenu
+    Mobile element text should be    ${lblInternetAndValueAddedService}    ${txtInternetAndValueAddedService}    #Internet / บริการเสริม
+    Mobile element text should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWiFiPassword}    #ขอรับ/เปลี่ยนรหัส WiFi
+    Mobile element text should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}    #ข้อมูลบัตรเครดิต/เดบิต
+    Mobile element text should be    ${lblPayment}    ${txtPayment}    #ชำระค่าบริการ
+    Mobile element text should be    ${lblTopUpAndPayment}    ${txtTopUpAndPayment}    #เติมเงิน/จ่ายบิล
+    Mobile Capture Screen At Verify Point    Result บ top
+    Swipe to element    ${lblRoamingServiceRates}
+    Mobile element text should be    ${lblService}    ${txtService}    #บริการ
+    Mobile element text should be    ${lblCurrentPackageAndRemaining}    ${txtCurrentPackageAndRemaining}    #แพ็กเกจปัจจุบัน/ยอดคงเหลือ
+    Mobile element text should be    ${lblYourCurrentPackage}    ${txtYourCurrent Package}    #แพ็กเกจปัจจุบันของคุณ
+    Mobile element text should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}    #สมัคร AIS Fibre/เช็กพื้นที่ให้บริการ
+    Mobile element text should be    ${lblLogOut}    ${txtLogOut}    #ออกจากระบบ
+    Mobile element text should be    ${lblRoamingServiceRates}    ${txtRoamingServiceRates}    #อัตราค่าบรืการโรมมิง
+    Mobile Capture Screen At Verify Point    Result บ below
+
+Check No Button Dialog
+    ${Dialog}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnNoAISPoint}    10
+    Run Keyword If    ${Dialog}    Click Mobile Element    ${btnNoAISPoint}
+    ...    ELSE    Run Keyword And Return
+
+Cancel Register AIS Point
+    ${Dialog}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnNoAISPoint}    10
+    Log    ${Dialog}
+    Run Keyword If    ${Dialog}    Click Mobile Element    ${btnNoAISPoint}
+
+Verify Result Contain จ่าย
+    Mobile element text should be    ${lblTopUpAndPayment}    ${txtTopUpAndPayment}
+    Mobile Capture Screen At Verify Point    จ่าย
+
+Verify Result That Contain A
+    Mobile element text should be    ${lblAISFacebook}    ${txtAISFacebook}
+    Mobile element text should be    ${lblAISLine}    ${txtAISLine}
+    Mobile element text should be    ${lblAISOnlineStore}    ${txtAISOnlineStore}
+    Mobile element text should be    ${lblAISTwitter}    ${txtAISTwitter}
+    Mobile element text should be    ${lblAISWebsite}    ${txtAISWebsite}
+    Mobile Capture Screen At Verify Point    Result A TH
+
+Select AIS eStatemen
+    Click Mobile Element    ${lblAISeStatement}
+
+Verify AIS eStatemen
+    Wait Mobile Until Element Visible    ${lblHeadAISeStatement}    #AIS eStatement
+    Mobile element name should be    ${lblQuickandAnywhere}    ${txtQuickandAnywhere}    #บิลออนไลน์ สะดวก รวดเร็ว ส่งตรงถึงมือคุณ
+    Mobile element name should be    ${lblFastsafe}    ${txtFastsafe}    #มั่นใจในการส่ง
+    Mobile element name should be    ${lblHasslefree}    ${txtHasslefree}    #หมดข้อกังวล
+    Mobile element name should be    ${lblStayuptodate}    ${txtStayuptodate}    #ตรวจสอบและแจ้งเตือน
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS eStatement
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS eStatement EN
+
+Select AIS Facebook
+    Click Mobile Element    ${lblAISFacebook}
+
+Verify AIS Facebook Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Facebook Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Facebook Page iOS
+
+Verify AIS Facebook Page Android
+    Mobile element name should be    ${LogoFacebook}    ${txtFacebook}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Facebook Page
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Facebook Page EN
+
+Verify AIS Facebook Page iOS
+    Wait Mobile Until Page Contains Element    ${LogoFacebook2}
+    Mobile Capture Screen At Verify Point    Facebook Page
+    Click Mobile Element    ${lblReturnToMyAIS}
+
+Verify AIS Line Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Line Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Line Page iOS
+
+Verify AIS Line Page Android
+    Mobile element name should be    ${LogoLine}    ${LINE}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Line Page
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Line Page EN
+
+Verify AIS Line Page iOS
+    Wait Mobile Until Element Visible    ${UrlLine}    60
+    ${urlLine}=    Get mobile text    ${UrlLine}
+    Log    ${urlLine}
+    Should Be Equal    ${urlLine}    ${urlLineBrowser}
+    Mobile Capture Screen At Verify Point    Line Page
+    Click Mobile Element    ${lblReturnToMyAIS}
+    Wait Mobile Until Element Visible    ${mnuHome}
+
+Verify AIS Online Store Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Online Store Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Online Store Page iOS
+
+Verify AIS Online Store Page Android
+    Wait Mobile Until Page Contains Element    ${LogoAISStore}
+    Mobile element name should be    ${lblHeaderAISStore}    ${txtAISOnlineStore}
+    sleep    10
+    Swipe element to specific area    xpath=//*[@content-desc="Best Sellers"]
+    Mobile element name should be    xpath=//*[@content-desc="Best Sellers"]    ${BestSellers}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Best Seller
+    ...    ELSE    Mobile Capture Screen At Verify Point    Best Seller EN
+    Swipe element to specific area    xpath=//*[@content-desc="New Items"]
+    Mobile element name should be    xpath=//*[@content-desc="New Items"]    ${NewItems}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    New Items
+    ...    ELSE    Mobile Capture Screen At Verify Point    New Items EN
+
+Verify AIS Online Store Page iOS
+    Mobile element text should be    ${TitleAISOnlineStore}    ${AISOnlineStore}
+    Mobile Capture Screen At Verify Point    AIS Online Store Page
+
+Verify AIS Twitter Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Twitter Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Twitter Page iOS
+
+Verify AIS Twitter Page Android
+    sleep    5
+    Mobile element text should be    ${WebViewTwitter}    ${Twitter}    30
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Twitter
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Twitter EN
+
+Verify AIS Twitter Page iOS
+    Comment    *messagesClick Mobile Element    ${lblCancelTwitter}
+    Comment    *messagesWait Mobile Until Page Contains Element    ${imgTwitterIcon}
+    Comment    *messagesMobile element text should be    ${lblTwitterAdv}    ${txttwitterAdv}
+    Comment    *messagesAISAppiumEx.Page Should Contain Element    ${btnGetStart}
+    Wait Mobile Until Page Contains Element    ${imgTwitterIcon}
+    Mobile Capture Screen At Verify Point    Twitter Page
+    Click Mobile Element    ${lblReturnToMyAIS}
+
+Verify AIS Website
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Website Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Website iOS
+
+Verify AIS Website Android
+    Run Keyword If    ('${ar_NType}' == '3BE') or ('${ar_NType}'=='3PE')    Verify AIS Website 3BE-3PE
+    Run Keyword If    "${ar_NType}"=="FBB"    Verify AIS Website FBB
+    Run Keyword If    "${ar_NType}"=="IPE"    Verify Website IPE
+
+Verify AIS Website iOS
+    BuiltIn.Log To Console    in Verify for iOS
+    Mobile element text should be    ${TitleAISWebsite}    ${AISWebsite}
+    Mobile Capture Screen At Verify Point    AIS Website on ${ar_OS}
+
+Select AIS Line
+    Click Mobile Element    ${lblAISLine}
+
+Select AIS Online Store
+    Click Mobile Element    ${lblAISOnlineStore}
+
+Select AIS Twitter
+    Click Mobile Element    ${lblAISTwitter}
+
+Verify Result That Contain ข
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Result That Contain ข android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Result That Contain ข iOS
+
+Verify Result That Contain ข android
+    Mobile element name should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWiFiPassword}    #ขอรับ/เปลี่ยนรหัส WiFi
+    Mobile element name should be    ${lblTopUpUsageDetails}    ${txtTopUpUsageDetails}    #ข้อมูลการเติมเงิน
+    Mobile element name should be    ${lblValidityTransferUsageDetails}    ${txtValidityTransferUsageDetails}    #ข้อมูลการโอนวัน
+    Mobile element name should be    ${lblBalanceTransferUsageDetails}    ${txtBalanceTransferUsageDetails}    #ข้อมูลการโอนเงิน
+    Mobile element name should be    ${lblUsageDetailHistory}    ${txtUsageDetailHistory}    #ข้อมูลการใช้งาน
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}    #ข้อมูลของคุณ
+    Mobile element name should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}    #ข้อมูลบัตรเครดิต/เดบิต
+    Mobile Capture Screen At Verify Point    result ข
+
+Verify Result That Contain ข iOS
+    Swipe to element    ${lblYourCreditAndDebitCard}
+    Mobile element name should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWiFiPassword}    #ขอรับ/เปลี่ยนรหัส WiFi
+    Mobile element name should be    ${lblTopUpUsageDetails}    ${txtTopUpUsageDetails}    #ข้อมูลการเติมเงิน
+    Mobile element name should be    ${lblValidityTransferUsageDetails}    ${txtValidityTransferUsageDetails}    #ข้อมูลการโอนวัน
+    Mobile element name should be    ${lblBalanceTransferUsageDetails}    ${txtBalanceTransferUsageDetails}    #ข้อมูลการโอนเงิน
+    Mobile element name should be    ${lblUsageDetailHistory}    ${txtUsageDetailHistory}    #ข้อมูลการใช้งาน
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}    #ข้อมูลของคุณ
+    Mobile element name should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}    #ข้อมูลบัตรเครดิต/เดบิต
+    Mobile Capture Screen At Verify Point    result ข
+
+Verify Request And Change Wifi
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Request And Change Wifi Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Request And Change Wifi iOS
+
+Verify Request And Change Wifi Android
+    Swipe element to specific area    ${lblRequestAndChangeWiFiPassword}
+    Mobile element name should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWifi}
+    Mobile element name should be    ${lblRequestWiFiPassword}    ${txtRequestWiFiPassword}
+    Mobile element name should be    ${lblChangeWiFiPassword}    ${txtChangeWiFiPassword}
+    Mobile element name should be    ${lblWiFiAutoLogin}    ${txtWiFiAutoLogin}
+    Mobile element name should be    ${lblWiFiAutoLogin(SIM)}    ${txtWiFiAutoLogin(SIM)}
+    Mobile Capture Screen At Verify Point    Request And Change Wifi Page
+
+Verify Request And Change Wifi iOS
+    Swipe element to specific area    ${lblRequestAndChangeWiFiPassword}
+    Mobile element name should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWifi}
+    Mobile element name should be    ${lblRequestWiFiPassword}    ${txtRequestWiFiPassword}
+    Mobile element name should be    ${lblChangeWiFiPassword}    ${txtChangeWiFiPassword}
+    Mobile element name should be    ${lblWiFiAutoLogin}    ${txtWiFiAutoLogin}
+    Mobile element name should be    ${lblWiFiAutoLogin(SIM)}    ${txtWiFiAutoLogin(SIM)}
+    Mobile Capture Screen At Verify Point    Request And Change Wifi Page
+
+Verify Usage Detail Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Usage Detail Page Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Usage Detail Page iOS    ${Number}
+
+Verify Usage Detail Page Android
+    [Arguments]    ${Number}
+    Mobile element name should be    ${bannerUsageDetail}    ${txtUsageDetail}
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    Usage Detail Page
+
+Verify Usage Detail Page iOS
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Usage Detail Page iOS Prepaid
+    ...    ELSE IF    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Usage Detail Page iOS Postpaid    ${Number}
+
+Verify Usage Detail Page iOS Prepaid
+    Mobile element text should be    ${lblUsageDetailHistory}    ${UsageDetailHistory}    #- Usage Detail History
+    Mobile element text should be    ${lblVoiceCall}    ${VoiceCall}    #- Voice Call
+    Mobile element text should be    ${lblInternetAndValueAddedService}    ${InternetAndValueAddedService}    #- Internet/Value Added Service
+    Mobile element text should be    ${lblTopUpUsageDetails}    ${TopUpUsageDetails}    #- Top Up Usage Details
+    Mobile element text should be    ${lblBalanceTransferUsageDetails}    ${BalanceTransferUsageDetails}    #- Balance Transfer Usage Details
+    Mobile element text should be    ${lblValidityTransferUsageDetails}    ${ValidityTransferUsageDetails}    #- Validity Transfer Usage Details
+    Mobile element text should be    ${lblFee}    ${Fee}    #- Fee
+    Mobile Capture Screen At Verify Point    Usage Detail Page
+
+Verify Usage Detail Page iOS Postpaid
+    [Arguments]    ${Number}
+    Mobile element name should be    ${bannerUsageDetail}    ${UsageDetailHistory}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    Usage Detail Page
+
+Verify Internet And Value Added Service Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Internet And Value Added Service Page Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Internet And Value Added Service Page iOS    ${Number}
+
+Verify Internet And Value Added Service Page Android
+    [Arguments]    ${Number}
+    Mobile element name should be    ${bannerUsageDetail}    ${txtUsageDetail}
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    Internet and Value Added Service
+
+Verify Internet And Value Added Service Page iOS
+    [Arguments]    ${Number}
+    Mobile element name should be    ${bannerUsageDetail}    ${UsageDetailHistory}
+    ${rawMobileNumber}=    Get mobile text    ${lblInternetAndValueMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    Internet and Value Added Service iOS
+
+Verify Result Contain Help
+    Mobile element name should be    ${headerAllMenu}    ${AllMenu}
+    Mobile element name should be    ${headerCharacter_H}    H
+    Mobile element name should be    ${lblHelpAndSupport}    ${txtHelpAndSupport}
+    Mobile Capture Screen At Verify Point    result contain help
+
+Verify Result Contain A EN
+    Mobile element text should be    ${lblAISFacebook}    ${txtAISFacebook}
+    Mobile element text should be    ${lblAISLine}    ${txtAISLine}
+    Mobile element text should be    ${lblAISOnlineStore}    ${txtAISOnlineStore}
+    Mobile element text should be    ${lblAISTwitter}    ${txtAISTwitter}
+    Mobile element text should be    ${lblAISWebsite}    ${txtAISWebsite}
+    Mobile element text should be    ${lblApplyInternetOnTopPackage}    ${txtApplyInternetOnTopPackage}
+    Mobile element text should be    ${lblApplyEntertainmentOnTopPackage}    ${txtApplyEntertainmentOnTopPackage}
+    Mobile element text should be    ${lblApplyOtherOnTopPackage}    ${txtApplyOtherOnTopPackage}
+    Mobile element text should be    ${lblApplyRoamingPackage}    ${txtApplyRoamingPackage}
+    Mobile Capture Screen At Verify Point    result contain A Top
+    Swipe to element    ${lblAskAunjai}
+    Mobile element text should be    ${lblAskAunjai}    ${txtAskAunjai}
+    Mobile Capture Screen At Verify Point    result contain A Below
+
+Verify input Character Y
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Result Contain Y EN
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Result Contain Y iOS
+
+Verify Result Contain Y EN
+    Mobile element name should be    ${lblApplyInternetOnTopPackage}    ${txtApplyInternetOnTopPackage}
+    Mobile element name should be    ${lblApplyEntertainmentOnTopPackage}    ${txtApplyEntertainmentOnTopPackage}
+    Mobile element name should be    ${lblApplyOtherOnTopPackage}    ${txtApplyOtherOnTopPackage}
+    Mobile element name should be    ${lblApplyRoamingPackage}    ${txtApplyRoamingPackage}
+    # Run Keyword If    "${ar_NTYPE}"!="IPE"    Hide Keyboard
+    Mobile element name should be    ${lblCallingMelody}    ${txtCallingMelody}
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}
+    Mobile Capture Screen At Verify Point    Result contain y top
+    Swipe to element    ${lblValidityTransferUsageDetails}
+    Mobile element name should be    ${lblPayment}    ${txtPayment}
+    Mobile element name should be    ${lblTopUpAndPayment}    ${txtTopUpAndPayment}
+    Mobile element name should be    ${lblUsageDetailHistory}    ${txtUsageDetailHistory}
+    Mobile element name should be    ${lblValidityTransfer}    ${txtValidityTransfer}
+    Mobile element name should be    ${lblValidityTransferUsageDetails}    ${txtValidityTransferUsageDetails}
+    Swipe to element    ${lblYourCurrentPackage}
+    Mobile element name should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}
+    Mobile element name should be    ${lblYourCurrentPackage}    ${txtYourCurrent Package}
+    Mobile Capture Screen At Verify Point    Result contain y below
+
+Verify Result Contain Y iOS
+    Wait Mobile Until Element Visible    ${headerAllMenu}
+    Mobile element name should be    ${lblApplyInternetOnTopPackage}    ${ApplyInternetOnTopPackage}
+    Mobile element name should be    ${lblApplyEntertainmentOnTopPackage}    ${ApplyEntertainmentOnTopPackage}
+    Mobile element name should be    ${lblApplyOtherOnTopPackage}    ${ApplyOtherOnTopPackage}
+    Mobile element name should be    ${lblApplyRoamingPackage}    ${ApplyRoamingPackage}
+    Mobile element name should be    ${lblCallingMelody}    ${CallingMelody}
+    Mobile element name should be    ${lblMyProfile}    ${MyProfile}
+    Mobile element name should be    ${lblPayment}    ${Payment}
+    Mobile element name should be    ${lblCreateMyAIS}    ${CreatemyAIS}
+    Mobile Capture Screen At Verify Point    Result contain y top
+    Swipe to element    ${lblYourCurrentPackage}
+    Mobile element name should be    ${lblTopUpAndPayment}    ${TopUpAndPayment}
+    Mobile element name should be    ${lblUsageDetailHistory}    ${UsageDetailHistory}
+    Mobile element name should be    ${lblValidityTransfer}    ${ValidityTransfer}
+    Mobile element name should be    ${lblValidityTransferUsageDetails}    ${ValidityTransferUsageDetails}
+    Mobile element name should be    ${lblYourCreditAndDebitCard}    ${YourCreditAndDebitCard}
+    Mobile element name should be    ${lblYourCurrentPackage}    ${YourCurrent Package}
+    Mobile Capture Screen At Verify Point    Result contain y below
+
+Verify Result Contain B EN
+    Mobile element text should be    ${lblBalanceTransfer}    ${txtBalanceTransfer}
+    Mobile element text should be    ${lblBalanceTransferUsageDetails}    ${txtBalanceTransferUsageDetails}
+    Mobile Capture Screen At Verify Point    result B
+
+Verify ถ
+    Mobile element name should be    ${lblAskAunjai}    ${AskAunjai}
+    Mobile Capture Screen At Verify Point    Quick Menu Search ถ
+
+Verify บ
+    Mobile element name should be    ${lblService}    ${Service}
+    Mobile Capture Screen At Verify Point    Quick Menu Search บ
+
+Verify ป
+    Mobile element name should be    ${lblChangingIVRandSMSLanguage}    ${txtChangingIVRandSMSLanguage}
+    Mobile element name should be    ${lblChangePricePlan}    ${txtChangePricePlan}
+    Mobile Capture Screen At Verify Point    Quick Menu Search ป
+
+Verify ป Postpaid
+    Mobile element name should be    ${lblChangePricePlan}    ${ChangePricePlan}
+    Mobile Capture Screen At Verify Point    Quick Menu Search ป
+
+Verify พ
+    Run Keyword If    "${ar_OS}"=="Android"    Verify พ Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify พ iOS
+
+Verify พ Android
+    Mobile element name should be    ${lblPointsAndPrivileges}    ${txtPointsAndPrivileges}
+    Mobile element name should be    ${lblCallingMelody}    ${txtCallingMelody}
+    Mobile element name should be    ${lblPackage}    ${txtPackage}
+    Mobile element name should be    ${lblCurrentPackageAndRemaining}    ${txtCurrentPackageAndRemaining}
+    Mobile element name should be    ${lblYourCurrentPackage}    ${txtYourCurrentPackage}
+
+Verify พ iOS
+    Swipe to element    ${lblYourCurrentPackage}
+    Mobile element name should be    ${lblPointsAndPrivileges}    ${PointsAndPrivileges}
+    Mobile element name should be    ${lblCallingMelody}    ${CallingMelody}
+    Mobile element name should be    ${lblPackage}    ${Package}
+    Mobile element name should be    ${lblCurrentPackageAndRemaining}    ${CurrentPackageAndRemaining}
+    Mobile element name should be    ${lblYourCurrentPackage}    ${YourCurrentPackage}
+    Mobile Capture Screen At Verify Point    Result that พ Contain
+
+Verify ว
+    Run Keyword If    "${ar_OS}"=="Android"    Verify ว Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify ว iOS
+
+Verify ว Android
+    Mobile element name should be    ${lblHowtoUse}    ${HowToUse}
+
+Verify ว iOS
+    Swipe to element    ${lblHowtoUse}    Container=screen    Direction=up    ratio=0.2    Round=20    duration=1000
+    ...    appium_info="noinfo"
+    Mobile element name should be    ${lblHowtoUse}    ${HowToUse}
+    Mobile Capture Screen At Verify Point    Quick Menu Search ว
+
+Verify M
+    Run Keyword If    "${ar_OS}"=="Android"    Verify M Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify M iOS
+
+Verify M Android
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}
+
+Verify M iOS
+    # Mobile element name should be    ${lblmyAISAccount}    ${myAISAccount}    #my AIS Account
+    Mobile element name should be    ${lblMyProfile}    ${MyProfile}    #My Profile
+    Mobile Capture Screen At Verify Point    M
+
+Verify P
+    Run Keyword If    "${ar_OS}"=="Android"    Verify P Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify P iOS
+
+Verify P Android
+    Mobile element name should be    ${lblPackage}    ${lblPackage_Quick}
+    Mobile element name should be    ${lblPayment}    ${txtPayment_Quick}
+    Mobile element name should be    ${lblPointsAndPrivileges}    ${txtPointsAndPrivileges_Quick}
+
+Verify P iOS
+    Mobile element name should be    ${lblPackage}    ${Package}    #Package
+    Mobile element name should be    ${lblPayment}    ${Payment}    #Payment
+    Mobile element name should be    ${lblPointsAndPrivileges}    ${PointsAndPrivileges}    #Points & Privileges
+    Mobile Capture Screen At Verify Point    P
+
+Verify R
+    Mobile element name should be    ${lblRegister}    ${txtRegister}
+    Mobile element name should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}
+    Mobile element name should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWiFiPassword}
+    Swipe to element    ${lblRoamingServiceRates}
+    Mobile element name should be    ${lblRoamingServiceRates}    ${txtRoamingServiceRates}
+
+Verify S
+    Run Keyword If    "${ar_OS}"=="Android"    Verify S Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify S iOS
+
+Verify S Android
+    Mobile element name should be    ${lblService}    ${txtService}
+    Mobile element name should be    ${lblSetting}    ${txtSetting}
+
+Verify S iOS
+    Swipe to element    ${lblSetting}
+    Mobile element name should be    ${lblService}    ${Service}
+    Mobile element name should be    ${lblSetting}    ${Setting}
+    Mobile Capture Screen At Verify Point    Result Menu When Search Keyword S
+
+Verify ข้อมูลการใช้งาน
+    Mobile element text should be    ${lblUsageDetailHistory}    ${txtUsageDetailHistory}    #ข้อมูลการใช้งาน
+    Mobile element text should be    ${lblVoiceCall}    ${txtVoiceCall}    #การโทร
+    Mobile element text should be    ${lblInternetAndValueAddedService}    ${txtInternetAndValueAddedService}    # Internet/บริการเสริม
+    Mobile element text should be    ${lblTopUpUsageDetails}    ${txtTopUpUsageDetails}    #ข้อมูลการเติมเงิน
+    Mobile element text should be    ${lblBalanceTransferUsageDetails}    ${txtBalanceTransferUsageDetails}    # ข้อมูลการโอนวัน
+    Mobile element text should be    ${lblValidityTransferUsageDetails}    ${txtValidityTransferUsageDetails}    # ข้อมูลการโอนเงิน
+    Mobile element text should be    ${lblFeeTH}    ${txtFee}    # ค่าธรรมเนียม
+    Mobile Capture Screen At Verify Point    Usage Detail History
+
+Verify ข้อมูลของคุณ
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify ข้อมูลของคุณ Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify ข้อมูลของคุณ iOS    ${Number}
+
+Verify ข้อมูลของคุณ Android
+    Mobile element text should be    ${lblMyProfile}    ${txtMyProfile}
+    Mobile check existing text    ${lblName}
+    Mobile check existing text    ${lblNumber}
+    Mobile element text should be    ${lblBillCycle}    ${txtBillCycle}
+    Mobile element text should be    ${lblBillMedia}    ${txtBillMedia}
+    Mobile Capture Screen At Verify Point    My ProfileTop
+    Swipe to element    ${lblBillingAddress}
+    Mobile element text should be    ${lblBillingAddress}    ${txtBillingAddress}
+    Mobile Capture Screen At Verify Point    My ProfileBelow
+
+Verify ข้อมูลของคุณ iOS
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblMyProfile}    ${txtMyProfile}
+    Comment    *messagesMobile check existing text    ${lblName}
+    ${rawMobileNumber}=    Get mobile text    ${lblMyProfileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    My Profile
+
+Verify ข้อมูลบัตรเครดิต/เดบิต
+    Mobile element text should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditAndDebitCard}
+    Mobile Capture Screen At Verify Point    Your Cradit and Debit Card
+
+Verify ช
+    Mobile element text should be    ${lblPayment}    ${txtPayment}
+    # Mobile element text should be    ${lblHelpAndSupport}    ${txtHelpAndSupport}
+    Mobile Capture Screen At Verify Point    ช
+
+verify ผู้ช่วย
+    Mobile element text should be    ${lblAssistant}    ${Assistant}
+    Swipe to element    ${lblHowToUseApplication}
+    Mobile element text should be    ${lblHowToUseApplication}    ${HowToUseApplication}
+    Mobile Capture Screen At Verify Point    Helped
+
+Verify ต
+    Run Keyword If    "${ar_OS}"=="Android"    Verify ต Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify ต iOS
+
+Verify ต Android
+    Mobile element text should be    ${lblSetting}    ${txtSetting}
+    Mobile element text should be    ${lblTopUp}    ${txtTopUp}
+    Mobile element text should be    ${lblTopUpAndPayment}    ${txtTopUpAndPayment}
+    Mobile Capture Screen At Verify Point    ต
+
+Verify ต iOS
+    Swipe to element    ${lblTopUpAndPayment}
+    Mobile element text should be    ${lblSetting}    ${txtSetting}
+    Mobile element text should be    ${lblTopUpAndPayment}    ${txtTopUpAndPayment}
+    Mobile Capture Screen At Verify Point    ต
+
+Verify ต Postpaid
+    Swipe to element    ${lblSetting}
+    Mobile element text should be    ${lblSetting}    ${Setting}
+    Mobile element text should be    ${lblTopUp}    ${TopUp}
+    Mobile Capture Screen At Verify Point    ต
+
+Verify ตั้งค่า
+    Run Keyword If    "${ar_OS}"=="Android"    Verify ตั้งค่า Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify ตั้งค่า iOS
+
+Verify ตั้งค่า Android
+    Wait Mobile Until Element Visible    ${lblCodeLock}
+    Mobile element text should be    ${lblTitleSettings}    ${txtSetting}    #ตั้งค่า
+    Mobile element text should be    ${lblLanguage}    ${txtLanguage}    #ภาษา
+    Mobile element text should be    ${lblAlert}    ${txtAlert}    #แจ้งเตือน
+    Mobile element text should be    ${lblCodeLock}    ${txtCodeLock}    #การล็อกรหัส
+    Mobile Capture Screen At Verify Point    Setting
+
+Verify ตั้งค่า iOS
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify ตั้งค่า iOS Prepaid
+    ...    ELSE IF    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify ตั้งค่า iOS Postpaid
+
+Verify ตั้งค่า iOS Postpaid
+    Wait Mobile Until Element Visible    ${lblCodeLock}
+    Mobile element text should be    ${lblTitleSettings}    ${Setting}    #ตั้งค่า
+    Mobile element text should be    ${lblLanguage}    ${Language}    #ภาษา
+    Mobile element text should be    ${lblNotification}    ${Notification}    #แจ้งเตือน
+    Mobile element text should be    ${lblCodeLock}    ${PasscodeLock}    #การล็อกรหัส
+    Mobile Capture Screen At Verify Point    Setting
+
+Verify ตั้งค่า iOS Prepaid
+    Wait Mobile Until Element Visible    ${lblCodeLock}
+    Mobile element text should be    ${lblTitleSettings}    ${Setting}    #ตั้งค่า
+    Mobile element text should be    ${lblLanguage}    ${Language}    #ภาษา
+    Mobile element text should be    ${lblNotification}    ${Notification}    #แจ้งเตือน
+    Mobile element text should be    ${lblCodeLock}    ${PasscodeLock}    #การล็อกรหัส
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}    #Terms & Conditions
+    Mobile Capture Screen At Verify Point    Setting
+
+Verify เติมเงิน
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblChooseAmountTopUp}
+    Mobile element text should be    ${lblTitleTopUp}    ${TopUp}    #เติมเงิน
+    Verify Number Phone    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblSpecifyPhoneNumber}    ${SpecifyPhoneNumber}    #ระบหมายเลขที่ต้องการเติมเงินุ
+    Mobile element text should be    ${lblSelectPrepaid}    ${SelectPrepaid}    #เลือกช่องทางการเติมเงิน
+    Mobile element text should be    ${lblChooseAmountTopUp}    ${ChooseAmountTopUp}    #เลือกจำนวนที่ต้องการเติมเงิน
+    Mobile Capture Screen At Verify Point    TopUp Page
+
+Verify Topup and Payment
+    Mobile element text should be    ${lblTopUpAndPayment}    ${TopUpAndPayment}
+    Mobile element text should be    ${lblTopUp}    ${TopUp}
+    Mobile element text should be    ${lblPayment}    ${Payment}
+    Mobile Capture Screen At Verify Point    TopUp and Payment
+
+Verify Payment and TopUp
+    Mobile element text should be    ${lblPaymentAndTopUp}    ${PaymentAndTopUp}
+    Mobile element text should be    ${lblPaymentToAnotherNumber}    ${PayToAnotherNumber}
+    Mobile element text should be    ${lblTopUp}    ${TopUp}
+    Mobile Capture Screen At Verify Point    TopUp and Payment
+
+Verify Changing IVR & SMS Language
+    Mobile element text should be    ${lblChangingIVRandSMSLanguage}    ${txtChangingIVRandSMSLanguage}
+    Mobile element text should be    ${lblIVRLanguage}    ${txtVRLanguage}
+    Mobile element text should be    ${lblSMSLanguage}    ${txtSMSLanguage}
+    Mobile Capture Screen At Verify Point    Changing IVR & SMS Language
+
+Verify F
+    Mobile element text should be    ${lblFee}    ${Fee}
+    Mobile Capture Screen At Verify Point    F
+
+Verify H
+    Mobile element text should be    ${lblHelpAndSupport}    ${HelpAndSupport}
+    Mobile element text should be    ${lblHome}    ${Home}
+    Mobile element text should be    ${lblHowtoUse}    ${HowToUse}
+    Mobile Capture Screen At Verify Point    H
+
+Verify Help & Support
+    Mobile element text should be    ${lblConsultAgent}    ${ConsultAgent}
+    Mobile element text should be    ${lblAskAunjai}    ${AskAunjai}
+    Mobile element text should be    ${lblFAQ}    ${FAQ}
+    Swipe to element    ${lblHowToUseApplication}
+    Mobile element text should be    ${lblHowToUseApplication}    ${HowToUseApplication}
+    Mobile Capture Screen At Verify Point    Help & Support
+
+Verify How to Use
+    Mobile element text should be    ${lblHowtoUseOnPage}    ${HowToUse}
+    Mobile element text should be    ${lblHowtoUseApplication}    ${HowToUseApplication}
+    Mobile Capture Screen At Verify Point    How to Use
+
+Verify I
+    Mobile element text should be    ${lblInternetAndValueAddedService}    ${InternetAndValueAddedService}
+    Mobile Capture Screen At Verify Point    I
+
+Verify L
+    Mobile element text should be    ${lblLogOut}    ${LogOutMyAIS}
+    Mobile Capture Screen At Verify Point    L
+
+Verify C
+    Mobile element text should be    ${lblCallingMelody}    ${CallingMelody}
+    Mobile element text should be    ${lblChangePricePlan}    ${ChangePricePlan}
+    Mobile element text should be    ${lblChangingIVRandSMSLanguage}    ${ChangingIVRandSMSLanguage}
+    Mobile element text should be    ${lblCurrentPackageAndRemaining}    ${CurrentPackageAndRemaining}
+    Mobile Capture Screen At Verify Point    C
+
+wait Calling Melody Loaded
+    AISAppiumEx.Wait Until Element Is Visible    xpath=//*[@resource-id="smartbanner"]/android.view.View[@index="0"]/android.view.View[@index="2" and @content-desc="VIEW"]    ${lo_general_timeout}
+    Comment    AISAppiumEx.Wait Until Page Contains Element    ${btnViewBanner}    ${lo_general_timeout}
+    sleep    1
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblDialogCalling}    ${lo_general_timeout}
+    sleep    1
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblDialogCalling}    ${lo_general_timeout}
+    sleep    1
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblDialogCalling}    ${lo_general_timeout}
+
+Wait Until Calling Melody Load Finished
+    [Arguments]    ${timeout}=${lo_general_timeout}
+    log    wait load finished
+    Wait Until Keyword Succeeds    ${timeout}    3    AISAppiumEx.Page Should Not Contain Element    ${lblDialogCalling}
+    Wait Until Keyword Succeeds    30 sec    5 sec    wait Calling Melody Loaded
+    Run Keyword And Ignore Error    Swipe To    no_target    up    0.3    5
+    Wait Until Keyword Succeeds    30 sec    5 sec    wait Calling Melody Loaded
+
+Verify Calling Melody
+    Mobile element name should be    ${lblCallingMelody}    ${CallingMelody}
+    Mobile element name should be    ${lblNewRelease}    ${NewRelease}
+    Mobile Capture Screen At Verify Point    New Release
+    Swipe element to specific area    ${lblHotNews}
+    Wait Mobile Until Element Visible    ${lblHotNews}
+    Mobile element name should be    ${lblHotNews}    ${HotNews}
+    Mobile Capture Screen At Verify Point    Hot News
+    Swipe element to specific area    ${lblTopChart}
+    Mobile element name should be    ${lblTopChart}    ${TopChart}
+    Mobile Capture Screen At Verify Point    Top Chart
+    Swipe element to specific area    ${lblRecommendedSong}
+    Mobile element name should be    ${lblRecommendedSong}    ${RecommendedSong}
+    Mobile Capture Screen At Verify Point    Calling Melody
+
+Skip Survey Page
+    ${elementSurvayPage}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblElementOnSurvayPage}
+    Run Keyword If    ${elementSurvayPage}    Click Mobile Element    ${btnButtonBackSurvey}
+
+Verify Result Contain ส
+    # Swipe To Character    ส
+    Swipe to element    ${lblRegisterRoamingPackage}
+    Mobile Capture Screen At Verify Point    verify label ส
+    Mobile element text should be    ${lblRegisterAisFibreAndCoverageChecking}    ${RegisterAISOrCoverageChecking}    #สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ
+    Mobile element text should be    ${lblRegisterMyAIS}    ${RegisterMyAIS}    #สมัคร my AIS
+    Mobile element text should be    ${lblRegisterOntopEntertainment}    ${RegisterEntertainmentOntop}    #สมัครแพ็กเกจเสริม Entertainment
+    Mobile element text should be    ${lblInternetOntopPackage}    ${RegisterInternetOntop}    #สมัครแพ็กเกจเสริมอินเทอร์เน็ต
+    Mobile element text should be    ${lblOtherOntopPackage}    ${RegisterOtherOntop}    #สมัครแพ็กเกจเสริมอื่นๆ
+    Mobile element text should be    ${lblRegisterRoamingPackage}    ${RegisterRoamingPackage}    #สมัครแพ็กเกจโรมมิ่ง
+    Mobile Capture Screen At Verify Point    ส contain
+
+Select Quick Menu
+    [Arguments]    ${menuName}
+    Swipe to element    ${lbl${menuName}}    Container=screen    Direction=up    ratio=0.2    Round=20    duration=1000
+    ...    appium_info="noinfo"
+    Click Mobile Element    ${lbl${menuName}}
+
+Verify Register AIS Fibre And Coverage Checking page
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Register AIS Fibre And Coverage Checking page Prepaid
+    ...    ELSE IF    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Register AIS Fibre And Coverage Checking page Postpaid
+
+Verify Register AIS Fibre And Coverage Checking page Prepaid
+    Mobile element text should be    ${lblHeadTitlePage}    ${txtRegisterAISFibreAndCoverageChecking}    #Title
+    Wait Mobile Until Element Visible    ${imgAISFibre}    #AIS Fibre image
+    Mobile element text should be    ${lblTitleRegisterAISOrCoverageChecking}    ${txtRegisterAISFibre}    #สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ
+    Mobile Capture Screen At Verify Point    Register MyAIS
+
+Verify Register AIS Fibre And Coverage Checking page Postpaid
+    Mobile element text should be    ${lblHeadTitlePage}    ${RegisterAISFibreAndCoverageChecking}    #Title
+    Comment    *messagesWait Mobile Until Element Visible    ${imgAISFibre}    #AIS Fibre image
+    Comment    *messagesMobile element text should be    ${lblTitleRegisterAISOrCoverageChecking}    ${RegisterAISFibre}    #สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ
+    Mobile Capture Screen At Verify Point    Register MyAIS
+
+Verify Register AIS Fibre Page
+    Mobile element text should be    ${lblTitleRegisterAISFibre}    ${RegisterAISFibre}    #Register AIS Fibre
+    Mobile Capture Screen At Verify Point    Register MyAIS
+
+Verify Register myAIS Page
+    Mobile element text should be    ${lblTitleRegisterMyAIS}    ${RegisterMyAIS}
+    Mobile element text should be    ${lblEasyRegisterMyAIS}    ${EasyRegisterMyAIS}
+    Mobile Capture Screen At Verify Point    myAIS Page
+
+Verify Ontop Entertainmant Package Page
+    Mobile element name should be    ${lblTitleOntopEntertainment}    ${OntopEntertainmentPackage}
+    Mobile element name should be    ${lblAISPlayAdver}    ${AISPLAYAdver}
+    Mobile Capture Screen At Verify Point    Ontop Entertainment
+
+Verify Register Internet Ontop Package Page
+    Mobile element text should be    ${lblHeadTitlePage}    ${HeadRegisterInternetOntopPackage}
+    # Mobile element name should be    ${lblTitleRegisterInternetOntopPackage}    ${RegisterInternetOntopPackage}
+    Mobile element name should be    ${lblSelectInternetOntopPackage}    ${SelectInternetOntopPackage}
+    Mobile Capture Screen At Verify Point    Internet Ontop Page
+
+Verify Result Contain อ
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Result Contain อ Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Result Contain อ iOS
+
+Verify Result Contain อ Android
+    Swipe To Character    อ
+    Mobile element text should be    ${lblLogOut}    ${txtLogOut}    #ออกจากระบบ
+    Mobile element text should be    ${lblRoamingServiceRates}    ${txtRoamingServiceRates}    #อัตราค่าบริการโรมมิ่ง
+    Mobile element text should be    ${lblValidityTransfer}    ${txtValidityTransfer}    #โอนวัน
+    Mobile element text should be    ${lblBalanceTransfer}    ${txtBalanceTransfer}    #โอนเงิน
+    Mobile Capture Screen At Verify Point    verfify label อ
+
+Verify Result Contain อ iOS
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Result Contain อ iOS Prepaid
+    ...    ELSE IF    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Result Contain อ iOS Postpaid
+
+Verify Result Contain อ iOS Prepaid
+    Swipe to element    ${lblBalanceTransfer}
+    Mobile element text should be    ${lblLogOut}    ${LogOut}    #ออกจากระบบ
+    Mobile element text should be    ${lblRoamingServiceRates}    ${RoamingServiceRates}    #อัตราค่าบริการโรมมิ่ง
+    Mobile element text should be    ${lblValidityTransfer}    ${ValidityTransfer}    #โอนวัน
+    Mobile element text should be    ${lblBalanceTransfer}    ${BalanceTransfer}    #โอนเงิน
+    Mobile Capture Screen At Verify Point    verfify label อ
+
+Verify Result Contain อ iOS Postpaid
+    Swipe to element    ${lblRoamingServiceRates}
+    Mobile element text should be    ${lblLogOut}    ${LogOut}    #ออกจากระบบ
+    Mobile element text should be    ${lblRoamingServiceRates}    ${RoamingServiceRates}    #อัตราค่าบริการโรมมิ่ง
+    Mobile Capture Screen At Verify Point    verfify label อ
+
+Verify Logout Page
+    ${statusSurvayPage}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblTitleSurvey}
+    Run Keyword If    '${statusSurvayPage}'=='True'    Click Mobile Element    ${btnButtonBackSurvey}
+    Wait Mobile Until Page Contains Element    ${frmLoginContainer}    5
+    Mobile Capture Screen At Verify Point    Verify Login Page
+
+Keywords For TearDown Survey
+    [Arguments]    ${#dict_device_name}
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Roaming Service Rate Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Roaming Service Rate Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Roaming Service Rate Page iOS
+
+Verify Roaming Service Rate Page Android
+    Mobile element text should be    ${lblTitleRoamingServicesRate}    ${RoamingServiceRate}    #อัตราค่าบริการโรมมิ่ง
+    Mobile element text should be    ${lblSelectCountry}    ${SelectCountry}    #เลือกประเทศ
+    Mobile element text should be    ${lblSelectSystem}    ${SelectSystem}    #เลือกระบบ
+    Mobile Capture Screen At Verify Point    Roaming Service Rate Page
+
+Verify Roaming Service Rate Page iOS
+    Mobile element text should be    ${lblQuickMenuTitleRoamingServicesRate}    ${RoamingServiceRate}    #อัตราค่าบริการโรมมิ่ง
+    Mobile element text should be    ${lblSelectCountry}    ${SelectCountry}    #เลือกประเทศ
+    Mobile element text should be    ${lblSelectSystem}    ${SelectSystem}    #เลือกระบบ
+    Mobile Capture Screen At Verify Point    Roaming Service Rate Page
+
+Verify Validity Transfer Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Validity Transfer Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Validity Transfer Page iOS    ${Number}
+
+Verify Validity Transfer Page Android
+    Wait Mobile Until Element Visible    ${lblTitleValidityTransfer}
+    Wait Mobile Until Element Visible    ${lblMobileNumber}    #เบอร์โทร
+    Mobile element text should be    ${lblTitleValidityTransfer}    ${txtValidityTransfer}    #โอนวัน
+    Mobile element text should be    ${lblSuggestInputMobileNumber}    ${SuggestDestinationNumber}    #1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนวันให้
+    Mobile element text should be    ${lblSuggestSelectValidity}    ${SuggestValidity}    #2.จำนวนวันที่ต้องการโอน/วัน
+    Mobile Capture Screen At Verify Point    Validity Transfer Page
+
+Verify Validity Transfer Page iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblTitleValidityTransfer}
+    Wait Mobile Until Element Visible    ${lblMobileNumber}    #เบอร์โทร
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblTitleValidityTransfer}    ${ValidityTransfer}    #โอนวัน
+    Mobile element text should be    ${lblSuggestInputMobileNumber}    ${EnterDestinationNumber}    #1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนวันให้
+    Mobile element text should be    ${lblSuggestSelectValidity}    ${TransferAmountAndDay}    #2.จำนวนวันที่ต้องการโอน/วัน
+    Mobile Capture Screen At Verify Point    Validity Transfer Page
+
+Verify Balance Transfer Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Transfer Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Transfer Page iOS    ${Number}
+
+Verify Balance Transfer Page Android
+    Wait Mobile Until Element Visible    ${lblMobileNumber}    #เบอร์โทร
+    Mobile element text should be    ${lblTitleBalanceTransfer}    ${txtBalanceTransfer}    #โอนวัน
+    Mobile element text should be    ${lblBalanceTransferSuggestInputMobileNumber}    ${BalanceTransferSuggestDestinationNumber}    #1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนวันให้
+    Mobile element text should be    ${lblBalanceTransferSuggestSelectBalance}    ${BalanceTransferSuggestTransferAmount}    #2.จำนวนวันที่ต้องการโอน/วัน
+    Mobile Capture Screen At Verify Point    Balance Transfer Page
+
+Verify Balance Transfer Page iOS
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${BalanceTransfer}
+    ${rawMobileNumber}=    Get mobile text    ${lblValidityTransferMyProfileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblBalanceTransferSuggestInputMobileNumber}    ${EnterDestinationNumber}    #1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนวันให้
+    Mobile element text should be    ${lblBalanceTransferSuggestSelectBalance}    ${TransferAmount}    #2.จำนวนวันที่ต้องการโอน/วัน
+    Wait Mobile Until Page Contains Element    ${btnOKBalanceTransfer}
+    ${statusDialog}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${dialogBalanceChecking}
+    Run Keyword If    "${statusDialog}"=="True"    FAIL
+    Mobile Capture Screen At Verify Point    Balance Transfer Page
+
+Verify Menu Not Found
+    Mobile element text should be    ${lblTitleAllMenu}    ${AllMenu}
+    Comment    *messagesAISAppiumEx.Page Should Not Contain Element    ${lblQuickSubMenu}
+    ${status}    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${lblQuickSubMenu}
+    Log    ${status}
+    Should Be Equal    "False"    "${status}"
+    Mobile Capture Screen At Verify Point    Menu Not Found
+
+Verify Result Begin With T
+    Swipe To Character    T
+    Mobile element text should be    ${lblTopUp}    ${txtTopUp}    #Top Up
+    Mobile element text should be    ${lblTopUpUsageDetails}    ${txtTopUpUsageDetails}    #Top Up Usage Details
+    Mobile element text should be    ${lblTopUpAndPayment}    ${txtTopUpAndPayment}    #Top Up/ Payment
+    Mobile Capture Screen At Verify Point    verfify label T
+
+Verify Result Begin With U
+    Swipe To Character    U
+    Mobile element text should be    ${lblUsageDetailHistory}    ${txtUsageDetailHistory}    #Usage Detail History
+    Mobile Capture Screen At Verify Point    verfify label U
+
+Verify Result Begin With V
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Result Begin With V Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Result Begin With V iOS
+
+Verify Result Begin With V Android
+    Swipe To Character    V
+    Mobile element text should be    ${lblValidityTransfer}    ${txtValidityTransfer}    #Validity Transfer
+    Mobile element text should be    ${lblValidityTransferUsageDetails}    ${txtValidityTransferUsageDetails}    #Validity Transfer Usage Details
+    Mobile element text should be    ${lblVoiceCall}    ${txtVoiceCall}    #Voice Call
+    Mobile Capture Screen At Verify Point    verfify label V
+
+Verify Result Begin With V iOS
+    Swipe to element    ${lblVoiceCall}    Round=20
+    Mobile element text should be    ${lblValidityTransfer}    ${ValidityTransfer}    #Validity Transfer
+    Mobile element text should be    ${lblValidityTransferUsageDetails}    ${ValidityTransferUsageDetails}    #Validity Transfer Usage Details
+    Mobile element text should be    ${lblVoiceCall}    ${VoiceCall}    #Voice Call
+    Mobile Capture Screen At Verify Point    verfify label V
+
+Verify Result Begin With Y
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Result Begin With Y Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Result Begin With Y iOS
+
+Verify Result Begin With Y Android
+    Swipe to element    ${lblYourCurrentPackage}
+    Mobile element text should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}    #Your Credit/Debit Card
+    Mobile element text should be    ${lblYourCurrentPackage}    ${txtYourCurrentPackage}    #Your Current Package
+    Mobile Capture Screen At Verify Point    verfify label Y
+
+Verify Result Begin With Y iOS
+    Swipe to element    ${lblYourCurrentPackage}    Round=20
+    Mobile element text should be    ${lblYourCreditAndDebitCard}    ${YourCreditAndDebitCard}    #Your Credit/Debit Card
+    Mobile element text should be    ${lblYourCurrentPackage}    ${YourCurrentPackage}    #Your Current Package
+    Mobile Capture Screen At Verify Point    verfify label Y
+
+Verify Top Up Page
+    Mobile element text should be    ${lblTitleTopUp}    ${txtTopUp}
+    Mobile check existing text in name    ${lblMobileNumber}
+    Mobile element text should be    ${lblTopUpSuggestInputMobileNumber}    ${TopUpDestinationNumberSuggest}    #Enter destination number you wish to top up
+    Mobile element text should be    ${lblTopUpSuggestSelectTopUpChannal}    ${TopUpChannalSuggest}    #Please select top up channels
+    Mobile element text should be    ${lblTopUpSuggestSelectTopUpAmount}    ${TopUpSelectAmountSuggest}    #Select top up amount
+    Mobile Capture Screen At Verify Point    TopUpr Page
+
+Verify Top Up Usage Details Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Top Up Usage Details Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Top Up Usage Details Page iOS    ${Number}
+
+Verify Top Up Usage Details Page Android
+    Mobile element text should be    ${lblTitleUsageDetail}    ${txtUsageDetails}
+    Mobile check existing text in name    ${lblMobileNumber}
+    Mobile element text should be    ${lblUsageDetailSuggestHistory}    ${txtCheckUsageHistory}    #You can check usage history for last 3 days.
+    Mobile Capture Screen At Verify Point    Top Up Usage Details Page
+
+Verify Top Up Usage Details Page iOS
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblServiceDetail}    ${UsageDetailHistory}    #Usage Detail History
+    ${rawMobileNumber}=    Get mobile text    ${lblTopUpUsageDetailHistoryMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #Mobile Number
+    Mobile element text should be    ${lblUsageDetailSuggestHistory}    ${CheckUsageHistory}    #You can check usage history for last 3 days.
+    Mobile Capture Screen At Verify Point    Top Up Usage Details Page
+    ${msgStatus}=    Run Keyword And Return Status    AISAppiumEx.Wait Until Element Is Visible    ${msgUpdaetPersonalInformationOnTopUsageDetail}    0
+    Log    ${msgStatus}
+    Run Keyword If    ${msgStatus}    Click Mobile Element    ${btnOKDialogBox}
+
+Verify Top Up /Payment Page
+    Wait Mobile Until Element Visible    ${lblMobileNumber}    #เบอร์โทร
+    Mobile element text should be    ${lblTitleBalanceTransfer}    ${txtBalanceTransfer}    #โอนวัน
+    Mobile element text should be    ${lblBalanceTransferSuggestInputMobileNumber}    ${BalanceTransferSuggestDestinationNumber}    #1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนวันให้
+    Mobile element text should be    ${lblBalanceTransferSuggestSelectBalance}    ${BalanceTransferSuggestTransferAmount}    #2.จำนวนวันที่ต้องการโอน/วัน
+    Mobile Capture Screen At Verify Point    Balance Transfer Page
+
+Verify Top Up Payment Page
+    Mobile element text should be    ${lblTopUpAndPaymentSectionTab}    ${txtTopUpAndPayment}
+    Mobile element text should be    ${lblTopUpSubmenu}    ${txtTopUp}
+    Mobile element text should be    ${lblPaymentSubmenu}    ${txtPayment}
+    Mobile Capture Screen At Verify Point    Top Up Payment Page
+
+Verify Usage Detail History Page
+    Mobile element text should be    ${lblUsageDetailHistorySectionTab}    ${txtUsageDetailHistory}    #Usage Detail History
+    Mobile element text should be    ${lblVoiceCallSubmenu}    ${txtVoiceCall}    #Voice Call
+    Mobile element text should be    ${lblInternetValueAddedServiceSubmenu}    ${txtInternetAndValueAddedService}    #Internet/Value Added Service
+    Mobile element text should be    ${lblTopUpUsageDetailsSubmenu}    ${txtTopUpUsageDetails}    #Top Up Usage Details
+    Mobile element text should be    ${lblBalanceTransferUsageDetailsSubmenu}    ${txtBalanceTransferUsageDetails}    #Balance Transfer Usage Details
+    Mobile element text should be    ${lblValidityTransferUsageDetailsSubmenu}    ${txtValidityTransferUsageDetails}    #Validity Transfer Usage Details
+    Mobile element text should be    ${lblFeeSubmenu}    ${txtFee}    #Fee
+    Mobile Capture Screen At Verify Point    Usage Detail History Page
+
+Verify Validity Transfer Page Unaviable
+    Mobile element text should be    ${lblValidityTransfer}    ${txtValidityTransfer}
+    Mobile check existing text in name    ${lblMobileNumber}
+    Mobile element text should be    ${lblEnterDestinationNumber}    ${txtEnterDestinationNumber}
+    Mobile element text should be    ${lblTransferAmountAndDay}    ${txtTransferAmountAndDay}
+    Mobile Capture Screen At Verify Point    Transfer Page
+    Swipe to element    ${btnOKValidityTransferPage}
+    Click Mobile Element    ${btnOKValidityTransferPage}
+
+Verify Your Credit And Debit Card Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Your Credit And Debit Card Page Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Your Credit And Debit Card Page iOS    ${Number}
+
+Verify Your Credit And Debit Card Page Android
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblTitleYourCredit/DebitCard}    ${txtYourCreditAndDebitCard}    #Your Credit/Debit Card
+    Verify Number Phone    ${lblMobileNumberTitleYourCredit/DebitCart}    ${Number}
+    Mobile element text should be    ${lblMenuSubTitleCreditAndDebitCard}    ${txtCreditAndDebitCard}    #Credit/Debit card details
+    Mobile Capture Screen At Verify Point    Your Credit And Debit Card
+
+Verify Your Credit And Debit Card Page iOS
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblTitleYourCredit/DebitCard}    ${YourCreditAndDebitCard}    #Your Credit/Debit Card
+    Verify Number Phone    ${lblYourCreditAndDebitCardProfileNumber}    ${Number}
+    Mobile element text should be    ${lblMenuSubTitleCreditAndDebitCard}    ${CreditAndDebitCard}    #Credit/Debit card details
+    Mobile Capture Screen At Verify Point    Your Credit And Debit Card
+
+Verify input Character ข
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}    #ข้อมูลของคุณ
+    Mobile element name should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}    #ข้อมูลบัตรเครดิต/เดบิต
+    Mobile element name should be    ${lblPaymentToAnotherNumber}    ${txtPaymentToAnotherNumber}    #ชำระค่าบริการให้หมายเลขอื่น
+    Mobile element name should be    ${lblYourCurrentPackage}    ${txtYourCurrentPackage}    #แพ็กเกจปัจจุบันของคุณ
+    Mobile Capture Screen At Verify Point    Verify Charecter ข
+
+Verify input word ข้อมูล
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}    #ข้อมูลของคุณ
+    Mobile element name should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}    #ข้อมูลบัตรเครดิต/เดบิต
+    Mobile Capture Screen At Verify Point    Verify The Word ข้อมูล
+
+Verify payment search not found
+    Verify All Menu
+    Wait Mobile Until Page Does Not Contain Element    ${lblPayment}
+    Mobile Capture Screen At Verify Point    Verify payment not found
+
+Verify Swipe to A
+    Mobile element name should be    ${lblAISeStatement}    ${txtAISeStatement}    #AIS eStatement
+    Mobile element name should be    ${lblAISFacebook}    ${txtAISFacebook}    #AIS Facebook
+    Mobile element name should be    ${lblAISLine}    ${txtAISLine}    #AIS Line
+    Mobile element name should be    ${lblAISOnlineStore}    ${txtAISOnlineStore}    #AIS Online Store
+    Mobile element name should be    ${lblAISTwitter}    ${txtAISTwitter}    #AIS Twitter
+    Mobile element name should be    ${lblAISWebsite}    ${txtAISWebsite}    #AIS Website
+    ${AskAunjai}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblAskAunjai}    5
+    Run Keyword If    ${AskAunjai}    Mobile element name should be    ${lblAskAunjai}    ${txtAskAunjai}    #Ask Aunjai
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify Point Swipe to A
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify Point Swipe to A EN
+
+Swipe to sub menu
+    [Arguments]    ${Submenu}
+    Swipe Element To Screen    ${lbl${Submenu}}    screen    up    0.4
+    Click Mobile Element    ${lbl${Submenu}}
+
+Verify Swipe to ข
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to ข
+
+Verify Swipe to ค
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to ค
+
+Verify Swipe to ช
+    Mobile element name should be    ${lblPayment}    ${txtPayment}
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to ช
+
+Verify Swipe to ต
+    Mobile element name should be    ${lblSetting}    ${txtSetting}
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to ต
+
+Verify Swipe to ถ
+    Mobile element name should be    ${lblAskAunjai}    ${txtAskAunjai}
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to ถ
+
+Verify Swipe to บ
+    Mobile element name should be    ${lblService}    ${txtService}    #บริการ
+    Mobile element name should be    ${lblmyAISAccount}    ${txtmyAISAccount}    #บัญชี my AIS
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to บ
+
+Verify Swipe to พ
+    Mobile element name should be    ${lblPointsAndPrivileges}    ${txtPointsAndPrivileges}    #พอยท์ & สิทธิพิเศษ
+    Mobile element name should be    ${lblPackage}    ${txtPackage}    #แพ็กเกจ
+    Mobile element name should be    ${lblYourCurrentPackage}    ${txtYourCurrentPackage}    #แพ็กเกจปัจจุบันของคุณ
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to พ
+
+Verify Swipe to ส
+    Mobile element name should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}    #สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to ส
+
+Verify Swipe to อ
+    Mobile element name should be    ${lblLogOutMyAIS}    ${txtLogOutMyAIS}    #ออกจากระบบ
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to อ
+
+Verify click sub menu MyProfile
+    Wait Mobile Until Element Visible    ${lblHeadMyprofile}    #ข้อมูลของคุณ
+    ${Number}=    Get mobile text    ${lblNumberMyprofile}
+    ${NumberCheck}=    Should Match Regexp    ${Number}    ${txtNumberMatch}    #หมายเลข FBB
+    Mobile element name should be    ${lblAISFibreCustomer}    ${txtAISFibreCustomer}    #ลูกค้า เอไอเอส ไฟเบอร์
+    Mobile element name should be    ${lblContactMobileNumber}    ${txtContactMobileNumber}    #หมายเลขโทรศัพท์สำหรับติดต่อ
+    Mobile element name should be    ${lblBillCycle}    ${txtBillCycle}    #รอบบิล
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu MyProfile 1
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu MyProfile 1 EN
+    Swipe Element To Screen    ${lblBillMedia}
+    Mobile element name should be    ${lblBillMedia}    ${txtBillMedia}    #ช่องทางการรับใบแจ้งค่าใช้บริการ
+    Mobile element name should be    ${lblBillingAddress}    ${txtBillingAddress}    #ที่อยู่ในการจัดส่งเอกสาร
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu MyProfile 2
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu MyProfile 2 EN
+
+Verify My Profile page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblTitleMyProfile}    ${MyProfile}
+    Verify Number Phone    ${lblContactMobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    Verify My profile
+
+Verify click sub menu Payment
+    Wait Mobile Until Element Visible    ${lblHeadPayment}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu Payment
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu Payment EN
+
+Verify click sub menu Setting
+    Wait Mobile Until Element Visible    ${lblHeadSetting}    #ตั้งค่า
+    Mobile element name should be    ${lblLanguage}    ${txtLanguage}    #ภาษา
+    Mobile element name should be    ${lblAlert}    ${txtNotification}    #แจ้งเตือน
+    Mobile element name should be    ${lblCodeLock}    ${txtPasscodeLock}    #การล็อกรหัส
+    Mobile element name should be    ${lblTermConditition}    ${txtTermsAndConditions}    #เงื่อนไขบริการ
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu Setting
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu Setting EN
+
+Verify click sub menu AskAunjai
+    Wait Mobile Until Element Visible    ${lblHeadAskAunJai}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify Point Ask Aunjai
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify Point Ask Aunjai EN
+
+Verify click sub menu Service
+    Wait Mobile Until Element Visible    ${lblHeadServicei}    #บริการ
+    Mobile element name should be    ${lblAISFibre}    ${txtAISFibre}    #AIS Fibre
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile element name should be    ${lblAISeStatement}    ${AISeStatement}    #AIS eStatement
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile element name should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}    #สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu Service
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu Service EN
+
+Verify click sub menu PointsAndPrivileges
+    Wait Mobile Until Element Visible    ${mnuPointsAndPrivileges}
+    Mobile element name should be    ${lblPoint}    ${txtPoint}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu PointsAndPrivileges 1
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu PointsAndPrivileges 1 EN
+    Swipe to element    ${lblPrivilege}    screen    up    0.3
+    Mobile element name should be    ${lblPrivilege}    ${txtPrivilege}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu PointsAndPrivileges 2
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu PointsAndPrivileges 2 EN
+    Run Keyword If    "${ar_LANG}"=="EN"    Verify Nearby
+
+Verify click sub menu Package
+    Wait Mobile Until Element Visible    ${mnuPackage}
+    Run Keyword If    "${ar_LANG}"=="EN"    Mobile element name should be    ${lblYourCurrentPackage}    ${txtYourCurrentPackages}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu Package
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu Package EN
+
+Verify click sub menu YourCurrentPackage
+    Wait Mobile Until Element Visible    ${lblHeadYourCurrentPackage}    #แพ็กเกจปัจจุบันของคุณ
+    ${Number}=    Get mobile text    ${lblMobileNumber}
+    ${NumberCheck}=    Should Match Regexp    ${Number}    ${txtNumberMatch}
+    Mobile element name should be    ${lblHeadPricePlan}    ${txtPricePlan}    #แพ็กเกจหลัก
+    Mobile element name should be    ${lblHeadOnTopPackage}    ${txtOnTopPackage}    #แพ็กเกจเสริม
+    Mobile element name should be    ${lblHeadValueAddedServices}    ${txtValueAddedService}    #บริการเสริม
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu YourCurrentPackage
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu YourCurrentPackage EN
+
+Verify click sub menu RegisterAISFibreAndCoverageChecking
+    sleep    10
+    Wait Mobile Until Element Visible    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_toolbar_simple_tv_title"]
+    Mobile element name should be    ${AISFibreRegister}    ${txtAISFibreRegister}    #สมัครบริการ AIS Fibre
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu RegisterAISFibreAndCoverageChecking
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu RegisterAISFibreAndCoverageChecking EN
+
+Verify click sub menu LogOut
+    Skip Survey Page
+    Wait Mobile Until Element Visible    ${lblHeadLogin}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu LogOut MyAIS
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu LogOut MyAIS EN
+
+Verify Swipe to B
+    Mobile element text should be    ${lblBalanceAndUsageDetail}    ${BalanceAndUsageDetails}
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to B
+
+Verify Swipe to L
+    Mobile element name should be    ${lblLogOutMyAIS}    ${LogOutMyAIS}    #ออกจากระบบ
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to L
+
+Verify Swipe to M
+    # Mobile element name should be    ${lblmyAISAccount}    ${myAISAccount}    #my AIS Account
+    Mobile element name should be    ${lblMyProfile}    ${MyProfile}    #My Profile
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to M
+
+Verify Swipe to P
+    Mobile element name should be    ${lblPackage}    ${Package}    #Package
+    Mobile element name should be    ${lblPaymentToAnotherNumber}    ${PayToAnotherNumber}    #Pay To Another Number
+    Mobile element name should be    ${lblPayment}    ${Payment}    #Payment
+    Mobile element name should be    ${lblPaymentAndTopUp}    ${PaymentAndTopUp}    #Payment/Top UP
+    Mobile element name should be    ${lblPointsAndPrivileges}    ${PointsAndPrivileges}    #Points & Privileges
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to P
+
+Verify Swipe to R
+    Mobile element name should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}    #Register AIS Fibre/Coverage Checking
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to R
+
+Verify Swipe to S
+    Swipe Element To Screen    ${lblService}
+    Mobile element name should be    ${lblService}    ${txtServices}    #Services
+    Mobile element name should be    ${lblSetting}    ${txtSetting}    #Setting
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to S
+
+Verify Swipe to Y
+    Mobile element name should be    ${lblYourCurrentPackage}    ${txtYourCurrentPackages}    #Your Current Packages
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to Y
+
+Verify input Character f
+    Mobile element name should be    ${lblAISFacebook}    ${txtAISFacebook}    #AIS Facebook
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}    #My Profile
+    Mobile element name should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}    #Register AIS Fibre/Coverage Checking
+    Mobile Capture Screen At Verify Point    Verify Charecter f
+
+Verify input word Line
+    Verify All Menu
+    Mobile element name should be    ${lblAISLine}    ${txtAISLine}    #AIS Line
+    Mobile element name should be    ${lblAISOnlineStore}    ${txtAISOnlineStore}    #AIS Online Store
+    Mobile Capture Screen At Verify Point    Verify The Word Lind
+
+Verify ตั้งค่า search not found
+    Wait Mobile Until Page Does Not Contain Element    ${lblAISFacebook}
+    Mobile Capture Screen At Verify Point    Verify ตั้งค่า not found
+
+Verify click sub menu AISAccount
+    Wait Mobile Until Element Visible    ${lblHeadmyAISAccount}    #บัญชี my AIS
+    Mobile element name should be    ${lblmyAISAccountLabel}    ${txtmyAISAccountLabel}    #บัญชีของคุณ
+    Mobile element name should be    ${lblMyList}    ${txtMyList}    #หมายเลขในบัญชี my AIS ของคุณ
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    Verify sub menu AISAccount
+    ...    ELSE    Mobile Capture Screen At Verify Point    Verify sub menu AISAccount EN
+
+Verify Bill AIS Postpaid Page
+    Mobile check existing text    ${lblTitleBillAISPostpaid}    10
+    Mobile check existing text    ${lblBillAISPostpaidYourUsageChange}    10
+    Mobile check existing text    ${lblBillAISPostpaidPaymentChannel}    10
+    Mobile Capture Screen At Verify Point    Bill AIS Postpaid
+
+Verify Swipe to I
+    Mobile element text should be    ${lbliSWOP}    ${iSWOP}
+    Mobile Capture Screen At Verify Point    I
+
+Select and Verify eStatement
+    [Arguments]    ${#dict_device_name}
+    Wait Mobile Until Element Visible    ${lblHeadAISeStatement}
+    Mobile element name should be    ${lblQuickandAnywhere}    ${txtQuickandAnywhere}
+    Mobile element name should be    ${lblFastsafe}    ${txtFastsafe}
+    Mobile element name should be    ${lblHasslefree}    ${txtHasslefree}
+    Mobile element name should be    ${lblStayuptodate}    ${txtStayuptodate}
+    Mobile Capture Screen At Verify Point    AISeStatement
+
+Verify Result That Contain ข Postpaid
+    Mobile element name should be    ${lblRequestAndChangeWiFiPassword}    ${RequestAndChangeWiFiPassword}    #ขอรับ/เปลี่ยนรหัส WiFi
+    Mobile element name should be    ${lblMyProfile}    ${MyProfile}    #ข้อมูลของคุณ
+    Mobile element name should be    ${lblYourCreditAndDebitCard}    ${YourCreditAndDebitCard}    #ข้อมูลบัตรเครดิต/เดบิต
+    Mobile Capture Screen At Verify Point    result ข
+
+Verify การใช้งานต่างประเทศ search not found
+    Verify All Menu
+    Wait Mobile Until Page Does Not Contain Element    ${lblAISFacebook}
+    Mobile Capture Screen At Verify Point    Verify การใช้งานต่างประเทศ not found
+
+Verify การยกเลิก SMS โฆษณา search not found
+    Verify All Menu
+    Wait Mobile Until Page Does Not Contain Element    ${lblAISFacebook}
+    Mobile Capture Screen At Verify Point    Verify การยกเลิก SMS โฆษณา not found
+
+Verify Package Page
+    Wait Mobile Until Element Visible    ${lblPackageMenuPage}
+    Mobile element name should be    ${lblPackagePage}    ${Package}
+    Mobile element name should be    ${lblRoamingPackageMenuPage}    ${RoamingPackage}
+    Mobile Capture Screen At Verify Point    Package Menu Page
+
+Verify Special campaign And Privileges search not found
+    Verify All Menu
+    Wait Mobile Until Page Does Not Contain Element    ${lblAISFacebook}
+    Mobile Capture Screen At Verify Point    Verify Special campaign And Privileges not found
+
+Verify SMS CancellationAndInquiries search not found
+    Verify All Menu
+    Wait Mobile Until Page Does Not Contain Element    ${lblAISFacebook}
+    Mobile Capture Screen At Verify Point    Verify \ SMS CancellationAndInquiries \ not found
+
+Verify Nearby
+    Swipe to element    ${lblNearby}    screen    up    0.2
+    Mobile element name should be    ${lblNearby}    ${txtNearby}
+    Mobile Capture Screen At Verify Point    Verify sub menu PointsAndPrivileges 3 EN
+
+Verify click sub menu AIS Website
+    Sleep    3
+    Wait Mobile Until Element Visible    ${bannerAISWebsite}
+    Mobile element name should be    ${LogoAISWebSite}    ${txtAISWebSite}
+    Mobile Capture Screen At Verify Point    AIS Website
+
+Verify ค Postpaid
+    Mobile element text should be    ${lblYourBalancePostpaid}    ${YourBalance}    #ค่าใช้บริการ
+    Mobile element text should be    ${lblYourCurrentChange(Unbilled)}    ${YourCurrentChange(Unbilled)}    #ค่าใช้บริการระหว่างรอบบิล
+    Mobile Capture Screen At Verify Point    Result ค
+
+Select ค่าใช้บริการ
+    Mobile Element Text Should Be    ${lblYourBalancePostpaid}    ค่าใช้บริการ
+    Mobile Capture Screen At Verify Point    No Outstanding Balance
+
+Verify ค่าใช้บริการ Postpaid
+    Mobile element text should be    ${titleMenu}    ${YourBalance}    #ค่าใช้บริการ
+    Mobile Capture Screen At Verify Point    Result ค
+
+Verify Result When Search Keyword ร
+    Swipe to element    ${lblServiceDetail}
+    Mobile element text should be    ${lblServiceDetail}    ${ServiceDetail}
+    Mobile Capture Screen At Verify Point    Result ร
+
+Verify อ
+    Mobile element text should be    ${lblLogOut}    ${txtLogOut}    #ออกจากระบบ
+    Mobile element text should be    ${lblRoamingServiceRates}    ${txtRoamingServiceRates}    #อัตราค่าบริการโรมมิ่ง
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to อ
+
+Verify ส
+    Mobile element name should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}    #สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ
+    Mobile element text should be    ${lblRegisterMyAIS}    ${RegisterMyAIS}    #สมัคร my AIS
+    Mobile element text should be    ${lblRegisterOntopEntertainment}    ${RegisterEntertainmentOntop}    #สมัครแพ็กเกจเสริม Entertainment
+    Mobile element text should be    ${lblInternetOntopPackage}    ${RegisterInternetOntop}    #สมัครแพ็กเกจเสริมอินเทอร์เน็ต
+    Mobile element text should be    ${lblOtherOntopPackage}    ${RegisterOtherOntop}    #สมัครแพ็กเกจเสริมอื่นๆ
+    Mobile element text should be    ${lblRegisterRoamingPackage}    ${RegisterRoamingPackage}    #สมัครแพ็กเกจโรมมิ่ง
+    Mobile Capture Screen At Verify Point    label ส
+
+Register AIS Fiber
+    Sleep    1
+    Swipe to element    ${lbl${menuName}}
+    Click Mobile Element    ${lbl${menuName}}
+
+Verify AIS eStatement Postpaid
+    Wait Mobile Until Element Visible    ${lblHeadAISeStatement}    #AIS eStatement
+    Mobile element name should be    ${lblQuickandAnywhere}    ${txtQuickandAnywhere}    #บิลออนไลน์ สะดวก รวดเร็ว ส่งตรงถึงมือคุณ
+    Mobile element name should be    ${lblFastsafe}    ${txtFastsafe}    #มั่นใจในการส่ง
+    Mobile element name should be    ${lblHasslefree}    ${txtHasslefree}    #หมดข้อกังวล
+    Mobile element name should be    ${lblchkityourself}    ${txtCheckItYourself}    #เช็กยอดค่าโทร \
+    Mobile element name should be    ${titleStayuptodate}    ${txtStayUpToDate}    #ตรวจสอบและแจ้งเตือน
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS eStatement
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS eStatement EN
+
+Verify ช Postpaid
+    Mobile element text should be    ${lblPayment}    ${Payment}
+    Mobile element text should be    ${lblPayForAnotherNumber}    ${PaymentToAnotherNumber}
+    Mobile element text should be    ${lblHelpAndSupport}    ${HelpAndSupport}
+    Mobile element text should be    ${lblBalanceandUsage}    ${CheckItYourself}
+    Mobile Capture Screen At Verify Point    Verify ช
+
+Verify AIS Website FBB
+    Wait Mobile Until Element Visible    xpath=//*[@content-desc="ais hilight banner"]
+    Mobile element name should be    ${LogoAISWebSite}    ${txtAISWebSite}
+    Swipe element to specific area    ${lblHeadserviceWeb}
+    Mobile element name should be    ${lblHeadserviceWeb}    ${txtHeadserviceWeb}    #คอนเทนต์ความบันเทิง
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 1
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 1 EN
+    Swipe element to specific area    ${lblHeaddeviceWeb}
+    Mobile element name should be    ${lblHeaddeviceWeb}    ${txtHeaddeviceWeb}    #มือถือและอุปกรณ์
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 2
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 2 EN
+    Swipe element to specific area    ${lblHeadsearchWeb}
+    Mobile element name should be    ${lblHeadsearchWeb}    ${txtHeadsearchWeb}    #เลือกแพ็กเกจตรงใจ
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 3
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 3 EN
+    Swipe element to specific area    ${lblHeadapplicationWeb}
+    Mobile element name should be    ${lblHeadapplicationWeb}    ${txtHeadapplicationWeb}    #แอปพลิเคชั่น
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 4
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 4 EN
+    Swipe element to specific area    ${lblHeadlivemoreWeb}
+    Mobile element name should be    ${lblHeadlivemoreWeb}    ${txtHeadlivemoreWeb}    #Live More
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 5
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 5 EN
+
+Verify Result Contain Line
+    Mobile element text should be    ${lblAISLine}    ${txtAISLine}
+    Mobile element text should be    ${lblAISOnlineStore}    ${txtAISOnlineStore}
+    Mobile Capture Screen At Verify Point    Verify Line
+
+Verify Result Contain f
+    Mobile element text should be    ${lblAISFacebook}    ${txtAISFacebook}    #AIS Facebook
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}    #My Profile
+    Mobile element name should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}    #Register AIS Fibre/Coverage Checking
+    Mobile element text should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWiFiPassword}    #ขอรับ/เปลี่ยนรหัส WiFi
+    Mobile Capture Screen At Verify Point    Verify f with search
+
+Verify Result Contain ข Postpaid
+    Mobile element name should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWiFiPassword}    #ขอรับ/เปลี่ยนรหัส WiFi
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}    #ข้อมูลของคุณ
+    Mobile element name should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}    #ข้อมูลบัตรเครดิต/เดบิต
+    Mobile element name should be    ${lblPaymentToAnotherNumber}    ${txtPaymentToAnotherNumber}    #ชำระค่าบริการให้หมายเลขอื่น
+    Mobile element name should be    ${lblYourCurrentPackage}    ${txtYourCurrentPackage}    #แพ็กเกจปัจจุบันของคุณ
+    Mobile Capture Screen At Verify Point    Search ข and verify result
+
+Verify Result Contain ข้อมูล
+    Mobile element name should be    ${lblMyProfile}    ${txtMyProfile}    #ข้อมูลของคุณ
+    Mobile element name should be    ${lblYourCreditAndDebitCard}    ${txtYourCreditAndDebitCard}    #ข้อมูลบัตรเครดิต/เดบิต
+    Mobile Capture Screen At Verify Point    Search ข้อมูล and verify
+
+Verify Result Contain A EN Postpaid
+    Mobile element text should be    ${lblAISeStatement}    ${txtAISeStatement}
+    Mobile element text should be    ${lblAISFacebook}    ${txtAISFacebook}
+    Mobile element text should be    ${lblAISLine}    ${txtAISLine}
+    Mobile element text should be    ${lblAISOnlineStore}    ${txtAISOnlineStore}
+    Mobile element text should be    ${lblAISTwitter}    ${txtAISTwitter}
+    Mobile element text should be    ${lblAISWebsite}    ${txtAISWebsite}
+    Mobile element text should be    ${lblApplyInternetOnTopPackage}    ${txtApplyInternetOnTopPackage}
+    Mobile element text should be    ${lblApplyEntertainmentOnTopPackage}    ${txtApplyEntertainmentOnTopPackage}
+    Mobile element text should be    ${lblApplyOtherOnTopPackage}    ${txtApplyOtherOnTopPackage}
+    Mobile Capture Screen At Verify Point    result contain A Top
+    Swipe to element    ${lblAskAunjai}
+    Mobile element text should be    ${lblApplyRoamingPackage}    ${txtApplyRoamingPackage}
+    Mobile element text should be    ${lblAskAunjai}    ${txtAskAunjai}
+    Mobile Capture Screen At Verify Point    result contain A
+
+Verify C Postpaid
+    Mobile element text should be    ${lblCallingMelody}    ${CallingMelody}
+    Mobile element text should be    ${lblChangePricePlan}    ${ChangePricePlan}
+    Mobile element text should be    ${lblCurrentPackageAndRemaining}    ${CurrentPackageAndRemaining}
+    Mobile Capture Screen At Verify Point    C
+
+Verify Website IPE
+    Mobile element name should be    ${lblHeadserviceWeb}    ${txtHeadserviceWeb}    #คอนเทนต์ความบันเทิง
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 1
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 1 EN
+    Swipe element to specific area    ${lblHeaddeviceWeb}
+    Mobile element name should be    ${lblHeaddeviceWeb}    ${txtHeaddeviceWeb}    #มือถือและอุปกรณ์
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 2
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 2 EN
+    Swipe element to specific area    ${lblHeadsearchWeb}
+    Mobile element name should be    ${lblHeadsearchWeb}    ${txtHeadsearchWeb}    #เลือกแพ็กเกจตรงใจ
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 3
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 3 EN
+    Swipe element to specific area    ${lblHeadapplicationWeb} \ \ \
+    Mobile element name should be    ${lblHeadapplicationWeb} \ \ \    ${txtHeadapplicationWeb}    #แอปพลิเคชั่น
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 4
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 4 EN
+    Swipe element to specific area    ${lblHeadlivemoreWeb}
+    Mobile element name should be    ${lblHeadlivemoreWeb}    ${txtHeadlivemoreWeb}    #Live More
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website 5
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website 5 EN
+    Mobile Capture Screen At Verify Point    Verify Point Swipe to ส
+
+Verify Balance&Usage Detail Postpaid
+    Mobile element text should be    ${lblYourCurrentChargePostpaid}    ${txtYourCurrentChange}    #YourCurrentCharge(Unbilled)
+    Mobile element text should be    ${lblUsageDetailHistoryPostpaid}    ${txtUsageDetailHistory}    #Usage Detail History
+    Mobile element text should be    ${lblYourBalance}    ${txtYourBalance}    #Your Balance
+    Mobile Capture Screen At Verify Point    ResultB
+
+Verify AIS eStatement PostpaidEN
+    Wait Mobile Until Element Visible    ${lblHeadAISeStatement}    #AIS eStatement
+    Mobile element name should be    ${lblQuickandAnywhere}    ${txtQuickandAnywhere}    #บิลออนไลน์ สะดวก รวดเร็ว ส่งตรงถึงมือคุณ
+    Mobile element name should be    ${lblFastAndsafeEN}    ${txtFastsafe}    #มั่นใจในการส่ง
+    Mobile element name should be    ${lblchkHasslefreeEN}    ${txtHasslefree}    #หมดข้อกังวล
+    Mobile element name should be    ${lblchkityourselfEN}    ${txtCheckItYourself}    #เช็กยอดค่าโทร \
+    Mobile element name should be    ${lblStayuptodateEN}    ${txtStayUpToDate}    #ตรวจสอบและแจ้งเตือน
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS eStatement
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS eStatement EN
+
+Verify Usage Datail IPE
+    [Arguments]    ${Number}
+    Mobile element name should be    ${bannerUsageDetail}    ${txtUsageDetails}
+    Mobile element name should be    ${lblNumberIPE}    ${Number}
+    Mobile element name should be    ${lblSubCheckUsageHistory}    ${txtCheckUsageHistory}
+    Mobile Capture Screen At Verify Point    Usage Detail Page
+
+Verify AIS Website 3BE-3PE
+    Sleep    3
+    Wait Mobile Until Element Visible    ${bannerAISWebsite}
+    Mobile element name should be    ${LogoAISWebSite}    ${txtAISWebSite}
+    Run Keyword If    "${ar_LANG}"=="TH"    Mobile Capture Screen At Verify Point    AIS Website
+    ...    ELSE    Mobile Capture Screen At Verify Point    AIS Website EN
+
+Verify All Menu
+    Wait Mobile Until Element Visible    ${lblHeadAllMenu}
+
+Verify ขัอมูลของคุณ IPE
+    Mobile element text should be    ${lblMyProfile}    ${txtMyProfile}
+    Mobile check existing text    ${lblName}
+    Mobile check existing text    ${lblNumber}
+    Mobile Capture Screen At Verify Point    My ProfileTop
+
+Verify QuickMenu Not Show Menu When Search Help Keyword
+    ${Status}=    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${tblQuickMenuList}
+    Should Be Equal    "True"    "${Status}"
+    Mobile Capture Screen At Verify Point    Verify Search not Contain Menu
+
+Verify QuickMenu Search Not Found
+    ${Status}=    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${tblQuickMenuList}
+    Should Be Equal    "True"    "${Status}"
+    Mobile Capture Screen At Verify Point    Verify Search not Contain Menu
+
+Verify QuickMenu Search A Keyword
+    Swipe to element    ${lblAISWebsite}
+    Mobile element text should be    ${lblAISFacebook}    ${txtAISFacebook}
+    Mobile element text should be    ${lblAISLine}    ${txtAISLine}
+    Mobile element text should be    ${lblAISOnlineStore}    ${txtAISOnlineStore}
+    Mobile element text should be    ${lblAISTwitter}    ${txtAISTwitter}
+    Mobile element text should be    ${lblAISWebsite}    ${txtAISWebsite}
+    Mobile Capture Screen At Verify Point    Verify menu A Contain
+
+Verify Internet ValueAddedService in QuickMenu Search
+    Mobile element name should be    ${lblInternetAndValueAddedService}    ${txtInternetAndValueAddedService}
+    Mobile Capture Screen At Verify Point    Result I
+
+Back From QuickMenu
+    Click Mobile Element    ${btnBackToMainPage}
+
+Select Internet Or ValueAddedService
+    Click Mobile Element    ${lblInternetAndValueAddedService}
+
+Verify QuickMenu Character ก
+    Mobile element text should be    ${lblVoiceCall}    ${txtVoiceCall}
+    Mobile Capture Screen At Verify Point    Character ก
+
+Select Voice Call
+    Click Mobile Element    ${lblVoiceCall}
+
+Verify Voice Call Page From QuickMenu
+    Log    in verify voice call
+
+Verify Topup Usage Details
+    [Arguments]    ${Number}
+    Mobile element name should be    ${bannerUsageDetail}    ${txtUsageDetail}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    TopUp Usage Detail Page
+
+Verify Validity Transfer Usage Details
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Validity Transfer Usage Details Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Validity Transfer Usage Details iOS    ${Number}
+
+Verify Validity Transfer Usage Details Android
+    [Arguments]    ${Number}
+    Mobile element name should be    ${bannerUsageDetail}    ${txtUsageDetail}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    Validity transfer Usage Detail Page
+
+Verify Validity Transfer Usage Details iOS
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblUsageDetailHistory}    ${UsageDetailHistory}
+    ${rawMobileNumber}=    Get mobile text    ${lblUsageDetailHistoryMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblCheckUsageHistory}    ${CheckUsageHistory}
+    Mobile Capture Screen At Verify Point    Validity transfer Usage Detail Page
+
+Verify Balance Transfer Usage Details
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblTitleUsageDetailHistory}    ${UsageDetailHistory}
+    ${rawMobileNumber}=    Get mobile text    ${lblUsageDetailHistoryMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblUsageDetailSuggestHistory}    ${CheckUsageHistory}
+    Mobile Capture Screen At Verify Point    Balance transfer Usage Detail Page
+
+Select TopUp
+    Click Mobile Element    ${lblTopUp}
+
+Select Payment
+    Click Mobile Element    ${lblPayment}
+
+Verify PointsAndPrivileges Page From QuickMenu
+    Comment    *messagesWait Mobile Until Element Visible    ${mnuPointsAndPrivileges}
+    Mobile element name should be    ${mnuPointsAndPrivileges}    ${PointsAndPrivileges}
+    Mobile element name should be    ${lblPoint}    ${Point}
+    Swipe to element    ${lblPrivilege}
+    Mobile element name should be    ${lblPrivilege}    ${Privilege}
+    Mobile Capture Screen At Verify Point    PointsAndPrivileges Page From QuickMenu
+
+Verify Calling Melody Page From QuickMenu
+    Comment    *messagesAISAppiumEx.Wait Until Element Is Visible    ${lblCallingMelody}    1
+    Sleep    2
+    AISAppiumEx.Element Text Should Be    ${lblCallingMelody}    ${CallingMelody}
+    Mobile Capture Screen At Verify Point    Calling Melody Page from QuickMenu
+
+Verify Package Page From QuickMenu
+    Mobile element text should be    ${mnuPackage}    ${Package}
+    Mobile element text should be    ${lblPackagePage}    ${DomesticPackage}
+    Mobile element text should be    ${lblQuickMenuRoamingPackage}    ${SubPackageRoaming}
+    Mobile Capture Screen At Verify Point    Package page from QuickMenu
+
+Verify Current Package And Remaing Page From QuickMenu
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblDataRoamingPackage}
+    Mobile element text should be    ${lblHeadTitlePage}    ${CurrentPackageAndRemaining}
+    Verify Number Phone    ${lblCurrentPackageMobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    Current Package And Remaing Page
+
+Verify Points And Privileges Page
+    Mobile element text should be    ${mnuPointsAndPrivileges}    ${PointsAndPrivileges}
+    Mobile element text should be    ${lblPoint}    ${Point}
+    Swipe to element    ${lblPrivilege}
+    Mobile element name should be    ${lblPrivilege}    ${Privilege}
+    Mobile Capture Screen At Verify Point    Points And Privileges
+
+Verify Your Current Package Page From QuickMenu
+    Mobile element text should be    ${lblYourCurrentPackage}    ${YourCurrent Package}    #แพ็กเกจปัจจุบันของคุณ
+    # Mobile element text should be    ${lblQuickMenuHeadMainPackage}    ${MainPackage}    #แพ็กเกจหลัก
+    Mobile element text should be    ${lblHeadValueAddedService}    ${HeadValueAddedService}    #บริการเสริม
+    Mobile Capture Screen At Verify Point    Your Current package page from QuickMenu
+
+Verify HowToUse To Use Page From QuickMenu
+    Mobile element text should be    ${lblHowtoUse}    ${QuickMenuHowtoUse}    #วิธีใช้งาน
+    Mobile element text should be    ${lblHowToUseApplication}    ${HowToUseApplication}    #วิธีใช้งาน Application
+    Mobile Capture Screen At Verify Point    How to use page from QuickMenu
+
+Swipe By Element Location
+    [Arguments]    ${locator}    ${appium_info}
+    &{dict_ScreenSize}    Run Keyword If    "${appium_info}"=="noinfo"    Create Dictionary    &{driver.get_window_size()}
+    ...    ELSE    Create Dictionary    &{appium_info.driver.get_window_size()}
+    ${size}=    Get Dictionary Values    &{dict_ScreenSize}
+    ${x}=    Set Variable    @{size}[1]
+    ${y}=    Set Variable    @{size}[0]
+    Log    ${x}
+    Log    ${y}
+    Wait Mobile Until Page Contains Element    ${locator}
+    ${Locate}=    Get Element Location    ${locator}
+    Log    ${Locate}
+
+Verify Usage Detail Fee Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblTitleUsageDetailHistory}    ${UsageDetailHistory}
+    Verify Number Phone    ${lblUsageDetailHistoryMobileNumber}    ${Number}
+    Mobile element text should be    ${lblCheckUsageHistory}    ${CheckUsageHistory}
+    Mobile Capture Screen At Verify Point    Fee
+
+Verify Payment Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblYourUsageChargesSubMenu}
+    Mobile element text should be    ${lblHeadTitlePage}    ${Payment}
+    Verify Number Phone    ${lblYourUsageChargesMobileNumber}    ${Number}
+    Mobile element text should be    ${lblYourUsageChargesSubMenu}    ${YourUsageCharges}
+    Mobile Capture Screen At Verify Point    Payment
+
+Verify Service Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Service Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Service Page iOS
+
+Verify Service Page Android
+    Mobile element text should be    ${mnuService}    ${txtService}
+    Mobile element text should be    ${lblBalanceTransfer}    ${txtBalanceTransfer}
+    Mobile element text should be    ${lblValidityTransfer}    ${txtValidityTransfer}
+    Mobile element text should be    ${lblRegisterAISFibreAndCoverageChecking}    ${txtRegisterAISFibreAndCoverageChecking}
+    Mobile element text should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWifi}
+    Mobile element text should be    ${lblCallingMelody}    ${txtCallingMelody}
+    Mobile element text should be    ${lblChangingIVRandSMSLanguage}    ${txtChangingIVRandSMSLanguage}
+    Mobile Capture Screen At Verify Point    Click Menu Service
+
+Verify Service Page iOS
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Service Page Prepaid
+    ...    ELSE IF    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Service Page Postpaid
+
+Verify Service Page Prepaid
+    Mobile element text should be    ${subHeadService}    ${Service}
+    Mobile Capture Screen At Verify Point    Service Page
+
+Verify Service Page Postpaid
+    Mobile element text should be    ${mnuService}    ${Service}
+    Mobile element text should be    ${lblBalanceTransfer}    ${BalanceTransfer}
+    Mobile element text should be    ${lblValidityTransfer}    ${ValidityTransfer}
+    Mobile element text should be    ${lblQuickMenuRegisterAISFibre}    ${RegisterAISFibre}
+    Mobile element text should be    ${lblRequestAndChangeWiFiPassword}    ${RequestAndChangeWiFiPassword}
+    Mobile element text should be    ${lblCallingMelody}    ${CallingMelody}
+    Mobile element text should be    ${lblChangingIVRandSMSLanguage}    ${ChangingIVRAndSMSLanguage}
+    Mobile Capture Screen At Verify Point    Click Menu Service
+
+Verify Changeing IVR And SMS
+    Mobile element text should be    ${lblHeadTitlePage}    ${ChangingIVRandSMSLanguage}
+    Mobile element name should be    ${lblIVRLanguage}    ${IVRLanguage}
+    Mobile element name should be    ${lblSMSLanguage}    ${SMSLanguage}
+    Mobile Capture Screen At Verify Point    Click Menu ChangingIVRandSMSLanguage
+
+Verify Other Ontop Package Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${OtherOntopPackage}
+    Verify Number Phone    ${lblMobileNumber}    ${Number}
+    Mobile Capture Screen At Verify Point    Other Ontop Package Page
+
+Verify Roaming Package Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${RegisterRoamingPackage}
+    Verify Number Phone    ${lblMobileNumberRoamingPackage}    ${Number}
+    Mobile Capture Screen At Verify Point    Other Ontop Package Page
+
+Verify Number Phone
+    [Arguments]    ${locator}    ${Number}
+    ${MobileNumber}    Get mobile text    ${locator}
+    ${MobileNumber}    Replace String    ${MobileNumber}    -    ${EMPTY}
+    Should Be Equal    ${MobileNumber}    ${Number}
+
+Close dialog not found package
+    ${result}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblDialogNotFoundPackage}
+    Run Keyword If    "${result}"=="True"    Click Mobile Element    ${btnCloseDialogNotFoundPackage}
+
+Verify input Character ข iOS
+    Mobile element text should be    ${lblRequestAndChangeWiFiPassword}    ${RequestAndChangeWiFiPassword}
+    Mobile element text should be    ${lblMyProfile}    ${MyProfile}
+    Mobile element text should be    ${lblYourCreditAndDebitCard}    ${YourCreditAndDebitCard}
+    Mobile element text should be    ${lblPayForAnotherNumber}    ${PaymentToAnotherNumber}
+    Mobile element text should be    ${lblYourCurrentPackage}    ${YourCurrent Package}
+    Mobile Capture Screen At Verify Point    Show all result ข
+
+Verify input Character ข้อมูล iOS
+    Mobile element text should be    ${lblMyProfile}    ${MyProfile}
+    Mobile element text should be    ${lblYourCreditAndDebitCard}    ${YourCreditAndDebitCard}
+    Mobile Capture Screen At Verify Point    Show all result ข้อมูล
+
+Verify Payment Result Not Found iOS
+    Wait Mobile Until Page Does Not Contain Element    ${lblAISFacebook}
+    Mobile Capture Screen At Verify Point    Payment Result Not Found
+
+Verify Result Contain A iOS TH
+    Mobile element text should be    ${lblAISeStatement}    ${AISeStatement}
+    Mobile element text should be    ${lblAISFacebook}    ${AISFacebook}
+    Mobile element text should be    ${lblAISLine}    ${AISLine}
+    Mobile element text should be    ${lblAISOnlineStore}    ${AISOnlineStore}
+    Mobile element text should be    ${lblAISTwitter}    ${AISTwitter}
+    Mobile element text should be    ${lblAISWebsite}    ${AISWebsite}
+    Mobile Capture Screen At Verify Point    Show Result Contain A TH
+
+Verify AISeStatement iOS
+    Wait Mobile Until Page Contains Element    ${lblAISeStatement}
+    Mobile Capture Screen At Verify Point    AISeStatement Page
+
+Verify input Character f iOS
+    Mobile element name should be    ${lblAISFacebook}    ${AISFacebook}
+    Mobile element name should be    ${lblMyProfile}    ${MyProfile}
+    Mobile element name should be    ${lblRegisterAISFibreAndCoverageChecking}    ${RegisterAISFibreAndCoverageChecking}
+    Mobile Capture Screen At Verify Point    Show all result f
+
+Verify input Character Line iOS
+    Mobile element name should be    ${lblAISLine}    ${AISLine}    #AIS Line
+    Mobile element name should be    ${lblAISOnlineStore}    ${AISOnlineStore}    #AIS Online Store
+    Mobile Capture Screen At Verify Point    Show all result Line
+
+Verify ตั้งค่า Result Not Found iOS
+    Wait Mobile Until Page Does Not Contain Element    ${lblAISFacebook}
+    Mobile Capture Screen At Verify Point    ตั้งค่า Result Not Found
+
+Verify จ่าย Result Not Found iOS
+    Wait Mobile Until Element Visible    ${headerAllMenu}
+    Wait Mobile Until Page Does Not Contain Element    ${lblAISFacebook}
+    Mobile Capture Screen At Verify Point    ตั้งค่า Result Not Found
+
+Verify Result Contain A iOS EN
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Mobile element text should be    ${lblAISeStatement}    ${AISeStatement}
+    Mobile element text should be    ${lblAISFacebook}    ${AISFacebook}
+    Mobile element text should be    ${lblAISLine}    ${AISLine}
+    Mobile element text should be    ${lblAISOnlineStore}    ${AISOnlineStore}
+    Mobile element text should be    ${lblAISTwitter}    ${AISTwitter}
+    Mobile element text should be    ${lblAISWebsite}    ${AISWebsite}
+    Mobile element text should be    ${lblApplyEntertainmentOnTopPackage}    ${ApplyEntertainmentOnTopPackage}
+    Mobile element text should be    ${lblApplyInternetOnTopPackage}    ${ApplyInternetOnTopPackage}
+    Mobile element text should be    ${lblApplyOtherOnTopPackage}    ${ApplyOtherOnTopPackage}
+    Mobile element text should be    ${lblApplyRoamingPackage}    ${ApplyRoamingPackage}
+    Mobile element text should be    ${lblAskAunjai}    ${AskAunjai}
+    Mobile Capture Screen At Verify Point    Show Result Contain A EN
+
+Verify iSWOP Page
+    Mobile element text should be    ${lblDialogiSWOP}    ${DialogSWOP}
+    Wait Mobile Until Element Visible    ${btnConfirmDialogiSWOP}
+    Mobile Capture Screen At Verify Point    iSWOP page
+    Click Mobile Element    ${btnConfirmDialogiSWOP}
+
+Verify Pay For Another Number Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblYourUsageChargesAnotherNumber}
+    Mobile element text should be    ${lblHeadTitlePage}    ${Payment}
+    Verify Number Phone    ${lblPaymentMobileNumber}    ${Number}
+    Mobile element text should be    ${lblYourUsageChargesAnotherNumber}    ${YourUsageCharges}
+    Mobile Capture Screen At Verify Point    Verify Pay For Another Number
+
+Verify AISeStatement EN
+    Wait Mobile Until Element Visible    ${lblHeadAISeStatement}    #AIS eStatement
+    Mobile element name should be    ${lblQuickandAnywhere}    ${QuickandAnywhere}    #บิลออนไลน์ สะดวก รวดเร็ว ส่งตรงถึงมือคุณ
+    Mobile element name should be    ${lblFastsafe}    ${Fastsafe}    #มั่นใจในการส่ง
+    Mobile element name should be    ${lblHasslefree}    ${Hasslefree}    #หมดข้อกังวล
+    Mobile element name should be    ${lblCheckityourself}    ${Checkityourself}
+    Mobile element name should be    ${lblStayuptodate}    ${Stayuptodate}    #ตรวจสอบและแจ้งเตือน
+    Mobile Capture Screen At Verify Point    AIS eStatement EN
+
+Verify Apply Internet OnTop Package Page
+    Mobile element text should be    ${lblApplyInternetOnTopPackage}    ${ApplyInternetOnTopPackage}    #Apply Internet On-Top Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnTopPackage}    #${OnTopPackageiOS}
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblPleaseselectthepricethatyouwant}    #${Pleaseselectthepricethatyouwant}
+    Mobile Capture Screen At Verify Point    Apply Internet OnTop Package Page
+
+Verify Apply Other OnTop Package Page
+    Mobile element text should be    ${lblApplyOtherOnTopPackage}    ${ApplyOtherOnTopPackage}    #Apply Other On-Top Package
+    Should Match Regexp    xpath=//XCUIElementTypeStaticText[@name="093-201-5551"]    ${NumberMatch}
+    ${ProgressBar}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${ProgressBarQuickMenu}
+    Run Keyword If    ${ProgressBar}    ProgressBarCheck
+    Mobile Capture Screen At Verify Point    Apply Other OnTop Package Page
+
+ProgressBarCheck
+    Comment    ${Status}=    Run Keyword And Return Status    AISAppiumEx.Wait Until Element Is Visible    ${msgDailogBox}    20
+    AISAppiumEx.Wait Until Element Is Visible    ${ProgressBarQuickMenu}
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${ProgressBarQuickMenu}
+    ${Status}=    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${msgDailogBox}
+    Sleep    2
+    Should Be Equal    "False"    "${Status}"
+
+Verify Apply Roaming Package Page Postpaid
+    Mobile element text should be    ${lblApplyRoamingPackage}    ${ApplyRoamingPackage}    #Apply Roaming Package
+    Mobile element text should be    ${lblRoamingCountry}    ${RoamingCountry}
+    Mobile element text should be    ${lblCustomerType}    ${CustomerType}
+    Mobile element text should be    ${lblPackageType}    ${PackageType}
+    Mobile Capture Screen At Verify Point    Apply Roaming Package Page
+
+Verify Register AIS Fibre And Coverage Checking page For Postpaid
+    Mobile element text should be    ${lblHeadTitlePage}    ${RegisterAISFibreAndCoverageChecking}    #Title
+    Comment    *messagesWait Mobile Until Element Visible    ${imgAISFibre}    #AIS Fibre image
+    Comment    *messagesMobile element text should be    ${lblTitleRegisterAISOrCoverageChecking}    ${RegisterAISFibre}    #สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ
+    Mobile Capture Screen At Verify Point    Register MyAIS
+
+Verify Result When Search Keyword R
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Result When Search Keyword R Postpaid
+    ...    ELSE IF    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Result When Search Keyword R Prepaid
+
+Verify Result When Search Keyword R Postpaid
+    Swipe to element    ${lblRoamingServiceRates}
+    Comment    Mobile element text should be    ${lblCreateMyAIS}    ${CreateMyAIS}
+    Mobile element text should be    ${lblRegisterAISFibreAndCoverageChecking}    ${RegisterAISFibreAndCoverageChecking}
+    Mobile element text should be    ${lblRequestAndChangeWiFiPassword}    ${RequestAndChangeWiFiPassword}
+    Mobile element text should be    ${lblRoamingServiceRates}    ${RoamingServiceRate}
+    Mobile Capture Screen At Verify Point    Menu Result Of Keyword R
+
+Verify Result When Search Keyword R Prepaid
+    Swipe to element    ${lblRoamingServiceRates}
+    Mobile element text should be    ${lblQuickMenuRegisterAISFibre}    ${RegisterAISFibre}
+    Mobile element text should be    ${lblRequestAndChangeWiFiPassword}    ${RequestAndChangeWiFiPassword}
+    Mobile element text should be    ${lblRoamingServiceRates}    ${RoamingServiceRate}
+    Mobile Capture Screen At Verify Point    Menu Result Of Keyword R
+
+Verify Result When Search Keyword T
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Result When Search Keyword T Postpaid
+    ...    ELSE IF    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Result When Search Keyword T Prepaid
+
+Verify Result When Search Keyword T Postpaid
+    Swipe to element    ${lblTopUp}
+    Mobile element text should be    ${lblTopUp}    ${TopUp}
+    Mobile Capture Screen At Verify Point    Menu Result Of Keyword T
+
+Verify Result When Search Keyword T Prepaid
+    Swipe to element    ${lblTopUpAndPayment}
+    Mobile element text should be    ${lblTopUp}    ${TopUp}    #- Top Up
+    Mobile element text should be    ${lblTopUpUsageDetails}    ${TopUpUsageDetails}    #- Top Up Usage Details
+    Mobile element text should be    ${lblTopUpAndPayment}    ${TopUpAndPayment}    #- Top Up/ Payment
+    Mobile Capture Screen At Verify Point    Menu Result Of Keyword T
+
+Verify Result When Search Keyword U
+    Swipe to element    ${lblUsageDetailHistory}
+    Mobile element text should be    ${lblUsageDetailHistory}    ${UsageDetailHistory}
+    Mobile Capture Screen At Verify Point    Menu Result Of Keyword U
+
+Verify Result When Search Keyword Y
+    Swipe to element    ${lblYourCurrentPackage}
+    Mobile element text should be    ${lblYourBalance}    ${YourBalance}
+    Mobile element text should be    ${lblYourCreditandDebit}    ${YourCreditAndDebitCard}
+    Mobile element text should be    ${lblYourCurrentCharge}    ${YourCurrentChargeUnbilled}
+    Mobile element text should be    ${lblYourCurrentPackage}    ${YourCurrentPackage}
+    Mobile Capture Screen At Verify Point    Menu Result Of Keyword Y
+
+Verify Request And Change WiFi Password Page
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Request And Change WiFi Password Page Postpaid
+    ...    ELSE IF    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Request And Change WiFi Password Page Prepaid
+
+Verify Request And Change WiFi Password Page Postpaid
+    Mobile element text should be    ${lblTitleRequestAndChangeWifiPassword}    ${RequestAndChangeWiFiPassword}
+    ${Status}=    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${msgDailogBox}
+    Should Be Equal    "True"    "${Status}"
+    Mobile Capture Screen At Verify Point    Request And Change WiFi Password Page
+
+Verify Request And Change WiFi Password Page Prepaid
+    Mobile element text should be    ${lblTitleRequestAndChangeWifiPassword}    ${RequestAndChangeWiFiPassword}
+    ${Status}=    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${msgDailogBox}
+    Should Be Equal    "True"    "${Status}"
+    Mobile Capture Screen At Verify Point    Request And Change WiFi Password Page
+
+Verify TopUp Page From QuickMenu
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblTopUp}    ${TopUp}
+    ${rawMobileNumber}=    Get mobile text    ${lblValidityTransferMyProfileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblTopUpSuggestInputMobileNumber}    ${TopUpDestinationNumberSuggest}    #Enter destination number you wish to top up
+    Mobile element text should be    ${lblTopUpSuggestSelectTopUpChannal}    ${TopUpChannalSuggest}    #Please select top up channels
+    Mobile element text should be    ${lblTopUpSuggestSelectTopUpAmount}    ${TopUpSelectAmountSuggest}    #Select top up amount
+    Mobile Capture Screen At Verify Point    TopUp Page
+
+Verify Your Balance Page
+    Wait Mobile Until Element Visible    ${lblDataBalanceOnPage}
+    Mobile element text should be    ${lblHeadYourBalance}    ${YourBalance}    #Your Balance
+    Mobile Capture Screen At Verify Point    Your Balance Page
+
+Verify Your Current Package Page Postpaid
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblValidityTransferMyProfileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblPricePlan}    ${PricePlan}    #Price Plan
+    Mobile element text should be    ${btnChangePricePlan}    ${ChangePricePlan}    #Change Price Plan
+    Mobile Capture Screen At Verify Point    Your Current Package Page
+
+Verify Your Current Charge (Unbilled) Page
+    Mobile element text should be    ${lblYourCurrentCharge}    ${YourCurrentChargeUnbilled}    #Your Balance
+    ${Status}=    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${msgDailogBox}
+    Should Be Equal    "True"    "${Status}"
+    Mobile Capture Screen At Verify Point    Your Current Charge (Unbilled) Page
+
+Confirm Dailog Message
+    Click Mobile Element    ${btnOKDialogBox}
+
+Verify Usage Detail History Page From QuickMenu
+    Mobile element text should be    ${lblServiceDetail}    ${ServiceDetail}
+    Mobile Capture Screen At Verify Point    Usage Detail History
+
+Verify Home Page From QuickMenu
+    Mobile element text should be    ${lblQuickMenuCurrentUsages}    ${Currentusages}    #การใช้งานรอบปัจจุบัน
+    Mobile Capture Screen At Verify Point    Home Page From QuickMenu
+
+Verify Menu Balance And Usage Detail
+    Mobile element text should be    ${lblCheckCallCost}    ${BalanceAndUsageDetails}
+    Mobile element text should be    ${lblServiceChargeDuringBill}    ${YourCurrentCharge(Unbilled)}
+    Mobile element text should be    ${lblUsageDetailHistoryPostpaid}    ${UsageDetailHistory}
+    Mobile element text should be    ${lblYourBalance}    ${YourBalance}
+    Mobile Capture Screen At Verify Point    Verify Balance And Usage Detail
+
+Verify Change Price Plan Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadTitlePage}    ${ChangePricePlan}
+    Verify Number Phone    ${lblMobileNumber}    ${Number}
+    ${statusDialog}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblDialog}
+    Run Keyword If    '${statusDialog}'=='True'    Fail
+    Mobile Capture Screen At Verify Point    Click Menu Change Price Plan
+
+Verify Home Page
+    Wait Mobile Until Element Visible    ${lblCurrentUsagesOnHomePage}
+    Mobile element text should be    ${mnuHome}    ${Home}
+    Mobile element text should be    ${lblCurrentUsagesOnHomePage}    ${CurrentUsages}
+    Mobile Capture Screen At Verify Point    Verify Home
+
+Select iSWOP
+    Click Mobile Element    ${lbliSWOP}
+
+Verify Your Current Change Bill Cycle
+    [Arguments]    ${Number}
+    Mobile element text should be    ${titleYourCurrentChange}    ${YourCurrentChange(Unbilled)}
+    Verify Number Phone    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblSubYourCurrentChange}    ${SubYourCurrentChangeBillCycle}
+    Mobile Capture Screen At Verify Point    Verify Your Current Change Bill Cycle
+
+Verify จ Postpaid
+    Mobile element text should be    ${lblPaymentAndTopupPostpaid}    ${PaymentAndTopUp}
+    Mobile Capture Screen At Verify Point    จ
+
+Verify Menu Balance Usage Page
+    Mobile element text should be    ${lblCheckCallCost}    ${BalanceAndUsageDetails}
+    Mobile element text should be    ${lblServiceChargeDuringBill}    ${YourCurrentCharge(Unbilled)}
+    Mobile element text should be    ${lblServiceDetail}    ${ServiceFeeDetails}
+    Mobile element text should be    ${lblCharges}    ${YourBalance}
+    Mobile Capture Screen At Verify Point    Verify Menu Balance Usage
+
+Verify Result Contain ห
+    Mobile element text should be    ${lblHome}    ${Home}
+    Mobile Capture Screen At Verify Point    Result Of Search ห
+
+Verify Login Page
+    Click Mobile Element    ${btnButtonBackSurvey}
+    Mobile element text should be    ${lblQuickMenuLogin}    ${QuickMenulogin}
+    Mobile Capture Screen At Verify Point    Login Page
+
+Verify Apply Entertainment OnTop Package Page
+    Mobile element text should be    ${lblTitleApplyEntertainmentOnTopPackage}    ${TitleApplyEntertainmentOnTopPackage}    #Apply Entertainment On-Top Package
+    Run Keyword If    "${ar_NType}"=="3PE"    Mobile element text should be    ${TitleFulfillyourlifestyle}    ${Fulfillyourlifestyle}
+    Mobile Capture Screen At Verify Point    Apply Entertainment OnTop Package Page
+
+Verify Apply Roaming Package Page
+    Mobile element text should be    ${lblApplyRoamingPackage}    ${ApplyRoamingPackage}    #Apply Roaming Package
+    Mobile element text should be    ${lblRoamingCountry}    ${RoamingCountry}
+    Mobile element text should be    ${lblCustomerType}    ${CustomerType}
+    Mobile element text should be    ${lblPackageType}    ${PackageType}
+    Mobile Capture Screen At Verify Point    Apply Roaming Package Page
+
+Verify Ask Aunjai Page
+    Mobile element text should be    ${lblTitleAskAunjai}    ${AskAunjai}    #Ask Aunjai
+    Mobile Capture Screen At Verify Point    Ask Aunjai Page
+
+Verify Create my AIS Page
+    Mobile element text should be    ${lblTitleCreateMyAIS}    ${CreateMyAIS}
+    Mobile element text should be    ${btnCreateMyAIS}    ${CreateMyAIS}
+    Mobile Capture Screen At Verify Point    Create my AIS Page
+
+Verify Roaming Service Rates Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Roaming Service Rates Page Postpaid    ${Number}
+    ...    ELSE IF    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Roaming Service Rates Page Prepaid    ${Number}
+
+Verify Roaming Service Rates Page Postpaid
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadRoamingServiceRates}    ${RoamingServiceRate}
+    ${rawMobileNumber}=    Get mobile text    ${lblValidityTransferMyProfileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblChooseYourCountry}    ${ChooseYourCountry}
+    Mobile element text should be    ${lblChooseCustomerType}    ${ChooseCustomerType}
+    Mobile Capture Screen At Verify Point    Roaming Service Rates Page
+
+Verify Roaming Service Rates Page Prepaid
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblHeadRoamingServiceRates}    ${RoamingServiceRate}
+    ${rawMobileNumber}=    Get mobile text    ${lblRoamingServiceRatesNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblChooseYourCountry}    ${ChooseYourCountry}
+    Mobile element text should be    ${lblChooseCustomerType}    ${ChooseCustomerType}
+    Mobile Capture Screen At Verify Point    Roaming Service Rates Page
+
+Verify Your Current Package Page
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblYourCurrentPackage}    ${YourCurrentPackage}
+    ${rawMobileNumber}=    Get mobile text    ${lblValidityTransferMyProfileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblPricePlan}    ${PricePlan}    #Price Plan
+    Mobile element text should be    ${lblValueAddedService}    ${ValueAddedService}
+    Mobile Capture Screen At Verify Point    Your Current Package Page
+
+Verify Menu PaymentTopUp Page
+    Mobile element text should be    ${lblMenuPaymentTopUp}    ${PaymentAndTopUp}
+    Mobile element text should be    ${lblPayment}    ${Payment}
+    Mobile element text should be    ${lblPaymentToAnotherNumber}    ${PaymentToAnotherNumber}
+    Mobile element text should be    ${lblTopUp}    ${TopUp}
+    Mobile Capture Screen At Verify Point    Your Menu PaymentTopUp
+
+Verify input Character Balance iOS
+    Wait Mobile Until Element Visible    ${headerAllMenu}
+    Mobile element text should be    ${lblBalanceTransfer}    ${BalanceTransfer}
+    Mobile element text should be    ${lblBalanceTransferUsageDetails}    ${BalanceTransferUsageDetails}
+    Mobile Capture Screen At Verify Point    Show result Balance
+
+Verify swipe to R postpaid
+    Mobile element text should be    ${lblRegisterAISFibre}    ${txtRegisterAISFibre}
+    Mobile element text should be    ${lblRequestAndChangeWiFiPassword}    ${txtRequestAndChangeWiFiPassword}
+    Mobile element text should be    ${lblRoamingServiceRates}    ${txtRoamingServiceRates}
+    Mobile Capture Screen At Verify Point    Charater R
+
+Verify character H
+    Mobile element text should be    ${lblHelpAndSupport}    ${txtHelpAndSupport}
+    Mobile element text should be    ${lblHowtoUse}    ${HowToUse}
+    Mobile Capture Screen At Verify Point    Character H

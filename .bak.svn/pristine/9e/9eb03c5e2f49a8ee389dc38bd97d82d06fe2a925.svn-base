@@ -1,0 +1,140 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/TransferPoint.txt
+
+*** Test Cases ***
+[F3_PointsWeb_0_1_Y_1_1] Verify transfer point page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก โอนคะแนน (*1)
+    ...    3.verify URL : http://www.ais.co.th/points/transferPoint/transferCard
+    ...    4. verify page โอนคะแนน
+    ...    5. จับภาพหน้าจอ
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แสดงหน้า โอนคะแนน
+    ...    - เมนูหน้าแรก
+    ...    - เมนูเกี่ยวกับเอไอเอ พอยท์
+    ...    - โอนคะแนน
+    ...    - แลกของรางวัล
+    ...    - Banner
+    ...    - The 1 Card"
+    [Tags]    success    active    regression    sanity
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    TransferPoint
+    Verify Transfer Point Page
+    Verify The One Card On Transfer Point Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F3_PointsWeb_0_1_Y_1_2] Verify the one card page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก โอนคะแนน (*1)
+    ...    3 ตรวจสอบ The 1 Card
+    ...    4. เลือก The 1 Card
+    ...    5. verify page The 1 Card
+    ...    6. จับภาพหน้าจอ
+    ...
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แสดงรูป The 1 Card, text ""AIS ให้คุณได้มากกว่า ด้วยสิทธิพิเศษมากมาย!!
+    ...    สามารถโอนคะแนน AIS Points เป็นคะแนน The 1 Card
+    ...    ได้ผ่านช่องทาง Website และ my AIS Application""
+    ...
+    ...    - แสดงรายละเอียดเกี่ยวกับ The 1 Card
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข ^"
+    [Tags]    success    active    regression
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    TransferPoint
+    Verify The One Card On Transfer Point Page
+    Verify The One Card Detail
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F3_PointsWeb_0_1_Y_1_3] Verify url after click back from the one card page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก โอนคะแนน (*1)
+    ...    3 เลือก The 1 Card
+    ...    4 เลือกปุ่ม ""กลับ""
+    ...    5 verify URL : http://www.ais.co.th/points/transferPoint/transferCard
+    ...
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    กลับมาที่หน้า โอนคะแนน
+    [Tags]    success    active    regression
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    TransferPoint
+    Select The One Card
+    Click Web Element    ${btnBack}
+    Verify Link    ${urlTransferPoint}
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F3_PointsWeb_0_1_Y_1_4] Verify dialog apply AIS point by clicking transfer point button on the one card page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก โอนคะแนน (*1)
+    ...    3 เลือก The 1 Card
+    ...    4 เลือกปุ่ม ""โอนคะแนน""
+    ...    5 \ verify pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "- แสดง pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    >> ""หมายเลขโทรศัพท์ของคุณ""
+    ...    >> ช่องกรอกหมายเลขโทรศัพท์
+    ...    >> ปุ่ม รับรหัสผ่าน
+    ...    >> ""ระบุรหัสผ่านที่ได้รับทาง SMS เพื่อเข้าสู่ระบบ
+    ...    รหัสผ่านของคุณมีอายุการใช้งาน 15 นาที""
+    ...    >> ช่องกรอก OTP
+    ...    >> ปุ่ม ตกลง"
+    [Tags]    success    active    regression
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    TransferPoint
+    Select The One Card
+    Click Web Element    ${btnTransferPoint}
+    Verify Popup To Join AIS Points
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    log    Smoke Test
+
+[F0_0_0_Y_1_Test] Dummy test
+    [Tags]    dummy
+    log    Dummy Lang

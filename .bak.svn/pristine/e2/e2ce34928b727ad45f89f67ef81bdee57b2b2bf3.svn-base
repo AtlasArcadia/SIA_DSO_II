@@ -1,0 +1,38 @@
+*** Settings ***
+Resource          Resource/PageKeywords/MyAisApiCommon.txt
+Library           DatabaseLibrary
+Resource          Resource/PageKeywords/MyAisApiLogin.txt
+Resource          ../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+Test Login My AIS
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Api_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${mobile_number}=    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    ${mobile_number}=    Set Variable    0933510506
+    Prepare Data For Scene Free Net    ${mobile_number}
+    ${mobile_msisdn}=    Get MSISDN Number    ${mobile_number}
+    ${audit_log_id}=    Login with API    ${mobile_number}    ${mobile_msisdn}    ${ar_LANG}
+    Get Login Information    ${audit_log_id}    ${mobile_number}    ${mobile_msisdn}    ${ar_LANG}
+    Get Popup Engine Info    ${audit_log_id}    ${mobile_number}    ${mobile_msisdn}    ${ar_LANG}
+    ${parent_invoke_id}=    Verify Login Service Info    ${mobile_number}    ${audit_log_id}
+    Verify Log Summary Info    ${mobile_number}    ${parent_invoke_id}
+    [Teardown]    Release Virtual Local Configurations    ${lo_MyAIS_Api_Test_local_config_file_path}    ${#dict_device_name}
+
+Test Login My AIS 2
+    [Tags]    success
+    Log    Test Duplicate Number 2
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Api_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${mobile_number}=    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Prepare Data For Scene Free Net    ${mobile_number}
+    ${mobile_msisdn}=    Get MSISDN Number    ${mobile_number}
+    ${audit_log_id}=    Login with API    ${mobile_number}    ${mobile_msisdn}    ${ar_LANG}
+    Get Login Information    ${audit_log_id}    ${mobile_number}    ${mobile_msisdn}    ${ar_LANG}
+    Get Popup Engine Info    ${audit_log_id}    ${mobile_number}    ${mobile_msisdn}    ${ar_LANG}
+    ${parent_invoke_id}=    Verify Login Service Info    ${mobile_number}    ${audit_log_id}
+    Verify Log Summary Info    ${mobile_number}    ${parent_invoke_id}
+    [Teardown]    Release Virtual Local Configurations    ${lo_MyAIS_Api_Test_local_config_file_path}    ${#dict_device_name}
+
+*** Keywords ***

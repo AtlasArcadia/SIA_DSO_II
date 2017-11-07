@@ -1,0 +1,19 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageVariable/Emerald_ServiceCenterVariable.txt
+Resource          ../PageRepository/Emerald_ServiceCenterRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_ServiceCenterLocalized.txt
+
+*** Keywords ***
+Verify Service Center
+    Sleep    7s
+    Scroll Web To Element    ${btnTouchPoint}
+    Click Web Element    ${btnTouchPoint}
+    Sleep    15s
+    Select Window    url=${urlServiceCenter}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${urlServiceCenter}"    Fail
+    Web Element Should Be Visible    ${imgAISLogo}    #โลโก้ AIS
+    Web Element Should Be Visible    ${imgBannerAunjai}    #banner (ร่วมตอบแบบสอบถาม ลุ้นรับพรีเมี่ยมน้องอุ่นใจ)
+    Web Element Text Should Be    ${lblAISShop}    ${txtAISCenter}    #AIS Shop
+    Web Capture Screen At Verify Point    AISServiceCenter    #AIS Shop

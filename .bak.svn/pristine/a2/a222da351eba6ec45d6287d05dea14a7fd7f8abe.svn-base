@@ -1,0 +1,100 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Emerald_TypeWS.txt
+Resource          Resource/PageKeywords/DigitalSerenadeProfileCommon.txt
+
+*** Test Cases ***
+[F1_Emerald_3_1_Y_2_25]
+    [Documentation]    *Owner* : Oum
+    ...
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    [Tags]    wait sim
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Emerald_3_1_Y_2_26]
+    [Documentation]    *Owner* : Oum
+    ...
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    [Tags]    wait sim
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Emerald_3_1_Y_2_27] Serenade Emerald Downgrade
+    [Documentation]    *Owner* : Oum
+    ...    - Downgrade ได้รับสิทธิ์เซเรเนดจากการเป็นพนักงาน
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Emerald Customer - Downgrade
+    ...    - Ntype 3BO :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    5.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - เอไอเอส เซเรเนด มีความยินดีที่มีโอกาสดูแล
+    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ เอ็มเมอรัลด์
+    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
+    ...    - ความพิเศษนี้มอบให้คุณจากการเป็นพนักงานคนสำคัญ ในเครือเอไอเอส
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Downgrade_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Downgrade_TypeWS
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Profile Page Downgrade    ${Number}    Emerald    WS
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Emerald_3_1_Y_2_28]
+    [Documentation]    *Owner* : Oum
+    ...
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...
+    ...    *Test Step*
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    [Tags]    reject
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

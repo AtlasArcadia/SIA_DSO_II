@@ -1,0 +1,1499 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackage.txt
+
+*** Test Cases ***
+[F4,F5_Package_1-5_2_Y_1_2] Verify page apply other ontop package
+    [Documentation]    [F4_Package_2_2_Y_1_1] Verify page apply other ontop package
+    ...
+    ...    3PO,3BO
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    +++ Test Step +++
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Verify Page "Apply Other On-Top Package"
+    ...    - Talk & Net On-Top Package
+    ...    - Internet On-Top Package
+    ...    - Talk On-Top Package
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - แพ็กเกจเสริมอินเทอร์เน็ต
+    ...    - แพ็กเกจเสริมสำหรับโทร
+    ...    - เงื่อนไขบริการ
+    ...    5. จับภาพหน้าจอ
+    [Tags]    active    success    3PO    3BO    3PE    3BE
+    ...    regression    sanity    IPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_2,4_1-2_Y_2_2] talk and net on-top package(mao mao combo ontop package 19 B.)
+    [Documentation]    [F4_Package_2_2_Y_2_1] 'Verify page "Apply Other On-Top Package"
+    ...    In Case : Talk & Net On-Top Package(Mao Mao Combo ontop package 19 B.)
+    ...    3PO,3BO
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    +++ Test Step +++
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Talk & Net On-Top Package"
+    ...    5. Click "Mao Mao Combo ontop package 19 B."
+    ...    6. Verify Page Detail Pack
+    ...    - Mao Mao Combo ontop package 19 B.
+    ...    - Mao Mao Combo package fee 19B. Unlimited Internet at max speed 384Kbps, Free call to AIS number during 5.00AM5.00PM maximum 60mins/call, Exceed:Voice call 0.99B/minute, Free 10SMS and 5MMS valid for 24 hours.
+    ...    7. Click "Next"
+    ...    8. Click "Next billing cycle"
+    ...    9. Click "Next"
+    ...    10. Verify
+    ...    - Mao Mao Combo ontop package 19 B.
+    ...    - Next billing cycle effective date: xx/xx/xxxx
+    ...    11. Click "Confirm"
+    ...    12. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    13. Capture Screen
+    ...    14. Click "OK"
+    ...    15. Verify SMS "Mao Mao Combo Package fee 19B. Unlimited Internet at max speed 384Kbps, Free call AIS during 5AM-5PM max 60mins/call Exceed rate is 0.99B/min, Free 10SMS, 5MMS Valid for 24hrs. Startxx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx."
+    ...    16. Capture Screen
+    ...    Step 6,10 Verify แบบ .+ เช็คว่ามีตัวอักษรอยู่ \ 2/3/17
+    ...
+    ...    OnTop Package Don't have 2-6/3/17
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก แพ็กเกจเสริมโทรและเน็ต
+    ...    5. ตรวจสอบรายการ แพ็กเกจเสริมโทรและเน็ต
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    6. เลือกแพ็กเกจที่ 1 (แพ็กเสริมเหมา เหมา คอมโบ 19 บ.)
+    ...    7. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 6
+    ...    - รายละเอียด แพ็กเกจ (แพ็กเสริมเหมา เหมา คอมโบ ค่าบริการ 19บ. เน็ตไม่จำกัด ความเร็วสูงสุดที่ 384Kbps โทรฟรีเบอร์ AIS 5.0017.00น. สูงสุด60นาที/ครั้ง ส่วนเกิน นาทีละ 0.99บาท, พร้อมฟรี 10SMS และ 5MMS ใช้งานได้นาน 24ชั่วโมง)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    8. เลือก "ต่อไป"
+    ...    9. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    10. เลือก "มีผลทันที"
+    ...    11. เลือก "ต่อไป"
+    ...    12. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 6
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    13. เลือก "ยืนยัน"
+    ...    14. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    15. จับภาพหน้าจอ
+    ...    16. เลือก "ตกลง"
+    ...    17. ตรวจสอบ SMS "เหมา เหมา คอมโบ ค่าบริการ 19บ. เน็ตไม่จำกัด เร็วสูงสุด 384Kbps, โทรฟรีเบอร์ AIS 5.00-17.00น. สูงสุด60นาที/ครั้ง โทรเกิน/นอกเวลา/นอกเครือข่าย นาทีละ 0.99บาท ใช้งานได้นาน 24ชม. เริ่มxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx"
+    ...    18. จับภาพหน้าจอ
+    [Tags]    3PO    active    3BO    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select And Verify Talk And Net OnTop Package
+    ${Package}=    Select Combo 19B Net And Call
+    Verify Page Detail And Select Package    ${Number}    ${Package}
+    Confirm Package
+    Select Next Bill Cycle
+    Confirm Package
+    Verify Package And Effective Date    ${Package}    ${PackageEffectiveDateNextBill}
+    Comment    Confirm Package And Comfirm Effective Date
+    Comment    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Comment    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgTalkAndNetCombo19B}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_2,4_1-2_Y_3_2] internet ontop package-monthly(internet199B.max speed 1GB.)
+    [Documentation]    [F4_Package_2_2_Y_3_1]'Verify page "Apply Other On-Top Package"
+    ...    In Case : Internet On-Top Package
+    ...    \ \ \ \ \ \ \ \ \ \ - Monthly On-Top Package(Internet On-Top Package 199B. Max speed 1GB.)
+    ...    3PO,3BO
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    +++ Test Step +++
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Internet On-Top Package"
+    ...    5. Click "Monthly On-Top Package"
+    ...    6. Click "Internet On-Top Package 199B. Max speed 1GB."
+    ...    7. Verify Page Detail Pack
+    ...    - Internet On-Top Package 199B. Max speed 1GB.
+    ...    - Monthly fee 199 Baht Internet 1 GB at max speed, and continue at 128Kbps. afterward, Valid for 6 bill cycles
+    ...    8. Click "Next"
+    ...    9. Click "Next billing cycle"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - Internet On-Top Package 199B. Max speed 1GB.
+    ...    - Next billing cycle effective date: xx/xx/xxxx
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "Internet on-top package monthly fee 199B. Internet 1 GB at max speed, and continue at 128Kbps afterward. Startxx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx."
+    ...    17. Capture Screen
+    ...    Step 7,11 Verify แบบ .+ เช็คว่ามีตัวอักษรอยู่ \ 2/3/17
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก แพ็กเกจเสริมอินเทอร์เน็ต
+    ...    5. เลือก แบบรายเดือน
+    ...    6. ตรวจสอบรายการ แบบรายเดือน
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    7. เลือกแพ็กเกจที่ 1 (แพ็กเสริม Internet 199บ. ความเร็วสูงสุด 1 GB)
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...    - รายละเอียด แพ็กเกจ (ค่าบริการรายเดือน 199 บาท. เน็ตความเร็วสูงสุดจำนวน 1 GB หลังจากนั้นใช้ได้ต่อเนื่องที่ความเร็ว 128Kbps. ใช้งานได้นาน 6 รอบบิล)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    9. เลือก "ต่อไป"
+    ...    10. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    11. เลือก "รอบบิลถัดไป"
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    14. เลือก "ยืนยัน"
+    ...    15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    16. จับภาพหน้าจอ
+    ...    17. เลือก "ตกลง"
+    ...    18. ตรวจสอบ SMS "แพ็กเสริม Internet ค่าบริการรายเดือน 199บ. เน็ตความเร็วสูงสุดจำนวน 1 GB หลังจากนั้นใช้ได้ต่อเนื่องที่ความเร็ว 128Kbps. เริ่ม xx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx"
+    ...    19. จับภาพหน้าจอ
+    [Tags]    active    3PO    3BO    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select Internet OnTop Package
+    Select Monthly OnTop Package
+    ${Package}=    Select Internet On-Top Package 199B. Max speed 1GB.
+    Verify Page Detail And Select Package    ${Number}    ${Package}
+    Confirm Package
+    Select Next Bill Cycle
+    Confirm Package
+    Verify Package And Effective Date    ${Package}    ${PackageEffectiveDateNextBill}
+    Comment    Confirm Package And Comfirm Effective Date
+    Comment    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Comment    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgInternet199B.speed1GB.}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_2,4_1-2_Y_4_2] internet one-time on-top package(mao mao combo ontop package 29B.)
+    [Documentation]    [F4_Package_2_2_Y_4_1] 'Verify page "Apply Other On-Top Package"
+    ...    In Case : Talk&Net On-Top Package - One-Time On-Top Package(Mao Mao Combo ontop package \ 29B.)
+    ...    3PO,3BO
+    ...
+    ...    Owner : Eng,B
+    ...
+    ...    +++ Test Step +++
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Talk&Net On-Top Package"
+    ...    5. Click "One-Time On-Top Package"
+    ...    6. Click "Mao Mao Combo ontop package \ 29B."
+    ...    7. Verify Page Detail Pack
+    ...    - Mao Mao Combo ontop package \ 29B.
+    ...    - Mao Mao Combo ontop package fee 29 Baht. Free call to AIS number and Unlimited Internet at max speed 512Kbps, Exceed:Voice call 1 Baht/minute Valid for 24 hours
+    ...    8. Click "Next"
+    ...    9. Click "Next day"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - Mao Mao Combo ontop package \ 29B.
+    ...    - For package change during bill cycle:
+    ...
+    ...    The current package: monthly fee will be fully charged
+    ...    The new package: monthly fee and usage quota will be prorated based on your actual days of usage.
+    ...
+    ...    For best value, we recommend you to change the package on the date nearest to you bill cycle date.
+    ...
+    ...    Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - Next day effective date: xx/xx/xxxx
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "Mao Mao Combo on-top package fee 29 Baht. Free call to AIS number and Unlimited Internet at max speed 512Kbps, Exceed:Voice call 1Baht/min Valid for 24 hours. Startxx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx."
+    ...    17. Capture Screen
+    ...
+    ...    Step 7,11 Verify แบบ .+ เช็คว่ามีตัวอักษรอยู่ \ 2/3/17
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก แพ็กเกจเสริมอินเทอร์เน็ต
+    ...    5. เลือก แบบรายครั้ง
+    ...    6. ตรวจสอบรายการ แบบรายครั้ง
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    7. เลือกแพ็กเกจที่ 1 (แพ็กเสริม 4G Internet 99บ. เน็ต 2 GB นาน 5วัน.)
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...    - รายละเอียด แพ็กเกจ (ค่าบริการ 99บ. เน็ต 4G/3G จำนวน 2 GB ส่วนเกินคิดตามแพ็กเกจหลักที่ใช้อยู่ ใช้งานได้นาน 5 วัน)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    9. เลือก "ต่อไป"
+    ...    10. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    11. เลือก "มีผลทันที"
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    14. เลือก "ยืนยัน"
+    ...    15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    16. จับภาพหน้าจอ
+    ...    17. เลือก "ตกลง"
+    ...    18. ตรวจสอบ SMS "แพ็กเสริม 4G Internet ค่าบริการ 99บาท เน็ต 4G/3G จำนวน 2 GB ส่วนเกินคิดตามแพ็กเกจหลักที่คุณใช้อยู่ ใช้ได้นาน 5 วัน เริ่ม xx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx"
+    ...
+    ...    3BO=="แพ็กเสริม 4G Internet ค่าบริการ 99บาท เน็ต 4G/3G จำนวน 2 GB ส่วนเกินคิดตามแพ็กเกจหลักที่คุณใช้อยู่ ใช้ได้นาน 5 วัน เริ่ม30/03/2017 00:00ถึง03/04/2017 23:59"
+    ...    19. จับภาพหน้าจอ
+    [Tags]    active    3PO    3BO    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select And Verify Talk And Net OnTop Package
+    Comment    Select OneTime OnTop Package
+    ${Package}=    Select Mao Mao Combo 29 B.And MaoMao 99B
+    Verify Page Detail And Select Package    ${Number}    ${Package}
+    Confirm Package
+    Select Next Day
+    Confirm Package
+    Verify Package Detail And Effective Date    ${Package}    ${PackageEffectiveDateNextDay}
+    Comment    Confirm Package And Comfirm Effective Date
+    Comment    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Comment    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgMaoMaoCombo29BAndMaoMao99B}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_2,4_1-2_Y_5_2] internet on-top package-WiFi(9B/day:AIS WiFi1hour)
+    [Documentation]    [F4_Package_2_2_Y_5_1]'Verify page "Apply Other On-Top Package"
+    ...    In Case : Internet On-Top Package
+    ...    \ \ \ \ \ \ \ \ \ \ - WiFi(9 B/day: AIS WiFi 1 hour)
+    ...    3PO,3BO
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    +++ Test Step +++
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Internet On-Top Package"
+    ...    5. Click "WiFi"
+    ...    6. Click "9 B/day: AIS WiFi 1 hour"
+    ...    7. Verify Page Detail Pack
+    ...    - 9 B/day: AIS WiFi 1 hour
+    ...    - AIS WiFi ontop package, 1 hour 9 Baht
+    ...    8. Click "Next"
+    ...    9. Click "Next day"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - 9 B/day: AIS WiFi 1 hour
+    ...    - For package change during bill cycle:
+    ...
+    ...    The current package: monthly fee will be fully charged
+    ...    The new package: monthly fee and usage quota will be prorated based on your actual days of usage.
+    ...
+    ...    For best value, we recommend you to change the package on the date nearest to you bill cycle date.
+    ...
+    ...    Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - Next day effective date: xx/xx/xxxx
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly"
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "AIS WiFi ontop package 1 hour, 9 Baht. Get WiFi user/password press*388#. Start xx/xx/xxxx xx:xx."
+    ...    17. Capture Screen
+    ...
+    ...    Step 7,11 Verify แบบ .+ เช็คว่ามีตัวอักษรอยู่ \ 2/3/17
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก แพ็กเกจเสริมอินเทอร์เน็ต
+    ...    5. เลือก WiFi
+    ...    6. ตรวจสอบรายการ WiFi
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    7. เลือกแพ็กเกจ (AIS WiFi 9 บาท 1ชม.)
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...    - รายละเอียด แพ็กเกจ (แพ็กเสริม AIS WiFi 1 ชั่วโมง 9 บาท)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    9. เลือก "ต่อไป"
+    ...    10. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    11. เลือก "รอบบิลถัดไป"
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    14. เลือก "ยืนยัน"
+    ...    15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    16. จับภาพหน้าจอ
+    ...    17. เลือก "ตกลง"
+    ...    18. ตรวจสอบ SMS "แพ็กเสริม AIS WiFi 1 ชั่วโมง 9 บาท รับ User/Password กด*388#. เริ่ม xx/xx/xxxx xx:xx"
+    ...
+    ...    3BO="แพ็กเสริม AIS Wifi 1 ชั่วโมง 9 บาท รับ User/Password กด*388#. เริ่ม 30/03/2017 00:00"
+    ...    19. จับภาพหน้าจอ
+    [Tags]    active    3PO    regression    3BO
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select Internet OnTop Package
+    Select WiFi OnTop Package
+    ${Package}=    Select WiFi 9 B 1 Hr.
+    Verify Page Detail And Select Package    ${Number}    ${Package}
+    Confirm Package
+    Select Next Day
+    Confirm Package
+    Verify Package Detail And Effective Date    ${Package}    ${PackageEffectiveDateNextDay}
+    Comment    Confirm Package And Comfirm Effective Date
+    Comment    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Comment    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgWiFi9B1Hr}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_2,4_1-2_Y_6_2] talk monthly ontop package(100B.Call 150 min)
+    [Documentation]    [F4_Package_2_2_Y_6_1] 'Verify page "Apply Other On-Top Package"
+    ...    In Case : Talk On-Top Package(Monthly fee 100 Baht Call to AIS numbers 150 min)
+    ...
+    ...    3PO,3BO
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    +++ Test Step +++
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Talk On-Top Package"
+    ...    5. Click "Monthly On-Top Package"
+    ...    6. Click "3G Value Pack 100"
+    ...    7. Verify Page Detail Pack
+    ...    - 3G Value Pack 100
+    ...    - 3G Value Pack 100 Monthly fee 100 baht, Free call 115 minute/month.
+    ...    8. Click "Next"
+    ...    9. Click "Immediately"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - 3G Value Pack 100
+    ...    - For package change during bill cycle:
+    ...
+    ...    The current package: monthly fee will be fully charged
+    ...    The new package: monthly fee and usage quota will be prorated based on your actual days of usage.
+    ...
+    ...    For best value, we recommend you to change the package on the date nearest to you bill cycle date.
+    ...
+    ...    Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - Immediately after SMS confirmation.
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "3G Value Pack 100. Startxx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx."
+    ...    17. Capture Screen
+    ...
+    ...    Step 7,11 Verify แบบ .+ เช็คว่ามีตัวอักษรอยู่ \ 2/3/17
+    ...
+    ...    ชื่อ Package change to : Monthly fee 100 Baht Call to AIS numbers 150 min \ 3/3/17
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก แพ็กเกจเสริมสำหรับโทร
+    ...    5. เลือก แบบรายเดือน
+    ...    6. ตรวจสอบรายการ แบบรายเดือน
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    7. เลือกแพ็กเกจที่ 1 \ (แพ็กรายเดือน 100 บาท โทรทุกเครือข่าย 115 นาที)
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...    - รายละเอียด แพ็กเกจ (Value Pack 100 ค่าบริการรายเดือน 100 บาท โทรฟรีทุกเครือข่ายเดือนละ 115 นาที)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    9. เลือก "ต่อไป"
+    ...    10. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    11. เลือก "มีผลทันที"
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    14. เลือก "ยืนยัน"
+    ...    15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    16. จับภาพหน้าจอ
+    ...    17. เลือก "ตกลง"
+    ...    18. ตรวจสอบ SMS "Value Pack 100 เริ่มใช้ได้ตั้งแต่ xx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx"
+    ...    19. จับภาพหน้าจอ
+    ...
+    ...    ชื่อ Package change to : แพ็กรายเดือน 100 บาท โทรเบอร์ AIS 150 นาที \ 28/3/17
+    [Tags]    active    3PO    3BO    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select Talk OnTop Package
+    Select Monthly OnTop Package
+    ${Package}=    Select Monthly fee 100 B. Call AIS 150 min
+    Verify Page Detail And Select Package    ${Number}    ${Package}
+    Confirm Package
+    Select Immediately
+    Confirm Package
+    Verify Package Detail And Effective Date    ${Package}    ${PackageEffectiveDateImmediately}
+    Comment    Confirm Package And Comfirm Effective Date
+    Comment    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Comment    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgMonthlyFee100 B.CallAIS150min}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_2,4_1-2_Y_7_2] talk one-time ontop package(mao mao 39B.60 min 5 Day)
+    [Documentation]    [F4_Package_2_2_Y_7_1] 'Verify page "Apply Other On-Top Package"
+    ...    In Case : One-Time On-Top Package(Mao Mao 39 Baht 60 Minutes for 5 days)
+    ...
+    ...    3PO,3BO
+    ...
+    ...    Owner : Eng,B
+    ...
+    ...    +++ Test Step +++
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Talk On-Top Package"
+    ...    5. Click "One-Time On-Top Package"
+    ...    6. Click "Mao Mao Voice ontop package \ 39B."
+    ...    7. Verify Page Detail Pack
+    ...    - Mao Mao Voice ontop package \ 39B.
+    ...    - Mao Mao Voice ontop package fee 39B. Voice call to all network 60 minutes. Valid for 5 days
+    ...    8. Click "Next"
+    ...    9. Click "Immediately"
+    ...    10. Click "Next"
+    ...    11. Verify
+    ...    - Mao Mao Voice ontop package \ 39B.
+    ...    - For package change during bill cycle:
+    ...
+    ...    The current package: monthly fee will be fully charged
+    ...    The new package: monthly fee and usage quota will be prorated based on your actual days of usage.
+    ...
+    ...    For best value, we recommend you to change the package on the date nearest to you bill cycle date.
+    ...
+    ...    Please verify your selected package again before click Confirm button to confirm your request.
+    ...    - Immediately after SMS confirmation.
+    ...    12. Click "Confirm"
+    ...    13. Verify popup msg "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    14. Capture Screen
+    ...    15. Click "OK"
+    ...    16. Verify SMS "Mao Mao Voice on-top package fee 39B. Voice call to all network 60 minutes. Valid for 5 days. Startxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx"
+    ...    17. Capture Screen
+    ...
+    ...    Step 7,11 Verify แบบ .+ เช็คว่ามีตัวอักษรอยู่ \ 2/3/17
+    ...
+    ...    Package name change to : Mao Mao 39 Baht 60 Minutes for 5 days \ 3/3/17
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก แพ็กเกจเสริมโทรและเน็ต
+    ...    5. เลือก แบบรายครั้ง
+    ...    6. ตรวจสอบรายการ แบบรายครั้ง
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    7. เลือกแพ็กเกจที่ 1 (แพ็กเสริมเหมา เหมา นาที 39บ.)
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...    - รายละเอียด แพ็กเกจ (แพ็กเสริมเหมา เหมา นาที ค่าบริการ 39บ. โทรทุกเครือข่าย 60 นาที ใช้งานได้นาน 5วัน)
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    9. เลือก "ต่อไป"
+    ...    10. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    11. เลือก "มีผลทันที"
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    14. เลือก "ยืนยัน"
+    ...    15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    16. จับภาพหน้าจอ
+    ...    17. เลือก "ตกลง"
+    ...    18. ตรวจสอบ SMS "แพ็กเสริมเหมา เหมา นาที ค่าบริการ 39บ. โทรทุกเครือข่าย 60 นาที ใช้งานได้นาน 5วัน เริ่มxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx"
+    ...    19. จับภาพหน้าจอ
+    [Tags]    active    3PO    3BO    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select Talk OnTop Package
+    Select OneTime OnTop Package
+    ${Package}=    Select Mao Mao 39 B. 60 min 5 Day
+    Verify Page Detail And Select Package    ${Number}    ${Package}
+    Confirm Package
+    Select Immediately
+    Confirm Package
+    Verify Package Detail And Effective Date    ${Package}    ${PackageEffectiveDateImmediately}
+    Comment    Confirm Package And Comfirm Effective Date
+    Comment    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Comment    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgMaoMao39B.60min5Day}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_1,3_1-2_Y_2_2] Verify page apply other talk and net ontop package
+    [Documentation]    [F5_Package_1,3_2_Y_2_1] Verify page apply other talk and net ontop package
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    TestStep
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Verify page "Talk & Net OnTop Package"
+    ...    - Talk & Net OnTop Package
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xx
+    ...    - Terms & Conditions
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. ตรวจสอบเมนู "แพ็กเกจเสริมโทรและเน็ต"
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    - เงื่อนไขบริการ
+    ...    5. จับภาพหน้าจอ
+    [Tags]    active    success    3PE    3BE    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select And Verify Talk And Net OnTop Package
+    Verify Talk And Net OnTop Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_1,3,5_1-2_Y_3_2] Verify page apply other internet ontop package
+    [Documentation]    [F5_Package_1,3_2_Y_3_1] Verify page apply other internet ontop package
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    TestStep
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Internet OnTop Package"
+    ...    5. Verify page "Internet OnTop Package"
+    ...    - Internet OnTop Packagee
+    ...    - OneTime OnTop Package
+    ...    - Monthly OnTop Package
+    ...    - WiFi
+    ...    6. Capture Screen
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    5. ตรวจสอบเมนู "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    - แพ็กเกจเสริมอินเทอร์เน็ต
+    ...    - แบบรายครั้ง
+    ...    - แบบรายเดือน
+    ...    - WiFi
+    ...    6. จับภาพหน้าจอ
+    [Tags]    success    active    3PE    3BE    regression    IPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Internet OnTop Package
+    Verify Internet OnTop Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_1,3,5_1-2_Y_4_2] Verify page apply other talk ontop package
+    [Documentation]    [F5_Package_1,3_2_Y_4_1] Verify page apply other talk ontop package
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    TestStep
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Talk OnTop Package"
+    ...    5. Verify page "Talk OnTop Package"
+    ...    - Talk OnTop Package
+    ...    - Buffet OnTop Package
+    ...    - Minutes OnTop Package
+    ...    6. Capture Screen
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมสำหรับโทร"
+    ...    5. ตรวจสอบเมนู "แพ็กเกจเสริมสำหรับโทร"
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - แบบบุฟเฟต์
+    ...    - แบบนาที
+    ...    6. จับภาพหน้าจอ
+    [Tags]    success    active    3PE    3BE    regression    IPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Talk OnTop Package
+    Verify Talk OnTop Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_1,3_1-2_Y_5_2] Apply other ontop package talk and net
+    [Documentation]    [F5_Package_1,3_2_Y_5_1] Apply other ontop package talk and net
+    ...
+    ...    Owner : Eng
+    ...
+    ...    TestStep
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Talk & Net OnTop Package"
+    ...    5. Select 1st package (Mao Mao 19B. Net 384Kbps Free Call in AIS 5AM5PM)
+    ...    6. Verify page "Apply Other On-Top Package" step 1 Select package
+    ...    - Mobile no.
+    ...    - Talk & Net OnTop Package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 5.
+    ...    - Detail Package (Internet at speed 384 Kbps valid for 24 hrs. Free call in AIS between 5AM5PM maximum 60mins/call exceed call, other time, other network call rate is 0.99B/minute and free 10 SMS, 5 MMS valid until midnight.)
+    ...    - "Next" botton
+    ...    - "Back" botton
+    ...    - Terms & Conditions
+    ...    7. Click "Next"
+    ...    8. Verify page "Apply Other On-Top Package" step 2 Confirm package
+    ...    - Mobile no.
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 5.
+    ...    - "Confirm" botton
+    ...    - "Back" botton
+    ...    - Term & Condition
+    ...    9. Click "Confirm"
+    ...    10. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    11. Capture Screen
+    ...    12. Click "OK"
+    ...    13. Verify SMS BE "You can now enjoy unlimited net 384kbps & call AIS 5am-5pm for 24hrs.! Recommend! Unlimited net 512kbps & Call AIS 5am-5pm. Press*777*4005# to subscribe later."
+    ...    13. Verify SMS PE "You can now enjoy unlimited net 384kbps & call AIS 5am-5pm for 24hrs. ! Recommend! Unlimited net 512kbps&Call AIS 5am-5pm Press*777*4005# to subscribe later"
+    ...    14. Capture Screen
+    ...
+    ...    Step 6 Verify Detail แบบ .+ (20/3/17)
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมโทรและเน็ต"
+    ...    5. เลือกแพ็กเกจที่ 1 (คอมโบ 19บ. เน็ต 384kbps โทรฟรี 517น. นาน 1 วัน)
+    ...    6. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 6.)
+    ...    - รายละเอียดแพ็กเกจ (อินเทอร์เน็ตไม่จำกัด เร็ว 384 Kbps นาน 24ชม. โทรฟรีในเครือข่าย AIS 5.0017.00น. โทรได้สูงสุดครั้งละ 60นาที โทรเกิน/นอกเวลา/นอกเครือข่าย 0.99บ./นาที พร้อมฟรี 10 SMS, 5 MMS ใช้ได้ถึงเที่ยงคืนของวันสมัคร)
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    7. กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 6.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ยืนยัน"
+    ...    10. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    11. จับภาพหน้าจอ
+    ...    12. กดปุ่ม "ตกลง"
+    ...    13. ตรวจสอบ SMS BE "เริ่มใช้แพ็กโทรAIS5.00-17.00น.และเน็ตเร็วสูงสุด384kbpsนาน24ชม. ได้แล้วค่ะ แนะนำแพ็กพิเศษ!โทรAIS5.00-17.00 อัพเน็ต512kbps 24ชม. สมัคร*777*4005#"
+    ...
+    ...    13. ตรวจสอบ SMS PE "เริ่มใช้แพ็กโทรAIS5.00-17.00น.และเน็ตเร็วสูงสุด384kbpsนาน24ชม. ได้แล้วค่ะ แนะนำแพ็กพิเศษ!โทรAIS5.00-17.00 อัพเน็ต512kbps 24ชม. สมัคร*777*4005#"
+    ...    14. จับภาพหน้าจอ
+    [Tags]    non_regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select And Verify Talk And Net OnTop Package
+    ${firstPackage}=    Select Combo 19B Net And Call
+    Verify Page Detail And Select Package    ${Number}    ${firstPackage}
+    Confirm Package
+    Verify Confirm Package Page    ${Number}    ${firstPackage}
+    Confirm Apply OnTop Package
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgCombo19BNetAndCall}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_1,3_1-2_Y_6_2] Apply other ontop package internet one time
+    [Documentation]    [F5_Package_1,3_2_Y_6_1] Apply other ontop package internet one time
+    ...
+    ...    Owner : Eng
+    ...
+    ...    TestStep
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Internet OnTop Package"
+    ...    5. Click "OneTime OnTop Package"
+    ...    6. Verify menu "OneTime OnTop Package"
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xx
+    ...    - Terms & Conditions
+    ...    7. Select package (Mao Mao14B Internet speed 384 kbps 200MB for 24hrs)
+    ...    8. Verify page "Apply Other On-Top Package" step 1 Select package
+    ...    - Mobile no.
+    ...    - Internet OnTop Package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detail Package (Mao Mao 14 Baht, you will get Internet 200 MB at maximum speed 384 Kbps. Thereafter you can continue using Internet at maximum speed 64 Kbps valid for 24 hours.)
+    ...    - "Next" botton
+    ...    - "Back" botton
+    ...    - Terms & Conditions
+    ...    9. Click "Next"
+    ...    10. Verify page "Apply Other On-Top Package" step 2 Confirm package
+    ...    - Mobile no.
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - "Confirm" botton
+    ...    - "Back" botton
+    ...    - Term & Condition
+    ...    11. Click "Confirm"
+    ...    12. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    13. Capture Screen
+    ...    14. Click "OK"
+    ...    15. Verify SMS BE "You can now enjoy internet max speed 384Kbps 200MB for 24hrs.! Special for you, up speed internet 512Kbps 300MB 24hrs. only 15B. Press*777*210# to subscribe."
+    ...    15. Verify SMS PE "You can now enjoy internet max speed 384Kbps 200MB for 24hrs. ! Special for you, up speed internet 512Kbps 300MB 24hrs only 15B Press*777*210# to subscribe."
+    ...    16. Capture Screen
+    ...
+    ...    Step 6 Verify only package 1 \ (20/3/17)
+    ...    Step 8 Verify Detail แบบ .+ (20/3/17)
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    5. เลือก "แบบรายครั้ง"
+    ...    6. ตรวจสอบรายการ "แบบรายครั้ง"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจ (เหมา เหมา 14บาท เน็ตเร็ว 384 kbps 200MB นาน 24ชม.)
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ (เหมา เหมา 14 บาท ใช้งานอินเทอร์เน็ตที่ความเร็วสูงสุด 384 Kbps ปริมาณ 200 MB หลังจากนั้นใช้อินเทอร์เน็ตต่อเนื่องที่ความเร็วสูงสุด 64 Kbps นาน 24 ชั่วโมง)
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. กดปุ่ม "ยืนยัน"
+    ...    12. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    13. จับภาพหน้าจอ
+    ...    14. กดปุ่ม "ตกลง"
+    ...    15. ตรวจสอบ SMS BE "เริ่มใช้แพ็กเน็ต14บ. 200MB ที่ความเร็วสูงสุด384Kbpsนาน24ชม.ได้แล้วค่ะ แนะนำแพ็กพิเศษ! อัพเน็ตแรง512Kbps 300MBนาน24ชม.แค่15บ.สมัคร*777*210#"
+    ...
+    ...    15. ตรวจสอบ SMS PE "เริ่มใช้แพ็กเน็ต14บ. 200MB ที่ความเร็วสูงสุด384Kbpsนาน24ชม.ได้แล้วค่ะ แนะนำแพ็กพิเศษ! อัพเน็ตแรง512Kbps 300MBนาน24ชม.แค่15บ.สมัคร*777*210#"
+    ...    16. จับภาพหน้าจอ
+    [Tags]    non_regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select Internet OnTop Package
+    Select OneTime OnTop Package
+    Verify Internet OnTop One Time Package
+    ${selectedPackage}=    Select Mao Mao 14B 200MB
+    Verify Page Detail And Select Package    ${Number}    ${selectedPackage}
+    Confirm Package
+    Verify Confirm Package Page    ${Number}    ${selectedPackage}
+    Confirm Apply OnTop Package
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Comment    Verify SMS From My AIS OnTop Internet One Time    ${MsgMaoMao14B200MB}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_1,3_1-2_Y_7_2] Apply other ontop package internet monthly
+    [Documentation]    [F5_Package_1,3_2_Y_7_1] Apply other ontop package internet monthly
+    ...
+    ...    Owner : Eng
+    ...
+    ...    TestStep
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Internet OnTop Package"
+    ...    5. Click "Monthly OnTop Package"
+    ...    6. Verify menu "Monthly OnTop Package"
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xx
+    ...    - Terms & Conditions
+    ...    7. Select package (Monthly fee 199 Baht Internet NonStop 1GB)
+    ...    8. Verify page "Apply Other On-Top Package" step 1 Select package
+    ...    - Mobile no.
+    ...    - Internet OnTop Package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 7.
+    ...    - Detail Package (Monthly fee 199 Baht you can enjoy Internet for 1 GB after that continue using Internet at speed 128Kbps. The monthly fee will be deduct every 30 days.)
+    ...    - "Next" botton
+    ...    - "Back" botton
+    ...    - Terms & Conditions
+    ...    9. Click "Next"
+    ...    10. Verify page "Apply Other On-Top Package" step 2 Confirm package
+    ...    - Mobile no.
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 7.
+    ...    - "Confirm" botton
+    ...    - "Back" botton
+    ...    - Term & Condition
+    ...    11. Click "Confirm"
+    ...    12. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    13. Capture Screen
+    ...    14. Click "OK"
+    ...    15. Verify SMS BE "Monthly fee 199B. You have got internet max speed 1GB and continue using internet at speed 128Kbps"
+    ...    15. Verify SMS PE "Welcome to 3G2100 Package \ (Domestic only). You will get 3G MaoMao199B max speed 1GB \ a month."
+    ...    16. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    5. เลือก "แบบรายเดือน"
+    ...    6. ตรวจสอบรายการ "แบบรายเดือน"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจ (แพ็กเดือนละ 199 บาท เน็ต NonStop 1GB)
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ (เน็ตความเร็วสูงสุดจำนวน 1 GB หลังจากนั้นใช้ได้ต่อเนื่องที่ความเร็ว 128 Kbps โดยหักค่าบริการทุก 30 วัน)
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. กดปุ่ม "ยืนยัน"
+    ...    12. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    13. จับภาพหน้าจอ
+    ...    14. กดปุ่ม "ตกลง"
+    ...    15. ตรวจสอบ SMS BE "เน็ตเดือนละ 199บ ใช้เน็ตเร็วสูงสุด ปริมาณ 1GB จากนั้นใช้ได้เร็ว128Kbps"
+    ...    15. ตรวจสอบ SMS PE "Welcome to 3G2100 Package \ (Domestic only). You will get 3G MaoMao199B max speed 1GB \ a month."
+    ...    16. จับภาพหน้าจอ
+    [Tags]    non_regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select Internet OnTop Package
+    Select Monthly OnTop Package
+    Verify Internet OnTop Monthly Package
+    ${selectedPackage}=    Select Monthly fee 199B 1G
+    Verify Page Detail And Select Package    ${Number}    ${selectedPackage}
+    Confirm Package
+    Verify Confirm Package Page    ${Number}    ${selectedPackage}
+    Confirm Apply OnTop Package
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgMonthly199B1G}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    ...    2
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_1,3_1-2_Y_8_2] Apply other ontop package internet wifi
+    [Documentation]    [F5_Package_1,3_2_Y_8_1] Apply other ontop package internet wifi
+    ...
+    ...    Owner : Eng
+    ...
+    ...    TestStep
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Internet OnTop Package"
+    ...    5. Click "Monthly OnTop Package"
+    ...    6. Verify menu "WiFi"
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xx
+    ...    - Terms & Conditions
+    ...    7. Select package (AIS WiFi 9 Baht 1 hour)
+    ...    8. Verify page "Apply Other On-Top Package" step 1 Select package
+    ...    - Mobile no.
+    ...    - Internet OnTop Package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 7.
+    ...    - Detail Package (AIS WiFi ontop package, 1 hour 9 Baht)
+    ...    - "Next" botton
+    ...    - "Back" botton
+    ...    - Terms & Conditions
+    ...    9. Click "Next"
+    ...    10. Verify page "Apply Other On-Top Package" step 2 Confirm package
+    ...    - Mobile no.
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 7.
+    ...    - "Confirm" botton
+    ...    - "Back" botton
+    ...    - Term & Condition
+    ...    11. Click "Confirm"
+    ...    12. Verify dialog message "Thank you. You will get a confirmation SMS when the transaction is completed shortly."
+    ...    13. Capture Screen
+    ...    14. Click "OK"
+    ...    15. Verify SMS BE "AIS WiFi ontop package 1 hour, 9 Baht. Get WiFi user/password press*388#. Start xx/xx/xxxx xx:xx."
+    ...    15. Verify SMS PE "AIS Wifi 1 hr 9B has been activated."
+    ...    16. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    5. เลือก "WiFi"
+    ...    6. ตรวจสอบรายการ "WiFi"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจ (AIS WiFi 9 บาท 1ชม.)
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ (ค่าบริการ 9 บาท ใช้ AIS Wifi ได้ 1 ชั่วโมง)
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. กดปุ่ม "ยืนยัน"
+    ...    12. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    13. จับภาพหน้าจอ
+    ...    14. กดปุ่ม "ตกลง"
+    ...    15. ตรวจสอบ SMS BE "แพ็กเสริม AIS WiFi 1 ชั่วโมง 9 บาท รับ User/Password กด*388#. เริ่ม xx/xx/xxxx xx:xx"
+    ...    15. ตรวจสอบ SMS PE "คุณเริ่มใช้แพ็กเกจ AIS Wifi 1hr 9B \ ได้แล้ว ใช้งานได้ 24 ชั่วโมง"
+    ...    16. จับภาพหน้าจอ
+    [Tags]    non_regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify On Top Package    ${Number}
+    Select Internet OnTop Package
+    Select WiFi OnTop Package
+    Verify Internet OnTop Wifi Package
+    ${selectedPackage}=    Select Wifi 9B 1Hr.
+    Verify Page Detail And Select Package    ${Number}    ${selectedPackage}
+    Confirm Package
+    Verify Confirm Package Page    ${Number}    ${selectedPackage}
+    Confirm Apply OnTop Package
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Comment    Verify SMS From My AIS OnTop Internet Wifi    ${MsgInternetWifi9B1Hr}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_1,3,5_1-2_Y_9_2] Apply other ontop package talk buffet
+    [Documentation]    [F5_Package_1,3_2_Y_9_1] Apply other ontop package talk buffet
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    TestStep
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Talk OnTop Package"
+    ...    5. Click "Buffet OnTop Package"
+    ...    6. Verify menu "Buffet OnTop Package"
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xx
+    ...    - Terms & Conditions
+    ...    7. Select 1st package (Mao Mao 9B. free call in AIS except 4PM9PM (New))
+    ...    8. Verify page "Apply Other On-Top Package" step 1 Select package
+    ...    - Mobile no.
+    ...    - Internet OnTop Package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 7.
+    ...    - Detail Package (Just 9 Baht per day get unlimited free calls in AIS (call duration must not exceed 1 hour) During 4.00 p.m. until 9.00 p.m. is exclusive. Calls during off promotion period and calls to other networks is charged at the rate of 2 Baht \ for the first minute, and additional minute is 50 satang/minute (until 12.00 a.m. of first activation).)
+    ...    - "Next" botton
+    ...    - "Back" botton
+    ...    - Terms & Conditions
+    ...    9. Click "Next"
+    ...    10. Verify page "Apply Other On-Top Package" step 2 Confirm package
+    ...    - Mobile no.
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 7.
+    ...    - "Confirm" botton
+    ...    - "Back" botton
+    ...    - Term & Condition
+    ...    11. Click "Confirm"
+    ...    12. Verify dialog message "Transaction processed successfully. Thank you for your using our service."
+    ...    13. Capture Screen
+    ...    14. Click "OK"
+    ...    15. Verify SMS 3PE : "Now you can call free in AIS till midnight except 4-9 pm. If call in Other period or network 2 Baht \ for first min next is 50 satang/min."
+    ...    3BE : "Now you can call free in AIS till midnight except 4-9 pm. If call in Other period or network 2 Baht for first min next is 50 satang/min."
+    ...    16. Capture Screen
+    ...
+    ...    change apply ontop package to Package : Mao Mao 9B. free call in AIS except 4PM9PM (New) because don't have \ Package Mao Mao5 Baht Midnight Sale \ 20/3/17
+    ...
+    ...    SMS Change
+    ...    3BE :"Now you can call free in AIS till midnight except 4-9 pm. If call in Other period or network 2 Baht for first min next is 50 satang/min."
+    ...    3PE :"Now you can call free in AIS till midnight except 4-9 pm. If call in Other period or network 2 Baht \ for first min next is 50 satang/min."
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมสำหรับโทร"
+    ...    5. เลือก "แบบบุฟเฟ่ต์"
+    ...    6. ตรวจสอบรายการ "แบบบุฟเฟ่ต์"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจ (เหมา เหมา 9บ. โทรฟรีAIS เว้น16.0021.00น. แพ็กใหม่)
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ (จ่าย เพียงวันละ 9 บาท คุณสามารถโทรในเครือข่าย AIS ฟรีได้ไม่จำกัด (ครั้งละไม่เกิน 1 ชั่วโมง) จนถึงเที่ยงคืนของวันที่สมัคร ยกเว้นช่วงเวลา 16.0021.00 น. หากโทรนอกเครือข่าย โทรนอกช่วงเวลา และโทรเกิน 1 ชั่วโมง คิดนาทีแรก 2บาท นาทีต่อไป นาทีละ 50สตางค์ (ไม่รวม VAT) สามารถใช้ได้ถึงเที่ยงคืนของวันที่สมัคร)
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. กดปุ่ม "ยืนยัน"
+    ...    12. ตรวจสอบ dialog message "ดำเนินการเรียบร้อย ขอบคุณที่ใช้บริการ"
+    ...    13. จับภาพหน้าจอ
+    ...    14. กดปุ่ม "ตกลง"
+    ...    15. ตรวจสอบ SMS 3BE : "คุณได้โทรฟรีAISถึงเที่ยงคืนเว้น16-21น&เครือข่ายอื่น50สต/นาที,นาทีแรก2บ"
+    ...    3PE : "คุณได้โทรฟรีAISถึงเที่ยงคืนเว้น16-21น&เครือข่ายอื่น50สต/นาที,นาทีแรก2บ"
+    ...    16. จับภาพหน้าจอ
+    ...
+    ...    change apply ontop package to Package :เหมา เหมา 9บ. โทรฟรีAIS เว้น16.0021.00น. แพ็กใหม่ because don't have \ Package Mao Mao5 Baht Midnight Sale \ 29/3/17
+    ...
+    ...    SMS
+    ...    3PE >> คุณได้โทรฟรีAISถึงเที่ยงคืนเว้น16-21น&เครือข่ายอื่น50สต/นาที,นาทีแรก2บ
+    ...
+    ...    3BE >> คุณได้โทรฟรีAISถึงเที่ยงคืนเว้น16-21น&เครือข่ายอื่น50สต/นาที,นาทีแรก2บ
+    [Tags]    non_regression    active    3PE    3BE    IPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Talk OnTop Package
+    Select Talk Buffet OnTop Package
+    Verify Talk Buffet OnTop Package
+    ${selectedPackage}=    Select Mao Mao 9B free Call in AIS
+    Verify Page Detail And Select Package    ${Number}    ${selectedPackage}
+    Confirm Package
+    Verify Confirm Package Page    ${Number}    ${selectedPackage}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Confirm Apply OnTop Package
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Verify Dialog Apply On Top Package    ${ApplyTalkOnTopSuccess}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgMaoMao9BFreeCallAIS}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Package_1,3,5_1-2_Y_10_2] Apply other ontop package talk minutes
+    [Documentation]    [F5_Package_1,3_2_Y_10_1] Apply other ontop package talk minutes
+    ...
+    ...    Owner : Eng, B
+    ...
+    ...    TestStep
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Other On-Top Package"
+    ...    4. Click "Talk OnTop Package"
+    ...    5. Click "Minutes OnTop Package"
+    ...    6. Verify menu "Minutes OnTop Package"
+    ...    - package 1
+    ...    .
+    ...    .
+    ...    - package xx
+    ...    - Terms & Conditions
+    ...    7. Select 1st package (Mao Mao 39 Baht 60 Minutes for 5 days)
+    ...    8. Verify page "Apply Other On-Top Package" step 1 Select package
+    ...    - Mobile no.
+    ...    - Internet OnTop Package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 7.
+    ...    - Detail Package (Get free call 60 minutes all networks within 5 days.)
+    ...    - "Next" botton
+    ...    - "Back" botton
+    ...    - Terms & Conditions
+    ...    9. Click "Next"
+    ...    10. Verify page "Apply Other On-Top Package" step 2 Confirm package
+    ...    - Mobile no.
+    ...    - You have selected
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ \ 7.
+    ...    - "Confirm" botton
+    ...    - "Back" botton
+    ...    - Term & Condition
+    ...    11. Click "Confirm"
+    ...    12. Verify dialog message "Transaction processed successfully. Thank you for your using our service."
+    ...    13. Capture Screen
+    ...    14. Click "OK"
+    ...    15. Verify SMS 3PE : "Just 39 Baht, get free call 60 minutes all networks within 5 Days."
+    ...    3BE : "Just 39 Baht, get free call 60 minutes all networks within 5 Days."
+    ...    16. Capture Screen
+    ...
+    ...    change apply ontop package to Package :Mao Mao 39 Baht 60 Minutes for 5 days because don't have \ Package Mao Mao5 Baht Midnight Sale 21/3/17
+    ...
+    ...    SMS Change
+    ...    3BE :"Now you can call free in AIS till midnight except 4-9 pm. If call in Other period or network 2 Baht for first min next is 50 satang/min."
+    ...    3PE :"Now you can call free in AIS till midnight except 4-9 pm. If call in Other period or network 2 Baht \ for first min next is 50 satang/min."
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมสำหรับโทร"
+    ...    5. เลือก "แบบนาที"
+    ...    6. ตรวจสอบรายการ "แบบนาที"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจ (เหมา เหมา 39 บาท โทรทุกเครือข่าย 60 นาที นาน 5 วัน)
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ (เหมา เหมา 39 บาท โทรทุกเครือข่าย 60 นาที ใช้ได้นาน 5 วัน)
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. กดปุ่ม "ยืนยัน"
+    ...    12. ตรวจสอบ dialog message "ดำเนินการเรียบร้อย ขอบคุณที่ใช้บริการ"
+    ...    13. จับภาพหน้าจอ
+    ...    14. กดปุ่ม "ตกลง"
+    ...    15. ตรวจสอบ SMS 3BE : "จ่ายเพียง 39 บาท สามารถโทรได้ 60 นาที ทุกเครือข่าย ใช้ได้นาน 5 วัน"
+    ...    3PE : "จ่ายเพียง 39 บาท สามารถโทรได้ 60 นาที ทุกเครือข่าย และใช้ได้ภายใน 5 วัน นับจากวันที่สมัคร"
+    ...    16. จับภาพหน้าจอ
+    ...
+    ...    change apply ontop package to Package :เหมา เหมา 39 บาท โทรทุกเครือข่าย 60 นาที นาน 5 วัน because don't have \ Package Mao Mao5 Baht Midnight Sale 29/3/17
+    ...
+    ...    SMS
+    ...    3PE >> จ่ายเพียง 39 บาท สามารถโทรได้ 60 นาที ทุกเครือข่าย และใช้ได้ภายใน 5 วัน นับจากวันที่สมัคร
+    ...
+    ...    3BE >> จ่ายเพียง 39 บาท สามารถโทรได้ 60 นาที ทุกเครือข่าย ใช้ได้นาน 5 วัน นับจากวันที่สมัคร
+    ...    จริงๆมา = จ่ายเพียง 39 บาท สามารถโทรได้ 60 นาที ทุกเครือข่าย และใช้ได้ภายใน 5 วัน นับจากวันที่สมัคร
+    [Tags]    non_regression    active    3PE    3BE    IPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Talk OnTop Package
+    Select Talk Minutes OnTop Package
+    Verify Talk Minutes OnTop Package
+    ${selectedPackage}=    Select Mao Mao 39B 60Min
+    Verify Page Detail And Select Package    ${Number}    ${selectedPackage}
+    Confirm Package
+    Verify Confirm Package Page    ${Number}    ${selectedPackage}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Confirm Apply OnTop Package
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Verify Dialog Apply On Top Package    ${ApplyTalkOnTopSuccess}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Confirm Dialog On Top Package
+    Comment    Verify SMS From AIS with Match Regexp    ${MsgMaoMao3960Min}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke

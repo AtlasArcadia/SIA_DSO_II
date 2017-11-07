@@ -1,0 +1,1581 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/BalanceTransfer.txt
+
+*** Test Cases ***
+[F1_Services_1,3,5_1-2_Y_1_2] Verify menu service
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Verify Menu "Service"
+    ...    - Balance Transfer
+    ...    - Validity Transfer
+    ...    - Register AIS Fibre/Coverage Checking
+    ...    - Request/Change WiFi Password
+    ...    - Calling Melody
+    ...    4. Capture screen
+    ...    -----------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. ตรวจสอบ เมนู "บริการ"
+    ...    - โอนเงิน
+    ...    - โอนวัน
+    ...    - สมัคร AIS Fibre/เช็กพื้นที่ให้บริการ
+    ...    - ขอรับ/เปลี่ยนรหัส WiFi
+    ...    - เพลงรอสาย
+    ...    4. Capture screen
+    ...    ------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Verify Menu "Service"
+    ...    - Balance Transfer
+    ...    - Validity Transfer
+    ...    - Register AIS Fibre/Coverage Checking
+    ...    - Request/Change WiFi Password
+    ...    - Calling Melody
+    ...    4. Capture screen
+    ...    -----------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. ตรวจสอบ เมนู "บริการ"
+    ...    - โอนเงิน
+    ...    - โอนวัน
+    ...    - สมัคร AIS Fibre/เช็กพื้นที่ให้บริการ
+    ...    - ขอรับ/เปลี่ยนรหัส WiFi
+    ...    - เพลงรอสาย
+    ...    4. Capture screen
+    ...    ------------------------------------------------------------------------
+    ...    * Remark IPE เพิ่ม Verify sub menu Changing IVR & SMS Language
+    [Tags]    success    3be_verify    3pe_verify
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Verify Service Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_Y_2_2] Verify balance transfer page
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Verify "Balance Transfer" page
+    ...    - Mobile Number
+    ...    - You can transfer balance to your friend in AIS \ One-2-Call! Network with ease and convenience. Just fill out the following details (Text)
+    ...    - 1.Enter destination number
+    ...    - 2.Transfer amount/Baht
+    ...    - "OK" Button
+    ...    - Terms & Conditions
+    ...    5. Capture screen
+    ...    -----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. ตรวจสอบหน้า "โอนเงิน"
+    ...    - หมายเลขโทรศัพท์
+    ...    - โอนเงินให้เพื่อนๆ ในระบบ AIS One-2-Call! ได้ง่ายๆที่นี่ (Text)
+    ...    - 1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนเงินให้
+    ...    - 2.จำนวนเงินที่ต้องการโอน/บาท
+    ...    - ปุ่ม "ตกลง"
+    ...    - เงื่อนไขบริการ
+    ...    5. Capture screen
+    ...    -------------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Verify "Balance Transfer" page
+    ...    - Mobile Number
+    ...    - You can transfer balance to your friend in AIS \ One-2-Call! Network with ease and convenience. Just fill out the following details (Text)
+    ...    - 1.Enter destination number
+    ...    - 2.Transfer amount/Baht
+    ...    - "OK" Button
+    ...    - Terms & Conditions
+    ...    5. Capture screen
+    ...    -----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. ตรวจสอบหน้า "โอนเงิน"
+    ...    - หมายเลขโทรศัพท์
+    ...    - โอนเงินให้เพื่อนๆ ในระบบ AIS One-2-Call! ได้ง่ายๆที่นี่ (Text)
+    ...    - 1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนเงินให้
+    ...    - 2.จำนวนเงินที่ต้องการโอน/บาท
+    ...    - ปุ่ม "ตกลง"
+    ...    - เงื่อนไขบริการ
+    ...    5. Capture screen
+    ...    -------------------------------------------------------------------------------------------------------------------------------
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Verify Balance Transfer Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_Y_3_2] Transfer to prepaid number (3PE)
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Transection processed successfully Please wait for a confirmation SMS."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุรารอรับ SMS เพื่อยืนยันการทำรายการ"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    --------------------------------------------------------------------------------------------------------------------------
+    ...
+    ...    Source Number : 3BE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Transection processed successfully Please wait for a confirmation SMS."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...
+    ...    Source Number : 3BE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุรารอรับ SMS เพื่อยืนยันการทำรายการ"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    --------------------------------------------------------------------------------------------------------------------------
+    ...
+    ...    Source Number : IPE
+    ...    หมายเลขปลายทาง : 3PE
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    10. Capture screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}_HaveBalance=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveBalance
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Set Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Select Min Amount
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Confirm Balance Transfer
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Verify And Select Confirm Balance Transfer Dialog Message
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Verify Balance Transfer Success
+    Run Keyword If    "${ar_NType}"=="IPE"    Mobile Capture Screen At Verify Point    Balance Transfer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_Y_4_2] Transfer to prepaid number (3BE)
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    >> Capture screen
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Transection processed successfully Please wait for a confirmation SMS."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    --------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุรารอรับ SMS เพื่อยืนยันการทำรายการ"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    -----------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    >> Capture screen
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Transection processed successfully Please wait for a confirmation SMS."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    --------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุรารอรับ SMS เพื่อยืนยันการทำรายการ"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...
+    ...    --------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : IPE
+    ...    Destination Number : IPE
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    15. Capture screen
+    [Tags]    success    bug_bos_number    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}_HaveBalance=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveBalance
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Set Destination Number    ${AISBosPrepaidNumberTest}    #3BE
+    Select Min Amount
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Confirm Balance Transfer
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Verify And Select Confirm Balance Transfer Dialog Message
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Verify Balance Transfer Success
+    Run Keyword If    "${ar_NType}"=="IPE"    Mobile Capture Screen At Verify Point    Balance Transfer
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_5_2] Transfer to postpaid number
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Destination Number : Postpaid Number
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "The destination number you would like to transfer your balance/validity to is not an AIS One-2-Call! number. Please input other number."
+    ...    ***02/02/2017 \ Verify dailog message >Please input other number.' but in fact it was 'The destination number you would like to transfer your balance / validity to
+    ...    is not an AIS 3G One2Call! number.
+    ...    Please input othe number.***
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ---------------------------------------------------------------------------------------------------------------
+    ...
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    หมายเลขปลายทาง : Postpaid Number
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 093xxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขปลายทางที่ต้องการโอนเงิน/โอนวัน ไม่ใช่หมายเลขในระบบ เอไอเอส วัน-ทู-คอล! กรุณาระบุใหม่อีกครั้ง"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ---------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:EN
+    ...    Destination Number : Postpaid Number
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "The destination number you would like to transfer your balance/validity to is not an AIS One-2-Call! number. Please input other number."
+    ...    ***02/02/2017 \ Verify dailog message >Please input other number.' but in fact it was 'The destination number you would like to transfer your balance / validity to
+    ...    is not an AIS 3G One2Call! number.
+    ...    Please input othe number.***
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ---------------------------------------------------------------------------------------------------------------
+    ...
+    ...    Source Number : 3BE, IPE
+    ...    Language:TH
+    ...    หมายเลขปลายทาง : Postpaid Number
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 093xxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขปลายทางที่ต้องการโอนเงิน/โอนวัน ไม่ใช่หมายเลขในระบบ เอไอเอส วัน-ทู-คอล! กรุณาระบุใหม่อีกครั้ง"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    [Tags]    success    bug_en    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Set Destination Number    ${AISPostpaidNumberTest}    #PostpaidNumber
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify And Select Confirm Balance Transfer Dialog Message
+    Verify Balance Transfer To Postpaid Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_6_2] Transfer to other network
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Destination Number : other network
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "The number must be an AIS mobile number only. Please enter a new number."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    หมายเลขปลายทาง : other network
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "บริการนี้สำหรับลูกค้าเอไอเอสเท่านั้น กรุณาระบุหมายเลขเอไอเอสใหม่อีกครั้ง"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    --------------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:EN
+    ...    Destination Number : other network
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "The number must be an AIS mobile number only. Please enter a new number."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:TH
+    ...    หมายเลขปลายทาง : other network
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "บริการนี้สำหรับลูกค้าเอไอเอสเท่านั้น กรุณาระบุหมายเลขเอไอเอสใหม่อีกครั้ง"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Set Destination Number    ${DtacNumber}    #Other Network Number
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify And Select Confirm Balance Transfer Dialog Message
+    Verify Balance Transfer To Other Network
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_7_2] Transfer to self number
+    [Documentation]    Person In Charge:Tinpan, B
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Destination Number : Self Number
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "You cannot transfer your balance/validity to your own number. Please specify the new number."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    หมายเลขปลายทาง : Self Number
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ไม่สามารถโอนเงิน/โอนวัน ให้หมายเลขของคุณได้ กรุณาระบุหมายเลขใหม่"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    -------------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:EN
+    ...    Destination Number : Self Number
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "You cannot transfer your balance/validity to your own number. Please specify the new number."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:TH
+    ...    หมายเลขปลายทาง : Self Number
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 09xxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ไม่สามารถโอนเงิน/โอนวัน ให้หมายเลขของคุณได้ กรุณาระบุหมายเลขใหม่"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Set Destination Number    ${Number}    #Self Number
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify And Select Confirm Balance Transfer Dialog Message
+    Verify Balance Transfer To Self Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_8_2] Not input destination number
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Not input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please enter correct destination number"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...    --------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. ไม่กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอนให้ถูกต้อง"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Not input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please enter correct destination number"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...    --------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. ไม่กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอนให้ถูกต้อง"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify Not Input Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_9_2] Input destination number wrong format (eg. 6666666666)
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    *** Change testcase id by Scenario from F1_1,3_2_Y_9_Test >>> F1_1,3_2_N_9_Test ***
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number wrong format
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please enter correct destination number"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...    --------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง wrong format
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอนให้ถูกต้อง"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    ...    ---------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number wrong format
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please enter correct destination number"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...    --------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง wrong format
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอนให้ถูกต้อง"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Set Destination Number    ${WrongFormatNumber}    #WrongFormat
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify Input Wrong Format Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_10_2] Input destination number wrong digit
+    [Documentation]    Person In Charge:Tinpan, B
+    ...    *** Change testcase id by Scenario from F1_1,3_2_Y_10_Test >>> F1_1,3_2_N_10_Test ***
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Case : Input destination number wrong digit
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please enter correct destination number"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...    -------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. Case : กรอกหมายเลขปลายทาง wrong digit
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอนให้ถูกต้อง"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    ...    -------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Case : Input destination number wrong digit
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please enter correct destination number"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...    -------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. Case : กรอกหมายเลขปลายทาง wrong digit
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอนให้ถูกต้อง"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Set Destination Number    ${WrongDigitNumber}    #WrongFormat
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify Input Wrong Format Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_11_2] Not select amount
+    [Documentation]    Person In Charge:Tinpan, B
+    ...    *** Change testcase id by Scenario from F1_1,3_2_Y_11_Test >>> F1_1,3_2_N_11_Test ***
+    ...
+    ...    Source Number : 3PE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Not select amount
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please Select Amount"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...    ---------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. ไม่กรอกจำนวนเงินที่ต้องการโอน
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณาเลือกจำนวนที่ต้องการ"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Teststep
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Not select amount
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "Please Select Amount"
+    ...    8. Capture screen
+    ...    9. Click "OK"
+    ...    ---------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Teststep
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. ไม่กรอกจำนวนเงินที่ต้องการโอน
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "กรุณาเลือกจำนวนที่ต้องการ"
+    ...    8. Capture screen
+    ...    9. เลือก"ตกลง"
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Set Destination Number    ${AISPrepaidNumberTest}
+    Confirm Balance Transfer
+    Verify Not Select Amount
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_12_2] Source number insufficient balance status
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Insufficiant balance
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Verify "Balance Transfer" page
+    ...    - Mobile Number
+    ...    - You can transfer balance to your friend in AIS \ One-2-Call! Network with ease and convenience. Just fill out the following details (Text)
+    ...    - 1.Enter destination number
+    ...    - 2.Transfer amount/Baht
+    ...    - Insufficient balance (Dropdown list)
+    ...    - "OK" Button
+    ...    - Terms & Conditions
+    ...    5. Capture screen
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Insufficiant balance
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. ตรวจสอบหน้า "โอนเงิน"
+    ...    - หมายเลขโทรศัพท์
+    ...    - โอนเงินให้เพื่อนๆ ในระบบ AIS One-2-Call! ได้ง่ายๆที่นี่ (Text)
+    ...    - 1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนเงินให้
+    ...    - 2.จำนวนเงินที่ต้องการโอน/บาท
+    ...    - ยอดเงินคงเหลือไม่เพียงพอ (Dropdown list)
+    ...    - ปุ่ม "ตกลง"
+    ...    - เงื่อนไขบริการ
+    ...    5. Capture screen
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Insufficiant balance
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Verify "Balance Transfer" page
+    ...    - Mobile Number
+    ...    - You can transfer balance to your friend in AIS \ One-2-Call! Network with ease and convenience. Just fill out the following details (Text)
+    ...    - 1.Enter destination number
+    ...    - 2.Transfer amount/Baht
+    ...    - Insufficient balance (Dropdown list)
+    ...    - "OK" Button
+    ...    - Terms & Conditions
+    ...    5. Capture screen
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    Insufficiant balance
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. ตรวจสอบหน้า "โอนเงิน"
+    ...    - หมายเลขโทรศัพท์
+    ...    - โอนเงินให้เพื่อนๆ ในระบบ AIS One-2-Call! ได้ง่ายๆที่นี่ (Text)
+    ...    - 1.กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนเงินให้
+    ...    - 2.จำนวนเงินที่ต้องการโอน/บาท
+    ...    - ยอดเงินคงเหลือไม่เพียงพอ (Dropdown list)
+    ...    - ปุ่ม "ตกลง"
+    ...    - เงื่อนไขบริการ
+    ...    5. Capture screen
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}_InsufficientBalance=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InsufficientBalance
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Verify Source Number Insufficient Balance    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_13_2] Destination number has max balance
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Destination number has max balance
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Sorry,the service is unaviable at the moment. Please try again"
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ขออภัย ระบบไม่สามารถให้บริการได้ในขณะนี้ กรุณาเข้าใช้บริการใหม่ภายหลัง"
+    ...    ***text change >>>ขออภัย ไม่สามารถใช้บริการได้ในขณะนี้ กรุณาใช้บริการใหม่ภายหลัง
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    Destination number has max balance
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Sorry,the service is unaviable at the moment. Please try again"
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ขออภัย ระบบไม่สามารถให้บริการได้ในขณะนี้ กรุณาเข้าใช้บริการใหม่ภายหลัง"
+    ...    ***text change >>>ขออภัย ไม่สามารถใช้บริการได้ในขณะนี้ กรุณาใช้บริการใหม่ภายหลัง
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    [Tags]    fail    bug_en    active    bug
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Set Destination Number    ${AISNonBosPrepaidMaxBalance}    #MaxBlance
+    Run Keyword If    "${ar_NType}"=="IPE"    Set Destination Number    ${AIS_IPEMaxBalance}
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify And Select Confirm Balance Transfer Dialog Message
+    Verify Transfer To Max Balance Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_14_2] Source number suspend status
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : suspend (Source)
+    ...    Registerdate >= 90 days
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Verify dialog message "Balance checking is unaviable at the moment. Please try again later."
+    ...    5. Capture screen
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : suspend (Source)
+    ...    Register Date >= 90 วัน
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. ตรวจสอบ dialog message "ไม่สามารถเช็กยอดเงินคงเหลือได้ในขณะนี้ กรุณาใช้บริการใหม่ภายหลัง"
+    ...    5. Capture screen
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : suspend (Source)
+    ...    Registerdate >= 90 days
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Verify dialog message "Balance checking is unaviable at the moment. Please try again later."
+    ...    5. Capture screen
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : suspend (Source)
+    ...    Register Date >= 90 วัน
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. ตรวจสอบ dialog message "ไม่สามารถเช็กยอดเงินคงเหลือได้ในขณะนี้ กรุณาใช้บริการใหม่ภายหลัง"
+    ...    5. Capture screen
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}_Suspend=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Suspend
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Wait until Page Load Success
+    Select Sub Menu    BalanceTransfer
+    Verify Balance Transfer Source Suspend Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_15_2] Destination number suspend status
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : suspend (Dest)
+    ...    Registerdate >= 90 days
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "This service is unavailable at the moment."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : suspend (Dest)
+    ...    Register Date >= 90 วัน
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 09xxxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ไม่สามารถใช้บริการนี้ได้ในขณะนี้"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : suspend (Dest)
+    ...    Registerdate >= 90 days
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "This service is unavailable at the moment."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : suspend (Dest)
+    ...    Register Date >= 90 วัน
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 09xxxxxxxxx"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "ไม่สามารถใช้บริการนี้ได้ในขณะนี้"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    [Tags]    fail    active    bug
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Set Destination Number    ${AISNonBosPrepaidSuspensionNumberTest}    #Suspend
+    Run Keyword If    "${ar_NType}"=="IPE"    Set Destination Number    ${AIS_IPESuspend}
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify And Select Confirm Balance Transfer Dialog Message
+    Verify Balance Transfer To Suspend Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_16_2] Source number blacklist status
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    COS (Source) = Black List
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Your mobile number is not eligible for balance/validity transfer service."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    COS (Source) = Black List
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    COS (Source) = Black List
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Your mobile number is not eligible for balance/validity transfer service."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    COS (Source) = Black List
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}_Blacklist=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Blacklist
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Set Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify And Select Confirm Balance Transfer Dialog Message
+    Verify Balance Transfer From Blacklist Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_17_2] Destination number blacklist status
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    COS (Dest) = Black List
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Destination number you have entered is not eligible to use balance/validity transfer."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    COS (Dest) = Black List
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
+    ...    ***remark Verify point \ >>> หมายเลขปลายทางไม่สามารถใช้บริการโอนเงิน/โอนวันได้
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate >= 90 days
+    ...    COS (Dest) = Black List
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "Destination number you have entered is not eligible to use balance/validity transfer."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    COS (Dest) = Black List
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
+    ...    ***remark Verify point \ >>> หมายเลขปลายทางไม่สามารถใช้บริการโอนเงิน/โอนวันได้
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    [Tags]    success    active    bug
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Set Destination Number    ${AISNonBosPrepaidBlacklistNumberTest}    #3PE
+    Run Keyword If    "${ar_NType}"=="IPE"    Set Destination Number    ${AIS_IPEBlacklist}
+    Select Min Amount
+    Confirm Balance Transfer
+    Verify And Select Confirm Balance Transfer Dialog Message
+    Verify Balance Transfer To Blacklist Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Services_1,3,5_1-2_N_18_2] Source Number register date less than 90 days
+    [Documentation]    Person In Charge:Tinpan, B
+    ...
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate < 90 days
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "The Balance/validity transfer service reserves for only AIS prepaid customers who have been in the system at least 90 days and 30 days for the Validity Transfer Service."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3PE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    COS (Dest) = Black List
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:EN
+    ...    Status : Active
+    ...    Registerdate < 90 days
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Balance Transfer"
+    ...    4. Input destination number
+    ...    5. Select amount (10 Baht)
+    ...    6. Click "OK" button
+    ...    7. Verify dialog message "You would like to make a 10 baht transfer to the balance of destination number"
+    ...    8. Click "Confirm" button
+    ...    9. Verify dialog message "The Balance/validity transfer service reserves for only AIS prepaid customers who have been in the system at least 90 days and 30 days for the Validity Transfer Service."
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    ------------------------------------------------------------------------------------------------------------------------
+    ...    Source Number : 3BE, IPE
+    ...    Teststep
+    ...    Language:TH
+    ...    Status : Active
+    ...    Register Date >= 90 วัน
+    ...    COS (Dest) = Black List
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "โอนเงิน"
+    ...    4. กรอกหมายเลขปลายทาง
+    ...    5. เลือกจำนวนเงินที่ต้องการโอน (10 บาท)
+    ...    6. เลือกปุ่ม "ตกลง"
+    ...    7. ตรวจสอบ dialog message "คุณต้องการโอนเงินจำนวน 10 บาทให้หมายเลข 0932015585"
+    ...    8. เลือกปุ่ม "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
+    ...    10. Capture screen
+    ...    11. เลือก"ตกลง"
+    ...    ----------------------------------------------------------------------------------------------------------------------------
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}_RegisterLessThan30Days=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RegisterLessThan30Days
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Service
+    Select Sub Menu    BalanceTransfer
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Set Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Select Min Amount
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Confirm Balance Transfer
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Verify And Select Confirm Balance Transfer Dialog Message
+    Verify Balance Transfer From Number Register Date < 90 Days
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke.

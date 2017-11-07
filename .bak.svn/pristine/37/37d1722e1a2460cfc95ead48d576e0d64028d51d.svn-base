@@ -1,0 +1,26 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/RoamingPackage_CurrentPackageAndRemaining_PrepaidRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/RoamingPackage_CurrentPackageAndRemaining_PrepaidLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Current Package And Remaining Have No Data Roaming Package
+    [Arguments]    ${MobileNumber}
+    Mobile element name should be    ${lblMobileNumberCurrentPackageAndRemaining}    ${MobileNumber}
+    Mobile element name should be    ${lblHaveNoDataRoamingPackageCurrentPackage}    ${msgYouHaveNoDataRoamingPackage}
+    Mobile Capture Screen At Verify Point    Verify No Data Roaming Package
+
+Verify Current Package Have Remaining Usage
+    [Arguments]    ${MobileNumber}
+    Mobile element name should be    ${lblMobileNumberCurrentPackageAndRemaining}    ${MobileNumber}
+    Wait Mobile Until Element Visible    ${lblSubscribeNo}
+    Mobile Capture Screen At Verify Point    Verify Current Package Have Remaining Usage Page

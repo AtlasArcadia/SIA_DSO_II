@@ -1,0 +1,69 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/FAQ_SpecialCampaignAndPrivilegesRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/FAQ_SpecialCampaignAndPrivilegesLocalized.txt
+
+*** Keywords ***
+Select Topic
+    [Arguments]    ${Topic}
+    Click Mobile Element    ${lblTopic${Topic}}
+
+Select Serenade Privileges Question
+    [Arguments]    ${Question}
+    Click Mobile Element    ${lblSerenadePrivileges_Q${Question}}
+
+Select Serenade Card And Sticker Question
+    [Arguments]    ${Question}
+    Click Mobile Element    ${lblSerenadeCardAndSticker_Q${Question}}
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Special Campaign And Privileges
+    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblTopicSerenadePrivileges}    ${contentSerenadePrivileges}
+    Mobile element name should be    ${lblTopicSenadeCardAndSticker}    ${contentSerenadeCardAndSticker}
+    Mobile Capture Screen At Verify Point    FAQ Special Campaign And Privileges
+
+Verify Topic Serenade Privileges
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
+    Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblSerenadePrivileges_Q1}    ${SerenadePrivilegesQ1}
+    Mobile element name should be    ${lblSerenadePrivileges_Q2}    ${SerenadePrivilegesQ2}
+    Mobile Capture Screen At Verify Point    Topic Serenade Privileges
+
+Verify Answer Serenade Privileges
+    [Arguments]    ${Question}
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
+    Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Comment    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblTopicTitle}    ${topicNameSerenadePrivileges}
+    Mobile check existing text in name    ${lblAnswerSerenadePrivileges}
+    Mobile Capture Screen At Verify Point    Answer Serenade Privileges ${Question}
+
+Verify Topic Serenade Card And Sticker
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
+    Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Comment    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblSerenadeCardAndSticker_Q1}    ${SerenadeCardAndStickerQ1}
+    Mobile element name should be    ${lblSerenadeCardAndSticker_Q2}    ${SerenadeCardAndStickerQ2}
+    Mobile Capture Screen At Verify Point    Topic Serenade Card And Sticker
+
+Verify Answer Serenade Card And Sticker
+    [Arguments]    ${Question}
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
+    Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Comment    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblTopicTitle}    ${topicNameSerenadeCardSticker}
+    Mobile check existing text in name    ${lblAnswerSerenadeCardAndSticker}
+    Mobile Capture Screen At Verify Point    Answer Serenade Card And Sticker ${Question}

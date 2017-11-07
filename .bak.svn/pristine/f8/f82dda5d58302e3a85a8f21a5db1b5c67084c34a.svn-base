@@ -1,0 +1,185 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/iSWOP.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F2_2,4_2_N_1_Test] Verify alert message - not have package iSWOP
+    [Documentation]    Owner : Mac (Rukpong)
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "iSWOP"
+    ...    4. Verify Alert message
+    ...    5. Click "OK"
+    ...    6. Verify page "Change Main Package"
+    ...
+    ...
+    ...    **remark**
+    ...    txt alert change from This service is exclusive for iSWOP customers only. Please change your package to iSWOP before continuing by press confirm to proceed to This service is exclusive for iSWOP customers only.' confirm by P'Pae
+    [Tags]    service    fail    debug    3PO    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Service Menu
+    Select iSwop Submenu
+    Verify Dialog Message
+    Confirm Dialog
+    Verify iSWOP menu
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_4_2_Y_2_Test] Verify iSWOP page - have package iSWOP
+    [Documentation]    Owner : Mac (Rukpong)
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3BO
+    ...    Status : Active
+    ...    Have iSWOP package
+    ...
+    ...    *Test Step*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "iSWOP"
+    ...    4. Verify "iSWOP page"
+    [Tags]    success    service    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    iSWOP=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_iSWOP
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Service Menu
+    Select iSwop Submenu
+    Verify iSWOP Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_4_2_Y_3_Test] Swop internet to voice - have package iSWOP
+    [Documentation]    Owner : Mac (Rukpong)
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3BO
+    ...    Status : Active
+    ...    Have iSWOP package
+    ...
+    ...    *Test Step*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "iSWOP"
+    ...    4. Swop internet to voice
+    ...    5. Click "OK"
+    ...    6. Verify pop up message "Your transaction is completed. Please wait for SMS \ confirmation."
+    ...    7. Click "OK"
+    [Tags]    success    service    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    iSWOP=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_iSWOP
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Service Menu
+    Select iSwop Submenu
+    Wait For Page iSWOP
+    Swop Internet To Voice
+    Confirm Swop
+    Verify Pop Up Message
+    Confirm Dialog
+    Clear Value iSWOP
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_4_2_Y_4_Test] Swop voice to internet - have package iSWOP
+    [Documentation]    Owner : Mac (Rukpong)
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3BO
+    ...    Status : Active
+    ...    Have iSWOP package
+    ...
+    ...    *Test Step*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "iSWOP"
+    ...    4. Swop Voice to Internet
+    ...    5. Click "OK"
+    ...    6. Verify pop up message "Your transaction is completed. Please wait for SMS \ confirmation."
+    ...    7. Click "OK"
+    [Tags]    success    service    3BO    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    iSWOP=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_iSWOP
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Service Menu
+    Select iSwop Submenu
+    Wait For Page iSWOP
+    Swop Voice To Internet
+    Confirm Swop
+    Verify Pop Up Message
+    Confirm Dialog
+    Clear Value iSWOP
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[Dummy Test Case] Log for TH lang
+    [Tags]    dummy    3PO    3BO
+    Log    Dummy test case
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke    3PO    3BO
+    Log    For Quick Smoke.
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Dialog Message
+    Mobile Element Text Should Be    ${msgDialog}    ${txtAlertDialogMsg}
+    Mobile Capture Screen At Verify Point    Dialog_Message
+
+Confirm Dialog
+    Click Mobile Element    ${btnOK}
+
+Verify iSWOP menu
+    Mobile element text should be    ${lblISWOP}    iSWOP
+    Mobile Capture Screen At Verify Point    Verify_iSWOP
+
+Verify iSWOP Page
+    Mobile Element Text Should Be    ${lblTitleiSWOP}    iSWOP
+    Wait Mobile Until Page Contains Element    ${cardVoice}
+    Wait Mobile Until Page Contains Element    ${cardInternet}
+    Mobile Capture Screen At Verify Point    iSWOP_Page
+
+Confirm Swop
+    Click Mobile Element At Position    ${btnConfirmiSWOP}    below
+
+Verify Pop Up Message
+    Mobile Element Text Should Be    ${msgDialog}    ${txtAlertMsgiSWOP}
+    Mobile Capture Screen At Verify Point    Pop_Up_Message
+
+Wait For Page iSWOP
+    Wait Mobile Until Page Contains Element    ${cardVoice}
+    Wait Mobile Until Page Contains Element    ${cardInternet}
+
+Select Service Menu
+    Select Menu    Service
+
+Select iSwop Submenu
+    Select Sub Menu    iSWOP

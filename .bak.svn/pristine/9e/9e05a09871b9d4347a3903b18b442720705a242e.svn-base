@@ -1,0 +1,2105 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/PaymentAndTopupPostpaidRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/PaymentAndTopupPostpaidLocalized.txt
+Resource          ../PageVariable/PaymentAndTopupPostpaid.txt
+
+*** Keywords ***
+Keywords For TearDown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select menuPaymentAndTopup
+    sleep    15s    # wait AIS Point loaded maybe it hidden cannot use any keyword
+    Select Menu    PaymentAndTopup
+    swipe in container to element    ${mnuPaymentAndTopup}    ${mnuContainer}    left
+    Click Mobile Element    ${mnuPaymentAndTopup}
+    ${elementIsContain}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${DialogMessageRegister}    5
+    Run Keyword If    "${elementIsContain}"=="True"    Click Mobile Element    ${DialogMsgBtnNo}
+
+Verify page Top Up
+    Wait Mobile Until Element Visible    ${lblPayment}
+    Wait Mobile Until Element Visible    ${lblPaymentToAnotherNumber}
+    Wait Mobile Until Element Visible    ${lblTopup}
+    Click Mobile Element    ${lblTopup}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblEnterDestinationNumber}    ${txtEnterdestinationnumberyouwishtotopup}
+    Mobile check existing text    ${lblMobileNumber}
+    Wait Mobile Until Page Contains Element    ${lblEnterDestinationNumber}
+    Mobile check existing text    ${txtBoxlMobileNumber}
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${txtPleaseselecttopupchannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Wait Mobile Until Element Visible    ${lblAMEX}
+    Mobile element text should be    ${lblEWallet}    ${txtEWallet}
+    Wait Mobile Until Element Visible    ${lblmPay}
+    Wait Mobile Until Element Visible    ${lblAISTopUp}
+    Swipe to element    ${lbl10}
+    Mobile element text should be    ${lblSelectTopupAmount}    ${txtSelecttopupamount}
+    Sleep    3s
+    Mobile element text should be    ${lbl10}    ${txtTen}
+    Mobile element text should be    ${lbl20}    ${txtTwenty}
+    Mobile element text should be    ${lbl30}    ${txtThirty}
+    Mobile element text should be    ${lbl40}    ${txtFourty}
+    Mobile element text should be    ${lbl100}    ${txtOneHunred}
+    Mobile element text should be    ${lbl200}    ${txtTwoHundred}
+    Mobile element text should be    ${lbl300}    ${txtThreeHundred}
+    Click Mobile Element    ${lblMore}
+    Mobile element text should be    ${lbl50}    ${txtFifty}
+    Mobile element text should be    ${lbl400}    ${txtFourHundred}
+    Mobile element text should be    ${lbl500}    ${txtFiveHundred}
+    Mobile element text should be    ${lbl600}    ${txtSixHundred}
+    Mobile element text should be    ${lbl700}    ${txtSevenHundred}
+    Mobile element text should be    ${lbl800}    ${txtEightHundred}
+    Mobile element text should be    ${lbl1000}    ${txtOneThousand}
+    Mobile element text should be    ${lbl1500}    ${txtOneThousandandFiveHundred}
+    Swipe to element    ${btnOK}
+    Mobile element text should be    ${lblPleaseVerifyYourTopup}    ${txtPleaseverifyyourtopupinformation}
+    Mobile Capture Screen At Verify Point    Top Up
+
+Choose Credit or Debit Card
+    [Arguments]    ${txt}
+    #Wait Mobile Until Element Visible    ${lblTopup}
+    #Click Mobile Element    ${lblTopup}
+    Swipe to element    ${txtBoxlMobileNumber}    Direction=down
+    Input Mobile text    ${txtBoxlMobileNumber}    ${AIS_IPENumber}
+    Swipe to element    ${lbl${txt}}
+    Click Mobile Element    ${lbl${txt}}
+    Mobile Capture Screen At Verify Point    Credit
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Click Mobile Element    ${btnOKCertificateError}
+    Comment    CertificateErrorbtnOK
+
+Verify Menu PaymentAndTopup
+    Wait Mobile Until Page Contains Element    ${lblPaymentAndTopUp}
+    Mobile element text should be    ${lblPaymentAndTopUp}    ${txtPaymentAndTopUp}
+    Mobile element text should be    ${lblPayment}    ${txtPayment}
+    Mobile element text should be    ${lblPayToAnotherNumber}    ${txtPayToAnotherNumber}
+    Mobile element text should be    ${lblTopup}    ${txtTopup}
+
+Verify Payment Page No credit card information by VISA
+    Click Mobile Element    ${lblPayment}    ${txtPayment}
+    Sleep    3
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnOKCertificateError}
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Click Mobile Element    ${btnOKCertificateError}
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by VISA card
+
+Select Month In Expiry Date
+    [Arguments]    ${Month}
+    Click Mobile Element    ${txtBoxInputMonthInPaymentDetailPage}
+    Click Mobile Element    ${lblMMInExpiryDate}
+    Click Mobile Element    ${txtBoxInputMonthInPaymentDetailPage}
+    Swipe Element To Screen    xpath=//android.view.View[@resource-id="body"]/android.view.View[@index="6"]/android.view.View[@index="5"]//android.widget.ListView[@index="1"]/android.view.View[@content-desc="${Month}"]
+    Click Mobile Element    xpath=//android.view.View[@resource-id="body"]/android.view.View[@index="6"]/android.view.View[@index="5"]//android.widget.ListView[@index="1"]/android.view.View[@content-desc="${Month}"]
+
+Select Year In Expiry Date
+    [Arguments]    ${Year}
+    Click Mobile Element    ${txtBoxInputYearInPaymentDetailPage}
+    Comment    Swipe Element To Screen    ${btnCancelInSummaryPayment}
+    Click Mobile Element    ${lblYYYYInExpiryDate}
+    Click Mobile Element    ${txtBoxInputYearInPaymentDetailPage}
+    Swipe Element To Screen    xpath=//android.view.View[@resource-id="body"]/android.view.View[@index="6"]/android.view.View[@index="6"]//android.widget.ListView[@index="1"]/android.view.View[@content-desc="${Year}"]
+    Click Mobile Element    xpath=//android.view.View[@resource-id="body"]/android.view.View[@index="6"]/android.view.View[@index="6"]//android.widget.ListView[@index="1"]/android.view.View[@content-desc="${Year}"]
+
+Verify Payment page Pay to another number
+    [Arguments]    ${Number}
+    [Documentation]    Owner : Pu
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblEnterdestinationnumberPayment}    ${txtEnterDestinationNumberYouWishToPayment}
+    Mobile element name should be    ${btnBack}    ${txtBack}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile Capture Screen At Verify Point    Payment page Pay to another number
+
+Input Number sub menu Pay to another number
+    [Arguments]    ${Number}
+    Input Mobile Text    ${txtBoxlMobileNumberPayment}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard    key_name=Return
+    Click Mobile Element    ${btnNext}
+
+Verify Payment page have usage and No Credit card information (Pay to another)
+    [Arguments]    ${Number}
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblBillingCycle}    ${txtBillingCycle}
+    Mobile element name should be    ${lblDueDate}    ${txtDueDate}
+    Mobile element name should be    ${lblYourBalance}    ${txtYourBalance}
+    Mobile element name should be    ${lblTotalBillingAmount}    ${txtTotalBillingAmount}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Swipe to element    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Wait Mobile Until Element Visible    ${lblAMEX}
+    Swipe to element    ${lblTermsAndConditions}
+    Mobile element name should be    ${lblEWallet}    ${txtEWallet}
+    Wait Mobile Until Element Visible    ${btnEWALLET}
+    Mobile element name should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element name should be    ${btnBack}    ${txtBack}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile element name should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Payment page have usage and No Credit card information
+
+Verify Payment Page Not UsageBalance and Not CreditCard
+    [Arguments]    ${Number}
+    Sleep    2
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element name should be    ${lblYourusagechargesPayment}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblNoOutstandingBalance}    ${txtNoOutstandingBalance}
+    Mobile element name should be    ${lblAdvancepayment}    ${txtAdvancePayment}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Wait Mobile Until Element Visible    ${lblAMEX}
+    Mobile element name should be    ${lblEWallet}    ${txtEWallet}
+    Wait Mobile Until Element Visible    ${btnEWALLET}
+    Swipe to element    ${lblTermsAndConditions}
+    Mobile element name should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element name should be    ${btnBack}    ${txtBack}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile element name should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    IMG Verify Payment Page not UsageBalance and not CreditCard
+
+Verify Payment Page Not UsageBalance And Have CreditCard
+    [Arguments]    ${Number}
+    Sleep    2
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element name should be    ${lblYourusagechargesPayment}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblNoOutstandingBalance}    ${txtNoOutstandingBalance}
+    Mobile element name should be    ${lblAdvancepayment}    ${txtAdvancePayment}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element name should be    ${lblManage}    ${txtManage}
+    Wait Mobile Until Element Visible    ${imgVISA}
+    Mobile element text should match regexp    ${txtPaymentCardNumberVISA}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgMasterCard}
+    Mobile element text should match regexp    ${txtPaymentCardNumberMasterCard}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgJCB}
+    Mobile element text should match regexp    ${txtPaymentCardNumberJCB}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgOther}
+    Swipe to element    ${lblTermsAndConditions}
+    Wait Mobile Until Element Visible    ${imgEwalletinOtherCard}
+    Mobile element text should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnNext}    ${txtNext}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    IMG Verify Payment Page not UsageBalance and have CreditCard
+
+Verify Payment Page Have Balance and Not CreditCard
+    Click Mobile Element    ${lblPayment}
+    Input Mobile Text    ${txtBoxlMobileNumberPayment}    0891230221
+    Click Mobile Element    ${btnNext}
+    Mobile element name should be    ${lblMobileNumber}    0891230221
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblBillingCycle}    ${txtBillingCycle}
+    Mobile element name should be    ${lblDueDate}    ${txtDueDate}
+    Mobile element name should be    ${lblYourBalance}    ${txtYourBalance}
+    Mobile element name should be    ${lblTotalBillingAmount}    ${txtTotalBillingAmount}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Wait Mobile Until Element Visible    ${lblAMEX}
+    Mobile element name should be    ${lblEWallet}    ${txtEWallet}
+    Swipe to element    ${lblTermsAndConditions}
+    Wait Mobile Until Element Visible    ${btnEWALLET}
+    Mobile element name should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element name should be    ${btnBack}    ${txtBack}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile element name should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Page Payment have usagebalance and not have creditcard
+
+Verify Payment Page Have Balance and Have CreditCard
+    Sleep    2
+    Mobile element text should be    ${lblMobileNumber}    ${AISPostpaidOutstandingBalance}
+    Mobile element text should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element text should be    ${lblBillingCycle}    ${txtBillingCycle}
+    Mobile element text should be    ${lblDueDate}    ${txtDueDate}
+    Mobile element text should be    ${lblYourBalance}    ${txtYourBalance}
+    Mobile element text should be    ${lblTotalBillingAmount}    ${txtTotalBillingAmount}
+    Mobile element text should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element text should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element text should be    ${lblManage}    ${txtManage}
+    swipe in screen to element    ${btnNext}    up
+    Wait Mobile Until Element Visible    ${imgVISA}
+    Mobile element text should match regexp    ${txtPaymentCardNumberVISA}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgMasterCard}
+    Mobile element text should match regexp    ${txtPaymentCardNumberMasterCard}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgJCB}
+    Mobile element text should match regexp    ${txtPaymentCardNumberJCB}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgOther}
+    Wait Mobile Until Element Visible    ${imgEwalletinOtherCard}
+    Mobile element text should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnNext}    ${txtNext}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify page Payment Outstanding balance by credit card
+
+Select MASTER Card No Information
+    Sleep    5s
+    Swipe element to specific area    ${lblMasterCard}
+    Comment    Swipe to element    ${lblMasterCard}
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${lblTermsAndConditions}
+    Comment    Swipe element to specific area    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+
+Select VISA Card No Information
+    Sleep    5
+    Swipe to element    ${lblVISA}
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnOKCertificateError}
+
+Select JCB Card No Information
+    Sleep    5
+    Swipe to element    ${lblJCB}
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${lblTermsAndConditions}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+
+Select AMEX No Information
+    Sleep    5
+    Swipe to element    ${lblAMEX}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnOKCertificateError}
+
+Select mPay
+    Sleep    5
+    Swipe to element    ${lblmPay}
+    Click Mobile Element    ${lblmPay}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnOKCertificateError}
+
+Verify error msg Payment via JCB No Credit card information and not select expire month
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select JCB Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Comment    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonth}    ${AlertExpireMonth}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    error msg Payment via JCB No Credit card information and not select expire month
+
+Not input Credit Number
+    [Arguments]    ${txt}
+    sleep    10s
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Wait Mobile Until Element Visible    ${lblTopUpAmount}
+    Mobile Capture Screen At Verify Point    payment
+    Swipe element to specific area    ${btnSubmitPaymentAndTopUp}
+    Wait Mobile Until Element Visible    ${lblCreditCardAndDebitCard}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    #Input Mobile text    ${txtBCardNo}    ${${txt}}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_${txt}}
+    Click Mobile Element    ${btnSubmitPaymentAndTopUp}
+    Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}
+    #Mobile element name should be    ${lblAlertExpireMonthAndYear}    ${AlertExpireMonthAndYear}
+    #Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Mobile Capture Screen At Verify Point    payment 2
+
+Verify page payment detail no information by VISA
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    [Documentation]    Lay
+    Sleep    3
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by VISA card
+
+Verify page payment detail no information by MasterCard
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    [Documentation]    Lay
+    Sleep    3
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by MasterCard
+
+Verify page payment detail no information by JCB
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    [Documentation]    Lay
+    Sleep    3
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by JCB
+
+Verify page payment detail no information by AMEX
+    [Documentation]    Lay
+    Sleep    2
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPaymentDetailsSummaryInAMEXAndEwallet}    ${txtPaymentDetailsInAMEXCard}
+    Mobile element text should be    ${lblDestinationNumberSummaryInAMEXAndEwallet}    ${txtDestinationNumber}
+    Mobile element text should be    ${lblPaymentChannelsSummaryInAMEXAndEwallet}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblCardType}    ${txtCardtype}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnOKInSummaryAMEXAndEwallet}    ${txtOK}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by AMEX
+
+Verify page payment detail no information by mPay
+    [Documentation]    Lay
+    Sleep    2
+    Swipe to element    ${picEwalletPayment}
+    Click Mobile Element    ${picEwalletPayment}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPaymentDetailsSummaryInAMEXAndEwallet}    ${txtPaymentDetailsInAMEXCard}
+    Mobile element text should be    ${lblDestinationNumberSummaryInAMEXAndEwallet}    ${txtDestinationNumber}
+    Mobile element text should be    ${lblPaymentChannelsSummaryInAMEXAndEwallet}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnOKInSummaryAMEXAndEwallet}    ${txtOK}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by mPay
+
+Not Select Month
+    [Arguments]    ${txt}
+    sleep    10s
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Wait Mobile Until Element Visible    ${lblTopUpAmount}
+    Mobile Capture Screen At Verify Point    payment
+    Swipe element to specific area    ${btnSubmitPaymentAndTopUp}
+    Wait Mobile Until Element Visible    ${lblCreditCardAndDebitCard}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    sleep    2s
+    #Select Month In Expiry Date    08
+    Select Year In Expiry Date    2018
+    #Select Year In Expiry Date    2018
+    Input Mobile text    ${txtBCardNo}    ${${txt}}
+    Input Mobile text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_${txt}}
+    Click Mobile Element    ${btnSubmitPaymentAndTopUp}
+    #Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}
+    Mobile element name should be    ${lblAlertExpireMonth}    ${AlertExpireMonth}
+    #Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Mobile Capture Screen At Verify Point    payment 2
+
+Not Select Year
+    [Arguments]    ${txt}
+    sleep    10s
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Wait Mobile Until Element Visible    ${lblTopUpAmount}
+    Mobile Capture Screen At Verify Point    payment
+    Swipe element to specific area    ${btnSubmitPaymentAndTopUp}
+    Wait Mobile Until Element Visible    ${lblCreditCardAndDebitCard}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Select Month In Expiry Date    09
+    Input Mobile text    ${txtBCardNo}    ${${txt}}
+    #Select Year In Expiry Date    2018
+    Input Mobile text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_${txt}}
+    Click Mobile Element    ${btnSubmitPaymentAndTopUp}
+    #Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}
+    Mobile element name should be    ${lblAlertExpireYear}    ${AlertExpireYear}
+    #Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Mobile Capture Screen At Verify Point    payment 2
+
+Not Select Month and Year
+    [Arguments]    ${txt}
+    sleep    10s
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Wait Mobile Until Element Visible    ${lblTopUpAmount}
+    Mobile Capture Screen At Verify Point    payment
+    Swipe element to specific area    ${btnSubmitPaymentAndTopUp}
+    Wait Mobile Until Element Visible    ${lblCreditCardAndDebitCard}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Input Mobile text    ${txtBCardNo}    ${${txt}}
+    #Select Month In Expiry Date    09
+    #Select Year In Expiry Date    2018
+    Input Mobile text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_${txt}}
+    Click Mobile Element    ${btnSubmitPaymentAndTopUp}
+    #Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}
+    Mobile element name should be    ${lblAlertExpireMonthAndYear}    ${AlertExpireMonthAndYear}
+    #Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Mobile Capture Screen At Verify Point    payment 2
+
+Select VISA Card Have information
+    Sleep    5
+    Swipe to element    ${lblEWallet}
+    Select credit card    Visa
+    Swipe to element    ${lblTermsAndConditions}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnOKCertificateError}
+
+Select MASTER Card Have information
+    Sleep    5
+    Comment    Click Mobile Element    ${rdoPaymentMasterCard}
+    Comment    Swipe to element    ${btnNext}
+    Comment    Click Mobile Element    ${btnNext}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Swipe to element    ${lblEWallet}
+    Select credit card    MasterCard
+    Swipe to element    ${lblTermsAndConditions}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnOKCertificateError}
+
+Select JCB Card Have information
+    Sleep    5
+    Swipe to element    ${lblEWallet}
+    Select credit card    JCB
+    Swipe to element    ${lblTermsAndConditions}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnOKCertificateError}
+
+Not input CVV
+    [Arguments]    ${txt}
+    sleep    10s
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Wait Mobile Until Element Visible    ${lblTopUpAmount}
+    Mobile Capture Screen At Verify Point    payment
+    Swipe element to specific area    ${btnSubmitPaymentAndTopUp}
+    Wait Mobile Until Element Visible    ${lblCreditCardAndDebitCard}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile text    ${txtBCardNo}    ${${txt}}
+    Click Mobile Element    ${btnSubmitPaymentAndTopUp}
+    Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Mobile Capture Screen At Verify Point    not input cvv
+
+Input number less than 10 digits
+    Input Mobile text    ${txtBoxlMobileNumber}    ${WrongDigitNumber}
+    Swipe to element    ${lblVISA}
+    Click Mobile Element    ${lblVISA}
+    Mobile Capture Screen At Verify Point    Credit
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${PopUpAlertdigits}
+    Mobile Capture Screen At Verify Point    digits's incorrect
+
+Not select channel
+    Input Mobile text    ${txtBoxlMobileNumber}    ${AIS_IPENumber}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${PopUpAlertChannel}
+    Mobile Capture Screen At Verify Point    Not select channel
+
+National ID card number is incorrect
+    Input Mobile text    ${txtBoxlMobileNumber}    ${OutstandingBalanceNumber}
+    Swipe to element    ${lblAISTopUp}
+    Click Mobile Element    ${lblAISTopUp}
+    Swipe to element    ${lblNationalID}
+    Input Mobile text    ${lblNationalID}    1
+    Swipe to element    ${lbl20}
+    Click Mobile Element    ${lbl20}
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${PopUpAlertNationalID}
+    Mobile Capture Screen At Verify Point    National ID's incorrect
+
+Verify page payment detail by VISA
+    [Arguments]    ${CVV_VISA}
+    Sleep    5
+    Wait Mobile Until Element Visible    ${lblYourUsageCharges}
+    Select VISA Card Have information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Swipe to element    ${btnOKinPaymentDetailPage}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment by VISA
+
+Select credit card
+    [Arguments]    ${card}
+    : FOR    ${index}    IN RANGE    0    5
+    \    ${cardNo}    Get mobile text    xpath=//android.widget.LinearLayout[@index="1"]/android.widget.FrameLayout[@index="${index}"]/android.widget.LinearLayout[@index="0"]//android.widget.TextView[@index="2"]
+    \    Log    ${cardNum.${card}}
+    \    Run Keyword If    "${cardNo}" == "${cardNum.${card}}"    Exit For Loop
+    Click Mobile Element    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/payment_channel_container_radio"]/android.widget.FrameLayout[@index="${index}"]//android.widget.CheckBox[@resource-id="com.ais.mimo.eservice.debug:id/credit_card_cb"]
+
+Mobile element name should match regexp
+    [Arguments]    ${locator}    ${MessageExpect}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Element Visible    ${locator}
+    ${RealExpired}    Get mobile attribute    ${locator}    name
+    Log    Expect ${MessageExpect}
+    Should Match Regexp    ${RealExpired}    ${MessageExpect}
+
+Verify page payment detail by MasterCard
+    [Arguments]    ${CVV_MasterCard}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select MASTER Card Have information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment \ by Master card
+
+Verify page payment detail by JCB
+    [Arguments]    ${CVV_JCB}
+    Select JCB Card Have information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Swipe to element    ${btnOKinPaymentDetailPage}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail by JCB card
+
+Verify error msg Payment via JCB No Credit card information and not select expire year
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    [Documentation]    Owner : Pu
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select JCB Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireYear}    ${AlertExpireYear}
+    Mobile Capture Screen At Verify Point    error msg Payment via JCB No Credit card information and not select expire year
+
+Verify error msg Payment via JCB No Credit card information and not select expire month and year
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    [Documentation]    Owner : Pu
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select JCB Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Comment    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonthAndYear}    ${AlertExpireMonthAndYear}
+    Mobile Capture Screen At Verify Point    error msg Payment via JCB No Credit card information and not select expire month and year
+
+Verify not input credit card number (MASTER)
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Swipe element to specific area    ${lblCreditAndDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}
+    Mobile Capture Screen At Verify Point    Pop Up Msg Not Input Card Number (MASTER)
+
+Verify error msg Payment via JCB No Credit card information and not input CVV
+    [Arguments]    ${JCB}
+    [Documentation]    Owner : Pu
+    Click Mobile Element    ${txtPaymentAmount}    timeout=180
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select JCB Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Mobile Capture Screen At Verify Point    error msg Payment via JCB No Credit card information and not input CVV
+
+Verify pop up msg via VISA No Credit card information and not select expire month
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Comment    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${txtErrorNotSelectExpireMonth}    ${AlertExpireMonth}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire month
+
+Verify pop up msg via VISA No Credit card information and not input credit card number
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Comment    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire month
+
+Verify pop up msg via VISA No Credit card information and not select expire year
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Swipe to element    ${btnOKinPaymentDetailPage}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireYear}    ${AlertExpireYear}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire month
+
+Verify pop up msg via VISA No Credit card information and not select expire yearandmonth
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Comment    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonthAndYear}    ${AlertExpireMonthAndYear}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire Yearandmonth
+
+Verify Error msg Pay to Another via MASTER No Credit card information and not select expire month
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Swipe to element    ${lblCreditAndDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe to element    ${btnOKinPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonth}    ${AlertExpireMonth}
+    Mobile Capture Screen At Verify Point    pop up msg via MASTER No Credit card information and not select expire month
+
+Verify Error msg Pay to Another via MASTER No Credit card information and not select expire year
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Swipe element to specific area    ${lblCreditAndDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Month In Expiry Date    09
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireYear}    ${AlertExpireYear}
+    Mobile Capture Screen At Verify Point    pop up msg via MASTER No Credit card information and not select expire year
+
+Verify Error msg Pay to Another via MASTER No Credit card information and not select expire month and year
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonthAndYear}    ${AlertExpireMonthAndYear}
+    Mobile Capture Screen At Verify Point    pop up msg via MASTER No Credit card information and not select expire month and year
+
+Verify Error msg Pay to Another via MASTER No Credit card information and not input CVV
+    [Arguments]    ${MasterCard}
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Swipe element to specific area    ${lblCreditAndDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Mobile Capture Screen At Verify Point    Error msg Pay to Another via MASTER No Credit card information and not input CVV
+
+Verify Payment page no usage and No Credit card information (Pay to another)
+    [Arguments]    ${Number}
+    [Documentation]    Owner : Pu
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblNoOutstandingBalance}    ${txtNoOutstandingBalance}
+    Mobile element name should be    ${lblAdvancepayment}    ${txtAdvancePayment}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Wait Mobile Until Element Visible    ${lblAMEX}
+    Mobile element name should be    ${lblEWallet}    ${txtEWallet}
+    Wait Mobile Until Element Visible    ${btnEWALLET}
+    Swipe to element    ${lblTermsAndConditions}
+    Mobile element name should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element name should be    ${btnBack}    ${txtBack}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile element name should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Payment page no usage and No Credit card information (Pay to another)
+
+Verify Payment page no usage and have Credit card information (Pay to another)
+    [Arguments]    ${Number}
+    [Documentation]    Owner : Pu
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblNoOutstandingBalance}    ${txtNoOutstandingBalance}
+    Mobile element name should be    ${lblAdvancepayment}    ${txtAdvancePayment}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element name should be    ${lblManage}    ${txtManage}
+    Wait Mobile Until Element Visible    ${imgVISA}
+    Mobile element text should match regexp    ${txtPaymentCardNumberVISA}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgMasterCard}
+    Mobile element text should match regexp    ${txtPaymentCardNumberMasterCard}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgJCB}
+    Mobile element text should match regexp    ${txtPaymentCardNumberJCB}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgOther}
+    Swipe to element    ${lblTermsAndConditions}
+    Wait Mobile Until Element Visible    ${imgEwalletinOtherCard}
+    Mobile element text should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnNext}    ${txtNext}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Payment page no usage and have Credit card information (Pay to another)
+
+Verify Payment page have usage and have Credit card information (Pay to another)
+    [Arguments]    ${Number}
+    [Documentation]    Owner : Pu
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblBillingCycle}    ${txtBillingCycle}
+    Mobile element name should be    ${lblDueDate}    ${txtDueDate}
+    Mobile element name should be    ${lblYourBalance}    ${txtYourBalance}
+    Mobile element name should be    ${lblTotalBillingAmount}    ${txtTotalBillingAmount}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element name should be    ${lblManage}    ${txtManage}
+    Wait Mobile Until Element Visible    ${imgVISA}
+    Mobile element text should match regexp    ${txtPaymentCardNumberVISA}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgMasterCard}
+    Mobile element text should match regexp    ${txtPaymentCardNumberMasterCard}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgJCB}
+    Mobile element text should match regexp    ${txtPaymentCardNumberJCB}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgOther}
+    Swipe to element    ${lblTermsAndConditions}
+    Wait Mobile Until Element Visible    ${imgEwalletinOtherCard}
+    Mobile element text should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnNext}    ${txtNext}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Payment page have usage and have Credit card information (Pay to another)
+
+Verify Pay to another number via credit card (VISA) No credit card information
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    [Documentation]    Owner : Pu
+    Sleep    5
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    ${statusOKCertError}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnOKCertificateError}
+    Run Keyword If    ${statusOKCertError}    Click Mobile Element    ${btnOKCertificateError}
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Pay to another number via credit card (VISA) No credit card information
+
+Verify Error msg Pay to Another via JCB No Credit card information and not select expire month
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Swipe element to specific area    ${lblCreditAndDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonth}    ${AlertExpireMonth}
+    Mobile Capture Screen At Verify Point    pop up msg via JCB No Credit card information and not select expire month
+
+Verify Error msg Pay to Another via JCB No Credit card information and not select expire year
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Swipe element to specific area    ${lblCreditAndDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Select Month In Expiry Date    09
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireYear}    ${AlertExpireYear}
+    Mobile Capture Screen At Verify Point    pop up msg via MASTER No Credit card information and not select expire year
+
+Verify Error msg Pay to Another via JCB No Credit card information and not select expire month and year
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Swipe element to specific area    ${lblCreditAndDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonthAndYear}    ${AlertExpireMonthAndYear}
+    Mobile Capture Screen At Verify Point    pop up msg via JCB No Credit card information and not select expire month and year
+
+Verify Error msg Pay to Another via JCB No Credit card information and not input CVV
+    [Arguments]    ${JCB}
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Swipe element to specific area    ${lblCreditAndDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Mobile Capture Screen At Verify Point    pop up msg via JCB No Credit card information and not input CVV
+
+Verify not input credit card number (JCB)
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Swipe element to specific area    ${lblCreditAndDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}
+    Mobile Capture Screen At Verify Point    Pop Up Msg Not Input Card Number (JCB)
+
+Verify pop up msg via VISA No Credit card information and not input CVV
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Comment    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire Yearandmonth
+
+Verify pop up msg via MASTER No Credit card information and not input credit card number
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select MASTER Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Comment    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire month
+
+Verify pop up msg via MASTER No Credit card information and not select expire month
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select MASTER Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Comment    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${txtErrorNotSelectExpireMonth}    ${AlertExpireMonth}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire month
+
+Verify pop up msg via MASTER No Credit card information and not select expire year
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select MASTER Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireYear}    ${AlertExpireYear}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire month
+
+Verify pop up msg via MASTER No Credit card information and not select expire yearandmonth
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Swipe element to specific area    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select MASTER Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}    120
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Comment    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonthAndYear}    ${AlertExpireMonthAndYear}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire Yearandmonth
+
+Verify pop up msg via MASTER No Credit card information and not input CVV
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select MASTER Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}    120
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Comment    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire Yearandmonth
+
+Verify pop up msg via JCB No Credit card information and not input credit card number
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    10
+    Select JCB Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Comment    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}
+    Comment    Click Mobile Element    ${btnOKCertificateError}
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    pop up msg via VISA No Credit card information and not select expire month
+
+Verify Pay to another number via credit card (MASTER) No credit card information
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Sleep    5
+    Select MASTER Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Pay to another number via credit card (MASTER) No credit card information
+
+Verify Pay to another number via credit card (JCB) No credit card information
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    Sleep    5
+    Select JCB Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Pay to another number via credit card (JCB) No credit card information
+
+Verify Pay to another number via credit card (AMEX) No credit card information
+    [Documentation]    Owner : Pu
+    Sleep    5
+    Wait Mobile Until Element Visible    ${lblAMEX}    timeout=180
+    Swipe to element    ${lblAMEX}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPaymentDetailsSummaryInAMEX}    ${txtPaymentDetailsInAMEXCard}
+    Mobile element text should be    ${lblDestinationNumberSummaryInAMEXAndEwallet}    ${txtDestinationNumber}
+    Mobile element text should be    ${lblPaymentChannelsSummaryInAMEXAndEwallet}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblCardType}    ${txtCardtype}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnOKInSummaryAMEXAndEwallet}    ${txtOK}
+    Mobile Capture Screen At Verify Point    Pay to another number via credit card (AMEX) No credit card information
+
+Verify Pay to another number via credit card (mPay) No credit card information
+    [Documentation]    Owner : Pu
+    Sleep    5
+    Wait Mobile Until Element Visible    ${lblPaymentChannelsSummaryInAMEXAndEwallet}    timeout=180
+    Swipe to element    ${lblmPay}
+    Click Mobile Element    ${lblmPay}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPaymentDetailsSummaryInAMEXAndEwallet}    ${txtPaymentDetailsInAMEXCard}
+    Mobile element text should be    ${lblDestinationNumberSummaryInAMEXAndEwallet}    ${txtDestinationNumber}
+    Mobile element text should be    ${lblPaymentChannelsSummaryInAMEXAndEwallet}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnOKInSummaryAMEXAndEwallet}    ${txtOK}
+    Mobile Capture Screen At Verify Point    Pay to another number via credit card (mPay) No credit card information
+
+Verify Pay to another number via credit card (VISA) Have credit card information
+    [Arguments]    ${CVV_VISA}
+    [Documentation]    Owner : Pu
+    Sleep    5
+    Wait Mobile Until Element Visible    ${lblYourUsageCharges}    timeout=180
+    Select VISA Card Have information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Click Mobile Element    ${txtBoxInputCVVInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Pay to another number via credit card (VISA) Have credit card information
+
+Verify Pay to another number via credit card (MASTER) Have credit card information
+    [Arguments]    ${CVV_MasterCard}
+    [Documentation]    Owner : Pu
+    Sleep    5
+    Wait Mobile Until Element Visible    ${lblYourUsageCharges}    timeout=180
+    Select MASTER Card Have information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Click Mobile Element    ${txtBoxInputCVVInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Pay to another number via credit card (MASTER) Have credit card information
+
+Verify Pay to another number via credit card (JCB) Have credit card information
+    [Arguments]    ${CVV_JCB}
+    Sleep    5
+    Wait Mobile Until Element Visible    ${lblYourUsageCharges}    timeout=180
+    Select JCB Card Have information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Click Mobile Element    ${txtBoxInputCVVInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Pay to another number via credit card (JCB) Have credit card information
+
+Verify Top up via VISA Have Credit Card Information
+    [Arguments]    ${CVV_VISA}
+    sleep    5s
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Top up via VISA Have Credit Card Information
+
+Remove card
+    Click Mobile Element    ${hamburgerbtn}
+    Click Mobile Element    ${lblYourCredit}
+    Click Mobile Element    ${lblDeletebtnCredit}
+    Mobile element name should be    ${lblremovecard}    ${RemoveCard}
+    Mobile Capture Screen At Verify Point    remove card
+
+Verify popup msg Pay to another number in case Input not AIS number
+    Input Mobile Text    ${txtBoxlMobileNumberPayment}    0863826236
+    Run Keyword And Ignore Error    Hide keyboard    key_name=Return
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyYourAISmobileNumber}
+    Mobile Capture Screen At Verify Point    MobileNumberNotAIS
+
+Verify popup msg Pay to another number in case Input not 10 digits number
+    Input Mobile Text    ${txtBoxlMobileNumberPayment}    ${WrongDigitNumber}
+    Run Keyword And Ignore Error    Hide keyboard    key_name=Return
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredIncorrectPhoneNumber}
+    Mobile Capture Screen At Verify Point    MobileNumberNot10Digit
+
+Verify error msg Pay to another number via credit card (VISA) No credit card information and Not input credit card number
+    [Arguments]    ${CVV_VISA}
+    [Documentation]    Owner : Pu
+    Input Number sub menu Pay to another number    ${AISPostpaidOutstandingBalance}
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCredit/Debit}    ${AlertCredit/Debit}    120
+    Mobile Capture Screen At Verify Point    error
+
+Verify Top up via MASTER Have Credit Card Information
+    [Arguments]    ${CVV_MasterCard}
+    sleep    5s
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Top up via MASTER Have Credit Card Information
+
+Verify Top up via JCB Have Credit Card Information
+    [Arguments]    ${CVV_JCB}
+    sleep    5s
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Top up via JCB Have Credit Card Information
+
+Top Up Select VISA Card Have information
+    Sleep    5
+    Swipe to element    ${txtBoxlMobileNumber}    Direction=down
+    Input Mobile text    ${txtBoxlMobileNumber}    ${AIS_IPENumber}
+    Select credit card    Visa
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Click Mobile Element    ${btnOKCertificateError}
+
+Top Up Select MASTER Card Have information
+    Sleep    5
+    Swipe to element    ${txtBoxlMobileNumber}    Direction=down
+    Input Mobile text    ${txtBoxlMobileNumber}    ${AIS_IPENumber}
+    Select credit card    MasterCard
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Click Mobile Element    ${btnOKCertificateError}
+
+Top Up Select JCB Card Have information
+    Sleep    5
+    Swipe to element    ${txtBoxlMobileNumber}    Direction=down
+    Input Mobile text    ${txtBoxlMobileNumber}    ${AIS_IPENumber}
+    Select credit card    JCB
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Click Mobile Element    ${btnOKCertificateError}
+
+Verify error msg Pay to another number via credit card (VISA) No credit card information and Not select expire month
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Input Number sub menu Pay to another number    ${AISPostpaidOutstandingBalance}
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonth}    ${AlertExpireMonth}
+    Mobile Capture Screen At Verify Point    error msg Payment via VISA No Credit card information and not select expire month
+
+Verify error msg Pay to another number via credit card (VISA) No credit card information and Not select expire year
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Input Number sub menu Pay to another number    ${AISPostpaidOutstandingBalance}
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Month In Expiry Date    09
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireYear}    ${AlertExpireYear}
+    Mobile Capture Screen At Verify Point    error msg Payment via VISA No Credit card information and not select expire year
+
+Verify error msg Pay to another number via credit card (VISA) No credit card information and Not select expire month and year
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Input Number sub menu Pay to another number    ${AISPostpaidOutstandingBalance}
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertExpireMonthAndYear}    ${AlertExpireMonthAndYear}
+    Mobile Capture Screen At Verify Point    error msg Payment via VISA No Credit card information and not select expire month and year
+
+Verify error msg Pay to another number via credit card (VISA) No credit card information and Not input CVV
+    [Arguments]    ${VISA}
+    Input Number sub menu Pay to another number    ${AISPostpaidOutstandingBalance}
+    Select VISA Card No Information
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}    timeout=180
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblAlertCVV}    ${AlertCVV}
+    Mobile Capture Screen At Verify Point    error msg Payment via VISA No Credit card information and not input CVV
+
+CertificateErrorbtnOK
+    ${statusOKCertError}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnOKCertificateError}
+    Run Keyword If    ${statusOKCertError}    Click Mobile Element    ${btnOKCertificateError}
+
+Verify Top up via VISA No Credit Card Information
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Mobile element name should be    ${lblSummaryTopUp}    ${txtTopUpSummary}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Wait Mobile Until Element Visible    ${lblTopUpAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Top up via credit card (VISA) No credit card information
+
+Verify Top up via MASTER No Credit Card Information
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Mobile element name should be    ${lblSummaryTopUp}    ${txtTopUpSummary}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Wait Mobile Until Element Visible    ${lblTopUpAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Top up via credit card (MASTER) No credit card information
+
+Verify Top up via JCB No Credit Card Information
+    [Arguments]    ${JCB}    ${CVV_JCB}
+    Wait Mobile Until Element Visible    ${lblSummaryTopUp}
+    Mobile element name should be    ${lblSummaryTopUp}    ${txtTopUpSummary}
+    Wait Mobile Until Element Visible    ${lblNumberInPaymentDetailPage}
+    Wait Mobile Until Element Visible    ${lblTopUpAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Click Mobile Element    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Clear Text    ${txtBoxInputCardNumberInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Top up via credit card (JCB) No credit card information
+
+Verify Top up via AMEX No Credit Card Information
+    Sleep    5s
+    Mobile element text should be    ${lblTopUpDetailsSummaryInAMEXAndEwallet}    ${txtTopUpDetailsInAMEXCard}
+    Mobile element text should be    ${lblTopUpChannelsSummaryInAMEXAndEwallet}    ${txtTopUpDestinationNumber}
+    Mobile element text should be    ${lblDestinationNumberTopUpSummaryInAMEXAndEwallet}    ${txtTopUpAMEXChannels}
+    Mobile element text should be    ${lblCardType}    ${txtCardtype}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnOKInSummaryAMEXAndEwallet}    ${txtOK}
+    Mobile Capture Screen At Verify Point    Top up via credit card (AMEX) No credit card information
+
+Choose mPAY
+    Swipe to element    ${txtBoxlMobileNumber}    Direction=down
+    Input Mobile text    ${txtBoxlMobileNumber}    ${AIS_IPENumber}
+    Swipe to element    ${lblmPay}    Direction=down
+    Click Mobile Element    ${lblmPay}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Swipe to element    ${btnOK}
+    Mobile Capture Screen At Verify Point    mPAY
+    Click Mobile Element    ${btnOK}
+
+Verify Top up via (mPay)
+    Sleep    5s
+    Mobile element text should be    ${lblTopUpDetailsSummaryInAMEXAndEwallet}    ${txtTopUpDetailsInAMEXCard}
+    Mobile element text should be    ${lblTopUpChannelsSummaryInAMEXAndEwallet}    ${txtTopUpDestinationNumber}
+    Mobile element text should be    ${lblDestinationNumberTopUpSummaryInAMEXAndEwallet}    ${txtTopUpAMEXChannels}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnOKInSummaryAMEXAndEwallet}    ${txtOK}
+    Mobile Capture Screen At Verify Point    Top up via mPAY
+
+Choose AIS Top Up
+    Input Mobile text    ${txtBoxlMobileNumber}    ${AIS_IPENumber}
+    Swipe to element    ${lblAISTopUp}
+    Click Mobile Element    ${lblAISTopUp}
+    Swipe to element    ${btnOK}
+    Input Mobile text    ${lblNationalID}    ${ID_3PO_0932019540}
+    Comment    Swipe to element    ${lbl20}
+    Click Mobile Element    ${lbl20}
+    Mobile Capture Screen At Verify Point    AIS TopUp
+    Click Mobile Element    ${btnOK}
+
+Verify Payment Page Have UsageBalance and Not CreditCard
+    [Arguments]    ${Number}
+    Sleep    2
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element name should be    ${lblYourusagechargesPayment}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblBillingCycle}    ${txtBillingCycle}
+    Mobile element name should be    ${lblDueDate}    ${txtDueDate}
+    Mobile element name should be    ${lblYourBalance}    ${txtYourBalance}
+    Mobile element name should be    ${lblTotalBillingAmount}    ${txtTotalBillingAmount}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Wait Mobile Until Element Visible    ${lblAMEX}
+    Mobile element name should be    ${lblEWallet}    ${txtEWallet}
+    Swipe to element    ${lblTermsAndConditions}
+    Wait Mobile Until Element Visible    ${btnEWALLET}
+    Mobile element name should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element name should be    ${btnBack}    ${txtBack}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile element name should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Page Payment have usagebalance and not have creditcard
+
+Verify Payment Page Have UsageBalance and Have CreditCard
+    [Arguments]    ${Number}
+    Sleep    2
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblYourusagechargesPayment}    ${txtYourUsageCharges}
+    Mobile element text should be    ${lblBillingCycle}    ${txtBillingCycle}
+    Mobile element text should be    ${lblDueDate}    ${txtDueDate}
+    Mobile element text should be    ${lblYourBalance}    ${txtYourBalance}
+    Mobile element text should be    ${lblTotalBillingAmount}    ${txtTotalBillingAmount}
+    Mobile element text should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element text should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element text should be    ${lblManage}    ${txtManage}
+    swipe in screen to element    ${btnNext}    up
+    Wait Mobile Until Element Visible    ${imgVISA}
+    Mobile element text should match regexp    ${txtPaymentCardNumberVISA}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgMasterCard}
+    Mobile element text should match regexp    ${txtPaymentCardNumberMasterCard}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgJCB}
+    Mobile element text should match regexp    ${txtPaymentCardNumberJCB}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgOther}
+    Wait Mobile Until Element Visible    ${imgEwalletinOtherCard}
+    Mobile element text should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnNext}    ${txtNext}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify page Payment Outstanding balance by credit card
+
+Verify Top up via (AIS Top Up)
+    Sleep    5s
+    Mobile element text should be    ${lblTopUpDetailsSummaryInAMEXAndEwallet}    ${txtTopUpDetailsInAMEXCard}
+    Mobile element text should be    ${lblTopUpChannelsSummaryInAMEXAndEwallet}    ${txtTopUpDestinationNumber}
+    Mobile element text should be    ${lblDestinationNumberTopUpSummaryInAMEXAndEwallet}    ${txtTopUpAMEXChannels}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnOKInSummaryAMEXAndEwallet}    ${txtOK}
+    Mobile Capture Screen At Verify Point    Top up via AIS Top Up
+
+Verify Top up no CreditCard
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblEnterDestinationNumber}    ${txtEnterDestinationNumberYouWishToTopup}
+    Mobile check existing text    ${lblMobileNumber}
+    Wait Mobile Until Page Contains Element    ${lblEnterDestinationNumber}
+    Mobile check existing text    ${txtBoxlMobileNumber}
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${txtPleaseSelectTopupChannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Comment    Wait Mobile Until Element Visible    ${lblAMEX}
+    Mobile element text should be    ${lblEWallet}    ${txtEWallet}
+    Wait Mobile Until Element Visible    ${lblmPay}
+    Wait Mobile Until Element Visible    ${lblAISTopUp}
+    Swipe to element    ${lbl10}
+    Mobile element text should be    ${lblSelectTopupAmount}    ${txtSelecttopupamount}
+    Sleep    3s
+    Mobile element text should be    ${lbl10}    ${txtTen}
+    Mobile element text should be    ${lbl20}    ${txtTwenty}
+    Mobile element text should be    ${lbl30}    ${txtThirty}
+    Mobile element text should be    ${lbl40}    ${txtFourty}
+    Mobile element text should be    ${lbl100}    ${txtOneHunred}
+    Mobile element text should be    ${lbl200}    ${txtTwoHundred}
+    Mobile element text should be    ${lbl300}    ${txtThreeHundred}
+    Click Mobile Element    ${lblMore}
+    Mobile element text should be    ${lbl50}    ${txtFifty}
+    Mobile element text should be    ${lbl400}    ${txtFourHundred}
+    Mobile element text should be    ${lbl500}    ${txtFiveHundred}
+    Mobile element text should be    ${lbl600}    ${txtSixHundred}
+    Mobile element text should be    ${lbl700}    ${txtSevenHundred}
+    Mobile element text should be    ${lbl800}    ${txtEightHundred}
+    Mobile element text should be    ${lbl1000}    ${txtOneThousand}
+    Mobile element text should be    ${lbl1500}    ${txtOneThousandandFiveHundred}
+    Swipe to element    ${btnOK}
+    Mobile element text should be    ${lblPleaseVerifyYourTopup}    ${txtPleaseverifyyourtopupinformation}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile Capture Screen At Verify Point    Top Up
+
+Verify Top Up have Credit Card
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblEnterDestinationNumber}    ${txtEnterDestinationNumberYouWishToTopup}
+    Mobile check existing text    ${lblMobileNumber}
+    Wait Mobile Until Page Contains Element    ${lblEnterDestinationNumber}
+    Mobile check existing text    ${txtBoxlMobileNumber}
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${txtPleaseSelectTopupChannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${imgVISA}
+    Mobile element text should match regexp    ${txtPaymentCardNumberVISA}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgMasterCard}
+    Mobile element text should match regexp    ${txtPaymentCardNumberMasterCard}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgJCB}
+    Mobile element text should match regexp    ${txtPaymentCardNumberJCB}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Mobile element text should be    ${lblEWallet}    ${txtEWallet}
+    Wait Mobile Until Element Visible    ${lblmPay}
+    Swipe to element    ${lbl10}
+    Wait Mobile Until Element Visible    ${lblAISTopUp}
+    Mobile element text should be    ${lblSelectTopupAmount}    ${txtSelecttopupamount}
+    Sleep    3s
+    Mobile element text should be    ${lbl10}    ${txtTen}
+    Mobile element text should be    ${lbl20}    ${txtTwenty}
+    Mobile element text should be    ${lbl30}    ${txtThirty}
+    Mobile element text should be    ${lbl40}    ${txtFourty}
+    Mobile element text should be    ${lbl100}    ${txtOneHunred}
+    Mobile element text should be    ${lbl200}    ${txtTwoHundred}
+    Mobile element text should be    ${lbl300}    ${txtThreeHundred}
+    Click Mobile Element    ${lblMore}
+    Mobile element text should be    ${lbl50}    ${txtFifty}
+    Mobile element text should be    ${lbl400}    ${txtFourHundred}
+    Mobile element text should be    ${lbl500}    ${txtFiveHundred}
+    Mobile element text should be    ${lbl600}    ${txtSixHundred}
+    Mobile element text should be    ${lbl700}    ${txtSevenHundred}
+    Mobile element text should be    ${lbl800}    ${txtEightHundred}
+    Mobile element text should be    ${lbl1000}    ${txtOneThousand}
+    Mobile element text should be    ${lbl1500}    ${txtOneThousandandFiveHundred}
+    Swipe to element    ${btnOK}
+    Mobile element text should be    ${lblPleaseVerifyYourTopup}    ${txtPleaseverifyyourtopupinformation}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile Capture Screen At Verify Point    Top Up

@@ -1,0 +1,138 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/RoamingPackage_RoamingServiceRates_PrepaidRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/RoamingPackage_RoamingServiceRates_PrepaidLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Page Roming Service Rate Not Select Country
+    [Arguments]    ${Number}
+    Mobile element name should be    ${lblMobileNumberRoamingServiceRates}    ${Number}
+    Mobile element name should be    ${lblVoiceCallRoaming}    ${txtVoiceCallRoaming}    # Voice Call Roaming
+    Mobile element name should be    ${lblVoiceCallRoamingPleaseSelect}    ${txtVoiceCallRoamingPleaseSelectCountry}    # Please select country and customer type
+    Mobile element name should be    ${lblVoiceCallRoamingLocalCall}    ${txtLocalCall}    # Local call
+    Mobile element name should be    ${lblVoiceCallRoamingCallToThailand}    ${txtCallToThailand}    # Call to Thailand
+    Mobile element name should be    ${lblVoiceCallRoamingCallToOtherCountry}    ${txtCallToOtherCountry}    # Call to other countries
+    Mobile element name should be    ${lblVoiceCallRoamingReceivingCall}    ${txtReceivingCall}    # Receiving call
+    Mobile element name should be    ${lblSMSRoaming}    ${txtSMSRoaming}    # SMS Roaming \ \ (Baht/SMS)
+    Mobile element name should be    ${lblSMSAndDataRoamingPleaseSelect}    ${txtSMSRoamingPleaseSelectCountry}    # Please select country and customer type
+    Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${txtGreatSavingRoamingPackages}    # Great Saving Roaming Packages
+    Mobile element name should be    ${lblCondition}    ${txtCondition}    #Condition
+    Mobile Capture Screen At Verify Point    Verify Roaming Service Rate
+
+Verify Roaming Service Rate With Select Country
+    [Arguments]    ${Number}
+    Mobile element name should be    ${lblMobileNumberRoamingServiceRates}    ${Number}    #Mobile Number
+    Mobile element name should be    ${lblVoiceCallRoaming}    ${txtVoiceCallRoaming}    #Voice Call Roaming
+    ${txtVoiceRate}    Aisappium Get Element Attribute    ${fldLocalCall}    name    #Check existing number after select country
+    Should Match Regexp    "${txtVoiceRate}"    \\d*
+    log    ${txtVoiceRate}
+    Mobile element name should be    ${lblSMSRoaming}    ${txtSMSRoaming}    #SMS Roaming (Baht/SMS)
+    Mobile element name should be    ${lblDataRoaming}    ${txtDataRoaming}    #Data Roaming
+    ${txtSMSRate}    Aisappium Get Element Attribute    ${fldSMSRoaming}    name    #Check existing number after select country
+    Should Match Regexp    "${txtSMSRate}"    \\d*
+    log    ${txtSMSRate}
+    Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${txtGreatSavingRoamingPackages}    #Great Saving Roaming Packages
+    Mobile Capture Screen At Verify Point    Verify Roaming Service Rate Case Select Country
+
+Select Country
+    [Arguments]    ${CountryName}
+    Click Mobile Element    ${ddlChooseCountryRoamingServiceRates}
+    Swipe to element    ${ddlCountry${CountryName}}    screen    up    0.4    100
+    Click Mobile Element    ${ddlCountry${CountryName}}
+    ${countryName}    Get mobile attribute    ${ddlCountry${CountryName}}    name
+    log    ${countryName}
+    [Return]    ${countryName}
+
+Verify Apply Roaming Package Page
+    [Arguments]    ${CountryName}    ${CustomerType}    ${MobileNumber}
+    Mobile element name should be    ${lblMobileNumberApplyRoamingPackage}    ${MobileNumber}    #Mobile Number
+    Mobile element name should be    ${lblRoamingCountry}    ${txtRoamingCountry}    #Roaming Country
+    Mobile element name should be    ${ddlApplyRoamingCountry}    ${CountryName}    #Country Name
+    Mobile element name should be    ${lblCustomerType}    ${txtCustomerType}    #Customer type
+    Mobile element name should be    ${ddlApplyRoamingCustomerType}    ${CustomerType}    #AIS One2Call!I(Default)
+    Mobile element name should be    ${lblPackageType}    ${txtPackageType}    #Package type
+    Mobile element name should be    ${ddlApplyRoamingPackageType}    ${txtPleaseSelect}    #Please Select
+    Mobile element name should be    ${btnContinue}    ${txtContinue}    #Continue
+    Mobile element name should be    ${lblCondition}    ${txtCondition}    #Condition
+    Mobile Capture Screen At Verify Point    Verify Apply Roaming Page
+
+Click Great Saving Roaming Packages Button
+    Click Mobile Element    ${btnGreatSavingRoamingPackage}
+
+Click Continue Button
+    Click Mobile Element    ${btnContinue}
+
+Verify Apply Roaming Package Not Select Country
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtPleaseCountry}
+    Mobile Capture Screen At Verify Point    Verify Apply Roaming Package With Not Select Country
+    Click Mobile Element    ${btnOK}
+
+Verify Apply Roaming Package Not Select Package
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtPleaseSelectPackageType}
+    Mobile Capture Screen At Verify Point    Apply Roaming Not Select Package Type
+
+Select Country In Apply Roaming Page
+    [Arguments]    ${CountryName}
+    Click Mobile Element    ${ddlChooseCountryApplyRoamingPackage}
+    Swipe to element    ${ddlCountry${CountryName}}    screen    up    0.4    100
+    Click Mobile Element    ${ddlCountry${CountryName}}
+    ${countryName}    Get mobile attribute    ${ddlCountry${CountryName}}    name
+    log    ${countryName}
+    [Return]    ${countryName}
+
+Select Package Type
+    [Arguments]    ${PackageName}
+    Click Mobile Element    ${ddlSelectPackageTypeApplyRoamingPackage}
+    Click Mobile Element    ${ddlPackage${PackageName}}
+
+Select First Package
+    Click Mobile Element    ${lbFirstlPackage}
+
+Select Specify Start Date
+    Click Mobile Element    ${rdoSpecifyDateStartDate}
+
+Select Current Date and Time
+    Click Mobile Element    ${lblDate}
+
+Click Ok Button
+    Click Mobile Element    ${btnOKSelectDateTime}
+
+Select State
+    [Arguments]    ${StateName}
+    Click Mobile Element    ${ddlSelectState}
+    Click Mobile Element    ${ddlState${StateName}}
+
+Click Subscribe Button
+    Swipe to element    ${btnSubscribe}
+    Click Mobile Element    ${btnSubscribe}
+
+Verify Please Select Start Date After Current Date
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtPleaseSpecifyDateAfterCurrentDate}
+    Mobile Capture Screen At Verify Point    Verify Dialog Specify Start Date After Current Date
+
+Verify Page Roming Service Rate
+    [Arguments]    ${Number}
+    Mobile element name should be    ${lblMobileNumberRoamingServiceRates}    ${Number}
+    Mobile element name should be    ${lblVoiceCallRoaming}    ${txtVoiceCallRoaming}    # Voice Call Roaming
+    Mobile element name should be    ${lblVoiceCallRoamingPleaseSelect}    ${txtVoiceCallRoamingPleaseSelectCountry}    # Please select country and customer type
+    Mobile element name should be    ${lblVoiceCallRoamingLocalCall}    ${txtLocalCall}    # Local call
+    Mobile element name should be    ${lblVoiceCallRoamingCallToThailand}    ${txtCallToThailand}    # Call to Thailand
+    Mobile element name should be    ${lblVoiceCallRoamingCallToOtherCountry}    ${txtCallToOtherCountry}    # Call to other countries
+    Mobile element name should be    ${lblVoiceCallRoamingReceivingCall}    ${txtReceivingCall}    # Receiving call
+    Mobile element name should be    ${lblSMSRoaming}    ${txtSMSRoaming}    # SMS Roaming \ \ (Baht/SMS)
+    Mobile element name should be    ${lblSMSAndDataRoamingPleaseSelect}    ${txtSMSRoamingPleaseSelectCountry}    # Please select country and customer type
+    Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${txtGreatSavingRoamingPackages}    # Great Saving Roaming Packages
+    Mobile element name should be    ${lblCondition}    ${txtCondition}    #Condition
+    Mobile Capture Screen At Verify Point    Verify Roaming Service Rate

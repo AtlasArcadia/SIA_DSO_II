@@ -1,0 +1,23 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageVariable/Gold_SurpriseCampaignVariable.txt
+Resource          ../PageRepository/Gold_SurpriseCampaignRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_SurpriseCampaignLocalized.txt
+
+*** Keywords ***
+Verify Surprise Campaign
+    Sleep    8s
+    Scroll Web To Element    ${imgSurpriseCampaign}
+    Click Web Element    ${imgSurpriseCampaign}
+    Sleep    15s
+    Select Window    url=${urlSurpriseCampaign}
+    Verify Link    ${urlSurpriseCampaign}
+    Verify Serenade Ultimate Surprize Page
+    Web Capture Screen At Verify Point    UltimateSurprise
+
+Verify Serenade Ultimate Surprize Page
+    ${text}=    Get Web Text    ${lblAnnouce}
+    log    ${text}
+    ${textMatch}=    Should Match Regexp    ${text}    ${txtUltimateSurprise}\\s.*\\s\\d{4}
+    log    ${textMatch}
+    Web Capture Screen At Verify Point    Serenade Ultimate Surprizes Page

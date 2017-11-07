@@ -1,0 +1,52 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/MyAISCommon.txt
+
+*** Test Cases ***
+[F1_2_3_4] TestOpenWeb1
+    [Tags]    3PO    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_local_config_file_path_copy}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    Open Web Browser    ${virtual_device_1_URL}    gc    ${lo_IPSelenium}
+    Open Browser    ${virtual_device_1_URL}    gc    remote_url=${lo_IPSelenium}
+    sleep    10
+    Run Keyword And Continue On Failure    Close All Browsers
+    [Teardown]    Release Virtual Local Configurations    ${lo_local_config_file_path_copy}    ${#dict_device_name}
+
+[F2_5_6_7] TestOpenWeb2
+    [Tags]    3PE    fail
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_local_config_file_path_copy}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    Open Web Browser    ${virtual_device_1_URL}    gc    ${lo_IPSelenium}
+    Open Browser    ${virtual_device_1_URL}    gc    remote_url=${lo_IPSelenium}
+    sleep    10
+    Run Keyword And Continue On Failure    Close All Browsers
+    [Teardown]    Release Virtual Local Configurations    ${lo_local_config_file_path_copy}    ${#dict_device_name}
+
+[test] TestOpenWeb3
+    [Tags]    Teemo
+    Open Browser    http://www.facebook.com    gc    remote_url=${lo_IPSelenium}
+    sleep    10
+    Close Browser
+
+Test USSD
+    Open Phone Call App
+
+keyword
+    Comment    Aisappium Click Element    xpath=//*[@id="id123"]
+    Comment    Selenium2Library.Click Element
+    Should Match Regexp    2 of every month.    [1-9][0-9]* of every month.
+
+*** Keywords ***
+Open Phone Call App
+    Aisappium Open Application    http://10.239.223.71:4488/wd/hub    platformName=Android    platformVersion=5.0    udid=5203b116fed56309    appPackage=com.doublegis.dialer    appActivity=com.doublegis.dialer.MainActivity
+    ...    deviceName=J7
+    Click Mobile Element    xpath=//android.widget.LinearLayout[@resource-id="com.doublegis.dialer:id/bottom_side"]
+    Input Mobile Text    xpath=//android.widget.EditText[@resource-id="com.doublegis.dialer:id/digits"]    *777#
+    Click Mobile Element    xpath=//android.widget.ImageView[@resource-id="com.doublegis.dialer:id/btnDial"]
+    Click Mobile Element    xpath=//android.widget.RelativeLayout[@resource-id="com.doublegis.dialer:id/sim_1"]
+    Mobile element text should be    xpath=//android.widget.TextView[@resource-id="com.android.phone:id/dialog_message"]    Please select number to reply:\n 1 Internet / Wifi on-top packages\n 2 Voice Call on-top packages\n 9 next
+    Input Mobile Text    xpath=//android.widget.EditText[@resource-id="com.android.phone:id/input_field"]    9
+    Click Mobile Element    xpath=//android.widget.Button[@resource-id="android:id/button1"]
+
+Close Phone App

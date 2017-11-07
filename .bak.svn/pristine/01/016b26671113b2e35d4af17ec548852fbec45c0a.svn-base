@@ -1,0 +1,36 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[Perf-19] Go to Ais Cloud
+    [Documentation]    "1. Login to my AIS
+    ...    2. Select Home
+    ...    3. Swipe summary box to AIS Clound+ storage
+    ...    4. Click AIS Clound+ storage
+    ...
+    ...
+    ...    * จับเวลาตั้งแต่ Swipe summary box จนถึงโหลดหน้า web สำเร็จ"
+    [Tags]    perf_19
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    verify login
+    Select Menu    Home
+    ${StartTime}    Get Current Date
+    Swipe to AIS Cloud
+    ${EndTime}    Get Current Date
+    ${ElapsedTime}    Subtract Date From Date    ${EndTime}    ${StartTime}    verbose
+    [Teardown]    Teardown For Data Mobile    ${#dict_device_name}
+
+*** Keywords ***
+Teardown For Data Mobile
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Swipe to AIS Cloud
+    swipe in container to element by wait until visible N time    ${lblAisCloudTitle}    ${lblHomeSummaryContainner}    2    left

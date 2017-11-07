@@ -1,0 +1,966 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/MyAccount.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F1_1-4_1-2_Y_1_Prod] Hamberger menu
+    [Documentation]    [F1_2,4_1-2_Y_1_Test] Hamberger menu
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Verify sub menu
+    ...    - Create my AIS
+    ...    - My Profile
+    ...    - AIS Online Store
+    ...    - AIS Website
+    ...    - AIS Facebook
+    ...    - AIS Twitter
+    ...    - AIS Line
+    ...    - Setting
+    ...    - Log Out
+    ...    4. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. ตรวจสอบ เมนูย่อย
+    ...    - สมัครmy AIS
+    ...    - ข้อมูลของคุณ
+    ...    - AIS Online Store
+    ...    - AIS Website
+    ...    - AIS Facebook
+    ...    - AIS Twitter
+    ...    - AIS Line
+    ...    - ตั้งค่า
+    ...    - ออกจากระบบ
+    ...    4. บันทึกภาพ
+    ...
+    ...    [F1_Hamburger_1_2_Y_1_1] Verify Page Menu Hamburger In Case: No register MyAIS
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN ------
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Verify page ""Hamburger""
+    ...    - ""Mobile no.""
+    ...    - ""Register""
+    ...    - ""My Profile""
+    ...    - ""AIS Online Store""
+    ...    - ""AIS Website""
+    ...    - ""AIS Facebook""
+    ...    - ""AIS Twitter""
+    ...    - ""AIS Line""
+    ...    - ""Settings""
+    ...    - ""Log Out""
+    ...    4. Capture Screen
+    ...
+    ...    ----- TH ------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. ตรวจสอบหน้า เมนู ""Hamburger""
+    ...    - ""เบอร์โทรศัพท์""
+    ...    - ""สมัคร my AIS""
+    ...    - ""ข้อมูลของคุณ""
+    ...    - ""AIS Online Store""
+    ...    - ""AIS Website""
+    ...    - ""AIS Facebook""
+    ...    - ""AIS Twitter""
+    ...    - ""AIS Line""
+    ...    - ""ตั้งค่า""
+    ...    - ""ออกจากระบบ""
+    ...    4. จับภาพหน้าจอ
+    [Tags]    active    success    regression    sanity
+    [Timeout]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Verify Sub Menu in Hamberger    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_1-4_1-2_Y_2_Prod] Go to create my AIS
+    [Documentation]    [F1_2,4_1-2_Y_2_Test] Go to create my AIS
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Click Create my AIS
+    ...    4. Verify Create my AIS Page
+    ...    - Mobile Number / Internet Number *
+    ...    - ID Card Number (13 digits) *
+    ...    - Email *
+    ...    - Back & Reguest OTP (button)
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. ตรวจสอบ เมนูย่อย
+    ...    - สมัครmy AIS
+    ...    - ข้อมูลของคุณ
+    ...    - AIS Online Store
+    ...    - AIS Website
+    ...    - AIS Facebook
+    ...    - AIS Twitter
+    ...    - AIS Line
+    ...    - ตั้งค่า
+    ...    - ออกจากระบบ
+    ...    4. บันทึกภาพ
+    ...
+    ...    F1_Hamburger_1_2_Y_3_1 "Verify Page ""Create my AIS"" In Case: No register MyAIS"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""Register""
+    ...    4. Verify page ""Create my AIS""
+    ...    - ""Create my AIS"" at header
+    ...    - ""my AIS"" Image
+    ...    - ""Full service in one account"" text
+    ...    - ""A single login gets you into a convenient way to managing your account."" text
+    ...    - ""Easy step to create an account""
+    ...    - ""Create with mobile number/internet number and Identification card number."" text
+    ...    - ""Add multiple mobile numbers to account."" text
+    ...    - ""Confirm and start using."" text
+    ...    - ""Create my AIS"" button
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. ตรวจสอบหน้า ""สมัคร my AIS""
+    ...    - ""สมัคร my AIS"" at header
+    ...    - ""my AIS"" รูปภาพ
+    ...    - ""ครบทุกบริการออนไลน์"" text
+    ...    - ""ที่ให้คุณจัดการทุกหมายเลข ภายในบัญชีของคุณ เพียงล็อกอินเดียว"" text
+    ...    - ""สมัคร my AIS ได้ง่ายๆ""
+    ...    - ""สมัครด้วยหมายเลขโทรศัพท์ หรือ อินเทอร์เน็ต และหมายเลขบัตรประชาชน"" text
+    ...    - ""เพิ่มหมายเลขสมาชิกภายในบัญชี"" text
+    ...    - ""ยืนยันและเริ่มใช้งานได้ทันที"" text
+    ...    - ปุ่ม ""สมัคร my AIS""
+    ...    4. จับภาพหน้าจอ
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu    Register
+    Verify Create MyAIS
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Select Create MyAIS
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Verify Create MyAIS Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_1-4_1-2_Y_3_Prod] Go to my profile
+    [Documentation]    [F1_2,4_1-2_Y_3_Test] Go to my profile
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Click My Profile
+    ...    4. Verify My Profile Page
+    ...    - Name
+    ...    - Mobile number
+    ...    - Birthday
+    ...    - Segment
+    ...    - Service year
+    ...    - Message
+    ...    - Your Bill Cycle
+    ...    • Bill Cycle (Start date - End date)
+    ...    • Payment Dye Date :
+    ...    - Your Bill Media
+    ...    • Bill Media Preference :
+    ...    • Preferred bill language :
+    ...    - Billing Address
+    ...    • First - Last Name :
+    ...    • Address :
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. คลิก My Profile
+    ...    4. ตรวจสอบ My Profile Page
+    ...    - ชื่อ (ไอคอน)
+    ...    - เบอร์โทรศัพท์ (ไอคอน)
+    ...    - วันเกิด (ไอคอน)
+    ...    - Segment (ไอคอน)
+    ...    - Service year (ไอคอน)
+    ...    - ข้อความ (ไอคอน)
+    ...    - รอบบิล
+    ...    • รอบบิลของคุณตั้งแต่ :
+    ...    • วันครบกำหนดชำระวันที่ :
+    ...    - Your Bill Media
+    ...    • Bill Media Preference :
+    ...    • Preferred bill language :
+    ...    - ที่อยู่ในการจัดส่งเอกสาร
+    ...    • ชื่อ - นามสกุล :
+    ...    • ที่อยู่ :
+    ...    5. บันทึกภาพ
+    ...
+    ...    F1_Hamburger_1_2_Y_6_1 Verify Page "My Profile"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""My Profile""
+    ...    4. Verify page ""My Profile""
+    ...    - ""Customer Name""
+    ...    - ""Mobile no.""
+    ...    - ""Birthday""
+    ...    - ""Secment""
+    ...    - ""Service year""
+    ...    - ""Message""
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. คลิก ""ข้อมูลของคุณ""
+    ...    4. ตรวจสอบหน้า ""ข้อมูลของคุณ""
+    ...    - ""ชื่อลูกค้า""
+    ...    - ""เบอร์โทรศัพท์""
+    ...    - ""วันเกิด""
+    ...    - ""ประเภทลูกค้า""
+    ...    - ""Service year""
+    ...    - ""ข้อความ""
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu    MyProfile
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Verify MyProfile Page    ${Number}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Verify My Profile Prepaid    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_1-4_1-2_Y_4_Prod] Go to AIS online store
+    [Documentation]    [F1_2,4_1-2_Y_4_Test] Go to AIS online store
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Click AIS Online Store
+    ...    4. Verify AIS Online Store Page
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. คลิก AIS Online Store
+    ...    4. ตรวจสอบหน้า AIS Online Store
+    ...    5. บันทึกภาพ
+    ...
+    ...    F1_Hamburger_1_2_Y_7_1 Verify Page "AIS Online Store"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN ------
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""AIS Online Store""
+    ...    4. Verify page ""AIS Online Store""
+    ...    - ""AIS Online Store"" at header
+    ...    - ""AIS Online Store"" logo
+    ...    5. Capture Screen
+    ...    ----- TH ------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamberger""
+    ...    3. คลิก ""AIS Online Store""
+    ...    4. ตรวจสอบหน้า ""AIS Online Store""
+    ...    - ""AIS Online Store"" at header
+    ...    - ""AIS Online Store"" logo
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu    AISOnlineStore
+    Verify AIS Online Store
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_1-4_1-2_Y_5_Prod] Go to AIS website
+    [Documentation]    [F1_2,4_1-2_Y_5_Test] Go to AIS website
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Click AIS Website
+    ...    4. Verify AIS Website Page
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. Click AIS Website
+    ...    4. Verify AIS Website Page
+    ...    5. บันทึกภาพ
+    ...
+    ...    F1_Hamburger_1_2_Y_8_1 Verify Page "AIS Website"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ------ EN ------
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""AIS Website""
+    ...    4. Verify page ""AIS Website""
+    ...    - ""AIS Website"" at header
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH ------
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. คลิก ""AIS Website""
+    ...    4. ตรวจสอบหน้า ""AIS Website""
+    ...    - ""AIS Website"" at header
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu    AISWebsite
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Go To AIS Web Site
+    Verify AIS Web Site
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_1-4_1-2_Y_6_Prod] Go to AIS facebook
+    [Documentation]    [F1_2,4_1-2_Y_6_Test] Go to AIS facebook
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Click AIS Facebook
+    ...    4. Verify AIS Facebook Page
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. คลิก AIS Facebook
+    ...    4. ตรวจสอบหน้า AIS Facebook
+    ...    5. บันทึกภาพ
+    ...
+    ...
+    ...    F1_Hamburger_1_2_Y_9_1 Verify Page "AIS Facebook"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""AIS Facebook""
+    ...    4. Verify page ""AIS Facebook""
+    ...    - ""Facebook"" at header
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. คลิก ""AIS Facebook""
+    ...    4. ตรวจสอบหน้า ""AIS Facebook""
+    ...    - ""Facebook"" at header
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu    AISFacebook
+    Verify Facebook Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_1-4_1-2_Y_7_Prod] Go to AIS twitter
+    [Documentation]    [F1_2,4_1-2_Y_7_Test] Go to AIS twitter
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Click AIS Twitter
+    ...    4. Verify AIS Twitter Page
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. คลิก AIS Twitter
+    ...    4. ตรวจสอบหน้า AIS Twitter
+    ...    5. บันทึกภาพ
+    ...
+    ...
+    ...    F1_Hamburger_1_2_Y_10_1 Verify Page "AIS Twitter"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""AIS Twitter""
+    ...    4. Verify page ""AIS Twitter""
+    ...    - ""Twitter"" at header
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. คลิก ""AIS Twitter""
+    ...    4. ตรวจสอบหน้า""AIS Twitter""
+    ...    - ""Twitter"" at header
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu    AISTwitter
+    Verify Twitter Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_1-4_1-2_Y_8_Prod] Go to AIS line
+    [Documentation]    [F1_2,4_1-2_Y_8_Test] Go to AIS line
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Click AIS Line
+    ...    4. Verify AIS Line Page
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. คลิก AIS Line
+    ...    4. ตรวจสอบหน้า AIS Line
+    ...    5. บันทึกภาพ
+    ...
+    ...    F1_Hamburger_1_2_Y_11_1 Verify Page "AIS Line"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamberger""
+    ...    3. Click menu ""AIS Line""
+    ...    4. Verify page ""AIS Line""
+    ...    - ""Line"" at header
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamberger""
+    ...    3. คลิก ""AIS Line""
+    ...    4. ตรวจสอบหน้า ""AIS Line""
+    ...    - ""Line"" at header
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu    AISLine
+    Verify Line Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_1-4_1-2_Y_9_Prod] Go to settings
+    [Documentation]    [F1_2,4_1-2_Y_9_Test] Go to settings
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Click Settings
+    ...    4. Verify Settings display
+    ...    - Language
+    ...    - Notification
+    ...    - Terms & Conditions
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. คลิก ตั้งค่า
+    ...    4. ตรวจสอบหน้า ตั้งค่า
+    ...    - ภาษา
+    ...    - แจ้งเตือน
+    ...    - เงื่อนไขบริการ
+    ...    5. บันทึกภาพ
+    ...
+    ...    F1_Hamburger_1_2_Y_12_1 Verify Page "Settings"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""Settings""
+    ...    4. Verify page ""Settings""
+    ...    - ""Setting"" at header
+    ...    - ""Language""
+    ...    - ""Terms & Conditions""
+    ...    - ""my AIS"" Image
+    ...    - ""my AIS Version""
+    ...    - ""A new online experience that allows you to manage all what you need to know at hands 24 Hours"" text
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. คลิก ""ตั้งค่า""
+    ...    4. ตรวจสอบหน้า ""ตั้งค่า""
+    ...    - ""ตั้งค่า"" at header
+    ...    - ""ภาษา""
+    ...    - ""เงื่อนไขบริการ""
+    ...    - ""my AIS"" Image
+    ...    - ""my AIS Version""
+    ...    - ""บริการออนไลน์รูปแบบใหม่
+    ...    ที่ให้คุณจัดการทุกเรื่อง
+    ...    ได้ด้วยตัวคุณเองตลอด 24 ชั่วโมง"" text
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu    Settings
+    Verify Setting Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_1-4_1-2_Y_10_Prod] Log out
+    [Documentation]    [F1_2,4_1-2_Y_10_Test] Log out
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ===EN===
+    ...    1. Login my AIS
+    ...    2. Click Hamberger menu
+    ...    3. Click Log Out
+    ...    4. Verify Login display
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. คลิก ออกจากระบบ
+    ...    4. ตรวจสอบหน้า เข้าสู่ระบบ
+    ...    5. บันทึกภาพ
+    ...
+    ...    F1_Hamburger_1_2_Y_13_1 "Verify Page ""Log in"" In Case: Log out"
+    ...    Owner: *B*
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""Log out""
+    ...    4. Verify page ""Log in""
+    ...    - AIS banner
+    ...    - ""Create my AIS""
+    ...    - ""Login""
+    ...    - ""TH/EN"" button
+    ...    - ""Mobile Number / Internet Number"" textbox
+    ...    - ""OK"" button
+    ...    - ""Terms & Conditions""
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. คลิก ""ออกจากระบบ""
+    ...    4. ตรวจสอบหน้า ""ล็อกอิน""
+    ...    - AIS banner
+    ...    - ""สมัคร my AIS""
+    ...    - ""ล็อกอิน""
+    ...    - ปุ่ม ""TH/EN""
+    ...    - ""หมายเลขโทรศัพท์ / อินเทอร์เน็ต"" textbox
+    ...    - ปุ่ม ""ตกลง""
+    ...    - ""เงื่อนไขบริการ""
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Hamberger
+    Select Sub Menu    LogOutMyAIS
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Verify Log Out MyAIS
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Verify Log In Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[Perf-01] Login MyAIS App
+    [Documentation]    Open My AIS App
+    ...
+    ...    *จับเวลาตั้งแต่เปิด App จนโหลดหน้า Home เรียบร้อย*
+    [Tags]    perf_01
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_myAIS_Perf_config_file_path_test}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Choose Language    ${ar_LANG}
+    Verify Login Postpaid
+    ${EndTime}    Get Current Date
+    ${ElapsedTime}    Subtract Date From Date    ${EndTime}    ${StartTime}    verbose
+    Log    Time Used ${ElapsedTime}
+    [Teardown]    Teardown For Data Mobile    ${#dict_device_name}
+
+[Perf-20] Login MyAIS App Prepaid
+    [Documentation]    Open My AIS App
+    ...
+    ...    *จับเวลาตั้งแต่เปิด App จนโหลดหน้า Home เรียบร้อย*
+    [Tags]    perf_20
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_myAIS_Perf_config_file_path_test}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    ${StartTime}    Get Current Date
+    Verify Login Prepaid
+    ${EndTime}    Get Current Date
+    ${ElapsedTime}    Subtract Date From Date    ${EndTime}    ${StartTime}    verbose
+    Log    Time Used ${ElapsedTime}
+    [Teardown]    Teardown For Data Mobile    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke.
+
+[F1_Hamburger_1,3_2_Y_2_1] Verify page menu hamburger in case: register myais
+    [Documentation]    F1_Hamburger_1_2_Y_2_1 "Verify Page Menu Hamburger
+    ...    In Case: register MyAIS"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Verify page ""Hamburger""
+    ...    - ""Mobile no.""
+    ...    - ""my AIS Account""
+    ...    - ""My Profile""
+    ...    - ""AIS Online Store""
+    ...    - ""AIS Website""
+    ...    - ""AIS Facebook""
+    ...    - ""AIS Twitter""
+    ...    - ""AIS Line""
+    ...    - ""Settings""
+    ...    - ""Log Out""
+    ...    4. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. ตรวจสอบหน้า เมนู ""Hamburger""
+    ...    - ""เบอร์โทรศัพท์""
+    ...    - ""บัญชี my AIS""
+    ...    - ""ข้อมูลของคุณ""
+    ...    - ""AIS Online Store""
+    ...    - ""AIS Website""
+    ...    - ""AIS Facebook""
+    ...    - ""AIS Twitter""
+    ...    - ""AIS Line""
+    ...    - ""ตั้งค่า""
+    ...    - ""ออกจากระบบ""
+    ...    4. จับภาพหน้าจอ
+    [Tags]    On Hold_no regis
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Hamburger_1,3_2_Y_4_1] Verify page my ais account
+    [Documentation]    F1_Hamburger_1_2_Y_4_1 "Verify Page ""my AIS Account""
+    ...    In Case: มี my List"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""my AIS Account""
+    ...    4. Verify page ""my AIS Account""
+    ...    - ""my AIS Account"" at header
+    ...    - ""Main number""
+    ...    - ""Email address""
+    ...    - ""Password""
+    ...    - ""My List"" at header
+    ...    - ""Mobile no.""
+    ...    - ""Manage my AIS account""
+    ...    - ""Add+"" button
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. คลิก ""บัญชี my AIS""
+    ...    4. ตรวจสอบหน้า ""บัญชี my AIS""
+    ...    - ""บัญชี my AIS"" at header
+    ...    - ""บัญชีของคุณ""
+    ...    - ""หมายเลขหลัก""
+    ...    - ""อีเมล""
+    ...    - ""รหัสผ่าน""
+    ...    - ""หมายเลขในบัญชี my AIS ของคุณ"" at header
+    ...    - ""เบอร์โทรศัพท์""
+    ...    - ""จัดการหมายเลขในบัญชี my AIS ของคุณ""
+    ...    - ปุ่ม ""เพิ่ม+""
+    ...    5. จับภาพหน้าจอ
+    [Tags]    On Hold_no regis
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Hamburger_1,3_2_Y_5_1] Verify page my ais account In Case: no my list
+    [Documentation]    F1_Hamburger_1_2_Y_5_1 "Verify Page ""my AIS Account""
+    ...    In Case: ไม่มี my List"
+    ...    Owner: B
+    ...    Source Number : 3PE, 3BE
+    ...    Status : Active
+    ...    ----- EN -----
+    ...    1. Login MyAIS
+    ...    2. Click menu ""Hamburger""
+    ...    3. Click menu ""my AIS Account""
+    ...    4. Verify page ""my AIS Account""
+    ...    - ""my AIS Account"" at header
+    ...    - ""Main number""
+    ...    - ""Email address""
+    ...    - ""Password""
+    ...    - ""Add+"" button
+    ...    5. Capture Screen
+    ...
+    ...    ----- TH -----
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู ""Hamburger""
+    ...    3. คลิก ""บัญชี my AIS""
+    ...    4. ตรวจสอบหน้า ""บัญชี my AIS""
+    ...    - ""บัญชี my AIS"" at header
+    ...    - ""บัญชีของคุณ""
+    ...    - ""หมายเลขหลัก""
+    ...    - ""อีเมล""
+    ...    - ""รหัสผ่าน""
+    ...    - ปุ่ม ""เพิ่ม+""
+    ...    5. จับภาพหน้าจอ
+    [Tags]    On Hold_no regis
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+*** Keywords ***
+Select Hamberger
+    Wait Mobile Until Page Contains Element    ${btnHamberger}
+    Click Mobile Element    ${btnHamberger}
+
+Verify Sub Menu in Hamberger
+    [Arguments]    ${Number}
+    Sleep    2
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblMainMobileNo}    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblRegister}
+    Mobile element text should be    ${lblRegister}    ${Register}
+    Mobile element text should be    ${lblMyProfile}    ${MyProfile}
+    Mobile element text should be    ${lblAISOnlineStore}    ${AISOnlineStore}
+    Mobile element text should be    ${lblAISWebsite}    ${AISWebsite}
+    Mobile element text should be    ${lblAISFacebook}    ${AISFacebook}
+    Mobile element text should be    ${lblAISTwitter}    ${AISTwitter}
+    Mobile element text should be    ${lblAISLine}    ${AISLine}
+    Mobile element text should be    ${lblSettings}    ${Settings}
+    Mobile element text should be    ${lblLogOutMyAIS}    ${LogOut}
+    Mobile Capture Screen At Verify Point    Sub Menu in Hamberger
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Select Sub Menu
+    [Arguments]    ${SubMenu}
+    Wait Mobile Until Page Contains Element    ${lbl${SubMenu}}
+    Click Mobile Element    ${lbl${SubMenu}}
+
+Select Create MyAIS
+    Click Mobile Element    ${btnCreateMyAIS}
+
+Verify Create MyAIS Page
+    Wait Mobile Until Page Contains Element    ${lblCreateMyAIS_MobileNumber}
+    Mobile element text should be    ${lblCreateMyAIS_MobileNumber}    ${CreateMyAIS_MobileNumber}
+    Mobile element text should be    ${lblCreateMyAIS_MobileNumber_Start}    ${Start}
+    Mobile element text should be    ${lblCreateMyAISIDCard_Number}    ${CreateMyAIS_IDCardNumber}
+    Mobile element text should be    ${lblCreateMyAISIDCard_Number_Start}    ${Start}
+    Mobile element text should be    ${lblCreateMyAIS_Email}    ${CreateMyAIS_Email}
+    Mobile element text should be    ${lblCreateMyAIS_Email_Start}    ${Start}
+    Mobile element text should be    ${btnCreateMyAIS_Back}    ${CreateMyAIS_Back}
+    Mobile element text should be    ${btnCreateMyAIS_RequestOTP}    ${CreateMyAIS_RequestOTP}
+    Mobile Capture Screen At Verify Point    Verify Create MyAIS
+
+Verify MyProfile Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblMyProfile_UserName}
+    Mobile element text should match regexp    ${lblMyProfile_UserName}    .+
+    Mobile element text should be    ${lblMyProfile_MobileNumber}    ${Number}
+    Mobile element text should match regexp    ${lblMyProfile_Birthday}    .+ \\w{4}
+    Mobile element text should be    ${lblMyProfile_Privilege}    ${AISCustomer}
+    Mobile element text should match regexp    ${lblMyProfile_Service_Year}    ${ServiceYear}
+    Mobile element text should match regexp    ${lblMyProfile_Email}    .*
+    Mobile Capture Screen At Verify Point    MyProfile Page Top
+    Swipe Element To Screen    ${lblMyProfile_YourBillCycle}
+    Mobile element text should be    ${lblMyProfile_YourBillCycle}    ${YourBillCycle}
+    Mobile element text should be    ${lblMyProfile_BillCycle_Start-End}    ${BillCycle_Start-End}
+    Mobile element text should match regexp    ${lblMyProfile_BillCycle_Start-End_Ans}    ${BillCycle_Start-End_Ans}
+    Mobile element text should be    ${lblMyProfile_PaymentDueDate}    ${PaymentDueDate}
+    Mobile element text should match regexp    ${lblMyProfile_PaymentDueDate_Ans}    ${PaymentDueDate_Ans}
+    Mobile element text should be    ${lblMyProfile_BillingAddress}    ${BillingAddress}
+    Mobile element text should be    ${lblMyProfile_FirstLastName}    ${FirstLastName}
+    Mobile element text should match regexp    ${lblMyProfile_FirstLastName_Ans}    .+
+    Mobile element text should be    ${lblMyProfile_Address}    ${Address}
+    Mobile element text should match regexp    ${lblMyProfile_Address_Ans}    .+
+    Mobile Capture Screen At Verify Point    MyProfile Page Below
+
+Verify AIS Online Store
+    Sleep    2
+    Wait Mobile Until Page Contains Element    ${LogoAISStore}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblHeaderAISMenu}    ${AISOnlineStore}
+    Mobile Capture Screen At Verify Point    Web AIS Online Store
+
+Verify AIS Web Site
+    Sleep    2
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Wait Mobile Until Element Visible    ${LogoAISWebSite}
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Mobile element name should be    ${LogoAISWebSite}    ${LogoAISWebSite}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblHeaderAISMenu}    ${AISWebsite}
+    Mobile Capture Screen At Verify Point    AIS Website
+
+Go To AIS Web Site
+    Comment    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseWrapper}
+    Comment    Run Keyword If    "${status}"=="True"    Click Mobile Element At Position    ${btnCloseWrapper}    below
+    Click Mobile Element    ${btnAISWebSite}
+
+Verify Facebook Page
+    Sleep    2
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Mobile element name should be    ${LogoFacebook}    ${facebook}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Wait Mobile Until Page Contains Element    ${lblHeaderFacebook}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblHeaderAISMenu}    ${txtHeaderFacebook}
+    Mobile Capture Screen At Verify Point    Facebook Page
+
+Verify Twitter Page
+    Sleep    2
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Mobile element name should be    ${LogoTwitter}    ${Twitter}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblHeaderAISMenu}    ${txtHeaderTwitter}
+    Mobile Capture Screen At Verify Point    Twitter Page
+
+Verify Line Page
+    Sleep    2
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Mobile element name should be    ${LogoLine}    ${LINE}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblHeaderAISMenu}    ${txtHeaderLine}
+    Mobile Capture Screen At Verify Point    Line Page
+
+Verify Setting Page
+    Sleep    2
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblHeaderAISMenu}    ${txtHeaderSetting}
+    Mobile element text should be    ${lblSettingLanguage}    ${SettingLanguage}
+    Mobile element text should be    ${lblSettingTermsAndConditions}    ${SettingTermsAndConditions}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Wait Mobile Until Page Contains Element    ${LogoMyAIS}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblmyAISVersion}    ${txtmyAISVersion }
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblSettingDetail}    ${txtSettingDetail}
+    Mobile Capture Screen At Verify Point    Setting Page
+
+Verify Log Out MyAIS
+    Wait Mobile Until Element Visible    ${lblLogin}
+    Mobile Capture Screen At Verify Point    Log In Page
+
+Teardown For Data Mobile
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Comment    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_myAIS_Perf_config_file_path_test}    ${#dict_device_name}
+
+Verify Create MyAIS
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblHeaderAISMenu}    ${txtHeaderCreatemyAIS}
+    Mobile element text should be    ${lblFullServiceInOneAccount}    ${FullServiceInOneAccount}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Wait Mobile Until Element Visible    ${CreatemyAisImage}
+    Run Keyword If    '${ar_NType}'=='3PE' or '${ar_NType}'=='3BE'    Mobile element text should be    ${lblASinglelogin}    ${txtASinglelogin}
+    Mobile element text should be    ${lblEasyStep}    ${EasyStepToCreateAccount}
+    Mobile element text should be    ${lblStepOne}    ${CreateWithMobileNumber}
+    Mobile element text should be    ${lblStepTwo}    ${AddMultipleMobile}
+    Mobile element text should be    ${lblStepThree}    ${ConfirmAndStart}
+    Wait Mobile Until Element Visible    ${btnCreateMyAIS}
+    Mobile Capture Screen At Verify Point    Step Create MyAIS
+
+Verify Log In Page
+    Wait Mobile Until Page Contains Element    ${lblBandnerLogin}
+    Mobile element text should be    ${lblCreateMyAIS}    ${txtHeaderCreatemyAIS}
+    Wait Mobile Until Element Visible    ${lblLogin}
+    Mobile element text should be    ${lblLogin}    ${txtLogin}
+    Wait Mobile Until Element Visible    ${btnSwitchLang}
+    Wait Mobile Until Element Visible    ${lblTbMobileNo}
+    Mobile element text should be    ${lblTbMobileNo}    ${tbMobileNo}
+    Mobile element text should be    ${btnLoginOk}    ${txtbtnOk}
+    Mobile element text should be    ${lblTermsLoginPage}    ${SettingTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Log In Page
+
+Verify My Profile Prepaid
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblMyProfile_UserName}
+    Mobile element text should match regexp    ${lblMyProfileCusName}    .+
+    Mobile element text should be    ${lblMyProfileMobileNo}    ${Number}
+    Mobile element text should match regexp    ${lblMyProfileBirth}    .*
+    Mobile element text should match regexp    ${lblMyProfileSecment}    ${txtMyProfileSecment}
+    Mobile element text should match regexp    ${lblMyProfileService}    ${txtMyProfileService}
+    Mobile element text should match regexp    ${lblMyProfileMessage}    .*
+    Mobile Capture Screen At Verify Point    MyProfile Page

@@ -1,0 +1,358 @@
+*** Settings ***
+Resource          ../PageRepository/${ar_OS}/BalanceAndUsageDetailRepository.txt
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/BalanceAndUsageDetailLocalized.txt
+
+*** Keywords ***
+Keyword For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Title Usage Detail History
+    Mobile Element Text Should Be    ${titleMenu}    ${UsageDetailHistory}
+    Mobile Capture Screen At Verify Point    UsageDetailHistory
+
+Input ID Citizen
+    [Arguments]    ${ID}
+    Input Mobile Text    ${txtID_Number}    ${ID}
+    ConfirmID_Citizen
+
+ConfirmID_Citizen
+    Click Mobile Element    ${btnConfirmID}
+
+Select Service Usage Type
+    [Arguments]    ${Type}
+    Click Mobile Element    ${btn${Type}}
+
+Verify Usage Detail History
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Usage Detail History Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Usage Detail History iOS
+
+
+Verify Usage Detail History Android
+    [Arguments]    ${UsageDetailType}
+    Mobile Element Text Should Be    ${lblDateTime}    ${DateTime}
+    Mobile Element Text Should Be    ${lblDestination}    ${Destination}
+    Mobile Element Text Should Be    ${lblUnit}    ${Unit}
+    Mobile Element Text Should Be    ${lblFee}    ${Fee}
+    Mobile Element Text Should Be    ${lblTransactionNotFound}    ${TransactionNotFound}
+    Mobile Capture Screen At Verify Point    ${UsageDetailType}
+
+Verify Usage Detail History iOS
+    Mobile Element Text Should Be    ${lblUsageDetailHistory}    ${UsageDetailHistory}
+    Mobile Element Text Should Be    ${btnVoiceCall}    ${VoiceCall}
+    Mobile Element Text Should Be    ${btnInternetAndValueAddedService}    ${InternetAndValueAddedService}
+    Mobile Element Text Should Be    ${btnTopUpUsageDetails}    ${TopUpUsageDetails}
+    Mobile Element Text Should Be    ${btnBalanceTransferUsageDetails}    ${BalanceTransferUsageDetails}
+    Mobile Element Text Should Be    ${btnValidityTransferUsageDetails}    ${ValidityTransferUsageDetails}
+    Mobile Element Text Should Be    ${btnFee}    ${Fee}
+    Mobile Capture Screen At Verify Point    ${UsageDetailHistory}
+
+Verify Identify yourself by entering page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Identify yourself by entering page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Identify yourself by entering page iOS
+
+Verify Identify yourself by entering page Android
+
+Verify Identify yourself by entering page iOS
+    Click Mobile Element    ${btnVoiceCall}
+    Wait Mobile Until Element Visible    ${lblTitleUsageDetailHistory}
+    ${MobileNumber}    Get Mobile Text    ${lblMobileNumberIdentifypage}
+    Should Match Regexp    ${MobileNumber}    ${Numbermatch}
+    Mobile Element Text Should Be    ${lblYouCanCheckUsageHistory}    ${YouCanCheckUsageHistory}
+    Mobile Element Text Should Be    ${txtPleaseIdentifyYourSelf}    ${PleaseIdentifyYourSelf}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile Capture Screen At Verify Point    VoiceCallPage
+
+Verify Title Your Balance
+    Mobile Element Text Should Be    ${titleMenu}    ${YourBalance}
+    Mobile Capture Screen At Verify Point    Your balance
+
+Verify No Outstanding Balance
+    Mobile Element Text Should Be    ${lblNoOutstandingBalance}    ${NoOutstandingBalance}
+    Mobile Capture Screen At Verify Point    No Outstanding Balance
+
+Verify No Your Current Change
+    Mobile Element Text Should Be    ${msgDialog}    ${NoYourCurrentChange}
+    Mobile Capture Screen At Verify Point    No Your Current Change
+    Click Mobile Element    ${btnComfirmNoCurrentChange}
+
+Verify Balance & Usage Detail
+    Mobile Element Text Should Be    ${HeaderMenu}    ${Balance&UsageDetail}
+    Mobile Capture Screen At Verify Point    Balance And Usage Detail return
+
+Verify Message
+    [Arguments]    ${locator}    ${msg}    ${VerifyPoint}
+    Mobile element text should be    ${locator}    ${msg}
+    Mobile Capture Screen At Verify Point    ${VerifyPoint}
+
+Input Invalid ID Citizen > 3 Times
+    [Arguments]    ${SN}
+    : FOR    ${INDEX}    IN RANGE    0    2
+    \    Input ID Citizen    1720900169224
+    \    ConfirmID_Citizen
+    \    Verify Message    ${msgDialog}    ${messageInvalidIdNumber}    Invalid ID number    ${SN}
+    \    Click Mobile Element    ${btnOkDialogMessage}
+    Input ID Citizen    1720900169224
+    ConfirmID_Citizen
+
+Select Internet and Value Added Service
+    Click Mobile Element    ${btnInternetValueAddedService}
+
+Voice Call Transaction is not Found
+    [Arguments]    ${ID_Citizen}
+    Run Keyword If    "${ar_OS}"=="Android"    Voice Call Transaction is not Found Android    ${ID_Citizen}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Voice Call Transaction is not Found iOS    ${ID_Citizen}
+
+Voice Call Transaction is not Found Android
+    [Arguments]    ${ID_Citizen}
+
+Voice Call Transaction is not Found iOS
+    [Arguments]    ${ID_Citizen}
+    Wait Mobile Until Element Visible    ${fldIdentify}
+    Input Mobile Text    ${fldIdentify}    ${ID_Citizen}
+    Click Mobile Element    ${btnOK}
+    Wait Mobile Until Element Visible    ${TitleVoiceCall}    30
+    ${MobileNumber}    Get Mobile Text    ${lblMobileNumber}
+    Should Match Regexp    ${MobileNumber}    ${Numbermatch}
+    Mobile Element Text Should Be    ${TitleVoiceCall}    ${VoiceCall}
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateAndTime}
+    Mobile Element Text Should Be    ${lblDestination}    ${Destination}
+    Mobile Element Text Should Be    ${lblUnit}    ${Unit}
+    Mobile Element Text Should Be    ${lblFee}    ${FeeVoiceCall}
+    ${Count}    AISAppiumEx.Get Matching Xpath Count    ${lblTransactionIsNotFound}
+    log    ${Count}
+    Mobile Capture Screen At Verify Point    Voice Call Transaction is not Found
+
+Select Usage Detail History
+    Swipe to element    ${mnuBalanceAndUsageDetail}    ${mnuContainer}    left
+    Click Mobile Element    ${mnuBalanceAndUsageDetail}
+
+Verify Top Up Usage Details
+#มีรายการ ข้อมูลการเติมเงิน
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile Element Text Should Be    ${btnTopUpUsageDetails}    ${TopUpUsageDetails}    #ข้อมูลการเติมเงิน
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateTime}    #วันที่/เวลา
+    Mobile Element Text Should Be    ${lblAmount}    ${Amount}    #จำนวนเงิน (฿)
+    Mobile Element Text Should Be    ${lblTopupchannel}    ${TopUpChannel}    #ช่องทาง
+    #Mobile Element Text Should Be
+    Mobile Capture Screen At Verify Point    Verify Top Up Usage Details
+
+Verify page No Balance Transfer Usage Details
+#ไม่มีรายการ ข้อมูลการโอนเงิน
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile Element Text Should Be    ${btnBalanceTransferUsageDetails}    ${BalanceTransferUsageDetails}    #ข้อมูลการโอนเงิน
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateTime}    #วันที่/เวลา
+    Mobile Element Text Should Be    ${lblTransferTo}    ${TransferTo}    #โอนไปยัง
+    Mobile Element Text Should Be    ${lblTransferAmount}    ${TransferAmount}    #จำนวน(฿)
+    Mobile Element Text Should Be    ${lblFeeBalance}    ${FeeVoiceCall}   #ค่าบริการ (฿)
+    Mobile Element Text Should Be    ${lblOtherChannels}    ${OtherChannels}    #ผ่านช่องทางอื่นๆ (IVR, USSD)
+    Mobile Element Text Should Be    ${txtTransaction1}    ${TransactionNotFound}    #ไม่พบรายการที่ต้องการค้นหา
+    Mobile Element Text Should Be    ${lblG2Gservice}    ${G2Gservice}    #ผ่านบริการ Give2Gang
+    Mobile Element Text Should Be    ${txtTransaction2}    ${TransactionNotFound}    #ไม่พบรายการที่ต้องการค้นหา
+    Mobile Capture Screen At Verify Point    Balance Transfer Usage Details
+
+Verify page Balance Transfer Usage Details
+#ไม่มีรายการ ข้อมูลการโอนเงิน
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile Element Text Should Be    ${btnBalanceTransferUsageDetails}    ${BalanceTransferUsageDetails}    #ข้อมูลการโอนเงิน
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateTime}    #วันที่/เวลา
+    Mobile Element Text Should Be    ${lblTransferTo}    ${TransferTo}    #โอนไปยัง
+    Mobile Element Text Should Be    ${lblTransferAmount}    ${TransferAmount}    #จำนวน(฿)
+    Mobile Element Text Should Be    ${lblFeeBalance}    ${FeeVoiceCall}   #ค่าบริการ (฿)
+    Mobile Element Text Should Be    ${lblOtherChannels}    ${OtherChannels}    #ผ่านช่องทางอื่นๆ (IVR, USSD)
+    #Mobile Element Text Should Be    ${txtTransaction1}    ${TransactionNotFound}    #ไม่พบรายการที่ต้องการค้นหา
+    Mobile Element Text Should Be    ${lblG2Gservice}    ${G2Gservice}    #ผ่านบริการ Give2Gang
+    #Mobile Element Text Should Be    ${txtTransaction2}    ${TransactionNotFound}    #ไม่พบรายการที่ต้องการค้นหา
+    Mobile Capture Screen At Verify Point    Balance Transfer Usage Details
+
+
+Verify page No Validity Transfer Usage Details
+#ไม่มีรายการ ข้อมูลการโอนวัน
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile Element Text Should Be    ${btnValidityTransferUsageDetails}    ${ValidityTransferUsageDetails}    #ข้อมูลการโอนวัน
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateTime}    #วันที่/เวลา
+    Mobile Element Text Should Be    ${lblTransferTo}    ${TransferTo}    #โอนไปยัง
+    Mobile Element Text Should Be    ${lblTransferAmountDay}    ${TransferAmountDay}    #จำนวน(฿,วัน)
+    Mobile Element Text Should Be    ${lblFeeBalance}    ${FeeVoiceCall}   #ค่าบริการ (฿)
+    Mobile Element Text Should Be    ${lblOtherChannels}    ${OtherChannels}    #ผ่านช่องทางอื่นๆ (IVR, USSD)
+    Mobile Element Text Should Be    ${txtTransaction1}    ${TransactionNotFound}    #ไม่พบรายการที่ต้องการค้นหา
+    Mobile Element Text Should Be    ${lblG2Gservice}    ${G2Gservice}    #ผ่านบริการ Give2Gang
+    Mobile Element Text Should Be    ${txtTransaction2}    ${TransactionNotFound}    #ไม่พบรายการที่ต้องการค้นหา
+    Mobile Capture Screen At Verify Point    Balance Transfer Usage Details
+
+Verify page Validity Transfer Usage Details
+#มีรายการ ข้อมูลการโอนวัน
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile Element Text Should Be    ${btnValidityTransferUsageDetails}    ${ValidityTransferUsageDetails}    #ข้อมูลการโอนวัน
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateTime}    #วันที่/เวลา
+    Mobile Element Text Should Be    ${lblTransferTo}    ${TransferTo}    #โอนไปยัง
+    Mobile Element Text Should Be    ${lblTransferAmountDay}    ${TransferAmountDay}    #จำนวน(฿,วัน)
+    Mobile Element Text Should Be    ${lblFeeBalance}    ${FeeVoiceCall}   #ค่าบริการ (฿)
+    Mobile Element Text Should Be    ${lblOtherChannels}    ${OtherChannels}    #ผ่านช่องทางอื่นๆ (IVR, USSD)
+    #Mobile Element Text Should Be    ${txtTransaction1}    ${TransactionNotFound}    #่พบรายการ
+    Mobile Element Text Should Be    ${lblG2Gservice}    ${G2Gservice}    #ผ่านบริการ Give2Gang
+    #Mobile Element Text Should Be    ${txtTransaction2}    ${TransactionNotFound}    #พบรายการ
+    Mobile Capture Screen At Verify Point    Balance Transfer Usage Details
+
+Verify page No Free
+#ไม่มีค่าธรรมเนียม
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile Element Text Should Be    ${btnFee}    ${Fee}    #ค่าธรรมเนียม
+    Mobile Element Text Should Be    ${lblDate}    ${Date}    #วันที่
+    Wait Mobile Until Element Visible    ${lblPackageAndServiceFee}
+    Mobile Element Text Should Be    ${lblPackageAndServiceFee}    ${PackageAndService}    #รายการ
+    Mobile Element Text Should Be    ${lblFeeBalance}    ${FeeVoiceCall}    #ค่าบริการ (฿)
+    Mobile Element Text Should Be    ${lblPromotionPackage}    ${PromotionPackage}    #การใช้บริการเสริม และ โปรโมชั่น/แพ็กเกจ
+    Mobile Element Text Should Be    ${txtTransaction1}    ${TransactionNotFound}    #่พบรายการ
+    Mobile Element Text Should Be    ${lblGive2GangDetail}    ${Give2GangFree}    #การใช้บริการเช็กยอดเงินผ่านบริการ Give2Gang
+    Mobile Element Text Should Be    ${txtTransaction2}    ${TransactionNotFound}    #พบรายการ
+    Mobile Capture Screen At Verify Point    Verify page No Free
+
+Verify page Free
+#มีค่าธรรมเนียม
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile Element Text Should Be    ${btnFee}    ${Fee}    #ค่าธรรมเนียม
+    Mobile Element Text Should Be    ${lblDate}    ${Date}    #วันที่
+    Wait Mobile Until Element Visible    ${lblPackageAndServiceFee}
+    Mobile Element Text Should Be    ${lblPackageAndServiceFee}    ${PackageAndService}   #รายการ
+    Mobile Element Text Should Be    ${lblFeeBalance}    ${FeeVoiceCall}    #ค่าบริการ (฿)
+    Mobile Element Text Should Be    ${lblPromotionPackage}    ${PromotionPackage}    #การใช้บริการเสริม และ โปรโมชั่น/แพ็กเกจ
+    Mobile Element Text Should Be    ${txtTransaction1}    ${TransactionNotFound}    #่พบรายการ
+    Mobile Element Text Should Be    ${lblGive2GangDetail}    ${Give2GangFree}    #การใช้บริการเช็กยอดเงินผ่านบริการ Give2Gang
+    Mobile Element Text Should Be    ${txtTransaction2}    ${TransactionNotFound}    #พบรายการ
+    Mobile Capture Screen At Verify Point    Verify page Free
+
+Voice Call Transaction is Found
+    [Arguments]    ${ID_Citizen}
+    Run Keyword If    "${ar_OS}"=="Android"    Voice Call Transaction is Found Android    ${ID_Citizen}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Voice Call Transaction is Found iOS    ${ID_Citizen}
+
+Voice Call Transaction is Found Android
+    [Arguments]    ${ID_Citizen}
+
+Voice Call Transaction is Found iOS
+    [Arguments]    ${ID_Citizen}
+    Wait Mobile Until Element Visible    ${fldIdentify}
+    Input Mobile Text    ${fldIdentify}    ${ID_Citizen}
+    Click Mobile Element    ${btnOK}
+    Wait Mobile Until Element Visible    ${TitleVoiceCall}    30
+    ${MobileNumber}    Get Mobile Text    ${lblMobileNumber}
+    Should Match Regexp    ${MobileNumber}    ${Numbermatch}
+    Mobile Element Text Should Be    ${TitleVoiceCall}    ${VoiceCall}
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateAndTime}
+    Mobile Element Text Should Be    ${lblDestination}    ${Destination}
+    Mobile Element Text Should Be    ${lblUnit}    ${Unit}
+    Mobile Element Text Should Be    ${lblFee}    ${FeeVoiceCall}
+    Mobile Capture Screen At Verify Point    Voice Call Transaction not Found
+
+Click SubMenu
+    [Arguments]    ${SubMenu}
+    Click Mobile Element    ${btn${SubMenu}}
+
+InternetAndValueAddedService Transaction is not Found
+    [Arguments]    ${ID_Citizen}
+    Run Keyword If    "${ar_OS}"=="Android"    InternetAndValueAddedService Transaction is not Found Android    ${ID_Citizen}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    InternetAndValueAddedService Transaction is not Found iOS    ${ID_Citizen}
+
+InternetAndValueAddedService Transaction is not Found Android
+    [Arguments]    ${ID_Citizen}
+
+InternetAndValueAddedService Transaction is not Found iOS
+    [Arguments]    ${ID_Citizen}
+    Wait Mobile Until Element Visible    ${fldIdentify}
+    Input Mobile Text    ${fldIdentify}    ${ID_Citizen}
+    Click Mobile Element    ${btnOK}
+    Wait Mobile Until Element Visible    ${TitleInternetAndValueAddedService}    30
+    ${MobileNumber}    Get Mobile Text    ${lblMobileNumber}
+    Should Match Regexp    ${MobileNumber}    ${Numbermatch}
+    Mobile Element Text Should Be    ${lblTitleInternetAndValueAddedService}    ${TitleInternetAndValueAddedService}
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateAndTime}
+    Mobile Element Text Should Be    ${lblDestination}    ${Destination}
+    Mobile Element Text Should Be    ${lblUnit}    ${Unit}
+    Mobile Element Text Should Be    ${lblFee}    ${FeeVoiceCall}
+    ${Count}    AISAppiumEx.Get Matching Xpath Count    ${lblTransactionIsNotFound}
+    log    ${Count}
+    Mobile Capture Screen At Verify Point    InternetAndValueAddedService is not Found
+
+InternetAndValueAddedService Transaction is Found
+    [Arguments]    ${ID_Citizen}
+    Run Keyword If    "${ar_OS}"=="Android"    InternetAndValueAddedService Transaction is Found Android    ${ID_Citizen}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    InternetAndValueAddedService Transaction is Found iOS    ${ID_Citizen}
+
+InternetAndValueAddedService Transaction is Found Android
+    [Arguments]    ${ID_Citizen}
+
+InternetAndValueAddedService Transaction is Found iOS
+    [Arguments]    ${ID_Citizen}
+    Wait Mobile Until Element Visible    ${fldIdentify}
+    Input Mobile Text    ${fldIdentify}    ${ID_Citizen}
+    Click Mobile Element    ${btnOK}
+    Wait Mobile Until Element Visible    ${TitleVoiceCall}    30
+    ${MobileNumber}    Get Mobile Text    ${lblMobileNumber}
+    Should Match Regexp    ${MobileNumber}    ${Numbermatch}
+    Mobile Element Text Should Be    ${TitleVoiceCall}    ${VoiceCall}
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateAndTime}
+    Mobile Element Text Should Be    ${lblDestination}    ${Destination}
+    Mobile Element Text Should Be    ${lblUnit}    ${Unit}
+    Mobile Element Text Should Be    ${lblFee}    ${FeeVoiceCall}
+    Mobile Capture Screen At Verify Point    InternetAndValueAddedService is Found
+
+TopUp Transaction is not Found
+    [Arguments]    ${ID_Citizen}
+    Run Keyword If    "${ar_OS}"=="Android"    TopUp Transaction is not Found Android    ${ID_Citizen}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    TopUp Transaction is not Found iOS    ${ID_Citizen}
+
+TopUp Transaction is not Found Android
+    [Arguments]    ${ID_Citizen}
+
+TopUp Transaction is not Found iOS
+    [Arguments]    ${ID_Citizen}
+    Wait Mobile Until Element Visible    ${fldIdentify}
+    Input Mobile Text    ${fldIdentify}    ${ID_Citizen}
+    Click Mobile Element    ${btnOK}
+    Wait Mobile Until Element Visible    ${lblTitleTopUpUsageDetails}    30
+    ${MobileNumber}    Get Mobile Text    ${lblMobileNumber}
+    Should Match Regexp    ${MobileNumber}    ${Numbermatch}
+    Mobile Element Text Should Be    ${lblTitleTopUpUsageDetails}    ${TitleTopUpUsageDetails}
+    Mobile Element Text Should Be    ${lblDateAndTime}    ${DateAndTime}
+    Mobile Element Text Should Be    ${lblAmount}    ${Amount}
+    Mobile Element Text Should Be    ${lblTopupChannel}    ${TopupChannel}
+    ${Count}    AISAppiumEx.Get Matching Xpath Count    ${lblTransactionIsNotFound}
+    log    ${Count}
+    Mobile Capture Screen At Verify Point    TopUp Transaction is not Found
+
+

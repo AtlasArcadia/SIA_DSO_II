@@ -1,0 +1,98 @@
+*** Settings ***
+Library           DatabaseLibrary
+Resource          MyAisApiCommon.txt
+
+*** Keywords ***
+Login with API
+    [Arguments]    ${mobile_number}    ${mobile_msisdn}    ${lang}
+    # Login API
+    ${alias}=    Set Variable    LoginAPI
+    Create Session    ${alias}    ${MyAisApiUrl}/${mobile_number}
+    &{headers}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded    x-ssb-msisdn=${mobile_msisdn}    x-ssb-language=${lang}    x-ssb-system=eService    x-ssb-client-channel=MYAIS
+    ...    x-ssb-client-ip=127.0.0.1    x-ssb-client-browser=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 \ (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36    x-ssb-session-id=n4JVJZGQF20Hmn0vs6C0BfWTDTJ1mZvpJJQLMr8snjRKt    x-ssb-audit-id=49578
+    Log Dictionary    ${headers}
+    ${current_date}=    Get Current Date
+    # Subtract 1 minute because make sure time is not go over on server time.
+    ${current_date}=    Subtract Time From Date    ${current_date}    00:01:00:000
+    # Change format date
+    ${current_date_time} =    Convert Date    ${current_date}    result_format=%Y%m%d %H:%M:%S.%f
+    Log    ${current_date_time}
+    # Reduce nano second to milli second
+    ${current_data_time_trimed}=    Replace String Using Regexp    ${current_date_time}    \\d\\d\\d$    ${Empty}
+    Log    ${current_data_time_trimed}
+    # Compound pain text
+    ${secret_pain}=    SetVariable    mobileNo=${mobile_number}&timestamp=${current_data_time_trimed}&action=CUSTOMER_PROFILE_INIT&key1=value1&key2=value2
+    Log    ${secret_pain}
+    ${secret_cipher}=    Encryption    HelloWorld    ${secret_pain}
+    Log    ${secret_cipher}
+    &{data}=    Create Dictionary    secret=${secret_cipher}
+    ${json}=    json.dumps    ${data}
+    Log Json    ${json}
+    ${resp}=    Post Request    ${alias}    /loginWithSecret    headers=${headers}    data=${json}
+    Log    ${resp.text}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${audit_log_id}=    Get Json Value    ${resp.content}    /data/auditLogId
+    Log    ${audit_log_id}
+    ${audit_log_id}=    Replace String    ${audit_log_id}    "    ${Empty}
+    Log    ${audit_log_id}
+    [Return]    ${audit_log_id}
+
+Get Login Information
+    [Arguments]    ${audit_log_id}    ${mobile_number}    ${mobile_msisdn}    ${lang}
+    # Get Info
+    Create Session    GetInfoAPI    ${MyAisApiUrl}/${mobile_number}
+    &{headers_get_info}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded    x-ssb-msisdn=${mobile_msisdn}    x-ssb-language=${lang}    x-ssb-system=eService    x-ssb-client-channel=MYAIS
+    ...    x-ssb-client-ip=127.0.0.1    x-ssb-client-browser=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 \ (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36    x-ssb-session-id=n4JVJZGQF20Hmn0vs6C0BfWTDTJ1mZvpJJQLMr8snjRKt    x-ssb-audit-id=${audit_log_id}
+    Log Dictionary    ${headers_get_info}
+    ${resp}=    Get Request    GetInfoAPI    /    allow_redirects=${True}    headers=${headers_get_info}
+    Log    ${resp.text}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Get Popup Engine Info
+    [Arguments]    ${audit_log_id}    ${mobile_number}    ${mobile_msisdn}    ${lang}
+    # Popup Engine
+    Create Session    GetPopupEngine    ${MyAisApiUrl}/${mobile_number}
+    &{headers_get_info}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded    x-ssb-msisdn=${mobile_msisdn}    x-ssb-language=${lang}    x-ssb-system=eService    x-ssb-client-channel=MYAIS
+    ...    x-ssb-client-ip=127.0.0.1    x-ssb-client-browser=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 \ (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36    x-ssb-session-id=n4JVJZGQF20Hmn0vs6C0BfWTDTJ1mZvpJJQLMr8snjRKt    x-ssb-audit-id=${audit_log_id}
+    Log Dictionary    ${headers_get_info}
+    ${resp}=    Get Request    GetPopupEngine    /popupengine    allow_redirects=${True}    headers=${headers_get_info}
+    Log    ${resp.text}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Get Login Service Info
+    [Arguments]    ${mobile_number}    ${audit_log_id}    ${strict_mode}=${True}
+    Connect To Database Using Custom Params    cx_Oracle    user='${UserNameEpp11gDB}',password='${PasswordEpp11gDB}',dsn='${DnsEpp11gDB}'
+    ${result}=    DatabaseLibrary.Query    select t.service_log_id, t.audit_log_id, t.parent_invoke_id, s.service_system, s.service_id, s.service_name, t.event_log_name, t.request_msg, t.response_msg, t.request_date, t.response_code, t.response_flag ,t.ntype, t.channel, t.mobile_no,t.audit_log_id,t.ntype from RPSSB.ES_LOG_SERVICE_SSB t,RPSSB.ES_MST_SERVICE_SSB s where (1=1 and t.mobile_no = '${mobile_number}' and t.audit_log_id = '${audit_log_id}' and s.service_system = 'OLYMPUS' and s.service_id = t.service_id) order by t.service_log_id desc
+    Run Keyword If    ${strict_mode} == ${True}    Should Not Be Empty    ${result}
+    [Return]    ${result}
+
+Verify Login Service Info
+    [Arguments]    ${mobile_number}    ${audit_log_id}
+    ${result_login_info}=    Wait Until Found Query Data    15 min    1 min    Get Login Service Info    ${mobile_number}    ${audit_log_id}
+    Log    ${result_login_info}
+    ${listResults1}=    Convert To List    ${result_login_info}
+    Log    ${listResults1}
+    ${parent_invoke_id}=    Convert To String    ${listResults1[0][2]}
+    Log    ${parent_invoke_id}
+    [Return]    ${parent_invoke_id}
+
+Verify Log Summary Info
+    [Arguments]    ${mobile_number}    ${parent_invoke_id}
+    ${summary_info}=    Wait Until Found Query Data    15 min    1 min    Get Log Summary Info    ${mobile_number}    ${parent_invoke_id}
+    Comment    ${summary_info}=    Get Log Summary Info    ${mobile_number}    ${parent_invoke_id}
+    # Verify summary info below...
+    Should Not Be Empty    ${summary_info}
+
+Get Log Summary Info
+    [Arguments]    ${mobile_number}    ${parent_invoke_id}    ${strict_mode}=${True}
+    Connect To Database Using Custom Params    cx_Oracle    user='${UserNameEpp11gDB}',password='${PasswordEpp11gDB}',dsn='${DnsEpp11gDB}'
+    ${result}=    DatabaseLibrary.Query    select * from es_log_summary_ssb a where a.mobile_no= '${mobile_number}' and a.invoke = '${parent_invoke_id}' order \ by \ 1 desc
+    Log    ${result}
+    Run Keyword If    ${strict_mode} == ${True}    Should Not Be Empty    ${result}
+    [Return]    ${result}
+
+Prepare Data For Scene Free Net
+    [Arguments]    ${mobile_number}
+    Connect To Database Using Custom Params    cx_Oracle    user='${UserNameCampaignDB}',password='${PasswordCampaignDB}',dsn='${DnsCampaignDB}'
+    DatabaseLibrary.Execute Sql String    delete from ES_CFG_MOBILE t where t.mobile = '${mobile_number}'
+    DatabaseLibrary.Execute Sql String    delete from ES_LOG_ACCESS t where t.mobile_NO = '${mobile_number}'

@@ -1,0 +1,97 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/PassCode_IDLocalized.txt
+Resource          ../PageRepository/${ar_OS}/PassCode_IDRepository.txt
+Resource          ../PageVariable/PassCode_IDVariable.txt
+
+*** Keywords ***
+split number 6 digit
+    [Arguments]    ${Password}
+    ${PasswordLength}=    Get Length    ${Password}
+    @{Number}=    Run Keyword If    ${PasswordLength}==6    Convert To List    ${Password}
+    ...    ELSE    fail    please input 6 digit
+    [Return]    @{Number}
+
+Input PassCode
+    [Arguments]    ${Password}
+    @{Pass}=    split number 6 digit    ${Password}
+    : FOR    ${digit}    IN RANGE    0    6    1
+    \    Click Mobile Element    ${btnNumber@{Pass}[${digit}]}
+
+Check Have PassCode lock
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+
+Select Hamburger
+    Swipe to element    ${btnSetting}    screen    right    0.01
+
+Select Settings
+    Click Mobile Element    ${btnSettings}
+
+Input Correct Password
+    Input PassCode    ${CorrectPassword}
+
+Input Wrong Password N Round
+    [Arguments]    ${round}=1    ${isVerify}="NoVerify"
+    : FOR    ${index}    IN RANGE    0    ${round}    1
+    \    Input PassCode    ${WrongPassword}
+
+Select PassCode Menu
+    Click Mobile Element    ${mnuPasscodeLock}
+
+Reset Password
+    [Arguments]    ${isVerify}="NoVerify"
+    Click Mobile Element    xpath=//*[@resource-id="com.ais.mimo.eservice:id/button" and (@text="Reset" or @text="")]
+    Run Keyword If    ${isVerify}=="Verify"    Mobile element text should be    ${lblDialogResetYourPasscode}    Set your new passcode?
+    Run Keyword If    ${isVerify}=="Verify"    ${btnCancelDialogResetYourPasscode}    Cancel
+    Run Keyword If    ${isVerify}=="Verify"    ${btnOKDialogResetYourPasscode}    OK
+    Run Keyword If    ${isVerify}=="Verify"    Mobile Capture Screen At Verify Point    In Reset Password
+    Click Mobile Element    ${btnOKDialogResetYourPasscode}
+
+Keywords For Teardown With Reset Password
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Reset Password
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Verify 6 Pin Lock
+    : FOR    ${index}    IN RANGE    1    7    1
+    \    Wait Mobile Until Element Visible    ${dotsPinlockPasscode${index}}
+    Mobile Capture Screen At Verify Point    Verify in 6 Pin Lock
+
+Close PassLock
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Click Mobile Element    ${swPasscodeLockPageSetting}
+
+Verify Dialog Reset PassCode
+    Mobile element text should be    ${lblDialogResetYourPasscode}    ${txtDialogResetPassCode}
+    Mobile Capture Screen At Verify Point    Verify in Dialog Reset Passcode
+
+Check Dont Have PassCode lock
+    Wait Mobile Until Page Does Not Contain Element    ${btnChangePasscode}
+    Click Mobile Element    xpath=//*[@resource-id="com.ais.mimo.eservice:id/my_ais_library_dialog_btn_positive"]
+
+Setup Active Passcode
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    verify login
+    Click Mobile Element    ${btnHamberger}
+    Click Mobile Element    ${btnSetting}
+    Click Mobile Element    ${mnuPasscodeLock}
+    Click Mobile Element    ${swPasscodeLockPageSetting}
+    Input New Passcode
+    Re-enter Your New Passcode
+    Mobile element text should be    ${DialogCreatedSuccessfully}    ${CreatedSuccessfully}
+    Wait Mobile Until Element Visible    ${btnChangePasscode}
+    Logout
+
+Input New Passcode
+    [Arguments]    ${NewPasscode}
+    Input PassCode    ${NewPasscode}
+
+Re-enter Your New Passcode
+    [Arguments]    ${Re-enterPasscode}
+    Input PassCode    ${Re-enterPasscode}
