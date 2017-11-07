@@ -1,6 +1,6 @@
 *** Settings ***
 Resource          ../../../../Config/LocalConfig.txt
-Resource          ../Resource/PageKeywords/
+Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPackage.txt
 
 *** Test Cases ***
 [F4_Package_IOS_1-3_1-2_Y_1_2] Verify page Apply Internet On-Top Package
