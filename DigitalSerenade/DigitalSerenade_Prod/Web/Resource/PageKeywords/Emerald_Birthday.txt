@@ -1,0 +1,23 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageVariable/Emerald_BirthdayVariable.txt
+Resource          ../PageRepository/Emerald_BirthdayRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_BirthdayLocalized.txt
+
+*** Keywords ***
+Verify BirthDay Page Match With Birthday Date
+    Scroll Web To Element    ${EmeraldBirthdayLine2}
+    ${HappyBirthday}=    Get Web Text    ${EmeraldBirthdayLine1}
+    Should Match Regexp    "${HappyBirthday}"    .*
+    Web Element Text Should Be    ${EmeraldBirthdayLine2}    ${HappyBirthday_Line2}
+    Web Element Text Should Be    ${EmeraldBirthdayLine3}    ${HappyBirthday_Line3}
+    Web Element Text Should Be    ${EmeraldBirthdayLine4}    ${HappyBirthday_Line4}
+    Web Element Text Should Be    ${EmeraldBirthdayLine5}    ${HappyBirthday_Line5}
+    Web Element Text Should Be    ${EmeraldBirthdayLine6}    ${HappyBirthday_Line6}
+    Web Capture Screen At Verify Point    Happy Birthday
+
+Verify BirthDay Page Not Match With Birthday Date
+    Selenium2Library.Wait Until Element Is Visible    ${txtLoginGreeting1}
+    Scroll Web To Element    xpath=/html/body/app-root/ais-main/ais-landing-page/ais-icon-link/div/div/div/div[2]/div/a/img
+    Element Should not Be Visible    ${imgEmeraldBirthday}
+    Web Capture Screen At Verify Point    No Birthday 2

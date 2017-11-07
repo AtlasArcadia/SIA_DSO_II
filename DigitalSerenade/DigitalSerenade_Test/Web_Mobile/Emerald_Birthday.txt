@@ -1,0 +1,53 @@
+*** Settings ***
+Resource          Resource/PageKeywords/Emerald_Birthday.txt
+Resource          ../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F2_Emerald_3_1_Y_2_1]Verify Birthday Matched
+    [Documentation]    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่ส่วนสิทธิพิเศษวันเกิด
+    ...    5. ตรวจสอบหน้าเว็บแสดงข้อมูลและสิทธิพิเศษวันเกิด ในเดือนเกิด [1]
+    ...    6. ตรวจสอบรูปภาพ Birthday [2]
+    ...    7.จับภาพหน้าจอ[1] ข้อมูลและสิทธิพิเศษวันเกิด
+    ...
+    ...    “ สุขสันต์วันเกิด คุณ............
+    ...    เอไอเอส เซเรเนด ขออวยพรให้ทุกวันของคุณ
+    ...    เต็มไปด้วยความสุข และความสำเร็จตลอดไป ”
+    ...    ขอมอบของขวัญพิเศษ
+    ...    สำหรับวันเกิดของคุณ
+    ...    เน็ตฟรี โทรฟรี ตลอดวัน"
+    ...
+    ...    [2] ตรวจสอบรุปภาพ Birthday
+    ...    - แสดงรูปภาพ Birthday Segment Emerald (ตามรูปด้านล่าง)
+    [Tags]    3PE    TestSite    TH    Sprint1    WebMobileApplication    Success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify BirthDay Page Match With Birthday Date
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Emerald_3_1_Y_2_2]Verify Birthday Not Matched
+    [Documentation]    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่ส่วนสิทธิพิเศษวันเกิด
+    ...    5. ตรวจสอบไม่แสดงแบรนเนอร์ Birthday เมื่อไม่ตรงเดือนเกิด [1]
+    ...    6.จับภาพหน้าจอ[1] ไม่แสดงแบรนเนอร์ Birthday เมื่อไม่ตรงเดือนเกิด
+    [Tags]    3PE    TestSite    TH    Sprint1    WebMobileApplication    Success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify BirthDay Page Not Match With Birthday Date
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

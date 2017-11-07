@@ -1,0 +1,273 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Reward.txt
+
+*** Test Cases ***
+[F4_PointsWeb_0_1_Y_1_1] Verify menu bar of redeem reward
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แสดงเมนูแลกของรางวัล
+    ...    >> แลกค่าโทร ค่าเน็ตฟรี
+    ...    >> แลกขนม เครื่องดื่ม
+    ...    >> แลกช้อปฟรีสะใจ
+    ...    >> แลกส่วนลดมือถือ
+    ...    >> แลกตั๋วหนัง"
+    [Tags]    success    active    regression    sanity
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F4_PointsWeb_0_1_Y_1_2] Verify redeem food and drinking page
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. เลือก แลกค่าโทร ค่าเน๊ตฟรี
+    ...    4. ตรวจสอบหน้าแลกค่าโทร ค่าเน็ตฟรี
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกค่าโทร ค่าเน็ตฟรี
+    ...    - รายละเอียด ค่าโทร ค่าเน็ต
+    ...    >>รูป, เน็ตฟรี 7 วัน เล่นเน็ต 400 MB ฟรี นาน 7 วัน, 70 พอยท์
+    ...    >>รูป, เน็ตฟรี 1 วัน เล่นเน็ต 3G ฟรี 200 MB ฟรี ตลอด 24 ชม., 20 พอยท์
+    ...    >>รูป, โทรฟรี 60 นาที 5 วันโทร 60 นาที ทุกเครือข่าย ฟรี 5 วัน, 50 พอยท์
+    ...    >>รูป, โทรฟรี 18 นาที 1 วันโทร 18 นาที ทุกเครือข่ายฟรี ตลอด 24 ชม., 20 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Food
+    Verify First Reward    Food
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F4_PointsWeb_0_1_Y_1_3] Verify redeem shop free page
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. เลือก แลกขนม เครื่องดื่ม
+    ...    4. ตรวจสอบหน้าแลกขนม เครื่องดื่ม
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกขนม เครื่องดื่ม
+    ...    - รายละเอียด แลกขนม เครื่องดื่ม
+    ...    >>รูป, The Waffle Test
+    ...    วาฟเฟิลออริจินัล 1 ชิ้น (มูลค่า 16 บาท แถมฟรี! ตุ๊กตากระดาษมูลค่า 19 บาท), 30 พอยท์
+    ...    >>รูป, Mister Donut
+    ...    โดนัท 1 ชิ้น (ชิ้นละไม่เกิน 15 บาท), 30 พอยท์
+    ...    >>รูป, Mister Donut 6 pieces
+    ...    โดนัท 6 ชิ้น (มูลค่า 90 บาท), 100 พอยท์
+    ...    >>รูป, Miss Mamon
+    ...    ขนมเค้กมาม่อน 1 ชิ้น (มูลค่าชิ้นละ 30 บาท), 30 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    ShopFree
+    Verify First Reward    ShopFree
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F4_PointsWeb_0_1_Y_1_4] Verify redeem discount mobile page
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. เลือก แลกช้อปฟรีสะใจ
+    ...    4. ตรวจสอบหน้าแลกช้อปฟรีสะใจ
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกช้อปฟรีสะใจ
+    ...    - รายละเอียด แลกช้อปฟรีสะใจ
+    ...    >>รูป, โรบินสัน
+    ...    เติมเงิน 50 บาท ใน Roinson Gift Card, 100 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ สุราษฏร์ธานี
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม สุราษฏร์ธานี
+    ...    , 50 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ ยะลา
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม ยะลา, 50 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ ภูเก็ต
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม ภูเก็ต, 50 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Mobile
+    Verify First Reward    Mobile
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F4_PointsWeb_0_1_Y_1_5] Verify redeem movie ticket page
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. เลือก แลกส่วนลดมือถือ
+    ...    4. ตรวจสอบหน้าแลกส่วนลดมือถือ
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกส่วนลดมือถือ
+    ...    - รายละเอียด แลกส่วนลดมือถือ
+    ...    >>รูป, ส่วนลดซื้อมือถือ 1,000 บาท
+    ...    ส่วนลดซื้อมือถือ 1,000 บาท เมื่อซื้อมือถือเครื่องใหม่ ทุกยี่ห้อ ทุกรุ่น ที่ AIS Shop, 200 พอยท์
+    ...    >>รูป, ส่วนลดซื้อมือถือ 500 บาท
+    ...    ส่วนลดซื้อมือถือ 500 บาท เมื่อซื้อมือถือเครื่องใหม่ ทุกยี่ห้อ ทุกรุ่น ที่ AIS Shop
+    ...    , 100 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Movie
+    Verify First Reward    Movie
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F4_PointsWeb_0_1_Y_1_6] Verify redeem Aunjai collection page
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกตั๋วหนัง
+    ...    4. ตรวจสอบหน้าแลกตั๋วหนัง
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกตั๋วหนัง
+    ...    - รายละเอียด แลกตั๋วหนัง
+    ...    >>รูป, SF Cinema
+    ...    ตั๋วหนัง 1 ที่นั่ง, 150 พอยท์
+    ...    >>รูป, Pop Corn @ SF
+    ...    ป๊อปคอร์น 64 ออนซ์ 1 กล่อง
+    ...    , 100 พอยท์
+    ...    >>รูป, Major & EGV
+    ...    ตั๋วหนัง 1 ที่นั่ง, 150 พอยท์
+    ...    >>รูป, Embassy
+    ...    ตั๋วหนัง 1 ที่นั่ง (มูลค่า 1,000-1,200 บาท), 400 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Aunjai
+    Verify First Reward    Aunjai
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F4_PointsWeb_0_1_Y_1_7] Verify redeem telnet page
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. เลือก แลกช้อปฟรีสะใจ
+    ...    4. ตรวจสอบหน้าแลกช้อปฟรีสะใจ
+    ...    5. capture screen
+    ...    "
+    ...
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    "*1
+    ...    แลกช้อปฟรีสะใจ
+    ...    - รายละเอียด แลกช้อปฟรีสะใจ
+    ...    >>รูป, โรบินสัน
+    ...    เติมเงิน 50 บาท ใน Roinson Gift Card, 100 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ สุราษฏร์ธานี
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม สุราษฏร์ธานี
+    ...    , 50 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ ยะลา
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม ยะลา, 50 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ ภูเก็ต
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม ภูเก็ต, 50 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Telnet
+    Verify First Reward    Telnet
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    log    Smoke Test
+
+[F0_0_0_Y_1_Test] Dummy test
+    [Tags]    dummy
+    log    Dummy Lang

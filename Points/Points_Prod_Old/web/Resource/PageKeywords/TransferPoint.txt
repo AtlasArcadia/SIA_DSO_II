@@ -1,0 +1,41 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../PageRepository/TransferPointRepository.txt
+Resource          ../Localized/${ar_LANG}/TransferPointLocalized.txt
+Resource          ../PageVariable/TransferPointVariable.txt
+
+*** Keywords ***
+Verify Transfer Point Page
+    Verify Link    ${urlTransferPoint}
+    Verify Menu Bar
+    Web Element Should Be Visible    ${lblBanner}
+    Web Capture Screen At Verify Point    Veriify Transfer Point Page
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Points_Prod_local_config_file_path}    ${#selenium_hub}
+
+Verify The One Card On Transfer Point Page
+    Scroll Web To Element    ${imgTheOneCard}
+    Web Element Should Be Visible    ${imgTheOneCard}
+    Web Element Trim Text Should Be    ${lblTheOneCardTitle}    ${TheOneCardTitle}
+    Web Capture Screen At Verify Point    Verify The One Card
+
+Verify The One Card Detail
+    Select The One Card
+    Scroll Web To Element    ${lblTheOneCardTitleInDetail}
+    Web Element Text Should Be    ${lblTheOneCardTitleInDetail}    ${TheOneCardTitle}
+    Web Element Text Should Be    ${lblTheOneCardSubTitleInDetail}    ${TheOneCardSubTitle}
+    Web check existing text    ${lblTheOneCardDetail}
+    Web Capture Screen At Verify Point    Verify The One Card
+    Scroll Web To Element    ${lblConditionTitle}
+    Web Element Text Should Be    ${btnBack}    ${Back}
+    Web Element Text Should Be    ${btnTransferPoint}    ${TransferPoint}
+    Web Element Text Should Be    ${lblConditionTitle}    ${ConditionTitle}
+    Web check existing text    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    Verify In The One Card Detail
+
+Select The One Card
+    Click Web Element    //*[@id="point_holder"]/div/div/a/div/div[1]

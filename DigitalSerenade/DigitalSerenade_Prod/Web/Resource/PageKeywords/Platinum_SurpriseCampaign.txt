@@ -1,0 +1,20 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_SurpriseCampaignLocalized.txt
+Resource          ../PageRepository/Platinum_SurpriseCampaignRepository.txt
+Resource          ../PageVariable/Platinum_SurpriseCampaignVariable.txt
+
+*** Keywords ***
+Click Surprise Campaign
+    [Arguments]    ${location}    ${imgCaptureName}
+    Sleep    7s
+    Scroll Web To Element    ${location}
+    Sleep    2s
+    Web Capture Screen At Verify Point    ${imgCaptureName}
+    Click Web Element    ${location}
+
+Verify Surprise Campaign Page
+    Web Element Should Be Visible    ${logoAISOtherPage}
+    Web Element Should Be Visible    ${lblHeaderSurpriseCampaign}    #${HeaderSurpriseCampaign}
+    Web Element Should Be Visible    ${lblSubtitleSurpriseCampaign}    #${SubtitleSurpriseCampaign}
+    Web Capture Screen At Verify Point    Surprise Campaign Page

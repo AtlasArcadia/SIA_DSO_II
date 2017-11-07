@@ -1,0 +1,387 @@
+*** Settings ***
+Resource          Resource/PageKeywords/Home.txt
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/PrivilegeCommon.txt
+
+*** Test Cases ***
+[F1_PrivWeb_0_1-2_Y_1_1] Verify privilege web
+    [Documentation]    By Tong
+    ...
+    ...    EN
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.ตรวจสอบหน้าแรก(*1)
+    ...    3.จับภาพหน้าจอ
+    ...
+    ...    Expect Result
+    ...    - Banner
+    ...    - AIS Privilege คูปอง ส่วนลดร้านค้า สิทธิพิเศษต่างๆ
+    ...    - Menu list
+    ...    >Home
+    ...    >Special
+    ...    >Food & Beverage
+    ...    >Shopping
+    ...    >Entertainment
+    ...    >Travel
+    ...    >Healthy & Beauty
+    ...    - จำนวนหน้า campaingn list
+    ...    - Campaign list
+    ...    >After You
+    ...    >Greyhound Café (เกรฮาวด์ คาเฟ่)
+    ...    >DIN TAI FUNG
+    ...    >LAEM CHAROEN SEAFOOD
+    ...    >Dak Galbi
+    ...    >1881 by Water Library
+    ...    - Serenad menu list
+    ...    >Serenade
+    ...    >Serenade Privilege
+    ...    >Serenade Club
+    ...    >How to be serenade
+    ...    >Serenade Group Privilge
+    ...    - Birthday Privilege
+    ...    - OUR FRIEND
+    ...    - Newsletter registration
+    ...    - For businessesthat would like to join the campaign
+    ...
+    ...
+    ...    TH
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.ตรวจสอบหน้าแรก(*1)
+    ...    3.จับภาพหน้าจอ
+    ...
+    ...    Expect Result
+    ...    - Banner
+    ...    - AIS Privilege คูปอง ส่วนลดร้านค้า สิทธิพิเศษต่างๆ
+    ...    - Menu list
+    ...    >หน้าแรก
+    ...    >ไฮไลท์
+    ...    >อาหารและเครื่องดื่ม
+    ...    >ช้อปปิ้ง
+    ...    >บันเทิง
+    ...    >ท่องเที่ยว
+    ...    >สุขภาพและความงาม
+    ...    - จำนวนหน้า campaingn list
+    ...    - Campaign list
+    ...    >After You
+    ...    >Greyhound Café (เกรฮาวด์ คาเฟ่)
+    ...    >DIN TAI FUNG
+    ...    >แหลมเจริญ ซีฟู้ด
+    ...    >Dak Galbi
+    ...    >1881 by Water Library
+    ...    - Serenad menu list
+    ...    >Serenade
+    ...    >Serenade Privilege
+    ...    >Serenade Club
+    ...    >How to be serenade
+    ...    >Serenade Group Privilge
+    ...    - Birthday Privilege
+    ...    - เพื่อนของเรา
+    ...    - ลงทะเบียนเพื่อรับข่าวสาร
+    ...    - ร่วมโครงการกับเราสำหรับร้านค้า
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Verify HomePage
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F1_PrivWeb_0_1-2_Y_2_1] Verify Drop Down
+    [Documentation]    By Tong
+    ...
+    ...    EN
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.กด drop down
+    ...    3.ตรวจสอบ Drop down แสดงจำนวนรายการที่แสดง(*1)
+    ...    4.จับภาพหน้าจอ
+    ...
+    ...    Expect Result
+    ...    แสดงจำนวนรายการที่สามารถแสดงได้ 6, 12, 18, 24, 50, 100
+    ...    แสดง drop down รายการทั้งด้านบน และ ด้านล่างของหน้า
+    ...
+    ...    TH
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.กด drop down
+    ...    3.ตรวจสอบ Drop down แสดงจำนวนรายการที่แสดง(*1)
+    ...    4.จับภาพหน้าจอ
+    ...
+    ...    Expect Result
+    ...    แสดงจำนวนรายการที่สามารถแสดงได้ 6, 12, 18, 24, 50, 100
+    ...    แสดง drop down รายการทั้งด้านบน และ ด้านล่างของหน้า
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Verify Dropdown List Top Page
+    Verify Dropdown List Below Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F1_PrivWeb_0_1-2_Y_3_1] Verify List Diaplay Page
+    [Documentation]    F1_PrivWeb_0_1_Y_1_3 ตรวจสอบ Running page แสดง 6 รายการ
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...
+    ...    2.ตรวจสอบแถบ running page แสดงจำนวนหน้าที่แสดง(*1)
+    ...
+    ...    3.จับภาพหน้าจอ
+    ...
+    ...    4. กด ตัวเลข (*2)
+    ...
+    ...    5. กด < (*3)
+    ...
+    ...    6 กด > (*4)
+    ...
+    ...    7. กดปุ่ม Home (*5)
+    ...    " "
+    ...
+    ...    *1
+    ...    แสดง ปุ่ม Home
+    ...    แสดง <
+    ...    แสดง ตัวเลขหน้า
+    ...    แสดง >
+    ...
+    ...    *
+    ...    2
+    ...    แสดง campaing list หน้าใหม่
+    ...    จำนวน campaing ที่แสดงเท่ากับ 6
+    ...
+    ...    *
+    ...    3
+    ...    แสดง campaing list หน้า ก่อนหน้า
+    ...    จำนวน campaing ที่แสดงเท่ากับ 6
+    ...
+    ...    *
+    ...    4
+    ...    แสดง campaing list หน้า ถัดไป
+    ...    จำนวน campaing ที่แสดงเท่ากับ 6
+    ...
+    ...    *
+    ...    5
+    ...    แสดง campaing list หน้าแรก
+    ...    จำนวน campaing ที่แสดงเท่ากับ 6"
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Verify List Display Paging
+    Select Paging 2
+    Verify Paging 2 Menu Laem Charoen Sea Food    Paging 2
+    Select Previous Page
+    Verify Page 1 Menu Grayhound    Previous Page
+    Select Next Page
+    Verify Paging 2 Menu Laem Charoen Sea Food    Next Page
+    Select Home Page
+    Verify Page 1 Menu Grayhound    Home Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F1_PrivWeb_0_1-2_Y_4_1] Verify contain 6 list
+    [Documentation]    F1_PrivWeb_0_1_Y_1_4 campaign list กรณีเลือกให้แสดง 6 รายการ
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...
+    ...    2.เลือกแสดง 6 รายการ(*1)
+    ...
+    ...    3.ตรวจสอบ campaign list ที่แสดง (*2)
+    ...
+    ...    4. capture screen
+    ...    " "
+    ...
+    ...    *1
+    ...    แสดง 6 รายการ
+    ...
+    ...    *
+    ...    2
+    ...    campaign list ที่แสดงจะต้องเท่ากับ 6 รายการ และอยู่ในหน้าเดียวกัน
+    ...    campaign list ทั้ง 6 รายการแสดงรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail"
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Number Of Content    6
+    Verify Number List Of Content    6
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F1_PrivWeb_0_1-2_Y_5_1] Verify contain 12 list
+    [Documentation]    F1_PrivWeb_0_1_Y_1_5 campaign list กรณีเลือกให้แสดง 12 รายการ
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...
+    ...    2.เลือกแสดง 12 รายการ(*1)
+    ...
+    ...    3.ตรวจสอบ campaign list ที่แสดง (*2)
+    ...
+    ...    4. capture screen
+    ...    " "
+    ...
+    ...    *1
+    ...    แสดง 12 รายการ
+    ...
+    ...    *
+    ...    2
+    ...    campaign list ที่แสดงจะต้องเท่ากับ 12 รายการ และอยู่ในหน้าเดียวกัน
+    ...    campaign list ทั้ง 12 รายการแสดงรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail"
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Number Of Content    12
+    Verify Number List Of Content    12
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F1_PrivWeb_0_1-2_Y_6_1] Verify contain 18 list
+    [Documentation]    F1_PrivWeb_0_1_Y_1_6 campaign list กรณีเลือกให้แสดง 18 รายการ
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...
+    ...    2.เลือกแสดง 18 รายการ(*1)
+    ...
+    ...    3.ตรวจสอบ campaign list ที่แสดง (*2)
+    ...
+    ...    4. capture screen
+    ...    " "
+    ...
+    ...    *1
+    ...    แสดง 18 รายการ
+    ...
+    ...    *
+    ...    2
+    ...    campaign list ที่แสดงจะต้องเท่ากับ 18 รายการ และอยู่ในหน้าเดียวกัน
+    ...    campaign list ทั้ง 18 รายการแสดงรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail"
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Number Of Content    18
+    Verify Number List Of Content    18
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F1_PrivWeb_0_1-2_Y_7_1] Verify contain 24 list
+    [Documentation]    F1_PrivWeb_0_1_Y_1_7 campaign list กรณีเลือกให้แสดง 24 รายการ
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...
+    ...    2.เลือกแสดง 24 รายการ(*1)
+    ...
+    ...    3.ตรวจสอบ campaign list ที่แสดง (*2)
+    ...
+    ...    4. capture screen
+    ...    " "
+    ...
+    ...    *1
+    ...    แสดง 24 รายการ
+    ...
+    ...    *
+    ...    2
+    ...    campaign list ที่แสดงจะต้องเท่ากับ 24 รายการ และอยู่ในหน้าเดียวกัน
+    ...    campaign list ทั้ง 24 รายการแสดงรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail"
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Number Of Content    24
+    Verify Number List Of Content    24
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F1_PrivWeb_0_1-2_Y_8_1] Verify contain 50 list
+    [Documentation]    F1_PrivWeb_0_1_Y_1_8 campaign list กรณีเลือกให้แสดง 50 รายการ
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...
+    ...    2.เลือกแสดง 50 รายการ(*1)
+    ...
+    ...    3.ตรวจสอบ campaign list ที่แสดง (*2)
+    ...
+    ...    4. capture screen
+    ...    " "
+    ...
+    ...    *1
+    ...    แสดง 50 รายการ
+    ...
+    ...    *
+    ...    2
+    ...    campaign list ที่แสดงจะต้องเท่ากับ 50 รายการ และอยู่ในหน้าเดียวกัน
+    ...    campaign list ทั้ง 50 รายการแสดงรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail"
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Number Of Content    50
+    Verify Number List Of Content    50
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F1_PrivWeb_0_1-2_Y_9_1] Verify contain 100 list
+    [Documentation]    F1_PrivWeb_0_1_Y_1_9 campaign list กรณีเลือกให้แสดง 100 รายการ
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...
+    ...    2.เลือกแสดง 100 รายการ(*1)
+    ...
+    ...    3.ตรวจสอบ campaign list ที่แสดง (*2)
+    ...
+    ...    4. capture screen
+    ...    " "
+    ...
+    ...    *1
+    ...    แสดง 100 รายการ
+    ...
+    ...    *
+    ...    2
+    ...    campaign list ที่แสดงจะต้องเท่ากับ 100 รายการ และอยู่ในหน้าเดียวกัน
+    ...    campaign list ทั้ง 100 รายการแสดงรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail"
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Number Of Content    100
+    Verify Number List Of Content    100
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F1_PrivWeb_0_1-2_Y_1_10] Verify content in box list home
+    [Documentation]    F1_PrivWeb_0_1_Y_1_10 ตรวจสอบ campaign
+    ...
+    ...    Owner :Eng
+    ...
+    ...    Test Step
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/privilege""
+    ...
+    ...    2.ตรวจสอบ campaign list ที่แสดง (*1)
+    ...
+    ...    3. capture screen
+    ...
+    ...    4. กด รายละเอียด (*2)
+    ...
+    ...    5. capture screen" "
+    ...
+    ...    *1
+    ...    แสดงรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail
+    ...
+    ...
+    ...    *2
+    ...    แสดงรูปภาพตรงกับหน้าแรก, ชื่อแคมเปญตรงกับหน้าแรก, รายละเอียด, เงื่อนไข, ดีลที่เดียวข้อง"
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    ${TitleMenu}    Verify Main Menu Grayhound
+    Press Detail Grayhound
+    Verify Detail Menu Grayhound    ${TitleMenu}
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    Smoke

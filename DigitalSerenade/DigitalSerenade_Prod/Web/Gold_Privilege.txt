@@ -1,0 +1,946 @@
+*** Settings ***
+Resource          Resource/PageKeywords/Gold_Privilege.txt
+Resource          Resource/PageKeywords/DegitalSerenadeCommon.txt
+Resource          ../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F6_Gold_3_1_Y_1_1] Verify Privilege Page
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.ตรวจสอบหน้า Privileges [1]
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบหน้า Privileges
+    ...    - ทุกวันคือความพิเศษยิ่งกว่า
+    ...    - Campaign = 6 Page
+    ...    - แต่ละ Page แสดง 4 Campaign
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Privilege Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_2] Verify Slide Banner Button
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. คลิกลิ้งค์ที่ได้รับจาก ข้อความ URL:
+    ...    2. เปิดลิ้งค์ไปที่เบราซ์เซอร์
+    ...    3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    4. เข้าสู่ระบบ
+    ...    5. เลื่อนมาที่ส่วน ทุกวันคือความพิเศษยิ่งกว่า
+    ...    6. เลื่อนแบนเนอร์ซ้ายขวา
+    ...    7. คลิกแบนเนอร์
+    ...    8. ตรวจสอบว่าสามารถ redirect ไปยังหน้ารายละเอียดสิทธิพิเศษอื่นๆ
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบแบนเนอร์
+    ...    - ตรวจสอบ รูปแบนเนอร์ที่แสดง เปลี่ยน จากก่อนกดปุ่ม >
+    ...
+    ...    '[2]ตรวจสอบแบนเนอร์
+    ...    - ตรวจสอบ รูปแบนเนอร์ที่แสดง เปลี่ยน จากก่อนกดปุ่ม <
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Slide Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_3] Verify Page Button
+    [Documentation]    *Owner* :Joe
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Hilight Campaign
+    ...    5.กดปุ่ม page ที่ 1
+    ...    6.ตรวจสอบแบนเนอร์ [1]
+    ...    7.จับภาพหน้าจอ
+    ...    8.กดปุ่ม page ที่ 2
+    ...    9.ตรวจสอบแบนเนอร์ [2]
+    ...    10.จับภาพหน้าจอ
+    ...    11.กดปุ่ม page ที่ 3
+    ...    12.ตรวจสอบแบนเนอร์ [3]
+    ...    13.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...
+    ...
+    ...    [2]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...
+    ...    [3]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...
+    ...    [4]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...
+    ...    [5]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...
+    ...    [6]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...    - แสดงแบนเนอร์ xxx
+    ...
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Page Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_4] Verify More Button
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade
+    ...    3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3. Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่ส่วน ทุกวันคือความพิเศษยิ่งกว่า
+    ...    5.เลื่อนแบนเนอร์ซ้ายขวา
+    ...    6. คลิกปุ่ม "คลิก"
+    ...    7. ตรวจสอบว่าสามารถ redirect ไปยังหน้าแสดง Campaign ทั้งหมด [1]
+    ...
+    ...
+    ...    *Expected Result*
+    ...    '[1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges.aspx
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Serenade Privileges
+    ...    - สิทธิพิเศษของชีวิตอีกระดับ
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Other Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_5] Verify House of Crepe Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ House of Crepe
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/378/House-of-Crepe
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - House of Crepe
+    ...    - รับส่วนลด 50%
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify House of Crepe Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_6] Verify Harrods Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Harrods
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?search_category=27&search_province=0&search_district=0&id=2331#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Harrods
+    ...    - รับสิทธิ์ซื้อ 1 แถม 1
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Harrods Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_7] Verify MRT Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ MRT
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://lineprivilege.ais.co.th/privilege/mrt-july-2017/
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - เติมสุขให้ทุกการเดินทาง รับส่วนลด 30 บาท เมื่อซื้อ/เติม
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify MRT Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_8] Verify Dinosaur Planet Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Dinosaur Planet
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1669#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Dinosaur Planet
+    ...    - รับส่วนลด 15%
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Dinosaur Planet Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_9] Verify Robinson Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Robinson
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=2000
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Robinson Reward Points III
+    ...    - ฟรี! คูปองส่วนลด 15-40%
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_10] Verify Cinnabon Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ CINNABON
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1996#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - CINNABON
+    ...    - ซื้อ 3 ชิ้น รับฟรี 1 ชิ้น
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Cinnabon Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_11] Verify Central Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Central
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1852
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Central The 1 Card X-Treme IV
+    ...    - รับฟรี! คูปองส่วนลด 15-40%
+    [Tags]    on hold
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_12] Verify October Flower Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ October Flower
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/328/October-Flower
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - October Flower
+    ...    - รับส่วนลดสูงสุด 20%
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify October Flower Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_13] Verify Organika House Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ ORGANIKA HOUSE
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/329/ORGANIKA-HOUSE
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - ORGANIKA HOUSE
+    ...    - รับส่วนลดสูงสุด 10%
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Organika House Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_14] Verify McDonald Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ McDonald’s แมคไก่ทอด
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1567#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - McDonald’s แมคไก่ทอด
+    ...    - ไก่ทอด 2 ชิ้น 59 บาท
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify McDonald Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_15] Verify Tops Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Tops
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/191/Tops
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Tops
+    ...    - รับฟรี คูปองส่วนลด 140 บาท
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Tops Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_16] Verify Mezzo Coffee Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Mezzo
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/237/Mezzo-Coffee
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Mezzo Coffee
+    ...    - ซื้อ 1 ฟรี 1
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Mezzo Coffee Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_17] Verify Black Canyon Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Black canyon coffee
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/error404_ais.html#tips(Link ใช้ไม่ได้)
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Black Canyon
+    ...    - เครื่องดื่มราคาพิเศษ 75.-
+    [Tags]    on hold
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_18] Verify Love Eat Bistro Central Embassy Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ \ Love Eat Bistro Central Embassy
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=2203#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Love Eat Bistro Central Embassy (สุขุมวิท)
+    ...    - ซื้อเมนูเซ็ตราคาพิเศษ
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Love Eat Bistro Central Embassy Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_19] Verify Cold Stone Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Cold Stone
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1520#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Cold Stone
+    ...    - รับฟรี! Plain Waffle
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Cold Stone Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_20] Verify TOM N TOMS Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ TOM N TOMS
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=388#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - TOM N TOMS
+    ...    - ราคาพิเศษ!
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify TOM N TOMS Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_21] Verify Auntie Anne
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Auntie Anne’s
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1517#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Auntie Anne’s
+    ...    - รับฟรี Original Pretzel 1 ชิ้น
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Auntie Anne
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_22] Verify Cathay Pacific airline banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ สายการบินคาเธ่ย์ แปซิฟิค
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=2343#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - สายการบินคาเธ่ย์ แปซิฟิค
+    ...    - รับส่วนลดเพิ่ม 5%
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Cathay Pacific airline banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_23] Verify Coffee Bean and Tea Leaf Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ The Coffee Bean & Tea Leaf
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1382#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - The Coffee Bean & Tea Leaf
+    ...    - รับส่วนลด 10%
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Coffee Bean and Tea Leaf Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_24] Verify Major Cineplex
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Major
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/233/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%AD-Major-Cineplex
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - โรงภาพยนตร์ในเครือ Major Cineplex
+    ...    - รับสิทธิ์ได้ 2 ที่นั่ง/เดือน
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Major Cineplex
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_Gold_3_1_Y_1_25] Verify SF Banner
+    [Documentation]    *Owner* : Joe
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ SF
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/170/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%AD-SF
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - โรงภาพยนตร์ในเครือ SF
+    ...    - รับสิทธิ์ได้ 2 ที่นั่ง/เดือน
+    [Tags]    Production    TH    WebApplication    Sprint4    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify SF Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_Test] Smoke Test
+    [Tags]    smoke
+    Log    Smoke Test

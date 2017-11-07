@@ -1,0 +1,348 @@
+*** Settings ***
+Resource          Resource/PageKeywords/Entertainment.txt
+Resource          ../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F5_PrivWeb_0_1-2_Y_1_1] Verify page menu entertainment
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Entertainment(*1)
+    ...    3.ตรวจสอบหน้า Entertainment
+    ...    4. capture screen
+    ...    *1
+    ...    - Banner
+    ...    - Entertainment
+    ...    - Menu list
+    ...    >Home
+    ...    >Special
+    ...    >Food & Beverage
+    ...    >Shopping
+    ...    >Entertainment
+    ...    >Travel
+    ...    >Healthy & Beauty
+    ...    - จำนวนหน้า campaingn list
+    ...
+    ...    - Campaign list
+    ...    >Kidzania Bangkok
+    ...    >Embassy Diplomat Screens by AIS
+    ...    >ดูหนังราคาพิเศษ @ โรงภาพยนตร์ในเครือ SF
+    ...    >โรงภาพยนตร์ Coliseum
+    ...    >โรงภาพยนตร์ในเครือ Major Cineplex
+    ...    >AIS Dino Farm
+    ...
+    ...    - Serenad menu list
+    ...    >Serenade
+    ...    >Serenade Privilege
+    ...    >Serenade Club
+    ...    >How to be serenade
+    ...    >Serenade Group Privilge
+    ...    - Birthday Privilege
+    ...    - OUR FRIEND
+    ...    - Newsletter registration
+    ...    - For businessesthat would like to join the campaign
+    ...
+    ...
+    ...    TH Version
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือกบันเทิง(*1)
+    ...    3.ตรวจสอบหน้าบันเทิง*1
+    ...    - Banner
+    ...    -บันเทิง
+    ...    - Menu list
+    ...    >หน้าแรก
+    ...    >ไฮไลท์
+    ...    >อาหารและเครื่องดื่ม
+    ...    >ช้อปปิ้ง
+    ...    >บันเทิง
+    ...    >ท่องเที่ยว
+    ...    >สุขภาพและความงาม
+    ...    - จำนวนหน้า campaingn list
+    ...    - Campaign list
+    ...    >Kidzania Bangkok
+    ...    >Embassy Diplomat Screens by AIS
+    ...    >ดูหนังราคาพิเศษ @ โรงภาพยนตร์ในเครือ SF
+    ...    >โรงภาพยนตร์ Coliseum
+    ...    >โรงภาพยนตร์ในเครือ Major Cineplex
+    ...    >AIS Dino Farm
+    ...    - Serenad menu list
+    ...    >Serenade
+    ...    >Serenade Privilege
+    ...    >Serenade Club
+    ...    >How to be serenade
+    ...    >Serenade Group Privilge
+    ...    - Birthday Privilege
+    ...    - เพื่อนของเรา
+    ...    - ลงทะเบียนเพื่อรับข่าวสาร
+    ...    - ร่วมโครงการกับเราสำหรับร้านค้า
+    ...    4. capture screen
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Maximize Browser Window
+    ${ar_LANG}    Get Web Text    ${btnLanguage}
+    log    ${ar_LANG}
+    Select Menu    Entertainment
+    Scroll Web To Element    ${mnuHome}
+    Verify Menubar
+    Web Capture Screen At Verify Point    Menu Bar
+    Verify Campaingbar
+    Verify Campaign List Of Entertainment
+    Scroll Web To Element    ${mnuSerenade}
+    Verify Serenade Menu
+    Verify BirthdayPrivilege
+    Verify OurFriend
+    Verify Newsletter
+    Verify JoinCampaign
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F5_PrivWeb_0_1-2_Y_1_2] Verify page campaign : Kidzania Bangkok
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "Entertainment"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Kidzania Bangkokl"(*1)
+    ...    4.กด View detail
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - Kidzania Bangkok
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Kidzania Bangkok)
+    ...    - สัญลักษณ์
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - Conditions
+    ...    - Gallery
+    ...    - Related Deal
+    ...    >Embassy Diplomat ...
+    ...    >ดูหนังราคาพิเศษ @...
+    ...    >โรงภาพยนตร์ในเครื....
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Maximize Browser Window
+    Select Menu    Entertainment
+    ${CampaignName}=    Verify Campaign Kidzania Bangkok
+    Click Web Element    ${btnBoxCampaignKidzaniaBkk}
+    Verify Kidzania Detail Page    ${CampaignName}
+    Verify Related Deal Title
+    Verify Related Deal    First    ${DealEmbassy}
+    Verify Related Deal    Second    ${DealSF}
+    Verify Related Deal    Third    ${DealMajor}
+    Web Capture Screen At Verify Point    Related Deal Of Kidzania Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F5_PrivWeb_0_1-2_Y_1_3] Verify page campaign : Embassy Diplomat Screens by AIS
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "บันเทิง"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Embassy Diplomat Screens by AIS"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    -Embassy Diplomat Screens by AIS
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Embassy Diplomat Screens by AIS)
+    ...    - สัญลักษณ์
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ดีลที่เกียวข้อง
+    ...    >ดูหนังราคาพิเศษ @...
+    ...    >โรงภาพยนตร์ในเครื....
+    ...    >โรงภาพยนตร์ Colis...
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Maximize Browser Window
+    Select Menu    Entertainment
+    ${CampaignName}=    Verify Embassy Campaign
+    Click Web Element    ${btnBoxEmbassyDiplomatScreensbyAIS}
+    Verify Embassy Detail Page    ${CampaignName}
+    Verify Related Deal Title
+    Verify Related Deal    First    ${DealSF}
+    Verify Related Deal    Second    ${DealMajor}
+    Verify Related Deal    Third    ${DealColiseum}
+    Web Capture Screen At Verify Point    Related Deal Campaign Embasssy Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F5_PrivWeb_0_1-2_Y_1_4] Verify page campaign : special ticket price at SF theatre
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "บันเทิง"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น ดูหนังราคาพิเศษ @ โรงภาพยนตร์ในเครือ SF"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - ดูหนังราคาพิเศษ @ โรงภาพยนตร์ในเครือ SF
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (ดูหนังราคาพิเศษ @ โรงภาพยนตร์ในเครือ SF)
+    ...    - สัญลักษณ์
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ดีลที่เกียวข้อง
+    ...    >Embassy Diplomat ...
+    ...    >โรงภาพยนตร์ในเครื...
+    ...    >โรงภาพยนตร์ Colis...
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Maximize Browser Window
+    Select Menu    Entertainment
+    ${CampaignName}=    Verify SF Cinema
+    Click Web Element    ${btnBoxSFCinema}
+    Verify SF Theatre Detail Page    ${CampaignName}
+    Verify Related Deal Title
+    Verify Related Deal    First    ${DealEmbassy}
+    Verify Related Deal    Second    ${DealMajor}
+    Verify Related Deal    Third    ${DealColiseum}
+    Web Capture Screen At Verify Point    Related Deal Of SF Cinema Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F5_PrivWeb_0_1-2_Y_1_5] Verify page campaign : Coliseum theatre
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "บันเทิง"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น โรงภาพยนตร์ Coliseum"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - โรงภาพยนตร์ Coliseum
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (โรงภาพยนตร์ Coliseum)
+    ...    - สัญลักษณ์
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ดีลที่เกียวข้อง
+    ...    >Embassy Diplomat ...
+    ...    >ดูหนังราคาพิเศษ @...
+    ...    >โรงภาพยนตร์ในเครื...
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Maximize Browser Window
+    Select Menu    Entertainment
+    ${CampaignName}=    Verify Coliseum
+    Click Web Element    ${btnBoxColiseumTheatre}
+    Verify Coloseum Theatre Detail Page    ${CampaignName}
+    Verify Related Deal Title
+    Verify Related Deal    First    ${DealEmbassy}
+    Verify Related Deal    Second    ${DealSF}
+    Verify Related Deal    Third    ${DealMajor}
+    Web Capture Screen At Verify Point    Related Deal Of Coliseum Detail Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F5_PrivWeb_0_1-2_Y_1_6] Varify page campaign : Major Cineplex theatre
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "บันเทิง"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น โรงภาพยนตร์ในเครือ Major Cineplex(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - โรงภาพยนตร์ในเครือ Major Cineplex
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (โรงภาพยนตร์ในเครือ Major Cineplex)
+    ...    - สัญลักษณ์
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - แกลอรี่
+    ...    - ดีลที่เกียวข้อง
+    ...    >Embassy Diplomat ...
+    ...    >ดูหนังราคาพิเศษ @...
+    ...    >โรงภาพยนตร์ Colis...
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Maximize Browser Window
+    Select Menu    Entertainment
+    ${CampaignName}=    Verify Major Group
+    Click Web Element    ${btnBoxMajorCineplexTheatre }
+    Verify Major Detail Page    ${CampaignName}
+    Verify Related Deal Title
+    Verify Related Deal    First    ${DealEmbassy}
+    Verify Related Deal    Second    ${DealSF}
+    Verify Related Deal    Third    ${DealColiseum}
+    Web Capture Screen At Verify Point    Related Deal Of Major Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F5_PrivWeb_0_1-2_Y_1_7] Varify campaign : AIS Dino Farm
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Test Step*
+    ...
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "Entertainment"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น AIS Dino Farm(*1)
+    ...    4.กด View detail
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *1
+    ...    - AIS Dino Farm
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (AIS Dino Farm)
+    ...    - สัญลักษณ์
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - Conditions
+    ...    - Gallery
+    ...    - Related Deal
+    ...    >Embassy Diplomat ...
+    ...    >ดูหนังราคาพิเศษ @...
+    ...    >โรงภาพยนตร์ในเครื...
+    [Tags]    regression    active    success
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Maximize Browser Window
+    Select Menu    Entertainment
+    ${CampaignName}=    Verify AIS Dino Farm
+    Click Web Element    ${btnBoxDinoFarm}
+    Verify AIS Dino Farm Detail Page    ${CampaignName}
+    Verify Related Deal Title
+    Verify Related Deal    First    ${DealEmbassy}
+    Verify Related Deal    Second    ${DealSF}
+    Verify Related Deal    Third    ${DealMajor}
+    Web Capture Screen At Verify Point    Related Deal AIS Dino Farm Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    Smoke test

@@ -1,0 +1,19 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ServiceCenterLocalized.txt
+Resource          ../PageRepository/Platinum_ServiceCenterRepository.txt
+Resource          ../PageVariable/Platinum_ServiceCenterVariable.txt
+
+*** Keywords ***
+Select Service Center
+    Sleep    5s
+    Scroll Web To Element    ${ServiceCenterMapBox}
+    Sleep    5s
+    Web Capture Screen At Verify Point    Services Center Icon
+    Click Web Element    ${btnTouchPoint}
+
+Verify AIS Service Center Page
+    Web Element Should Be Visible    ${logoAISOtherPage}
+    Web Element Should Be Visible    ${imgBannerAunjai}
+    Web Element Text Should Be    ${lblAISShop}    ${txtAISCenter}
+    Web Capture Screen At Verify Point    AISServiceCenter

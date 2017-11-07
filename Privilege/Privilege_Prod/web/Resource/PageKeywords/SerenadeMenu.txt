@@ -1,0 +1,11 @@
+*** Settings ***
+Resource          PrivilegeCommon.txt
+Resource          ../PageRepository/SerenadeMenuRepository.txt
+Resource          ../Localized/${ar_LANG}/SerenadeMenuLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Privilege_Prod_local_config_file_path}    ${#selenium_hub}

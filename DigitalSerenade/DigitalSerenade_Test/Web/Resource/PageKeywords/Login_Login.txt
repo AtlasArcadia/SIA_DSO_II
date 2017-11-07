@@ -1,0 +1,113 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Login_LoginLocalized.txt
+Resource          ../PageRepository/LoginRepository.txt
+Resource          ../PageVariable/Login_LoginVariable.txt
+
+*** Keywords ***
+Verify Login Page
+    Sleep    3s
+    ${URL}    Get Location
+    Log    ${URL}
+    Run Keyword If    "${URL}" != "${webURL}"    Fail
+    Selenium2Library.Wait Until Element Is Visible    ${LoginTitle}
+    Element Should Be Visible    ${LoginTitle}
+    Selenium2Library.Element Text Should Be    ${LoginTitle}    ${txtLoginTitle}
+    Element Should Be Visible    ${txtMobileNumber}
+    Comment    ${mono}    Get Web Text    ${MobileNumber}
+    Comment    Log    ${mono}
+    Web Capture Screen At Verify Point    Verify URL and Login Page
+
+Login Wrong Number
+    Sleep    2
+    Input Web Text    ${txtMobileNo}    ${wrongNumber}
+    Click Web Element    ${btnRequestOTP}
+
+Verify Login Wrong Number
+    Sleep    2s
+    Wait Web Until Page Contains Element    ${lblMessageError}
+    Selenium2Library.Element Text Should Be    ${lblMessageError}    ${ErrMsgWrongNo}
+    Web Capture Screen At Verify Point    Input Mobile Number Not Complete 10 Digits
+
+Login No Mobile Number
+    Sleep    2
+    Input Web Text    ${txtMobileNo}    ${EMPTY}
+    Click Web Element    ${btnRequestOTP}
+
+Verify Login No Mobile Number
+    Sleep    2s
+    Wait Web Until Page Contains Element    ${lblMessageError}
+    Selenium2Library.Element Text Should Be    ${lblMessageError}    ${ErrMsgWrongNo}
+    Web Capture Screen At Verify Point    Not Input Mobile Number
+
+Login With Other Network Mobile Number
+    Sleep    2
+    Input Web Text    ${txtMobileNo}    ${DTACMobileNumber}
+    Click Web Element    ${btnRequestOTP}
+
+Verify Login With Other Network Mobile Number
+    Sleep    2s
+    Wait Web Until Page Contains Element    ${lblMessageError}
+    Selenium2Library.Element Text Should Be    ${lblMessageError}    ${ErrMsgOtherNetworkNumber}
+    Web Capture Screen At Verify Point    Input Other Network Mobile Number
+
+Login Wrong OTP
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}    ${Close}=true
+    Sleep    2
+    Input Web Text    ${txtMobileNo}    ${MobileNumber}
+    Click Web Element    ${btnRequestOTP}
+    Open SMS App    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${PlatfromName}    1    ${lo_sms_timeout}    AIS
+    ${time}=    Evaluate    str(time.time())    time
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${PlatfromName}    AIS    1
+    Log    @{messages}[0]
+    @{OTP}=    Get Regexp Matches    @{messages}[0]    \\d\\d\\d\\d
+    Run Keyword If    "${Close}" =="true"    Close SMS App    ${PlatfromName}    ${SN}
+    Comment    sleep    2
+    Comment    AISAppiumEx.Press Keycode    187
+    Comment    sleep    2
+    Comment    Click Mobile Element    xpath=(//*[(@class='android.widget.FrameLayout' and @content-desc='Chrome')or (@class='android.widget.TextView' and @text='Chrome' and @index="2")])
+    Input Web Text    ${txtInputOTP}    ${WrongOTP}
+    Click Web Element    ${btnSubmit}
+
+Verify Login Wrong OTP
+    Wait Web Until Page Contains Element    ${lblMessageError}
+    Web Element Text Should Be    ${lblMessageError}    ${ErrMsgWrongOTP}
+    Web Capture Screen At Verify Point    Input Incorrect OTP
+
+Login Not Input OTP
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}    ${Close}=true
+    Sleep    2
+    Input Web Text    ${txtMobileNo}    ${MobileNumber}
+    Click Web Element    ${btnRequestOTP}
+    Open SMS App    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${PlatfromName}    1    ${lo_sms_timeout}    AIS
+    ${time}=    Evaluate    str(time.time())    time
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${PlatfromName}    AIS    1
+    Log    @{messages}[0]
+    @{OTP}=    Get Regexp Matches    @{messages}[0]    \\d\\d\\d\\d
+    Run Keyword If    "${Close}" =="true"    Close SMS App    ${PlatfromName}    ${SN}
+    Comment    sleep    2
+    Comment    AISAppiumEx.Press Keycode    187
+    Comment    sleep    2
+    Comment    Click Mobile Element    xpath=(//*[(@class='android.widget.FrameLayout' and @content-desc='Chrome')or (@class='android.widget.TextView' and @text='Chrome' and @index="2")])
+    Input Web Text    ${txtInputOTP}    ${EMPTY}
+
+Verify Login Not Input OTP
+    Sleep    2s
+    Element Should Be Visible    //*[@id="login" and @disabled="disabled"]
+    Web Capture Screen At Verify Point    Not Input OTP
+
+Verify Login Success
+    Web Element Should Be Visible    ${txtLoginGreeting1}
+    ${txtWelcome1}    Get Web Text    ${txtLoginGreeting1}
+    ${txtWelcome2}    Get Web Text    ${txtLoginGreeting2}
+    ${welcome}    Set Variable    ${txtWelcome1} ${txtWelcome2}
+    Log    ${welcome}
+    ${NumberInProfilePage}=    Get Web Text    ${lblEmeraldNumberProfile}
+    ${Number}=    Should Match Regexp    ${NumberInProfilePage}    \\d{10}
+    Run Keyword If    "${txtWelcome}" == "${welcome}"    Web Capture Screen At Verify Point    LoginSuccess
+    ...    ELSE    Fail
+    Web Capture Screen At Verify Point    Verify Login Success

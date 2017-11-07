@@ -1,0 +1,151 @@
+*** Settings ***
+Resource          PrivilegeCommon.txt
+Resource          ../PageRepository/Home.txt
+Resource          ../Localized/${ar_LANG}/HomeLocalized.txt
+
+*** Keywords ***
+Select Number Of Content
+    [Arguments]    ${Number}
+    Click Web Element    ${lstNumberOfList}    5
+    Click Web Element    ${lstShow${Number}List}    5
+
+Verify Number List Of Content
+    [Arguments]    ${ExpectlNumberOfList}
+    sleep    2
+    Scroll Web To Element    ${lstNumberOfList}
+    @{NumberOfContent}    Selenium2Library.Get Webelements    ${boxAllContentID}
+    ${NumberOfList}    Get Length    ${NumberOfContent}
+    Log    Number Of List : ${NumberOfList}
+    Run Keyword If    ${ExpectlNumberOfList}==${NumberOfList}    Log    Check List Success
+    Web Capture Screen At Verify Point    List Of Content
+
+Verify Main Menu Grayhound
+    Scroll Web To Element    ${boxListNumber1}
+    Web Element Should Be Visible    ${imgMenuNumber1}
+    Web Element Text Should Be    ${lblTitleMenuNumber1}    ${Greyhound}
+    ${TitleMenu}    Get Web Text    ${lblTitleMenuNumber1}
+    Web check existing text    ${lblDetailMainMenuNumer1}
+    Web Element Should Be Visible    ${btnDetailMenuNumber1}
+    Web Element Should Be Visible    ${btnLikeFacebookMenuNumber1}
+    Web Element Should Be Visible    ${btnTweetMenuNumber1}
+    Web Element Should Be Visible    ${btnMailMenuNumber1}
+    Web Capture Screen At Verify Point    Menu Grayhound
+    [Return]    ${TitleMenu}
+
+Press Detail Grayhound
+    Click Web Element    ${btnDetailMenuNumber1}
+
+Verify Detail Menu Grayhound
+    [Arguments]    ${TitleMenu}
+    Sleep    2
+    Web Element Should Be Visible    ${imgSubMenuNumber1}
+    Web Element Text Should Be    ${lblSubTitleMenuNumber1}    ${TitleMenu}
+    Web check existing text    ${lblSubDetailMenuNumber1}
+    Web Element Trim Text Should Be    ${lblTitleCondition}    ${Condition}
+    Web check existing text    ${lblDetitailCondition}
+    Web Capture Screen At Verify Point    Detail Menu Grayhound
+    Scroll Web To Element    ${boxDisPlaylRelatedDeal}
+    Web Element Trim Text Should Be    ${lblRelatedDeal}    ${RelateDeal}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop1}    ${CoffeeDoiChaang}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop2}    ${SushiBoy}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop3}    ${ColdStone}
+    Web Capture Screen At Verify Point    Related Deal
+
+Verify List Display Paging
+    Scroll Web To Element    ${btnHomePaging}
+    Web Element Should Be Visible    ${btnHomePaging}
+    Web Element Should Be Visible    ${lstDisPlayPaging}
+    Web Element Should Be Visible    ${btnLeftPaging}
+    Web Element Should Be Visible    ${btnRightPaging}
+    Web Capture Screen At Verify Point    List Display Paging
+
+Select Paging 2
+    Click Web Element    ${btnPaging2}
+
+Verify Paging 2 Menu Laem Charoen Sea Food
+    [Arguments]    ${Text}
+    Sleep    2
+    Scroll Web To Element    ${lstDisPlayPaging}
+    Web Element Text Should Be    ${lblTitleMenuNumber1}    ${txtLaemCharoenSeafood}
+    Web Capture Screen At Verify Point    ${Text} Menu Laem Charoen Sea food
+
+Select Previous Page
+    Click Web Element    ${btnLeftPaging}
+
+Verify Page 1 Menu Grayhound
+    [Arguments]    ${Text}
+    Sleep    2
+    Scroll Web To Element    ${lstDisPlayPaging}
+    Web Element Text Should Be    ${lblTitleMenuNumber1}    ${Greyhound}
+    Web Capture Screen At Verify Point    ${Text} Menu After You
+
+Select Next Page
+    Click Web Element    ${btnRightPaging}
+
+Select Home Page
+    Click Web Element    ${btnHomePaging}
+
+Verify HomePage
+    Web Element Should Be Visible    ${Banner}
+    Verify Menubar
+    Web Capture Screen At Verify Point    Verify Home 1
+    Scroll Web To Element    ${CampaingnList_Home}
+    Verify Campaingbar
+    Web Element Text Should Be    ${TitleMenuBoxList}    ${txtAISPrivilege}
+    Verify Serenade Menu
+    Verify BirthdayPrivilege
+    Web Element Text Should Be    ${lblTitleMenuNumber1}    ${txtGreyhoundCafe}
+    Web Capture Screen At Verify Point    Verify Home 2
+    Scroll Web To Element    ${lblTitleMenuNumber2}
+    Web Element Text Should Be    ${lblTitleMenuNumber2}    ${txtNumNum}
+    Web Element Text Should Be    ${lblTitleMenuNumber3}    ${txtSubway}
+    Web Capture Screen At Verify Point    Verify Home 3
+    Scroll Web To Element    ${lblTitleMenuNumber4}
+    Web Element Text Should Be    ${lblTitleMenuNumber4}    ${txtBlackCanyon}
+    Web Element Text Should Be    ${lblTitleMenuNumber5}    ${txtDINTAIFUNG}
+    Web Capture Screen At Verify Point    Verify Home 4
+    Scroll Web To Element    ${lblTitleMenuNumber6}
+    Web Element Text Should Be    ${lblTitleMenuNumber6}    ${txtDakGalbi}
+    Web Capture Screen At Verify Point    Verify Home 5
+    Verify OurFriend
+    Verify Newsletter
+    Verify JoinCampaign
+
+Verify Dropdown
+    Scroll Web To Element    ${numbCampaing}
+    Click Web Element    ${numbCampaing}
+    Web Capture Screen At Verify Point    Verify drop down 1
+    Scroll Web To Element    ${Contact}
+    sleep    5
+    Click Web Element    ${numbCampaing}
+    Web Capture Screen At Verify Point    Verify drop down 2
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Privilege_Prod_local_config_file_path}    ${#selenium_hub}
+
+Verify Dropdown List Top Page
+    Scroll Web To Element    ${lstTopNumberOfList}
+    Sleep    2
+    Click Web Element    ${lstTopNumberOfList}
+    Web Capture Screen At Verify Point    Dropdown List Top Page
+    Web Element Trim Text Should Be    ${lstShow6List}    ${6}
+    Web Element Trim Text Should Be    ${lstShow12List}    ${12}
+    Web Element Trim Text Should Be    ${lstShow18List}    ${18}
+    Web Element Trim Text Should Be    ${lstShow24List}    ${24}
+    Web Element Trim Text Should Be    ${lstShow50List}    ${50}
+    Web Element Trim Text Should Be    ${lstShow100List}    ${100}
+
+Verify Dropdown List Below Page
+    Scroll Web To Element    ${lstBelowNumberOfList}
+    Sleep    2
+    Click Web Element    ${lstBelowNumberOfList}
+    Web Capture Screen At Verify Point    Dropdown List Below Page
+    Web Element Trim Text Should Be    ${lstBelowShow6List}    ${6}
+    Web Element Trim Text Should Be    ${lstBelowShow12List}    ${12}
+    Web Element Trim Text Should Be    ${lstBelowShow18List}    ${18}
+    Web Element Trim Text Should Be    ${lstBelowShow24List}    ${24}
+    Web Element Trim Text Should Be    ${lstBelowShow50List}    ${50}
+    Web Element Trim Text Should Be    ${lstBelowShow100List}    ${100}

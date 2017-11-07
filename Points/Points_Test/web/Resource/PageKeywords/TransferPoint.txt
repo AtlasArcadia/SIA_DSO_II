@@ -1,0 +1,301 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../PageRepository/TransferPointRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/TransferPointLocalized.txt
+Resource          ../PageVariable/TransferPointVariable.txt
+
+*** Keywords ***
+Verify Transfer Point Page
+    Verify Link    ${urlTransferPoint}
+    Verify Menu Bar
+    Web Element Should Be Visible    ${lblBanner}
+    Web Capture Screen At Verify Point    Veriify Transfer Point Page
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Points_Test_local_config_file_path}    ${#selenium_hub}
+
+Verify Card On Transfer Point Page
+    [Arguments]    ${TheOneCard}=None    ${PTTBlueCard}=None    ${KasikornCardCard}=None
+    Run Keyword If    "${KasikornCardCard}"=="Verify"    Web Element Trim Text Should Be    ${lblKasikornCardTitle}    ${KasikornCardTitle}
+    Run Keyword If    "${TheOneCard}"=="Verify"    Web Element Trim Text Should Be    ${lblTheOneCardTitle}    ${TheOneCardTitle}
+    Run Keyword If    "${PTTBlueCard}"=="Verify"    Web Element Trim Text Should Be    ${lblPTTBlueCardTitle}    ${PTTBlueCardTitle}
+    Web Capture Screen At Verify Point    Verify Card In Transfer Points
+
+Verify The One Card Detail
+    Select The One Card
+    Web Element Text Should Be    ${lblCardTitleInDetail}    ${TheOneCardTitle}
+    Web Element Text Should Be    ${lblCardSubTitleInDetail}    ${TheOneCardSubTitle}
+    Web check existing text    ${lblTheOneCardDetail}
+    Web Capture Screen At Verify Point    Verify The One Card
+    Scroll Web To Element    ${lblConditionTitle}
+    Web Element Text Should Be    ${btnBack}    ${Back}
+    Web Element Text Should Be    ${btnTransferPoint}    ${TransferPoint}
+    Web Element Text Should Be    ${lblConditionTitle}    ${ConditionTitle}
+    Web check existing text    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    Verify In The One Card Detail
+
+Select The One Card
+    Sleep    3s
+    Scroll Web To Element    ${lblTheOneCardTitle}
+    Click Web Element    ${lblTheOneCardTitle}
+
+Keywords For Teardown With Logout
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Points_Test_local_config_file_path}    ${#selenium_hub}
+
+Verify Term And Condition
+    Wait Web Until Page Contains Element    ${txtTermAndCondition}
+    Web check existing text    ${txtTermAndCondition}
+    Selenium2Library.Page Should Contain Element    ${txtCheckbox}
+    Selenium2Library.Page Should Contain Element    ${btnNextDisable}
+    Web Capture Screen At Verify Point    Term and Condition
+
+Verify All Card In Transfer Point Page
+    Sleep    2s
+    Scroll Web To Element    ${lblCard}
+    @{allCard}=    Selenium2Library.Get Webelements    ${lblCard}
+    ${countCard}=    Get Length    ${allCard}
+    Web Element Trim Text Should Be    ${lblTheOneCardTitle}    ${TheOneCardTitle}
+    Web Element Trim Text Should Be    ${lblPTTBlueCardTitle}    ${PttBlueCardTitle}
+    Web Capture Screen At Verify Point    Verify All Card In Transfer Point in Page
+
+Select Make Transfer
+    Sleep    2s
+    Scroll Web To Element    ${btnMakeTransfer}
+    Click Web Element    ${btnMakeTransfer}
+
+Verify Not Accept Term And Condition
+    Sleep    2s
+    Scroll Web To Element    ${txtTermAndCondition}
+    Web check existing text    ${txtTermAndCondition}
+    Web Element Should Be Visible    ${btnNextDisable}
+    Web Capture Screen At Verify Point    Verify Next Button Cant press
+
+Verify Accept Term And Condition
+    Sleep    2s
+    Scroll Web To Element    ${txtTermAndCondition}
+    Web check existing text    ${txtTermAndCondition}
+    Web Capture Screen At Verify Point    Verify Accept Term Condition
+
+Verify Transfer Page
+    Verify Link    ${urlConfirmTransferPoint}
+    Web Capture Screen At Verify Point    Verify Go To Transfer Page
+
+Verify Error Input Card Wrong ID
+    [Arguments]    ${CardType}
+    Sleep    2s
+    Scroll Web To Element    ${lblErrorTheOneCardWrong}
+    Web Element Text Should Be    ${lblErrorTheOneCardWrong}    ${ErrorID${CardType}Wrong}
+    Web Capture Screen At Verify Point    Verify in Error Input ${CardType} Wrong ID
+
+Input Card ID
+    [Arguments]    ${ID}
+    Sleep    2s
+    Scroll Web To Element    ${txtCardID}
+    Input Web Text    ${txtCardID}    ${ID}
+    Click Web Element    ${btnCheckCardID}
+
+Accept Condition Checkbox
+    Sleep    2s
+    Scroll Web To Element    ${btnCheckbox}
+    Click Web Element    ${btnCheckbox}
+
+Click Next After Accept Condition
+    Click Web Element    ${btnNextEnable}
+
+Verify The One Card Point Increase
+    Selenium2Library.Page Should Contain Element    ${lblAISPointsTransfer}
+    ${Point1}    Get Value    ${lblAISPointsTransfer}
+    Scroll Web To Element    ${btnPlusAISPointsEnabled}
+    Click Web Element    ${btnPlusAISPointsEnabled}
+    ${Point2}    Get Value    ${lblAISPointsTransfer}
+    Comment    ${Point1}    Convert To Integer    ${Point1}
+    Comment    ${Point2}    Convert To Integer    ${Point2}
+    ${sum}    Evaluate    ${Point2}-${Point1}
+    Run Keyword If    "${sum}" == "50"    Web Capture Screen At Verify Point    Verify Increase Point
+    ...    ELSE    Fail
+
+Verify Not Enough Point
+    Web Element Text Should Be    ${lblNotEnoughPoint}    ${NotEnoughPoint}
+    Web Capture Screen At Verify Point    Not Enough Point
+
+Verify Transfer Page No ID Card
+    [Arguments]    ${card}
+    Sleep    2s
+    Verify Link    http://10.104.240.168/points/transferPoint/transfer
+    Scroll Web To Element    ${imgCard}
+    Web Element Should Be Visible    ${imgCard}
+    Web Element Text Should Be    ${lbl${card}}    ${${card}TransferPage}
+    Web Element Text Should Be    ${lblAISPointsTitleTransferPointPage}    ${AISPointTransferPage}
+    ${text}    Selenium2Library.Get Element Attribute    ${txtCardID}@Placeholder
+    Should Be Equal    ${text}    ${PleaseInput${card}}
+    ${AISPoints}=    Set AIS Points To Number    50
+    Run Keyword If    "${card}" == "PTTBlueCard"    Should Be Equal    ${AISPoints}    100
+    Run Keyword If    "${card}" == "TheOneCard"    Should Be Equal    ${AISPoints}    50
+    Scroll Web To Element    ${btnPlusAISPointsDisabled}
+    Web Element Should Be Visible    ${btnPlusAISPointsDisabled}
+    Web Element Should Be Visible    ${btnMinusAISPointsDisabled}
+    Web Element Should Be Visible    ${imgArrowCenterTransferPage}
+    Web Element Text Should Be    ${lbl${card}TitleTransferPointPage}    ${${card}TransferPage}
+    Scroll Web To Element    ${btnBackTransferPointsPage}
+    Web Element Should Be Visible    ${btnBackTransferPointsPage}
+    Web Element Should Be Visible    ${btnTransferTransferPointsPage}
+    Web Element Should Be Visible    ${btnTermAndCondition}
+    Web Capture Screen At Verify Point    Verify in Transfer Point Page No ID Card
+
+Set AIS Points To Number
+    [Arguments]    ${Number}
+    Sleep    2s
+    : FOR    ${index}    IN RANGE    0    120    1
+    \    ${AISPoints}=    Get Value    ${lblAISPointsTransfer}
+    \    Run Keyword If    "${AISPoints}"!="${Number}"    Click Web Element    ${btnMinusAISPointsEnabled}
+    \    ...    ELSE    Exit For Loop
+    [Return]    ${AISPoints}
+
+Get Current Transfer AISPoint
+    Sleep    2s
+    Scroll Web To Element    ${lblAISPointsTransfer}
+    ${point}=    Get Value    ${lblAISPointsTransfer}
+    [Return]    ${point}
+
+Click Plus Point Transfer Until Max
+    Sleep    2s
+    Scroll Web To Element    ${btnPlusAISPointsEnabled}
+    : FOR    ${Index}    IN RANGE    0    120    1
+    \    ${status}=    Run Keyword And Return Status    Web Element Should Be Visible    ${btnPlusAISPointsDisabled}    1
+    \    Exit For Loop If    ${status}
+    \    Click Web Element    ${btnPlusAISPointsEnabled}
+
+Verify Popup Confirm Transfer Points
+    [Arguments]    ${TypePoint}=AISPoint    ${StartPoint}=50    ${CardType}=TheOneCard    ${ReceivePoint}=400
+    Sleep    2s
+    Scroll Web To Element    ${lblPopupHeadTransferPointPage}
+    Web Element Text Should Be    ${lblPopupHeadTransferPointPage}    ${PopupHeaderConfirmTransaction}
+    Web Element Text Should Be    ${lblPopupTextTransferAISPoint}    ${Transfer${TypePoint}To}
+    Web Element Text Should Be    ${lblPopupTextTransferPoint}    ${Transfer${StartPoint}Points}
+    Web Element Text Should Be    ${lblPopupTextToTheOneCardPoint}    ${Is${CardType}Points}
+    Web Element Text Should Be    ${lblPopupTextToPoint}    ${Receive${ReceivePoint}PointsFrom}
+    Scroll Web To Element    ${btnPopupCancel}
+    Web Element Should Be Visible    ${btnPopupCancel}
+    Web Element Should Be Visible    ${btnPopupConfirm}
+    Web Capture Screen At Verify Point    Verify Confirm Transfer Points
+
+Verify Result Page
+    [Arguments]    ${CardType}=TheOneCard
+    Sleep    2s
+    Scroll Web To Element    ${lblResultTitleCard}
+    Web Element Text Should Be    ${lblResultTitleCard}    ${Result${CardType}Title}
+    Web Element Text Should Be    ${lblResultDetail}    ${Result${CardType}Detail}
+    Web Element Should Be Visible    ${imgResultCorrect}
+    Scroll Web To Element    ${btnResultBackToHome}
+    Web Element Should Be Visible    ${btnResultBackToHome}
+    Web Element Should Be Visible    ${btnResultTransferAgain}
+    Web Capture Screen At Verify Point    Verify Success Points Transfer
+
+Select PTT Blue Card
+    Sleep    2s
+    Scroll Web To Element    ${lblPTTBlueCardTitle}
+    Click Web Element    ${lblPTTBlueCardTitle}
+
+Verify Current Transfer Point Are Not Change
+    ${before}=    Get Current Transfer AISPoint
+    Scroll Web To Element    ${btnPlusAISPointsEnabled}
+    Click Web Element    ${btnPlusAISPointsEnabled}
+    Web Capture Screen At Verify Point    After Click Button Plus
+    Click Web Element    ${btnMinusAISPointsEnabled}
+    ${after}=    Get Current Transfer AISPoint
+    Should Be Equal    ${before}    ${after}
+    Web Capture Screen At Verify Point    After Click Button Minus
+
+Calculate Diff Point When Success Transfer Point
+    [Arguments]    ${StartPoint}    ${PointTransfer}
+    ${EndCurrentPoints}=    Get Current Point
+    ${diffCurrentPoints}=    Evaluate    ${StartPoint} -${PointTransfer}
+    Should Be Equal    ${diffCurrentPoints}    ${EndCurrentPoints}
+    Web Capture Screen At Verify Point    Verify Last Points
+
+Verify Transfer Cancel
+    ${Point}    Set AIS Points To Number    50
+    ${ReceivePoint}=    Get Web Text    ${lblTheOneCardPointReceive}
+    ${curPoint}    Get Current Point
+    Click Web Element    ${btnTransferTransferPointsPage}
+    Click Web Element    ${btnPopupCancel}
+    ${newPoint}    Get Current Point
+    ${sum}    Evaluate    ${curPoint}-${newPoint}
+    Run Keyword If    "${sum}" == "0"    Web Capture Screen At Verify Point    Cancel Transfer Points
+    ...    ELSE    Fail
+
+Verify Transfer Term And Condition
+    Scroll Web To Element    ${btnTermAndCondition}
+    Click Web Element    ${btnTermAndCondition}
+    Web Capture Screen At Verify Point    Expand Term and Condition
+    Click Web Element    ${btnTermAndCondition}
+    Wait Web Until Page Contains Element    ${lblConditionOneCardHide}
+    Web Capture Screen At Verify Point    Collapse Term and Condition
+
+Verify Transfer Page With ID Card
+    [Arguments]    ${CardType}
+    Web Element Should Be Visible    ${imgCard}
+    Web Element Text Should Be    ${lbl${CardType}}    ${${CardType}TransferPage}
+    Web Element Text Should Be    ${lblCardHolderName}    ${CardHolderName}
+    ${minPoints}=    Set Variable If    "${CardType}"=="TheOneCard"    50
+    ${minPoints}=    Set Variable If    "${CardType}"=="PTTBlueCard"    100    ${minPoints}
+    ${AISPoints}=    Set AIS Points To Number    ${minPoints}
+    Should Be Equal    ${AISPoints}    ${minPoints}
+    Web Element Should Be Visible    ${btnPlusAISPointsEnabled}
+    Web Element Should Be Visible    ${btnMinusAISPointsDisabled}
+    Web Element Should Be Visible    ${imgArrowCenterTransferPage}
+    Web Element Text Should Be    ${lbl${CardType}TitleTransferPointPage}    ${${CardType}TransferPage}
+    Web Element Should Be Visible    ${btnBackTransferPointsPage}
+    Web Element Should Be Visible    ${btnTransferTransferPointsPage}
+    Scroll Web To Element    ${btnTermAndCondition}
+    Web Element Should Be Visible    ${btnTermAndCondition}
+    Scroll Web To Element    ${imgArrowCenterTransferPage}
+    Web Capture Screen At Verify Point    Verify in Transfer Point Page With ID Card
+
+Verify PTT Blue Card Point Increase
+    Selenium2Library.Page Should Contain Element    ${lblAISPointsTransfer}
+    ${Point1}    Get Value    ${lblAISPointsTransfer}
+    Scroll Web To Element    ${btnPlusAISPointsEnabled}
+    Click Web Element    ${btnPlusAISPointsEnabled}
+    ${Point2}    Get Value    ${lblAISPointsTransfer}
+    Comment    ${Point1}    Convert To Integer    ${Point1}
+    Comment    ${Point2}    Convert To Integer    ${Point2}
+    ${sum}    Evaluate    ${Point2}-${Point1}
+    Run Keyword If    "${sum}" == "100"    Web Capture Screen At Verify Point    Verify Increase Point
+    ...    ELSE    Fail
+
+Verify PTT Blue Card Detail
+    Select PTT Blue Card
+    Web Element Text Should Be    ${lblCardTitleInDetail}    ${PTTBlueCardTitle}
+    Web Element Text Should Be    ${lblCardSubTitleInDetail}    ${PTTBlueCardSubTitle}
+    Web check existing text    ${lblPTTBlueCardDetail}
+    Web Capture Screen At Verify Point    Verify PTT Blue Card
+    Scroll Web To Element    ${lblConditionTitle}
+    Web Element Text Should Be    ${btnBack}    ${Back}
+    Web Element Text Should Be    ${btnTransferPoint}    ${TransferPoint}
+    Web Element Text Should Be    ${lblConditionTitle}    ${ConditionTitle}
+    Web check existing text    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    Verify In PTT Blue Card Detail
+
+Verify KasikornCard Detail
+    Select KasikornCard
+    Web Element Text Should Be    ${lblCardTitleInDetail}    ${KasikornCardTitle}
+    Web Element Text Should Be    ${lblCardSubTitleInDetail}    ${KasikornCardSubTitle}
+    Web check existing text    ${lblKasikornCardDetail}
+    Web Capture Screen At Verify Point    Verify KasikornCard
+    Scroll Web To Element    ${lblConditionTitle}
+    Web Element Text Should Be    ${btnBack}    ${Back}
+    Web Element Text Should Be    ${lblConditionTitle}    ${ConditionTitle}
+    Web check existing text    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    Verify In KasikornCard Detail
+
+Select KasikornCard
+    Sleep    3s
+    Scroll Web To Element    ${lblKasikornCardTitle}
+    Click Web Element    ${lblKasikornCardTitle}
