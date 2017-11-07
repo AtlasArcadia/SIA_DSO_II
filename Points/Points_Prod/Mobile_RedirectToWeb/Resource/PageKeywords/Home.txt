@@ -1,0 +1,142 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/HomeLocalized.txt
+
+*** Keywords ***
+ContainCard
+    sleep    5s
+    Wait Mobile Until Element Visible    ${img${CardName}}
+    Swipe element to specific area    ${img${CardName}}
+
+Check mobile number
+    ${tel1}=    Get mobile attribute    ${txtMobileNumber}    name
+    Log    ${tel1}
+    ${tel2}=    Remove String    ${tel1}    -
+    log    ${tel2}
+    ${tel3}=    Convert To Integer    ${tel2}
+    log    ${tel3}
+
+Check point are Equal
+    [Arguments]    ${mainP2}
+    ${P1}=    Get mobile attribute    ${txtPoint}    name
+    Log    ${P1}
+    ${P2}=    Convert To String    ${P1}
+    Log    ${P2}
+    Should Be Equal    ${P2}    ${mainP2}
+    Mobile Capture Screen At Verify Point    Convert point page
+
+Verify contain PTT Blue Card
+    sleep    5s
+    Wait Mobile Until Element Visible    ${imgPTTBlueCard}
+    Swipe element to specific area    ${imgPTTBlueCard}
+    Mobile Capture Screen At Verify Point    PTTBlueCard
+
+Verify contain TheOne Card
+    sleep    5s
+    Wait Mobile Until Element Visible    ${imgTheOneCard}
+    Swipe element to specific area    ${imgTheOneCard}    ratio=0.1
+    Mobile Capture Screen At Verify Point    TheOneCard
+
+Verify menu
+    Wait Mobile Until Element Visible    ${mnuFirstPage}
+    Wait Mobile Until Element Visible    ${mnuAboutAISPoint}
+    Wait Mobile Until Element Visible    ${mnuTransferPoint}
+    Wait Mobile Until Element Visible    ${mnuRedeemReward}
+
+Verify term and condition
+    Swipe element to specific area    ${txtCondition3}
+    Wait Mobile Until Element Visible    ${txtCondition}
+    Mobile check existing text in name    ${txtCondition}
+    Mobile check existing text in name    ${txtCondition1}
+    Mobile check existing text in name    ${txtCondition2}
+    Mobile check existing text in name    ${txtCondition3}
+    Mobile check existing text in name    ${txtCondition4}
+    Mobile check existing text in name    ${txtCondition5}
+    Mobile check existing text in name    ${txtCondition6}
+    Mobile Capture Screen At Verify Point    About AIS point
+
+Hide term and condition
+    Sleep    5
+    Swipe element to specific area    ${txtCondition5}
+    Sleep    5
+    Click Mobile Element    ${txtCondition}
+    Wait Mobile Until Page Does Not Contain Element    ${txtCondition1}
+    Wait Mobile Until Page Does Not Contain Element    ${txtCondition2}
+    Wait Mobile Until Page Does Not Contain Element    ${txtCondition3}
+    Wait Mobile Until Page Does Not Contain Element    ${txtCondition4}
+    Wait Mobile Until Page Does Not Contain Element    ${txtCondition5}
+    Wait Mobile Until Page Does Not Contain Element    ${txtCondition6}
+    Mobile Capture Screen At Verify Point    Term and condition
+
+Verify show tern and condition
+    Sleep    5
+    Swipe element to specific area    ${txtCondition6}
+    Mobile check existing text in name    ${txtCondition}
+    Wait Mobile Until Element Visible    ${txtCondition1}
+    Wait Mobile Until Element Visible    ${txtCondition2}
+    Wait Mobile Until Element Visible    ${txtCondition3}
+    Wait Mobile Until Element Visible    ${txtCondition4}
+    Wait Mobile Until Element Visible    ${txtCondition5}
+    Wait Mobile Until Element Visible    ${txtCondition6}
+    Mobile Capture Screen At Verify Point    Term&Condition
+
+Verify Nowhereishappy
+    Sleep    10
+    Wait Mobile Until Element Visible    ${imgAboutAISpointpage1}
+    Mobile Capture Screen At Verify Point    About AIS point
+
+Verify Hot Reward
+    Swipe element to specific area    ${picReward}
+    Mobile check existing text in name    ${imgPointHotReward}
+    Wait Mobile Until Element Visible    ${picReward}
+    Mobile check existing text in name    ${txtReward}
+    Mobile Capture Screen At Verify Point    HotReward FirstPage
+
+Verify convert point page
+    Mobile check existing text in name    ${txtPoint}
+    Wait Mobile Until Element Visible    ${mnuFirstPage}
+    Wait Mobile Until Element Visible    ${mnuAboutAISPoint}
+    Wait Mobile Until Element Visible    ${mnuTransferPoint}
+    Wait Mobile Until Element Visible    ${mnuRedeemReward}
+    Mobile check existing text in name    ${lblHotReward}
+    Mobile Capture Screen At Verify Point    HotReward FirstPage
+
+Verify contain KBank Card
+    sleep    5
+    Wait Mobile Until Page Contains Element    ${imgKBangCard}
+    Swipe element to specific area    ${imgKBangCard}
+    Mobile Capture Screen At Verify Point    KBank
+
+Mobile number
+    [Arguments]    ${Number}
+    ${tel1}=    Get mobile attribute    ${txtMobileNumber}    name
+    Log    ${tel1}
+    ${tel2}=    Remove String    ${tel1}    -
+    log    ${tel2}
+    ${tel3}=    Convert To Integer    ${tel2}
+    log    0${tel3}
+    ${Num1}=    Convert To Integer    ${Number}
+    log    0${Num1}
+    Should Be Equal    ${tel3}    ${Num1}
+
+Verify about MyAIS
+    Wait Mobile Until Element Visible    ${imgAboutAISpointpage3}
+    Mobile check existing text in name    ${lblAboutAISpointpage4}
+    Swipe element to specific area    ${txtCondition}
+    Wait Mobile Until Page Does Not Contain Element    ${btnRegisterPonit}
+    Sleep    5
+
+Get main point
+    [Arguments]    ${txtAmountPoint}
+    ${mainP}=    Get mobile attribute    ${txtAmountPoint}    name
+    Log    ${mainP}
+    ${mainP1}=    Convert To String    ${mainP}
+    Log    ${mainP1}
+
+Verify banner
+    Comment    sleep    5
+    Comment    Wait Mobile Until Element Visible    xpath=//*[@resource-id="highlight_inner"]/android.view.View[@index="0"]/android.view.View[@index="0"]//android.view.View[@index="3"]    #banner1
+    Comment    Wait Mobile Until Element Visible    xpath=//*[@resource-id="highlight_inner"]/android.view.View[@index="0"]/android.view.View[@index="0"]//android.view.View[@index="5"]    #banner2
+    Comment    Wait Mobile Until Element Visible    xpath=//*[@resource-id="highlight_inner"]/android.view.View[@index="0"]/android.view.View[@index="0"]//android.view.View[@index="5"]    #banner3
+    Comment    Wait Mobile Until Element Visible    xpath=//*[@resource-id="highlight_inner"]/android.view.View[@index="0"]/android.view.View[@index="0"]//android.view.View[@index="6"]    #banner4
+    Comment    Wait Mobile Until Element Visible    xpath=//*[@resource-id="highlight_inner"]/android.view.View[@index="0"]/android.view.View[@index="0"]//android.view.View[@index="9"]    #banner5
