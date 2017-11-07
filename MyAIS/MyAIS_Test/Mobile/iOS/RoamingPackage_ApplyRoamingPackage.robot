@@ -1,6 +1,6 @@
 *** Settings ***
 Resource          ../../../../Config/LocalConfig.txt
-Resource          ../Resource/PageKeywords/
+Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Prepaid.txt
 
 *** Test Cases ***
 [F8_Package_IOS_1,3_1-2_Y_1_2] Subscribe Data Package : Immediate In case : countries with states

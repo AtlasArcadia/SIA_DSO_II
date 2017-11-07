@@ -1,6 +1,6 @@
 *** Settings ***
 Resource          ../../../../Config/LocalConfig.txt
-Resource          ../Resource/PageKeywords/
+Resource          ../Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemaining_Prepaid.txt
 
 *** Test Cases ***
 [F7_Package_IOS_1,3_1-2_Y_1_2] Check current package In case : Have Remaining usage

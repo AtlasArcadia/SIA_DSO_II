@@ -1,6 +1,6 @@
 *** Settings ***
 Resource          ../../../../Config/LocalConfig.txt
-Resource          ../Resource/PageKeywords/
+Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.txt
 
 *** Test Cases ***
 [F11_Package_IOS_1,3_1-2_Y_1_2] Verify page International Service

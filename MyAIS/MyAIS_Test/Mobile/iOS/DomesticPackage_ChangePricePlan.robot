@@ -1,6 +1,6 @@
 *** Settings ***
 Resource          ../../../../Config/LocalConfig.txt
-Resource          ../Resource/PageKeywords/
+Resource          ../Resource/PageKeywords/Domestic_ChangePricePlan.txt
 
 *** Test Cases ***
 [F3_Package_IOS_1-3_1-2_Y_1_2] Verify page Change Price Plan

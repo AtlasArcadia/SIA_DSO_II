@@ -1,6 +1,6 @@
 *** Settings ***
 Resource          ../../../../Config/LocalConfig.txt
-Resource          ../Resource/PageKeywords/
+Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackage.txt
 
 *** Test Cases ***
 [F5_Package_IOS_1-3_1-2_Y_1_2] Verify page Apply Other OnTop Package
