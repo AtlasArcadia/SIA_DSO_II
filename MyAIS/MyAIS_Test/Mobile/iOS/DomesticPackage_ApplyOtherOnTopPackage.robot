@@ -78,7 +78,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -86,6 +86,12 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Talk And Net On-Top Package
+    ${FirstPackage}    Select First Package Talk And Net On-Top Package
+    Verify Select First Package Talk And Net On-Top Package Step1    ${Number}    ${FirstPackage}
+    Verify Select First Package Talk And Net On-Top Package Step2    ${FirstPackage}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_6_2] Apply Other OnTop PackageIn case : Internet OnTop Package - Entertainment
@@ -103,6 +109,8 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_7_2] Apply Other OnTop PackageIn case : Internet OnTop Package - OneTime OnTop Package
@@ -120,6 +128,8 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_8_2] Apply Other OnTop PackageIn case : Internet OnTop Package - Monthly OnTop Package
@@ -137,6 +147,8 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_9_2] Apply Other OnTop PackageIn case : Internet OnTop Package - WiFi
@@ -154,6 +166,8 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_10_2] Apply Other OnTop PackageIn case : Talk OnTop Package - Buffet OnTop Package
@@ -171,6 +185,8 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_11_2] Apply Other OnTop PackageIn case : Talk OnTop Package - Minutes OnTop Package
@@ -188,4 +204,6 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
