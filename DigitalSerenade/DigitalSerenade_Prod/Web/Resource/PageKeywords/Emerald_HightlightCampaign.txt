@@ -7,10 +7,10 @@ Resource          ../Localized/${ar_LANG}/${ar_nType}/Emerald_HightlightCampaign
 
 *** Keywords ***
 Verify HC MyAIS
-    [Arguments]    ${banner}
-    ${index}    Find banner    ${banner}
+    ${index}    Find banner    myAIS
     Web Capture Screen At Verify Point    myAIS banner
-    Click Web Element    xpath=//div[@class="owl-item active"]//img[@src="https://ws-adv.ais.co.th/impression/banners/2017/6/27/banner-68b67992f2196ef1bb42d1ec07019c0d.1498556333096.jpeg?bannerId=441&campaignId=425&channelId=8&keywords=HL02&positionId=8&tokenId"]
+    Comment    Click Web Element    xpath=//div[@class="owl-item active"]//img[@src="https://ws-adv.ais.co.th/impression/banners/2017/6/27/banner-68b67992f2196ef1bb42d1ec07019c0d.1498556333096.jpeg?bannerId=441&campaignId=425&channelId=8&keywords=HL02&positionId=8&tokenId"]
+    choose banner    myAIS
     Sleep    5s
     Select Window    url=${BannermyAISLink}
     Sleep    10s
@@ -22,7 +22,7 @@ Verify HC MyAIS
     ${status}=    Run Keyword And Return Status    Web Element Should Be Visible    ${PopUpMyAISHC}
     Run Keyword If    "${status}" == "True"    Click Web Element    ${btnClosePopUpMyAISHC}
     Web Element Should Be Visible    ${imgmyAISLogo}
-    :FOR    ${index}    IN RANGE    1    2
+    : FOR    ${index}    IN RANGE    1    2
     \    Scroll Web To Element    ${btnBannermyAIS${index}}
     \    Web Element Should Be Visible    ${btnBannermyAIS${index}}
     Selenium2Library.Page Should Not Contain Element    xpath=//div[@id="slider-herobanner"]//div[@class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"]/span[3]
@@ -163,9 +163,9 @@ verify active banner
     ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
     ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerAISDCandTCDC}
     ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
-    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerMercuryVille}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
     ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerSiamParagon}
-    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
+    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerSiamDiscovery}
     : FOR    ${index}    IN RANGE    1    7
     \    Log    ${srcBanner${index}}
     \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
@@ -174,9 +174,9 @@ verify active banner
     ${Banner}    Set Variable If    "${index}" == "2"    myKitchen    ${Banner}
     ${Banner}    Set Variable If    "${index}" == "3"    AISDCandTCDC    ${Banner}
     ${Banner}    Set Variable If    "${index}" == "4"    Embassy    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "5"    MercuryVille    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "5"    myAIS    ${Banner}
     ${Banner}    Set Variable If    "${index}" == "6"    SiamParagon    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "7"    myAIS    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "7"    SiamDiscovery    ${Banner}
     [Return]    ${Banner}
 
 Find banner
