@@ -38,7 +38,7 @@ ios open my ais app
 
 Swipe to element
     [Arguments]    ${target}    ${Container}=screen    ${Direction}=up    ${ratio}=0.2    ${Round}=10    ${duration}=1000
-    ...    ${appium_info}="noinfo"
+    ...    ${swipe_range}=500     ${appium_info}="noinfo"
     Comment    Sleep    3
     Log    In swipe to element
     Log    ${ar_OS}
@@ -49,8 +49,10 @@ Swipe to element
     ...    0
     Comment    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${target}
     Run Keyword If    ${ratio}>0.5 or ${ratio}<=0    fail    ratio are <0 or >0.5
-    Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe in screen to element    ${target}    ${Direction}    ${ratio}    ${Round}
+    Comment    Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe in screen to element    ${target}    ${Direction}    ${ratio}    ${Round}
     ...    ${duration}    ${appium_info}
+    Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe to element android test    ${target}    ${swipe_range}    ${Direction}    ${ratio}
+    ...    ${Round}    ${duration}    ${appium_info}
     Run Keyword If    '${Container}' != 'screen' and '${elementIsContain}'== 'False'    swipe in container to element    ${target}    ${Container}    ${Direction}    ${ratio}
     ...    ${Round}    ${duration}    ${appium_info}
     Log    Out swipe to element
@@ -813,3 +815,35 @@ Set Dict Swipe Down
     Run Keyword If    ${Remain_Distance}>0    Append To List    ${ListSetOfSwipe}    ${dicSwipeLastCommand}
     Log    ${ListSetOfSwipe}
     [Return]    ${ListSetOfSwipe}
+
+swipe to element android test
+    [Arguments]    ${target}    ${swipe_range}    ${Direction}=up    ${ratio}=0.2    ${Round}=10    ${duration}=500
+    ...    ${appium_info}="noinfo"
+    ${driver}=    Run Keyword If    ${appium_info}=="noinfo"    Aisappium Get Driver Instance
+    &{dict_size}    Run Keyword If    ${appium_info}=="noinfo"    Create Dictionary    &{driver.get_window_size()}
+    ...    ELSE    Create Dictionary    &{appium_info.driver.get_window_size()}
+    ${size}=    Get Dictionary Values    ${dict_size}
+    ${screen_width}=    Set Variable    @{size}[1]
+    ${screen_height}=    Set Variable    @{size}[0]
+    ${screen_center_x}    Evaluate    ${screen_width}/2
+    ${screen_center_y}    Evaluate    ${screen_height}/2
+    ${top_screen}    Evaluate    ${screen_height}*${ratio}
+    ${below_screen}    Evaluate    ${screen_height}-(${screen_height}*${ratio})
+    ${right_screen}    Evaluate    ${screen_width}-(${screen_width}*${ratio})
+    ${left_screen}    Evaluate    ${screen_width}*${ratio}
+    ${swipe_to_top}    Evaluate    ${below_screen}-${swipe_range}
+    ${swipe_to_below}    Evaluate    ${top_screen}+${swipe_range}
+    ${swipe_to_left}    Evaluate    ${right_screen}-${swipe_range}
+    ${swipe_to_right}    Evaluate    ${left_screen}+${swipe_range}
+    : FOR    ${index}    IN RANGE    1    ${Round}
+    \    Run Keyword If    '${Direction}'=='up'    Swipe    ${screen_center_x}    ${below_screen}    ${screen_center_x}
+    \    ...    ${swipe_to_top}    ${duration}
+    \    ...    ELSE IF    '${Direction}'=='up'    Swipe    ${screen_center_x}    ${below_screen}
+    \    ...    ${screen_center_x}    ${swipe_to_top}    ${duration}
+    \    ...    ELSE IF    '${Direction}'=='up'    Swipe    ${screen_center_x}    ${below_screen}
+    \    ...    ${screen_center_x}    ${swipe_to_top}    ${duration}
+    \    ...    ELSE IF    '${Direction}'=='up'    Swipe    ${screen_center_x}    ${below_screen}
+    \    ...    ${screen_center_x}    ${swipe_to_top}    ${duration}
+    \    ${foundTarget}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}    1
+    \    Exit For Loop If    '${foundTarget}'=='True'
+    Run Keyword If    '${foundTarget}'=='False'    FAIL    This element is not found.

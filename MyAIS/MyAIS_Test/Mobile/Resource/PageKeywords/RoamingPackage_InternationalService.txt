@@ -3,3 +3,10 @@ Resource          MyAISCommon.txt
 Resource          Login.txt
 Resource          ../PageRepository/${ar_OS}/RoamingPackage_InternationalService.txt
 Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/RoamingPackage_InternationalService.txt
+
+*** Keywords ***
+Switch International service Mode
+    [Arguments]    ${Switch}
+    ${checked}	AISAppiumEx.Get Element Attribute	${btnSwitchInternationalRoamingService}	checked
+    Run Keyword If	('${Switch}'=='On') and ('${checked}'=='false')	Click Mobile Element	${btnSwitchInternationalRoamingService}
+    Run Keyword If	('${Switch}'=='Off') and ('${checked}'=='false')	Click Mobile Element	${btnSwitchInternationalRoamingService}
