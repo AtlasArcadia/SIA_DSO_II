@@ -242,6 +242,10 @@ Verify SMS From My AIS OnTop Internet One Time
     ...    ${virtual_device_1_SN}
 
 Select Internet OnTop Package
+    Run Keyword If    "${ar_OS}"=="Android"    Select Internet OnTop Package Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Internet OnTop Package iOS
+
+Select Internet OnTop Package Android
     Click Mobile Element    ${lblApplyOnTopNet}
     Comment    Mobile element text should be    ${btnApplyOnTopInternetMonthly}    ${txtApplyOnTopInternetMonthly}
     Comment    Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${txtApplyOnTopInternetOneTime}
@@ -348,12 +352,15 @@ Verify SMS From My AIS OnTop Internet Wifi
 Confirm Next Page
     Click Mobile Element    ${btnNextPageOtherOnTop}
 
-Select Talk And Net On-Top Package
+Select Talk And Net OnTop Package
     Wait Mobile Until Element Visible    ${btnTalkAndNetOnTopPackage}    60
     Click Mobile Element    ${btnTalkAndNetOnTopPackage}
 
 Select First Package Talk And Net On-Top Package
-    Click Mobile Element    ${btnFirstPackage}
+    ${FirstPackage}=    Get mobile text    ${btnFirstPackageTalkAndNet}
+    Log    ${FirstPackage}
+    Click Mobile Element    ${btnFirstPackageTalkAndNet}
+    [Return]    ${FirstPackage}
 
 Verify Select First Package Talk And Net On-Top Package Step1
     [Arguments]    ${Number}    ${FirstPackage}
@@ -364,6 +371,7 @@ Verify Select First Package Talk And Net On-Top Package Step1
     Mobile element text should be    ${lblTalkAndNetOnTop}    ${TalkAndNetOnTop}
     Wait Mobile Until Element Visible    ${lblDetail}
     Mobile element text should be    ${lblPackageNameSelectStep1}    ${FirstPackage}
+    Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
     Wait Mobile Until Element Visible    ${btnNext}
     Wait Mobile Until Element Visible    ${btnBack}
     Wait Mobile Until Element Visible    ${lblApplyOnTopTermsAndConditions}
@@ -375,6 +383,92 @@ Verify Select First Package Talk And Net On-Top Package Step2
     Mobile element text should be    ${lblPackageNameSelectStep2}    ${FirstPackage}
     Wait Mobile Until Element Visible    ${btnBack}
     Wait Mobile Until Element Visible    ${btnConfirm}
-    Mobile Capture Screen At Verify Point    Verify Select First Package Talk And Net
+    Mobile Capture Screen At Verify Point    Verify Select First Package Talk And Net On-Top Package Step2
+
+Select Internet OnTop Package iOS
+    Wait Mobile Until Element Visible    ${btnInternetOnTopPackage}    60
+    Click Mobile Element    ${btnInternetOnTopPackage}
+
+Select Submenu OneTime OnTop Package
+    Click Mobile Element    ${btnApplyOnTopInternetOneTime}
+
+Verify SubMenu OneTime OnTop Package
+    Wait Mobile Until Element Visible    ${btnFirstPackageOneTimeOnTop}    60
+    ${FirstPackage}=    Get mobile text    ${btnFirstPackageOneTimeOnTop}
+    Log    ${FirstPackage}
+    Wait Mobile Until Element Visible    ${btnSecondPackageOneTimeOnTop}
+    Wait Mobile Until Element Visible    ${btnThirdPackageOneTimeOnTop}
+    Wait Mobile Until Element Visible    ${btnFourthPackageOneTimeOnTop}
+    Click Mobile Element    ${btnFirstPackageOneTimeOnTop}
+    [Return]    ${FirstPackage}
+
+Verify Select First Package OneTime OnTop Package Step1
+    [Arguments]    ${Number}    ${FirstPackage}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblInterNetOnTop}    ${InternetOnTop}
+    Wait Mobile Until Element Visible    ${lblDetail}
+    Mobile element text should be    ${lblPackageNameSelectStep1}    ${FirstPackage}
+    Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${lblApplyOnTopTermsAndConditions}
+    Click Mobile Element    ${btnNext}
+
+Verify Select First Package OneTime OnTop Package Step2
+    [Arguments]    ${FirstPackage}
+    Wait Mobile Until Element Visible    ${lblYouHaveSelect}
+    Mobile element text should be    ${lblPackageNameSelectStep2}    ${FirstPackage}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnConfirm}
+    Mobile Capture Screen At Verify Point    Verify Select First Package OneTime OnTop Package Step2
+
+Select Submenu Monthly OnTop Package
+    Click Mobile Element    ${btnApplyOnTopInternetMonthly}
+
+Verify SubMenu Monthly OnTop Package
+    Wait Mobile Until Element Visible    ${btnFirstPackageMonthlyOnTop}    60
+    ${FirstPackage}=    Get mobile text    ${btnFirstPackageMonthlyOnTop}
+    Log    ${FirstPackage}
+    Wait Mobile Until Element Visible    ${btnSecondPackageMonthlyOnTop}
+    Wait Mobile Until Element Visible    ${btnThirdPackageMonthlyOnTop}
+    Wait Mobile Until Element Visible    ${btnFourthPackageMonthlyOnTop}
+    Click Mobile Element    ${btnFirstPackageMonthlyOnTop}
+    [Return]    ${FirstPackage}
+
+Verify Select First Package Monthly OnTop Package Step1
+    [Arguments]    ${Number}    ${FirstPackage}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblInterNetOnTop}    ${InternetOnTop}
+    Wait Mobile Until Element Visible    ${lblDetail}
+    Mobile element text should be    ${lblPackageNameSelectStep1}    ${FirstPackage}
+    Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${lblApplyOnTopTermsAndConditions}
+    Click Mobile Element    ${btnNext}
+
+Verify Select First Package Monthly OnTop Package Step2
+    [Arguments]    ${FirstPackage}
+    Wait Mobile Until Element Visible    ${lblYouHaveSelect}
+    Mobile element text should be    ${lblPackageNameSelectStep2}    ${FirstPackage}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnConfirm}
+    Mobile Capture Screen At Verify Point    Verify Select First Package OneTime OnTop Package Step2
+
+Select Submenu Wifi
+    Click Mobile Element    ${btnApplyOnTopWifi}
+
+Verify SubMenu Wifi
+    Wait Mobile Until Element Visible    ${btnFirstPackageWifi}    60
+    ${FirstPackage}=    Get mobile text    ${btnFirstPackageWifi}
+    Log    ${FirstPackage}
+    Click Mobile Element    ${btnFirstPackageMonthlyOnTop}
+    [Return]    ${FirstPackage}
 
 

@@ -78,7 +78,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -88,8 +88,8 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ApplyOtherOnTopPackages
-    Select Talk And Net On-Top Package
-    ${FirstPackage}    Select First Package Talk And Net On-Top Package
+    Select Talk And Net OnTop Package
+    ${FirstPackage}=    Select First Package Talk And Net On-Top Package
     Verify Select First Package Talk And Net On-Top Package Step1    ${Number}    ${FirstPackage}
     Verify Select First Package Talk And Net On-Top Package Step2    ${FirstPackage}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
@@ -101,7 +101,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    Reject
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -120,7 +120,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -130,6 +130,11 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ApplyOtherOnTopPackages
+    Select Internet OnTop Package
+    Select Submenu OneTime OnTop Package
+    ${FirstPackage}=    Verify SubMenu OneTime OnTop Package
+    Verify Select First Package OneTime OnTop Package Step1    ${Number}    ${FirstPackage}
+    Verify Select First Package OneTime OnTop Package Step2    ${FirstPackage}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_8_2] Apply Other OnTop PackageIn case : Internet OnTop Package - Monthly OnTop Package
@@ -149,6 +154,9 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ApplyOtherOnTopPackages
+    Select Internet OnTop Package
+    Select Submenu Monthly OnTop Package
+    ${FirstPackage}=    Verify SubMenu Monthly OnTop Package
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_9_2] Apply Other OnTop PackageIn case : Internet OnTop Package - WiFi
@@ -168,6 +176,9 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ApplyOtherOnTopPackages
+    Select Internet OnTop Package
+    Select Submenu Wifi
+    ${FirstPackage}=    Verify SubMenu Wifi
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_10_2] Apply Other OnTop PackageIn case : Talk OnTop Package - Buffet OnTop Package
