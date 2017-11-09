@@ -1,0 +1,75 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_NewsAndShareLocalized.txt
+Resource          ../PageRepository/Platinum_NewsAndShareRepository.txt
+Resource          ../PageVariable/Platinum_NewsAndShare.txt
+
+*** Keywords ***
+Select Online News And Update Channels
+    [Arguments]    ${location}    ${imgCaptureName}
+    Sleep    20
+    Scroll Web To Element    ${location}
+    Sleep    2s
+    Web Capture Screen At Verify Point    ${imgCaptureName}
+    Click Web Element    ${location}
+
+Verify URL Update News eService
+    Sleep    5s
+    Select Window    title=${titleEService}
+    ${URL}=    Get Location
+    Should Match Regexp    ${URL}    ${URLUpdateNewsEService}.*
+    Web Capture Screen At Verify Point    Update News eService Page
+
+Verify Line Page
+    Web Element Should Be Visible    ${imgLineLogo}
+    Web Element Text Should Be    ${imgLineLogo}    ${Line}
+    Web Element Should Be Visible    ${imgLineQRCode}
+    Web Element Text Should Be    ${lblLine}    ${LineText}
+    Web Capture Screen At Verify Point    LINE Page
+
+Verify Facebook Page
+    Web Element Should Be Visible    ${imgFacebookLogo}
+    Web Element Text Should Be    ${lblFacebook}    ${FacebookSecure}
+    Web Capture Screen At Verify Point    Facebook Page
+
+Verify Contect Us Page
+    Web Element Should Be Visible    ${imgContactBanner}
+    Web Element Text Should Be    ${lblContactUs}    ${ContactUs}
+    Web Capture Screen At Verify Point    Contect Us Page
+
+Verify eService Page
+    Select Frame    ${eServiceIFrame}
+    Web Element Should Be Visible    ${imgeServiceAISlogo}
+    Web Element Text Should Be    ${lbleServiceLogin}    ${eServiceLogin}
+    Web Element Text Should Be    ${lbleService}    ${eService}
+    Web Capture Screen At Verify Point    eService Page
+
+Verify Share To Facebook No Login
+    Sleep    8
+    Scroll Web To Element    ${btnShareToFacebook}
+    Web Capture Screen At Verify Point    Share to Facebook Icon
+    Click Web Element    ${btnShareToFacebook}
+    Sleep    5
+    Select Window    url=${URLShareLoginFacebook}
+    Verify Link    ${URLShareLoginFacebook}
+    Maximize Browser Window
+    Scroll Web To Element    ${imgFacebook}
+    Web Element Should Be Visible    ${imgFacebook}
+    Web Element Should Be Visible    ${lblFacebookLoginPage}
+    Web Capture Screen At Verify Point    Verify Share to facebook with no login
+
+Verify Popup Condition
+    Sleep    8s
+    Scroll Web To Element    ${btnToConditionSerenade}
+    Web Capture Screen At Verify Point    Condition Icon
+    Click Web Element    ${btnToConditionSerenade}
+    Web Element Text Should Be    ${lblConditionPopupHeaderDetail}    ${ConditionPopupHeaderDetail}
+    Web Element Text Should Be    ${lblConditionPopupHeaderRequest}    ${ConditionPopupHeaderRequest}
+    Web Element Text Should Be    ${lblConditionPopupHeaderCondition}    ${ConditionPopupHeaderCondition}
+    Web Capture Screen At Verify Point    Verify Condition Popup
+
+Verify Image Share Segment
+    Sleep    7
+    Scroll Web To Element    ${imgSerenadeShare}
+    Web Element Should Be Visible    ${imgSerenadeShare}
+    Web Capture Screen At Verify Point    Verify Img Serenade share

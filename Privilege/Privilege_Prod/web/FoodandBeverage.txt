@@ -1,0 +1,276 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/FoodandBeverage.txt
+
+*** Test Cases ***
+[F3_PrivWeb_0_1-2_Y_1_1] Verify page menu FoodandBeverage page
+    [Documentation]    **Owner:BoMb***
+    ...
+    ...    ***Test Step***
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือกไฮไลท์(*1)
+    ...    3.ตรวจสอบหน้าอาหารและเครื่องดื่ม
+    ...    4. capture screen
+    ...
+    ...
+    ...
+    ...    ***Verify Point***
+    ...
+    ...    *1
+    ...    - Banner
+    ...    - อาหารและเครื่องดื่ม
+    ...    - Menu list
+    ...    >หน้าแรก
+    ...    >ไฮไลท์
+    ...    >อาหารและเครื่องดื่ม
+    ...    >ช้อปปิ้ง
+    ...    >บันเทิง
+    ...    >ท่องเที่ยว
+    ...    >สุขภาพและความงาม
+    ...    - จำนวนหน้า campaingn list
+    ...    - Campaign list
+    ...    >Central Food Hall
+    ...    >Lay – Lao
+    ...    >Hello Yogurt Premium
+    ...    >Hello Yogurt Express
+    ...    >94 Coffee
+    ...    >Mister Donut
+    ...    - Serenad menu list
+    ...    >Serenade
+    ...    >Serenade Privilege
+    ...    >Serenade Club
+    ...    >How to be serenade
+    ...    >Serenade Group Privilge
+    ...    - Birthday Privilege
+    ...    - เพื่อนของเรา
+    ...    - ลงทะเบียนเพื่อรับข่าวสาร
+    ...    - ร่วมโครงการกับเราสำหรับร้านค้า
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuFoodAndBeverage}
+    Verify Food Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F3_PrivWeb_0_1-2_Y_1_2] Verify campaign Coffee Bean
+    [Documentation]    **Owner:BoMb***
+    ...
+    ...    ***Test Step***
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "อาหารและเครื่องดื่ม"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Candy Crepe"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...
+    ...    ***Verify Point***
+    ...
+    ...    *1
+    ...    - Candy Crepe
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์ช้อนส้อม
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Candy Crepe)
+    ...    - สัญลักษณ์ช้อนส้อม
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ดีลที่เกียวข้อง
+    ...    >ร้านหงเปาติ่มซำเฮ...
+    ...    >T- time
+    ...    >ตำหลาย
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuFoodAndBeverage}
+    Sleep    10s
+    Verify Coffee Bean Campaign
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F3_PrivWeb_0_1-2_Y_1_3] Verify campaign Centralfoodhall
+    [Documentation]    **Owner:BoMb***
+    ...
+    ...    ***Test Step***
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "อาหารและเครื่องดื่ม"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Central Food Hall"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...
+    ...    ***Verify Point***
+    ...
+    ...    *1
+    ...    - Central Food Hall
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์ช้อนส้อม
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Central Food Hall)
+    ...    - สัญลักษณ์ช้อนส้อม
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ดีลที่เกียวข้อง
+    ...    >ร้านหงเปาติ่มซำเฮ...
+    ...    >T- time
+    ...    >ตำหลาย
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuFoodAndBeverage}
+    Sleep    5s
+    Verify Central Food Hall Campaign
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F3_PrivWeb_0_1-2_Y_1_4] Verify campaign Helloyogurtpremium
+    [Documentation]    **Owner:BoMb***
+    ...
+    ...    ***Test Step***
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "อาหารและเครื่องดื่ม"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Hello Yogurt Premium"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...
+    ...    ***Verify Point***
+    ...
+    ...    *1
+    ...    - Hello Yogurt Premium
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์ช้อนส้ม
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Hello Yogurt Premium)
+    ...    - สัญลักษณ์ช้อนส้อม
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ดีลที่เกียวข้อง
+    ...    >ร้านหงเปาติ่มซำเฮ...
+    ...    >T- time
+    ...    >ตำหลาย
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuFoodAndBeverage}
+    Sleep    10s
+    Verify Hello Yogurt Premium Campaign
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F3_PrivWeb_0_1-2_Y_1_5] Verify campaign Helloyogurtexpress
+    [Documentation]    **Owner:BoMb***
+    ...
+    ...    ***Test Step***
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "อาหารและเครื่องดื่ม"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Hello Yogurt Express"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...
+    ...    ***Verify Point***
+    ...
+    ...    *1
+    ...    - Hello Yogurt Express
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์ช้อนส้อม
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Hello Yogurt Express)
+    ...    - สัญลักษณ์ช้อนส้อม
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ดีลที่เกียวข้อง
+    ...    >ร้านหงเปาติ่มซำเฮ...
+    ...    >T- time
+    ...    >ตำหลาย
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuFoodAndBeverage}
+    Sleep    10s
+    Verify Hello Yogurt Express Campaign
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F3_PrivWeb_0_1-2_Y_1_6] Verify campaign 94Coffee
+    [Documentation]    **Owner:BoMb***
+    ...
+    ...    ***Test Step***
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "อาหารและเครื่องดื่ม"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "94 Coffee"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...
+    ...    ***Verify Point***
+    ...
+    ...    *1
+    ...    - 94 Coffee
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์ช้อนส้ม
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (94 Coffee)
+    ...    - สัญลักษณ์ช้อนส้อม
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - ดีลที่เกียวข้อง
+    ...    >ร้านหงเปาติ่มซำเฮ...
+    ...    >T- time
+    ...    >ตำหลาย
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuFoodAndBeverage}
+    Sleep    10s
+    Verify 94 Coffee Campaign
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F3_PrivWeb_0_1-2_Y_1_7] Verify campaign Misterdonut
+    [Documentation]    **Owner:BoMb***
+    ...
+    ...    ***Test Step***
+    ...
+    ...    1.เปิดเว็บ "http://www.ais.co.th/privilege"
+    ...    2.เลือก Campaign "อาหารและเครื่องดื่ม"
+    ...    3.เลือก Campaign ที่ต้องการ เช่น "Mister Donut"(*1)
+    ...    4.กด รายละเอียด
+    ...    5.ตรวจสอบ Campaign (*2)
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...
+    ...    ***Verify Point***
+    ...
+    ...    *1
+    ...    - Mister Donut
+    ...    - ตรวจสอบรูปภาพ, ชื่อแคมเปญ, รายละเอียด, ปุ่มรายละเอียด, ปุ่ม Like, ปุ่ม Tweet, ปุ่ม Mail, สัญลักษณ์ช้อนส้อม
+    ...    *2
+    ...    -ใช่ Campaign ว่าใช่ที่เลือกหรือไม่ (Mister Donut)
+    ...    - สัญลักษณ์ช้อนส้อม
+    ...    - ตรวจสอบรายละเอียด Campaign
+    ...    - เงื่อนไข
+    ...    - แกลอรี่
+    ...    - ดีลที่เกียวข้อง
+    ...    >ร้านหงเปาติ่มซำเฮ...
+    ...    >T- time
+    ...    >ตำหลาย
+    [Tags]    success    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuFoodAndBeverage}
+    Sleep    10s
+    Verify Mister Donut Campaign
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    Smoke test

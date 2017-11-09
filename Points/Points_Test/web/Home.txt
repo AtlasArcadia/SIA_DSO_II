@@ -1,0 +1,644 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Home.txt
+
+*** Variables ***
+
+*** Test Cases ***
+[F1_PointsWeb_0_1_Y_2_1] Verify page AIS points
+    [Documentation]    *Owner:Now*
+    ...
+    ...    *Pre-Requisite*
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    *Test Step*
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.ตรวจสอบหน้าแรก(*1)
+    ...    3.จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...
+    ...    *Verify*
+    ...    "*1
+    ...    verify page AIS points
+    ...    - เข้าสู่ระบบ
+    ...    - เมนูหน้าแรก
+    ...    - เมนูเกี่ยวกับเอไอเอ พอยท์
+    ...    - โอนคะแนน
+    ...    - แลกของรางวัล
+    ...    - Banner
+    ...    - Link to เกี่ยวกับเอไอเอส พอยท์
+    ...    - Link to สมัครเอไอเอส พอยท์
+    ...    - Link to เข้าสู่ระบบเอไอเอส พอยท์
+    ...    - รายการของรางวัล
+    ...    >> แลกค่าโทร ค่าเน็ตฟรี
+    ...    >> แลกขนม เครื่องดื่ม
+    ...    >> แลกช้อปฟรีสะใจ
+    ...    >> แลกส่วนลดมือถือ
+    ...    >> แลกตั๋วหนัง"
+    [Tags]    success    active    regression    sanity    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify Home Page AIS Points
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_2] Verify banner on page AIS points
+    [Documentation]    *Owner:Now*
+    ...
+    ...    *Pre-Requisite*
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    *Test Step*
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.verify Banner (*1)
+    ...    3.verify ปุ่ม Banner page \ (*2)
+    ...    4. กดปุ่ม Banner page เพื่อให้ banner เปลี่ยนหน้า (*3)
+    ...    5. จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...
+    ...    *Verify*
+    ...    "*1
+    ...    - มี banner แสดง
+    ...    - banner page = 5
+    ...    - เมื่อกด banner page ตรง banner จะต้องเปลี่ยน
+    ...    "
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify Home Banner    5
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_3] Verify link to page About AIS points
+    [Documentation]    *Owner:Now*
+    ...
+    ...    *Pre-Requisite*
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    *Test Step*
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.verify รูป Link to เกี่ยวกับเอไอเอส พอยท์ (*1)
+    ...    3.จับภาพหน้าจอ
+    ...    4. กดรูปเพื่อ Link to เกี่ยวกับเอไอเอส พอยท์
+    ...    5. verify URL : http://10.104.240.168/points/about
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *Verify*
+    ...    "*1
+    ...    verify Link to เกี่ยวกับเอไอเอส พอยท์
+    ...    - ""ทุกการใช้งาน 25 บาท = 1 point เงื่อนไขเพิ่มเติม คลิก!"" (1)
+    ...    - verify URL : http://10.104.240.168/points/about (2) \ >> เช็กพอยท์สะสมฟรี! คลิก
+    ...    >> ปุ่มเข้าร่วมโครงการ
+    ...    >> เงื่อนไขการรับสิทธิ์
+    ...    >> ปุ่ม ^
+    ...    >> รายละเอียดเงื่อนไขการรับิทธิ์"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify Link To    AboutAISPoints
+    Verify Img About AIS Points And Click
+    Verify Link About AIS Points
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_4] Verify link to page Register AIS point
+    [Documentation]    *Owner:Now*
+    ...
+    ...    *Pre-Requisite*
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    *Test Step*
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.verify รูป Link to สมัครเอไอเอส พอยท์ (*1)
+    ...    3.จับภาพหน้าจอ
+    ...    4. กดรูปเพื่อ Link to สมัครเอไอเอส พอยท์
+    ...    5. verify pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...
+    ...    *Verify*
+    ...    "*1
+    ...    verify Link to สมัครเอไอเอส พอยท์
+    ...    - แสดง pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    >> ""หมายเลขโทรศัพท์ของคุณ""
+    ...    >> ช่องกรอกหมายเลขโทรศัพท์
+    ...    >> ปุ่ม รับรหัสผ่าน
+    ...    >> ""ระบุรหัสผ่านที่ได้รับทาง SMS เพื่อเข้าสู่ระบบ
+    ...    รหัสผ่านของคุณมีอายุการใช้งาน 15 นาที""
+    ...    >> ช่องกรอก OTP
+    ...    >> ปุ่ม ตกลง"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify Link To    RegisterAISPoints
+    Verify Img Register AIS Points And Click
+    Verify Popup To Join AIS Points
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_5] Verify link to page login AIS point
+    [Documentation]    *Owner:Now*
+    ...
+    ...    *Pre-Requisite*
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    *Test Step*
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.verify รูป Link to เข้าสู่ระบบเอไอเอส พอยท์ (*1)
+    ...    3.จับภาพหน้าจอ
+    ...    4. กดรูปเพื่อ Link to \ เข้าสู่ระบบเอไอเอส พอยท์
+    ...    5. verify pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...
+    ...
+    ...    *Verify*
+    ...    "*1
+    ...    verify Link to เข้าสู่ระบบเอไอเอส พอยท์
+    ...    - แสดง pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    >> ""หมายเลขโทรศัพท์ของคุณ""
+    ...    >> ช่องกรอกหมายเลขโทรศัพท์
+    ...    >> ปุ่ม รับรหัสผ่าน
+    ...    >> ""ระบุรหัสผ่านที่ได้รับทาง SMS เพื่อเข้าสู่ระบบ
+    ...    รหัสผ่านของคุณมีอายุการใช้งาน 15 นาที""
+    ...    >> ช่องกรอก OTP
+    ...    >> ปุ่ม ตกลง"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify Link To    LoginAISPoints
+    Verify Img Login AIS Points And Click
+    Verify Popup To Join AIS Points
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_6] Verify reward list
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.verify รายการของรางวัล
+    ...    3.capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    verify รายการของรางวัล
+    ...    - แลกค่าโทร ค่าเน็ตฟรี
+    ...    >> รูป, txt
+    ...    - แลกขนม เครื่องดื่ม
+    ...    >> รูป, txt
+    ...    - แลกช้อปฟรีสะใจ
+    ...    >> รูป, txt
+    ...    - แลกส่วนลดมือถือ
+    ...    >> รูป, txt
+    ...    - แลกตั๋วหนัง
+    ...    >> รูป, txt"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify All Reward In Home
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_7] Verify food reward page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือกแลกค่าโทร ค่าเน็ตฟรี (*1)
+    ...    3.verify URL : http://10.104.240.168/points/reward/telNet (*2)
+    ...    4. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    verify รูป ของรางวัล : แลกค่าโทร ค่าเน็ตฟรี
+    ...    - แลกค่าโทร ค่าเน็ตฟรี (1)
+    ...    >> รูป, text
+    ...    - verify URL : http://10.104.240.168/points/reward/telNet"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify One Reward In Home    Food
+    Select Reward    Food
+    Verify Link    ${urlRewardFood}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_8] Verify shop free reward page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือกแลกขนม เครื่องดื่ม (*1)
+    ...    3.verify URL : http://10.104.240.168/points/reward/food (*2)
+    ...    4. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    verify รูป ของรางวัล : แลกขนม เครื่องดื่ม
+    ...    - แลกขนม เครื่องดื่ม (1)
+    ...    >> รูป, text
+    ...    - verify URL : http://10.104.240.168/points/reward/food"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify One Reward In Home    ShopFree
+    Select Reward    ShopFree
+    Verify Link    ${urlRewardShopFree}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_9] Verify mobile discount reward page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือกแลกช้อปฟรีสะใจ (*1)
+    ...    3.verify URL : http://10.104.240.168/points/reward/shopFree (*2)
+    ...    4. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    verify รูป ของรางวัล : แลกช้อปฟรีสะใจ
+    ...    - แลกช้อปฟรีสะใจ (1)
+    ...    >> รูป, text
+    ...    - verify URL : http://10.104.240.168/points/reward/shopFree"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify One Reward In Home    Mobile
+    Select Reward    Mobile
+    Verify Link    ${urlRewardMobile}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_10] Verify movie ticket reward page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือกแลกช้อปฟรีสะใจ (*1)
+    ...    3.verify URL : http://10.104.240.168/points/rewardreward/mobile/ (*2)
+    ...    4. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    verify รูป ของรางวัล : แลกช้อปฟรีสะใจ
+    ...    - แลกช้อปฟรีสะใจ (1)
+    ...    >> รูป, text
+    ...    - verify URL : http://10.104.240.168/points/rewardreward/mobile/"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify One Reward In Home    Movie
+    Select Reward    Movie
+    Verify Link    ${urlRewardMovie}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_11] Verify aunjai collection reward page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือกแลกตั๋วหนัง (*1)
+    ...    3.verify URL : http://10.104.240.168/points/reward/movie (*2)
+    ...    4. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    verify รูป ของรางวัล : แลกตั๋วหนัง
+    ...    - แลกแลกตั๋วหนัง (1)
+    ...    >> รูป, text
+    ...    - verify URL : http://10.104.240.168/points/reward/movie"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify One Reward In Home    Aunjai
+    Select Reward    Aunjai
+    Verify Link    ${urlRewardAunjai }
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_0_1_Y_2_12] Verify telnet reward page
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือกแลกค่าเน็ตฟรี
+    ...    3.verify URL : http://10.104.240.168/points/reward/telNet
+    ...    4. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    verify รูป ของรางวัล : แลกค่าเน็ตฟรี
+    ...    - แลกค่าเน็ตฟรี (1)
+    ...    >> รูป, text
+    ...    - verify URL : http://10.104.240.168/points/reward/telNet"
+    [Tags]    success    active    regression    none-NTpye
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Verify One Reward In Home    Telnet
+    Select Reward    Telnet
+    Verify Link    ${urlRewardTelnet }
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    log    Smoke Test
+
+[F0_0_0_Y_1_Test] Dummy test
+    [Tags]    dummy
+    log    Dummy Lang
+
+[F1_PointsWeb_1-2,11-12_1_Y_2_13] Login AIS points
+    [Documentation]    **Owner : Fang**
+    ...
+    ...    ** Pre-Requisite **
+    ...    - ยังไม่ login
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    ** Test Step **
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เลือกเข้าสู่ระบบ
+    ...    3.กรอกหมายเลขโทรศัพท์ 10 หลัก
+    ...    4. กดรับรหัสผ่าน
+    ...    5. รับรหัสผ่านทาง SMS
+    ...    6. กรอกรหัสผ่าน
+    ...    7. กดตกลง
+    ...    8. เข้าสู่หน้าหลัก เอไอเอส พอยท์ (1)
+    ...
+    ...    ***Expect result***
+    ...    *1
+    ...    เข้าสู่หน้าหลักของเอไอเอส พอยท์
+    ...    URL : http://10.104.240.168/points/
+    [Tags]    success    active    regression    3PO    3BO    MPay
+    ...    ROM
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Url Login AIS Points
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_1-2,11-12_1_Y_2_14] Verify page AIS points in case login
+    [Documentation]    **Owner : Fang**
+    ...
+    ...    ** Pre-Requisite **
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    ** Test Step **
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.ตรวจสอบหน้าหลักของเอไอเอพอยท์ (1)
+    ...    4.Capture screen
+    ...
+    ...
+    ...    ***Expect result***
+    ...    *1
+    ...    verify page AIS points after login
+    ...    - หมายเลขโทรศัพท์ 10 หลัก (จะต้องเป็นหมายเลขเดียวกันกับที่ใส่หน้า login)
+    ...    - แสดงจำนวนพอยท์ที่มี
+    ...    - ออกจากระบบ
+    ...    - เมนูหน้าแรก
+    ...    - เมนูเกี่ยวกับเอไอเอ พอยท์
+    ...    - โอนคะแนน
+    ...    - แลกของรางวัล
+    ...    - Banner
+    ...    - Link to เกี่ยวกับเอไอเอส พอยท์
+    ...    - Link to สมัครเอไอเอส พอยท์
+    ...    - Link to เข้าสู่ระบบเอไอเอส พอยท์
+    ...    - ของรางวัลสุดฮ็อต
+    ...    >> check ว่ามี object (รูป, txt, พอยท์)
+    ...    - ของรางวัลที่คุณแลกได้ (เปรียบเทียบพอย์ของรางวัลที่แลกได้ ต้องน้อยกว่า หรือ เท่ากับ พอยท์ที่มีอยู่)
+    ...    >> check ว่ามี object (รูป, txt, พอยท์)
+    [Tags]    success    active    regression 3PO    3BO    MPay    ROM
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Login Profile    ${Number}
+    Verify Menu Bar
+    Verify Home Banner    5
+    Verify Hot Reward
+    Verify Trade Reward
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_1-2,11-12_1_Y_2_15] Logout AIS points
+    [Documentation]    **Owner : Fang**
+    ...
+    ...    ** Pre-Requisite **
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    ** Test Step **
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.ตรวจสอบหน้าเอไอเอสพอยท์ (1)
+    ...    4.เลือกออกจากระบบ
+    ...    5.ตรวจสอบหน้าเอไอเอสพอยท์ (2)
+    ...
+    ...    ***Expect result***
+    ...    1
+    ...    ที่หน้าเอไอเอสพอยท์จะต้องแสดง
+    ...    - หมายเลขโทรศัพท์ 10 หลัก (จะต้องเป็นหมายเลขเดียวกันกับที่ใส่หน้า login)
+    ...    - แสดงจำนวนพอยท์ที่มี
+    ...    - ออกจากระบบ
+    ...
+    ...    2
+    ...    ที่หน้าเอไอเอสพอยท์จะต้องไม่แสดง
+    ...    - หมายเลขโทรศัพท์ 10 หลัก (จะต้องเป็นหมายเลขเดียวกันกับที่ใส่หน้า login)
+    ...    - แสดงจำนวนพอยท์ที่มี
+    ...
+    ...    เปลี่ยนจาก "ออกจากระบบ" เป็น "เข้าสู่ระบบ"
+    [Tags]    success    active    regression    3PO    3BO    MPay
+    ...    ROM
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Login Profile    ${Number}
+    Logout Ponitweb
+    Verify Logout Pointweb Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_1-2,11-12_1_Y_2_2] Verify Banner
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    - มี banner แสดง
+    ...    - banner page = 5
+    ...    - เมื่อกด banner page ตรง banner จะต้องเปลี่ยน
+    ...    "
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.verify Banner
+    ...    4.verify ปุ่ม Banner page \ 5. กดปุ่ม Banner page เพื่อให้ banner เปลี่ยนหน้า
+    ...    6. จับภาพหน้าจอ
+    ...    "
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Home Banner    5
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_1-2,11-12_1_Y_2_16] Verify hot reward
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    verify รูป ของรางวัล : ของรางวัลสุดฮ็อต
+    ...    - ของรางวัลสุดฮ็อต
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    "
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลื่อนมาที่ ของรางวัลสุดฮ็อต
+    ...    4.verify หน้า ของรางวัลสุดฮ็อต
+    ...    5. capture screen
+    ...    "
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Home
+    Verify Hot Reward
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_PointsWeb_1-2,11-12_1_Y_2_17] Verify reward list
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    verify รูป ของรางวัล : ของรางวัลที่คุณแลกได้
+    ...    - ของรางวัลที่คุณแลกได้
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    "
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลื่อนมาที่ ของรางวัลที่คุณแลกได้
+    ...    4.verify หน้า ของรางวัลที่คุณแลกได้
+    ...    5. capture screen
+    ...    "
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Home
+    Verify Reward List In Home
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+*** Keywords ***
+Verify Hot Reward
+    Scroll Web To Element    ${lblHeadHotReward}
+    Web Element Text Should Be    ${lblHeadHotReward}    ${HeadHotReward}
+    Scroll Web To Element    ${lblPointsFirstHotReward}
+    Web Element Should Be Visible    ${lblPointsFirstHotReward}
+    Web Element Should Be Visible    ${ImgFirstHotReward}
+    Web check existing text    ${lblTitleDescFirstHotReward}
+    Web Capture Screen At Verify Point    Verify in Hot Reward
+
+Verify Reward List In Home
+    Scroll Web To Element    ${lblHeadRewardList }
+    Web Element Text Should Be    ${lblHeadRewardList }    ${HeadRewardList }
+    Scroll Web To Element    ${lblPointsFirstRewardList}
+    Web Element Should Be Visible    ${lblPointsFirstRewardList}
+    Web Element Should Be Visible    ${imgFirstRewardList}
+    Web check existing text    ${lblTitleDescFirstRewardList }
+    Web Capture Screen At Verify Point    Verify in Reward List

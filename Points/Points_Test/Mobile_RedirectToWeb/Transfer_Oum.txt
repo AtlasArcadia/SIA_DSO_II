@@ -1,0 +1,871 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/TransferPoint.txt
+
+*** Test Cases ***
+[F11D_Priv_1-3_1,2_Y_16_2] Verify confirmation page on The One Card
+    [Documentation]    *Owner : Oum*
+    ...    'The 1 Card
+    ...    โอนคะแนน Points
+    ...    - In case ตรวจสอบรายละเอียดหน้า ยืนยันทำรายการ
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์มากกว่าหรือเท่ากับ 50 พอยท์
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    14. กำหนดคะแนนที่ต้องการโอน = 50
+    ...    15. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    16. Capture screen
+    ...    17.คลิกปุ่ม โอนคะแนน
+    ...    18. ตรวจสอบ Popup "ยืนยันทำรายการ" [1]
+    ...    19. Capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...
+    ...    '[1]
+    ...    ตรวจสอบ Popup "ยืนยันทำรายการ"
+    ...    - ยืนยันทำรายการ
+    ...    >> โอนคะแนน"เอไอเอส พอยท์" จำนวน 50 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าโอนคะแนน)
+    ...    >> เป็นคะแนน "The 1 Card" จำนวน 400 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่แสดงในหน้าโอนคะแนน)
+    ...    - ปุ่ม ยืนยัน
+    ...    - ปุ่ม ยกเลิก
+    ...    - ปุ่ม X
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    sleep    10
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Input ID Card    2300625686    #ID The one card
+    ${TransferPoints}    Get Transfer Point
+    ${ReceivePoints}    Get Receive Point
+    Click Transfer Point Button Page Input ID
+    Verify Popup Confirm Transaction    TheOneCard    ${TransferPoints}    ${ReceivePoints}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_17_2] Verify transfer success and click transfer again on The One Card
+    [Documentation]    *Owner : Oum*
+    ...    'The 1 Card
+    ...    โอนคะแนน Points
+    ...    - In case โอนคะแนน 50 คะแนนสำเร็จ
+    ...    - In case เมื่อโอนคะแนนสำเร็จ คลิกปุ่ม "โอนคะแนนอีกครั้ง" ที่หน้า Result จะ redirect ไปที่หน้าโอนคะแนน
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์มากกว่าหรือเท่ากับ 50 พอยท์
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    14.เก็บค่าจำนวนพอยท์คงเหลือก่อนโอนคะแนน
+    ...    15. กำหนดคะแนนที่ต้องการโอน = 50
+    ...    16. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    17. Capture screen
+    ...    18. คลิกปุ่ม โอนคะแนน
+    ...    19. ตรวจสอบ Popup "ยืนยันทำรายการ" [1]
+    ...    20. คลิกปุ่ม ยืนยัน
+    ...    20. ตรวจสอบหน้า โอนคะแนนสำเร็จ [2]
+    ...    21. Capture screen
+    ...    22. ตรวจสอบจำนวนพอยท์คงเหลือหลังโอนคะแนน [3]
+    ...    23. Capture screen
+    ...    24. \ คลิกปุ่ม "โอนคะแนนอีกครั้ง" [4]
+    ...    25. Capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...
+    ...    '[1]
+    ...    ตรวจสอบ Popup "ยืนยันทำรายการ"
+    ...    - ยืนยันทำรายการ
+    ...    >> โอนคะแนน"เอไอเอส พอยท์" จำนวน 50 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าโอนคะแนน)
+    ...    >> เป็นคะแนน "The 1 Card" จำนวน 400 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่แสดงในหน้าโอนคะแนน)
+    ...    - ปุ่ม ยืนยัน
+    ...    - ปุ่ม ยกเลิก
+    ...    - ปุ่ม X
+    ...
+    ...    [2]
+    ...    ตรวจสอบ หน้า โอนคะแนนสำเร็จ
+    ...    - รูปเครื่องหมายถูก
+    ...    >> The 1 Card ทำการโอน เอไอเอส พอยท์ 50 คะแนน เรียบร้อยแล้ว คุณสามารถตรวจสอบคะแนน The 1 Card ได้ในวันถัดไป \ - ปุ่ม กลับสู่หน้าหลัก
+    ...    - ปุ่ม โอนคะแนน
+    ...
+    ...    [3]
+    ...    จำนวนพอยท์คงเหลือหลังโอนคะแนน จะต้องลดลง 50 พอยท์ จากจำนวนพอยท์คงเหลือก่อนโอนคะแนน
+    ...
+    ...    [4]
+    ...    กลับไปที่หน้าโอนคะแนน
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    sleep    10
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    ${MyPoint}    Get Point
+    Input ID Card    2300625686    #ID The one card
+    ${TransferPoints}    Get Transfer Point
+    ${ReceivePoints}    Get Receive Point
+    Click Transfer Point Button Page Input ID
+    Verify Popup Confirm Transaction    TheOneCard    ${TransferPoints}    ${ReceivePoints}
+    Confirm Transfer Point
+    Verify Transfer Page Success
+    ${MyNewPoint}    Get Point
+    Verify Remain Point After Transfer    ${MyPoint}    ${MyNewPoint}
+    Click Transfer Point Again
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_18_2] Verify transfer success and click back to main page
+    [Documentation]    *Owner : Oum*
+    ...    'The 1 Card
+    ...    โอนคะแนน Points
+    ...
+    ...    - In case เมื่อโอนคะแนนสำเร็จ คลิกปุ่ม "กลับสู่หน้าหลัก" ที่หน้า Result จะ redirect ไปที่หน้าโอนคะแนน
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    14.เก็บค่าจำนวนพอยท์คงเหลือก่อนโอนคะแนน
+    ...    15. กำหนดคะแนนที่ต้องการโอน = 50
+    ...    16. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    17. Capture screen
+    ...    18. คลิกปุ่ม โอนคะแนน
+    ...    19. ตรวจสอบ Popup "ยืนยันทำรายการ" [1]
+    ...    20. คลิกปุ่ม ยืนยัน
+    ...    20. ตรวจสอบหน้า โอนคะแนนสำเร็จ [2]
+    ...    21. Capture screen
+    ...    22. ตรวจสอบจำนวนพอยท์คงเหลือหลังโอนคะแนน [3]
+    ...    23. Capture screen
+    ...    24. \ คลิกปุ่ม "กลับสู่หน้าหลัก" [4]
+    ...    25. Capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...
+    ...    '[1]
+    ...    ตรวจสอบ Popup "ยืนยันทำรายการ"
+    ...    - ยืนยันทำรายการ
+    ...    >> โอนคะแนน"เอไอเอส พอยท์" จำนวน 50 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าโอนคะแนน)
+    ...    >> เป็นคะแนน "The 1 Card" จำนวน 400 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่แสดงในหน้าโอนคะแนน)
+    ...    - ปุ่ม ยืนยัน
+    ...    - ปุ่ม ยกเลิก
+    ...    - ปุ่ม X
+    ...
+    ...    [2]
+    ...    ตรวจสอบ หน้า โอนคะแนนสำเร็จ
+    ...    - รูปเครื่องหมายถูก
+    ...    >> The 1 Card ทำการโอน เอไอเอส พอยท์ 50 คะแนน เรียบร้อยแล้ว คุณสามารถตรวจสอบคะแนน The 1 Card ได้ในวันถัดไป \ - ปุ่ม กลับสู่หน้าหลัก
+    ...    - ปุ่ม โอนคะแนน
+    ...
+    ...    [3]
+    ...    จำนวนพอยท์คงเหลือหลังโอนคะแนน จะต้องลดลง 50 พอยท์ จากจำนวนพอยท์คงเหลือก่อนโอนคะแนน
+    ...
+    ...    [4]
+    ...    กลับไปที่หน้าเลือกการ์ด
+    ...    - PTT Blue Card
+    ...    - The 1 Card
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    sleep    10
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    ${MyPoint}    Get Point
+    Input ID Card    2300625686    #ID The one card
+    ${TransferPoints}    Get Transfer Point
+    ${ReceivePoints}    Get Receive Point
+    Click Transfer Point Button Page Input ID
+    Verify Popup Confirm Transaction    TheOneCard    ${TransferPoints}    ${ReceivePoints}
+    Confirm Transfer Point
+    Verify Transfer Page Success
+    ${MyNewPoint}    Get Point
+    Verify Remain Point After Transfer    ${MyPoint}    ${MyNewPoint}
+    Back To Main Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_19_2] Verify transfer point page case not fill ID card on The One Card
+    [Documentation]    *Owner : Oum*
+    ...    'The 1 Card
+    ...    Verify page โอนคะแนน
+    ...    - In case ยังไม่ใส่ ID card
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.ตรวจสอบหน้า โอนคะแนน [1]
+    ...    13. Capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    '[1]
+    ...    - รูป The 1 Card
+    ...    - The 1 Card
+    ...    - ช่องกรอกหมายเลข The 1 Card "--กรุณาระบุหมายเลข The 1 Card--"
+    ...    - ปุ่ม ตกลง
+    ...    - เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
+    ...    - ปุ่ม +
+    ...    - ปุ่ม -
+    ...    - ลูกศร
+    ...    - The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    sleep    10
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    #Not fill ID card
+    Verify Transfer point page    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_20_2] Verify transfer point page case filled ID card The One card
+    [Documentation]    *Owner : Oum*
+    ...    The 1 Card
+    ...    Verify page โอนคะแนน
+    ...    - In case ใส่ ID card
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์คงเหลือเพียงพอต่อการโอนคะแนน
+    ...
+    ...    * Test Step Descripttion *
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12. ตรวจสอบหน้า โอนคะแนน [1]
+    ...    13. Capture screen
+    ...    14. ใส่ ID บัตร
+    ...    15. กด ตกลง
+    ...    16.ตรวจสอบหน้า โอนคะแนน [2]
+    ...    17. Capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    [1]
+    ...    - รูป The 1 Card
+    ...    - The 1 Card
+    ...    - ช่องกรอกหมายเลข The 1 Card "--กรุณาระบุหมายเลข The 1 Card--" (Verify ก่อนใส่ ID บัตร)
+    ...    - ปุ่ม ตกลง
+    ...    - เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
+    ...    - ปุ่ม +
+    ...    - ปุ่ม -
+    ...    - ลูกศร
+    ...    - The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    ...
+    ...    [2]
+    ...    - รูป The 1 Card
+    ...    - The 1 Card
+    ...    - ชื่อผู้ถือบัตร:
+    ...    - ID Card
+    ...    - เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
+    ...    - ปุ่ม +
+    ...    - ปุ่ม -
+    ...    - ลูกศร
+    ...    - The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    sleep    10
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Verify Transfer point page    TheOneCard    #ตรวจสอบหน้า โอนคะแนน ก่อนใส่ ID card
+    Input ID Card    2300625686    #ID The One Card
+    Verify Transfer Point Page After Input ID Card    #ตรวจสอบหน้าโอนคะแนน2
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_21_2] Verify hiding and showing term and condition on The One Card
+    [Documentation]    *Owner : Oum*
+    ...
+    ...    'The 1 Card
+    ...    Verify page โอนคะแนน
+    ...    - In case ซ่อนและแสดง ข้อกำหนดและเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์มากกว่าหรือเท่ากับ 50 พอยท์
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12. แสดงหน้า โอนคะแนน
+    ...    13. กด ข้อกำหนดและเงื่อนไข ครั้งที่ 1 [1]
+    ...    14. Capture screen
+    ...    15. กด ข้อกำหนดและเงื่อนไข ครั้งที่ 2 [2]
+    ...    16. Capture screen
+    ...
+    ...    * Expect result *
+    ...
+    ...    '[1]
+    ...    - แสดงรายละเอียดข้อกำหนดและเงื่อนไข
+    ...
+    ...    [2]
+    ...    - ซ่อนรายละเอียดข้อกำหนดและเงื่อนไข
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    sleep    10
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Verify Click Show And Hide Term And Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_22_2] Verify term and condition on PTT Blue card
+    [Documentation]    *Owner : Oum*
+    ...    'PTT Blue Card
+    ...    - Verify page ข้อกำหนดและเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก PTT Blue Card
+    ...    9. กดปุ่ม โอนคะแนน
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. ตรวจสอบหน้า ข้อกำหนดและเงื่อนไข [1]
+    ...    12. Capture Screen
+    ...
+    ...    * Expect result *
+    ...    '[1]
+    ...    แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    - แสดงรายละเอียดข้อกำหนดและเงื่อนไข
+    ...    - เลื่อนลงเพื่อตรวจสอบข้อกำหนดและเงื่อนไข
+    ...    - check box ยอมรับข้อตกลง
+    ...    - ปุ่ม ต่อไป
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Click Transfer Point Button
+    Verify term and condition    PTTBlueCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_23_2] Verify transfer point case not accept term and condition on PTT Blue card page
+    [Documentation]    *Owner : Oum*
+    ...    PTT Blue Card
+    ...    - กด โอนคะแนน กรณีไม่กดตกลงเงื่อนไขและข้อตกลง
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก PTT Blue Card
+    ...    9. กดปุ่ม โอนคะแนน [1]
+    ...    10. ไม่เลือก check box ยอมรับข้อตกลง [2]
+    ...    11. Capture Screen
+    ...
+    ...    * Expect result *
+    ...    '[1]
+    ...    แสดงหน้าต่าง ข้อกำหนดและเงื่อนไข
+    ...
+    ...    [2]
+    ...    ไม่สามารถกด ปุ่ม ต่อไป
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Click Transfer Point Button
+    Verify Disable Next Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_24_2] Verify transfer point case accept term and condition on PTT Blue card page
+    [Documentation]    *Owner : Oum*
+    ...    PTT Blue Card
+    ...    - กด โอนคะแนน กรณีกดตกลงเงื่อนไขและข้อตกลง
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก PTT Blue Card
+    ...    5. กดปุ่ม โอนคะแนน [1]
+    ...    6. เลือก check box ยอมรับข้อตกลง [1]
+    ...    7. Capture Screen
+    ...
+    ...    * Expect result *
+    ...    '[1]
+    ...    แสดงหน้าต่าง ข้อกำหนดและเงื่อนไข
+    ...
+    ...    [2]
+    ...    สามารถกด ปุ่ม ต่อไป
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Click Transfer Point Button
+    Verify Next Button Is Enable
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_25_2] Verify page not show term and condition again after acceped at first time
+    [Documentation]    *Owner : Oum*
+    ...    'PTT Blue Card
+    ...    - กรณีเคยกด ยอมรับข้อกำหนดและเงื่อนไข แล้วจะต้องไม่ขึ้น Popup ข้อกำหนดและเงื่อนไข อีก
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก PTT Blue Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. ตรวจสอบแสดง Popup ข้อกำหนดและเงื่อนไข [1]
+    ...    11. Capture screen
+    ...    12. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    13. แสดงหน้า โอนคะแนน
+    ...    14. คลิกลูกศร ® บริเวณซ้ายบน
+    ...    15. ตรวจสอบกลับไปหน้าพอยท์ & สิทธิพิเศษ [2]
+    ...    16. Capture screen
+    ...    17. คลิกปุ่ม ">"
+    ...    18.เลือกเมนู โอนคะแนน
+    ...    19. เลือก PTT Blue Card
+    ...    20. คลิกปุ่ม "โอนคะแนน" [3]
+    ...    21. ตรวจสอบหน้าโอนคะแนน [4]
+    ...    22. Capture screen
+    ...
+    ...    * Expect result *
+    ...    ' [1]
+    ...    แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    - แสดงรายละเอียดข้อกำหนดและเงื่อนไข
+    ...    - check box ยอมรับข้อตกลง
+    ...    - ปุ่ม ต่อไป
+    ...
+    ...    [2] หน้าพอยท์ & สิทธิพิเศษ
+    ...    - พอยท์ & สิทธิพิเศษ
+    ...    - จำนวนพอยท์
+    ...    - My Lists
+    ...    - Recents
+    ...    - พอยท์
+    ...
+    ...    [3] ตรวจสอบไม่มี Popup ข้อกำหนดและเงื่อนไข
+    ...
+    ...    [4] หน้าโอนคะแนน
+    ...    - รูป PTT Blue Card
+    ...    - PTT Blue Card
+    ...    - ช่องกรอกหมายเลข PTT Blue Card "กรุณาระบุหมายเลข PTT Blue Card"
+    ...    - ปุ่ม ตกลง
+    ...    - เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 100
+    ...    - PTT Blue Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Wait Mobile Until Element Visible    ${txtFieldCardNumber}
+    Go Back And Verify Privilege Page
+    Select Point Menu
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Click Transfer Point Button
+    Verify No Term And Condition
+    Verify Transfer point page    PTTBlueCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_N_26_2] Verify transfer point case input incomplete ID card on PTT Blue card page
+    [Documentation]    *Owner : Oum*
+    ...    'PTT Blue Card
+    ...    - โอนคะแนน กรณีใส่ ID card ไม่ครบ
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 55558810
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก PTT Blue Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ไม่ครบ และคลิก ตกลง
+    ...    14.ตรวจสอบ error message [1]
+    ...    15. Capture screen
+    ...
+    ...    * Expect result *
+    ...    '[1]
+    ...    ตรวจสอบ error message "หมายเลข PTT Blue Card ที่คุณระบุไม่ถูกต้อง กรุณาตรวจสอบและทำรายการใหม่อีกครั้ง"
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Input ID Card    5555
+    Verify error message case incomplete ID card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_27_2] Verify transfer point case click increase transfer points
+    [Documentation]    *Owner : Oum*
+    ...    PTT Blue Card
+    ...    โอนคะแนน Points
+    ...    Verify ปุ่ม (+) เพิ่มคะแนนที่ต้องการโอน
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - มีจำนวนพอยท์มากกว่า 200 พอยท์
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก PTT Blue Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    14. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    15. คลิกปุ่ม + 1 ครั้ง [1]
+    ...    16. เปรียบเทียบคะแนนหลังกด + [2]
+    ...
+    ...
+    ...    * Expect result *
+    ...    '[1]
+    ...    สามารถกดปุ่ม + ได้
+    ...
+    ...    [2]
+    ...    ที่ช่องคะแนนที่ต้องการโอนเพิ่มขึ้น 100 คะแนน
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Input ID Card    5555881010086875    #ID PTT : 5555881010086875
+    Verify PTT Blue Card Point Case Increase Point
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1,2_Y_28_2] Verify transfer point case click decrease transfer points
+    [Documentation]    *Owner : Oum*
+    ...    'PTT Blue Card
+    ...    โอนคะแนน Points
+    ...    Verify ปุ่ม (-) ลดคะแนนที่ต้องการโอน
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID PTT : 5555881010086875
+    ...    - กดเพิ่มคะแนนที่ต้องการโอนก่อน 1 ครั้ง
+    ...    - มีจำนวนพอยท์มากกว่า 200 พอยท์
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    '1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก PTT Blue Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    14. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    15. คลิกปุ่ม + 1 ครั้ง
+    ...    16. เก็บค่า คะแนนที่ต้องการโอน หลังจากกดบวก
+    ...    17. คลิกปุ่ม - 1 ครั้ง [1]
+    ...    18. เปรียบเทียบคะแนนหลังกด - [2]
+    ...
+    ...    * Expect result *
+    ...
+    ...    '[1]
+    ...    สามารถกดปุ่ม - ได้
+    ...
+    ...    [2]
+    ...    ที่ช่องคะแนนที่ต้องการโอน ลดลง 100 คะแนน จาก คะแนนที่ต้องการโอน หลังจากกดบวก
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Input ID Card    5555881010086875    #ID PTT : 5555881010086875
+    Verify PTT Blue Card Point Case Decrease Point
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+*** Keywords ***

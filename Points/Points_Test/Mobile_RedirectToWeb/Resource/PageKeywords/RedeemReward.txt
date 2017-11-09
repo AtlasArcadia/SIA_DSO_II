@@ -1,0 +1,47 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../PageRepository/RedeemRewardRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/RedeemRewardLocalized.txt
+Resource          ../PageVariable/RedeemRewardVariable.txt
+
+*** Keywords ***
+Verify Redeem Reward Sub Menu
+    Sleep    5s
+    Wait Mobile Until Page Contains Element    ${lblHeadTelnetRewardPage_Mobile}
+    Mobile element name should be    ${lblHeadTelnetRewardPage_Mobile}    ${Telnet}
+    Mobile element name should be    ${lblHeadMobileRewardPage_Mobile}    ${Mobile}
+    Mobile element name should be    ${lblHeadAunjaiRewardPage_Mobile}    ${Aunjai}
+    Mobile element name should be    ${lblHeadFoodRewardPage_Mobile}    ${Food}
+    Mobile element name should be    ${lblHeadMovieRewardPage_Mobile}    ${Movie}
+    Mobile element name should be    ${lblHeadShopFreeRewardPage_Mobile}    ${ShopFree}
+    Mobile Capture Screen At Verify Point    Redeem reward sub menu page
+
+Select Reward Sub Menu
+    [Arguments]    ${Menu}
+    Click Mobile Element    ${lblHead${Menu}RewardPage_Mobile }
+
+Verify Redeem Page
+    [Arguments]    ${redeemName}    ${redeemDetail}
+    [Documentation]    [1]
+    ...    - แลกค่าเน็ตฟรี
+    ...    - Campaign
+    ...    >> จำนวนพอยท์, รูป, รายละเอียด Campaign
+    ...    - ปุ่มรายละเอียด
+    Sleep    5s
+    Wait Mobile Until Page Contains Element    ${imgRedeemCampaign}
+    Swipe element to specific area    ${imgRedeemCampaign}
+    Mobile element name should be    ${HeaderRedeem}    ${${redeemName}}
+    Wait Mobile Until Element Visible    ${imgRedeemCampaign}
+    Wait Mobile Until Element Visible    ${RedeemCampaignPoint}
+    ${point}=    Get mobile attribute    ${RedeemCampaignPoint}    name
+    Log    ${point}
+    Mobile element name should be    ${lblRedeemCampaignDetail}    ${${redeemDetail}}
+    Swipe    350    900    350    680
+    Comment    Swipe To    ${btnDetail}    ratio=0.4
+    Mobile element name should be    ${btnDetail}    ${DetailButton}
+    Mobile Capture Screen At Verify Point    campaign ${redeemName} page
+
+Select Icon Redeem
+    Swipe    640    380    112    380
+    Wait Mobile Until Element Visible    ${mnuRedeemReward}
+    Click Mobile Element    ${mnuRedeemReward}

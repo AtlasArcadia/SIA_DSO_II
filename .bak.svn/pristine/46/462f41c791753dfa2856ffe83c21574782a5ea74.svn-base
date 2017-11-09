@@ -1,0 +1,26 @@
+*** Settings ***
+Library           String
+Library           OperatingSystem
+Library           Collections
+
+*** Keywords ***
+Capture Screen with Specific name
+    ${screenshot_index}=    Get Variable Value    ${screenshot_index}    ${0}
+    Set Global Variable    ${screenshot_index}    ${screenshot_index.__add__(1)}
+    Comment    ${time}=    Evaluate    str(time.time())    time
+    @{SplitCodeTestCase}    Split String    ${TEST_NAME}    ]
+    ${CodeTestCase}    Set Variable    @{SplitCodeTestCase}[0]
+    ${AppiumStatus}    Run Keyword And Return Status    AISAppiumEx.Capture Page Screenshot    screenshot-Appium-${CodeTestCase}]-${SUITE_NAME}-${screenshot_index}-${Lang}-${ar_NType}.png
+    ${SeleniumStatus}    Run Keyword And Return Status    Selenium2Library.Capture Page Screenshot    screenshot-Selenium-${CodeTestCase}]-${SUITE_NAME}-${screenshot_index}-${Lang}-${ar_NType}.png
+    @{imageName}    Create List
+    Run Keyword If    "${AppiumStatus}"=="True"    Append To List    ${imageName}    screenshot-Appium-${CodeTestCase}]-${SUITE_NAME}-${screenshot_index}-${Lang}-${ar_NType}.png
+    Run Keyword If    "${SeleniumStatus}"=="True"    Append To List    ${imageName}    screenshot-Selenium-${CodeTestCase}]-${SUITE_NAME}-${screenshot_index}-${Lang}-${ar_NType}.png
+    Log    ${imageName}
+
+eServiceWeb Service Unavailable Detection
+    ${text}    Run Keyword And Continue On Failure    Selenium2library.Get Text    xpath=//*[@id="txtAlertMessage"]/div
+    ${status}    Run Keyword And Return Status    Should Match Regexp    ${text}    Sorry.*
+    Run Keyword If    ${status}    Log    Service unavailable has deteced    ERROR
+
+all keyword to run on fail
+    Capture Screen with Specific name

@@ -1,0 +1,19 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageRepository/Platinum_ActivityRepository.txt
+Resource          ../PageVariable/Platinum_ActivityVariable.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ActivityLocalized.txt
+
+*** Keywords ***
+Click And Verify Video URL
+    sleep    15
+    Scroll Web To Element    ${Activities}
+    sleep    5
+    Select Frame    //*[@id="activities"]//div[@class="videoWrapper"]/iframe    #Select iFrame
+    Click Web Element    ${clipAISSerenadeTrip}
+    Verify URL New Window    ${linkAISExclusiveTrip}    VDO link
+
+Verify Youtube Page
+    Comment    Web Element Should Be Visible    ${logoYoutube}
+    Web Element Text Should Be    ${txtTitleVideo}    ${TitleVideoName}
+    Web Capture Screen At Verify Point    AIS Serenade Exclusive Trip German 2017

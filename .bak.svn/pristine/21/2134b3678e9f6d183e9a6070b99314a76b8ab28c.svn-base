@@ -1,0 +1,21 @@
+*** Settings ***
+Library           ../../../../../AisRobotBuffet/Library/Mobile/AISAppiumEx.py
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/ParallelLocalConfigKeyWord.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
+
+*** Keywords ***
+Open My AIS App
+    [Arguments]    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    Run Keyword If    '${platformName}' == 'Android'    android open my ais app    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    Run Keyword If    '${platformName}' == 'iOS'    ios open my ais app    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+
+android open my ais app
+    [Arguments]    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    Log    In Open My AIS App
+    AISAppium Open Application    http://${remoteUrl}/wd/hub    platformName=${platformName}    platformVersion=${platformVersion}    udid=${udid}    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    ...    deviceName=${remoteUrl}
+    Log    Quite Open My AIS App
+
+ios open my ais app
+    [Arguments]    ${platformName}    ${remoteUrl}    ${platformVersion}    ${udid}
+    Fail    not implement

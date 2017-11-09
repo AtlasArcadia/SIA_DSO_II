@@ -1,0 +1,404 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/MyAccountLocalized.txt
+Resource          ../PageRepository/${ar_OS}/MyAccountRepository.txt
+
+*** Keywords ***
+Select Hamburger
+    Wait Mobile Until Page Contains Element    ${btnHamberger}
+    Click Mobile Element    ${btnHamberger}
+
+Verify Sub Menu in Hamberger
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Sub Menu in Hamberger Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Sub Menu in Hamberger iOS    ${Number}
+
+Verify Sub Menu in Hamberger Android
+    [Arguments]    ${Number}
+    Sleep    2
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${txtMainMobileNo}    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblRegister}
+    Mobile element text should be    ${lblRegister}    ${Register}
+    Mobile element text should be    ${lblMyProfile}    ${MyProfile}
+    Mobile element text should be    ${lblAISOnlineStore}    ${AISOnlineStore}
+    Mobile element text should be    ${lblAISWebsite}    ${AISWebsite}
+    Mobile element text should be    ${lblAISFacebook}    ${AISFacebook}
+    Mobile element text should be    ${lblAISTwitter}    ${AISTwitter}
+    Mobile element text should be    ${lblAISLine}    ${AISLine}
+    Mobile element text should be    ${lblSettings}    ${Settings}
+    Mobile element text should be    ${lblLogOutMyAIS}    ${LogOut}
+    Mobile Capture Screen At Verify Point    Sub Menu in Hamberger
+
+Verify Sub Menu in Hamberger iOS
+    [Arguments]    ${Number}
+    Sleep    2
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${txtMainMobileNo}    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblRegister}
+    Mobile element text should be    ${lblRegister}    ${Register}
+    Mobile element text should be    ${lblMyProfile}    ${MyProfile}
+    Mobile element text should be    ${lblCreditDebit}    ${CreditDebit}
+    Mobile element text should be    ${lblAISOnlineStore}    ${AISOnlineStore}
+    Mobile element text should be    ${lblAISWebsite}    ${AISWebsite}
+    Mobile element text should be    ${lblAISFacebook}    ${AISFacebook}
+    Mobile element text should be    ${lblAISTwitter}    ${AISTwitter}
+    Mobile element text should be    ${lblAISLine}    ${AISLine}
+    Mobile element text should be    ${lblSettings}    ${Settings}
+    Mobile element text should be    ${lblLogOutMyAIS}    ${LogOut}
+    Mobile Capture Screen At Verify Point    Sub Menu in Hamberger
+
+Verify Sub Menu in Hamberger in case registered
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Log    Not Deploy yet
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Sub Menu in Hamberger in case registered iOS    ${Number}
+
+Verify Sub Menu in Hamberger in case registered iOS
+    [Arguments]    ${Number}
+    Sleep    2
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${txtMainMobileNo}    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblMyAccount}
+    Mobile element text should be    ${lblMyAccount}    ${AISAccount}
+    Mobile element text should be    ${lblMyProfile}    ${MyProfile}
+    Mobile element text should be    ${lblCreditDebit}    ${CreditDebit}
+    Mobile element text should be    ${lblAISOnlineStore}    ${AISOnlineStore}
+    Mobile element text should be    ${lblAISWebsite}    ${AISWebsite}
+    Mobile element text should be    ${lblAISFacebook}    ${AISFacebook}
+    Mobile element text should be    ${lblAISTwitter}    ${AISTwitter}
+    Mobile element text should be    ${lblAISLine}    ${AISLine}
+    Mobile element text should be    ${lblSettings}    ${Settings}
+    Mobile element text should be    ${lblLogOutMyAIS}    ${LogOut}
+    Mobile Capture Screen At Verify Point    Sub Menu in Hamburger Registered
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Sub Menu Hamburger
+    [Arguments]    ${SubMenu}
+    Wait Mobile Until Page Contains Element    ${lbl${SubMenu}}
+    Click Mobile Element    ${lbl${SubMenu}}
+
+Select Create MyAIS
+    Click Mobile Element    ${btnCreateMyAIS}
+
+Verify Create MyAIS Page
+    Wait Mobile Until Page Contains Element    ${lblCreateMyAIS_MobileNumber}
+    Mobile element text should be    ${lblCreateMyAIS_MobileNumber}    ${CreateMyAIS_MobileNumber}
+    Mobile element text should be    ${lblCreateMyAIS_MobileNumber_Start}    ${Start}
+    Mobile element text should be    ${lblCreateMyAISIDCard_Number}    ${CreateMyAIS_IDCardNumber}
+    Mobile element text should be    ${lblCreateMyAISIDCard_Number_Start}    ${Start}
+    Mobile element text should be    ${lblCreateMyAIS_Email}    ${CreateMyAIS_Email}
+    Mobile element text should be    ${lblCreateMyAIS_Email_Start}    ${Start}
+    Mobile element text should be    ${btnCreateMyAIS_Back}    ${CreateMyAIS_Back}
+    Mobile element text should be    ${btnCreateMyAIS_RequestOTP}    ${CreateMyAIS_RequestOTP}
+    Mobile Capture Screen At Verify Point    Verify Create MyAIS
+
+Verify MyProfile Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblMyProfile_UserName}
+    Mobile element text should match regexp    ${lblMyProfile_UserName}    .+
+    Mobile element text should be    ${lblMyProfile_MobileNumber}    ${Number}
+    Mobile element text should match regexp    ${lblMyProfile_Birthday}    .+ \\w{4}
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Mobile element text should be    ${lblMyProfile_Privilege}    ${AISCustomer}
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should be    ${lblMyProfile_Privilege}    ${AISFibreCustomer}
+    Mobile element text should match regexp    ${lblMyProfile_Service_Year}    ${ServiceYear}
+    Mobile element text should match regexp    ${lblMyProfile_Email}    .*
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should be    ${txtContactMobileNo}    ${ContactMobileNo}
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should be    ${txtSubContact1}    ${SubContact1}
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should match regexp    ${txtAnsSubContact1}    .+
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should be    ${btnContactEdit}    ${ContactEdit}
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should be    ${txtContactDetail}    ${SubContactDetail}
+    Mobile Capture Screen At Verify Point    MyProfile Page Top
+    Swipe Element To Screen    ${lblMyProfile_YourBillCycle}
+    Mobile element text should be    ${lblMyProfile_YourBillCycle}    ${YourBillCycle}
+    Mobile element text should be    ${lblMyProfile_BillCycle_Start-End}    ${BillCycle_Start-End}
+    Mobile element text should match regexp    ${lblMyProfile_BillCycle_Start-End_Ans}    ${BillCycle_Start-End_Ans}
+    Mobile element text should be    ${lblMyProfile_PaymentDueDate}    ${PaymentDueDate}
+    Mobile element text should match regexp    ${lblMyProfile_PaymentDueDate_Ans}    ${PaymentDueDate_Ans}
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should be    ${txtBillMedia}    ${BillMedia}
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should be    ${txtSubBillMedia1}    ${SubBillMedia1}
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should match regexp    ${txtAnsSubBillMedia1}    .+
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should be    ${txtSubBillMedia2}    ${SubBillMedia2}
+    Run Keyword If    '${ar_NType}'=='FBB'    Mobile element text should match regexp    ${txtAnsSubBillMedia2}    .+
+    Mobile element text should be    ${lblMyProfile_BillingAddress}    ${BillingAddress}
+    Mobile element text should be    ${lblMyProfile_FirstLastName}    ${FirstLastName}
+    Mobile element text should match regexp    ${lblMyProfile_FirstLastName_Ans}    .+
+    Mobile element text should be    ${lblMyProfile_Address}    ${Address}
+    Mobile element text should match regexp    ${lblMyProfile_Address_Ans}    .+
+    Mobile Capture Screen At Verify Point    MyProfile Page Below
+
+Verify AIS Online Store
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Online Store Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Online Store iOS
+
+Verify AIS Online Store Android
+    Sleep    3
+    Wait Mobile Until Page Contains Element    ${LogoAISStore}
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${txtHeader}    ${AISOnlineStore}
+    Sleep    5
+    Mobile Capture Screen At Verify Point    Web AIS Online Store
+
+Verify AIS Online Store iOS
+    sleep    5
+    Mobile element text should be    ${lblAISOnlineStore}    ${AISOnlineStore}
+    Mobile Capture Screen At Verify Point    Web AIS Online Store
+
+Verify AIS Web Site
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Web Site Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Web Site iOS
+
+Verify AIS Web Site Android
+    Sleep    3
+    Mobile element name should be    ${LogoAISWebSite}    ${LogoAISWebSite}
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${txtHeader}    ${AISWebsite}
+    Sleep    2
+    Mobile Capture Screen At Verify Point    AIS Web Site
+
+Verify AIS Web Site iOS
+    Mobile element text should be    ${lblAISWebsite}    ${AISWebsite}
+    sleep    10
+    Mobile Capture Screen At Verify Point    AIS Web Site
+
+Go To AIS Web Site
+    Select Hamburger
+    Select Sub Menu Hamburger    AISWebsite
+    Mobile element text should be    ${txtHeader}    ${AISWebsite}
+
+Verify Facebook Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Facebook Page For Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Facebook Page For iOS
+
+Verify Facebook Page For Android
+    Sleep    3
+    Mobile element name should be    ${LogoFacebook}    ${facebook}
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${txtHeader}    ${FacebookHeader}
+    Sleep    2
+    Mobile Capture Screen At Verify Point    Facebook Page
+
+Verify Facebook Page For iOS
+    Wait Mobile Until Element Visible    ${btnRegisterFacebook}
+    AISAppiumEx.Element Should Be Visible    ${btnRegisterFacebook}
+    Mobile check existing text    ${btnRegisterFacebook}
+    Mobile Capture Screen At Verify Point    Facebook Page
+    Click Mobile Element    ${btnBackToMyAIS}
+
+Verify Twitter Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Twitter Page For Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Twitter Page For iOS
+
+Verify Twitter Page For Android
+    sleep    5
+    Mobile element name should be    ${WebViewTwitter}    ${Twitter}    30
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${txtHeader}    ${TwitterHeader}
+    Sleep    2
+    Mobile Capture Screen At Verify Point    Twitter Page
+
+Verify Twitter Page For iOS
+    Wait Mobile Until Element Visible    ${LogoTwitter}
+    Mobile Capture Screen At Verify Point    Twitter Page
+    Click Mobile Element    ${btnBackToMyAIS}
+
+Verify Line Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Line Page For Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Line Page For iOS
+
+Verify Line Page For Android
+    Sleep    3
+    Mobile element name should be    ${LoginLine}    ${LINE}
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${txtHeader}    ${LineHeader}
+    Sleep    2
+    Mobile Capture Screen At Verify Point    Line Page
+
+Verify Line Page For iOS
+    Wait Mobile Until Element Visible    ${UrlLine}    60
+    ${urlLine}=    Get mobile text    ${UrlLine}
+    Log    ${urlLine}
+    Should Match Regexp    ${urlLine}    ${urlLineBrowser}
+    Mobile Capture Screen At Verify Point    Line Page
+    Click Mobile Element    ${btnBackToMyAIS}
+    Wait Mobile Until Element Visible    ${mnuHome}
+
+Verify Setting Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Setting Page For Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Setting Page For iOS
+
+Verify Setting Page For Android
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${txtHeader}    ${Settings}
+    Mobile element text should be    ${lblSettingLanguage}    ${SettingLanguage}
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${lblSettingNotification}    ${SettingNotification}
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${lblSettingPasscodeLock}    ${SettingPasscodeLock}
+    Mobile element text should be    ${lblSettingTermsAndConditions}    ${SettingTermsAndConditions}
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Wait Mobile Until Page Contains Element    ${SettingLogoMyAIS}
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${lblSettingMyAISVersion}    ${SettingMyAISVersion}
+    Run Keyword If    '${ar_NType}'=='FBB' or '${ar_NType}'=='IPE'    Mobile element text should be    ${lblSettingDetail}    ${SettingDetail}
+    Mobile Capture Screen At Verify Point    Setting Page
+
+Verify Setting Page For iOS
+    Mobile element text should be    ${lblSettingLanguage}    ${SettingLanguage}
+    Mobile element text should be    ${lblSettingNotification}    ${SettingNotification}
+    Mobile element text should be    ${lblSettingPasscodeLock}    ${SettingPasscodeLock}
+    Mobile element text should be    ${lblSettingTermsAndConditions}    ${SettingTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Setting Page
+    Click Mobile Element    ${btnReturnToMyAIS}
+
+Verify Log Out MyAIS
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Log Out MyAIS For Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Log Out MyAIS For iOS
+
+Verify Log Out MyAIS For Android
+    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblQuestionPage_Back}
+    Run Keyword If    "${status}"=="True"    Click Mobile Element    ${lblQuestionPage_Back}
+    Wait Mobile Until Element Visible    ${lblLogin}
+    Mobile Capture Screen At Verify Point    Log In Page
+
+Verify Log Out MyAIS For iOS
+    Comment    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblQuestionPage_Back}
+    Comment    Run Keyword If    "${status}"=="True"    Click Mobile Element    ${lblQuestionPage_Back}
+    Wait Mobile Until Element Visible    ${lblLogin}    90
+    Mobile Capture Screen At Verify Point    Log In Page
+
+Teardown For Data Mobile
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Log Out MyAIS Fbb
+    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblQuestionPage_Back}
+    Run Keyword If    "${status}"=="True"    Click Mobile Element    ${lblQuestionPage_Back}
+    Wait Mobile Until Page Contains Element    ${LogOutAISbanner}
+    Wait Mobile Until Element Visible    ${lblLogin}
+    Mobile element text should be    ${txtLogOutCreatemyAIS}    ${LogOutCreatemyAIS}
+    Mobile element text should be    ${txtLogOutLogin}    ${Login}
+    Mobile element text should be    ${txtSwitchLanguage}    ${SwitchLanguage}
+    Mobile element text should be    ${tbLogOutInput}    ${tbInput}
+    Mobile element text should be    ${btnLogOutOk}    ${LogOutOk}
+    Mobile element text should be    ${txtTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Log In Page
+
+Verify My AIS Account Page FBB
+    [Arguments]    ${Number}
+    Mobile element text should be    ${txtHeader}    ${Register}
+    Mobile element text should be    ${txtMyAccountMainNumber}    ${MyAccountMainNumber}
+    Mobile element text should be    ${lblMyAccountMainNumber}    ${Number}
+    Mobile element text should be    ${txtMyAccountEmail}    ${MyAccountEmail}
+    Mobile element text should match regexp    ${lblMyAccountEmail}    .+
+    Mobile element text should be    ${txtMyAccountPass}    ${MyAccountPass}
+    Wait Mobile Until Element Visible    ${lblMyAccountPass}
+    Mobile element text should be    ${txtMyAccountDetail}    ${MyAccountDetail}
+    Mobile element text should be    ${btnMyAccountAdd}    ${MyAccountAdd}
+    Mobile Capture Screen At Verify Point    my AIS Account Page
+
+Select Add Button
+    Wait Mobile Until Element Visible    ${btnMyAccountAdd}
+    Click Mobile Element    ${btnMyAccountAdd}
+
+Verify My AIS Account Add Mobile Number
+    Mobile element text should be    ${txtHeader}    ${MyAccountAddMobileNo}
+    Mobile element text should be    ${txtMyAccountAddMobileNoDetail}    ${MyAccountAddMobileNoDetail}
+    Mobile element text should be    ${BoxMyAccountAddMobileNo}    ${MyAccountAddMobileNoEditBox}
+    Mobile element text should be    ${btnMyAccountAddMobileNoAdd}    ${MyAccountAddMobileNoAdd}
+    Mobile element text should be    ${btnMyAccountAddMobileNoCancel}    ${MyAccountAddMobileNoCancel}
+    Mobile element text should be    ${btnMyAccountAddMobileNoOK}    ${MyAccountAddMobileNoOK}
+    Mobile Capture Screen At Verify Point    Add Mobile Number Page
+
+Verify Create My AIS Account IPE
+    Mobile element text should be    ${lblHeaderCreateMyAIS}    ${HeaderCreateMyAIS}
+    Wait Mobile Until Element Visible    ${ImgLogoMyAIS}
+    Mobile element text should be    ${txtFullService}    ${FullService}
+    Mobile element text should be    ${txtDetailFullService}    ${DetailFullService}
+    Mobile element text should be    ${txtEasyStep}    ${EasyStep}
+    Mobile element text should be    ${txtStep1}    ${Step1}
+    Mobile element text should be    ${txtStep2}    ${Step2}
+    Mobile element text should be    ${txtStep3}    ${Step3}
+    Wait Mobile Until Element Visible    ${btnCreateMyAIS_NoAccount}
+    Mobile Capture Screen At Verify Point    my AIS Account Page
+
+Verify Create My AIS Account Each NType
+    [Arguments]    ${Number}
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Select Create MyAIS
+    Run Keyword If    '${ar_NType}'=='3PO' or '${ar_NType}'=='3BO'    Verify Create MyAIS Page
+    Run Keyword If    '${ar_NType}'=='FBB'    Verify My AIS Account Page FBB    ${Number}
+    Run Keyword If    '${ar_NType}'=='IPE'    Verify Create My AIS Account IPE
+
+Verify My Profile
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="IPE"    Verify My Profile Page IPE    ${Number}
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify My Profile iOS
+    ...    ELSE    Verify MyProfile Page    ${Number}
+
+Verify My Profile Page IPE
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblMyProfile_UserName}
+    Mobile element text should match regexp    ${lblMyProfile_UserName}    .+
+    Mobile element text should be    ${lblMyProfile_MobileNumber}    ${Number}
+    Mobile element text should match regexp    ${lblMyProfile_Birthday}    .+ \\w{4}
+    Mobile element text should match regexp    ${lblMyProfile_Service_Year}    ${ServiceYear}
+    Mobile element text should match regexp    ${lblMyProfile_Email}    .*
+    Mobile Capture Screen At Verify Point    MyProfile Page Top
+
+Verify My Profile iOS
+    Mobile element text should be    ${lblMyProfile}    ${MyProfile}
+    Mobile Capture Screen At Verify Point    MyProfile Page
+
+Verify Log Out MyAIS IPE
+    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblQuestionPage_Back}
+    Run Keyword If    "${status}"=="True"    Click Mobile Element    ${lblQuestionPage_Back}
+    Wait Mobile Until Page Contains Element    ${LogOutAISbanner}
+    Wait Mobile Until Element Visible    ${lblLogin}
+    Mobile element text should be    ${txtLogOutCreatemyAIS}    ${LogOutCreatemyAIS}
+    Mobile element text should be    ${txtLogOutLogin}    ${Login}
+    Mobile element text should be    ${txtSwitchLanguage}    ${SwitchLanguage}
+    Mobile element text should be    ${tbLogOutInput}    ${tbInput}
+    Mobile element text should be    ${btnLogOutOk}    ${LogOutOk}
+    Mobile element text should be    ${txtTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Log In Page
+
+Verify Create my AIS
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Create my AIS iOS
+
+Verify Create my AIS iOS
+    Wait Mobile Until Page Contains Element    ${lblRegister}
+    Mobile element text should be    ${lblRegister}    ${Register}
+    Mobile element text should be    ${txtFullService}    ${FullService}
+    Mobile element text should be    ${txtDetailFullService}    ${DetailFullService}
+    Mobile element text should be    ${txtEasyStep}    ${EasyStep}
+    Mobile element text should be    ${txtStep1}    ${step1}
+    Mobile element text should be    ${txtStep1Detail}    ${CreateWithMobile}
+    Mobile element text should be    ${txtStep2}    ${step2}
+    Mobile element text should be    ${txtStep2Detail}    ${AddMultiple}
+    Mobile element text should be    ${txtStep3}    ${step3}
+    Mobile element text should be    ${txtStep3Detail}    ${ConfirmAndStart}
+    Wait Mobile Until Page Contains Element    ${btnCreateMyAIS}
+    Mobile Capture Screen At Verify Point    Verify Create MyAIS
+
+Verify My AIS Account
+    Mobile element text should match regexp ignore case sensitive    ${lblTitleMyAISAccount}    ${AISAccount}
+    Mobile element text should match regexp ignore case sensitive    ${lblHeaderMyAISAccount}    ${YourAccount}
+    Mobile Element Is Exist    ${lblMyAccountMainNumber}
+    Mobile Element Is Exist    ${lblMyAccountEmail}
+    Mobile Element Is Exist    ${lblMyAccountPass}
+    Mobile Element Is Exist    ${txtMyAccountDetail}
+    Mobile Element Is Exist    ${btnMyAccountAdd}
+    Mobile Capture Screen At Verify Point    MyAISAccount
+
+Verify Not Have Credit Card
+    Mobile element name should be    ${lblCreditCardTitle}    ${CreditDebit}
+    Mobile check existing text in name    ${lblMobileNumberCreditCardPage}
+    Mobile element name should be    ${lblCreditCardHeader}    ${CreditCardHeader}
+    Mobile element name should be    ${lblTransactionNotFound}    ${NoCreditCard}
+    Mobile Capture Screen At Verify Point    NoCreditDebitCard
+
+Verify Have Credit Card
+    Mobile element name should be    ${lblCreditCardTitle}    ${CreditDebit}
+    Mobile check existing text in name    ${lblMobileNumberCreditCardPage}
+    Mobile element name should be    ${lblCreditCardHeader}    ${CreditCardHeader}
+    Mobile element name should be    ${lblCardInformation}    ${CardInformation}
+    Mobile Element Is Exist    ${btnDeleteFirstCard}
+    Mobile element name should be    ${lblCreditCardMaximum}    ${MaximumCard}
+    Mobile Capture Screen At Verify Point    HaveCreditCard

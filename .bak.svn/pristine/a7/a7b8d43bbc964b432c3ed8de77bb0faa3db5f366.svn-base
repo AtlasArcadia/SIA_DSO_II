@@ -1,0 +1,186 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/AISPoint.txt
+
+*** Test Cases ***
+[F2_PointsWeb_0_1_Y_1_1] Verify page about AIS points
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์ (*1)
+    ...    3.verify URL : http://www.ais.co.th/points/about
+    ...    4. จับภาพหน้าจอ
+    ...    5. verify page เกี่ยวกับเอไอเอส พอยท์
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...    - เมนูหน้าแรก
+    ...    - เมนูเกี่ยวกับเอไอเอ พอยท์
+    ...    - โอนคะแนน
+    ...    - แลกของรางวัล
+    ...    - ""ทุกการใช้งาน 25 บาท = 1 point เงื่อนไขเพิ่มเติม คลิก!"" (1)
+    ...    >> เช็กพอยท์สะสมฟรี! คลิก
+    ...    >> ปุ่มเข้าร่วมโครงการ
+    ...    >> เงื่อนไขการรับสิทธิ์
+    ...    >> ปุ่ม ^
+    ...    >> รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active    regression    sanity
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    AISPoints
+    Verify About AIS Points Page With Condition Not Login
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PointsWeb_0_1_Y_1_2] Verify apply AIS point popup by click apply AIS points
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    3.verify URL : http://www.ais.co.th/points/about
+    ...    4. เลือก สมัครเข้าร่วมโครงการ
+    ...    5. verify page pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - แสดง pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    >> ""หมายเลขโทรศัพท์ของคุณ""
+    ...    >> ช่องกรอกหมายเลขโทรศัพท์
+    ...    >> ปุ่ม รับรหัสผ่าน
+    ...    >> ""ระบุรหัสผ่านที่ได้รับทาง SMS เพื่อเข้าสู่ระบบ
+    ...    รหัสผ่านของคุณมีอายุการใช้งาน 15 นาที""
+    ...    >> ช่องกรอก OTP
+    ...    >> ปุ่ม ตกลง"
+    [Tags]    success    active    regression
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    AISPoints
+    Verify About AIS Points Page
+    Click Web Element    ${btnJoinProjectAISPoints}
+    Verify Popup To Join AIS Points
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PointsWeb_0_1_Y_1_3] Verify apply AIS point popup by click check collected points
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    3.verify URL : http://www.ais.co.th/points/about
+    ...    4. เลือก เช็กพอยท์สะสมฟรี! คลิก
+    ...    5. verify page pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - แสดง pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    >> ""หมายเลขโทรศัพท์ของคุณ""
+    ...    >> ช่องกรอกหมายเลขโทรศัพท์
+    ...    >> ปุ่ม รับรหัสผ่าน
+    ...    >> ""ระบุรหัสผ่านที่ได้รับทาง SMS เพื่อเข้าสู่ระบบ
+    ...    รหัสผ่านของคุณมีอายุการใช้งาน 15 นาที""
+    ...    >> ช่องกรอก OTP
+    ...    >> ปุ่ม ตกลง"
+    [Tags]    success    active    regression
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    AISPoints
+    Verify About AIS Points Page
+    Click Web Element    ${btnAboutAISPointsCheckPoints}
+    Verify Popup To Join AIS Points
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PointsWeb_0_1_Y_1_4] Verify page show full condition
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    3.verify URL : http://www.ais.co.th/points/about
+    ...    4. เลือก เงื่อนไขการรับสิทธิ์ ^
+    ...    5. verify text
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - แสดง ข้อความ เงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active    regression
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    AISPoints
+    Verify About AIS Points Page
+    Verify Full Condition
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F2_PointsWeb_0_1_Y_1_5] Verify page with hide condition
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://www.ais.co.th/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    3.verify URL : http://www.ais.co.th/points/about
+    ...    4. เลือก เงื่อนไขการรับสิทธิ์
+    ...    5. verify text
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - ซ่อน ข้อความ เงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active    regression
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Points_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Brownser Point Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Select Menu    AISPoints
+    Verify About AIS Points Page
+    Verify Hide Condition
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    log    Smoke Test
+
+[F0_0_0_Y_1_Test] Dummy test
+    [Tags]    dummy
+    log    Dummy Lang
+
+*** Keywords ***

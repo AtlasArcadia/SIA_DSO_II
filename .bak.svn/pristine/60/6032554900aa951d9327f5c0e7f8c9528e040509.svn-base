@@ -1,0 +1,684 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/Quickmenu_VerifyButton.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F1_QuickMenu_1,3_1-2_Y_1_1] Verify all menu have quick menu
+    [Documentation]    *Owner : Lay*
+    ...
+    ...    *Support NType :3PE,3BE*
+    ...
+    ...    **===Test Step===**
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "หน้าหลัก"
+    ...    5. ตรวจสอบมุมขวาล่าง [1]
+    ...    6. Capture screen
+    ...    7. เลือกเมนู "แพ็กเกจ"
+    ...    8. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [2]
+    ...    9. Capture screen
+    ...    10. เลือกเมนู "ข้อมูลการใช้งาน"
+    ...    11. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [3]
+    ...    12. Capture screen
+    ...    13. เลือกเมนู "เติมเงิน/จ่ายบิล"
+    ...    14. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [4]
+    ...    15. Capture screen
+    ...    16. เลือกเมนู "บริการ"
+    ...    17. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [5]
+    ...    18. Capture screen
+    ...    19. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    20. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [6]
+    ...    21. Capture screen
+    ...    22. เลือกเมนู "ช่วยเหลือ"
+    ...    23. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [7]
+    ...    24. Capture screen
+    ...
+    ...    **Expected Result**
+    ...    '[1] พบปุ่ม เมนูลัด "หน้าหลัก"
+    ...    [2] พบปุ่ม เมนูลัด "แพ็กเกจ"
+    ...    [3] พบปุ่ม เมนูลัด "ข้อมูลการใช้งาน"
+    ...    [4] พบปุ่ม เมนูลัด "เติมเงิน/จ่ายบิล"
+    ...    [5] พบปุ่ม เมนูลัด "บริการ"
+    ...    [6] พบปุ่ม เมนูลัด "พอยท์ & สิทธิพิเศษ"
+    ...    [7] พบปุ่ม เมนูลัด "ช่วยเหลือ"
+    [Tags]    success    regression    active    sanity    3PE    3BE
+    [Template]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Sleep    10
+    Select Menu And Verify Quick Menu    Home
+    Select Menu And Verify Quick Menu    Package
+    Select Menu And Verify Quick Menu    UsageDetailHistory
+    Select Menu And Verify Quick Menu    PaymentAndTopup
+    Select Menu And Verify Quick Menu    Service
+    Select Menu And Verify Quick Menu    PointsAndPrivileges
+    Select Menu And Verify Quick Menu    HelpAndSupport
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_1,3_1-2_Y_2_1] Verify not display quick menu in sub menu home
+    [Documentation]    *Owner : Lay*
+    ...
+    ...    *Support NType :3PE,3BE*
+    ...
+    ...    **===Test Step===**
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "หน้าหลัก"
+    ...    5.เลือกเมนู "ยอดเงินคงเหลือ"
+    ...    6. ตรวจสอบหน้า เติมเงิน [1]
+    ...    7. Capture screen
+    ...
+    ...    **Expected Result**
+    ...    [1]
+    ...    '- เติมเงิน
+    ...    '- หมายเลขโทรศัพท์ 10 หลัก (จะต้องเป็นหมายเลขเดียวกันกับที่ใส่หน้า login)
+    ...    - ระบุหมายเลขโทรศัพท์ที่ต้องการเติมเงิน
+    ...    - เลือกช่องทางการเติมเงิน
+    ...    - เลือกจำนวนเงินที่ต้องการ
+    ...    - ไม่พบปุ่ม "เมนูลัด"
+    [Tags]    success    regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Remaining Balance
+    Verify Top up Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_1,3_1-2_Y_3_1] Verify not display quick menu in sub menu package
+    [Documentation]    *Owner : Lay*
+    ...
+    ...    *Support NType :3PE,3BE*
+    ...
+    ...    **===Test Step===**
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "แพ็กเกจ"
+    ...    5.เลือกเมนู "แพ็กเกจปัจจุบันของคุณ"
+    ...    6. ตรวจสอบหน้า แพ็กเกจปัจจุบันของคุณ [1]
+    ...    7. Capture screen
+    ...
+    ...    **Expected Result**
+    ...    [1]
+    ...    '- แพ็กเกจปัจจุบันของคุณ
+    ...    - หมายเลขโทรศัพท์ 10 หลัก (จะต้องเป็นหมายเลขเดียวกันกับที่ใส่หน้า login)
+    ...    - แพ็กเกจหลัก
+    ...    - แพ็กเกจ Internet
+    ...    - บริการเสริม
+    ...    - ไม่พบปุ่ม "เมนูลัด"
+    [Tags]    success    regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Current Package Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_1,3_1-2_Y_4_1] Verify not display quick menu in sub menu usage detail history
+    [Documentation]    *Owner : ENG*
+    ...
+    ...    *Support NType :3PE,3BE*
+    ...
+    ...    **===Test Step===**
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "ข้อมูลการใช้งาน"
+    ...    5.เลือกเมนู "การโทร"
+    ...    6. ตรวจสอบหน้า รายละเอียดการใช้งาน [1]
+    ...    7. Capture screen
+    ...
+    ...    **Expected Result**
+    ...    [1]
+    ...    '- รายละเอียดการใช้งาน
+    ...    - หมายเลขโทรศัพท์ 10 หลัก (จะต้องเป็นหมายเลขเดียวกันกับที่ใส่หน้า login)
+    ...    - ไม่พบปุ่ม "เมนูลัด"
+    [Tags]    success    regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    UsageDetailHistory
+    Select Sub Menu    Voice Call
+    Verify Usage Detail Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_1,3_1-2_Y_5_1] Verify not display quick menu in sub menu topup/payment
+    [Documentation]    *Owner : Lay*
+    ...
+    ...    *Support NType :3PE,3BE*
+    ...
+    ...    **===Test Step===**
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "เติมเงิน/จ่ายบิล"
+    ...    5.เลือกเมนู "ชำระค่าบริการ"
+    ...    6. ตรวจสอบหน้า ชำระค่าบริการ [1]
+    ...    7. Capture screen
+    ...
+    ...    **Expected Result**
+    ...    [1]
+    ...    '- ชำระค่าบริการ
+    ...    - หมายเลขโทรศัพท์ 10 หลัก (จะต้องเป็นหมายเลขเดียวกันกับที่ใส่หน้า login)
+    ...    - รายละเอียดค่าใช้บริการ
+    ...    - ไม่พบปุ่ม "เมนูลัด"
+    [Tags]    success    regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PaymentAndTopup
+    Select Sub Menu    Payment
+    Verify Payment Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_1,3_1-2_Y_6_1] Verify not display quick menu in sub menu service
+    [Documentation]    *Owner : Lay*
+    ...
+    ...    *Support NType :3PE,3BE*
+    ...
+    ...    **===Test Step===**
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "บริการ"
+    ...    5.เลือกเมนู "โอนวัน"
+    ...    6. ตรวจสอบหน้า โอนวัน [1]
+    ...    7. Capture screen
+    ...
+    ...    **Expected Result**
+    ...    [1]
+    ...    '- โอนวัน
+    ...    - \ หมายเลขโทรศัพท์ 10 หลัก (จะต้องเป็นหมายเลขเดียวกันกับที่ใส่หน้า login)
+    ...    - กรอกหมายเลขโทรศัพท์ปลายทางที่ต้องการโอนวันให้
+    ...    - จำนวนวันที่ต้องการโอน/วัน
+    ...    - ไม่พบปุ่ม "เมนูลัด"
+    [Tags]    success    regression    active    sanity    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Service
+    Select Sub Menu    ValidityTransfer
+    Verify Validity Transfer Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_1,3_1-2_Y_7_1] Verify not display quick menu in sub menu point/privileges
+    [Documentation]    *Owner : Lay*
+    ...
+    ...    *Support NType :3PE,3BE*
+    ...
+    ...    **===Test Step===**
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "Points & Privileges"
+    ...    5.คลิก "Recents"
+    ...    6. ตรวจสอบหน้า Recents [1]
+    ...    7. Capture screen
+    ...
+    ...    **Expected Result**
+    ...    [1]
+    ...    '- พอยท์
+    ...    - ไม่พบปุ่ม "เมนูลัด"
+    [Tags]    success    regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Button Recents
+    Verify Recents Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_1,3_1-2_Y_8_1] Verify not display quick menu in sub menu help and support
+    [Documentation]    *Owner : Lay*
+    ...
+    ...    *Support NType :3PE,3BE*
+    ...
+    ...    **===Test Step===**
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "ช่วยเหลือ"
+    ...    5.เลื่อนมาที่ "ถามตอบ"
+    ...    6.เลือกเมนุ ใช้งานต่างประเทศ
+    ...    7. ตรวจสอบหน้า การใช้งานในต่างประเทศ [1]
+    ...    8. Capture screen
+    ...
+    ...    **Expected Result**
+    ...    [1]
+    ...    '- ถามตอบ
+    ...    - การใช้งานในต่างประเทศ
+    ...    - ไม่พบปุ่ม "เมนูลัด"
+    [Tags]    success    regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    HelpAndSupport
+    Select Sub Menu    InternationalRoaming
+    Verify International Roaming
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_1,3_1-2_Y_9_1] Verify menu in quick menu
+    [Documentation]    *Owner : Lay*
+    ...
+    ...    *Support NType :3PE,3BE*
+    ...
+    ...    **===Test Step===**
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. คลิกไอคอน เมนูลัด
+    ...    5. ตรวจสอบ เมนู [1]
+    ...    6. Capture screen
+    ...
+    ...    **Expected Result**
+    ...    [1] verify
+    ...    - ถามอุ่นใจ
+    ...    - เติมเงิน
+    ...    - สมัครแพ็กเกจเสริมอื่นๆ
+    ...    - พอยท์&สิทธิพิเศษ
+    ...    - สมัคร AIS Fibre
+    ...    - ค้นหา
+    ...    - ไอคอน "X"
+    [Tags]    success    regression    active    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Quick Menu
+    Verify Quick Menu
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke    TH    EN
+    Log    Smoke Test
+
+[F1_QuickMenu_2,4_1-2_Y_1_1] Verify have Quick menu in all menu page
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-requisite
+    ...
+    ...    Resource :N-Type Number : 3PO \ Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "หน้าแรก"
+    ...    5. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [1]
+    ...    6. Capture screen
+    ...    7. เลือกเมนู "แพ็กเกจ"
+    ...    8. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [2]
+    ...    9. Capture screen
+    ...    10. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    11. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [3]
+    ...    12. Capture screen
+    ...    13. เลือกเมนู "จ่ายบิล/เตืมเงิน"
+    ...    14. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [4]
+    ...    15. Capture screen
+    ...    16. เลือกเมนู "บริการ"
+    ...    17. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [5]
+    ...    18. Capture screen
+    ...    19. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    20. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [6]
+    ...    21. Capture screen
+    ...    22. เลือกเมนู "ช่วยเหลือ"
+    ...    23. ตรวจสอบมุมขวาล่าง พบปุ่ม เมนูลัด [7]
+    ...    24. Capture screen
+    ...
+    ...    Verify Point
+    ...
+    ...    พบปุ่ม เมนูลัด ที่หน้าเมนู
+    ...    [1] หน้าหลัก
+    ...    [2] แพ็กเกจ
+    ...    [3] เช็กยอดค่าโทร
+    ...    [4] จ่ายบิล/เติมเงิน
+    ...    [5] บริการ
+    ...    [6] พอยท์ & สิทธิพิเศษ
+    ...    [7] ช่วยเหลือ
+    [Tags]    active    regression    success    sanity    3PO    3BO
+    ...    TH    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Sleep    10
+    Select Menu And Verify Quick Menu    Home
+    Select Menu And Verify Quick Menu    Package
+    Select Menu And Verify Quick Menu    UsageDetailHistory
+    Select Menu And Verify Quick Menu    PaymentAndTopup
+    Select Menu And Verify Quick Menu    Service
+    Select Menu And Verify Quick Menu    PointsAndPrivileges
+    Select Menu And Verify Quick Menu    HelpAndSupport
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_2,4_1-2_Y_2_1] Verify not display Ouick menu in sub menu page
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-Requisite
+    ...
+    ...    "N-Type Number : 3PO
+    ...    Status : Active"
+    ...
+    ...
+    ...    TestStep
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "หน้าหลัก"
+    ...    5. เลือกเมนู "รายละเอียด"
+    ...    6. ตรวจสอบมุมขวาล่าง ไม่พบปุ่ม เมนูลัด [1]
+    ...    7. Capture screen
+    ...
+    ...    Verifypoint
+    ...    [1]
+    ...    ไม่พบปุ่ม เมนูลัด
+    [Tags]    active    regression    success    3PO    3BO    TH
+    ...    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Sleep    10
+    Select Menu And Verify Quick Menu    Home
+    Swipe to element    ${lblMore}
+    Click Mobile Element    ${lblMore}
+    Wait Mobile Until Page Does Not Contain Element    ${btnQuickMenu}
+    Mobile Capture Screen At Verify Point    Homepage
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_2,4_1-2_Y_3_1] Verify not display Quick menu in sub menu package page
+    [Documentation]    Owner by Noon
+    ...
+    ...    pre-requisite
+    ...
+    ...    N-Type Number : 3PO
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "แพ็กเกจ"
+    ...    5. เลือกเมนู "แพ็กเกจปัจจุบันของคุณ"
+    ...    6. ตรวจสอบมุมขวาล่าง ไม่พบปุ่ม เมนูลัด [1]
+    ...    7. Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    [1]
+    ...    ไม่พบปุ่ม เมนูลัด
+    [Tags]    active    regression    success    3PO    3BO    TH
+    ...    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Sleep    10
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify package page Postpaid
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_2,4_1-2_Y_4_1] Verify not display Quick menu in sub menu your balance
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-requisite
+    ...
+    ...    N-Type Number : 3PO
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    5. เลือกเมนู "ค่าใช้บริการ"
+    ...    6. ตรวจสอบมุมขวาล่าง ไม่พบปุ่ม เมนูลัด [1]
+    ...    7. Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    [1]
+    ...    ไม่พบปุ่ม เมนูลัด
+    [Tags]    active    regression    success    3PO    3BO    TH
+    ...    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Sleep    10
+    Select Menu And Verify Quick Menu    UsageDetailHistory
+    Verify Your Balance Postpaid
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_2,4_1-2_Y_5_1] Verify not display Quick menu in sub menu payment and top up
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-Requisite
+    ...    N-Type Number : 3PO
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "จ่ายบิล/เตืมเงิน"
+    ...    5. เลือกเมนู ชำระค่าบริการ
+    ...    6. ตรวจสอบมุมขวาล่าง ไม่พบปุ่ม เมนูลัด [1]
+    ...    7. Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    [1]
+    ...    ไม่พบปุ่ม เมนูลัด
+    [Tags]    active    regression    success    3PO    3BO    TH
+    ...    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Sleep    10
+    Select Menu    PaymentAndTopup
+    Verify Payment
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_2,4_1-2_Y_6_1] Verify not display quick menu in sub menu service page
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-requisite
+    ...
+    ...    N-Type Number : 3PO
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "บริการ"
+    ...    5. เลือกเมนู "เพลงรอสาย"
+    ...    6. ตรวจสอบมุมขวาล่าง ไม่พบปุ่ม เมนูลัด [1]
+    ...    7. Capture screen
+    ...
+    ...    Verify point
+    ...    [1]
+    ...    ไม่พบปุ่ม เมนูลัด
+    [Tags]    active    regression    success    3PO    3BO    TH
+    ...    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Sleep    10
+    Select Menu    Service
+    Verify calling melody
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_2,4_1-2_Y_7_1] Verify not display Quick menu in sub menu point and privileges
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-requisite
+    ...
+    ...    N-Type Number : 3PO
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. เลือกเมนู "เพิ่มเติม"
+    ...    6. ตรวจสอบมุมขวาล่าง ไม่พบปุ่ม เมนูลัด [1]
+    ...    7. Capture screen
+    ...
+    ...    Verify point
+    ...    [1]
+    ...    ไม่พบปุ่ม เมนูลัด
+    [Tags]    active    regression    success    3PO    3BO    TH
+    ...    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Sleep    10
+    Select Menu    PointsAndPrivileges
+    Verify Seemore Privileges
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_2,4_1-2_Y_8_1] Verify not display Quick menu in sub menu help and support
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-requisite
+    ...
+    ...    N-Type Number : 3PO
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "ช่วยเหลือ"
+    ...    5. เลือกเมนู "ถามอุ่นใจ"
+    ...    6. ตรวจสอบมุมขวาล่าง ไม่พบปุ่ม เมนูลัด [1]
+    ...    7. Capture screen
+    [Tags]    active    regression    success    3PO    3BO    TH
+    ...    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Sleep    10
+    Select Menu    HelpAndSupport
+    Verify Ask Aunjai Postpaid
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_QuickMenu_2,4_1-2_Y_9_1] Verify Quick menu
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-requisite
+    ...
+    ...    N-Type Number : 3PO
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. คลิกไอคอนล่างขวา [1]
+    ...    5. Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    [1]
+    ...    - ถามอุ่นใจ
+    ...    - จ่ายบิล
+    ...    - สมัครแพ็กเกจเสริมอื่นๆ
+    ...    - พอยท์&สิทธิพิเศษ
+    ...    - สมัคร AIS Fibre
+    ...    - ค้นหา
+    ...    - ไอคอน "X"
+    [Tags]    3PO    3BO    active    regression    success    TH
+    ...    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Quick Menu
+    Mobile Capture Screen At Verify Point    Quick Menu
+    Verify Quick Menu 3PO 3BO
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

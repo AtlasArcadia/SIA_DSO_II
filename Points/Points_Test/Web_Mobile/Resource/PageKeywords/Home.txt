@@ -1,0 +1,129 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../PageRepository/HomeRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/HomeLocalized.txt
+Resource          ../PageVariable/HomeVariable.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Points_Mobile_Test_local_config_file_path}    ${#dict_device_name}
+
+Verify Home Banner
+    [Arguments]    ${BannerAmount}
+    Sleep    5
+    : FOR    ${index}    IN RANGE    0    ${BannerAmount}    1
+    \    ${indexBanner}    Evaluate    ${index}+1
+    \    Click Web Element    ${btnBannerPin${indexBanner}}
+    \    Web Element Should Be Visible    ${btnBannerPin${indexBanner}Active}
+    \    Click Web Element    ${btnBannerPin${indexBanner}}
+    \    Web Element Should Be Visible    ${imgBanner${indexBanner}}
+    \    Web Capture Screen At Verify Point    Verify Banner ${indexBanner}
+
+Verify Link To AIS Points
+    Scroll Web To Element    ${lblAboutAISPoint}
+    Web Element Should Be Visible    ${lblAboutAISPoint}
+    Web Capture Screen At Verify Point    Verify Link to AIS Point
+    Click Web Element    ${lblAboutAISPoint}
+
+Verify AIS Points page
+    Verify Link AIS Points
+    Scroll Web To Element    ${lblCollect25BahtTo1Points}
+    Web Element Should Be Visible    ${lblCollect25BahtTo1Points}
+    Scroll Web To Element    ${lblCheckCollectPoints}
+    Web Element Should Be Visible    ${lblCheckCollectPoints}
+    Web Capture Screen At Verify Point    Verify Img Detail in AIS Point Page
+    Scroll Web To Element    ${btnRegisterToAisPoint}
+    Web Element Should Be Visible    ${btnRegisterToAisPoint}
+    Web Capture Screen At Verify Point    Verify Button Register in AIS Point Page
+    Scroll Web To Element    ${lblConditionDetail}
+    check condition is open
+    Scroll Web To Element    ${lblConditionDetail}
+    Web check existing text    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    Verify Condition Detail in AIS Point Page
+
+Verify Link AIS Points
+    Web Element Should Be Visible    ${mnuAboutActive}
+    Verify Url    ${urlAboutAISPoints}
+
+Select Register In About Point Page
+    sleep    5
+    Scroll Web To Element    ${btnRegisterToAisPoint}
+    Click Web Element    ${btnRegisterToAisPoint}
+
+check condition is open
+    Scroll Web To Element    ${lblCondition}
+    ${status}=    Run Keyword And Return Status    Wait Until Element Is Not Visible    ${lblConditionDetail}    5
+    Run Keyword If    ${status}    Click Web Element    ${lblConditionDetail}
+
+check condition is close
+    Scroll Web To Element    ${lblCondition}
+    ${status}=    Run Keyword And Return Status    Web Element Should Be Visible    ${lblConditionDetail}    5
+    Run Keyword If    ${status}    Click Web Element    ${lblCondition}
+
+Check Loading Status
+    ${status}=    Run Keyword And Return Status    Web Element Should Be Visible    ${lblLoadingProgress}    5
+    Run Keyword If    ${status}    Selenium2Library.Wait Until Element Is Not Visible    ${lblLoadingProgress}    ${lo_general_timeout}
+
+Verify Link to Register AIS Points
+    Scroll Web To Element    ${lblRegisterAISPoints}
+    Web Element Should Be Visible    ${lblRegisterAISPoints}
+    Web Capture Screen At Verify Point    Verify Register AIS Point
+    Click Web Element    ${lblRegisterAISPoints}
+
+Verify Link to Login AIS Points
+    Scroll Web To Element    ${lblLoginAISPoints}
+    Web Element Should Be Visible    ${lblLoginAISPoints}
+    Web Capture Screen At Verify Point    Verify Register AIS Point
+    Click Web Element    ${lblLoginAISPoints}
+
+Verify Reward List In Home
+    Scroll Web To Element    ${lblHeadRewardTypeList}
+    Web Element Text Should Be    ${lblHeadRewardTypeList}    ${HeadTitleRewardList}
+    Web Capture Screen At Verify Point    Verify Reward List Head
+    Scroll Web To Element    ${imgRewardFood}
+    Web Element Should Be Visible    ${imgRewardFood}
+    Web Element Text Should Be    ${lblRewardFoodHead}    ${RewardFood}
+    Web Capture Screen At Verify Point    Verify Reward Food
+    Scroll Web To Element    ${imgRewardShopFree}
+    Web Element Should Be Visible    ${imgRewardShopFree}
+    Web Element Text Should Be    ${lblRewardShopFreeHead}    ${RewardShopFree}
+    Web Capture Screen At Verify Point    Verify Reward Shop Free
+    Scroll Web To Element    ${imgRewardMobile}
+    Web Element Should Be Visible    ${imgRewardMobile}
+    Web Element Text Should Be    ${lblRewardMobileHead}    ${RewardMobile}
+    Web Capture Screen At Verify Point    Verify Reward Mobile
+    Scroll Web To Element    ${imgRewardMovie}
+    Web Element Should Be Visible    ${imgRewardMovie}
+    Web Element Text Should Be    ${lblRewardMovieHead}    ${RewardMovie}
+    Web Capture Screen At Verify Point    Verify Reward \ Movie
+    Scroll Web To Element    ${imgRewardAunjai}
+    Web Element Should Be Visible    ${imgRewardAunjai}
+    Web Element Text Should Be    ${lblRewardAunjaiHead}    ${RewardAunjai}
+    Web Capture Screen At Verify Point    Verify Telnet
+    Scroll Web To Element    ${imgRewardTelnet}
+    Web Element Should Be Visible    ${imgRewardTelnet}
+    Web Element Text Should Be    ${lblRewardTelnetHead}    ${RewardTelnet}
+    Web Capture Screen At Verify Point    Verify Telnet
+
+Verify Reward Page
+    [Arguments]    ${Reward}
+    Wait Web Until Page Contains Element    ${mnuRewardActive}
+    Web Element Should Be Visible    ${mnuRewardActive}
+    Verify Url    ${urlReward${Reward}}
+    Mouse Over    ${mnuRewardActive}
+    Scroll Web To Element    ${lblHead${Reward}RewardPage}
+    Web Element Text Should Be    ${lblHead${Reward}RewardPage}    ${Head${Reward}RewardPage}
+    Web Capture Screen At Verify Point    Verify Head Reward Page
+    Scroll Web To Element    ${imgFirstCampaignRewardPage}
+    Web Element Should Be Visible    ${lblPointFirstCampaignRewardPage}
+    Web Element Should Be Visible    ${imgFirstCampaignRewardPage}
+    Web check existing text    ${lblDetailCampaignRewardPage}
+    Web Capture Screen At Verify Point    Verify First Campaign
+
+Select Reward Page
+    [Arguments]    ${RewardName}
+    Scroll Web To Element    ${imgReward${RewardName}}
+    Click Web Element    ${imgReward${RewardName}}

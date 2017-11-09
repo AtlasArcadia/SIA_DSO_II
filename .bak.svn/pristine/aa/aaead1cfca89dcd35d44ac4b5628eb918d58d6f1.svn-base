@@ -1,0 +1,153 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/LoginRepository.txt
+
+*** Keywords ***
+Login
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}    ${Network}=Wifi
+    Log    Serial Number is '${SN}'
+    Log    Mobile Number is '${Number}'
+    Run Keyword If    '${Network}'=='Wifi'    Login Wifi Android    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    ...    ${Number}
+    Run Keyword If    '${Network}'=='Data'    Log    auto login
+    verify login
+
+chosen primary button
+    [Arguments]    ${timeout}=${lo_general_timeout}
+    ${rounds}    Evaluate    int(${timeout}/2)
+    : FOR    ${INDEX}    IN RANGE    1    ${rounds}
+    \    ${statusPrimary}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnPrimary}    1
+    \    ${statusInputOTP}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${txtInputOTP}    1
+    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnDialogOk}    1
+    \    Exit For Loop If    ${statusPrimary} or ${statusInputOTP} or ${statusButtonDialogOk}
+    Run Keyword If    ${statusPrimary}    Click Mobile Element    ${btnPrimary}
+    Run Keyword If    ${statusButtonDialogOk}    Fail    Found some dialog pop up.
+
+Choose Language
+    [Arguments]    ${Language}
+    ${title}    AISAppiumEx.Get Text    ${lblTitle}
+    Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    change language    ${Language}
+
+verify login
+    Run Keyword If    '${ar_OS}'=='Android'    verify dialog AIS promotions
+    ${rounds}    Evaluate    int(${lo_general_timeout}/3)
+    : FOR    ${INDEX}    IN RANGE    1    ${rounds}
+    \    ${statusConfirmTerm}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnConfirmTerm}    1
+    \    Run Keyword If    ${statusConfirmTerm}    Click Mobile Element    ${btnConfirmTerm}
+    \    Comment    ${dialogAISpoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${dialogMsgAISPoint}    1
+    \    Comment    Run Keyword If    ${dialogAISpoint}    Click Mobile Element    ${btnCancelDialogAISPoint}
+    \    ${statusDialogAISpoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCancelDialogAISPoint}    1
+    \    Run Keyword If    ${statusDialogAISpoint}    Click Mobile Element    ${btnCancelDialogAISPoint}
+    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnDialogOk}    1
+    \    ${statusUserAccount}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lbUserAccount}    1
+    \    Exit For Loop If    ${statusUserAccount} or ${statusButtonDialogOk}
+    Log    ${statusButtonDialogOk}
+    Run Keyword If    ${statusButtonDialogOk}    Fail    Found some dialog pop up.
+    Log    ${statusUserAccount}
+    Run Keyword If    '${statusUserAccount}' != 'True'    Fail    Not found user account after login.
+    Run Keyword If    '${ar_OS}'=='iOS'    verify dialog AIS promotions
+
+Verify Login Postpaid
+    ${rounds}    Evaluate    int(${lo_general_timeout}/3)
+    ${verifypoint1}=    Set Variable    ${objCurrentCharges_Postpaid}
+    ${verifypoint2}=    Set Variable    ${objCircleRemaining_Postpaid}
+    : FOR    ${INDEX}    IN RANGE    1    ${rounds}
+    \    ${statusConfirmTerm}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnConfirmTerm}    1
+    \    Run Keyword If    ${statusConfirmTerm}    Click Mobile Element    ${btnConfirmTerm}
+    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnDialogOk}    1
+    \    ${statusVerifyPoint1}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${verifypoint1}    1
+    \    ${statusVerifyPoint2}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${verifypoint2}    1
+    \    Exit For Loop If    (${statusVerifypoint1} and ${statusVerifypoint2}) or ${statusButtonDialogOk}
+    Log    ${statusButtonDialogOk}
+    Run Keyword If    ${statusButtonDialogOk}    Fail    Found some dialog pop up.
+    Log    ${statusVerifyPoint1}
+    Log    ${statusVerifyPoint2}
+    Run Keyword If    ( '${statusVerifyPoint1}' != 'True' ) or ('${statusVerifyPoint2}' != 'True' )    Fail    Page load incomplete.
+
+Verify Login Prepaid
+    ${rounds}    Evaluate    int(${lo_general_timeout}/3)
+    ${verifypoint1}=    Set Variable    ${objValidUntil_Prepaid}
+    ${verifypoint2}=    Set Variable    ${objCircleRemaining_Prepaid}
+    : FOR    ${INDEX}    IN RANGE    1    ${rounds}
+    \    ${statusConfirmTerm}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnConfirmTerm}    1
+    \    Run Keyword If    ${statusConfirmTerm}    Click Mobile Element    ${btnConfirmTerm}
+    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnDialogOk}    1
+    \    ${statusVerifyPoint1}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${verifypoint1}    1
+    \    ${statusVerifyPoint2}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${verifypoint2}    1
+    \    Exit For Loop If    (${statusVerifypoint1} and ${statusVerifypoint2}) or ${statusButtonDialogOk}
+    Log    ${statusButtonDialogOk}
+    Run Keyword If    ${statusButtonDialogOk}    Fail    Found some dialog pop up.
+    Log    ${statusVerifyPoint1}
+    Log    ${statusVerifyPoint2}
+    Run Keyword If    ( '${statusVerifyPoint1}' != 'True' ) or ('${statusVerifyPoint2}' != 'True' )    Fail    Page load incomplete.
+
+choose language wifi
+    [Arguments]    ${Language}
+    ${Lang}    Get mobile text    ${btnLanguage}
+    Log    ${Lang}
+    : FOR    ${INDEX}    IN RANGE    1    10
+    \    Run Keyword If    '${Language}'=='${Lang}'    Click Mobile Element    ${btnLanguage}
+    \    ...    ELSE    Exit For Loop
+    \    ${Lang}    Get mobile text    ${btnLanguage}
+
+change language
+    [Arguments]    ${Language}
+    #[Arguments]    ${Language}
+    #Click Mobile Element    ${btnHamburger}
+    #Click Mobile Element    ${btnSettings}
+    #Wait Mobile Until Element Visible    ${btnSwitchLanguage}
+    #${checked}    AISAppiumEx.Get Element Attribute    ${btnSwitchLanguage}    checked
+    #Run Keyword If    ('${Language}'=='TH') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchLanguage}
+    #Run Keyword If    ('${Language}'=='EN') and ('${checked}'=='true')    Click Mobile Element    ${btnSwitchLanguage}
+    #Click Mobile Element    ${btnBack}
+    #${title}    Get Mobile Text    ${lblTitle}
+    #Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    fail    change lange not working
+    #Comment    Click Mobile Element    ${mnuPackage}
+    #Wait Mobile Until Element Visible    ${conHomeSummary}
+    Click Mobile Element    ${btnHamburger}
+    Click Mobile Element    ${btnSettings}
+    Wait Mobile Until Element Visible    ${btnSwitchLanguage}
+    run keyword if    "${ar_OS}"=="Android"    change language android    ${Language}
+    run keyword if    "${ar_OS}"=="iOS"    change language ios    ${Language}
+    Click Mobile Element    ${btnBack}
+    verify dialog AIS promotions
+    ${title}    Get Mobile Text    ${lblTitle}
+    Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    fail    change lange not working
+
+change language android
+    [Arguments]    ${Language}
+    ${checked}    AISAppiumEx.Get Element Attribute    ${btnSwitchLanguage}    checked
+    Run Keyword If    ('${Language}'=='TH') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchLanguage}
+    Run Keyword If    ('${Language}'=='EN') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchLanguage}
+
+change language ios
+    [Arguments]    ${Language}
+    ${Lang}    Get mobile text    ${lblLanguageSetting}
+    log to console    ${Lang}
+    Run Keyword If    ('${Language}'=='TH') and ('${Lang}'=='Language')    Click Mobile Element    ${btnSwitchLanguage}
+    Run Keyword If    ('${Language}'=='EN') and ('${Lang}'=='ภาษา')    Click Mobile Element    ${btnSwitchLanguage}
+
+Login Wifi Android
+    [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    Wait Mobile Until Page Contains Element    ${txtInputOTP}
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Comment    Open SMS App    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Wait SMS    ${Platfrom_Name}    1    ${lo_sms_timeout}
+    @{ExpectOnTopPackageMsg}=    Read SMS    ${Platfrom_Name}    AIS    1
+    @{OTP}=    Get Regexp Matches    @{ExpectOnTopPackageMsg}[0]    \\d\\d\\d\\d
+    log    @{OTP}
+    Android Switch App    my AIS
+    Wait Mobile Until Page Contains Element    ${txtInputOTP}
+    Clear Text    ${txtInputOTP}
+    Input mobile text    ${txtInputOTP}    @{OTP}
+    Hide Keyboard
+    Click Mobile Element    ${btnOKGetOTP}    60
+
+verify dialog AIS promotions
+    ${statusDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnNotShowAgain}    20
+    Log    ${statusDialogShow}
+    Run Keyword If    '${statusDialogShow}'=='True'    Click Mobile Element    ${btnNotShowAgain}
+    Run Keyword If    '${statusDialogShow}'=='True'    Click Mobile Element    ${btnCloseAdvert}

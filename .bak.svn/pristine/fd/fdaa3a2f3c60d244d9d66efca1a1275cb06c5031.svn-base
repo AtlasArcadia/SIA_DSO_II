@@ -1,0 +1,76 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/AISPointLocalized.txt
+Resource          ../PageRepository/AISPointsRepository.txt
+Resource          ../PageVariable/AISPointsVariable.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Points_Prod_local_config_file_path}    ${#selenium_hub}
+
+Verify About AIS Points Page With Condition Not Login
+    Sleep    5
+    Verify Link    ${urlAboutAISPoints}
+    Web Capture Screen At Verify Point    Verify in About AIS Points page
+    Scroll Web To Element    ${btnJoinProjectAISPoints}
+    Web Element Should Be Visible    ${imgEvery25BahtFor1Point}
+    Web Element Should Be Visible    ${imgCheckCollect}
+    Web Element Should Be Visible    ${btnJoinProjectAISPoints}
+    Web Element Text Should Be    ${lblConditionOpen}    ${ConditionOpen}
+    Web Capture Screen At Verify Point    Verify In Link About AIS Point 1
+    Verify Full Condition
+
+Verify About AIS Points Page With Condition After Login Complete
+    [Arguments]    ${customerNumber}
+    sleep    2
+    ${Number}=    Get Web Text    ${lblAboutAISPointCustomerNumber}
+    ${PurecustomerNumber}=    String.Remove String    ${Number}    -
+    Should Be Equal    ${PurecustomerNumber}    ${customerNumber}    # หมายเลขโทรศัพท์ที่ใช้ Login
+    ${currentPoint}=    Get Current Point
+    ${currentPoint}=    Convert To String    ${currentPoint}
+    Should Match Regexp    ${currentPoint}    ^\\d+    # จำนวน POint สะสมของลูกค้า
+    Web Element Text Should Be    ${lblAboutAISPointLogout}    ${Logout}    # ออกจากระบบ
+    Web Element Text Should Be    ${mnuHome}    ${Home}    # หน้าแรก
+    Web Element Text Should Be    ${mnuAISPoints}    ${AISPoint}    # เกี่ยวกับ AIS Point
+    Web Element Text Should Be    ${mnuTransferPoint}    ${TransferPoint}    # โอนคะแนน
+    Web Element Text Should Be    ${mnuReward}    ${Reward}    #แลกของรางวัล
+    Web Element Should Be Visible    ${imgEvery25BahtFor1Point}    #รูปสะสม Point ง่ายๆ ทุกการใช้งาน
+    Web Element Text Should Be    ${lblAboutAISPointCheckPoint}    ${CheckpointFree}    # เช็กพอยท์สะสมฟรี!
+    Element Should Not Be Visible    ${btnJoinProjectAISPoints}    # ปุ่มสมัครเข้าร่วมโครงการ
+    Web Element Text Should Be    ${lblConditionOpen}    ${Condition}    # เงื่อนไขการรับสิทธิ์
+    Verify Full Condition
+
+Verify About AIS points page
+    Sleep    5
+    Verify Link    ${urlAboutAISPoints}
+    Scroll Web To Element    ${imgCheckCollect}
+    Web Element Should Be Visible    ${imgEvery25BahtFor1Point}
+    Web Element Should Be Visible    ${imgCheckCollect}
+    Web Element Should Be Visible    ${btnJoinProjectAISPoints}
+    Web Capture Screen At Verify Point    Verify About AIS Point
+
+Verify Full Condition
+    ${conditionStatus}=    Run Keyword And Return Status    Web Element Should Be Visible    ${lblConditionOff}    5
+    Run Keyword If    ${conditionStatus}    Click Mobile Element    ${lblConditionOff}
+    : FOR    ${index}    IN RANGE    1    7    1
+    \    Web check existing text    ${lblAboutAISPointCondition${index}}
+    Scroll Web To Element    ${imgEvery25BahtFor1Point}
+    Web Capture Screen At Verify Point    Verify Condition In AIS Points
+
+Verify Hide Condition
+    ${statusCondition}=    Run Keyword And Return Status    Web Element Should Be Visible    ${lblConditionOpen}    5
+    Run Keyword If    ${statusCondition}    Click Web Element    ${lblConditionOpen}
+    Scroll Web To Element    ${lblConditionOff}
+    Web Element Should Be Visible    ${lblConditionOff}
+    Web Capture Screen At Verify Point    Verify Condition is Off
+
+Verify About AIS points page (log in)
+    Sleep    5
+    Verify Link    ${urlAboutAISPoints}
+    Scroll Web To Element    ${imgCheckCollect}
+    Web Element Should Be Visible    ${imgEvery25BahtFor1Point}
+    Web Element Should Be Visible    ${imgCheckCollect}
+    Web Capture Screen At Verify Point    Verify About AIS Point

@@ -1,0 +1,545 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPackage.txt
+
+*** Test Cases ***
+[F4_Package_1-5_1-2_Y_1_2] Verify page apply internet on top package
+    [Documentation]    *Owner*
+    ...    Oum, B
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3BO , 3PO ,3PE , 3BE, IPE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    =============================
+    ...    Update 15/3/2017
+    ...    -add verify point
+    ...
+    ...    5. Verify Page "Apply Internet On-Top Package"
+    ...    - On-Top Package - at Header
+    ...    - Please select the price that you want - at Header
+    ...    - Max Speed Internet
+    ...    - Up Speed Internet
+    ...    - Unlimited Social App
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...
+    ...    Update 28/3/2017
+    ...    อินเทอร์เน็ตอัพสปีด >> อินเทอร์เน็ตอัปสปีด
+    ...
+    ...    =============================
+    ...
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Verify Page "Apply Internet On-Top Package"
+    ...    - Max Speed Internet
+    ...    - Up Speed Internet
+    ...    - Unlimited Social App
+    ...    5. Capture Screen
+    ...
+    ...
+    ...    TH Version
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    - แพ็กเกจเสริม อินเทอร์เน็ต at Header
+    ...    - เลือกแพ็กเกจตามราคาที่คุณต้องการ at Header
+    ...    - TH/EN at Header
+    ...    - อินเทอร์เน็ตเต็มสปีด
+    ...    - อินเทอร์เน็ตอัพสปีด
+    ...    - Entertainment
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    active    success    EN    TH    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyInternetOnTopPackages
+    Switch Language    ${ar_LANG}
+    Verify Apply Internet On Top Package Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_1-5_1-2_Y_2_2] Verify page apply Internet on top package case apply max speed internet (49baht)
+    [Documentation]    *Owner*
+    ...    Oum, B
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3BO , 3PO ,3PE ,3BE, IPE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    3BO / 3PO
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "Max Speed Internet"
+    ...    5. Click "49฿."
+    ...    6. Verify Page Detail Pack
+    ...    - Internet 3 GB 49 baht 1 days
+    ...    - You will receive a confirmation SMS once the purchasing process is completed.
+    ...    7. Click "Confirm"
+    ...    8. Verify "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    9. Capture Screen
+    ...    10. Verify SMS "Mao Mao 49B. You've got Internet max speed 3 GB for 24hrs. Startxx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx. More value! Mao Mao 69B. Internet max speed 4GB for 24hrs. Press*777*7033#"
+    ...    11. Capture Screen
+    ...
+    ...
+    ...    3PE / 3BE / IPE
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "EN"
+    ...    5. Verify Menu "Max Speed Internet"
+    ...    - Volume
+    ...    - DAY (s)
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...    6. Select pack "49฿."
+    ...    7. Verify page "Apply Internet On-Top Package" step 1 Select package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 6.
+    ...    - Detaill Package (3GB 49 baht 1 days)
+    ...    - You will receive a confirmation SMS once the purchasing process is completed.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    8. Click "Confirm"
+    ...    9. Verify dialog message "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    - "OK" botton
+    ...    10. Capture screen
+    ...    11. Click "OK"
+    ...    12. Verify SMS "You can now enjoy internet max speed 3GB for 24hrs. ! Recommended for you! internet max speed upto 4GB 3Days only 99B. Press*777*7039# to subscribe later."
+    ...    13. Capture screen
+    ...
+    ...    TH Version
+    ...
+    ...    3PO/3BO
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. เลือก "TH"
+    ...    5. เลือก "อินเทอร์เน็ตเต็มสปีด"
+    ...    6. ตรวจสอบเมนู "อินเทอร์เน็ตเต็มสปีด"
+    ...    - ปริมาณ
+    ...    - จำนวนวัน
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    7. เลือกแพ้กเกจ 49บ.
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - รายละเอียด แพ็กเกจ (อินเทอร์เน็ต 3 GB 49 บาท 1 วัน)
+    ...    - คุณจะได้รับ SMS ยืนยัน หลังจากระบบทำการสมัครสำเร็จ Heading
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "ย้อนกลับ"
+    ...    9. เลือก "ยืนยัน"
+    ...    10. ตรวจสอบ dialog message "ระบบกำลังดำเนินการ กรุณารอรับข้อความยืนยันการใช้บริการค่ะ"
+    ...    - ปุ่ม "ตกลง"
+    ...    11. จับภาพหน้าจอ
+    ...    12. เลือก "ตกลง"
+    ...    13. ตรวจสอบ SMS "เริ่มใช้แพ็กเน็ต49บ.3GBที่ความเร็วสูงสุดนาน24ชม.ได้แล้วค่ะ แนะนำแพ็กพิเศษสำหรับคุณ! เน็ตความเร็วสูงสุดถึง4GBแค่99บ.นาน3วัน สมัคร*777*7039#"
+    ...    14. จับภาพหน้าจอ
+    ...
+    ...
+    ...    Test site >> Verify หน้า package detail ไม่ถึงหน้า confirm
+    ...
+    ...    3PO / 3BO
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "Max Speed Internet"
+    ...    5. Click "49฿."
+    ...    6. Verify Page Detail Pack
+    ...    - Internet 3 GB 49 baht 1 days
+    ...    - You will receive a confirmation SMS once the purchasing process is completed.
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. เลือก "อินเทอร์เน็ตเต็มสปีด"
+    ...    5. ตรวจสอบหน้า "อินเทอร์เน็ตเต็มสปีด"
+    ...    - ปริมาณ
+    ...    - จำนวนวัน
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    6. จับภาพหน้าจอ
+    ...    7. เลือกแพ็กแกจ "49บ."
+    ...    8. ตรวจสอบหน้า "อินเทอร์เน็ตเต็มสปีด" ขั้นตอนที่ 1 เลือกแพ็กเกจ
+    ...    - แพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...    - กรุณากด ยืนยัน เพื่อสมัครแพ็กเกจ
+    ...    - รายละเอียดแพ็กเกจ (3GB 49บาท 1วัน)
+    ...    - คุณจะได้รับ SMS ยืนยัน หลังจากระบบทำการสมัครสำเร็จ
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "ย้อนกลับ"
+    [Tags]    active    success    EN    TH
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_HaveSim=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveSim
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyInternetOnTopPackages
+    Switch Language    ${ar_LANG}
+    Select Max Speed Internet
+    Verify Menu Max Speed Internet
+    ${packageName}    Select Max Speed Internet 49 Baht    #Get package name from previous page
+    log    ${packageName}
+    Verify Detail Of Package Max Speed Internet 49 Baht    ${packageName}    ${ar_LANG}
+    Comment    Click Confirm Button
+    Comment    Confirm Package    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}
+    Comment    Verify Your Request Has Been Submitted
+    Comment    Verify Confirmation SMS Of Max Speed Internet Package    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_1-5_1-2_Y_3_2] Verify page apply up on top package case apply up speed internet (79baht)
+    [Documentation]    *Owner*
+    ...    Oum, B
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3BO , 3PO ,3PE ,3BE ,IPE
+    ...    Status : Active
+    ...
+    ...
+    ...    Update 30/03/2017
+    ...    3PE TH >> SMSมา 2 อัน
+    ...
+    ...    *Test Step*
+    ...
+    ...    3PO/3BO
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "Up Speed Internet"
+    ...    5. Click "79฿."
+    ...    6. Verify Page Detail Pack
+    ...    - Internet 3 GB 79 baht 7 days
+    ...    - You will receive a confirmation SMS
+    ...    7. Click "Confirm"
+    ...    8. Verify "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    9. Capture Screen
+    ...    10. Verify SMS "Mao Mao 79 B. You have got Internet max speed 3 GB valid for 7 days. Excess usage will be charged as your main package. Start xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx"
+    ...    11. Capture Screen
+    ...
+    ...    ====================================
+    ...    Update 16/3/2017
+    ...
+    ...    3PO/3BO
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "EN"
+    ...    5. Click "Up Speed Internet"
+    ...    6. Verify Menu "Up Speed Internet"
+    ...    - !!Eligible for Prepaid customer who have Unlimited internet packages / Postpaid customer
+    ...    - DAY (s)
+    ...    - Volume
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...    7. Select 1st pack "79฿."
+    ...    8. Verify page "Apply Internet On-Top Package" step 1 Select package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detial Package
+    ...    - You will receive a confirmation SMS once the purchasing process is completed.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    9. Click "Confirm"
+    ...    10. Verify "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    11. Capture Screen
+    ...    10. Verify SMS "เหมา เหมา 79บ. คุณสามารถใช้เน็ตเร็วสูงสุด ปริมาณ 3 GB นาน 7 วัน ส่วนเกินคิดตามโปรโมชั่นหลัก เริ่มxx/xx/xxxx xx:xxถึงxx/xx/xxxx xx:xx"
+    ...    12. Verify SMS "Mao Mao 79 B. You have got Internet max speed 3 GB valid for 7 days. Excess usage will be charged as your main package. Start xx/xx/xxxx xx:xx to xx/xx/xxxx xx:xx"
+    ...    13. Capture Screen
+    ...    ====================================
+    ...    3PE/3BE
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "EN"
+    ...    5. Click "Up Speed Internet"
+    ...    6. Verify Menu "Up Speed Internet"
+    ...    - !!Eligible for Prepaid customer who have Unlimited internet packages / Postpaid customer
+    ...    - DAY (s)
+    ...    - Volume
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...    7. Select 1st pack "79฿."
+    ...    8. Verify page "Apply Internet On-Top Package" step 1 Select package
+    ...    - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detial Package (Internet 3 GB 79 baht 7 days)
+    ...    - You will receive a confirmation SMS once the purchasing process is completed.
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...    10. Click "Confirm"
+    ...    11. Verify dialog message "Your request has been submitted. Please wait for a confirmation SMS shortly."
+    ...    - "OK" botton
+    ...    12. Capture screen
+    ...    13. Click "OK"
+    ...    14. Verify SMS "Welcome to 3G2100 Package \ (Domestic only). You will get 3G Pack79B Internet 3GB 7days"
+    ...    15. Capture screen
+    ...
+    ...    TH Version
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. เลือก "อินเทอร์เน็ตอัพสปีด"
+    ...    5. ตรวจสอบหน้า "อินเทอร์เน็ตอัพสปีด"
+    ...    - แพ็กเกจเสริมราคาพิเศษ! สำหรับลูกค้าเติมเงิน ที่มีแพ็กเน็ตแบบใช้งานต่อเนื่อง / ลูกค้ารายเดือน
+    ...    - ปริมาณ
+    ...    - จำนวนวัน
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    6. จับภาพหน้าจอ
+    ...    7. เลือกแพ็กแกจ "79บ."
+    ...    8. ตรวจสอบหน้า "อินเทอร์เน็ตอัพสปีด" ขั้นตอนที่ 1 เลือกแพ็กเกจ
+    ...    - กรุณากด ยืนยัน เพื่อสมัครแพ็กเกจ
+    ...    - แพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...    - รายละเอียดแพ็กเกจ (3GB 79บาท 7วัน)
+    ...    - คุณจะได้รับ SMS ยืนยัน หลังจากระบบทำการสมัครสำเร็จ
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "ย้อนกลับ"
+    ...    9. เลือก "ยืนยัน"
+    ...    10. ตรวจสอบ dialog message "ระบบกำลังดำเนินการ กรุณารอรับข้อความยืนยันการใช้บริการค่ะ Heading"
+    ...    11. จับภาพหน้าจอ
+    ...    12. ตรวจสอบ SMS (เหมา เหมา 79 บ. คุณสามารถใช้เน็ตเร็วสูงสุด ปริมาณ 3 GB นาน 7 วัน \ ส่วนเกินคิดตามโปรโมชั่นหลัก เริ่มxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx)
+    ...    13. จับภาพหน้าจอ
+    ...
+    ...    Test site >> Verify หน้า package detail ไม่ถึงหน้า confirm
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. เลือก "อินเทอร์เน็ตอัพสปีด"
+    ...    5. ตรวจสอบหน้า "อินเทอร์เน็ตอัพสปีด"
+    ...    - แพ็กเกจเสริมราคาพิเศษ! สำหรับลูกค้าเติมเงิน ที่มีแพ็กเน็ตแบบใช้งานต่อเนื่อง / ลูกค้ารายเดือน
+    ...    - ปริมาณ
+    ...    - จำนวนวัน
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    6. จับภาพหน้าจอ
+    ...    7. เลือกแพ็กแกจ "79บ."
+    ...    8. ตรวจสอบหน้า "อินเทอร์เน็ตอัพสปีด" ขั้นตอนที่ 1 เลือกแพ็กเกจ
+    ...    - กรุณากด ยืนยัน เพื่อสมัครแพ็กเกจ
+    ...    - แพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...    - รายละเอียดแพ็กเกจ (3GB 79บาท 7วัน)
+    ...    - คุณจะได้รับ SMS ยืนยัน หลังจากระบบทำการสมัครสำเร็จ
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "ย้อนกลับ"
+    ...
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "Up Speed Internet"
+    ...    5. Click "79฿."
+    ...    6. Verify Page Detail Pack
+    ...    - Internet 3 GB 79 baht 7 days
+    ...    - You will receive a confirmation SMS
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    [Tags]    active    success    EN    TH
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ...    ${ar_NType}_HaveSim=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveSim
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyInternetOnTopPackages
+    Switch Language    ${ar_LANG}
+    Select Up Speed Internet
+    Verify Menu Up Speed Internet
+    ${packageName}    Select Up Speed Internet 79 Baht    #Get package name from previous page
+    log    ${packageName}
+    Verify Details Of Package Up Speed Internet 79 Baht    ${packageName}    ${ar_LANG}
+    Comment    Click Confirm Button
+    Comment    Confirm Package    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}
+    Comment    Verify Your Request Has Been Submitted
+    Comment    Verify Confirmation Of Package Up Speed Internet    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_1-5_1-2_Y_4_2] Verify page apply unlimited social app case entertainment
+    [Documentation]    *Owner*
+    ...    Oum, B
+    ...
+    ...    *Pre-requisite*
+    ...
+    ...    Source Number : 3BO , 3PO ,3PE , 3BE , IPE
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. เลือก "Entertainment"
+    ...    5. ตรวจสอบเมนู Entertainment
+    ...    - Entertainment
+    ...    - ความบันเทิงระดับโลกทั้งหนัง ซีรีส์ การ์ตูน กีฬา ข่าว และอีกมากมาย
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    6. จับภาพหน้าจอ
+    ...    7. เลือกแพ็กเกจ 119บาท/เดือน
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - รายละเอียด แพ็กเกจ (119 บาท 30 วัน)
+    ...    - ชมฟรี 45 วัน
+    ...    - คุณจะได้รับ SMS ยืนยัน หลังจากระบบทำการสมัครสำเร็จ
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "ย้อนกลับ"
+    ...    9. เลือก "ยืนยัน"
+    ...    10. ตรวจสอบ dialog message "ระบบกำลังทำรายการ คุณจะได้รับ SMS ตอบกลับในอีกสักครู่ "
+    ...    11. จับภาพหน้าจอ
+    ...    12. ตรวจสอบ SMS จาก AIS
+    ...    - "ขอบคุณที่สมัคร HOOQ Package คุณสามารถลงทะเบียนเพื่อเข้าชมหนังได้ที่ http://go.hooq.tv/GetHOOQ"
+    ...    SMS จาก HOOQ
+    ...    - "ระบบกำลังสมัครบริการให้คุณ กรุณารอรับSMSยืนยันอีกครั้งก่อนเริ่มใช้งาน"
+    ...    - "Thank you"
+    ...    13. จับภาพหน้าจอ
+    ...
+    ...
+    ...    Test site >> Verify หน้า package detail ไม่ถึงหน้า confirm
+    ...
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Apply Internet On-Top Package"
+    ...    4. Click "EN"
+    ...    5. Click "Entertainment"
+    ...    6. Verify Menu "Entertainment"
+    ...    - Entertainment
+    ...    - Enjoy the world-Class entertainment. Full Spectrum of TV program , movies, series, cartoon, sport & news
+    ...    - "Cancel" botton
+    ...    - "Next" botton
+    ...    7. Select 1st pack "119Baht/Month"
+    ...    6. Verify Page Detail Pack
+    ...    - 99 baht 7 days
+    ...    - Unlimited Internet at speed 512 kbps for applications
+    ...    - You will receive a confirmation SMS
+    ...    8. Verify page "Apply Internet On-Top Package" step 1
+    ...    Select package - Pack name เชคได้มั้ยว่าเปน pack เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - Detial Package
+    ...    - Free Trail 45 days - You will receive a confirmation SMS
+    ...    - "Back" botton
+    ...    - "Confirm" botton
+    ...
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    4. เลือก "Entertainment"
+    ...    5. ตรวจสอบเมนู Entertainment
+    ...    - Entertainment
+    ...    - ความบันเทิงระดับโลกทั้งหนัง ซีรีส์ การ์ตูน กีฬา ข่าว และอีกมากมาย
+    ...    - ปุ่ม "ถัดไป"
+    ...    - ปุ่ม "ยกเลิก"
+    ...    6. จับภาพหน้าจอ
+    ...    7. เลือกแพ็กเกจ 119บาท/เดือน
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7.
+    ...    - รายละเอียด แพ็กเกจ (119 บาท 30 วัน)
+    ...    - ชมฟรี 45 วัน
+    ...    - คุณจะได้รับ SMS ยืนยัน หลังจากระบบทำการสมัครสำเร็จ
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "ย้อนกลับ"
+    [Tags]    active    non_regression    Prod_TH    Test_EN_TH
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyInternetOnTopPackages
+    Switch Language    ${ar_LANG}
+    Select Entertainment
+    Verify Menu Entertainment
+    Select Hooq Package
+    Verify Details of Hooq Package
+    Comment    Click Confirm Button
+    Comment    Verify Apply Hooq Package Success
+    Comment    Verify SMS Confirmation Of Hooq Package From Hooq AIS    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}    ${ar_NType}
+    Comment    Verify SMS Confirmation Of Hooq Package From AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${ar_NType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_Package_1,3_1-2_Y_5_2] Verify page Confirm MobileNo Apply Internet Ontop
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyInternetOnTopPackages
+    Switch Language    ${ar_LANG}
+    Select Max Speed Internet
+    Click Mobile Element    ${btnNext}
+    Click Confirm Button
+    Mobile Capture Screen At Verify Point    Verify Page Confirm MobileNo Apply Internet Ontop
+    Comment    Confirm MobileNo Apply Internet    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Prod] Smoke test
+    [Tags]    smoke
+    log    smoke for quick test
+
+[F0_0_0_Y_1_Prod] DummyLanguage
+    [Tags]    dummy
+    log    Dummy 3PO 3BO TH
+
+test
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    InternetOnTopPackage
+    Switch Language    ${ar_LANG}
+    Select Max Speed Internet
+    Comment    @{MessageExpect}    Create List    AAA    bbb
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Comment    Wait and Verify SMS    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}    2    0614122105    ${MessageExpect}
+    ...    30
+    Comment    Mobile Capture Screen At Verify Point    SMS From Hooq
+    Comment    Verify SMS From AIS with Match Regexp    ${txtSMSMaxSpeedInternetPrepaidBE}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Click Mobile Element    xpath=//*[@text="HOOQ_AIS"]
+    Mobile Capture Screen At Verify Point    SMS From Hooq
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+testStartActivity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InternetOnTop=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InternetOnTop
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    @{MessageExpect}    Create List    444    222
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    Wait and Verify SMS    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}    2    0614157453    ${MessageExpect}    30
+    Comment    Click Mobile Element    xpath=//*[@text="0614157453"]
+    Comment    Mobile Capture Screen At Verify Point    test
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

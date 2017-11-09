@@ -1,0 +1,96 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/DomesticsPackage_CancelOnTopPackageLocalized.txt
+Resource          ../PageRepository/${ar_OS}/DomesticsPackage_CancelOnTopPackage.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Talk OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalk}
+
+Select Monthly OnTop Package
+    Click Mobile Element    ${btnApplyOnTopInternetMonthly}
+
+Select Monthly fee 100 B. Call All 115 min
+    ${element}    Aisappium Get Webelement    ${SubOnTopMonthly100B.CallAll115min}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopMonthly100B.CallAll115min}
+
+Confirm Package
+    Click Mobile Element    ${btnApplyOnTopConfirmNext}
+
+Select Immediately
+    Click Mobile Element    ${btnApplyOnTopImmediately}
+
+Confirm Package And Comfirm Effective Date
+    Swipe Element To Screen    ${btnApplyOnTopConfirm}
+    Click Mobile Element    ${btnApplyOnTopConfirm}
+
+Verify Dialog Apply On Top Package
+    [Arguments]    ${successText}
+    Mobile element text should match regexp whole string    ${lblApplyOnTopConfirmDailogChangePackageSuccess}    ${successText}
+
+Confirm Dialog On Top Package
+    Click Mobile Element    ${btnApplyOnTopOkChangePackageSuccess}
+
+Select Cancel Package
+    Swipe Element To Screen    ${btnCancelPackage}
+    Click Mobile Element    ${btnCancelPackage}
+
+Verify On Top Package Monthly 100 B.Call all 115 min
+    Swipe Element To Screen    ${lblOnTop100B.CallAll115min}
+    Wait Mobile Until Page Contains Element    ${lblOnTop100B.CallAll115min}
+    Mobile Capture Screen At Verify Point    Monthly 100 B.Call all 115 min
+
+Verify Cancel Package Page
+    [Arguments]    ${Number}
+    Sleep    5
+    #Appium wait until element contain text
+    Mobile element text should be    ${lblHeadCancelPackagePage}    ${CancelPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should match regexp    ${lblBillCycle}    ${BillingCycle}
+    Mobile element text should be    ${lblOntopHeader}    ${txtOntopHeader}
+    Mobile check existing text    ${lblOntopPackage}
+    Mobile Capture Screen At Verify Point    Cancel Package Page
+
+Verify Cancel Package Detail Page
+    [Arguments]    ${Number}
+    Comment    Sleep    5
+    Mobile element text should be    ${lblHeadCancelPackagePage}    ${CancelPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should match regexp    ${lblBillCycle}    ${BillingCycle}
+    Mobile element text should be    ${lblPackageDetailHeader}    ${txtDetail}
+    Mobile check existing text    ${lblCancelOntopDetailPackageName}
+    Mobile element text should be    ${btnConfirmCancelOnTop}    ${txtConfirm}
+    Mobile element text should be    ${btnBackCancelOntopPackage}    ${txtBack}
+    Swipe to element    ${lblTermAndCondition}
+    Mobile element text should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    Cancel Package Detail Page
+
+Confirm Cancel OnTop Package
+    Click Mobile Element    ${btnConfirmCancelOnTop}
+
+Verify Dialog Message Cancel Complete
+    Mobile element text should be    ${DialogMessageCancelOnTop}    ${MessageCompleteCancelOnTOp}
+    Mobile Capture Screen At Verify Point    Dialog Message Cancel Complete
+
+Confirm Dialog Message
+    Click Mobile Element    ${btnConfirmDialogMessage}
+
+Select OnTop Package
+    Click Mobile Element    ${lblCancelMonthly100B.CallAll115minName}
+
+Select Cancel Ontop Package Name
+    Click Mobile Element    ${lblOntopPackage}
+
+Confirm Cancel Ontop
+    Click Mobile Element    ${btnConfirmCancelOnTop}

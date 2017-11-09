@@ -1,0 +1,39 @@
+*** Settings ***
+Library           ../../../Library/Mobile/AISAppiumEx.py
+Resource          ../../../Common/Keywords/RedefineKeywords.txt
+Resource          ../Variable/GeneralVariable.txt
+
+*** Keywords ***
+Android Switch App
+    [Arguments]    ${AppName}
+    Log    In Switch App
+    Sleep    2
+    Press Keycode    187
+    Sleep    2
+    @{ListAppName}    Aisappium Get Webelements    xpath=//*[@resource-id="com.android.systemui:id/activity_description"]
+    ${Length}=    Get Length    ${ListAppName}
+    ${index}    Set Variable    0
+    : FOR    ${index}    IN RANGE    ${Length}
+    \    ${locator}    Set Variable    xpath=//android.widget.FrameLayout[@index="${index}"]/*/*/android.widget.TextView
+    \    ${GetAppName}    Aisappium Get Text    ${locator}
+    \    Log    ${GetAppName}
+    \    ${status}    Run Keyword And Return Status    Should Match Regexp    ${GetAppName}    ${AppName}
+    \    Run Keyword If    '${status}'=='True'    Click Mobile Element    ${locator}
+    \    Exit For Loop If    '${status}'=='True'
+    Run Keyword If    '${status}'=='Flase'    Fail    Don't have ${AppName}...
+    Log    Out Switch App
+
+Android Set Network Connection
+    [Arguments]    ${Connection}    ${IpAppium}    ${SN}
+    ${result}    Run Keyword And Return Status    Set Network Connection Status    ${Connection}
+    Run Keyword If    ${result}==False    Open Application    http://${IpAppium}/wd/hub    platformName=android    platformVersion=5.1.1    udid=${SN}
+    ...    deviceName=devicesName${SN}    appPackage=com.android.settings    appActivity=wifi.WifiSettings
+    Run Keyword If    ${result}==False    Set Network Connection Status    ${Connection}
+    Run Keyword If    ${result}==False    Close Application
+
+Go Home Android
+    Log    In Go Home Android
+    Sleep    1
+    Press Keycode    3
+    Sleep    1
+    Log    Out Go Home Android

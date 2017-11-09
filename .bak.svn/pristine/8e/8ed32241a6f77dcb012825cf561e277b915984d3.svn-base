@@ -1,0 +1,35 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/CallingMelody.txt
+
+*** Test Cases ***
+[F5_Service_1-2_1-2_Y_1_1] Verify Calling Melody page
+    [Documentation]    ** Owner: Copy **
+    ...
+    ...    *Pre-Requisite*
+    ...    "Source Number : 3PE, 3BE
+    ...    Status : Active"
+    ...
+    ...    *Test Step*
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "บริการ"
+    ...    3. เลือกsub เมนู "เพลงรอสาย"
+    ...    4. ตรวจสอบ หน้า"เพลงรอสาย" \ (Logo AIS)
+    ...    5. Capture screen
+    [Tags]    success    active    3PE    3BE    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Service Menu
+    Select Calling Melody Submenu
+    Wait Until Calling Melody Load Finished
+    Verify Logo In Calling Melody Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke Test
+    [Tags]    smoke
+    Log    For Quick Smoke.

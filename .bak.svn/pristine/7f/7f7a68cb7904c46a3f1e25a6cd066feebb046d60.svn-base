@@ -1,0 +1,1316 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Reward_Mobile.txt
+
+*** Test Cases ***
+[F4_PointsWebMobile_0_1_Y_2_1] Verify menu bar
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. capture screen
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แสดงเมนูแลกของรางวัล
+    ...    >> แลกค่าโทร ค่าเน็ตฟรี
+    ...    >> แลกขนม เครื่องดื่ม
+    ...    >> แลกช้อปฟรีสะใจ
+    ...    >> แลกส่วนลดมือถือ
+    ...    >> แลกตั๋วหนัง
+    ...    >> แลกค่าเน็ตฟรี"
+    [Tags]    active    regression    success    sanity    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Comment    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Select Menu Redeem Reward
+    Select Menu Redeem Reward
+    Verify menu bar
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_0_1_Y_2_2] Verify redeem food
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกขนม เครื่องดื่ม
+    ...    4. ตรวจสอบหน้าแลกขนม เครื่องดื่ม
+    ...    5. capture screen
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แลกขนม เครื่องดื่ม
+    ...    - รายละเอียด แลกขนม เครื่องดื่ม
+    ...    >>รูป, text, จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Food
+    Verify food page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_0_1_Y_2_3] Verify redeem shopfree
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกช้อปฟรีสะใจ
+    ...    4. ตรวจสอบหน้าแลกช้อปฟรีสะใจ
+    ...    5. capture screen
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แลกช้อปฟรีสะใจ
+    ...    - รายละเอียด แลกช้อปฟรีสะใจ
+    ...    >>รูป, text, จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Comment    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Select Menu Redeem Reward
+    Select Redeem    ShopFree
+    Verify Shopfree page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_0_1_Y_2_4] Verify redeem mobile
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกส่วนลดมือถือ
+    ...    4. ตรวจสอบหน้าแลกส่วนลดมือถือ
+    ...    5. capture screen
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แลกส่วนลดมือถือ
+    ...    - รายละเอียด แลกส่วนลดมือถือ
+    ...    >>รูป, text, จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Comment    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Select Menu Redeem Reward
+    Select Redeem    Mobile
+    Verify Mobile page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_0_1_Y_2_5] Verify redeem movie
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกตั๋วหนัง
+    ...    4. ตรวจสอบหน้าแลกตั๋วหนัง
+    ...    5. capture screen
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แลกตั๋วหนัง
+    ...    - รายละเอียด แลกตั๋วหนัง
+    ...    >>รูป, text, จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Comment    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Select Menu Redeem Reward
+    Select Redeem    Movie
+    Verify Movie page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_0_1_Y_2_6] Verify redeem aunjai
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    4. ตรวจสอบหน้าแลกอุ่นใจคอลเลคชั่น
+    ...    5. capture screen
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แลกอุ่นใจคอลเลคชั่น
+    ...    - รายละเอียด แลกอุ่นใจคอลเลคชั่น
+    ...    >>รูป, text, จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Aunjai
+    Verify Aunjai page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_0_1_Y_2_7] Verify redeem telnet
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    *** Remark ***
+    ...    Can't verify because when go to reward telnet it's not have any campaign ten fail
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกค่าเน็ตฟรี
+    ...    4. ตรวจสอบหน้าแลกค่าเน็ตฟรี
+    ...    5. capture screen
+    ...    "
+    ...
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แลกค่าเน็ตฟรี
+    ...    - รายละเอียด แลกค่าเน็ตฟรี
+    ...    >>รูป, text, จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    regression    success    onhold    nonNTYPE    # campagin disappear
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Comment    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Select Menu Redeem Reward
+    Select Redeem    Telnet
+    Verify Telnet page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_Smoke_0_0_Y_0] Smoke run
+    [Tags]    smoke    3PO    3PE    MPay    nonNTYPE
+    log    smoke
+
+[F0_Dummy_0_0_Y_1] Dummy EN Lang
+    [Tags]    dummy    3PO    3PE    MPay    nonNTYPE
+    log    dummy en
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_1] Verify Bar
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. capture screen
+    ...    "
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    แสดงเมนูแลกของรางวัล
+    ...    >> แลกค่าเน็ตฟรี
+    ...    >> แลกส่วนลดมือถือ
+    ...    >> แลกอุ่นใจคอลเลคชั่น
+    ...    >> แลกขนม เครื่องดื่ม
+    ...    >> แลกตั๋วหนัง
+    ...    >> แลกช้อปฟรีสะใจ
+    [Tags]    active    regression    success    sanity    3PE    3PO
+    ...    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Menu Redeem Reward
+    Verify menu bar
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_2] Verify Redeem Food
+    [Documentation]    *Owner : Chompoo*
+    ...    Redeem Food
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกขนม เครื่องดื่ม
+    ...    5. ตรวจสอบหน้าแลกขนม เครื่องดื่ม
+    ...    6. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    แลกขนม เครื่องดื่ม
+    ...    - รายละเอียด แลกขนม เครื่องดื่ม
+    ...    >>รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    ...
+    ...    Update 12/09/2017
+    ...
+    ...    แลกขนม เครื่องดื่ม
+    ...    - รายละเอียด แลกอาหาร เครื่องดื่ม
+    ...    >>รูป, text,จำนวนพอยท์
+    ...    - ปุ่ม รายละเอียด!
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Food
+    Verify food page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_3] Verify Redeem Shop Free
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกช้อปฟรีสะใจ
+    ...    5. ตรวจสอบหน้าแลกช้อปฟรีสะใจ
+    ...    6. capture screen
+    ...    "
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    แลกช้อปฟรีสะใจ
+    ...    - รายละเอียด แลกช้อปฟรีสะใจ
+    ...    >>รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    ...
+    ...    Update 12/09/2017
+    ...    *1
+    ...    แลกช้อปฟรีสะใจ
+    ...    - รายละเอียด แลกช้อปฟรีสะใจ
+    ...    >>รูป, text,จำนวนพอยท์
+    ...
+    ...    - ปุ่ม รายละเอียด!
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    ShopFree
+    Verify Shopfree page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_4] Verify Redeem Mobile
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกส่วนลดมือถือ
+    ...    4. ตรวจสอบหน้าแลกส่วนลดมือถือ
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    แลกส่วนลดมือถือ
+    ...    - รายละเอียด แลกส่วนลดมือถือ
+    ...    >>รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    ...
+    ...
+    ...    Update 12/09/2017
+    ...    *1
+    ...    แลกส่วนลดมือถือ
+    ...    - รายละเอียด แลกส่วนลดมือถือ
+    ...    >>รูป, text,จำนวนพอยท์
+    ...
+    ...    - ปุ่ม รายละเอียด!
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Mobile
+    Verify Mobile page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_5] Verify Redeem Movie
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกตั๋วหนัง
+    ...    5. ตรวจสอบหน้าแลกตั๋วหนัง
+    ...    6. capture screen
+    ...    "
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    แลกตั๋วหนัง
+    ...    - รายละเอียด แลกตั๋วหนัง
+    ...    >>รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    ...
+    ...
+    ...    Update 12/09/2017
+    ...    *1
+    ...    แลกตั๋วหนัง
+    ...    - รายละเอียด แลกตั๋วหนัง
+    ...    >>รูป, text,จำนวนพอยท์
+    ...
+    ...    - ปุ่ม รายละเอียด!
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Movie
+    Verify Movie page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_6] Verify Redeem Aunjai
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    4. ตรวจสอบหน้าแลกอุ่นใจคอลเลคชั่น
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    แลกอุ่นใจคอลเลคชั่น
+    ...    - รายละเอียด แลกอุ่นใจคอลเลคชั่น
+    ...    >>รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    ...
+    ...
+    ...    Update 12/09/2017
+    ...    *1
+    ...    แลกอุ่นใจคอลเลคชั่น
+    ...    - รายละเอียด แลกอุ่นใจคอลเลคชั่น
+    ...    >>รูป, text,จำนวนพอยท์
+    ...
+    ...    - ปุ่ม รายละเอียด!
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Aunjai
+    Verify Aunjai page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_7] Verify Redeem TelNet
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. ตรวจสอบหน้าแลกค่าเน็ตฟรี
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    แลกค่าเน็ตฟรี
+    ...    - รายละเอียด แลกค่าเน็ตฟรี
+    ...    >>รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    ...
+    ...
+    ...    Update 12/09/2017
+    ...    *1
+    ...    แลกค่าเน็ตฟรี
+    ...    - รายละเอียด แลกค่าโทร ค่าเน็ตฟรี
+    ...    >>รูป, text,จำนวนพอยท์
+    ...
+    ...    - ปุ่ม รายละเอียด!
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Telnet
+    Verify Telnet page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_10] Verify Redeem Telnet Popup
+    [Documentation]    *Owner : Oum*
+    ...    verify ปุ่ม รายละเอียด แลกค่าเน็ตฟรี
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...
+    ...    * Expect result *
+    ...
+    ...    1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    ...    - ปุ่ม ยืนยัน
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Telnet
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Popup Datail    Telnet
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_11] Verify Redeem Mobile Discount Popup
+    [Documentation]    *Owner : Oum*
+    ...    verify ปุ่ม รายละเอียด แลกส่วนลดมือถือ
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกส่วนลดมือถือ
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Mobile
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Popup Datail    Mobile
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_12] Verify Redeem Aunjai Popup
+    [Documentation]    *Owner : Oum*
+    ...    verify ปุ่ม รายละเอียด แลกอุ่นใจคอลเลคชั่น
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Aunjai
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Popup Datail    Aunjai
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_13] Verify Redeem Food And Drink Popup
+    [Documentation]    *Owner : Oum*
+    ...    verify ปุ่ม รายละเอียด อาหารและเครื่องดื่ม
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอาหาร เครื่องดื่ม
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Food
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Popup Datail    Food
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_14] Verify Redeem Movie Ticket Popup
+    [Documentation]    *Owner : Oum*
+    ...    verify ปุ่ม รายละเอียด แลกตั๋วหนัง
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แแลกตั๋วหนัง
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Movie
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Popup Datail    Movie
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_15] Verify Redeem Shop Free Popup
+    [Documentation]    *Owner : Oum*
+    ...    verify ปุ่ม รายละเอียด แลกช้อปฟรีสะใจ
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกช้อปฟรีสะใจ
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    ShopFree
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Popup Datail    ShopFree
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_16] Verify Redeem Shop Free Success
+    [Documentation]    *Owner : Oum*
+    ...    กดแลก แลกช้อปฟรีสะใจ
+    ...    - กรณีมี campaign อยู่ในระบบ
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกช้อปฟรีสะใจ
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม ยืนยัน
+    ...    7. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1 verify pop up
+    ...    - แลกของรางวัลเรียบร้อยแล้ว
+    ...    - คุณมีเอไอเอส พอยท์คงเหลือ
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    ShopFree
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Popup Datail    ShopFree
+    Confirm Redeem
+    Verify Redeem Success
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_17] Reject
+    [Documentation]    *Owner : Oum*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...
+    ...
+    ...    * Expect result *
+    ...
+    ...
+    ...    Update 12/09/2017
+    [Tags]    reject
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_18] Verify Redeem Case Not Enough Points
+    [Documentation]    *Owner : Oum*
+    ...    กดแลกแลกค่าเน็ตฟรี
+    ...    - กรณี Points ไม่พอ
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม ยืนยัน
+    ...    7. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    - ไม่สามารถกดปุ่ม ยืนยัน ได้
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_NotEnoughPoint
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Telnet
+    Wait Mobile Until Element Visible    ${imgHeaderPage}
+    Mobile element name should be    ${txtHeaderRedeemTelnet}    ${Telnet}
+    Swipe to Detail Button
+    Click Detail Button
+    Confirm Redeem
+    Verify Cannot Confirm Redeem Cause Of Disable Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_19] Verify Redeem Telnet Case Show Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกค่าเน็ตฟรี
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Telnet
+    Wait Mobile Until Element Visible    ${imgHeaderPage}
+    Mobile element name should be    ${txtHeaderRedeemTelnet}    ${Telnet}
+    Swipe to Detail Button
+    Click Detail Button
+    Click Term And Condition
+    Verify Show Term And Condition Details
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_20] Verify Redeem Telnet Case Hide Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกค่าเน็ตฟรี
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่ไม่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Telnet
+    Wait Mobile Until Element Visible    ${imgHeaderPage}
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Hide Term And Condition Detail
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_21] Verify Redeem Mobile Discount Case Show Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกส่วนลดมือถือ
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Mobile
+    Swipe to Detail Button
+    Click Detail Button
+    Click Term And Condition
+    Verify Show Term And Condition Details
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_22] Verify Redeem Mobile Discount Case Hide Condition
+    [Documentation]    *Owner : Oum*
+    ...
+    ...    แลกส่วนลดมือถือ
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่ไม่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกส่วนลดมือถือ
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Mobile
+    Wait Mobile Until Element Visible    ${imgHeaderPage}
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Hide Term And Condition Detail
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_23] Verify Redeem Aunjai Collection Case Show Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกอุ่นใจคอลเลคชั่น
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Aunjai
+    Swipe to Detail Button
+    Click Detail Button
+    Click Term And Condition
+    Verify Show Term And Condition Details
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_24] Verify Redeem Aunjai Collection Case Hide Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกอุ่นใจคอลเลคชั่น
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่ไม่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Aunjai
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Hide Term And Condition Detail
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_25] Verify Redeem Food And Drink Case Show Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกอาหาร เครื่องดื่ม
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอาหาร เครื่องดื่ม
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Food
+    Swipe to Detail Button
+    Click Detail Button
+    Click Term And Condition
+    Verify Show Term And Condition Details
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_26] Verify Redeem Food And Drink Case Hide Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกอาหาร เครื่องดื่ม
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่ไม่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอาหาร เครื่องดื่ม
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Food
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Hide Term And Condition Detail
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_27] Verify Redeem Movie Ticket Case Show Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกตั๋วหนัง
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกตั๋วหนัง
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Movie
+    Swipe to Detail Button
+    Click Detail Button
+    Click Term And Condition
+    Verify Show Term And Condition Details
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_28] Verify Redeem Movie Ticket Case Hide Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกตั๋วหนัง
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่ไม่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกตั๋วหนัง
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    Movie
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Hide Term And Condition Detail
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_29] Verify Redeem Shop Free Case Show Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกช้อปฟรีสะใจ
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกช้อปฟรีสะใจ
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...
+    ...
+    ...    * Expect result *
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    ShopFree
+    Swipe to Detail Button
+    Click Detail Button
+    Click Term And Condition
+    Verify Show Term And Condition Details
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWebMobile_1,2,11_1_Y_2_30] Verify Redeem Shop Free Case Hide Condition
+    [Documentation]    *Owner : Oum*
+    ...    แลกช้อปฟรีสะใจ
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...    - กรณี ที่ไม่แสดงเงื่อนไข
+    ...
+    ...    * Pre - Requisite *
+    ...    '- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    * Test Step Descripttion *
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกช้อปฟรีสะใจ
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...
+    ...    * Expect result *
+    ...
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success    3PE    3PO    mPay
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    oum    ${virtual_device_1_SN}
+    Login To Web Point With Appium    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu Redeem Reward
+    Select Redeem    ShopFree
+    Swipe to Detail Button
+    Click Detail Button
+    Verify Hide Term And Condition Detail
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

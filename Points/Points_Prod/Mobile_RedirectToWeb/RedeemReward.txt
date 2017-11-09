@@ -1,0 +1,345 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/RedeemReward.txt
+
+*** Test Cases ***
+[F11E_Priv_1-5_1-2_Y_1_2] Verify menu bar
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    verify menu bar
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด ""OK""
+    ...    4. เลือกเมนู ""Points & Privileges""
+    ...    5. คลิกปุ่ม "">""
+    ...    6. เข้าสู่หน้า Convert Points
+    ...    7.เลือกเมนู แลกของรางวัล
+    ...    8. ตรวจสอบเมนู แลกของรางวัล [1]
+    ...    9. capture screen
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    [1]
+    ...    แสดงเมนูแลกของรางวัล
+    ...    >> แลกค่าเน็ตฟรี
+    ...    >> แลกส่วนลดมือถือ
+    ...    >> แลกอุ่นใจคอลเลคชั่น
+    ...    >> แลกขนมเครื่องดื่ม
+    ...    >> แลกตั๋วหนัง
+    ...    >> แลกช้อปฟรีสะใจ
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon Redeem
+    Verify Redeem Reward Sub Menu
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11E_Priv_1-5_1-2_Y_2_2] Verify page free redemption internet
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Verify page แลกค่าเน็ตฟรี
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด ""OK""
+    ...    4. เลือกเมนู ""Points & Privileges""
+    ...    5. คลิกปุ่ม "">""
+    ...    6. เข้าสู่หน้า Convert Points
+    ...    7.เลือกเมนู แลกของรางวัล
+    ...    8. เลือก แลกค่าเน็ตฟรี
+    ...    9. ตรวจสอบหน้าแลกค่าเน็ตฟรี [1]
+    ...    10. capture screen
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    [1]
+    ...    - แลกค่าเน็ตฟรี
+    ...    - Campaign
+    ...    >>จำนวนพอยท์, รูป, รายละเอียด Campaign
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon Redeem
+    Select Reward Sub Menu    Telnet
+    Verify Redeem Page    Telnet    EveryWhereFree300MB
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11E_Priv_1-5_1-2_Y_3_2] Verify page redemption discount mobile
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Verify page แลกส่วนลดมือถือ
+    ...    - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด ""OK""
+    ...    4. เลือกเมนู ""Points & Privileges""
+    ...    5. คลิกปุ่ม "">""
+    ...    6. เข้าสู่หน้า Convert Points
+    ...    7.เลือกเมนู แลกของรางวัล
+    ...    8. เลือก แลกส่วนลดมือถือ
+    ...    9. ตรวจสอบหน้า แลกส่วนลดมือถือ [1]
+    ...    10. capture screen
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    [1]
+    ...    - แลกส่วนลดมือถือ
+    ...    - Campaign
+    ...    >>จำนวนพอยท์, รูป, รายละเอียด Campaign
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon Redeem
+    Select Reward Sub Menu    Mobile
+    Verify Redeem Page    Mobile    NiceTrip
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11E_Priv_1-5_1-2_Y_4_2] Verify page redemption aun jai collection
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Verify page แลกอุ่นใจคอลเลคชั่น
+    ...    - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด ""OK""
+    ...    4. เลือกเมนู ""Points & Privileges""
+    ...    5. คลิกปุ่ม "">""
+    ...    6. เข้าสู่หน้า Convert Points
+    ...    7.เลือกเมนู แลกของรางวัล
+    ...    8. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    9. ตรวจสอบหน้าแลกอุ่นใจคอลเลคชั่น [1]
+    ...    10. capture screen
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    [1]
+    ...    - แลกอุ่นใจคอลเลคชั่น
+    ...    - Campaign
+    ...    >>จำนวนพอยท์, รูป, รายละเอียด Campaign
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon Redeem
+    Select Reward Sub Menu    Aunjai
+    Verify Redeem Page    Aunjai    AunjaiAAndW
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11E_Priv_1-5_1-2_Y_5_2] Verify page redemption snacks and drinks
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Verify pageแลกขนมเครื่องดื่ม
+    ...    - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด ""OK""
+    ...    4. เลือกเมนู ""Points & Privileges""
+    ...    5. คลิกปุ่ม "">""
+    ...    6. เข้าสู่หน้า Convert Points
+    ...    7.เลือกเมนู แลกของรางวัล
+    ...    8. เลือก แลกขนมเครื่องดื่ม
+    ...    9. ตรวจสอบหน้าแลกขนม เครื่องดื่ม [1]
+    ...    10. capture screen
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    [1]
+    ...    - แลกขนม เครื่องดื่ม
+    ...    - Campaign
+    ...    >>จำนวนพอยท์, รูป, รายละเอียด Campaign
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon Redeem
+    Select Reward Sub Menu    Food
+    Verify Redeem Page    Food    MisterDonut
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11E_Priv_1-5_1-2_Y_6_2] Verify page redemption movies ticket
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Verify page แลกตั๋วหนัง
+    ...    - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด ""OK""
+    ...    4. เลือกเมนู ""Points & Privileges""
+    ...    5. คลิกปุ่ม "">""
+    ...    6. เข้าสู่หน้า Convert Points
+    ...    7.เลือกเมนู แลกของรางวัล
+    ...    8. เลือก แลกตั๋วหนัง
+    ...    9. ตรวจสอบหน้าแลกตั๋วหนัง [1]
+    ...    10. capture screen
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    [1]
+    ...    - แลกตั๋วหนัง
+    ...    - Campaign
+    ...    >>จำนวนพอยท์, รูป, รายละเอียด Campaign
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon Redeem
+    Select Reward Sub Menu    Movie
+    Verify Redeem Page    Movie    -    #ไม่ขึ้น
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11E_Priv_1-5_1-2_Y_7_2] Verify page redemption free shopping
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Verify page แลกช้อปฟรีสะใจ
+    ...    - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด ""OK""
+    ...    4. เลือกเมนู ""Points & Privileges""
+    ...    5. คลิกปุ่ม "">""
+    ...    6. เข้าสู่หน้า Convert Points
+    ...    7.เลือกเมนู แลกของรางวัล
+    ...    8. เลือก แลกช้อปฟรีสะใจ
+    ...    9. ตรวจสอบหน้า แลกช้อปฟรีสะใจ [1]
+    ...    10. capture screen
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    [1]
+    ...    - แลกช้อปฟรีสะใจ
+    ...    - Campaign
+    ...    >>จำนวนพอยท์, รูป, รายละเอียด Campaign
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon Redeem
+    Select Reward Sub Menu    ShopFree
+    Verify Redeem Page    ShopFree    ASICS
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

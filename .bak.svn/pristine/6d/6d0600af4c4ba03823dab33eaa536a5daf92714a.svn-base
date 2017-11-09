@@ -1,0 +1,244 @@
+*** Settings ***
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Login.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/MyAISCommon.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Home.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/MyAccount.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/RegisterAISFibreAndCoverageChecking.txt
+Resource          ../PageRepository/${ar_OS}/Event_FBBRepository.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/TouchID.txt
+Resource          ../../../../MyAIS_Test/Mobile/Resource/PageKeywords/Payment.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/Event_FBBLocalized.txt
+
+*** Keywords ***
+Log Number And Time
+    [Arguments]    ${Number}
+    Log    ${Number}
+    ${DateAndTime}=    Get Time
+    Log    "Date And Time = "${DateAndTime}
+
+Keyword Teardown For Create MyAIS
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Input Password ForRegister My AIS
+    Input Mobile Text    ${txtEmailPageRegisterMyAIS}    ais@ais.com
+    Hide Keyboard
+    Click Mobile Element    ${btnGetOTPPageRegisterMyAIS}
+    Input Mobile Text    ${txtInputOTPPageRegisterMyAIS}    1111
+    Hide Keyboard
+    Input Mobile Text    ${txtSetPasswordPageRegisterMyAIS}    Test@2017
+    Hide Keyboard
+    Input Mobile Text    ${txtConfirmPasswordPageRegisterMyAIS}    Test@2017
+    Hide Keyboard
+
+Input Mobile Number For Register
+    [Arguments]    ${Number}
+    Input Mobile Text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    Click Mobile Element    ${btnSubCreateMyAISPageLogin}
+
+Accept Term And Condition
+    Click Mobile Element    ${btnNextPageTwoPageRegisterMyAIS}
+    Click Mobile Element    ${btnAcceptTermAndConditionPageRegisterMyAIS}
+
+Confirm Register
+    Click Mobile Element    ${btnConfirmRegisterMyAIS}
+
+Select Feed Content
+    Mobile element text should be    ${lblHomePage}    ${txtMainPage}
+    Swipe Element To Screen    ${txtFeedContentOne}
+    Click Mobile Element    ${txtFeedContentOne}
+    Wait Mobile Until Element Visible    ${txtHeadFeedContent}
+
+Select Campaign
+    Mobile element text should be    ${lblHomePage}    ${txtMainPage}
+    Swipe Element To Screen    ${txtCampaignOne}
+    Click Mobile Element    ${txtCampaignOne}
+    Click Mobile Element    ${btnCancelDialogCampaign}
+
+Select OK Dialog Campaign
+    Click Mobile Element    ${btnCloseDialogCampaign}
+
+Go To Setting Page
+    Select Hamberger
+    Select Sub Menu Hamberger    Settings
+    Mobile element text should be    ${txtHeader}    ${Settings}
+
+Go To Change Language
+    Select Hamberger
+    Select Sub Menu Hamberger    Settings
+    Mobile element text should be    ${txtHeader}    ${Settings}
+    ${checkedOld}    AISAppiumEx.Get Element Attribute    ${btnSwitchLanguage}    checked
+    Wait Mobile Until Element Visible    ${btnSwitchLanguage}
+    ${checkedNew}    AISAppiumEx.Get Element Attribute    ${btnSwitchLanguage}    checked
+    Run Keyword If    "${checkedOld}" != "${checkedNew}"    Log    Change Language Pass
+
+Go To Term And Conditon Setting Page
+    Select Hamberger
+    Select Sub Menu Hamberger    Settings
+    Mobile element text should be    ${txtHeader}    ${Settings}
+    Click Mobile Element    ${lblSettingTermsAndConditions}
+    Wait Mobile Until Element Visible    ${dialogTermAndCondition}
+    Click Mobile Element    ${btnOKDialogTermAndCondition}
+
+Go To Service
+    Select Menu    Service
+    Wait Mobile Until Element Visible    ${txtServiceAISFibre}
+
+Go To Fibre Register Check Coverage
+    Select Menu    Service
+    Select Sub Menu    RegisterAISFibre/CheckCoverage
+    Wait Mobile Until Element Visible    ${txtHeadServiceAISFibre}
+
+Go To My Account My Profile
+    Select Hamberger
+    Select Sub Menu Hamberger    MyProfile
+    Wait Mobile Until Page Contains Element    ${lblMyProfile_UserName}
+
+Go To Register My AIS Page
+    [Arguments]    ${Number}
+    Input Mobile Text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    Wait Mobile Until Element Visible    ${btnSubCreateMyAISPageLogin}
+
+Select Term And Condition In Page Register My AIS
+    Click Mobile Element    ${btnTermAndConditionPageRegisterMyAIS}
+    Wait Mobile Until Element Visible    ${DialogTermAndConditionPageRegisterMyAIS}
+    Click Mobile Element    ${btnOKDialogTermAndConditionPageRegisterMyAIS}
+
+Login Select Forget Password
+    [Arguments]    ${Number}
+    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard
+    Click mobile element    ${btnGetPassword}
+    Click Mobile Element    ${btnForgetPassword}
+    Click Mobile Element    ${btnConfirmForgetPassword}
+    Wait Mobile Until Element Visible    ${txtInputOTPPageForgetPassword}
+
+Confirm Set New Password
+    [Arguments]    ${udid}
+    Input Mobile Text    ${txtInputOTPPageForgetPassword}    1111
+    Hide Keyboard
+    Sleep    2
+    Input Text via ADB Keyboard    ${txtNewPasswordPageForgetPassword}    Test@2017    ${udid}
+    Input Text via ADB Keyboard    ${txtConfirmNewPasswordPageForgetPassword}    Test@2017    ${udid}
+    Click Mobile Element    ${btnOKPageForgetPassword}
+    Mobile element text should be    ${popUpDialog}    ${ChangePasswordSuccess}
+
+Go To My Account And Select Add Member
+    Select Hamberger
+    Click Mobile Element    ${btnMyAISAccount}
+    Click Mobile Element    ${btnAddMember}
+    Wait Mobile Until Element Visible    ${btnAddNumberMyAccount}
+
+My Account Select Change Password
+    Select Hamberger
+    Click Mobile Element    ${btnMyAISAccount}
+    Click Mobile Element    ${btnChangePasswordPageMyAccount}
+    Wait Mobile Until Element Visible    ${txtOldPasswordPageMyAccount}
+
+Set New Password And Confirm
+    Input Mobile Text    ${txtOldPasswordPageMyAccount}    Test@2017
+    Hide Keyboard
+    Input Mobile Text    ${txtNewPasswordPageMyAccount}    Test@2018
+    Hide Keyboard
+    Input Mobile Text    ${txtConfirmNewPasswordPageMyAccount}    Test@2018
+    Hide Keyboard
+    Click Mobile Element    ${btnSaveNewPasswordPageMyAccount}
+    Mobile element text should be    ${popUpDialog}    ${ChangePasswordSuccess}
+    Click Mobile Element    ${btnOKDialogChangePassword}
+
+Go To My Account Select Change Master Number
+    Select Hamberger
+    Click Mobile Element    ${btnMyAISAccount}
+    Click Mobile Element    ${btnChangeNumberMaster}
+    Wait Mobile Until Element Visible    ${ddlChangeNumberMaster}
+
+Change Master Number
+    Click Mobile Element    ${ddlChangeNumberMaster}
+    Click Mobile Element    ${btnMasterNumberTwo}
+    Click Mobile Element    ${btnGetOTPChangeMasterNumber}
+    Input Mobile Text    ${txtInputOTPChangeMasterNumber}    1111
+    Click Mobile Element    ${btnOKChangeMasterNumber}
+
+Go To My Account
+    Select Hamberger
+    Click Mobile Element    ${btnMyAISAccount}
+    Wait Mobile Until Element Visible    ${btnChangeNumberMaster}
+
+Go To AIS Online Store
+    Select Hamberger
+    Select Sub Menu Hamberger    AISOnlineStore
+    Mobile element text should be    ${txtHeader}    ${AISOnlineStore}
+
+Go To AIS Facebook
+    Select Hamberger
+    Select Sub Menu Hamberger    AISFacebook
+    Mobile element text should be    ${txtHeader}    ${FacebookHeader}
+
+Go To AIS Twitter
+    Select Hamberger
+    Select Sub Menu Hamberger    AISTwitter
+    Mobile element text should be    ${txtHeader}    ${TwitterHeader}
+
+Go To AIS Line
+    Select Hamberger
+    Select Sub Menu Hamberger    AISLine
+    Mobile element text should be    ${txtHeader}    ${LineHeader}
+
+Select Menu Bar Home
+    Click Mobile Element    ${mnuPackage}
+    Click Mobile Element    ${mnuHome}
+    Mobile element text should be    ${lblHomePage}    ${txtMainPage}
+
+Select Menu Bar Package
+    Select Menu    Package
+    Wait Mobile Until Element Visible    ${lblTitleMenuSection}
+
+Select Menu Bar Point And Privilage
+    Select Menu    PointsAndPrivileges
+    Wait Mobile Until Element Visible    ${lblCustomerAISFibre}
+
+Select Menu Bar Help And Support
+    Select Menu    HelpAndSupport
+    Wait Mobile Until Element Visible    ${lblTitleMenuSection}
+
+Select New Number Master
+    Click Mobile Element    ${ddlChangeNumberMaster}
+    Click Mobile Element    ${btnMasterNumberTwo}
+
+Get OTP Change Master Number
+    Click Mobile Element    ${btnGetOTPChangeMasterNumber}
+    Wait Mobile Until Element Visible    ${txtInputOTPChangeMasterNumber}
+
+Set To Old Number Master
+    [Arguments]    ${Number}
+    Click Mobile Element    ${ddlChangeNumberMaster}
+    Click Mobile Element    xpath=//*[@text="${Number}"]
+
+Login Passcode
+    Sleep    2
+    Start Activity    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    Input Correct Passcode
+    Mobile element text should be    ${lblHomePage}    ${txtMainPage}
+
+Select And Verify Current Package
+    swipe in screen to element    ${lblMore2}    up
+    Click Mobile Element    ${lblMore2}
+    Mobile element text should be    ${lblTitleCurrentPackage}    ${txtTitleCurrentPackage}
+
+Set Password To Test@2017
+    Input Mobile Text    ${txtOldPasswordPageMyAccount}    Test@2018
+    Hide Keyboard
+    Input Mobile Text    ${txtNewPasswordPageMyAccount}    Test@2017
+    Hide Keyboard
+    Input Mobile Text    ${txtConfirmNewPasswordPageMyAccount}    Test@2017
+    Hide Keyboard
+    Click Mobile Element    ${btnSaveNewPasswordPageMyAccount}
+    Mobile element text should be    ${popUpDialog}    ${ChangePasswordSuccess}
+    Click Mobile Element    ${btnOKDialogChangePassword}

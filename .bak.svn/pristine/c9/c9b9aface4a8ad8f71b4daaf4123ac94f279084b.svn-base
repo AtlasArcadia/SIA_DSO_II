@@ -1,0 +1,782 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/TransferPoint.txt
+
+*** Test Cases ***
+[F11D_Priv_1-3_1-2_Y_2_2] Verify page The 1 Card
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8 ตรวจสอบ The 1 Card
+    ...    9. เลือก The 1 Card
+    ...    10.ตรวจสอบ page The 1 Card
+    ...    11.Capture screen
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    แสดงรูป The 1 Card, text "AIS ให้คุณได้มากกว่า ด้วยสิทธิพิเศษมากมาย!!
+    ...    สามารถโอนคะแนน AIS Points เป็นคะแนน The 1 Card
+    ...    ได้ผ่านช่องทาง Website และ my AIS Application"
+    ...
+    ...    - แสดงรายละเอียดเกี่ยวกับ The 1 Card
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข ^
+    ...    - รายละเอียด ข้อกำหนดและเงื่อนไข
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Verify the one card
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_3_2] Verify back button on the One Card page
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9.เลือกปุ่ม "กลับ"
+    ...    10.ตรวจสอบกลับมาหน้า เลือกการ์ด
+    ...    11.Capture screen
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *กลับมาที่หน้า เลือกการ์ด
+    ...    - \ Card
+    ...    >> PTT
+    ...    >> The 1 Card
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click back button
+    Mobile Capture Screen At Verify Point    Verify back button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_4_2] Verify Transfer Point button on the One Card page
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข [1]
+    ...    11. Capture screen
+    ...
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    - แสดง pop up page "ข้อกำหนดและเงื่อนไข"
+    ...    - แสดงรายละเอียด ข้อกำหนดและเงื่อนไข
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Mobile element name should be    ${popupTitleTermAndConditionDetail}    ${ConditionTitle}
+    Wait Mobile Until Element Visible    ${popupTermAndConditionDetail}
+    Mobile Capture Screen At Verify Point    Verify Transfer Point button on the One Card page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_5_2] Verify the number of card
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8.ตรวจสอบจำนวน card ที่ให้ทำการโอนคะแนน
+    ...    9. capture screen
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    [1]
+    ...    แสดงจำนวน card ที่ให้ทำการโอนคะแนนได้ = 2
+    ...    - PTT
+    ...    - The 1 card
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    sleep    10s
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Comment    Swipe element to specific area    ${imgTheOneCard}
+    Verify the total of cards    3
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_6_2] Verify page term and condition on the One Card page
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    12. ตรวจสอบหน้า ข้อกำหนดและเงื่อนไข [1]
+    ...    13. Capture Screen
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    - แสดงรายละเอียดข้อกำหนดและเงื่อนไข
+    ...    - เลื่อนลงเพื่อตรวจสอบข้อกำหนดและเงื่อนไข
+    ...    - ยอมรับข้อตกลง
+    ...    - ปุ่ม ต่อไป
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Verify term and condition    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_7_2] Verify transfer point case not select term and condition
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข [1]
+    ...    11.ไม่เลือก check box ยอมรับข้อตกลง
+    ...    12.ตรวจสอบปุ่มต่อไป [2]
+    ...    13. Capture Screen
+    ...
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    - แสดงรายละเอียดข้อกำหนดและเงื่อนไข
+    ...
+    ...    [2]
+    ...    ไม่สามารถกด ปุ่ม ต่อไป
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Mobile element name should be    ${popupTitleTermAndConditionDetail}    ${ConditionTitle}
+    Wait Mobile Until Element Visible    ${popupTermAndConditionDetail}
+    Button next disable
+    Mobile Capture Screen At Verify Point    Verify transfer point case not select term and condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_8_2] Verify transfer point case select term and condition
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข [1]
+    ...    11. Check box ยอมรับข้อตกลง
+    ...    12. ตรวจสอบปุ่มต่อไป [2]
+    ...    13. Capture Screen
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    - แสดงรายละเอียดข้อกำหนดและเงื่อนไข
+    ...
+    ...    [2]
+    ...    สามารถกด ปุ่ม ต่อไป
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Mobile element name should be    ${popupTitleTermAndConditionDetail}    ${ConditionTitle}
+    Wait Mobile Until Element Visible    ${popupTermAndConditionDetail}
+    Botton next enable
+    Mobile Capture Screen At Verify Point    Verify transfer point case select term and condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_9_2] Verify transfer point case select term and condition, and then popup not show
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์มากกว่าหรือเท่ากับ 50 พอยท์
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. ตรวจสอบแสดง Popup ข้อกำหนดและเงื่อนไข [1]
+    ...    11. Capture screen
+    ...    12. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    13. แสดงหน้า โอนคะแนน
+    ...    14. คลิกลูกศร ® บริเวณซ้ายบน
+    ...    15. ตรวจสอบกลับไปหน้าพอยท์ & สิทธิพิเศษ [2]
+    ...    16. Capture screen
+    ...    17. คลิกปุ่ม ">"
+    ...    18.เลือกเมนู โอนคะแนน
+    ...    19. เลือก The 1 Card
+    ...    20. คลิกปุ่ม "โอนคะแนน" [3]
+    ...    21. ตรวจสอบหน้าโอนคะแนน [4]
+    ...    22. Capture screen
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    [1]
+    ...    แสดง Popup ข้อกำหนดและเงื่อนไข
+    ...    - แสดงรายละเอียดข้อกำหนดและเงื่อนไข
+    ...    - check box ยอมรับข้อตกลง
+    ...    - ปุ่ม ต่อไป
+    ...
+    ...    [2] หน้าพอยท์ & สิทธิพิเศษ
+    ...    - พอยท์ & สิทธิพิเศษ
+    ...    - จำนวนพอยท์
+    ...    - My Lists
+    ...    - Recents
+    ...    - พอยท์
+    ...
+    ...    [3] ตรวจสอบไม่มี Popup ข้อกำหนดและเงื่อนไข
+    ...
+    ...    [4] หน้าโอนคะแนน
+    ...    - รูป The 1 Card
+    ...    - ช่องกรอกหมายเลข The 1 Card "กรุณาระบุหมายเลข The 1 Card"
+    ...    - ปุ่ม ตกลง
+    ...    - เอไอเอส พอยท์ คะแนนที่ต้องการโอน ตั้งต้นที่ 50
+    ...    - The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    ...    - ปุ่ม กลับ
+    ...    - ปุ่ม โอนคะแนน
+    ...    - ข้อกำหนดและเงื่อนไข
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Mobile Capture Screen At Verify Point    Popup before check box
+    Accept Term And Condition And Click Next
+    Click Mobile Element    //*[@resource-id="com.ais.mimo.eservice.debug:id/toolbar"]/android.widget.ImageButton[@index="0"]
+    Verify point and privileges page
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Mobile Capture Screen At Verify Point    Popup isn't show
+    Verify Transfer point page    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_10_2] Verify transfer point case input incomplete ID card
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 230062568 (ไม่ครบ 10 หลัก)
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ไม่ครบ และคลิก ตกลง
+    ...    14.ตรวจสอบ error message [1]
+    ...    15. Capture screen
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    ตรวจสอบ error message "หมายเลข The 1 Card ที่คุณระบุไม่ถูกต้อง กรุณาตรวจสอบและทำรายการใหม่อีกครั้ง"
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    sleep    10
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Input ID Card    11115
+    Verify the1Card incomplete ID
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_11_2] Verify transfer point case add point
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์ มากกว่า 100 พอยท์
+    ...
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    14. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    15. คลิกปุ่ม + 1 ครั้ง [1]
+    ...    16. เปรียบเทียบคะแนนหลังกด + [2]
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    สามารถกดปุ่ม + ได้
+    ...
+    ...    [2]
+    ...    ที่ช่องคะแนนที่ต้องการโอนเพิ่มขึ้น 50 คะแนน
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Input ID Card    2501855172
+    Verify Click Button Add Point On The One Card Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_12_2] Verify transfer point case decrease point
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์ มากกว่า 100 พอยท์
+    ...    - กดเพิ่มคะแนนที่ต้องการโอนก่อน 1 ครั้ง
+    ...
+    ...
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    14. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    15. คลิกปุ่ม + 1 ครั้ง
+    ...    16.เก็บค่าคะแนนที่ต้องการโอน
+    ...    17. คลิกปุ่ม - 1 ครั้ง [1]
+    ...    18. เปรียบเทียบคะแนนหลังกด - [2]
+    ...
+    ...
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    สามารถกดปุ่ม - ได้
+    ...
+    ...    [2]
+    ...    ที่ช่องคะแนนที่ต้องการโอนลดลง 50 คะแนน
+    [Tags]    active    success
+    [Setup]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Input ID Card    2300625686
+    Wait Mobile Until Element Visible    ${txtFieldCardNumber}
+    Verify Click Button decrease Point On The One Card Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_13_2] Verify transfer point case not enough point
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - จำนวนพอยท์คงเหลือ 30 พอยท์
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดง Popup error msg [1]
+    ...    11. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *[1]
+    ...    แสดง Popup ข้อความ "คะแนน "เอไอเอส พอยท์" ของคุณไม่เพียงพอสำหรับการทำรายการ "
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_notEnoughPoint=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_notEnoughPoint
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Mobile element name should be    //*[@resource-id="pop_error"]//android.view.View[@index="1"]/android.view.View[@index="0"]    ${NotEnoughPoint}
+    Mobile Capture Screen At Verify Point    Pop up error
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_14_2] Verify transfer point case max point
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์มากกว่า 200 พอยท์
+    ...
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    14. เก็บค่าเริ่มต้น คะแนนที่ต้องการโอน
+    ...    15. คลิกปุ่ม + จนสุด (1)
+    ...    16. Capture screen
+    ...
+    ...
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *ไม่สามารถกดเพิ่ม คะแนนเกิน 200 คะแนน
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Input ID Card    2501855172
+    sleep    5
+    ${before}=    Get Current Point
+    Click Plus Point Transfer Until Max    200
+    Mobile Capture Screen At Verify Point    Cannot plus more than 200
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_15_2] Verify transfer point case cancel transfer
+    [Documentation]    *Owner* Chompoo
+    ...    verify หน้า โอนคะแนน
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - ID Card: 2300625686
+    ...    - มีจำนวนพอยท์มากกว่าหรือเท่ากับ 50 พอยท์
+    ...
+    ...    *Test Step Descripttion*
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือกเมนู โอนคะแนน
+    ...    8. เลือก The 1 Card
+    ...    9. เลือกปุ่ม "โอนคะแนน"
+    ...    10. แสดงหน้า ข้อกำหนดและเงื่อนไข
+    ...    11. Check box ยอมรับข้อตกลง และกดปุ่ม ต่อไป
+    ...    12.แสดงหน้า โอนคะแนน
+    ...    13.ใส่ ID Card ครบ และคลิก ตกลง
+    ...    14. เก็บจำนวนพอยท์คงเหลือก่อนกดปุ่มโอนคะแนน
+    ...    15. กำหนดคะแนนที่ต้องการโอน = 50
+    ...    16. เก็บค่าคะแนนที่จะได้รับ = 400
+    ...    17.คลิกปุ่ม โอนคะแนน
+    ...    18.แสดง Popup "ยืนยันทำรายการ"
+    ...    19.คลิกปุ่ม ยกเลิก
+    ...    20. แสดงหน้า โอนคะแนน
+    ...    21.ตรวจสอบจำนวนพอยท์ปัจจุบัน
+    ...    22. เปรียบเทียบจำนวนพอยท์ก่อนกดปุ่มโอนคะแนนกับจำนวนพอยท์ปัจจุบัน [1]
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    * [1]
+    ...    จำนวนพอยท์ต้องเท่าเดิม
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Click Transfer Point Button
+    Accept Term And Condition And Click Next
+    Input ID Card    2113289303
+    ${MyPoint}    Get Point
+    ${ReceivePoints}    Get Receive Point
+    log    ${ReceivePoints}
+    Comment    Swipe element to specific area    ${btnTransferPoint}    ratio=0.3    Round=3
+    Click Transfer Point Button Page Input ID
+    Mobile element name should be    ${txtConfirmTransaction}    ${PopupHeaderConfirmTransaction}
+    Click Mobile Element    ${btnCancelTransaction}
+    ${MyNewPoint}    Get Point
+    Should Be Equal    ${MyPoint}    ${MyNewPoint}
+    Mobile Capture Screen At Verify Point    Equal Point
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

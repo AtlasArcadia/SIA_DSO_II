@@ -1,0 +1,238 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/DegitalSerenadeCommon.txt
+Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctionKeywords.txt
+Resource          Resource/PageKeywords/Login_Login.txt
+Resource          Resource/PageKeywords/DigitalSerenadeProfileCommon.txt
+Resource          Resource/PageVariable/Login_LoginVariable.txt
+
+*** Test Cases ***
+[F1_Login_1-4_1_Y_1_1] Verify URL and Login Page
+    [Documentation]    *Owner* : Joe, Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - Verify URL and Login Page
+    ...
+    ...    *Pre-requisite*
+    ...    '- Ntype 3PE :
+    ...    - \ Serenade \ Custome
+    ...    - URL : \ https://privilege.ais.co.th/WelcomeToSerenade
+    ...    *Test Step*
+    ...
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ \ https://privilege.ais.co.th/WelcomeToSerenade
+    ...    2.ตรวจสอบ URL [1]
+    ...    3.ตรวจสอบ หน้า Login [2]
+    ...    4.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...
+    ...    '[1] ตรวจสอบ URL
+    ...    https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...    [2] ตรวจสอบ หน้า Login
+    ...    - ล็อกอิน
+    ...    - หมายเลขโทรศัพท์
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Verify Login Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Login_1-4_1_N_1_2] Input Mobile Number Not Complete 10 Digits
+    [Documentation]    *Owner* : Joe,Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi
+    ...    กรณีกรอกหมายเลขไม่ครบ 10 หลัก
+    ...
+    ...    *Pre-requisite*
+    ...    - Ntype 3PE :
+    ...    - \ Serenade \ Custome
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ตรวจสอบ URL [1]
+    ...    3.ตรวจสอบ หน้า Login [2]
+    ...    4.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    '[1]error message
+    ...    กรุณากรอกข้อมูลหมายเลขโทรศัพท์ให้ถูกต้อง
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Wrong Number
+    Verify Login Wrong Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Login_1-4_1_N_1_3] Not Input Mobile Number
+    [Documentation]    *Owner* : Joe,Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi
+    ...    กรณีไม่กรอกหมายเลขโทรศัพท์แล้วกดรับรหัสผ่าน
+    ...
+    ...    *Pre-requisite*
+    ...    - Ntype 3PE :
+    ...    - \ Serenade \ Custome
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.ไม่กรอกหมายเลขโทรศัพท์
+    ...    3.กดปุ่ม "รับรหัสผ่าน"
+    ...    4.ตรวจสอบ error message [1]
+    ...    5.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    '[1]error message
+    ...    กรุณากรอกข้อมูลหมายเลขโทรศัพท์ให้ถูกต้อง
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login No Mobile Number
+    Verify Login No Mobile Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Login_1-4_1_N_1_4] Input Other Network Mobile Number
+    [Documentation]    *Owner* : Joe,Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi
+    ...    กรณีหมายเลขโทรศัพท์ต่างเครือข่าย
+    ...
+    ...    *Pre-requisite*
+    ...    - \ Serenade \ Custome
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.กรอกหมายเลขโทรศัพท์ต่างเครือข่าย
+    ...    3.กดปุ่ม "รับรหัสผ่าน"
+    ...    4.ตรวจสอบ error message [1]
+    ...    5.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    '[1]error message
+    ...    ระบบไม่สามารถทำรายการได้ในขณะนี้
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login With Other Network Mobile Number
+    Verify Login With Other Network Mobile Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Login_1-4_1_N_1_5] Input Incorrect OTP
+    [Documentation]    *Owner* : Joe,Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi
+    ...    กรณีกรอกรหัส OTP ไม่ถูกต้อง
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - \ Serenade \ Custome
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.กรอกหมายเลขโทรศัพท์ถูกต้อง
+    ...    3.กดปุ่ม "รับรหัสผ่าน"
+    ...    4.กรอกรหัส OTP ไม่ถูกต้อง
+    ...    5.กดปุ่ม ตกลง
+    ...    6.ตรวจสอบ error message [1]
+    ...    7.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    '[1]error message
+    ...    รหัสผ่านไม่ถูกต้อง
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Wrong OTP    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Login Wrong OTP
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Login_1-4_1_N_1_6] Not Input OTP
+    [Documentation]    *Owner* : Joe,Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi
+    ...    กรณีไม่กรอกรหัส OTP และกดปุ่ม ตกลง
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - \ Serenade \ Custome
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.กรอกหมายเลขโทรศัพท์ถูกต้อง
+    ...    3.กดปุ่ม "รับรหัสผ่าน"
+    ...    4.ไม่กรอกรหัส OTP
+    ...    5.ตรวจสอบปุ่ม ตกลง [1]
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    '[1]ตรวจสอบปุ่ม ตกลง
+    ...    ไม่สามารถกดปุ่มตกลงได้
+    [Tags]    fail    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Not Input OTP    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Login Not Input OTP
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Login_1-4_1_Y_1_7] Login Success
+    [Documentation]    *Owner* : Joe,Pu
+    ...
+    ...    โปรไฟล์ Serenade Emerald
+    ...    - Login Success
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - \ Serenade \ Custome
+    ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์http://www.ais.co.th/WelcomeToSerenade/
+    ...    2.กรอกหมายเลขโทรศัพท์ถูกต้อง
+    ...    3.กดปุ่ม "รับรหัสผ่าน"
+    ...    4.กรอกรหัสผ่านถูกต้อง
+    ...    5.กดปุ่ม ตกลง
+    ...    6.ตรวจสอบ Login สำเร็จ เข้าสู่หน้า Digital Serenade [1]
+    ...    7.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    '[1] ตรวจสอบ หน้า Digital Serenade
+    ...    - Welcome to \ AIS Serenade
+    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Login Success
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_Test] Smoke Test
+    [Tags]    smoke
+    log    Smoke Test

@@ -1,0 +1,11 @@
+*** Settings ***
+Library           ../../../AisRobotBuffet/Library/General/ExecuteFeature.py
+Resource          Config/NtypeOfFeatureConfig.txt
+
+*** Test Cases ***
+My AIS API Test
+    [Tags]    my_ais_api_test
+    Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\    Test_My_AIS_API    3PO,3BO,3PE,3BE    language=${ar_LANG}
+    ...    browser=${ar_BROWSER}    tag=success    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    platform=${ar_OS}    process_number=8
+    Execute Feature    ${CURDIR}\\    D:\\Output\\    Test_My_AIS_API    3PO,3BO,3PE,3BE    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=success    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    platform=${ar_OS}

@@ -1,0 +1,213 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../PageRepository/RewardRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/RewardLocalized.txt
+Resource          ../PageVariable/RewardVariable.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Comment    Close Browser
+    Close All Browsers
+    Release Virtual Local Configurations    ${lo_Points_WebMobile_Test_local_config_file_path}    ${#dict_device_name}
+
+Verify Sub Menu Reward
+    Scroll Web To Element    ${lblsubMenuTelnet}
+    Web Element Text Should Be    ${lblsubMenuTelnet}    ${Telnet}
+    Web Capture Screen At Verify Point    Verify Telnet
+    Scroll Web To Element    ${lblsubMenuMobile}
+    Web Element Text Should Be    ${lblsubMenuMobile}    ${Mobile}
+    Web Capture Screen At Verify Point    Verify Mobile
+    Scroll Web To Element    ${lblsubMenuAunjai}
+    Web Element Text Should Be    ${lblsubMenuAunjai}    ${Aunjai}
+    Web Capture Screen At Verify Point    Verify Aunjai
+    Scroll Web To Element    ${lblsubMenuFood}
+    Web Element Text Should Be    ${lblsubMenuFood}    ${Food}
+    Web Capture Screen At Verify Point    Verify Food
+    Scroll Web To Element    ${lblsubMenuMovie}
+    Web Element Text Should Be    ${lblsubMenuMovie}    ${Movie}
+    Web Capture Screen At Verify Point    Verify Movie
+    Scroll Web To Element    ${lblsubMenuShopFree}
+    Web Element Text Should Be    ${lblsubMenuShopFree}    ${ShopFree}
+    Web Capture Screen At Verify Point    Verify ShopFree
+
+Verify Reward Page
+    [Arguments]    ${RewardName}
+    Scroll Web To Element    ${lblHead${RewardName}RewardPage}
+    Web Element Text Should Be    ${lblHead${RewardName}RewardPage}    ${Head${RewardName}RewardPage}
+    Web Capture Screen At Verify Point    Verify Head ${RewardName}
+    Scroll Web To Element    ${imgFirstCampaignRewardPage}
+    Web Element Should Be Visible    ${imgFirstCampaignRewardPage}
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web Element Should Be Visible    ${imgFirstCampaignRewardPage}
+    Web check existing text    ${imgFirstCampaignRewardPage}
+    Web Capture Screen At Verify Point    Verify ${RewardName} Page
+
+Verify page PTT Card
+    Reload Page
+    Scroll Web To Element    ${imgPTTBlueCardTransferCardPage}
+    Web Element Should Be Visible    ${imgPTTBlueCardTransferCardPage}
+    Web check existing text ${lblTitlePPTBlueCard}
+    Web check existing text ${lblDetailPPTBlueCard}
+    Select Card Type    PTTBlueCard
+    Scroll Web To Element    ${lblTitlePPTBlueCardInCardPage}
+    Web Element Text Should Be    ${lblTitlePPTBlueCardInCardPage}    ${PTTBlueCardTransferPage}
+    Scroll Web To Element    ${btnBackTransferSelectionPage}
+    Web Element Text Should Be    ${btnPointsTransferTransferSelectionPage}    ${PointsTransferTransferSelectionPage}
+    Web Element Text Should Be    ${btnBackTransferSelectionPage} ${BackTransferSelectionPage}
+    Web Element Text Should Be    ${lblConditionHeadTransferSelectionPage}    ${ConditionHeadTransferSelectionPage}
+    Web check existing text ${lblDetailConditionTransferSelectionPage}
+    Web Capture Screen At Verify Point    Verify PTT Blue Card
+
+Verify Reward Bar
+    Reload Page
+    Select Menu    Reward
+    Scroll Web To Element    ${lblHeadTelnetRewardPage_Mobile}
+    Web Element Text Should Be    ${lblHeadTelnetRewardPage_Mobile}    ${Telnet}
+    Web Element Text Should Be    ${lblHeadMobileRewardPage_Mobile}    ${Mobile}
+    Web Element Text Should Be    ${lblHeadAunjaiRewardPage_Mobile}    ${Aunjai}
+    Web Capture Screen At Verify Point    Verify Aunjai
+    Scroll Web To Element    ${lblHeadFoodRewardPage_Mobile}
+    Web Element Text Should Be    ${lblHeadFoodRewardPage_Mobile}    ${Food}
+    Web Element Text Should Be    ${lblHeadMovieRewardPage_Mobile}    ${Movie}
+    Web Element Text Should Be    ${lblHeadShopFreeRewardPage_Mobile}    ${ShopFree}
+    Web Capture Screen At Verify Point    Verify ShopFree
+
+Verify Reward Food
+    Click Web Element    xpath=//*[@id="newMenuSub"]/div[4]/a    #${lblsubMenuFood}
+    Web Element Should Be Visible    ${imgFirstCampaignFoodRewardPage}
+    Scroll Web To Element    ${imgFirstCampaignFoodRewardPage}
+    Web Element Should Be Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Web Element Text Should Be    ${lblHeadFoodRewardPage}    ${HeadFoodRewardPage}    #แลกอาหาร เครื่องดื่ม
+    Web Element Should Be Visible    ${imgFirstCampaignFoodRewardPage}    #image
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web Element Should Be Visible    ${lblPointFirstCampaignRewardPage}
+    Comment    Click Web Element    ${btnDetail}
+    Comment    Web Element Text Should Be    ${lblPopupPointTitle}    ${PopupPointTitle}
+    Comment    Web Element Should Be Visible    ${picPopupPoint}
+    Comment    Web check existing text    ${lblPopupPointTotal}
+    Comment    Web Element Text Should Be    ${lblPopupPointDetail}    ${PopupPointdetailFood}
+    Comment    Web check existing text    ${lblPopupPointTermsAndCondition}
+    Comment    Click Web Element    ${lblPopupPointTermsAndCondition}
+    Comment    Web check existing text    ${lblPopupPointTermsAndConditionDetail}
+    Web Capture Screen At Verify Point    Verify Redeem Food
+
+Verify Reward ShopFree
+    Reload Page
+    Comment    Select Menu    Reward
+    Comment    Click Web Element    ${lblsubMenuShopFree}
+    Comment    Comment    Reload Page
+    Comment    Scroll Web To Element    ${btnDetailShopFree}
+    Comment    Click Web Element    ${btnDetailShopFree}
+    Comment    Web Element Text Should Be    ${lblPopupPointTitle}    ${PopupPointTitle}
+    Comment    Web Element Should Be Visible    ${picPopupPoint}
+    Comment    Web check existing text    ${lblPopupPointTotal}
+    Comment    Web Element Text Should Be    ${lblPopupPointDetail}    ${PopupPointdetailShopFree}
+    Comment    Web check existing text    ${lblPopupPointTermsAndCondition}
+    Comment    Click Web Element    ${lblPopupPointTermsAndCondition}
+    Comment    Web check existing text    ${lblPopupPointTermsAndConditionDetail}
+    Scroll Web To Element    ${lblHeadShopFreeRewardPage}    #แลกช้อปฟรีสะใจ
+    Web Element Should Be Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Web Element Text Should Be    ${lblHeadShopFreeRewardPage}    ${HeadShopFreeRewardPage}    #แลกช้อปฟรีสะใจ
+    Web Element Should Be Visible    ${imgFirstCampaignFoodRewardPage}    #image
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web Element Should Be Visible    ${lblPointFirstCampaignRewardPage}
+    Web Capture Screen At Verify Point    Verify Redeem ShopFree
+
+Verify Reward Mobile
+    Comment    Reload Page
+    Comment    Select Menu    Reward
+    Comment    Click Web Element    ${lblsubMenuMobile}
+    Comment    Comment    Reload Page
+    Comment    Scroll Web To Element    ${btnDetail}
+    Comment    Click Web Element    ${btnDetail}
+    Comment    Web Element Text Should Be    ${lblPopupPointTitle}    ${PopupPointTitle}
+    Comment    Web check existing text    ${lblPopupPointTotal}
+    Comment    Web Element Text Should Be    ${lblPopupPointDetail}    ${PopupPointdetailMobile}
+    Comment    Web check existing text    ${lblPopupPointTermsAndCondition}
+    Comment    Click Web Element    ${lblPopupPointTermsAndCondition}
+    Comment    Web check existing text    ${lblPopupPointTermsAndConditionDetail}
+    Comment    Web Capture Screen At Verify Point    Verify Redeem Mobile
+    Scroll Web To Element    ${lblHeadMobileRewardPage}    #แลกส่วนลดมือถือ
+    Web Element Should Be Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Web Element Text Should Be    ${lblHeadMobileRewardPage}    ${HeadMobileRewardPage}    #แลกส่วนลดมือถือ
+    Web Element Should Be Visible    ${imgFirstCampaignFoodRewardPage}    #image
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web Element Should Be Visible    ${lblPointFirstCampaignRewardPage}
+    Web Capture Screen At Verify Point    Verify Redeem Reward Mobile
+
+Verify Reward Movie
+    Comment    Reload Page
+    Comment    Select Menu    Reward
+    Comment    Click Web Element    ${lblsubMenuMovie}
+    Comment    Comment    Reload Page
+    Comment    Scroll Web To Element    ${btnDetail}
+    Comment    Click Web Element    ${btnDetail}
+    Comment    Web Element Text Should Be    ${lblPopupPointTitle}    ${PopupPointTitle}
+    Comment    Web Element Should Be Visible    ${picPopupPoint}
+    Comment    Web check existing text    ${lblPopupPointTotal}
+    Comment    Web Element Text Should Be    ${lblPopupPointDetail}    ${PopupPointdetailMovie}
+    Comment    Web check existing text    ${lblPopupPointTermsAndCondition}
+    Comment    Click Web Element    ${lblPopupPointTermsAndCondition}
+    Comment    Web check existing text    ${lblPopupPointTermsAndConditionDetail}
+    Comment    Web Capture Screen At Verify Point    Verify Redeem Movie
+    Scroll Web To Element    ${lblHeadMovieRewardPage}    #แลกตั๋วหนัง
+    Web Element Should Be Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Web Element Text Should Be    ${lblHeadMovieRewardPage}    ${HeadMovieRewardPage}    #แลกตั๋วหนัง
+    Web Element Should Be Visible    ${imgFirstCampaignFoodRewardPage}    #image
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web Element Should Be Visible    ${lblPointFirstCampaignRewardPage}
+    Web Capture Screen At Verify Point    Verify Redeem Reward Movie
+
+Verify Reward Aunjai
+    Comment    Reload Page
+    Comment    Select Menu    Reward
+    Comment    Click Web Element    ${lblsubMenuAunjai}
+    Comment    Comment    Reload Page
+    Comment    Scroll Web To Element    ${btnDetail}
+    Comment    Click Web Element    ${btnDetail}
+    Comment    Web Element Text Should Be    ${lblPopupPointTitle}    ${PopupPointTitle}
+    Comment    Web Element Should Be Visible    ${picPopupPoint}
+    Comment    Web check existing text    ${lblPopupPointTotal}
+    Comment    Web Element Text Should Be    ${lblPopupPointDetail}    ${PopupPointdetailAunjai}
+    Comment    Web check existing text    ${lblPopupPointTermsAndCondition}
+    Comment    Click Web Element    ${lblPopupPointTermsAndCondition}
+    Comment    Web check existing text    ${lblPopupPointTermsAndConditionDetail}
+    Comment    Web Capture Screen At Verify Point    Verify Redeem Aunjai
+    Scroll Web To Element    ${lblHeadAunjaiRewardPage}    #แลกอุ่นใจคอลเลคชั่น
+    Web Element Should Be Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Web Element Text Should Be    ${lblHeadAunjaiRewardPage}    ${HeadAunjaiRewardPage}    #แลกอุ่นใจคอลเลคชั่น
+    Web Element Should Be Visible    ${imgFirstCampaignFoodRewardPage}    #image
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web Element Should Be Visible    ${lblPointFirstCampaignRewardPage}
+    Web Capture Screen At Verify Point    Verify Redeem Reward Aunjai
+
+Verify Reward Telnet
+    Comment    Reload Page
+    Comment    Select Menu    Reward
+    Comment    Click Web Element    ${lblsubMenuTelnet}
+    Comment    Comment    Reload Page
+    Comment    Scroll Web To Element    ${btnDetail}
+    Comment    Click Web Element    ${btnDetail}
+    Comment    Web Element Text Should Be    ${lblPopupPointTitle}    ${PopupPointTitle}
+    Comment    Web Element Should Be Visible    ${picPopupPoint}
+    Comment    Web check existing text    ${lblPopupPointTotal}
+    Comment    Web Element Text Should Be    ${lblPopupPointDetail}    ${PopupPointdetailTelnet}
+    Comment    Web check existing text    ${lblPopupPointTermsAndCondition}
+    Comment    Click Web Element    ${lblPopupPointTermsAndCondition}
+    Comment    Web check existing text    ${lblPopupPointTermsAndConditionDetail}
+    Comment    Web Capture Screen At Verify Point    Verity Reward Telnet
+    Scroll Web To Element    ${lblHeadTelnetRewardPage}    #แลกช้อปฟรีสะใจ
+    Web Element Should Be Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Web Element Text Should Be    ${lblHeadTelnetRewardPage}    ${HeadTelnetRewardPage}    #แลกช้อปฟรีสะใจ
+    Web Element Should Be Visible    ${imgFirstCampaignFoodRewardPage}    #image
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web check existing text    ${lblFirstDetailCampaignRewardPage}
+    Web Element Should Be Visible    ${lblPointFirstCampaignRewardPage}
+    Web Capture Screen At Verify Point    Verify Redeem Reward Telnet

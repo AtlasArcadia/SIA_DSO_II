@@ -1,0 +1,98 @@
+*** Settings ***
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
+Resource          ../PageRepository/PrivilegeRepository.txt
+Resource          PrivilegeCommon.txt
+Resource          ../PageRepository/ShoppingRepository.txt
+Resource          ../Localized/${ar_LANG}/ShoppingLocalized.txt
+
+*** Keywords ***
+Verify Campaign Detail
+    [Arguments]    ${campaignName}
+    Element Should Be Visible    ${imgCampaignDetailPicture}
+    Web Element Text Should Be    ${lblCampaignDetailName}    ${campaignName}
+
+Select Campaign Detail
+    [Arguments]    ${CampaignName}
+    Run Keyword If    '${CampaignName}'=='Central | ZEN The 1 Card X-Treme II'    Click Web Element    ${imgCampaignDetail1}
+    Run Keyword If    '${CampaignName}'=='ไทวัสดุ'    Click Web Element    ${imgCampaignDetail2}
+    Run Keyword If    '${CampaignName}'=='ศูนย์การค้าโคลีเซี่ยม'    Click Web Element    ${imgCampaignDetail3}
+    Run Keyword If    '${CampaignName}'=='Watch Station'    Click Web Element    ${imgCampaignDetail4}
+    Run Keyword If    '${CampaignName}'=='innisfree'    Click Web Element    ${imgCampaignDetail5}
+    Run Keyword If    '${CampaignName}'=='G2000'    Click Web Element    ${imgCampaignDetail6}
+
+Verify Campaign by Order Number
+    [Arguments]    ${OrderNumber}    ${CampaingName}
+    Scroll Web To Element    ${imgCampaign${OrderNumber}Picture}
+    Web Element Should Be Visible    ${imgCampaign${OrderNumber}Picture}    #Picture
+    ${RealCampaignName}=    Get Web Text    ${lblCampaign${OrderNumber}Name}
+    Should Be Equal    ${RealCampaignName}    ${CampaingName}    #Campaign Name
+    Web check existing text    ${lblShortSale${OrderNumber}}    #Short Detail
+    Web check existing text    ${lblSaleDetail${OrderNumber}}    #Full Detail
+    Web Element Should Be Visible    ${btnLikeCampaign${OrderNumber}}    #Like
+    Web Element Should Be Visible    ${btntweetCampaign${OrderNumber}}    #Tweet
+    Web Element Should Be Visible    ${btnShareCampaign${OrderNumber}}    #Share Mail
+    Web Element Should Be Visible    ${imgCampaignCartSymbol${OrderNumber}}    #Cart Symbol
+    Web Capture Screen At Verify Point    CampaignZenTheOneCard
+    [Return]    ${RealCampaignName}
+
+Verify Campaign Detail Page By Order Number
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${lblCampaignDetailName}    ${CampaignName}
+    Web Element Should Be Visible    ${imgCampaignDetailBagSymbol}
+    Web check existing text    ${lblCampaignDetailDescription}
+    Web Element Should Be Visible    ${imgCampaignCondition}
+    Web check existing text    ${lblCampaignCondition}
+    Web Capture Screen At Verify Point    CampaignDetailZenTheOneCard
+    Scroll Web To Element    ${imgRelateImage1}
+    Web Element Should Be Visible    ${imgRelateImage1}
+    Web Element Should Be Visible    ${imgRelateImage2}
+    Web Element Should Be Visible    ${imgRelateImage3}
+    Web Capture Screen At Verify Point    Releate Campaign
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Privilege_Prod_local_config_file_path}    ${#selenium_hub}
+
+Verify Main Page Shopping
+    Web Element Should Be Visible    ${Banner}
+    Verify Menubar
+    Verify Campaingbar
+    Verify Serenade Menu
+    Verify BirthdayPrivilege
+    Web Element Text Should Be    ${TitleMenuBoxList}    ${Shopping}
+    Web Element Text Should Be    ${lblTitleMenuNumber1}    ${ZentheOneCard}
+    Web Capture Screen At Verify Point    Verify Shopping 2
+    Scroll Web To Element    ${lblTitleMenuNumber2}
+    Web Element Text Should Be    ${lblTitleMenuNumber2}    ${thaiMaterial}
+    Web Element Text Should Be    ${lblTitleMenuNumber3}    ${coliseum}
+    Web Capture Screen At Verify Point    Verify Shopping 3
+    Scroll Web To Element    ${lblTitleMenuNumber4}
+    Web Element Text Should Be    ${lblTitleMenuNumber4}    ${Watch Station}
+    Web Element Text Should Be    ${lblTitleMenuNumber5}    ${innisfree}
+    Web Capture Screen At Verify Point    Verify Shopping 4
+    Scroll Web To Element    ${lblTitleMenuNumber6}
+    Web Element Text Should Be    ${lblTitleMenuNumber6}    ${G2000}
+    Web Capture Screen At Verify Point    Verify Shopping 5
+    Verify OurFriend
+    Verify Newsletter
+    Verify JoinCampaign
+    Verify Newsletter
+    Verify JoinCampaign
+
+Verify Campaign Coliseum Detail Page By Order Number
+    [Arguments]    ${CampaignName}
+    Web Element Text Should Be    ${lblCampaignDetailName}    ${CampaignName}
+    Web Element Should Be Visible    ${imgCampaignDetailBagSymbol}
+    Web check existing text    ${lblCampaignDetailDescription}
+    Web Element Should Be Visible    ${imgCampaignCondition}
+    Web check existing text    ${lblCampaignColiseumFirstCondition}
+    Web check existing text    ${lblCampaignColiseumSecCondition}
+    Web check existing text    ${lblCampaignColiseumThirdCondition}
+    Web check existing text    ${lblCampaignColiseumFothCondition}
+    Web check existing text    ${lblCampaignColiseumFivCondition}
+    Web Element Should Be Visible    ${imgRelateImage1}
+    Web Element Should Be Visible    ${imgRelateImage2}
+    Web Element Should Be Visible    ${imgRelateImage3}
+    Web Capture Screen At Verify Point    CampaignDetailZenTheOneCard

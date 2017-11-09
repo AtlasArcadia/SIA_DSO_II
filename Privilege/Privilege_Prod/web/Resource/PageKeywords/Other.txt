@@ -1,0 +1,47 @@
+*** Settings ***
+Resource          PrivilegeCommon.txt
+Resource          ../PageRepository/Other.txt
+Resource          ../Localized/${ar_LANG}/Other.txt
+
+*** Keywords ***
+Verify Newsletter Registration Page
+    Verify URL Other Tab    ${eservicesURL}
+    Web Capture Screen At Verify Point    News Letter page
+
+Verify Our Friend Page
+    Web Element Should Be Visible    ${OurBlog}
+    Scroll Web To Element    ${OurBlog}
+    Web Capture Screen At Verify Point    Our friend
+
+Verify Partner With Us Page
+    Scroll Web To Element    ${ImgConditions}
+    Web Element Should Be Visible    ${ImgConditions}
+    Comment    Scroll Web To Element    ${ImgYourbenefits}
+    Web Element Should Be Visible    ${ImgYourbenefits}
+    Comment    Scroll Web To Element    ${ImgDocumentsRequired}
+    Web Element Should Be Visible    ${ImgDocumentsRequired}
+    Web Capture Screen At Verify Point    Partner with us page above
+    Scroll Web To Element    ${ImgDownloadApplication}
+    Web Element Should Be Visible    ${ImgDownloadApplication}
+    Comment    Scroll Web To Element    ${ImgApplicationForm}
+    Get Web Text    ${ImgApplicationForm}
+    Web Element Text Should Be    ${ImgApplicationForm}    ${ApplicationForm}
+    Web Capture Screen At Verify Point    Partner with us page down
+
+Verify Link Other Tab
+    [Arguments]    ${urlOtherTab}
+    ${partnerUrl}    Set Variable    ${urlOtherTab}
+    Wait Until Keyword Succeeds    10s    1s    Select Window    url=${partnerUrl}
+    ${targetUrl}    Get Location
+    Run Keyword If    '${partnerUrl}'!='${targetUrl}'    Fail
+
+Verify Newsletter Main Page
+    Web Element Should Be Visible    ${ImgNewsLetter}
+    Scroll Web To Element    ${ImgNewsLetter}
+    Web Capture Screen At Verify Point    News Letter main page
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Privilege_Prod_local_config_file_path}    ${#selenium_hub}

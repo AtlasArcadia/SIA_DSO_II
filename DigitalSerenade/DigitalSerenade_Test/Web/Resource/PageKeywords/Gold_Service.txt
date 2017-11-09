@@ -1,0 +1,133 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageVariable/Emerald_ServiceVariable.txt
+Resource          ../PageRepository/Emerald_ServiceRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_ServiceLocalized.txt
+
+*** Keywords ***
+verify first banner
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-service/div[@id="service"]//div[@class="row"]/div[1]//img@src
+    Log    ${srcBanner}
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${bannerAISCallCenter}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${bannermPay}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${bannerDataRoaming}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${bannerMobileCare}
+    : FOR    ${index}    IN RANGE    1    13
+    \    Log    ${srcBanner${index}}
+    \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
+    \    ...    ELSE    Continue For Loop
+    ${Banner}    Set Variable If    "${index}" == "1"    CallCenter
+    ${Banner}    Set Variable If    "${index}" == "2"    mPay    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    DataRoaming    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    MobileCare    ${Banner}
+    [Return]    ${Banner}
+
+verify second banner
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-service/div[@id="service"]//div[@class="row"]/div[2]//img@src
+    Log    ${srcBanner}
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${bannerAISCallCenter}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${bannermPay}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${bannerDataRoaming}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${bannerMobileCare}
+    : FOR    ${index}    IN RANGE    1    13
+    \    Log    ${srcBanner${index}}
+    \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
+    \    ...    ELSE    Continue For Loop
+    ${Banner}    Set Variable If    "${index}" == "1"    CallCenter
+    ${Banner}    Set Variable If    "${index}" == "2"    mPay    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    DataRoaming    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    MobileCare    ${Banner}
+    [Return]    ${Banner}
+
+verify third banner
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-service/div[@id="service"]//div[@class="row"]/div[3]//img@src
+    Log    ${srcBanner}
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${bannerAISCallCenter}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${bannermPay}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${bannerDataRoaming}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${bannerMobileCare}
+    : FOR    ${index}    IN RANGE    1    13
+    \    Log    ${srcBanner${index}}
+    \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
+    \    ...    ELSE    Continue For Loop
+    ${Banner}    Set Variable If    "${index}" == "1"    CallCenter
+    ${Banner}    Set Variable If    "${index}" == "2"    mPay    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    DataRoaming    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    MobileCare    ${Banner}
+    [Return]    ${Banner}
+
+verify forth banner
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-service/div[@id="service"]//div[@class="row"]/div[4]//img@src
+    Log    ${srcBanner}
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${bannerAISCallCenter}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${bannermPay}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${bannerDataRoaming}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${bannerMobileCare}
+    : FOR    ${index}    IN RANGE    1    13
+    \    Log    ${srcBanner${index}}
+    \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
+    \    ...    ELSE    Continue For Loop
+    ${Banner}    Set Variable If    "${index}" == "1"    CallCenter
+    ${Banner}    Set Variable If    "${index}" == "2"    mPay    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    DataRoaming    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    MobileCare    ${Banner}
+    [Return]    ${Banner}
+
+Choose banner
+    [Arguments]    ${banner}
+    ${Activebanner1}    verify first banner
+    ${Activebanner2}    verify second banner
+    ${Activebanner3}    verify third banner
+    ${Activebanner4}    verify forth banner
+    Run Keyword If    "${Activebanner1}" == "${banner}"    Click Web Element    ${btnBanner1}
+    Run Keyword If    "${Activebanner2}" == "${banner}"    Click Web Element    ${btnBanner2}
+    Run Keyword If    "${Activebanner3}" == "${banner}"    Click Web Element    ${btnBanner3}
+    Run Keyword If    "${Activebanner4}" == "${banner}"    Click Web Element    ${btnBanner4}
+
+Verify Call Center Service
+    Sleep    10s
+    Scroll Web To Element    ${btnBanner1}
+    Choose banner    CallCenter
+    Sleep    20s
+    Select Window    url=${urlCallCenter}
+    Verify Link    ${urlCallCenter}
+    Scroll Web To Element    ${imgCallCenter1148}
+    Web Element Should Be Visible    ${imgCallCenter1148}
+    Web Element Text Should Be    ${lblCallCenter}    ${txtCallCenter}
+    Web Capture Screen At Verify Point    CallCenter
+
+Verify Mobile Care Service
+    Scroll Web To Element    ${btnBanner1}
+    Choose banner    MobileCare
+    Sleep    10s
+    Select Window    url=${urlMobileCare}
+    ${lo}    Get Location
+    Run Keyword If    "${urlMobileCare}" != "${lo}"    Fail
+    Scroll Web To Element    ${lblMobileCare1}
+    Web Element Text Should Be    ${lblMobileCare1}    ${txtMobileCare1}
+    Web Element Text Should Be    ${lblMobileCare2}    ${txtMobileCare2}
+    Web Capture Screen At Verify Point    MobileCare
+
+Verify mPay Service
+    Sleep    20s
+    Scroll Web To Element    ${btnBanner1}
+    Choose banner    mPay
+    Sleep    10s
+    Select Window    url=${urlmPay}
+    Verify Link    ${urlmPay}
+    Scroll Web To Element    ${lblmPay1}
+    Web Element Text Should Be    ${lblmPay1}    ${txtmPay1}
+    Web Element Text Should Be    ${lblmPay2}    ${txtmPayLogin}
+    Web Capture Screen At Verify Point    mPay
+
+Verify Data Roaming Service
+    Scroll Web To Element    ${btnBanner1}
+    Choose banner    DataRoaming
+    Sleep    20s
+    Select Window    url=${urlDataRoaming}
+    ${lo}    Get Location
+    Run Keyword If    "${urlDataRoaming}" != "${lo}"    Fail
+    Scroll Web To Element    ${lblDataRoaming1}
+    Web Element Text Should Be    ${lblDataRoaming1}    ${txtDataRoaming1}
+    Web Element Text Should Be    ${lblDataRoaming2}    ${txtDataRoaming2}
+    Web Capture Screen At Verify Point    DataRoaming

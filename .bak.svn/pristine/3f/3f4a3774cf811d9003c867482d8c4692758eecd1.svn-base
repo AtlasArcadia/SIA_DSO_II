@@ -1,0 +1,133 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/BalanceTransferRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/BalanceTransferLocalized.txt
+Resource          ../PageVariable/BalanceTransferVariable.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Service Page
+    Mobile element name should be    ${subMnuBalanceTransfer}    ${txtBalanceTransfer}
+    Mobile element name should be    ${subMnuValidityTransfer}    ${txtValidityTransfer}
+    Mobile element name should be    ${subMnuRegisterAISFibre/CheckCoverage}    ${txtRegisterAISFibre}
+    Mobile element name should be    ${subMnuRequest/ChangeWiFiPassword}    ${txtRequestAndChangeWifiPassword}
+    Mobile element name should be    ${subMnuCallingMelody}    ${txtCallingMelody}
+    Mobile element name should be    ${subMnuChangingIVR}    ${MnuChangingIVR}
+    Mobile Capture Screen At Verify Point    ServicePage
+
+Verify Balance Transfer Page
+    [Arguments]    ${CustomerNumber}
+    Mobile element name should be    ${lblCustomerMobileNumber}    ${CustomerNumber}
+    Mobile element name should be    ${lblBalanceTransferDescription}    ${txtBalanceTransferDescription}
+    Mobile element name should be    ${lblBalanceTransferDestinationNumberTitle}    ${txtBalanceTransferDestinationNumberTitle}
+    Mobile element name should be    ${lblBalanceTransferAmountTitle}    ${txtBlanceTransferAmountTitle}
+    Swipe to element    ${lblTermAndCondition}
+    Wait Mobile Until Element Visible    ${btnConfrimBalanceTransfer}
+    Mobile element name should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    BalanceTransfer Page
+
+Wait until Page Load Success
+    Run Keyword And Ignore Error    AISAppiumEx.Wait Until Element Is Visible    ${lblProgressBar}    2
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblProgressBar}    10    #danger workaround
+
+Select Min Amount
+    Click Mobile Element    ${listTransferAmount}
+    Click Mobile Element    ${listFirstAmount}
+    Run Keyword If    "${ar_NType}"=="IPE"    Mobile Capture Screen At Verify Point    Transfer to number
+
+Set Destination Number
+    [Arguments]    ${DestinationNumber}
+    Input Mobile Text    ${lblDestinationNumber}    ${DestinationNumber}
+    Hide Keyboard
+
+Confirm Balance Transfer
+    Click Mobile Element    ${btnConfrimBalanceTransfer}
+
+Verify And Select Confirm Balance Transfer Dialog Message
+    Mobile element text should match regexp whole string    ${txtConfirmDailogMessage}    ${txtConfirmBalanceTransfer}
+    Click Mobile Element    ${btnConfirmDailogMessage}
+
+Verify Balance Transfer Success
+    Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferSuccess}
+    Mobile Capture Screen At Verify Point    Balance Transfer Success
+    Click Mobile Element    ${btnOkDialog}
+
+Verify Balance Transfer To Postpaid Number
+    Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToPostpaidNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfer To Postpaid Number
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer To Other Network
+    Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToDtacNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfer To Other Network
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer To Self Number
+    Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToSelfNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfr To Self Number
+    Click Mobile Element    ${btnOK}
+
+Verify Not Input Destination Number
+    Mobile element text should be    ${txtDailogMessage}    ${txtNotInputDestinationNumber}
+    Mobile Capture Screen At Verify Point    Balance transfer Not Input Destination Number
+    Click Mobile Element    ${btnOK}
+
+Verify Input Wrong Format Destination Number
+    Mobile element text should be    ${txtDailogMessage}    ${txtWrongDigitNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfer Wrong Digit Number
+    Click Mobile Element    ${btnOK}
+
+Verify Not Select Amount
+    Mobile element text should be    ${txtDailogMessage}    ${txtNotSelectAmount}
+    Mobile Capture Screen At Verify Point    Balance Transfer Not Select Amount
+    Click Mobile Element    ${btnOK}
+
+Verify Source Number Insufficient Balance
+    [Arguments]    ${CustomerNumber}
+    Mobile element text should be    ${lblCustomerMobileNumber}    ${CustomerNumber}
+    Mobile element text should be    ${lblBalanceTransferDescription}    ${txtBalanceTransferDescription}
+    Mobile element text should be    ${lblBalanceTransferDestinationNumberTitle}    ${txtBalanceTransferDestinationNumberTitle}
+    Mobile element text should be    ${lblBalanceTransferAmountTitle}    ${txtBlanceTransferAmountTitle}
+    Swipe to element    ${lblTermAndCondition}
+    Mobile element text should be    ${lblInsufficientBalanceTransfer}    ${txtInsufficientBalanceTransfer}
+    Wait Mobile Until Element Visible    ${btnConfrimBalanceTransfer}
+    Mobile element text should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    BalanceTransfer Page
+
+Verify Transfer To Max Balance Number
+    Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToMaxBalanceNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfer To Max Balance Number
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer Source Suspend Number
+    Mobile element text should be    ${txtDailogMessage}    ${txtSourceSuspendNumber}
+    Mobile Capture Screen At Verify Point    Source Suspend Number
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer To Suspend Number
+    Mobile element text should be    ${txtDailogMessage}    ${txtDestinationSuspendNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfer To Suspend Number
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer From Blacklist Number
+    Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferFromBlacklistNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfer From Blacklist Number
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer To Blacklist Number
+    Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToBlacklistNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfer To Blacklist Number
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer From Number Register Date < 90 Days
+    Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToFromNumberRegisterLessThan90Days}
+    Mobile Capture Screen At Verify Point    Balance Transfer To Register Date Less Than 90 Days Number
+    Click Mobile Element    ${btnOK}

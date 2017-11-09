@@ -1,0 +1,1986 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/TopUpAndPaymentRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/TopUpAndPaymentLocalized.txt
+
+*** Keywords ***
+Select menuTopUpAndPayment
+    sleep    10    # wait AIS Point loaded maybe it hidden cannot use any keyword
+    Select Menu    Top UpAndPayment
+    swipe in container to element    ${mnuTopUpAndPayment}    ${mnuContainer}    left
+    Click Mobile Element    ${mnuTopUpAndPayment}
+    ${elementIsContain}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${DialogMessageRegister}    5
+    Run Keyword If    "${elementIsContain}"=="True"    Click Mobile Element    ${DialogMsgBtnNo}
+
+Input different network
+    [Arguments]    ${Number}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard    key_name=Return
+
+Verify page TopUpAndPayment
+    Sleep    5
+    Mobile element text should be    ${lblTopup}    ${txtTopUp}
+    Mobile element text should be    ${lblPayment}    ${txtPayment}
+    Mobile Capture Screen At Verify Point    TopUpAndPayment
+
+Verify Pop up JCB has information No number
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Select credit card    JCB
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterTheDestinationNumberForTopUp}
+    Mobile Capture Screen At Verify Point    JCB No number
+
+Verify Pop up AMEX No number
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterTheDestinationNumberForTopUp}
+    Mobile Capture Screen At Verify Point    AMEX No number
+
+Verify PopUp Alert Top Up E-Wallet_Do not enter the number
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${picEWallet}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterTheDestinationNumberForTopUp}
+    Mobile Capture Screen At Verify Point    EWallet No number
+
+Verify PopUp Alert Top Up RefillCard_Do not enter the number
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${picRefillCard}
+    Click Mobile Element    ${txtBoxInputRefillCard}
+    Input Mobile Text    ${txtBoxInputRefillCard}    ${PintRefillCard}
+    Swipe to element    ${btnOK}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterTheDestinationNumberForTopUp}
+    Mobile Capture Screen At Verify Point    Refill Card No number
+
+Verify Pop up VISA has information No number
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Select credit card    Visa
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterTheDestinationNumberForTopUp}
+    Mobile Capture Screen At Verify Point    VISA No number
+
+Verify Pop up Master Card has information No number
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Select credit card    MasterCard
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterTheDestinationNumberForTopUp}
+    Mobile Capture Screen At Verify Point    Master Card No number
+
+Verify Pop up VISA number less than 10 digits
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumberLessThan10Digits}
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyA10digitMobileNumber}
+    Mobile Capture Screen At Verify Point    VISA number less than 10 digits
+
+Verify Pop up Master Card number less than 10 digits
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumberLessThan10Digits}
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyA10digitMobileNumber}
+    Mobile Capture Screen At Verify Point    Master Card number less than 10 digits
+
+Verify Pop up JCB number less than 10 digits
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumberLessThan10Digits}
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyA10digitMobileNumber}
+    Mobile Capture Screen At Verify Point    Master Card number less than 10 digits
+
+Verify Pop up AMEX number less than 10 digits
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumberLessThan10Digits}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyA10digitMobileNumber}
+    Mobile Capture Screen At Verify Point    AMEX number less than 10 digits
+
+Verify Pop up EWallet number less than 10 digits
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumberLessThan10Digits}
+    Click Mobile Element    ${picEWallet}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyA10digitMobileNumber}
+    Mobile Capture Screen At Verify Point    EWallet number less than 10 digits
+
+Verify Pop up Refill Card number less than 10 digits
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumberLessThan10Digits}
+    Click Mobile Element    ${picRefillCard}
+    Click Mobile Element    ${txtBoxInputRefillCard}
+    Input Mobile Text    ${txtBoxInputRefillCard}    ${txtPintRefillCard}
+    Swipe to element    ${btnOK}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyA10digitMobileNumber}
+    Mobile Capture Screen At Verify Point    Refill Card number less than 10 digits
+
+Verify Pop up VISA number not correct
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumbeNotCorrect}
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredInvalidMobileNumber}
+    Mobile Capture Screen At Verify Point    VISA number not correct
+
+Verify Pop up MasterCard number not correct
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumbeNotCorrect}
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredInvalidMobileNumber}
+    Mobile Capture Screen At Verify Point    MasterCard number not correct
+
+Verfy Pop up JCB number not correct
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumbeNotCorrect}
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredInvalidMobileNumber}
+    Mobile Capture Screen At Verify Point    JCB number not correct
+
+Verify Pop up AMEX number not correct
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumbeNotCorrect}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredInvalidMobileNumber}
+    Mobile Capture Screen At Verify Point    AMEX number not correct
+
+Verify Pop up EWallet number not correct
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumbeNotCorrect}
+    Click Mobile Element    ${picEWallet}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredInvalidMobileNumber}
+    Mobile Capture Screen At Verify Point    EWallet number not correct
+
+Verify Pop up Refill Card number not correct
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumbeNotCorrect}
+    Click Mobile Element    ${picRefillCard}
+    Click Mobile Element    ${txtBoxInputRefillCard}
+    Input Mobile Text    ${txtBoxInputRefillCard}    ${txtPintRefillCard}
+    Swipe to element    ${btnOK}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredInvalidMobileNumber}
+    Mobile Capture Screen At Verify Point    Refill Card number not correct
+
+Verify Pop up VISA number different network
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${DtacNumber}
+    sleep    2
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberNotAIS}
+    Mobile Capture Screen At Verify Point    VISA number different network
+
+Verify Pop up MasterCard number different network
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${DtacNumber}
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberNotAIS}
+    Mobile Capture Screen At Verify Point    MasterCard number different network
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Input number sub menu payment
+    [Arguments]    ${Number}
+    Input Mobile Text    ${txtBoxlMobileNumberPayment}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard    key_name=Return
+
+Verify page Payment Outstanding bal add credit card
+    Sleep    2
+    Mobile element text should be    ${lblMobileNumber}    ${AISPostpaidOutstandingBalance}
+    Mobile element text should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element text should be    ${lblBillingCycle}    ${txtBillingCycle}
+    Mobile element text should be    ${lblDueDate}    ${txtDueDate}
+    Mobile element text should be    ${lblYourBalance}    ${txtYourBalance}
+    Mobile element text should be    ${lblTotalBillingAmount}    ${txtTotalBillingAmount}
+    Mobile element text should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element text should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element text should be    ${lblManage}    ${txtManage}
+    swipe in screen to element    ${btnNext}    up
+    Wait Mobile Until Element Visible    ${imgVISA}
+    Mobile element text should match regexp    ${txtPaymentCardNumberVISA}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgMasterCard}
+    Mobile element text should match regexp    ${txtPaymentCardNumberMasterCard}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgJCB}
+    Mobile element text should match regexp    ${txtPaymentCardNumberJCB}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgOther}
+    Wait Mobile Until Element Visible    ${imgEwalletinOtherCard}
+    Mobile element text should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnNext}    ${txtNext}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify page Payment Outstanding balance by credit card
+
+Verify Pop up msg JCB in case amount 0 Baht No Credit Card
+    Input number sub menu payment    ${AISPostpaidNumber}
+    Click Mobile Element    ${btnNext}
+    Sleep    5
+    Swipe to element    ${lblYourPaymentAmount}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    0
+    Swipe to element    ${lblJCB}
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtInputAmount0Baht}
+    Mobile Capture Screen At Verify Point    Amount0Baht No Credit Card JCB
+
+Verify Pop up msg AMEX in case amount 0 Baht No Credit Card
+    Input number sub menu payment    ${AISPostpaidNumber}
+    Click Mobile Element    ${btnNext}
+    Sleep    5
+    Swipe to element    ${lblYourPaymentAmount}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    0
+    Swipe to element    ${lblAMEX}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtInputAmount0Baht}
+    Mobile Capture Screen At Verify Point    Amount0Baht No Credit Card AMEX
+
+Verify Popup msg E-Wallet in case amount 0 Baht
+    Input number sub menu payment    ${AISPostpaidNumber}
+    Click Mobile Element    ${btnNext}
+    Sleep    5
+    Swipe to element    ${lblYourPaymentAmount}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    0
+    Swipe to element    ${picEwalletPayment}
+    Click Mobile Element    ${picEwalletPayment}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtInputAmount0Baht}
+    Mobile Capture Screen At Verify Point    Amount0Baht E-Wallet
+
+Verify page Top Up
+    Click Mobile Element    ${lblTopup}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblEnterDestinationNumber}    ${txtEnterdestinationnumberyouwishtotopup}
+    Mobile check existing text    ${lblMobileNumber}
+    Wait Mobile Until Page Contains Element    ${lblEnterDestinationNumber}
+    Mobile check existing text    ${txtBoxlMobileNumber}
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${txtPleaseselecttopupchannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Wait Mobile Until Element Visible    ${lblAMEX}
+    Mobile element text should be    ${lblEWallet}    ${txtEWallet}
+    Mobile element text should be    ${lblRefillCard}    ${txtRefillCard}
+    Swipe to element    ${lbl10}
+    Mobile element text should be    ${lblSelectTopupAmount}    ${txtSelecttopupamount}
+    Sleep    2
+    Mobile element text should be    ${lbl10}    ${txtTen}
+    Mobile element text should be    ${lbl20}    ${txtTwenty}
+    Mobile element text should be    ${lbl30}    ${txtThirty}
+    Mobile element text should be    ${lbl40}    ${txtFourty}
+    Mobile element text should be    ${lbl100}    ${txtOneHunred}
+    Mobile element text should be    ${lbl200}    ${txtTwoHundred}
+    Mobile element text should be    ${lbl300}    ${txtThreeHundred}
+    Click Mobile Element    ${lblMore}
+    Mobile element text should be    ${lbl50}    ${txtFifty}
+    Mobile element text should be    ${lbl400}    ${txtFourHundred}
+    Mobile element text should be    ${lbl500}    ${txtFiveHundred}
+    Mobile element text should be    ${lbl600}    ${txtSixHundred}
+    Mobile element text should be    ${lbl700}    ${txtSevenHundred}
+    Mobile element text should be    ${lbl800}    ${txtEightHundred}
+    Mobile element text should be    ${lbl1000}    ${txtOneThousand}
+    Mobile element text should be    ${lbl1500}    ${txtOneThousandandFiveHundred}
+    Swipe to element    ${btnOK}
+    Mobile element text should be    ${lblPleaseVerifyYourTopup}    ${txtPleaseverifyyourtopupinformation}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Sleep    2
+    Mobile Capture Screen At Verify Point    Top Up
+
+Verify Pop up VISA has information number less than 10 digits
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumberLessThan10Digits}
+    Select credit card    Visa
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyA10digitMobileNumber}
+    Mobile Capture Screen At Verify Point    VISA number less than 10 digits
+
+Verify Pop up Master Card has information number less than 10 digits
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumberLessThan10Digits}
+    Select credit card    MasterCard
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyA10digitMobileNumber}
+    Mobile Capture Screen At Verify Point    Master Card number less than 10 digits
+
+Verify Pop up JCB has information number less than 10 digits
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumberLessThan10Digits}
+    Select credit card    JCB
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyA10digitMobileNumber}
+    Mobile Capture Screen At Verify Point    Master Card number less than 10 digits
+
+Verify Pop up VISA has information number not correct
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumbeNotCorrect}
+    Select credit card    Visa
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredInvalidMobileNumber}
+    Mobile Capture Screen At Verify Point    VISA number not correct
+
+Verify Pop up MasterCard has information number not correct
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumbeNotCorrect}
+    Select credit card    MasterCard
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredInvalidMobileNumber}
+    Mobile Capture Screen At Verify Point    MasterCard number not correct
+
+Verfy Pop up JCB has information number not correct
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${txtMobileNumbeNotCorrect}
+    Select credit card    JCB
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredInvalidMobileNumber}
+    Mobile Capture Screen At Verify Point    JCB number not correct
+
+Click Button OK
+    Swipe Element To Screen    ${btnOK}
+    Sleep    4
+    Click Mobile Element    ${btnOK}
+    ${status}    Run Keyword And Return Status    AISAppiumEx.Page Should Not Contain Element    ${btnOK}
+    Run Keyword If    "${status}" == "False"    Click Mobile Element    ${btnOK}
+
+Verify PopUp Alert Top Up No JCB_Do not enter the number
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterTheDestinationNumberForTopUp}
+    Mobile Capture Screen At Verify Point    JCB No number
+
+Verify Pop up JCB no information and differnt network
+    Sleep    2
+    Input different network    ${DtacNumber}
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Sleep    2
+    Click Mobile Element    ${btnOK}
+    Sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberNotAIS}
+    Mobile Capture Screen At Verify Point    JCB no information and differnt network
+
+Verify Pop up AMEX no information and differnt network
+    Sleep    2
+    Input different network    ${DtacNumber}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    Sleep    2
+    Click Mobile Element    ${btnOK}
+    Sleep    2
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberNotAIS}
+    Mobile Capture Screen At Verify Point    AMEX no information and differnt network
+
+Verify Pop up EWallet no information and differnt network
+    Sleep    2
+    Input different network    ${DtacNumber}
+    Click Mobile Element    ${picEWallet}
+    Select topup amount    10
+    Sleep    2
+    Click Mobile Element    ${btnOK}
+    Sleep    2
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberNotAIS}
+    Mobile Capture Screen At Verify Point    EWallet no information and differnt network
+
+Verify Pop up RefillCard no information and differnt network
+    Sleep    2
+    Input different network    ${DtacNumber}
+    Swipe Element To Screen    ${picRefillCard}
+    Click Mobile Element    ${picRefillCard}
+    Input Mobile Text    ${lblInputPinCode}    1258798564589752
+    Sleep    2
+    Click Mobile Element    ${btnOK}
+    Sleep    2
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberNotAIS}
+    Mobile Capture Screen At Verify Point    RefillCard no information and differnt network
+
+Verify Pop up msg VISA in case amount 0 Baht have Credit Card
+    Input number sub menu payment    ${AISPostpaidNumber}
+    Click Mobile Element    ${btnNext}
+    Sleep    5
+    Swipe to element    ${lblYourPaymentAmount}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    0
+    Swipe to element    ${imgVISA}
+    Select credit card    Visa
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtInputAmount0Baht}
+    Mobile Capture Screen At Verify Point    Amount0Baht Have CreditCard VISA
+
+Verify Pop up msg MasterCard in case amount 0 Baht have Credit Card
+    Input number sub menu payment    ${AISPostpaidNumber}
+    Click Mobile Element    ${btnNext}
+    Sleep    5
+    Swipe to element    ${lblYourPaymentAmount}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    0
+    Swipe to element    ${imgMasterCard}
+    Select credit card    MasterCard
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtInputAmount0Baht}
+    Mobile Capture Screen At Verify Point    Amount0Baht Have CreditCard MasterCard
+
+Verify Pop up msg JCB in case amount 0 Baht have Credit Card
+    Input number sub menu payment    ${AISPostpaidNumber}
+    Click Mobile Element    ${btnNext}
+    Sleep    5
+    Swipe to element    ${lblYourPaymentAmount}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    0
+    Swipe to element    ${imgJCB}
+    Select credit card    JCB
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtInputAmount0Baht}
+    Mobile Capture Screen At Verify Point    Amount0Baht Have CreditCard JCB
+
+Verify Pop up VISA has information and differnt network
+    sleep    2
+    Input different network    ${DtacNumber}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Select credit card    Visa
+    Select topup amount    10
+    sleep    2
+    Click Button OK
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberNotAIS}
+    Mobile Capture Screen At Verify Point    VISA has information and differnt network
+
+Verify Pop up MasterCard has information and differnt network
+    sleep    2
+    Input different network    ${DtacNumber}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Select credit card    MasterCard
+    Select topup amount    10
+    sleep    2
+    Click Button OK
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberNotAIS}
+    Mobile Capture Screen At Verify Point    MasterCard has information and differnt network
+
+Verify Pop up JCB has information and differnt network
+    sleep    2
+    Input different network    ${DtacNumber}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Select credit card    JCB
+    Select topup amount    10
+    sleep    2
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberNotAIS}
+    Mobile Capture Screen At Verify Point    JCB has information and differnt network
+
+Input AIS Postpaid
+    [Arguments]    ${Number}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard    key_name=Return
+
+Verify Pop up VISA no information and input postpaid
+    sleep    2
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Input AIS Postpaid    ${AISPostpaidNumberProd}
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    sleep    2
+    Click Button OK
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberAISpostpaid}
+    Mobile Capture Screen At Verify Point    JCB has information and differnt network
+
+Verify Pop up MasterCard no information and input postpaid
+    sleep    2
+    Input AIS Postpaid    ${AISPostpaidNumberProd}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl10}
+    sleep    2
+    Click Button OK
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberAISpostpaid}
+    Mobile Capture Screen At Verify Point    MasterCard has information and differnt network
+
+Verify Pop up JCB no information and input postpaid
+    sleep    2
+    Input AIS Postpaid    ${AISPostpaidNumberProd}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${lbl100}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberAISpostpaid}
+    Mobile Capture Screen At Verify Point    JCB has information and differnt network
+
+Verify Pop up AMEX no information and input postpaid
+    sleep    2
+    Input AIS Postpaid    ${AISPostpaidNumberProd}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${lbl100}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Sleep    2
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberAISpostpaid}
+    Mobile Capture Screen At Verify Point    JCB has information and differnt network
+
+Verify Pop up EWallet and input postpaid
+    sleep    2
+    Input AIS Postpaid    ${AISPostpaidNumberProd}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${picEWallet}
+    Swipe to element    ${lbl100}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Sleep    2
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberAISpostpaid}
+    Mobile Capture Screen At Verify Point    Ewallet has information and input postpaid number
+
+Verify Pop up VISA has information and input postpaid
+    sleep    2
+    Input AIS Postpaid    ${AISPostpaidNumberProd}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Select credit card    Visa
+    Swipe to element    ${lbl100}
+    Click Mobile Element    ${lbl100}
+    sleep    2
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberAISpostpaid}
+    Mobile Capture Screen At Verify Point    VISA has information and input postpaid number
+
+Verify Pop up MasterCard has information and input postpaid
+    sleep    2
+    Input AIS Postpaid    ${AISPostpaidNumberProd}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Select credit card    MasterCard
+    Swipe to element    ${lbl100}
+    sleep    2
+    Click Mobile Element    ${lbl100}
+    sleep    2
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberAISpostpaid}
+    Mobile Capture Screen At Verify Point    MasterCard has information and input postpaid number
+
+Verify page Manage Credit Card
+    [Arguments]    ${Number}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblCreditCardAndDebitCard}    ${txtYourCreditDebitCard}
+    Mobile element text should be    ${txtDetailInPageManageCard}    ${txtYourCreditDebitCardInformationForPaymentAndTopupviaMyAIS}
+    Wait Mobile Until Element Visible    ${lblVISAInPageManageCard}
+    Wait Mobile Until Element Visible    ${lblMasterCardInPageManageCard}
+    Wait Mobile Until Element Visible    ${lblJCBInPageManageCard}
+    Mobile Capture Screen At Verify Point    Verify Credit card in page Manage Card
+
+Verify pop up Delete Credit Card on page Manage Card
+    Sleep    5
+    Mobile element text should be    ${lblConfirmMsgDeleteCard}    ${txtDeleteCreditCard}
+    Wait Mobile Until Element Visible    ${lblConfirmDeleteCardInPageManageCard}
+    Mobile element text should be    ${btnConfirm}    ${txtConfirm}
+    Mobile element text should be    ${btnCancelCreditCard}    ${txtCancel}
+    Mobile Capture Screen At Verify Point    Verify pop up Delete Credit Card on page Manage Credit Card
+
+Verify Pop up msg VISA in case amount 0 Baht
+    Input number sub menu payment    ${AISPostpaidOutstandingBalance}
+    Click Mobile Element    ${btnNext}
+    Sleep    5
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    0
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtInputAmount0Baht}
+    Mobile Capture Screen At Verify Point    Amount0Baht VISA
+
+Verify Pop up msg MasterCard in case amount 0 Baht
+    Input number sub menu payment    ${AISPostpaidOutstandingBalance}
+    Click Mobile Element    ${btnNext}
+    Sleep    5
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    0
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtInputAmount0Baht}
+    Mobile Capture Screen At Verify Point    Amount0Baht MasterCard
+
+Select Manage Card
+    Click Mobile Element    ${lblManage}
+    Wait Mobile Until Element Visible    ${lblCreditCardAndDebitCard}    5
+    Click Mobile Element    ${imgDeleteVISACard}
+
+Verify page payment detail no information by VISA
+    [Arguments]    ${VISA}    ${CVV_VISA}
+    Sleep    3
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${btnOKinPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${VISA}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Comment    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Comment    CertificateErrorbtnOK
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by VISA card
+
+Verify page payment detail no information by MasterCard
+    [Arguments]    ${MasterCard}    ${CVV_MasterCard}
+    Sleep    5
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${MasterCard}
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Comment    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Comment    CertificateErrorbtnOK
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by Master card
+
+Verify page payment detail no information by JCB
+    Sleep    5
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblPaymentChannelInPaymentDetailPage}    ${txtPaymentChannelInPaymentDetailPage}
+    Mobile element name should be    ${lblCardTypeInPaymentDetailPage}    ${txtCardtype}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberInPaymentDetailPage}    ${txtCardnumber}
+    Mobile element name should be    ${lblExpiryDateInPaymentDetailPage}    ${txtExpirydate}
+    Swipe element to specific area    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Comment    Input Mobile Text    ${txtBoxInputCardNumberInPaymentDetailPage}    ${JCB}
+    Comment    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Comment    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Comment    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    Comment    CertificateErrorbtnOK
+    Comment    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by JCB card
+
+Verify page payment detail no information by AMEX
+    Sleep    2
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPaymentDetailsSummaryInAMEXAndEwallet}    ${txtPaymentDetailsInAMEXCard}
+    Mobile element text should be    ${lblDestinationNumberSummaryInAMEXAndEwallet}    ${txtDestinationNumber}
+    Mobile element text should be    ${lblPaymentChannelsSummaryInAMEXAndEwallet}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblCardType}    ${txtCardtype}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Mobile element text should be    ${btnPaymentAmexEwalletBack}    ${txtBack}
+    Mobile element text should be    ${btnOKInSummaryAMEXAndEwallet}    ${txtOK}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by AMEX
+
+Verify page Payment Outstanding bal incase select others channel
+    Sleep    2
+    Mobile element text should be    ${lblMobileNumber}    ${AISPostpaidOutstandingBalance}
+    Mobile element text should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element text should be    ${lblBillingCycle}    ${txtBillingCycle}
+    Mobile element text should be    ${lblDueDate}    ${txtDueDate}
+    Mobile element text should be    ${lblYourBalance}    ${txtYourBalance}
+    Mobile element text should be    ${lblTotalBillingAmount}    ${txtTotalBillingAmount}
+    Mobile element text should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element text should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element text should be    ${lblManage}    ${txtManage}
+    Wait Mobile Until Element Visible    ${imgVISA}
+    Mobile element text should match regexp    ${txtPaymentCardNumberVISA}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgMasterCard}
+    Mobile element text should match regexp    ${txtPaymentCardNumberMasterCard}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgJCB}
+    Mobile element text should match regexp    ${txtPaymentCardNumberJCB}    ${txtRegStarCardNumber}
+    Wait Mobile Until Element Visible    ${imgOther}
+    Click Mobile Element    ${rdoPaymentOther}
+    swipe in screen to element    ${btnNext}    up
+    Wait Mobile Until Element Visible    ${imgVISAinOtherCard}
+    Wait Mobile Until Element Visible    ${imgMasterCardinOtherCard}
+    Wait Mobile Until Element Visible    ${imgJCBinOtherCard}
+    Wait Mobile Until Element Visible    ${imgAMEXinOtherCard}
+    Wait Mobile Until Element Visible    ${imgEwalletinOtherCard}
+    Mobile element text should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnNext}    ${txtNext}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify page Payment Outstanding balance by credit card
+
+Verify page payment detail by VISA
+    [Arguments]    ${CVV_VISA}
+    Sleep    2
+    Select credit card    Visa
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_VISA}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail by VISA card
+
+Verify page payment detail by MasterCard
+    [Arguments]    ${CVV_MasterCard}
+    Sleep    5
+    Select credit card    MasterCard
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_MasterCard}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail by VISA card
+
+Verify page payment detail by JCB
+    [Arguments]    ${CVV_JCB}
+    Sleep    5
+    Select credit card    JCB
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPaymentDetail}
+    Mobile element name should be    ${lblPaymentDetail}    ${txtPaymentDetail}
+    Mobile element name should be    ${lblNumberInPaymentDetailPage}    ${txtNumber}
+    Mobile element name should be    ${lblAmountInPaymentDetailPage}    ${txtAmount}
+    Mobile element name should be    ${lblCreditAndDebitCardInPaymentDetailPage}    ${txtCreditDebitCardInPaymentDetailPage}
+    Mobile element name should be    ${lblCardNumberSummarybyVISA}    ${txtCardnumber}
+    Mobile element name should match regexp    ${lblCardNoSummarybyVISA}    ${txtRegXXCardNumber}
+    Mobile element name should be    ${lblCVVInPaymentDetailPage}    ${txtCVV}
+    Wait Mobile Until Element Visible    ${txtBoxInputCVVInPaymentDetailPage}
+    Mobile element name should be    ${btnOKinPaymentDetailPage}    ${txtOK}
+    Mobile element name should be    ${btnCancelinPaymentDetailPage}    ${txtCancel}
+    Input Mobile Text    ${txtBoxInputCVVInPaymentDetailPage}    ${CVV_JCB}
+    Click Mobile Element    ${btnOKinPaymentDetailPage}
+    CertificateErrorbtnOK
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Verify page payment detail by JCB card
+
+Verify Pop up not select channel
+    Input number sub menu payment    ${AISPostpaidNumber}
+    Click Mobile Element    ${btnNext}
+    Sleep    5
+    Swipe to element    ${lblYourPaymentAmount}
+    Click Mobile Element    ${txtPaymentAmount}
+    Clear Text    ${txtPaymentAmount}
+    Input Mobile Text    ${txtPaymentAmount}    20
+    Hide Keyboard
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSelectPaymentChannels}
+    Mobile Capture Screen At Verify Point    NotSlectChannel
+
+Verify Pop up Not input mobile number
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredIncorrectPhoneNumber}
+    Mobile Capture Screen At Verify Point    NotInputMobileNumber
+
+Verify Pop up JCB has information and input postpaid
+    sleep    2
+    Input AIS Postpaid    ${AISPostpaidNumberProd}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Select credit card    JCB
+    Swipe to element    ${lbl100}
+    Click Mobile Element    ${lbl100}
+    Click Mobile Element    ${btnOK}
+    Sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberAISpostpaid}
+    Mobile Capture Screen At Verify Point    JCB has information and input postpaid number
+
+Verify Pop up no information and no payment channel
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Swipe to element    ${btnOK}
+    sleep    2
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSelectPaymentChannels}
+    Mobile Capture Screen At Verify Point    no information and no payment
+
+Input AIS Prepaid
+    [Arguments]    ${Number}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${Number}
+    Run Keyword And Ignore Error    Hide keyboard    key_name=Return
+
+Verify Pop up VISA no information and no amount
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${btnOK}
+    sleep    2
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtNotSelectTopUpAmount}
+    Mobile Capture Screen At Verify Point    VISA no information and no amount
+
+Verify Pop up MasterCard no information and no amount
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${btnOK}
+    sleep    2
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtNotSelectTopUpAmount}
+    Mobile Capture Screen At Verify Point    MasterCard no information and no amount
+
+Verify Pop up JCB no information and no amount
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${btnOK}
+    sleep    2
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtNotSelectTopUpAmount}
+    Mobile Capture Screen At Verify Point    JCB no information and no amount
+
+Verify Pop up Ewallet no information and no amount
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Click Mobile Element    ${picEWallet}
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtNotSelectTopUpAmount}
+    Mobile Capture Screen At Verify Point    Ewallet no information and no amount
+
+Verify Pop up VISA has information and no amount
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Select credit card    Visa
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtNotSelectTopUpAmount}
+    Mobile Capture Screen At Verify Point    VISA has information and no amount
+
+Verify Pop up Amax no information and no amount
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtNotSelectTopUpAmount}
+    Mobile Capture Screen At Verify Point    Amax no information and no amount
+
+Verify Pop up MasterCard has information and no amount
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Select credit card    MasterCard
+    Swipe to element    ${btnOK}
+    sleep    2
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtNotSelectTopUpAmount}
+    Mobile Capture Screen At Verify Point    MasterCard has information and no amount
+
+Verify Pop up JCB has information and no amount
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Select credit card    JCB
+    Swipe to element    ${btnOK}
+    sleep    2
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtNotSelectTopUpAmount}
+    Mobile Capture Screen At Verify Point    JCB has information and no amount
+
+Verify Pop up no input Refill Card Code
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Swipe to element    ${btnRefillCard}
+    Click Mobile Element    ${btnRefillCard}
+    sleep    2
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterA16DigitsPINcode}
+    Mobile Capture Screen At Verify Point    no input Refill Card Code
+
+Verify Pop up no input no 16 digit
+    sleep    2
+    Input AIS Prepaid    ${AISNonbossPrepaidNumberProd}
+    Swipe to element    ${btnRefillCard}
+    Click Mobile Element    ${btnRefillCard}
+    sleep    2
+    Input Mobile Text    ${txtBoxInputRefillCard}    1234567
+    sleep    2
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtEnter16digitsPINcode}
+    Mobile Capture Screen At Verify Point    Popup no 16 digit
+
+Verify Pop up input mobile number not 10 digit
+    [Documentation]    Owner: Pu
+    Input number sub menu payment    ${WrongDigitNumber}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredIncorrectPhoneNumber}
+    Mobile Capture Screen At Verify Point    MobileNumberNot10Digit
+
+Verify Pop up input mobile number invalid format
+    Input number sub menu payment    ${WrongFormatNumber}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtYouHaveEnteredIncorrectPhoneNumber}
+    Mobile Capture Screen At Verify Point    MobileNumberInvalid
+
+Verify Pop up input mobile number not AIS
+    Input number sub menu payment    0863826236
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseSpecifyYourAISmobileNumber}
+    Mobile Capture Screen At Verify Point    MobileNumberNotAIS
+
+Verify Pop up input mobile number AIS Prepaid
+    Input number sub menu payment    ${AISPrepaidNumberTest}
+    Click Mobile Element    ${btnNext}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPaymentPageInputPrepaidNumber}
+    Mobile Capture Screen At Verify Point    MobileNumberPrepaid
+
+Verify Pop up RefilCard and input postpaid
+    Sleep    2
+    Input different network    ${AISPostpaidNumberProd}
+    Swipe to element    ${picRefillCard}
+    Click Mobile Element    ${picRefillCard}
+    Input Mobile Text    ${lblInputPinCode}    1258798564589752
+    Sleep    2
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Sleep    2
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtDestinationNumberAISpostpaid}
+    Mobile Capture Screen At Verify Point    RefillCard no information and input postpaid number
+
+Verify Topup Dialog Pop up Message
+    [Arguments]    ${TypeCreditCard}    ${Expected}    ${NameOfCaptureScreen}
+    Click Mobile Element    ${lblTopup}
+    Swipe Element To Screen    ${TypeCreditCard}
+    Click Mobile Element    ${TypeCreditCard}
+    Swipe Element To Screen    ${btnTopupNext}
+    Click Mobile Element    ${lbl300}
+    Comment    Swipe to element    ${btnTopupNext}
+    Click Mobile Element    ${btnTopupNext}
+    Mobile element name should be    ${lblPleasePopUpAlert}    ${Expected}
+    Mobile Capture Screen At Verify Point    ${NameOfCaptureScreen}
+
+Verify Topup Destination Number Dialog Pop up Message
+    [Arguments]    ${Number}    ${TypeCreditCard}    ${Expected}    ${NameOfCaptureScreen}
+    Click Mobile Element    ${lblTopup}
+    Wait Mobile Until Element Visible    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    ${Number}
+    Click Mobile Element    ${TypeCreditCard}
+    Swipe to element    ${btnTopupNext}
+    Sleep    3
+    Click Mobile Element    ${lbl300}
+    Comment    Swipe to element    ${btnTopupNext}
+    Sleep    3
+    Click Mobile Element    ${btnTopupNext}
+    Mobile element name should be    ${lblPleasePopUpAlert}    ${Expected}
+    Mobile Capture Screen At Verify Point    ${NameOfCaptureScreen}
+
+Verify Payment Page
+    [Arguments]    ${Number}
+    Click Mobile Element    ${lblPayment}
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblEnterdestinationnumberPayment}    ${txtEnterDestinationNumberYouWishToPayment}
+    Comment    Mobile element name should be    ${btnBack}    ${txtBack}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile Capture Screen At Verify Point    IMG Verify Payment Page
+
+Verify Payment Page Not UsageBalance and Not CreditCard
+    Select Menu    TopupAndPayment
+    Click Mobile Element    ${lblPayment}
+    Input Mobile Text    ${txtBoxlMobileNumberPayment}    ${AISNonbosPostpaidProdNoOutstandingBal}
+    Click Mobile Element    ${btnNext}
+    Mobile element name should be    ${lblMobileNumber}    ${AISNonbosPostpaidProdNoOutstandingBal}
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblNoOutstandingBalance}    ${txtNoOutstandingBalance}
+    Mobile element name should be    ${lblAdvancepayment}    ${txtAdvancePayment}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Wait Mobile Until Element Visible    ${lblAMEX}
+    Mobile element name should be    ${lblEWallet}    ${txtEWallet}
+    Wait Mobile Until Element Visible    ${btnEWALLET}
+    Swipe to element    ${lblTermsAndConditions}
+    Mobile element name should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Comment    Mobile element name should be    ${btnBack}    ${txtBack}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile element name should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    IMG Verify Payment Page not UsageBalance and not CreditCard
+
+Verify Payment Page Not UsageBalance And Have CreditCard
+    Click Mobile Element    ${lblPayment}
+    Input Mobile Text    ${txtBoxlMobileNumberPayment}    ${AISNonbosPostpaidProdNoOutstandingBal}
+    Click Mobile Element    ${btnNext}
+    Mobile element name should be    ${lblMobileNumber}    ${AISNonbosPostpaidProdNoOutstandingBal}
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblNoOutstandingBalance}    ${txtNoOutstandingBalance}
+    Mobile element name should be    ${lblAdvancepayment}    ${txtAdvancePayment}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element name should be    ${lblManage}    ${txtManage}
+    Wait Mobile Until Element Visible    ${imgVISA}
+    Mobile element text should match regexp    ${txtPaymentCardNumberVISA}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgMasterCard}
+    Mobile element text should match regexp    ${txtPaymentCardNumberMasterCard}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgJCB}
+    Mobile element text should match regexp    ${txtPaymentCardNumberJCB}    \\d{4}\\s\\d{2}[\\*]{2}\\s[\\*]{4}\\s\\d{4}
+    Wait Mobile Until Element Visible    ${imgOther}
+    Swipe to element    ${lblTermsAndConditions}
+    Wait Mobile Until Element Visible    ${imgEwalletinOtherCard}
+    Mobile element text should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Comment    Mobile element text should be    ${btnBack}    ${txtBack}
+    Mobile element text should be    ${btnNext}    ${txtNext}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    IMG Verify Payment Page not UsageBalance and have CreditCard
+
+Verify Payment Page Have Balance and Not CreditCard
+    Click Mobile Element    ${lblPayment}
+    Input Mobile Text    ${txtBoxlMobileNumberPayment}    ${AISPostpaidOutstandingBalance}
+    Click Mobile Element    ${btnNext}
+    Mobile element name should be    ${lblMobileNumber}    ${AISPostpaidOutstandingBalance}
+    Mobile element name should be    ${lblYourUsageCharges}    ${txtYourUsageCharges}
+    Mobile element name should be    ${lblBillingCycle}    ${txtBillingCycle}
+    Mobile element name should be    ${lblDueDate}    ${txtDueDate}
+    Mobile element name should be    ${lblYourBalance}    ${txtYourBalance}
+    Mobile element name should be    ${lblTotalBillingAmount}    ${txtTotalBillingAmount}
+    Mobile element name should be    ${lblYourPaymentAmount}    ${txtYourPaymentAmount}
+    Mobile element name should be    ${lblPaymentChannels}    ${txtPaymentChannels}
+    Mobile element name should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Wait Mobile Until Element Visible    ${lblVISA}
+    Wait Mobile Until Element Visible    ${lblMasterCard}
+    Wait Mobile Until Element Visible    ${lblJCB}
+    Wait Mobile Until Element Visible    ${lblAMEX}
+    Mobile element name should be    ${lblEWallet}    ${txtEWallet}
+    Swipe to element    ${lblTermsAndConditions}
+    Wait Mobile Until Element Visible    ${btnEWALLET}
+    Mobile element name should be    ${lblPleaseVerifyYourPayment}    ${txtPleaseVerifyYourPaymentInformation}
+    Comment    Mobile element name should be    ${btnBack}    ${txtBack}
+    Mobile element name should be    ${btnNext}    ${txtNext}
+    Mobile element name should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Page Payment have usagebalance and not have creditcard
+
+Verify page payment detail no information by Ewallet
+    Sleep    2
+    Click Mobile Element    ${picEwalletPayment}
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Sleep    2
+    Mobile element text should be    ${lblPaymentDetailsSummaryInAMEXAndEwallet}    ${txtPaymentDetailsInAMEXCard}
+    Mobile element text should be    ${lblDestinationNumberSummaryInAMEXAndEwallet}    ${txtDestinationNumber}
+    Mobile element text should be    ${lblPaymentChannelsSummaryInAMEXAndEwallet}    ${txtPaymentChannels}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Mobile element text should be    ${btnPaymentAmexEwalletBack}    ${txtBack}
+    Mobile element text should be    ${btnOKInSummaryAMEXAndEwallet}    ${txtOK}
+    Mobile Capture Screen At Verify Point    Verify page payment detail and no information by Ewallet
+
+Mobile element name should match regexp
+    [Arguments]    ${locator}    ${MessageExpect}    ${timeout}=${lo_general_timeout}
+    Wait Mobile Until Element Visible    ${locator}
+    ${RealExpired}    Get mobile attribute    ${locator}    name
+    Log    Expect ${MessageExpect}
+    Should Match Regexp    ${RealExpired}    ${MessageExpect}
+
+Verify Topup Dialog Pop up Message Show Detail
+    [Arguments]    ${TypeCreditCard}    ${Expected}    ${NameOfCaptureScreen}
+    Click Mobile Element    ${lblTopup}
+    Swipe Element To Screen    ${TypeCreditCard}
+    Click Mobile Element    ${TypeCreditCard}
+    Swipe Element To Screen    ${lbl300}
+    Click Mobile Element    ${lbl300}
+    Swipe Element To Screen    ${btnTopupNext}
+    Click Mobile Element    ${btnTopupNext}
+    Click Mobile Element    ${btnNext}
+    Mobile element name should be    ${lblPleasePopUpAlert}    ${Expected}
+    Mobile Capture Screen At Verify Point    ${NameOfCaptureScreen}
+
+Select Month In Expiry Date
+    [Arguments]    ${Month}
+    Click Mobile Element    ${txtBoxInputMonthInPaymentDetailPage}
+    Click Mobile Element    ${lblMMInExpiryDate}
+    Click Mobile Element    ${txtBoxInputMonthInPaymentDetailPage}
+    Swipe Element To Screen    xpath=//android.view.View[@resource-id="body"]/android.view.View[@index="6"]/android.view.View[@index="5"]//android.widget.ListView[@index="1"]/android.view.View[@content-desc="${Month}"]
+    Click Mobile Element    xpath=//android.view.View[@resource-id="body"]/android.view.View[@index="6"]/android.view.View[@index="5"]//android.widget.ListView[@index="1"]/android.view.View[@content-desc="${Month}"]
+
+Select Year In Expiry Date
+    [Arguments]    ${Year}
+    Click Mobile Element    ${txtBoxInputYearInPaymentDetailPage}
+    Click Mobile Element    ${lblYYYYInExpiryDate}
+    Click Mobile Element    ${txtBoxInputYearInPaymentDetailPage}
+    Click Mobile Element    xpath=//android.view.View[@resource-id="body"]/android.view.View[@index="6"]/android.view.View[@index="6"]//android.widget.ListView[@index="1"]/android.view.View[@content-desc="${Year}"]
+
+Go to TopUp by VISA No CreditCard
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Mobile Element    ${btnOK}
+    Sleep    5
+    Comment    Click Mobile Element    ${btnOkAlert}
+    Sleep    5
+    Mobile Capture Screen At Verify Point    VisaDetail
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${ctdChannel}
+    Wait Mobile Until Element Visible    ${ctdCardType}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${ctdCredit/Debit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${txtBCardNo}
+    Wait Mobile Until Element Visible    ${ctdExpriry}
+    Swipe element to specific area    ${btnSubmit}    ratio=0.2
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Wait Mobile Until Element Visible    ${lblCCVBox}
+    Wait Mobile Until Element Visible    ${btnDisableCancel}
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Comment    Click Mobile Element    ${txtBCardNo}
+    Comment    Input Mobile Text    ${txtBCardNo}    4546289950108110
+    Comment    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Comment    Click Mobile Element    ${lblCCVBox}
+    Comment    Input Mobile Text    ${lblCCVBox}    897
+    Comment    Click Mobile Element    ${btnSubmit}
+
+Verify Bank
+    Sleep    10
+    Comment    Click Mobile Element    ${btnOkAlert}
+    Comment    Wait Mobile Until Element Visible    xpath=//*[@content-desc="ACS Simulator"]
+    Comment    Wait Mobile Until Element Visible    xpath=//*[@content-desc="bank-logo"]
+    Wait Mobile Until Element Visible    ${lblPageConfirmBanking}
+    Mobile Capture Screen At Verify Point    Bank
+
+Go to TopUP by MasterCard No CreditCard
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl200}
+    Click Mobile Element    ${btnOK}
+    Sleep    5
+    Comment    Click Mobile Element    ${btnOkAlert}
+    Comment    Sleep    5
+    Mobile Capture Screen At Verify Point    MasterCardDetail
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${ctdChannel}
+    Wait Mobile Until Element Visible    ${ctdCardType}
+    Sleep    30s
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${ctdCredit/Debit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${txtBCardNo}
+    Wait Mobile Until Element Visible    ${ctdExpriry}
+    Swipe element to specific area    ${btnSubmit}    ratio=0.2
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Wait Mobile Until Element Visible    ${lblCCVBox}
+    Wait Mobile Until Element Visible    ${btnDisableCancel}
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Comment    Click Mobile Element    ${textBoxCreditAndDrebitCardNo.}
+    Comment    Input Mobile Text    ${textBoxCreditAndDrebitCardNo.}    5444859950005118
+    Comment    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Comment    Click Mobile Element    ${lblCCVBox}
+    Comment    Input Mobile Text    ${lblCCVBox}    730
+    Comment    Click Mobile Element    ${btnSubmit}
+
+Go to TopUp by JCB No CreditCard
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl200}
+    Click Mobile Element    ${btnOK}
+    Sleep    5
+    Mobile Capture Screen At Verify Point    JCBDetail
+    Comment    Click Mobile Element    ${btnOkAlert}
+    Sleep    5
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${ctdChannel}
+    Wait Mobile Until Element Visible    ${ctdCardType}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${ctdCredit/Debit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${txtBCardNo}
+    Wait Mobile Until Element Visible    ${ctdExpriry}
+    Swipe element to specific area    ${btnSubmit}    ratio=0.2
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Wait Mobile Until Element Visible    ${lblCCVBox}
+    Wait Mobile Until Element Visible    ${btnDisableCancel}
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Comment    Click Mobile Element    ${textBoxCreditAndDrebitCardNo.}
+    Comment    Input Mobile Text    ${textBoxCreditAndDrebitCardNo.}    3569990010078938
+    Comment    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Comment    Click Mobile Element    ${lblCCVBox}
+    Comment    Input Mobile Text    ${lblCCVBox}    123
+    Comment    Click Mobile Element    ${btnSubmit}
+
+Go to TopUp by AMEX No CreditCard
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl200}
+    Click Mobile Element    ${btnOK}
+    Sleep    2
+    Comment    Mobile Capture Screen At Verify Point    AMexDetail
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblSummaryTopUp}    ${txtSummaryoftopup}
+    Mobile element text should be    ${lblTopUpChannels}    ${txtTopUpChannels}
+    Mobile element text should be    ${lblCardType}    ${txtCardtype}
+    Mobile element text should be    ${lblTopUpno.}    ${txtTopuptonumber}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Click Mobile Element    ${btnNext}
+
+Verify BangKok Bank
+    Sleep    10
+    Comment    Click Mobile Element    ${btnOkAlert}
+    Wait Mobile Until Element Visible    ${lblBankCardNum}
+    Wait Mobile Until Element Visible    ${lblBankExpireDate}
+    Wait Mobile Until Element Visible    ${lblBankHolderName}
+    Wait Mobile Until Element Visible    ${lblBankCountry}
+    Wait Mobile Until Element Visible    ${lblBankName}
+    Wait Mobile Until Element Visible    ${lblBankOthers}
+    Wait Mobile Until Element Visible    ${lblBankCVV2/CVC2}
+    Wait Mobile Until Element Visible    ${btnCancelBank}
+    Wait Mobile Until Element Visible    ${btnSubmitBank}
+    Mobile Capture Screen At Verify Point    BangkokBank
+
+Go to Top up to other number with VISA_No Credit Card
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0932015586
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl20}
+    Click Mobile Element    ${btnOK}
+    Comment    Click Mobile Element    ${btnOkAlert}
+    Sleep    10
+    Mobile Capture Screen At Verify Point    TopUpToOtherNumberVisa
+    Swipe element to specific area    ${btnSubmit}
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${ctdChannel}
+    Wait Mobile Until Element Visible    ${ctdCardType}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${ctdCredit/Debit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${txtBCardNo}
+    Wait Mobile Until Element Visible    ${ctdExpriry}
+    Swipe element to specific area    ${btnSubmit}    ratio=0.2
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Wait Mobile Until Element Visible    ${lblCCVBox}
+    Wait Mobile Until Element Visible    ${btnDisableCancel}
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Comment    Click Mobile Element    xpath=//*[@resource-id="cardNo"]
+    Comment    Input Mobile Text    xpath=//*[@resource-id="cardNo"]    4546289950108110
+    Comment    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Comment    Click Mobile Element    ${lblCCVBox}
+    Comment    Input Mobile Text    ${lblCCVBox}    897
+    Comment    Click Mobile Element    ${btnSubmit}
+
+Verify TopUP Page
+    Click Mobile Element    ${lblTopup}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblEnterDestinationNumber}    ${txtEnterdestinationnumberyouwishtotopup}
+    Wait Mobile Until Page Contains Element    ${lblEnterDestinationNumber}
+    Mobile check existing text    ${txtBoxlMobileNumber}
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${txtPleaseselecttopupchannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element text should be    ${lblManage}    ${txtManage}
+    Wait Mobile Until Page Contains Element    ${imgVISA}
+    Mobile check existing text    ${lblVISANo.}
+    Wait Mobile Until Page Contains Element    ${imgMasterCard}
+    Mobile check existing text    ${lblMasterCardNo.}
+    Wait Mobile Until Page Contains Element    ${imgJCB}
+    Mobile check existing text    ${lblJCBNo.}
+    Wait Mobile Until Page Contains Element    ${imgOther}
+    Swipe to element    ${lblRefillCard}
+    Mobile element text should be    ${lblEWallet}    ${txtEWallet}
+    Mobile element text should be    ${lblRefillCard}    ${txtRefillCard}
+    Swipe to element    ${lbl10}
+    Sleep    2
+    Comment    Mobile element name should be    ${lblSelectTopupAmount}    ${txtSelecttopupamount}
+    Mobile element text should be    ${lbl10}    ${txtTen}
+    Mobile element text should be    ${lbl20}    ${txtTwenty}
+    Mobile element text should be    ${lbl30}    ${txtThirty}
+    Mobile element text should be    ${lbl40}    ${txtFourty}
+    Mobile element text should be    ${lbl100}    ${txtOneHunred}
+    Mobile element text should be    ${lbl200}    ${txtTwoHundred}
+    Mobile element text should be    ${lbl300}    ${txtThreeHundred}
+    Click Mobile Element    ${lblMore}
+    Mobile element text should be    ${lbl50}    ${txtFifty}
+    Mobile element text should be    ${lbl400}    ${txtFourHundred}
+    Mobile element text should be    ${lbl500}    ${txtFiveHundred}
+    Mobile element text should be    ${lbl600}    ${txtSixHundred}
+    Mobile element text should be    ${lbl700}    ${txtSevenHundred}
+    Mobile element text should be    ${lbl800}    ${txtEightHundred}
+    Mobile element text should be    ${lbl1000}    ${txtOneThousand}
+    Mobile element text should be    ${lbl1500}    ${txtOneThousandandFiveHundred}
+    Swipe to element    ${btnOK}
+    Mobile element text should be    ${lblPleaseVerifyYourTopup}    ${txtPleaseverifyyourtopupinformation}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    TopUp
+
+Go to TopUP by VISA CreditCard
+    Click Mobile Element    ${lblTopup}
+    Select credit card    Visa
+    Select topup amount    10
+    Click Button OK
+    Sleep    4
+    Click Mobile Element    ${btnOkAlert}
+    Sleep    4
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${lblDebit/Credit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Click Mobile Element    ${lblCCVBox}
+    Input Mobile Text    ${lblCCVBox}    897
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Click Mobile Element    ${btnSubmit}
+
+Go to TopUp by MasterCard CreditCard
+    Click Mobile Element    ${lblTopup}
+    Select credit card    MasterCard
+    Select topup amount    10
+    Click Button OK
+    Sleep    4
+    Click Mobile Element    ${btnOkAlert}
+    Sleep    4
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${lblDebit/Credit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Click Mobile Element    ${lblCCVBox}
+    Input Mobile Text    ${lblCCVBox}    730
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Click Mobile Element    ${btnSubmit}
+
+Go to TopUP by JCB CreditCard
+    Click Mobile Element    ${lblTopup}
+    Select credit card    JCB
+    Select topup amount    10
+    Click Button OK
+    Sleep    4
+    Click Mobile Element    ${btnOkAlert}
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${lblDebit/Credit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Click Mobile Element    ${lblCCVBox}
+    Input Mobile Text    ${lblCCVBox}    123
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Click Mobile Element    ${btnSubmit}
+
+Verify TopUp Page has CreditCard
+    Click Mobile Element    ${lblTopup}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblEnterDestinationNumber}    ${txtEnterdestinationnumberyouwishtotopup}
+    Wait Mobile Until Page Contains Element    ${lblEnterDestinationNumber}
+    Mobile check existing text    ${txtBoxlMobileNumber}
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${txtPleaseselecttopupchannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element text should be    ${lblManage}    ${txtManage}
+    Wait Mobile Until Page Contains Element    ${imgVISA}
+    Mobile check existing text    ${lblVISANo.}
+    Wait Mobile Until Page Contains Element    ${imgMasterCard}
+    Mobile check existing text    ${lblMasterCardNo.}
+    Wait Mobile Until Page Contains Element    ${imgJCB}
+    Mobile check existing text    ${lblJCBNo.}
+    Wait Mobile Until Page Contains Element    ${imgOther}
+    Click Mobile Element    ${rdoPaymentOther}
+    Sleep    2
+    Mobile Capture Screen At Verify Point    OtherChannel
+    Wait Mobile Until Element Visible    ${lblVISAinOther}
+    Wait Mobile Until Element Visible    ${lblMasterCardinOther}
+    Wait Mobile Until Element Visible    ${lblJCBinOther}
+    Wait Mobile Until Element Visible    ${lblAMEXinOther}
+    Sleep    2
+    Swipe to element    ${lblRefillCard}
+    Mobile element text should be    ${lblEWallet}    ${txtEWallet}
+    Swipe To    ${lblRefillCard}
+    Mobile element text should be    ${lblRefillCard}    ${txtRefillCard}
+    Swipe to element    ${lblSelectTopupAmount}
+    Sleep    2
+    Mobile element name should be    ${lblSelectTopupAmount}    ${txtSelecttopupamount}
+    Mobile element text should be    ${lbl10}    ${txtTen}
+    Mobile element text should be    ${lbl20}    ${txtTwenty}
+    Mobile element text should be    ${lbl30}    ${txtThirty}
+    Mobile element text should be    ${lbl40}    ${txtFourty}
+    Mobile element text should be    ${lbl100}    ${txtOneHunred}
+    Mobile element text should be    ${lbl200}    ${txtTwoHundred}
+    Mobile element text should be    ${lbl300}    ${txtThreeHundred}
+    Click Mobile Element    ${lblMore}
+    Mobile element text should be    ${lbl50}    ${txtFifty}
+    Mobile element text should be    ${lbl400}    ${txtFourHundred}
+    Mobile element text should be    ${lbl500}    ${txtFiveHundred}
+    Mobile element text should be    ${lbl600}    ${txtSixHundred}
+    Mobile element text should be    ${lbl700}    ${txtSevenHundred}
+    Mobile element text should be    ${lbl800}    ${txtEightHundred}
+    Mobile element text should be    ${lbl1000}    ${txtOneThousand}
+    Mobile element text should be    ${lbl1500}    ${txtOneThousandandFiveHundred}
+    Swipe to element    ${btnOK}
+    Mobile element text should be    ${lblPleaseVerifyYourTopup}    ${txtPleaseverifyyourtopupinformation}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    TopUp by OtherChannel
+
+Verify Manage CreditCard
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${lblManage}
+    Click Mobile Element    xpath=//android.widget.FrameLayout[@index="4"]/android.widget.LinearLayout[@index="0"]//android.widget.ImageView[@index="2"]
+    Sleep    2
+    Mobile check existing text    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_dialog_tv_title"]
+    Mobile check existing text    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/credit_card_profile_tv_credit_card_number"]
+    Wait Mobile Until Element Visible    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_dialog_btn_positive_reverse"]
+    Wait Mobile Until Element Visible    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_dialog_btn_negative"]
+    Mobile Capture Screen At Verify Point    MsgPopUp
+
+Verify TopUp by EWallet
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${picEWallet}
+    Select topup amount    10
+    Click Button OK
+    Sleep    5s
+    Mobile element text should be    ${lblSummaryTopUp}    ${txtSummaryoftopup}
+    Mobile element text should be    ${lblTopUpChannels}    ${txtTopUpChannels}
+    Mobile element text should be    ${lblTopUpno.}    ${txtTopuptonumber}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Mobile Capture Screen At Verify Point    Ewallet
+
+Verify TopUP by RefillCard
+    Click Mobile Element    ${lblTopup}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblEnterDestinationNumber}    ${txtEnterdestinationnumberyouwishtotopup}
+    Wait Mobile Until Page Contains Element    ${lblEnterDestinationNumber}
+    Mobile check existing text    ${txtBoxlMobileNumber}
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${txtPleaseselecttopupchannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element text should be    ${lblEWallet}    ${txtEWallet}
+    Swipe to element    ${lblPleaseVerifyYourTopup}
+    Mobile element text should be    ${lblRefillCard}    ${txtRefillCard}
+    Sleep    2
+    Click Mobile Element    ${picRefillCard}
+    Mobile element text should be    ${lblPleaseEntercodeRefill}    ${txtEnterPINcode}
+    Wait Mobile Until Element Visible    ${txtBoxInputRefillCard}
+    Mobile element text should be    ${lblPleaseVerifyYourTopup}    ${txtPleaseverifyyourtopupinformation}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Click Mobile Element    ${txtBoxInputRefillCard}
+    Input Mobile Text    ${txtBoxInputRefillCard}    ${PintRefillCard}
+    Click Mobile Element    ${btnOK}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblSummaryTopUp}    ${txtSummaryoftopup}
+    Mobile element text should be    ${lblTopUpChannels}    ${txtTopUpChannels}
+    Mobile element text should be    ${lblTopUpno.}    ${txtTopuptonumber}
+    Mobile element text should be    ${lblPINCode}    ${txtPINCode}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Mobile Capture Screen At Verify Point    RefillCard
+
+Go to Top up to other number with MasterCard_No Credit Card
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0932015586
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl20}
+    Click Mobile Element    ${btnOK}
+    Comment    Click Mobile Element    ${btnOkAlert}
+    Sleep    5
+    Mobile Capture Screen At Verify Point    TopUpToOtherNumberviaMasterCard
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${ctdChannel}
+    Wait Mobile Until Element Visible    ${ctdCardType}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${ctdCredit/Debit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${txtBCardNo}
+    Wait Mobile Until Element Visible    ${ctdExpriry}
+    Swipe element to specific area    ${btnSubmit}    ratio=0.2
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Wait Mobile Until Element Visible    ${lblCCVBox}
+    Wait Mobile Until Element Visible    ${btnDisableCancel}
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Comment    Click Mobile Element    ${textBoxCreditAndDrebitCardNo.}
+    Comment    Input Mobile Text    ${textBoxCreditAndDrebitCardNo.}    5444859950005118
+    Comment    Select Month In Expiry Date    09
+    Comment    Select Year In Expiry Date    2018
+    Comment    Click Mobile Element    ${lblCCVBox}
+    Comment    Input Mobile Text    ${lblCCVBox}    730
+    Comment    Click Mobile Element    ${btnSubmit}
+
+Go to Top up to other number with JCB_No Credit Card
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0932015586
+    Click Mobile Element    ${lblJCB}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl20}
+    Click Mobile Element    ${btnOK}
+    Comment    Click Mobile Element    ${btnOkAlert}
+    Sleep    5
+    Mobile Capture Screen At Verify Point    TopUpToOtherNumberJCB
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${ctdChannel}
+    Wait Mobile Until Element Visible    ${ctdCardType}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${ctdCredit/Debit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${txtBCardNo}
+    Wait Mobile Until Element Visible    ${ctdExpriry}
+    Swipe element to specific area    ${btnSubmit}    ratio=0.2
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Wait Mobile Until Element Visible    ${lblCCVBox}
+    Wait Mobile Until Element Visible    ${btnDisableCancel}
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Click Mobile Element    ${textBoxCreditAndDrebitCardNo.}
+    Input Mobile Text    ${textBoxCreditAndDrebitCardNo.}    3569990010078938
+    Select Month In Expiry Date    09
+    Select Year In Expiry Date    2018
+    Click Mobile Element    ${lblCCVBox}
+    Input Mobile Text    ${lblCCVBox}    123
+    Comment    Click Mobile Element    ${btnSubmit}
+
+Go to Top up to other number with AMEX_No Credit Card
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0932015586
+    Click Mobile Element    ${lblAMEX}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl20}
+    Click Mobile Element    ${btnOK}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblSummaryTopUp}    ${txtSummaryoftopup}
+    Mobile element text should be    ${lblTopUpChannels}    ${txtTopUpChannels}
+    Mobile element text should be    ${lblCardType}    ${txtCardtype}
+    Mobile element text should be    ${lblTopUpno.}    ${txtTopuptonumber}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Click Mobile Element    ${btnNext}
+
+Go to TopUp Other Number by VISA CreditCard
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0932015586
+    Select credit card    Visa
+    Select topup amount    10
+    Click Button OK
+    Comment    Click Mobile Element    ${btnOkAlert}
+    Sleep    5
+    Mobile Capture Screen At Verify Point    TopUpToOtherNumberVisa
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${lblDebit/Credit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Click Mobile Element    ${lblCCVBox}
+    Input Mobile Text    ${lblCCVBox}    703
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Comment    Click Mobile Element    ${btnSubmit}
+
+Verify YourCredit/Debit Card
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${lblManage}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile check existing text    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_toolbar_simple_tv_title"]
+    Mobile check existing text    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/credit_card_profile_tv_title"]
+    Mobile check existing text    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/credit_card_profile_tv_desc"]
+    Wait Mobile Until Element Visible    //android.support.v7.widget.RecyclerView[@index="1"]//android.widget.FrameLayout[@index="4"]
+    Wait Mobile Until Element Visible    //android.support.v7.widget.RecyclerView[@index="1"]//android.widget.FrameLayout[@index="5"]
+    Wait Mobile Until Element Visible    //android.support.v7.widget.RecyclerView[@index="1"]//android.widget.FrameLayout[@index="6"]
+    Mobile Capture Screen At Verify Point    Manage
+
+Go to TopUp Other Number by MasterCard CreditCard
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0927980140
+    Select credit card    MasterCard
+    Select topup amount    10
+    Click Button OK
+    Click Mobile Element    ${btnOkAlert}
+    Sleep    5
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${lblDebit/Credit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Click Mobile Element    ${lblCCVBox}
+    Input Mobile Text    ${lblCCVBox}    703
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Click Mobile Element    ${btnSubmit}
+
+Go to TopUp Other Number by JCB CreditCard
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0927980140
+    Select credit card    JCB
+    Select topup amount    10
+    Click Button OK
+    Click Mobile Element    ${btnOkAlert}
+    Wait Mobile Until Element Visible    ${lblsumTopUp}
+    Wait Mobile Until Element Visible    ${lblMobile}
+    Wait Mobile Until Element Visible    ${lblAmounts}
+    Wait Mobile Until Element Visible    ${lblDebit/Credit}
+    Wait Mobile Until Element Visible    ${lblCardsNo.}
+    Wait Mobile Until Element Visible    ${lblCVVno.}
+    Click Mobile Element    ${lblCCVBox}
+    Input Mobile Text    ${lblCCVBox}    897
+    Wait Mobile Until Element Visible    ${btnSubmit}
+    Click Mobile Element    ${btnSubmit}
+
+Verify TopUp Other Number by Other Channel
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0927980140
+    Click Mobile Element    ${rdoPaymentOther}
+    Mobile Capture Screen At Verify Point    OtherChannel
+    Wait Mobile Until Element Visible    ${lblVISAinOther}
+    Wait Mobile Until Element Visible    ${lblMasterCardinOther}
+    Wait Mobile Until Element Visible    ${lblJCBinOther}
+    Wait Mobile Until Element Visible    ${lblAMEXinOther}
+    Sleep    2
+    Swipe Element To Screen    ${lblRefillCard}
+    Mobile element text should be    ${lblEWallet}    ${txtEWallet}
+    Swipe Element To Screen    ${lblRefillCard}
+    Mobile element text should be    ${lblRefillCard}    ${txtRefillCard}
+    Swipe Element To Screen    ${lblSelectTopupAmount}
+    Sleep    2
+    Comment    Mobile element name should be    ${lblSelectTopupAmount}    ${txtSelecttopupamount}
+    Mobile element text should be    ${lbl10}    ${txtTen}
+    Mobile element text should be    ${lbl20}    ${txtTwenty}
+    Mobile element text should be    ${lbl30}    ${txtThirty}
+    Mobile element text should be    ${lbl40}    ${txtFourty}
+    Mobile element text should be    ${lbl100}    ${txtOneHunred}
+    Mobile element text should be    ${lbl200}    ${txtTwoHundred}
+    Mobile element text should be    ${lbl300}    ${txtThreeHundred}
+    Click Mobile Element    ${lblMore}
+    Mobile element text should be    ${lbl50}    ${txtFifty}
+    Mobile element text should be    ${lbl400}    ${txtFourHundred}
+    Mobile element text should be    ${lbl500}    ${txtFiveHundred}
+    Mobile element text should be    ${lbl600}    ${txtSixHundred}
+    Mobile element text should be    ${lbl700}    ${txtSevenHundred}
+    Mobile element text should be    ${lbl800}    ${txtEightHundred}
+    Mobile element text should be    ${lbl1000}    ${txtOneThousand}
+    Mobile element text should be    ${lbl1500}    ${txtOneThousandandFiveHundred}
+    Swipe to element    ${btnOK}
+    Mobile element text should be    ${lblPleaseVerifyYourTopup}    ${txtPleaseverifyyourtopupinformation}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Mobile Capture Screen At Verify Point    TopUp by OtherChannel
+
+Verify TopUp Other Number by E-Wallet
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0932015586
+    Click Mobile Element    ${picEWallet}
+    Select topup amount    10
+    Click Button OK
+    Mobile element text should be    ${lblSummaryTopUp}    ${txtSummaryoftopup}
+    Mobile element text should be    ${lblTopUpChannels}    ${txtTopUpChannels}
+    Mobile element text should be    ${lblTopUpno.}    ${txtTopuptonumber}
+    Mobile element text should be    ${lblAmount}    ${txtAmount}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Mobile Capture Screen At Verify Point    Ewallet
+
+Verify TopUp Other Number by RefillCard
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Input Mobile Text    ${txtBoxlMobileNumber}    0932015586
+    Mobile element text should be    ${lblPleaseSelectTopupChannels}    ${txtPleaseselecttopupchannels}
+    Mobile element text should be    ${lblCreditAndDebitCard}    ${txtCreditCardDebitCard}
+    Mobile element text should be    ${lblEWallet}    ${txtEWallet}
+    Swipe to element    ${lblPleaseVerifyYourTopup}
+    Mobile element text should be    ${lblRefillCard}    ${txtRefillCard}
+    Sleep    2
+    Click Mobile Element    ${picRefillCard}
+    Mobile element text should be    ${lblPleaseEntercodeRefill}    ${txtEnterPINcode}
+    Wait Mobile Until Element Visible    ${txtBoxInputRefillCard}
+    Mobile element text should be    ${lblPleaseVerifyYourTopup}    ${txtPleaseverifyyourtopupinformation}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile element text should be    ${lblTermsAndConditions}    ${TermsAndConditions}
+    Click Mobile Element    ${txtBoxInputRefillCard}
+    Input Mobile Text    ${txtBoxInputRefillCard}    ${PintRefillCard}
+    Click Mobile Element    ${btnOK}
+    Mobile check existing text    ${lblMobileNumber}
+    Mobile element text should be    ${lblSummaryTopUp}    ${txtSummaryoftopup}
+    Mobile element text should be    ${lblTopUpChannels}    ${txtTopUpChannels}
+    Mobile element text should be    ${lblTopUpno.}    ${txtTopuptonumber}
+    Mobile element text should be    ${lblPINCode}    ${txtPINCode}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Mobile Capture Screen At Verify Point    RefillCard
+
+Verify PopUp Alert Top Up No VISA_Do not enter the number
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${lblVISA}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl100}
+    Click Button OK
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterTheDestinationNumberForTopUp}
+    Mobile Capture Screen At Verify Point    TopUPVISA
+
+Verify PopUp Alert Top Up No MasterCard_Do not enter the number
+    Click Mobile Element    ${lblTopup}
+    Click Mobile Element    ${txtBoxlMobileNumber}
+    Clear Text    ${txtBoxlMobileNumber}
+    Click Mobile Element    ${lblMasterCard}
+    Swipe to element    ${lbl10}
+    Click Mobile Element    ${lbl200}
+    Click Mobile Element    ${btnOK}
+    Mobile element text should be    ${lblPleasePopUpAlert}    ${txtPleaseEnterTheDestinationNumberForTopUp}
+    Mobile Capture Screen At Verify Point    TopUPMASTERCARD
+
+Select credit card
+    [Arguments]    ${card}
+    : FOR    ${index}    IN RANGE    0    5
+    \    ${cardNo}    Get mobile text    xpath=//android.widget.LinearLayout[@index="1"]/android.widget.FrameLayout[@index="${index}"]/android.widget.LinearLayout[@index="0"]//android.widget.TextView[@index="2"]
+    \    Log    ${cardNum.${card}}
+    \    Run Keyword If    "${cardNo}" == "${cardNum.${card}}"    Exit For Loop
+    Click Mobile Element    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/payment_channel_container_radio"]/android.widget.FrameLayout[@index="${index}"]//android.widget.CheckBox[@resource-id="com.ais.mimo.eservice.debug:id/credit_card_cb"]
+
+Select topup amount
+    [Arguments]    ${amount}
+    ${amount}    Convert To Integer    ${amount}
+    Run Keyword If    "${amount}" == "50" or ${amount} > 300    Click Mobile Element    ${lblMore}
+    Swipe Element To Screen    ${lbl${amount}}
+    Comment    Swipe to element    ${lbl${amount}}
+    Sleep    5
+    Click Mobile Element    ${lbl${amount}}
+
+CertificateErrorbtnOK
+    ${statusOKCertError}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnOKCertificateError}
+    Run Keyword If    ${statusOKCertError}    Click Mobile Element    ${btnOKCertificateError}

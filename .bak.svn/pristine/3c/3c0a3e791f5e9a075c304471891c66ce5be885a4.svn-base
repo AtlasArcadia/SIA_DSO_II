@@ -1,0 +1,539 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
+
+*** Test Cases ***
+[F2_1-4_1-2_Y_30_Prod] Go to SMS cancellation inquiries
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "SMS Cancellation/Inquiries"
+    ...    5.Verify FAQ "SMS Cancellation/Inquiries" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - How do i cancel unwanted SMS content service e.g News \ \ \ \ \ \ report, horoscopes,advertisements for which i have been
+    ...    charged? ( First question )
+    ...    - I have never subscribed any SMS content service, why
+    ...    do i receive them? ( Second question )
+    ...    - I have cancelled all unwanted SMS, why do i still receive
+    ...    SMS ( Third question )
+    ...    - How do i know if i have subscribed to any SMS content
+    ...    service? ( Fourth question )
+    ...    - Can i use my lanline number to cancel unwanted a SMS
+    ...    content service? ( Fifth question )
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.เลือก เมนู "การยกเลิก SMS โฆษณา"
+    ...    5.ตรวจสอบหน้าถามตอบ "การยกเลิก SMS โฆษณา"
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - จะยกเลิก SMS ข่าว, ดูดวง, โฆษณาที่เสียเงินได้อย่างไร?
+    ...    (คำถามข้อที่1)
+    ...    - ไม่เคยสมัครบริการเสริม แล้ว SMS มาจากไหน?
+    ...    (คำถามข้อที่2)
+    ...    -ยกเลิกไปแล้ว ทำไมยังมี SMS โฆษณาส่งมาอยู่?
+    ...    (คำถามข้อที่3)
+    ...    -จะเช็กว่ามีบริการเสริม SMS อะไรบ้าง เช็กอย่างไร?
+    ...    (คำถามข้อที่4)
+    ...    - เบอร์บ้าน-เบอร์ออฟฟิต โทร *137 ได้หรือไม่
+    ...    (คำถามข้อที่5)
+    [Tags]    success    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select SMS Cancellation Inquiries Submenu
+    Verify SMS Cancellation/Inquiries Question Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_31_Prod] Go to SMS cancellation inquiries verify first question
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "SMS Cancellation/Inquiries"
+    ...    5.Verify FAQ "SMS Cancellation/Inquiries" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - How do i cancel unwanted SMS content service e.g News \ \ \ \ \ \ report, horoscopes,advertisements for which i have been
+    ...    charged? ( First question )
+    ...    - I have never subscribed any SMS content service, why
+    ...    do i receive them? ( Second question )
+    ...    - I have cancelled all unwanted SMS, why do i still receive
+    ...    SMS ( Third question )
+    ...    - How do i know if i have subscribed to any SMS content
+    ...    service? ( Fourth question )
+    ...    - Can i use my lanline number to cancel unwanted a SMS
+    ...    content service? ( Fifth question )
+    ...    6.Click " First question "
+    ...    7.Verify "Answer" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...    *remark* Regular เปลี่ยนจาก".*" เป็น ".+"
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.เลือก เมนู "การยกเลิก SMS โฆษณา"
+    ...    5.ตรวจสอบหน้าถามตอบ "การยกเลิก SMS โฆษณา"
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - จะยกเลิก SMS ข่าว, ดูดวง, โฆษณาที่เสียเงินได้อย่างไร?
+    ...    (คำถามข้อที่1)
+    ...    - ไม่เคยสมัครบริการเสริม แล้ว SMS มาจากไหน?
+    ...    (คำถามข้อที่2)
+    ...    -ยกเลิกไปแล้ว ทำไมยังมี SMS โฆษณาส่งมาอยู่?
+    ...    (คำถามข้อที่3)
+    ...    -จะเช็กว่ามีบริการเสริม SMS อะไรบ้าง เช็กอย่างไร?
+    ...    (คำถามข้อที่4)
+    ...    - เบอร์บ้าน-เบอร์ออฟฟิต โทร *137 ได้หรือไม่
+    ...    (คำถามข้อที่5)
+    ...    6.เลือก " คำถามข้อที่1 "
+    ...    7.ตรวจสอบหน้าคำตอบ
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select SMSCancellation Inquiries Submenu
+    Comment    Verify SMS Cancellation/Inquiries Question Page    ${virtual_device_1_SN}
+    Select SMS Cancellation/Inquiries Question    1
+    Verify SMS Cancellation/Inquiries Answer    1
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_32_Prod] Go to SMS cancellation inquiries verify second question
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "SMS Cancellation/Inquiries"
+    ...    5.Verify FAQ "SMS Cancellation/Inquiries" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - How do i cancel unwanted SMS content service e.g News \ \ \ \ \ \ report, horoscopes,advertisements for which i have been
+    ...    charged? ( First question )
+    ...    - I have never subscribed any SMS content service, why
+    ...    do i receive them? ( Second question )
+    ...    - I have cancelled all unwanted SMS, why do i still receive
+    ...    SMS ( Third question )
+    ...    - How do i know if i have subscribed to any SMS content
+    ...    service? ( Fourth question )
+    ...    - Can i use my lanline number to cancel unwanted a SMS
+    ...    content service? ( Fifth question )
+    ...    6.Click " Second question "
+    ...    7.Verify "Answer" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...    *remark* Regular เปลี่ยนจาก".*" เป็น ".+"
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.เลือก เมนู "การยกเลิก SMS โฆษณา"
+    ...    5.ตรวจสอบหน้าถามตอบ "การยกเลิก SMS โฆษณา"
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - จะยกเลิก SMS ข่าว, ดูดวง, โฆษณาที่เสียเงินได้อย่างไร?
+    ...    (คำถามข้อที่1)
+    ...    - ไม่เคยสมัครบริการเสริม แล้ว SMS มาจากไหน?
+    ...    (คำถามข้อที่2)
+    ...    -ยกเลิกไปแล้ว ทำไมยังมี SMS โฆษณาส่งมาอยู่?
+    ...    (คำถามข้อที่3)
+    ...    -จะเช็กว่ามีบริการเสริม SMS อะไรบ้าง เช็กอย่างไร?
+    ...    (คำถามข้อที่4)
+    ...    - เบอร์บ้าน-เบอร์ออฟฟิต โทร *137 ได้หรือไม่
+    ...    (คำถามข้อที่5)
+    ...    6.เลือก " คำถามข้อที่2 "
+    ...    7.ตรวจสอบหน้าคำตอบ
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select SMSCancellation Inquiries Submenu
+    Comment    Verify SMS Cancellation/Inquiries Question Page    ${virtual_device_1_SN}
+    Select SMS Cancellation/Inquiries Question    2
+    Verify SMS Cancellation/Inquiries Answer    2
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_33_Prod] Go to SMS cancellation inquiries verify third question
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "SMS Cancellation/Inquiries"
+    ...    5.Verify FAQ "SMS Cancellation/Inquiries" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - How do i cancel unwanted SMS content service e.g News \ \ \ \ \ \ report, horoscopes,advertisements for which i have been
+    ...    charged? ( First question )
+    ...    - I have never subscribed any SMS content service, why
+    ...    do i receive them? ( Second question )
+    ...    - I have cancelled all unwanted SMS, why do i still receive
+    ...    SMS ( Third question )
+    ...    - How do i know if i have subscribed to any SMS content
+    ...    service? ( Fourth question )
+    ...    - Can i use my lanline number to cancel unwanted a SMS
+    ...    content service? ( Fifth question )
+    ...    6.Click " Third question "
+    ...    7.Verify "Answer" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...    *remark* Regular เปลี่ยนจาก".*" เป็น ".+"
+    ...
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ==========================
+    ...    4.เลือก เมนู "การยกเลิก SMS โฆษณา"
+    ...    5.ตรวจสอบหน้าถามตอบ "การยกเลิก SMS โฆษณา"
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - จะยกเลิก SMS ข่าว, ดูดวง, โฆษณาที่เสียเงินได้อย่างไร?
+    ...    (คำถามข้อที่1)
+    ...    - ไม่เคยสมัครบริการเสริม แล้ว SMS มาจากไหน?
+    ...    (คำถามข้อที่2)
+    ...    -ยกเลิกไปแล้ว ทำไมยังมี SMS โฆษณาส่งมาอยู่?
+    ...    (คำถามข้อที่3)
+    ...    -จะเช็กว่ามีบริการเสริม SMS อะไรบ้าง เช็กอย่างไร?
+    ...    (คำถามข้อที่4)
+    ...    - เบอร์บ้าน-เบอร์ออฟฟิต โทร *137 ได้หรือไม่
+    ...    (คำถามข้อที่5)
+    ...    6.เลือก " คำถามข้อที่3 "
+    ...    7.ตรวจสอบหน้าคำตอบ
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select SMSCancellation Inquiries Submenu
+    Comment    Verify SMS Cancellation/Inquiries Question Page    ${virtual_device_1_SN}
+    Select SMS Cancellation/Inquiries Question    3
+    Verify SMS Cancellation/Inquiries Answer    3
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_34_Prod] Go to SMS cancellation inquiries verify fourth question
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "SMS Cancellation/Inquiries"
+    ...    5.Verify FAQ "SMS Cancellation/Inquiries" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - How do i cancel unwanted SMS content service e.g News \ \ \ \ \ \ report, horoscopes,advertisements for which i have been
+    ...    charged? ( First question )
+    ...    - I have never subscribed any SMS content service, why
+    ...    do i receive them? ( Second question )
+    ...    - I have cancelled all unwanted SMS, why do i still receive
+    ...    SMS ( Third question )
+    ...    - How do i know if i have subscribed to any SMS content
+    ...    service? ( Fourth question )
+    ...    - Can i use my lanline number to cancel unwanted a SMS
+    ...    content service? ( Fifth question )
+    ...    6.Click " Fourth question "
+    ...    7.Verify "Answer" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    *remark* \ text ไม่ตรงตามที่ระบุใน version b 8.0.1.4 (กลายเป็น Cancelling SMS advertisment )
+    ...    *** 5/01/2017 พี่เป้ Confirm ใช้ Cancelling SMS advertisment แทน SMS Cancellation/Inquiries
+    ...    - Other text (Use Regular expression = ".*")
+    ...    *remark* Regular เปลี่ยนจาก".*" เป็น ".+"
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.เลือก เมนู "การยกเลิก SMS โฆษณา"
+    ...    5.ตรวจสอบหน้าถามตอบ "การยกเลิก SMS โฆษณา"
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - จะยกเลิก SMS ข่าว, ดูดวง, โฆษณาที่เสียเงินได้อย่างไร?
+    ...    (คำถามข้อที่1)
+    ...    - ไม่เคยสมัครบริการเสริม แล้ว SMS มาจากไหน?
+    ...    (คำถามข้อที่2)
+    ...    -ยกเลิกไปแล้ว ทำไมยังมี SMS โฆษณาส่งมาอยู่?
+    ...    (คำถามข้อที่3)
+    ...    -จะเช็กว่ามีบริการเสริม SMS อะไรบ้าง เช็กอย่างไร?
+    ...    (คำถามข้อที่4)
+    ...    - เบอร์บ้าน-เบอร์ออฟฟิต โทร *137 ได้หรือไม่
+    ...    (คำถามข้อที่5)
+    ...    6.เลือก " คำถามข้อที่4 "
+    ...    7.ตรวจสอบหน้าคำตอบ
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - Other text (Use Regular expression = ".*") \
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select SMSCancellation Inquiries Submenu
+    Comment    Verify SMS Cancellation/Inquiries Question Page    ${virtual_device_1_SN}
+    Select SMS Cancellation/Inquiries Question    4
+    Verify SMS Cancellation/Inquiries Answer    4
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-4_1-2_Y_35_Prod] Go to SMS cancellation inquiries verify fifth question
+    [Documentation]    ***Owner : Tinpan***
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    **Test Step**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "SMS Cancellation/Inquiries"
+    ...    5.Verify FAQ "SMS Cancellation/Inquiries" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - How do i cancel unwanted SMS content service e.g News \ \ \ \ \ \ report, horoscopes,advertisements for which i have been
+    ...    charged? ( First question )
+    ...    - I have never subscribed any SMS content service, why
+    ...    do i receive them? ( Second question )
+    ...    - I have cancelled all unwanted SMS, why do i still receive
+    ...    SMS ( Third question )
+    ...    - How do i know if i have subscribed to any SMS content
+    ...    service? ( Fourth question )
+    ...    - Can i use my lanline number to cancel unwanted a SMS
+    ...    content service? ( Fifth question )
+    ...    6.Click " Fifth question "
+    ...    7.Verify "Answer" Page
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    "SMS Cancellation/Inquiries" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...    *remark* Regular เปลี่ยนจาก".*" เป็น ".+"
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.เลือก เมนู "การยกเลิก SMS โฆษณา"
+    ...    5.ตรวจสอบหน้าถามตอบ "การยกเลิก SMS โฆษณา"
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - จะยกเลิก SMS ข่าว, ดูดวง, โฆษณาที่เสียเงินได้อย่างไร?
+    ...    (คำถามข้อที่1)
+    ...    - ไม่เคยสมัครบริการเสริม แล้ว SMS มาจากไหน?
+    ...    (คำถามข้อที่2)
+    ...    -ยกเลิกไปแล้ว ทำไมยังมี SMS โฆษณาส่งมาอยู่?
+    ...    (คำถามข้อที่3)
+    ...    -จะเช็กว่ามีบริการเสริม SMS อะไรบ้าง เช็กอย่างไร?
+    ...    (คำถามข้อที่4)
+    ...    - เบอร์บ้าน-เบอร์ออฟฟิต โทร *137 ได้หรือไม่
+    ...    (คำถามข้อที่5)
+    ...    6.เลือก " คำถามข้อที่4 "
+    ...    7.ตรวจสอบหน้าคำตอบ
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    "การยกเลิก SMS โฆษณา" (Text)
+    ...    - Other text (Use Regular expression = ".*") \
+    [Tags]    success    active    regression
+    [Setup]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select SMSCancellation Inquiries Submenu
+    Comment    Verify SMS Cancellation/Inquiries Question Page    ${virtual_device_1_SN}
+    Select SMS Cancellation/Inquiries Question    5
+    Verify SMS Cancellation/Inquiries Answer    5
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0] Smoke test
+    [Tags]    smoke
+    log    smoke for quick test

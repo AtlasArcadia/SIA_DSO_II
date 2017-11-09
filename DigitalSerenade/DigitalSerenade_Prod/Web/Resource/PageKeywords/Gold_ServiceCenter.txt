@@ -1,0 +1,19 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageVariable/Gold_ServiceCenterVariable.txt
+Resource          ../PageRepository/Gold_ServiceCenterRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_ServiceCenterLocalized.txt
+
+*** Keywords ***
+Verify Service Center
+    Sleep    7s
+    Scroll Web To Element    ${btnTouchPoint}
+    Click Web Element    ${btnTouchPoint}
+    Sleep    15s
+    Select Window    url=${urlServiceCenter}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${urlServiceCenter}"    Fail
+    Web Element Should Be Visible    ${imgAISLogo}
+    Web Element Should Be Visible    ${imgBannerAunjai}
+    Web Element Text Should Be    ${lblAISShop}    ${txtAISCenter}
+    Web Capture Screen At Verify Point    AISServiceCenter

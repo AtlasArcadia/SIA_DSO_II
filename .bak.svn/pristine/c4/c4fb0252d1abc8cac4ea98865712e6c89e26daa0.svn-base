@@ -1,0 +1,51 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../PageRepository/${ar_OS}/CallingMelodyRepository.txt
+
+*** Keywords ***
+wait Calling Melody Loaded
+    AISAppiumEx.Wait Until Element Is Visible    ${btnViewBanner}    ${lo_general_timeout}
+    Comment    AISAppiumEx.Wait Until Page Contains Element    ${btnViewBanner}    ${lo_general_timeout}
+    sleep    1
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblDialogCalling}    ${lo_general_timeout}
+    sleep    1
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblDialogCalling}    ${lo_general_timeout}
+    sleep    1
+    AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblDialogCalling}    ${lo_general_timeout}
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Service Menu
+    Select Menu    Service
+
+Select Calling Melody Submenu
+    Select Sub Menu    CallingMelody
+
+Close Banner
+    [Arguments]    ${timeout}=${lo_general_timeout}
+    [Documentation]    sleep 20 sec for work around
+    log    log close banner
+    Sleep    20    #work around
+    Run Keyword And Ignore Error    Click Mobile Element    ${btnCloseBanner}
+    Run Keyword And Ignore Error    Click Mobile Element    ${btnCloseBanner}
+    Run Keyword And Ignore Error    Click Mobile Element    ${btnCloseBanner}
+
+Wait Until Calling Melody Load Finished
+    [Arguments]    ${timeout}=${lo_general_timeout}
+    log    wait load finished
+    Wait Until Keyword Succeeds    ${timeout}    3    AISAppiumEx.Page Should Not Contain Element    ${lblDialogCalling}
+    Wait Until Keyword Succeeds    30 sec    5 sec    wait Calling Melody Loaded
+    Run Keyword And Ignore Error    Swipe To    no_target    up    0.3    5
+    Wait Until Keyword Succeeds    30 sec    5 sec    wait Calling Melody Loaded
+
+Verify Logo In Calling Melody Page
+    log    verify page
+    Wait Mobile Until Element Visible    ${lblLogoCallingMelody}
+    Mobile Capture Screen At Verify Point    Verify Calling Melody Page From Logo

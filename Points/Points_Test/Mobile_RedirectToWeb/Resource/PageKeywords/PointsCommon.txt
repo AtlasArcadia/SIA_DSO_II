@@ -1,0 +1,40 @@
+*** Settings ***
+Resource          ../PageRepository/PointCommonRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/PointsCommonLocalized.txt
+Resource          ../PageVariable/PointsCommonVariable.txt
+Resource          ../../../../../MyAIS/MyAIS_Test/Mobile/Resource/PageKeywords/MyAISCommon.txt
+Resource          ../../../../../MyAIS/MyAIS_Test/Mobile/Resource/PageKeywords/Login.txt
+
+*** Keywords ***
+Keywords For TearDown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    ${#dict_device_name}
+
+Select Menu Points And Privileges
+    sleep    10    # wait AIS Point loaded maybe it hidden cannot use any keyword
+    Select Icon    PointsAndPrivileges
+    AISAppiumEx.Wait Until Element Is Visible    ${objCampaignPointFrist}
+
+Select Point Menu
+    sleep    5
+    Wait Mobile Until Page Contains Element    ${btnPoint}
+    Click Mobile Element    ${btnPoint}
+    Wait Mobile Until Page Does Not Contain Element    ${imgProgressing}
+    Comment    Wait Mobile Until Page Does Not Contain Element    xpath=//*[@resource-id="com.ais.mimo.eservice.debug:id/layout_progress_holder"]
+
+Select Icon
+    [Arguments]    ${mnuName}
+    Comment    Swipe to element    ${mnu${mnuName}}    screen    left
+    Comment    Switch To Context    NATIVE_APP
+    Swipe To    ${mnu${mnuName}}    left
+    Wait Mobile Until Element Visible    ${mnu${mnuName}}
+    Click Mobile Element    ${mnu${mnuName}}
+
+Close Dialog PopUp SSL Certificate Error
+    ${statusDialogSSLError}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnOKSSLError}    15s
+    Run Keyword If    '${statusDialogSSLError}'=='True'    Click Mobile Element    ${btnOKSSLError}
+    Run Keyword Unless    '${statusDialogSSLError}'!='True'    Close Dialog PopUp SSL Certificate Error

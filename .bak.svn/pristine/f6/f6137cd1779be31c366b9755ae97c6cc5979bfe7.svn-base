@@ -1,0 +1,24 @@
+*** Settings ***
+Library           Collections
+Library           String
+Library           HttpLibrary.HTTP
+Library           RequestsLibrary
+Library           json
+Library           JSONLibrary
+Library           String
+Library           DateTime
+Library           ../../../../../AisRobotBuffet/Library/General/AesEncryptAndDecryptor.py
+Resource          ../PageVariable/API/MyAisApiVariable.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/ParallelLocalConfigKeyWord.txt
+
+*** Keywords ***
+Get MSISDN Number
+    [Arguments]    ${mobile_number}
+    ${mobile_msisdn}=    Replace String    ${mobile_number}    0    66    count=1
+    [Return]    ${mobile_msisdn}
+
+Wait Until Found Query Data
+    [Arguments]    ${retry}    ${retry_interval}    ${keyword}    @{args}
+    # wait to implement...
+    ${result}=    Wait Until Keyword Succeeds    15 min    1 min    ${keyword}    @{args}
+    [Return]    ${result}

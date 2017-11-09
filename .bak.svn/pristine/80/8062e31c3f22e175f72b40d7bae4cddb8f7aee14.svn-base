@@ -1,0 +1,187 @@
+*** Settings ***
+Resource          ../PageRepository/Reward_MobileRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/RewardLocalized.txt
+Resource          ../PageVariable/RewardVariable.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
+Resource          ../../../../../AisRobotBuffet/Mobile/Andriod/Keywords/SmsMoodKeywords.txt
+Resource          ../PageVariable/PointsCommonVariable.txt
+Resource          PointsCommon.txt
+
+*** Keywords ***
+Login To Web Point With Appium
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}    ${Close}=true
+    sleep    4
+    Click Mobile Element    ${btnLogin}
+    Wait Mobile Until Element Visible    ${lblHeaderPopupLogin}
+    Click Mobile Element    ${txtInputNumber}
+    Input Mobile Text    ${txtInputNumber}    ${MobileNumber}
+    Click Mobile Element    ${btnGetOTP}
+    Comment    Open SMS App    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${PlatfromName}    1    ${lo_sms_timeout}    AIS
+    ${time}=    Evaluate    str(time.time())    time
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${PlatfromName}    AIS    1
+    Log    @{messages}[0]
+    @{OTP}=    Get Regexp Matches    @{messages}[0]    \\d\\d\\d\\d
+    Run Keyword If    "${Close}" =="true"    Close SMS App    ${PlatfromName}    ${SN}
+    sleep    3
+    AISAppiumEx.Press Keycode    187
+    sleep    3
+    Click Mobile Element    xpath=//*[@text="Chrome"]
+    Input Mobile Text    xpath=//*[@text="ตกลง "]    @{OTP}[0]    #${txtInputOTP}
+    Hide Keyboard
+    Click Mobile Element    xpath=//*[@content-desc="ตกลง "]
+    Wait Mobile Until Page Does Not Contain Element    ${lblHeaderPopupLogin}
+    Wait Mobile Until Page Does Not Contain Element    xpath=//*[@class="android.widget.ProgressBar"]
+    sleep    5
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Comment    Close Browser
+    Comment    Close All Browsers
+    Close All Applications
+    Release Virtual Local Configurations    ${lo_Points_WebMobile_Test_local_config_file_path}    ${#dict_device_name}
+
+Select Menu Redeem Reward
+    Wait Mobile Until Element Visible    ${mnuRedeemReward}
+    Swipe    600    500    10    0
+    AISAppiumEx.Click Element    ${mnuRedeemReward}
+    AISAppiumEx.Click Element    ${mnuRedeemReward}    #Case login must double click
+
+Select Redeem
+    [Arguments]    ${RedeemName}
+    Click Mobile Element    ${lblHead${RedeemName}RewardPage_Mobile}
+    Wait Mobile Until Element Visible    ${imgHeaderPage}
+
+Click Detail Button
+    sleep    10
+    Wait Mobile Until Element Visible    ${btnDetail}
+    AISAppiumEx.Click Element    ${btnDetail}
+    Comment    Wait Mobile Until Page Does Not Contain Element    ${imgLoading}
+
+Verify Popup Datail
+    [Arguments]    ${RedeemName}
+    Mobile element name should be    ${txtPopupHeader}    ${PopupPointTitle}    #คุณต้องการใช้เอไอเอส พอยท์
+    Wait Mobile Until Element Visible    ${imgPopupPage}    #image
+    Mobile check existing text in name    ${txtCampaignNamePopupPage}    #text
+    Mobile check existing text in name    ${lblPointPopupPage}    #จำนวนพอย
+    Mobile element name should be    ${txtTermAndCondition}    ${TermAndCondition}
+    Wait Mobile Until Element Visible    ${btnConfirmPopup}    #ปุ่ม ยืนยัน
+    Mobile Capture Screen At Verify Point    popup details ${RedeemName}
+
+Verify Show Term And Condition Details
+    Mobile check existing text in name    ${txtTermAndConditionDetail}
+    Mobile Capture Screen At Verify Point    details Term and condition
+
+Verify Hide Term And Condition Detail
+    Wait Mobile Until Element Visible    ${txtTermAndCondition}
+    Mobile element name should be    ${txtTermAndCondition}    ${TermAndCondition}
+    AISAppiumEx.Page Should Not Contain Element    ${txtTermAndConditionDetail}
+    Mobile Capture Screen At Verify Point    Hide Term and condition
+
+Click Term And Condition
+    Click Mobile Element    ${txtTermAndCondition}    #Click Term and condition
+
+Open Web Point With Appium
+    [Arguments]    ${IP_Appium}    ${PlatformName}    ${PlatformVersion}    ${deviceName}    ${SN}
+    Open Application    http://${IP_Appium}/wd/hub    platformName=${PlatformName}    platformVersion=${PlatformVersion}    deviceName=${deviceName}    udid=${SN}    browserName=Chrome
+    Go To Url    ${urlAISPoint}
+    Switch To Context    NATIVE_APP
+
+Verify Header Redeem
+    [Arguments]    ${RedeemName}
+    Wait Mobile Until Element Visible    ${imgHeaderPage}
+    Mobile element name should be    ${txtHeaderRedeem${RedeemName}RewardPage_Mobile}    ${RedeemName}
+
+Verify food page
+    Mobile element name should be    ${txtHeaderRedeemFoodAndDrink}    ${Food}    #แลกอาหาร เครื่องดื่ม
+    Mobile check existing text in name    ${lblPointHead}    #Point    #Point
+    Wait Mobile Until Element Visible    ${imgHeaderPage}    #image
+    Swipe    400    1050    400    600
+    Mobile check existing text in name    ${lblHeaderDetailPage}
+    Wait Mobile Until Element Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Mobile Capture Screen At Verify Point    Food
+
+Verify Shopfree page
+    sleep    5
+    Mobile element name should be    ${txtHeaderRedeemShopFree}    ${ShopFree}
+    Wait Mobile Until Element Visible    ${imgHeaderPage}    #image
+    Mobile check existing text in name    ${lblPointHead}    #Point
+    Swipe    400    1050    400    600
+    Mobile check existing text in name    ${lblHeaderDetailPage}
+    Wait Mobile Until Element Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Mobile Capture Screen At Verify Point    ShopFree
+
+Verify Mobile page
+    sleep    5
+    Mobile element name should be    ${txtHeaderRedeemMobileDiscount}    ${Mobile}
+    Mobile check existing text in name    ${lblPointHead}    #Point
+    Wait Mobile Until Element Visible    ${imgHeaderPage}    #image
+    Mobile check existing text in name    ${lblHeaderDetailPage}
+    Swipe    400    1050    400    600
+    Wait Mobile Until Element Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Mobile Capture Screen At Verify Point    Mobile
+
+Verify Movie page
+    sleep    5
+    Mobile element name should be    ${txtHeaderRedeemMovieTicket}    ${Movie}
+    Mobile check existing text in name    ${lblPointHead}    #Point
+    Wait Mobile Until Element Visible    ${imgHeaderPage}    #image
+    Swipe    400    1050    400    600
+    Mobile check existing text in name    ${lblHeaderDetailPage}
+    Wait Mobile Until Element Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Mobile Capture Screen At Verify Point    Movie
+
+Verify Aunjai page
+    sleep    5
+    Mobile element name should be    ${txtHeaderRedeemAunjai}    ${Aunjai}
+    Mobile check existing text in name    ${lblPointHead}    #Point
+    Wait Mobile Until Element Visible    ${imgHeaderPage}    #image
+    Swipe    400    1050    400    600
+    Mobile check existing text in name    ${lblHeaderDetailPage}
+    Wait Mobile Until Element Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Mobile Capture Screen At Verify Point    Aunjai
+
+Verify Telnet page
+    sleep    5
+    Mobile element name should be    ${txtHeaderRedeemTelnet}    ${Telnet}
+    Mobile check existing text in name    ${lblPointHead}    #Point
+    Wait Mobile Until Element Visible    ${imgHeaderPage}    #image
+    Swipe    400    1050    400    600
+    Mobile check existing text in name    ${lblHeaderDetailPage}
+    Wait Mobile Until Element Visible    ${btnDetail}    #ปุ่มรายละเอียด
+    Mobile Capture Screen At Verify Point    Aunjai
+
+Verify menu bar
+    sleep    5
+    Comment    Swipe to element    ${lblHeadTelnetRewardPage_Mobile}
+    Mobile element name should be    ${lblHeadTelnetRewardPage_Mobile}    ${Telnet}
+    Mobile element name should be    ${lblHeadMobileRewardPage_Mobile}    ${Mobile}
+    Mobile element name should be    ${lblHeadAunjaiRewardPage_Mobile}    ${Aunjai}
+    Mobile element name should be    ${lblHeadFoodRewardPage_Mobile}    ${Food}
+    Mobile element name should be    ${lblHeadMovieRewardPage_Mobile}    ${Movie}
+    Mobile element name should be    ${lblHeadShopFreeRewardPage_Mobile}    ${ShopFree}
+    Mobile Capture Screen At Verify Point    Verify ShopFree
+
+Verify Redeem Success
+    Mobile element name should be    ${txtRedeemSuccessFirst}    ${RedeemSuccessFirst}    #แลกของรางวัล
+    Mobile element name should be    ${txtRedeemSuccessSecond}    ${RedeemSuccessSecond}    #เรียบร้อยแล้ว
+    Mobile element name should be    ${txtRemainAISPoint}    ${RemainPoint}    #คุณมีเอไอเอส พอยท์คงเหลือ
+    Mobile Capture Screen At Verify Point    Redeem success
+
+Select Menu Redeem
+    AISAppiumEx.Click Element    ${mnuRedeemReward}
+
+Confirm Redeem
+    Click Mobile Element    ${btnConfirmPopup}
+
+Verify Cannot Confirm Redeem Cause Of Disable Button
+    AISAppiumEx.Page Should Contain Element    ${txtPopupHeader}
+    AISAppiumEx.Page Should Contain Element    ${btnConfirmPopup}
+    Mobile Capture Screen At Verify Point    Not Enough Point
+
+Swipe to Detail Button
+    sleep    5
+    Swipe    400    1050    400    800

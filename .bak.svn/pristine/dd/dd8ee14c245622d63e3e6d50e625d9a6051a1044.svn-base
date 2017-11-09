@@ -1,0 +1,430 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/DomesticPackage_YourCurrentPackage.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F1_Package_1-4_1-2_Y_1_1] Verify page menu package
+    [Documentation]    [F1_Package_2,4_2_Y_1_1] Verify page menu package
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ====EN====
+    ...    Test Step
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3.Verify Page should be displayed
+    ...    "Pacakge" at header
+    ...    - Your Current Package
+    ...    - Apply Internet On-Top Package
+    ...    - Apply Other On-Top Package
+    ...    - Change Price Plan
+    ...    "Roaming Pacakge" at header
+    ...    - Current Package & Remaining
+    ...    - Apply Roaming Package
+    ...    - Roaming Service Rates
+    ...    4. Capture screen
+    ...
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. ตรวจสอบสิ่งที่ปรากฎ
+    ...    Header "แพ็กเกจในประเทศ"
+    ...    - แพ็กเกจปัจจุบันของคุณ
+    ...    - สมัครแพ็กเกจเสริมอินเทอร์เน็ต
+    ...    - สมัครแพ็กเกจเสริมอื่นๆ
+    ...    - เปลี่ยนแพ็กเกจหลัก
+    ...    Header "แพ็กเกจโรมมิ่ง"
+    ...    - แพ็กเกจปัจจุบัน/ยอดคงเหลือ
+    ...    - สมัครแพ็กเกจโรมมิ่ง
+    ...    - อัตราค่าบริการโรมมิ่ง
+    ...    4. จับภาพหน้าจอ
+    [Tags]    success    active    3PO    3BO    3PE    3BE
+    ...    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Verify Page Menu Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Package_2,4_1-2_Y_1_1] Verify page current package have main package only
+    [Documentation]    [F2_Package_2,4_2_Y_1_1] Verify page "Current Package" have main package only
+    ...
+    ...    Owner :Eng
+    ...
+    ...    ====EN====
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Your Current Package"
+    ...    4. Verify Page "Your Current Package"
+    ...    - Price Plan
+    ...    5. Capture Screen
+    ...
+    ...    ====TH====
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    - "แพ็กเกจปัจจุบันและบริการเสริม" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก"
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    5. จับภาพหน้าจอ
+    ...    6. เลือก ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    7. ตรวจสอบหน้า "เปลี่ยนแพ็กเกจหลัก"
+    ...    - "เปลี่ยนแพ็กเกจหลัก" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันของคุณ"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันของคุณ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจหลัก at Header (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "เปลี่ยนแพ็กหลัก"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    3PO    3BO
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MainNonStop499=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MainNonStop499
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Page Current Package Main Package Only    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Package_2,4_1-2_Y_2_1] Verify page current package have main1 on top(Xtra Net)
+    [Documentation]    [F2_Package_2,4_2_Y_2_1] Verify page "Current Package" have main+1 on top(Xtra Net:InternetOne-Time)
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ====EN====
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Your Current Package"
+    ...    4. Verify Page "Your Current Package"
+    ...    - Price Plan
+    ...    - Expire date xx/xx/xxxx
+    ...    - On-Top Package
+    ...    - Expire date xx/xx/xxxx
+    ...    5. Capture Screen
+    ...    ====TH====
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    - "แพ็กเกจปัจจุบันและบริการเสริม" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก"
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    - "สมัครแพ็กเสริม" box
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "สมัครแพ็กเสริม"
+    ...    5. จับภาพหน้าจอ
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันของคุณ"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันของคุณ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจหลัก at Header (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "เปลี่ยนแพ็กหลัก"
+    ...    - แพ็กเกจเสริม at Header (Verify ว่ามี On-Top pack)
+    ...    - ปุ่ม "สมัครแพ็กเสริม"
+    ...    - ปุ่ม "ยกเลิกแพ็กเสริม"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    3PO    3BO
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MainNonStop499OnTopHooq=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MainNonStop499OnTopHooq
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Page Current Package Main+On-Top Package    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Package_2,4_1-2_Y_3_1] Verify page current package have main2 on-top(Xtra Net and Xtra Talk)
+    [Documentation]    [F2_Package_2,4_2_Y_3_1] Verify page "Current Package" have main+2on-top(Xtra Net:InternetOne-Time + Xtra Talk:MaoMao)
+    ...
+    ...    Owner : Eng
+    ...
+    ...    ====EN====
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Your Current Package"
+    ...    4. Verify Page "Your Current Package"
+    ...    - Price Plan
+    ...    - Expire date xx/xx/xxxx
+    ...    - On-Top Package1
+    ...    - Expire date xx/xx/xxxx
+    ...    - On-Top Package2
+    ...    - Expire date xx/xx/xxxx
+    ...    5. Capture Screen
+    ...    ====TH====
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันและบริการเสริม"
+    ...    - "แพ็กเกจปัจจุบันและบริการเสริม" text view
+    ...    - ปุ่ม "<"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก"
+    ...    - ชื่อแพ็กเกจ
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    - "สมัครแพ็กเสริม" box
+    ...    - ชื่อแพ็กเกจ 1
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ชื่อแพ็กเกจ 2
+    ...    - สิ้นสุดวันที่ วว/ดด/ปปปป hh:mm:ss
+    ...    - ปุ่ม "สมัครแพ็กเสริม"
+    ...    5. จับภาพหน้าจอ
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันของคุณ"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันของคุณ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจหลัก at Header (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "เปลี่ยนแพ็กหลัก"
+    ...    - แพ็กเกจเสริม at Header (Verify ว่ามี On-Top 2 pack)
+    ...    - ปุ่ม "สมัครแพ็กเสริม"
+    ...    - ปุ่ม "ยกเลิกแพ็กเสริม"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    active    3PO    3BO
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MainNonStop499OnTopHooqOnTopCall150Mins=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MainNonStop499OnTopHooqOnTopCall150Mins
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Page Current Package Main+2 On-Top Package    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Package_1,3_1-2_Y_1_1] Verify page current package have main package only
+    [Documentation]    [F2_Package_1,3_2_Y_1_1] Verify page Current Package have main package only
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Your Current Package"
+    ...    4. Verify Page "Your Current Package"
+    ...    - Mobile no.
+    ...    - "Price Plan" at header (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "Change Price Plan"
+    ...    - Terms & Conditions
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันของคุณ"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันของคุณ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก" (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "เปลียนแพ็กหลัก"
+    ...    - เงื่อนไขบริการ
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    3PE    3BE    inactive
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Main3GBuffet69=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Main3GBuffet69
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Page Current Package Main Package Only    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Package_1,3_1-2_Y_2_1] Verify page current package main and 1 on-top
+    [Documentation]    [F2_Package_1,3_2_Y_2_1] Verify page current package main and 1 on-top
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Your Current Package"
+    ...    4. Verify Page "Your Current Package"
+    ...    - Mobile no.
+    ...    - "Price Plan" at header (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "Change Price Plan"
+    ...    - "On-Top Package" at header (Verify ว่ามี On-Top pack)
+    ...    - ปุ่ม "Apply Package"
+    ...    - Terms & Conditions
+    ...    5. Capture Screen
+    ...
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันของคุณ"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันของคุณ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก" (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    - แถบ "แพ็กเกจอื่นๆ" (Verify ว่ามี On-Top Pack)
+    ...    -ปุ่ม "สมัครแพ็กเสริม"
+    ...    -เงื่อนไขบริการ
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    3PE    3BE    inactive
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Main3GBuffet69Ontop3GMaoMao=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Main3GBuffet69Ontop3GMaoMao
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Page Current Package Main+On-Top Package    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Package_1,3_1-2_Y_3_1] Verify page current package have main and 2on-top
+    [Documentation]    [F2_Package_1,3_2_Y_3_1] Verify page Current Package have main and 2on-top
+    ...
+    ...    Owner : Eng
+    ...
+    ...    Test Step
+    ...
+    ...    ===EN===
+    ...    '1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Your Current Package"
+    ...    4. Verify Page "Your Current Package"
+    ...    - Mobile no.
+    ...    - "Price Plan" at header (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "Change Price Plan"
+    ...    - "On-Top Package" at header (Verify ว่ามี On-Top pack 2 pack)
+    ...    - ปุ่ม "Apply Package"
+    ...    - Terms & Conditions
+    ...    5. Capture Screen
+    ...
+    ...    ===TH===
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันของคุณ"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบันของคุณ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - แถบ "แพ็กเกจหลัก" (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "เปลี่ยนแพ็กเกจ"
+    ...    - แถบ "แพ็กเกจอื่นๆ" (Verify ว่ามี On-Top Pack 2 pack)
+    ...    -ปุ่ม "สมัครแพ็กเสริม"
+    ...    -เงื่อนไขบริการ
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    3PE    3BE    inactive
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Main3GBuffet69Ontop3GMaoMaoAndWifi=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Main3GBuffet69Ontop3GMaoMaoAndWifi
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify Page Current Package Main+2 On-Top Package    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+Test
+    [Setup]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Select Menu    PointsAndPrivileges
+    ${xpath}    Set Variable    xpath=//*[@resource-id="com.ais.mimo.eservice:id/user_info_search_editext"]
+    Wait Mobile Until Element Visible    ${xpath}
+    Input Mobile Text    ${xpath}    สวัสดี
+    Hide Keyboard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_1_Prod] DummyLanguage
+    [Tags]    dummy
+    Log    3PO,3BO_TH
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke
+
+TestText
+    Should Match Regexp    11/11/2010 00:00    \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d
+    Should Match Regexp    Value Pack 100 เริ่มใช้ได้ตั้งแต่ 31/03/2017 11:28 ถึง 30/09/2017 23:59    Value Pack 100 เริ่มใช้ได้ตั้งแต่ \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d ถึง \\d\\d\/\\d\\d\/\\d\\d\\d\\d \\d\\d:\\d\\d
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Verify Page Menu Package
+    Wait Mobile Until Page Contains Element    ${lblDomesticPackage}    60
+    Swipe to element    ${subMnuRoamingServiceRates}
+    Mobile element text should be    ${lblDomesticPackage}    ${DomesticPackage}
+    Mobile element text should be    ${subMnuYourCurrentPackage}    ${CurrentPackage}
+    Mobile element text should be    ${subMnuInternetOnTopPackage}    ${ApplyInternetOnTopPackage}
+    Mobile element text should be    ${subMnuApplyOtherOnTopPackages}    ${ApplyOtherOnTopPackage}
+    Mobile element text should be    ${subMnuChangePricePlan}    ${ChangePricePlan}
+    Mobile element text should be    ${lblRoamingPackage}    ${RoamingPackage}
+    Mobile element text should be    ${subMnuCurrentPackageRoaming}    ${CurrentPackageRoaming}
+    Mobile element text should be    ${subMnuApplyRoamingPackage}    ${ApplyRoamingPackage}
+    Mobile element text should be    ${subMnuRoamingServiceRates}    ${RoamingServiceRates}
+    Mobile Capture Screen At Verify Point    Verify Page Menu Package
+
+Verify Page Current Package Main Package Only
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify page current package main package only_3PO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify page current package main package only_3BO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify page current package main package only_3PE    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify page current package main package only_3BE    ${Number}
+
+Verify Page Current Package Main+On-Top Package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify page current package main+on-top package_3PO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify page current package main+on-top package_3BO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify page current package main+on-top package_3PE    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify page current package main+on-top package_3BE    ${Number}
+
+Verify Page Current Package Main+2 On-Top Package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify page current package main+2on-top package_3PO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BO"    Verify page current package main+2on-top package_3BO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify page current package main+2on-top package_3PE    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify page current package main+2on-top package_3BE    ${Number}

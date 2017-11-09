@@ -1,0 +1,185 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/DomesticsPackage_CancelOnTopPackage.txt
+
+*** Test Cases ***
+[F6_Package_2,4_2_Y_2_1] Cancel ontop package(have ontop package)
+    [Documentation]    [F6_Package_2,4_2_Y_2_1] Cancel ontop package(have ontop package)
+    ...
+    ...    Owner : Eng
+    ...
+    ...    TestStep
+    ...
+    ...    ===EN===
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Your Current Package" menu
+    ...    4. Click "Cancel Package"
+    ...    5. Verify \ Page "Cancel On-Top Package"
+    ...    - All Package
+    ...    6. Click "Package (3G Value Pack 100)"
+    ...    7. Verify Detail Package
+    ...    - Package (3G Value Pack 100)
+    ...    - Detail (Value Pack 100 Monthly fee 100 baht, Free call 115 minute/month.)
+    ...    8. Click "Confirm"
+    ...    9. Verify popup msg "You will get a confirmation SMS when the transaction is completed shortly."
+    ...    10. Click "OK"
+    ...    11. Capture Screen
+    ...    12. Verify SMS "..." (ไม่ได้รับ SMS)
+    ...    13. Capture Screen
+    ...
+    ...    Package Change : Monthly fee 100 Baht Call to AIS numbers 150 min \ 3/3/17
+    ...
+    ...    Package Change : Monthly fee 100 Baht Call to all networks 115 min \ 6/3/17 เพราะ Package เดิมไม่มี SMS ยืนยันการสมัคร
+    ...
+    ...    SMS : \ Your request is complete. You can read English language via Short Message Service (SMS) now.Thank you.
+    ...
+    ...    Don't have SMS Confirm Cancel OnTop
+    ...
+    ...    ===TH===
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "แพ็กเกจปัจจุบันของคุณ"
+    ...    4. เลือก "ยกเลิกแพ็กเสริม"
+    ...    5. ตรวจสอบหน้า "ยกเลิกแพ็กเสริม"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเสริม
+    ...    - ชื่อแพ็กเกจ
+    ...    - เงื่อนไขบริการ
+    ...    6. เลือก "แพ็กเสริม" ที่ต้องการยกเลิก
+    ...    7. ตรวจสอบหน้า "ยกเลิกแพ็กเกจ" ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - รายละเอียด
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    - เงื่อนไขบริการ
+    ...    8. เลือก "ยืนยัน"
+    ...    9. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS ยืนยันการยกเลิก"
+    ...    - ปุ่ม "ตกลง"
+    ...    10. จับภาพหน้าจอ
+    ...    11. เลือก "ตกลง"
+    ...    12. ตรวจสอบ SMS "คุณได้ยกเลิกแพ็กเสริม Internet 199บ. เรียบร้อยแล้ว ใช้งานได้ถึง xx/xx/xxxx xx:xx"
+    ...    13. จับภาพหน้าจอ
+    ...
+    ...    Don't have SMS Expect 30/3/17
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    CancelOntop=need
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Talk OnTop Package
+    Select Monthly OnTop Package
+    ${Package}=    Select Monthly fee 100 B. Call All 115 min
+    Confirm Package
+    Select Immediately
+    Confirm Package
+    Confirm Package And Comfirm Effective Date
+    Verify Dialog Apply On Top Package    ${txtApplyOnTopConfirmDialogSuccess}
+    Confirm Dialog On Top Package
+    Verify SMS From AIS with Match Regexp    ${MsgMonthlyFee100 B.CallAll115min}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    Verify On Top Package Monthly 100 B.Call all 115 min
+    Select Cancel Package
+    Verify Cancel Package Page    ${Number}
+    Select OnTop Package
+    Verify Cancel Package Detail Page    ${Number}
+    Confirm Cancel OnTop Package
+    Verify Dialog Message Cancel Complete
+    Confirm Dialog Message
+    Verify SMS From AIS with Match Regexp    ${MsgComfirmCancelOnTopFee100B.CallAll115min}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_1_Prod] DummyLanguage
+    [Tags]    dummy
+    Log    TH
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Select Talk OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalk}
+
+Select Monthly OnTop Package
+    Click Mobile Element    ${btnApplyOnTopInternetMonthly}
+
+Select Monthly fee 100 B. Call All 115 min
+    ${element}    Aisappium Get Webelement    ${SubOnTopMonthly100B.CallAll115min}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopMonthly100B.CallAll115min}
+
+Confirm Package
+    Click Mobile Element    ${btnApplyOnTopConfirmNext}
+
+Select Immediately
+    Click Mobile Element    ${btnApplyOnTopImmediately}
+
+Confirm Package And Comfirm Effective Date
+    Swipe Element To Screen    ${btnApplyOnTopConfirm}
+    Click Mobile Element    ${btnApplyOnTopConfirm}
+
+Verify Dialog Apply On Top Package
+    [Arguments]    ${successText}
+    Mobile element text should match regexp whole string    ${lblApplyOnTopConfirmDailogChangePackageSuccess}    ${successText}
+
+Confirm Dialog On Top Package
+    Click Mobile Element    ${btnApplyOnTopOkChangePackageSuccess}
+
+Select Cancel Package
+    Swipe Element To Screen    ${btnCancelPackage}
+    Click Mobile Element    ${btnCancelPackage}
+
+Verify On Top Package Monthly 100 B.Call all 115 min
+    Swipe Element To Screen    ${lblOnTop100B.CallAll115min}
+    Wait Mobile Until Page Contains Element    ${lblOnTop100B.CallAll115min}
+    Mobile Capture Screen At Verify Point    Monthly 100 B.Call all 115 min
+
+Verify Cancel Package Page
+    [Arguments]    ${Number}
+    Sleep    5
+    Mobile element text should be    ${lblHeadCancelPackagePage}    ${CancelPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should match regexp    ${lblBillCycle}    ${BillingCycle}
+    Mobile element text should be    ${lblCancelMonthly100B.CallAll115minName}    ${Monthly100BahtCallAll115min}
+    Mobile Capture Screen At Verify Point    Cancel Package Page
+
+Verify Cancel Package Detail Page
+    [Arguments]    ${Number}
+    Sleep    5
+    Mobile element text should be    ${lblHeadCancelPackagePage}    ${CancelPackage}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should match regexp    ${lblBillCycle}    ${BillingCycle}
+    Mobile element text should be    ${lblDetaiMonthly100B.CallAll115minName}    ${Monthly100BahtCallAll115min}
+    Mobile Capture Screen At Verify Point    Cancel Package Detail Page
+
+Confirm Cancel OnTop Package
+    Click Mobile Element    ${btnConfirmCancelOnTop}
+
+Verify Dialog Message Cancel Complete
+    Mobile element text should be    ${DialogMessageCancelOnTop}    ${MessageCompleteCancelOnTOp}
+    Mobile Capture Screen At Verify Point    Dialog Message Cancel Complete
+
+Confirm Dialog Message
+    Click Mobile Element    ${btnConfirmDialogMessage}
+
+Select OnTop Package
+    Click Mobile Element    ${lblCancelMonthly100B.CallAll115minName}

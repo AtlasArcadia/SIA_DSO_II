@@ -1,0 +1,50 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../PageRepository/Gold_ServiceRepository.txt
+Resource          ../PageVariable/Gold_ServiceVariable.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_ServiceLocalized.txt
+
+*** Keywords ***
+Click Service Campaign
+    [Arguments]    ${location}    ${imgName}
+    Scroll Web To Element    ${location}
+    Web Element Should Be Visible    ${location}
+    Scroll Web To Element    ${location}
+    Sleep    10s
+    Web Capture Screen At Verify Point    ${imgName}
+    Click Web Element    ${location}
+
+Verify Mobile Care
+    Scroll Web To Element    ${AISLogo}
+    Web Element Should Be Visible    ${AISLogo}
+    Scroll Web To Element    ${lblMobileCare}
+    Web Element Text Should Be    ${lblMobileCare}    ${MobileCare}
+    Web Element Text Should Be    ${lblPackage}    ${SubContentMobileCare}
+    Web Capture Screen At Verify Point    Mobile Care
+
+Verify Call Center
+    Scroll Web To Element    ${AISLogo}
+    Web Element Should Be Visible    ${AISLogo}
+    Scroll Web To Element    ${lblSpecialService}
+    Web Element Text Should Be    ${lblSpecialService}    ${CallCenter_Description}
+    Web Element Should Be Visible    ${lblSpecialNumber1148}
+    Web Capture Screen At Verify Point    Call Center
+
+Verify mPay
+    Scroll Web To Element    ${AISLogo}
+    Web Element Should Be Visible    ${AISLogo}
+    Scroll Web To Element    ${lbleServiceTitle}
+    Web Element Text Should Be    ${lbleServiceTitle}    ${eServiceTitle}
+    Web Element Text Should Be    ${lbleServiceSubtitle1}    ${eServiceSubtitle1}
+    Web Element Text Should Be    ${lbleServiceSubtitle2}    ${eServiceSubtitle2}
+    Web Capture Screen At Verify Point    mPay
+
+Verify Data Roaming
+    Scroll Web To Element    ${AISLogo}
+    Web Element Should Be Visible    ${AISLogo}
+    Scroll Web To Element    ${lblDataRoamingRow1}
+    Web Element Text Should Be    ${lblDataRoamingRow1}    ${DataRoamingRow1}
+    Web Element Text Should Be    ${lblDataRoamingRow2}    ${DataRoamingRow2}
+    Web Element Text Should Be    ${lblDataRoamingRow3}    ${DataRoamingRow3}
+    Web Capture Screen At Verify Point    Data Roaming Page

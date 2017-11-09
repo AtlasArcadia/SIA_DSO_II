@@ -1,0 +1,23 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/RegisterAISFibreAndCoverageCheckingRepository.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify Page AIS Fibre
+    Wait Mobile Until Page Contains Element    ${lblAisLogo}
+    Mobile Capture Screen At Verify Point    AIS_Fiber_Registration_On_Page
+
+Select Service Menu
+    Select Menu    Service
+
+Select RegisterAISFibre CheckCoverage Submenu
+    Select Sub Menu    RegisterAISFibre/CheckCoverage

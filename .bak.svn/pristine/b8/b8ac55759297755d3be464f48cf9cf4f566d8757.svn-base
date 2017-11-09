@@ -1,0 +1,1383 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/FAQ_MainPackageAndOnTopPackage.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F2_1-3_1-2_Y_1_Prod] Go to Main Package & On Top Package
+    [Documentation]    [F2_2,4_2_Y_1_Prod] Go to promotion & package
+    ...
+    ...    Owner : ENG
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    ===========================
+    ...    Not Verify page "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...
+    ...    29/11/16
+    ...    ===========================
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.กด เมนู "โปรโมชั่นและแพ็กเกจ"
+    ...    5.ตรวจสอบหน้าถามตอบ "โปรโมชั่นและแพ็กเกจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    [Tags]    success    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_2_Prod] Go to Main Package & On Top Package verify AIS postpaid first question
+    [Documentation]    [F2_2,4_2_Y_2_Prod] Go to promotion & package verify AIS postpaid first question
+    ...
+    ...    Owner : ENG
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    ===========================
+    ...    Not Verify page "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...
+    ...    29/11/16
+    ...    ===========================
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS Postpaid"
+    ...    7.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Postpaid" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    8.Click " First \ question "
+    ...    9.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Postpaid" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.กด เมนู "โปรโมชั่นและแพ็กเกจ"
+    ...    5.ตรวจสอบหน้าถามตอบ "โปรโมชั่นและแพ็กเกจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "สำหรับลูกค้ารายเดือน"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้ารายเดือน" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    8.เลือก " คำถามข้อที่1 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้ารายเดือน" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Comment    Verify Main Package And On Top Package FAQ Page    ${virtual_device_1_SN}
+    Select FAQ Promotion And Package    AISPostpaid
+    Verify AIS Postpaid FAQ Page
+    Select Promotion and Package Question    1
+    Verify AIS Postpaid Answer    1
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_3_Prod] Go to Main Package & On Top Package verify AIS postpaid second question
+    [Documentation]    [F2_2,4_2_Y_3_Prod] Go to promotion & package verify AIS postpaid second question
+    ...
+    ...    Owner : ENG
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    ===========================
+    ...    Not Verify page "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...
+    ...    29/11/16
+    ...    ===========================
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS Postpaid"
+    ...    7.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Postpaid" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    8.Click " Second question "
+    ...    9.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Postpaid" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.กด เมนู "โปรโมชั่นและแพ็กเกจ"
+    ...    5.ตรวจสอบหน้าถามตอบ "โปรโมชั่นและแพ็กเกจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "สำหรับลูกค้ารายเดือน"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้ารายเดือน" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    8.เลือก " คำถามข้อที่2 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้ารายเดือน" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Comment    Verify Main Package And On Top Package FAQ Page    ${virtual_device_1_SN}
+    Select FAQ Promotion And Package    AISPostpaid
+    Verify AIS Postpaid FAQ Page
+    Select Promotion and Package Question    2
+    Verify AIS Postpaid Answer    2
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_4_Prod] Go to Main Package & On Top Packageverify AIS postpaid third question
+    [Documentation]    [F2_2,4_2_Y_4_Prod] Go to Promotion & Package Verify AIS postpaid third question
+    ...
+    ...    Owner : ENG
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    ===========================
+    ...    Not Verify page "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...
+    ...    29/11/16
+    ...    ===========================
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS Postpaid"
+    ...    7.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Postpaid" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    8.Click " Third question "
+    ...    9.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Postpaid" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.กด เมนู "โปรโมชั่นและแพ็กเกจ"
+    ...    5.ตรวจสอบหน้าถามตอบ "โปรโมชั่นและแพ็กเกจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "สำหรับลูกค้ารายเดือน"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้ารายเดือน" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    8.เลือก " คำถามข้อที่3 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้ารายเดือน" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Comment    Verify Main Package And On Top Package FAQ Page    ${virtual_device_1_SN}
+    Select FAQ Promotion And Package    AISPostpaid
+    Verify AIS Postpaid FAQ Page
+    Select Promotion and Package Question    3
+    Verify AIS Postpaid Answer    3
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_5_Prod] Go to Main Package & On Top Package verify AIS 1-2-call! first question
+    [Documentation]    [F2_2,4_2_Y_5_Prod] Go to Promotion & Package Verify AIS 1-2-call! first question
+    ...
+    ...    Owner : Fang
+    ...
+    ...    *** Comment***
+    ...    09/08/2017 : Change verify" Main Package & On Top Package" to " Main Package & On top Package" because it have the same meaning. => refer to our commit.
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    ===Not Verify page "Help&Support"====
+    ...    29/11/16
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    ==========================
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS 1-2-Call!"
+    ...    7.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...
+    ...    ====FAQ have submenu>1 page , Add step before verify "answers" Page==============
+    ...    1/12/16
+    ...    8.Click " First \ question "
+    ...    9.Click " First \ question "
+    ...    ===========================================================
+    ...
+    ...    10.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.กด เมนู "โปรโมชั่นและแพ็กเกจ"
+    ...    5.ตรวจสอบหน้าถามตอบ "โปรโมชั่นและแพ็กเกจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "สำหรับลูกค้าวัน-ทู-คอล!"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    8.เลือก " คำถามข้อที่1 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    bug    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Comment    Verify Main Package And On Top Package FAQ Page    ${virtual_device_1_SN}
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    1
+    Verify Promotion And Package AIS 12Call Question Page
+    Select Sub AIS 12Call Question    1
+    Verify Promotion And Package AIS 12Call Answer    1
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_6_Prod] Go to Main Package & On Top Package verify AIS 1-2-call! second question
+    [Documentation]    [F2_2,4_2_Y_6_Prod] Go to Promotion & Package Verify AIS 1-2-Call! Second question
+    ...
+    ...    Owner : Fang
+    ...
+    ...    *** Comment***
+    ...    09/08/2017 : Change verify" Main Package & On Top Package" to " Main Package & On top Package" because it have the same meaning. => refer to our commit.
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    ===Not Verify page "Help&Support"====
+    ...    29/11/16
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    ==========================
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS 1-2-Call!"
+    ...    7.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...
+    ...
+    ...    ====FAQ have submenu>1 page , Add step before verify "answers" Page==============
+    ...    1/12/16
+    ...    8.Click " First question "
+    ...    9.Click \ " Second question "
+    ...    ===========================================================
+    ...
+    ...    10.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.กด เมนู "โปรโมชั่นและแพ็กเกจ"
+    ...    5.ตรวจสอบหน้าถามตอบ "โปรโมชั่นและแพ็กเกจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "สำหรับลูกค้าวัน-ทู-คอล!"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    8.เลือก " คำถามข้อที่2 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    bug    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Comment    Verify Main Package And On Top Package FAQ Page    ${virtual_device_1_SN}
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    1
+    Verify Promotion And Package AIS 12Call Question Page
+    Select Sub AIS 12Call Question    2
+    Verify Promotion And Package AIS 12Call Answer    2
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_7_Prod] Go to Main Package & On Top Package verify AIS fibre first question
+    [Documentation]    [F2_2,4_2_Y_7_Prod] Go to Promotion & Package Verify AIS fibre first question
+    ...
+    ...    Owner : Fang
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    ===Not Verify page "Help&Support"====
+    ...    29/11/16
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    ==========================
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS Fibre"
+    ...    7.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Fibre" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    8.Click " First \ question "
+    ...
+    ...    ==== Change Verify "Promotion & Package"(text) to "Promotion and Package"(text) follow application====
+    ...    1/12/16
+    ...    9.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Fibre" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.กด เมนู "โปรโมชั่นและแพ็กเกจ"
+    ...    5.ตรวจสอบหน้าถามตอบ "โปรโมชั่นและแพ็กเกจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "- สำหรับลูกค้าไฟเบอร์"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "- สำหรับลูกค้าไฟเบอร์" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    8.เลือก " คำถามข้อที่1 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "- สำหรับลูกค้าไฟเบอร์" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    bug    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Comment    Verify Main Package And On Top Package FAQ Page    ${virtual_device_1_SN}
+    Select FAQ Promotion And Package    AISFibre
+    Verify FAQ Promotion And Package AIS Fibre Page
+    Select Promotion And Package AIS Fibre Question    1
+    Verify Promotion And Package AIS Fibre Answer    1
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_8_Prod] Go to Main Package & On Top Package verify AIS fibre second question
+    [Documentation]    [F2_2,4_2_Y_8_Prod] Go to Promotion & Package Verify AIS Fibre Second question
+    ...
+    ...    Owner : Fang
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    ===========================
+    ...    Not Verify page "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...
+    ...    29/11/16
+    ...    ===========================
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS Fibre"
+    ...    7.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Fibre" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    8.Click " Second question "
+    ...
+    ...    ==== Change Verify "Promotion & Package"(text) to "Promotion and Package"(text) follow application====
+    ...    1/12/16
+    ...    9.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Fibre" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    ===========================
+    ...    ไม่ต้องตรวจสอบเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    ===========================
+    ...    4.กด เมนู "โปรโมชั่นและแพ็กเกจ"
+    ...    5.ตรวจสอบหน้าถามตอบ "โปรโมชั่นและแพ็กเกจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "- สำหรับลูกค้าไฟเบอร์"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "- สำหรับลูกค้าไฟเบอร์" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    8.เลือก " คำถามข้อที่2 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "- สำหรับลูกค้าไฟเบอร์" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    bug    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Comment    Verify Main Package And On Top Package FAQ Page    ${virtual_device_1_SN}
+    Select FAQ Promotion And Package    AISFibre
+    Verify FAQ Promotion And Package AIS Fibre Page
+    Select Promotion And Package AIS Fibre Question    2
+    Verify Promotion And Package AIS Fibre Answer    2
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_42_Prod] Go to Main Package & On Top Package verify AIS 12call (call and internet) third question
+    [Documentation]    *Owner:Now*
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS 1-2-Call!"
+    ...    7.Verify "AIS 1-2-Call!" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Call and Internet
+    ...    - Mao mao
+    ...    8.Click "Call and Internet"
+    ...    9.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    10.Click " Third question "
+    ...    11.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.กด เมนู "ถาม อุ่นใจ"
+    ...    5.ตรวจสอบหน้าผู้ช่วย "ถาม อุ่นใจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "สำหรับลูกค้าวัน-ทู-คอล!"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - ถามตอบข้อที่1
+    ...    - ถามตอบข้อที่2
+    ...    8.เลือก " ถามตอบข้อที่1 "
+    ...    9.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    10.เลือก " คำถามข้อที่3 "
+    ...    11.ตรวจสอบหน้า "คำตอบ"
+    ...    - "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    bug    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    1
+    Verify Promotion And Package AIS 12Call Question Page
+    Select Sub AIS 12Call Question    3
+    Verify Promotion And Package AIS 12Call Answer    3
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_43_Prod] Go to Main Package & On Top Package verify AIS 12call ( mao mao) first question
+    [Documentation]    *Owner:Now*
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS 1-2-Call!"
+    ...    7.Verify "AIS 1-2-Call!" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Call and Internet
+    ...    - Mao mao
+    ...    8.Click "Mao mao"
+    ...    9.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    10.Click " First \ question "
+    ...    11.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.กด เมนู "ถาม อุ่นใจ"
+    ...    5.ตรวจสอบหน้าผู้ช่วย "ถาม อุ่นใจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "สำหรับลูกค้าวัน-ทู-คอล!"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - ถามตอบข้อที่1
+    ...    - ถามตอบข้อที่2
+    ...    8.เลือก " ถามตอบข้อที่1 "
+    ...    9.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    10.เลือก " คำถามข้อที่1 "
+    ...    11.ตรวจสอบหน้า "คำตอบ"
+    ...    - "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    bug    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    2
+    Verify Promotion And Package AIS 12Call Question Page
+    Select Sub AIS 12Call Question    1
+    Verify Promotion And Package AIS 12Call Answer    1
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_44_Prod] Go to Main Package & On Top Package verify AIS 12call ( mao mao) second question
+    [Documentation]    *Owner:Now*
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS 1-2-Call!"
+    ...    7.Verify "AIS 1-2-Call!" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Call and Internet
+    ...    - Mao mao
+    ...    8.Click "Mao mao"
+    ...    9.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    10.Click " Second question "
+    ...    11.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.กด เมนู "ถาม อุ่นใจ"
+    ...    5.ตรวจสอบหน้าผู้ช่วย "ถาม อุ่นใจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "สำหรับลูกค้าวัน-ทู-คอล!"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - ถามตอบข้อที่1
+    ...    - ถามตอบข้อที่2
+    ...    8.เลือก " ถามตอบข้อที่1 "
+    ...    9.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    10.เลือก " คำถามข้อที่2 "
+    ...    11.ตรวจสอบหน้า "คำตอบ"
+    ...    - "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    bug    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    2
+    Verify Promotion And Package AIS 12Call Question Page
+    Select Sub AIS 12Call Question    2
+    Verify Promotion And Package AIS 12Call Answer    2
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_45_Prod] Go to Main Package & On Top Package verify AIS 12call ( mao mao) third question
+    [Documentation]    *Owner:Now*
+    ...
+    ...    **Pre-requisite**
+    ...    Source Number : 3PO,3BO,3PE,3BE
+    ...    Status : Active
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS 1-2-Call!"
+    ...    7.Verify "AIS 1-2-Call!" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Call and Internet
+    ...    - Mao mao
+    ...    8.Click "Mao mao"
+    ...    9.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    10.Click " Third question "
+    ...    11.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS 1-2-Call!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+    ...    - ผู้ช่วย
+    ...    • ถาม อุ่นใจ
+    ...    - ถามตอบ
+    ...    • โปรโมชั่นและแพ็กเกจ
+    ...    • อินเทอร์เน็ต/ไฟเบอร์
+    ...    • ตรวจสอบใบแจ้งและยอดเงิน
+    ...    • การใช้งานต่างประเทศ
+    ...    • การยกเลิก SMS โฆษณา
+    ...    - วิธีใช้งาน application
+    ...    • วิธีใช้งาน
+    ...    4.กด เมนู "ถาม อุ่นใจ"
+    ...    5.ตรวจสอบหน้าผู้ช่วย "ถาม อุ่นใจ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    6.เลือก "สำหรับลูกค้าวัน-ทู-คอล!"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - ถามตอบข้อที่1
+    ...    - ถามตอบข้อที่2
+    ...    8.เลือก " ถามตอบข้อที่1 "
+    ...    9.ตรวจสอบหน้า "ถามตอบ"
+    ...    "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    10.เลือก " คำถามข้อที่3 "
+    ...    11.ตรวจสอบหน้า "คำตอบ"
+    ...    - "โปรโมชั่นและแพ็กเกจ" (Text)
+    ...    - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    bug    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Help And Support Menu
+    Select Promotion And Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    2
+    Verify Promotion And Package AIS 12Call Question Page
+    Select Sub AIS 12Call Question    3
+    Verify Promotion And Package AIS 12Call Answer    3
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_1-3_1-2_Y_46_Prod] Go to Promotion & Package Verify AIS Fibre Third question
+    [Documentation]    *Owner Mon*
+    ...
+    ...    Step:
+    ...    EN
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Verify page "Help&Support"
+    ...    - Consult agent
+    ...    • Ask Aunjai
+    ...    - FAQ
+    ...    • Promotion & Package
+    ...    • Internet & AIS FIBRE
+    ...    • Your Balance & Statement
+    ...    • International Roaming
+    ...    • SMS Cancellation/Inquiries
+    ...    • Special campaign & Privileges
+    ...    - How to use application
+    ...    • How to USE
+    ...    4.Click menu "Promotion & Package"
+    ...    5.Verify FAQ "Promotion & Package" Page
+    ...    "Promotion & Package" (Text)
+    ...    - AIS Postpaid
+    ...    - AIS 1-2-Call!
+    ...    - AIS Fibre
+    ...    6.Click "AIS Fibre"
+    ...    7.Verify "FAQ" page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Fibre" (Text)
+    ...    - First \ question
+    ...    - Second question
+    ...    - Third question
+    ...    8.Click " Third \ question "
+    ...    9.Verify "answers" Page
+    ...    "Promotion & Package" (Text)
+    ...    "AIS Fibre" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    ...
+    ...    ===TH===
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.กด เมนู " แพ็กเกจหลัก/แพ็กเกจเสริม "
+    ...    4.ตรวจสอบหน้า " แพ็กเกจหลัก/แพ็กเกจเสริม "
+    ...    " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
+    ...    - สำหรับลูกค้ารายเดือน
+    ...    - สำหรับลูกค้าวัน-ทู-คอล!
+    ...    - สำหรับลูกค้าไฟเบอร์
+    ...    5.เลือก "- สำหรับลูกค้าไฟเบอร์"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...    " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
+    ...    "- สำหรับลูกค้าไฟเบอร์" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    7.เลือก " คำถามข้อที่3 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...    " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
+    ...    "- สำหรับลูกค้าไฟเบอร์" (Text)
+    ...    - Other text (Use Regular expression = ".*")
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    HelpAndSupport
+    Select Sub Menu    MainPackageAndOnTopPackage
+    Verify Main Package And On Top Package
+    Select Topic    AISFibre
+    Verify Topic AIS Fibre
+    Select AIS Fibre Question    3
+    Verify Answer AIS Fibre Topic
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0] Smoke test
+    [Tags]    smoke
+    log    smoke for quick test
+
+*** Keywords ***
+Verify Main Package And On Top Package
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Mobile element name should be    ${lblTitleMainPackAndOnTopPackage}    ${nameMainPackageAndOnTopPackage}
+    Mobile element name should be    ${lblTopicAISPostpaid}    ${contentAISPostpaid}
+    Mobile element name should be    ${lblTopicAIS12Call}    ${contentAIS12Call}
+    Mobile element name should be    ${lblTopicAISFibre}    ${contentAISFibre}
+    Mobile Capture Screen At Verify Point    FAQ Main Package And On Top Package Page
+
+Verify Topic AIS Fibre
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Mobile element name should be    ${lblTitleMainPackAndOnTopPackage}    ${txtMainPackageAndOntopPackagePage}
+    Mobile element name should be    ${lblPromotionAndPackageAISFibre_Q1}    ${AISFibreQ1}
+    Mobile element name should be    ${lblPromotionAndPackageAISFibre_Q2}    ${AISFibreQ2}
+    Mobile element name should be    ${lblPromotionAndPackageAISFibre_Q3}    ${AISFibreQ3}
+    Mobile Capture Screen At Verify Point    Topic AIS Fibre
+
+Verify Answer AIS Fibre Topic
+    Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
+    Mobile element name should be    ${lblTitleMainPackAndOnTopPackage}    ${txtMainPackageAndOntopPackagePage}
+    Mobile element name should be    ${lblTopicName}    ${topicNameAISFibre}
+    Mobile check existing text in name    ${lblAnswerAISFibre}
+    Mobile Capture Screen At Verify Point    Verify AIS Fibre Answer
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Select Help And Support Menu
+    Select Menu    HelpAndSupport
+
+Select Promotion And Package Submenu
+    Select Sub Menu    MainPackageAndOnTopPackage
+
+Verify Main Package And On Top Package FAQ Page
+    Mobile element name should be    ${lblMainPackageAndOnTopPackage}    ${txtMainPackageAndOnTopPackage}
+    Mobile element name should be    ${lblAISPostpaid}    ${txtAISPostpaid}
+    Mobile element name should be    ${lblAIS12Call}    ${txtAIS1-2-Call!}
+    Mobile element name should be    ${lblAISFibre}    ${txtAISFibre}
+    Mobile Capture Screen At Verify Point    Promotion and Packages FAQ Page
+
+Select FAQ Promotion And Package
+    [Arguments]    ${FAQ}
+    Click Mobile Element    ${lbl${FAQ}}
+
+Verify AIS Postpaid FAQ Page
+    Sleep    2
+    Mobile element name should be    ${lblMainPackageAndOnTopPackage}    ${txtMainPackageAndOnTopPackage}
+    Mobile element name should be    ${lblAISPostpaidHead}    ${txtAISPostpaidTopic}
+    Check Promotion&Package Text In Question    1
+    Check Promotion&Package Text In Question    2
+    Check Promotion&Package Text In Question    3
+    Mobile Capture Screen At Verify Point    AIS Postpaid FAQ Page
+
+Select Promotion and Package Question
+    [Arguments]    ${QuestionNumber}
+    Click Mobile Element    ${lblPromotion&Package_FAQ${QuestionNumber}}
+
+Verify AIS Postpaid Answer
+    [Arguments]    ${QuestionNumber}
+    Sleep    2
+    Mobile element name should be    ${lblMainPackageAndOnTopPackage}    ${txtMainPackageAndOnTopPackageAnsPage}
+    Mobile element name should be    ${lblAISPostpaidHead}    ${txtAISPostpaidTopic}
+    Wait Mobile Until Page Contains Element    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}
+    ${RealAnswer_FAQ}    Aisappium Get Element Attribute    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}    name
+    Should Match Regexp    "${RealAnswer_FAQ}"    .+
+    Mobile Capture Screen At Verify Point    AIS Postpaid Answer${QuestionNumber}
+
+Check Promotion&Package Text In Question
+    [Arguments]    ${Number}
+    Mobile check existing text in name    ${lblPromotion&Package_FAQ${Number}}
+
+Verify FAQ Promotion And Package AIS 12Call Page
+    Mobile element name should match regexp ignore case sensitive    ${lblMainPackageAndOnTopPackage}    ${txtMainPackageAndOntopPackagePage}
+    Mobile element name should be    ${lblFAQHead}    ${txtAIS12CallTopic}
+    Check Promotion&Package Text In Question    1
+    Check Promotion&Package Text In Question    2
+    Mobile Capture Screen At Verify Point    FAQ Promotion And Package AIS 12Call Page
+
+Select Promotion And Package AIS 12Call Question
+    [Arguments]    ${Number}
+    Click Mobile Element    ${lblPromotionAndPackageAIS12Call_FAQ${Number}}
+
+Verify Promotion And Package AIS 12Call Question Page
+    Mobile element name should match regexp ignore case sensitive    ${lblMainPackageAndOnTopPackage}    ${txtMainPackageAndOntopPackagePage}
+    Mobile element name should be    ${lblFAQHead}    ${txtAIS12CallTopic}
+    Check AIS12Call Text In Question    1
+    Check AIS12Call Text In Question    2
+    Check AIS12Call Text In Question    3
+    Mobile Capture Screen At Verify Point    Verify Promotion and Package 12 Call Question Page
+
+Select Sub AIS 12Call Question
+    [Arguments]    ${Argument}
+    Click Mobile Element    ${lblPromotionAndPackageAIS12Call_FAQ${Argument}}
+
+Verify Promotion And Package AIS 12Call Answer
+    [Arguments]    ${QuestionNumber}
+    Mobile element name should match regexp ignore case sensitive    ${lblMainPackageAndOnTopPackage}    ${txtMainPackageAndOntopPackagePage}    5
+    Mobile element name should be    ${lblFAQHead}    ${txtAIS12CallTopic}    5
+    Wait Mobile Until Page Contains Element    ${lblAnswerAIS12Call_FAQ${QuestionNumber}}
+    ${RealAnswer_FAQ}    Aisappium Get Element Attribute    ${lblAnswerAIS12Call_FAQ${QuestionNumber}}    name
+    Should Match Regexp    "${RealAnswer_FAQ}"    .+
+    Log    ${RealAnswer_FAQ}
+    Mobile Capture Screen At Verify Point    Promotion And Package AIS 12Call Answer
+
+Check AIS12Call Text In Question
+    [Arguments]    ${noQuestion}
+    Mobile check existing text in name    ${lblPromotionAndPackageAIS12Call_FAQ${noQuestion}}
+
+Verify FAQ Promotion And Package AIS Fibre Page
+    Mobile element name should be    ${lblMainPackageAndOnTopPackage}    ${txtMainPackageAndOntopPackagePage}
+    Mobile element name should be    ${lblFAQHead}    ${txtAISFibreTopic}
+    Check Promotion&Package Text In Question    1
+    Check Promotion&Package Text In Question    2
+    Mobile Capture Screen At Verify Point    FAQ Promotion And Package AIS Fibre Page
+
+Select Promotion And Package AIS Fibre Question
+    [Arguments]    ${Number}
+    Click Mobile Element    ${lblPromotionAndPackageAISFibre_FAQ${Number}}
+
+Verify Promotion And Package AIS Fibre Answer
+    [Arguments]    ${QuestionNumber}
+    Mobile element name should be    ${lblMainPackageAndOnTopPackage}    ${txtMainPackageAndOntopPackagePage}    5
+    Mobile element name should be    ${lblFAQHead}    ${txtAISFibreTopic}    5
+    Wait Mobile Until Page Contains Element    ${lblAnswerAISFibre_FAQ${QuestionNumber}}
+    ${RealAnswer_FAQ}    Aisappium Get Element Attribute    ${lblAnswerAISFibre_FAQ${QuestionNumber}}    name
+    Should Match Regexp    "${RealAnswer_FAQ}"    .+
+    Log    ${RealAnswer_FAQ}
+    Mobile Capture Screen At Verify Point    Promotion And Package AIS Fibre Answer

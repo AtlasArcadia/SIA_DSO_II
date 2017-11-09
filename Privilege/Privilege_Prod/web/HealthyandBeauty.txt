@@ -1,0 +1,48 @@
+*** Settings ***
+Resource          Resource/PageKeywords/HealthyandBeauty.txt
+Resource          Resource/PageRepository/PrivilegeRepository.txt
+Resource          ../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F7_PrivWeb_0_1-2_Y_1_1] Verify HealthyandBeauty
+    [Tags]    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuHealthAndBeauty}
+    Verify Health Page
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F7_PrivWeb_0_1-2_Y_1_2] Campaign J-Fitness
+    [Tags]    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    ...    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuHealthAndBeauty}
+    Verify JFitness Campaign
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F7_PrivWeb_0_1-2_Y_1_3] Campaign De Loop
+    [Tags]    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    ...    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuHealthAndBeauty}
+    Verify DeLoop Campaign
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F7_PrivWeb_0_1-2_Y_1_4] Campaign Pan Clinic
+    [Tags]    regression    active
+    &{#selenium_hub}=    Create Dictionary
+    &{#selenium_hub}=    Take And Define Virtual Local Configuration    ${#selenium_hub}    ${lo_Privilege_Prod_local_config_file_path}    Selenium    ${ar_TAKE_TIMEOUT}    Normal=include
+    ...    Normal=include
+    Open Browser Privilege Web    ${ar_LANG}    ${Selenium_IPAppium}
+    Click Web Element    ${mnuHealthAndBeauty}
+    Verify PanClinic campagin
+    [Teardown]    Keywords For Teardown    ${#selenium_hub}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    Smoke test

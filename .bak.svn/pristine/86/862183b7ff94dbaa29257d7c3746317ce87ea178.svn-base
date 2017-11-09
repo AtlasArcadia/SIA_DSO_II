@@ -1,0 +1,41 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../PageRepository/RewardRepository.txt
+Resource          ../Localized/${ar_LANG}/RewardLocalized.txt
+Resource          ../PageVariable/RewardVariable.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Points_Prod_local_config_file_path}    ${#selenium_hub}
+
+Verify Reward Sub Menu
+    Scroll Web To Element    ${subMnuFood}
+    Web Element Text Should Be    ${subMnuTelnet}    ${Telnet}
+    Web Element Text Should Be    ${subMnuFood}    ${Food}
+    Web Element Text Should Be    ${subMnuShopFree}    ${ShopFree}
+    Web Element Text Should Be    ${subMnuMobile}    ${Mobile}
+    Web Element Text Should Be    ${subMnuMovie}    ${Movie}
+    Web Element Text Should Be    ${subMnuAunJai}    ${Aunjai}
+    Web Capture Screen At Verify Point    Verify In Reward Sub Menu
+
+Select Reward Submenu
+    [Arguments]    ${Menu}
+    Click Web Element    ${subMnu${Menu}}
+
+Verify First Reward
+    [Arguments]    ${NameReward}
+    Scroll Web To Element    ${lbl${NameReward}RewardTitle}
+    sleep    5
+    Web Element Text Should Be    ${lbl${NameReward}RewardTitle}    ${${NameReward}RewardTitle}
+    ${conditionStatus}=    Run Keyword And Return Status    Web Element Should Be Visible    ${lblConditionOff}    5
+    Run Keyword If    ${conditionStatus}    Click Mobile Element    ${lblConditionOff}
+    Web Element Text Should Be    ${lblConditionOpen}    ${ConditionTitle}
+    Web check existing text    ${lblConditionDetail}
+    Scroll Web To Element    ${imgFirstCampagin}
+    Web Element Should Be Visible    ${imgFirstCampagin}
+    Web Element Should Be Visible    ${lblPointFirstCampagin}
+    Web Element Should Be Visible    ${lblTitleFirstCampagin}
+    Web Capture Screen At Verify Point    Verify Reward In ${NameReward}

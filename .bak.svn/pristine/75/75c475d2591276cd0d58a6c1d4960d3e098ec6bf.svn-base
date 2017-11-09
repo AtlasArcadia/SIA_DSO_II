@@ -1,0 +1,518 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/AISeStatement.txt
+
+*** Test Cases ***
+[F1_2,4_1-2_Y_1_Pord] Verify page service
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite:*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    *EN Version*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Verify page "Service"
+    ...    - AIS estatement
+    ...    - iSWOP
+    ...    - Register AIS Fibre/Check Coverage
+    ...    - Request/Change WiFi Password
+    ...    4. Cap Screen
+    ...
+    ...    *TH Version*
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. กดเลือก เมนู "บริการ"
+    ...    3. Verify หน้า "บริการ"
+    ...    - บริการ AIS eStatement
+    ...    - iSWOP
+    ...    - สมัคร AIS Fibre/เช็กพื้นที่ใช้บริการ
+    ...    - ขอรับ/เปลี่ยนรหัส WiFi
+    ...    4. Cap Screen
+    ...
+    ...    ======== Remark =========
+    ...    1. Add verify point at step.3 \ \ (31/01/2017)
+    ...
+    ...    Verify page "Service"
+    ...    - AIS estatement
+    ...    - iSWOP
+    ...    - Register AIS Fibre/Check Coverage
+    ...    - Request/Change WiFi Password
+    ...    - Calling Melody \ >> Added
+    ...
+    ...    2. Add verify point at step.3 (31/01/2017)
+    ...
+    ...    Verify page "Service"
+    ...    - Service >> Add
+    ...    - AIS estatement
+    ...    - iSWOP
+    ...    - Register AIS Fibre/Check Coverage
+    ...    - Request/Change WiFi Password
+    ...    - Calling Melody \
+    [Tags]    success    active    regression    sanity    demo
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Service
+    Verify Page Service
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_2_Prod] Verify page AIS eStatement with mobile number not register AIS eStatement
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    *EN Version*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "AIS eStatement"
+    ...    4. Verify page "AIS eStatement"
+    ...    - Fast, safe
+    ...    - Hassle-Free
+    ...    - Check it yourself
+    ...    - Stay up-to-date
+    ...    - Apply botton
+    ...    - Term&Condition
+    ...    5. Cap Screen
+    ...
+    ...    *TH Version*
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. กดเลือก เมนู "บริการ"
+    ...    3. กดเลือก เมนูย่อย "บริการ AIS eStatement"
+    ...    4. Verify หน้า "บริการ AIS eStatement"
+    ...    - มั่นใจในการส่ง
+    ...    - หมดข้อกังวล
+    ...    - เช็กยอดค่าโทร
+    ...    - ตรวจสอบและแจ้งเตือน
+    ...    - ปุ่ม สมัครบริการ
+    ...    - เงื่อนไขบริการ
+    ...    5. Cap Screen
+    [Tags]    success    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Service
+    Select Sub Menu    AISeStatement
+    Verify Page AIS eStatement
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_3_Prod] Subscribe AIS eStatement with apply (never register) by register AIS eStatement
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    *EN Version*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "AIS eStatement"
+    ...    4. Verify page "AIS eStatement"
+    ...    - Fast, safe
+    ...    - Hassle-Free
+    ...    - Check it yourself
+    ...    - Stay up-to-date
+    ...    - Apply botton
+    ...    - Term&Condition
+    ...    5. Click "Apply"
+    ...    6. Verify page "Apply eStatement"
+    ...    - E-mail for recieving bill
+    ...    - Bill language
+    ...    - Mobile number for SMS alert (filled with mobile number wich login)
+    ...    - "Confirm" button
+    ...    - "Cancel" button
+    ...    7. Fill E-mail address
+    ...    8. Select Bill language "English"
+    ...    9. Cap screen
+    ...    10. Click "Confirm"
+    ...    11. Verify pop up message
+    ...    12. Cap Screen
+    ...    13. Click "OK"
+    ...
+    ...    *TH Version*
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. กดเลือก เมนู "บริการ"
+    ...    3. กดเลือก เมนูย่อย "บริการ AIS eStatement"
+    ...    4. Verify หน้า "บริการ AIS eStatement"
+    ...    - มั่นใจในการส่ง
+    ...    - หมดข้อกังวล
+    ...    - เช็กยอดค่าโทร
+    ...    - ตรวจสอบและแจ้งเตือน
+    ...    - ปุ่ม สมัครบริการ
+    ...    - เงื่อนไขบริการ
+    ...    5. กดเลือก "สมัครบริการ"
+    ...    6. Verify หน้าสมัครบริการ AIS eStatement
+    ...    - E-mail for recieving bill
+    ...    - Bill language
+    ...    - Mobile number for SMS alert (filled with mobile number wich login)
+    ...    - "Confirm" button
+    ...    - "Cancel" button
+    ...    7. กรอก E-mail address
+    ...    8. เลือก Bill language "ภาษาไทย"
+    ...    9. Cap screen
+    ...    10. กดเลือก "ยืนยัน"
+    ...    11. ทำการ verify pop up message "คุณสมัครใช้บริการ e-Statement เรียบร้อยแล้ว"
+    ...    12. Cap screen
+    ...    13. กดเลือก "ตกลง"
+    ...
+    ...    ======== Remark =========
+    ...    - Change Popup Message Step.11
+    ...
+    ...    11. ทำการ verify pop up message (06/01/2016)
+    ...
+    ...    TH Version
+    ...
+    ...    คุณสมัครใช้บริการ eStatement เรียบร้อยแล้ว
+    ...
+    ...    โดยคุณจะได้รับ SMS แจ้งยืนยันการสมัครในอีกสักครู่
+    ...    ทั้งนี้คุณจะยังได้รับใบแจ้งค่าใช้บริการทางไปรษณีย์
+    ...    ควบคู่ไปกับการส่งอีเมล์ในรอบบิลแรก หลังจากสมัครบริการ
+    ...
+    ...    ขอบคุณที่เป็นส่วนหนึ่งในการลดภาวะโลกร้อนร่วมกัน
+    ...
+    ...    EN Version
+    ...
+    ...    You have successfully applied eStatement.
+    ...
+    ...    You will recieve a confirmation SMS shortly.
+    ...    Please note that you will recieve your statement via postal mail together
+    ...    with your eStatment for the first bill cycle.
+    ...
+    ...    Thank you. .+
+    [Tags]    reject
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Service
+    Select Sub Menu    AISeStatement
+    Verify Page AIS eStatement
+    Click Apply Button
+    Verify Page Apply AIS eStatement    ${Number}
+    Input Email Address    Test@gmail.com
+    Select Language    ${virtual_device_1_SN}    ${ar_LANG}
+    Confirm Subscribe AIS eStatement
+    Verify Popup Applied AIS eStatement    ${ar_LANG}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_4_Prod] Subscribe AIS eStatement with register AIS eStatement (never register) by not enter email address
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    *EN Version*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "AIS eStatement"
+    ...    4. Verify page "AIS eStatement"
+    ...    - Fast, safe
+    ...    - Hassle-Free
+    ...    - Check it yourself
+    ...    - Stay up-to-date
+    ...    - Apply botton
+    ...    - Term&Condition
+    ...    5. Click "Apply"
+    ...    6. Verify page "Apply eStatement"
+    ...    - E-mail for recieving bill
+    ...    - Bill language
+    ...    - Mobile number for SMS alert (filled with mobile number wich login)
+    ...    - "Confirm" button
+    ...    - "Cancel" button
+    ...    7. Click "OK"
+    ...    8. Verify pop up message "Please enter the E-Mail address you wish to receive you AIS eStatement"
+    ...    9. Cap screen
+    ...
+    ...    *TH Version*
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. กดเลือก เมนู "บริการ"
+    ...    3. กดเลือก เมนูย่อย "บริการ AIS eStatement"
+    ...    4. Verify หน้า "บริการ AIS eStatement"
+    ...    - มั่นใจในการส่ง
+    ...    - หมดข้อกังวล
+    ...    - เช็กยอดค่าโทร
+    ...    - ตรวจสอบและแจ้งเตือน
+    ...    - ปุ่ม สมัครบริการ
+    ...    - เงื่อนไขบริการ
+    ...    5. กดเลือก "สมัครบริการ"
+    ...    6. Verify หน้าสมัครบริการ AIS eStatement
+    ...    - E-mail for recieving bill
+    ...    - Bill language
+    ...    - Mobile number for SMS alert (filled with mobile number wich login)
+    ...    - "Confirm" button
+    ...    - "Cancel" button
+    ...    7. กดเลือก "ตกลง"
+    ...    8. ทำการ verify pop up message "กรุณากรอก e-mail ที่รับใบแจ้งค่าใช้บริการ"
+    ...    9. Cap screen
+    [Tags]    fail    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Service
+    Select Sub Menu    AISeStatement
+    Verify Page AIS eStatement
+    Click Apply Button
+    Verify Page Apply AIS eStatement    ${Number}
+    #Not Input Email Address
+    Confirm Subscribe AIS eStatement
+    Verify Popup Message Not Enter Email
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_N_5_Prod] Subscribe AIS eStatement with register AIS eStatement (never register) by enter incorrect email address
+    [Documentation]    *Owner* : Mon
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    *EN Version*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "AIS eStatement"
+    ...    4. Verify page "AIS eStatement"
+    ...    - Fast, safe
+    ...    - Hassle-Free
+    ...    - Check it yourself
+    ...    - Stay up-to-date
+    ...    - Apply botton
+    ...    - Term&Condition
+    ...    5. Click "Apply"
+    ...    6. Verify page "Apply eStatement"
+    ...    - E-mail for recieving bill
+    ...    - Bill language
+    ...    - Mobile number for SMS alert (filled with mobile number wich login)
+    ...    - "Confirm" button
+    ...    - "Cancel" button
+    ...    7. Fill incorrect e-mail ex. "chani.com"
+    ...    8. Click "OK"
+    ...    9. Verify pop up message "Your e-mail entered is invalid. Please check and try again"
+    ...    10. Cap screen
+    ...
+    ...    *TH Version*
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. กดเลือก เมนู "บริการ"
+    ...    3. กดเลือก เมนูย่อย "บริการ AIS eStatement"
+    ...    4. Verify หน้า "บริการ AIS eStatement"
+    ...    - มั่นใจในการส่ง
+    ...    - หมดข้อกังวล
+    ...    - เช็กยอดค่าโทร
+    ...    - ตรวจสอบและแจ้งเตือน
+    ...    - ปุ่ม สมัครบริการ
+    ...    - เงื่อนไขบริการ
+    ...    5. กดเลือก "สมัครบริการ"
+    ...    6. Verify หน้าสมัครบริการ AIS eStatement
+    ...    - E-mail for recieving bill
+    ...    - Bill language
+    ...    - Mobile number for SMS alert (filled with mobile number wich login)
+    ...    - "Confirm" button
+    ...    - "Cancel" button
+    ...    7. กรอก incorrect e-mail \ ex. "chani.com"
+    ...    8. กดเลือก "ตกลง"
+    ...    9. ทำการ verify pop up message "รูปแบบ e-mail ไม่ถูกต้อง กรุณาตรวจสอบและระบุใหม่อีกครั้ง"
+    ...    10. Cap screen
+    [Tags]    fail    active    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Service
+    Select Sub Menu    AISeStatement
+    Verify Page AIS eStatement
+    Click Apply Button
+    Verify Page Apply AIS eStatement    ${Number}
+    Input Wrong Email Format    chani.com
+    Confirm Subscribe AIS eStatement
+    Verify Popup Message Wrong Email Format
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_2,4_1-2_Y_6_Prod] Subscribe AIS eStatement with register AIS eStatement have been applied AIS eStatement
+    [Documentation]    *Owner* : Oum
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : Postpaid
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...
+    ...    *EN Version*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "AIS eStatement"
+    ...    4. Verify pop up message "Your mobile number has been applied AIS eStatement service."
+    ...    5. Cap screen
+    ...
+    ...    *TH Version*
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. กดเลือก เมนู "บริการ"
+    ...    3. กดเลือก เมนูย่อย "บริการ AIS eStatement"
+    ...    4. ทำการ verify pop up message "หมายเลขของคุณสมัครบริการ AIS eStatement เรียบร้อยแล้ว"
+    ...    5. Cap screen
+    [Tags]    reject
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    RegisteredeStatement=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RegisteredeStatement
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    Service
+    Select Sub Menu    AISeStatement
+    Verify Mobile Number Applied AIS eStatement
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke.
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Verify Page Service
+    Run Keyword If    "${ar_NType}"=="3PO"    Verify Page Service Non Bos
+    ...    ELSE IF    "${ar_NType}"=="3BO"    Verify Page Service Bos
+    ...    ELSE    Verify Page Service Other
+
+Verify Page Service Bos
+    Mobile element name should be    ${lblServices}    ${txtService}
+    Mobile element name should be    ${subMnuAISeStatement}    ${txtAISeStatement}
+    Mobile element name should be    ${subMnuiSWOP}    ${txtiSWOP}
+    Mobile element name should be    ${subMnuRegisterAISFibre/CheckCoverage}    ${txtRegisterAISFibre/CoverageChecking}
+    Mobile element name should be    ${subMnuRequest/ChangeWiFiPassword}    ${txtRequest/ChangeWiFiPassword}
+    Mobile element name should be    ${subMnuCallingMelody}    ${txtCallingMelody}
+    Mobile Capture Screen At Verify Point    Page Service
+
+Verify Page Service Non Bos
+    Mobile element name should be    ${lblServices}    ${txtService}
+    Mobile element name should be    ${subMnuAISeStatement}    ${txtAISeStatement}
+    #Mobile element name should be    ${subMnuiSWOP}    ${txtiSWOP}    #non bos dont have iSWOP Package
+    Mobile element name should be    ${subMnuRegisterAISFibre/CheckCoverage}    ${txtRegisterAISFibre/CoverageChecking}
+    Mobile element name should be    ${subMnuRequest/ChangeWiFiPassword}    ${txtRequest/ChangeWiFiPassword}
+    Mobile element name should be    ${subMnuCallingMelody}    ${txtCallingMelody}
+    Mobile Capture Screen At Verify Point    Page Service
+
+Verify Page Service Other
+    Mobile element name should be    ${lblServices}    ${txtService}
+    Mobile element name should be    ${subMnuAISeStatement}    ${txtAISeStatement}
+    Mobile element name should be    ${subMnuiSWOP}    ${txtiSWOP}
+    Mobile element name should be    ${subMnuRegisterAISFibre/CheckCoverage}    ${txtRegisterAISFibre/CoverageChecking}
+    Mobile element name should be    ${subMnuRequest/ChangeWiFiPassword}    ${txtRequest/ChangeWiFiPassword}
+    Mobile element name should be    ${subMnuCallingMelody}    ${txtCallingMelody}
+    Mobile Capture Screen At Verify Point    Page Service
+
+Select Sub Menu
+    [Arguments]    ${subMnuName}
+    Click Mobile Element    ${subMnu${subMnuName}}
+
+Verify Page AIS eStatement
+    Wait Mobile Until Page Contains Element    ${lstElement}
+    Swipe to element    ${lblTermAndCondition}
+    @{listeStatement}    AISAppiumEx.Get Webelements    ${lstElement}
+    ${textlFastSafe}    AISAppiumEx.Get Text    @{listeStatement}[0]
+    ${textHasslefree}    AISAppiumEx.Get Text    @{listeStatement}[1]
+    ${textCheckItYourself}    AISAppiumEx.Get Text    @{listeStatement}[2]
+    ${textStayUpToDate}    AISAppiumEx.Get Text    @{listeStatement}[3]
+    Mobile element name should be    ${btnApply}    ${txtApply}
+    Mobile element name should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    AIS eStatement Page
+
+Verify Page Apply AIS eStatement
+    [Arguments]    ${mobileNumber}
+    Mobile element name should be    ${lblEmailForReceivingBill}    ${txtEmailForReceivingBill}
+    Mobile element name should be    ${lblBillLanguage}    ${txtBillLanguage}
+    Mobile element name should be    ${lblMobileNumberForSMSAlert}    ${txtMobileNumberForSMSAlert}
+    ${number}=    Get mobile attribute    ${fldMobileNumber}    name
+    ${actualNum}=    Remove String    ${number}    -
+    Should Be Equal    ${actualNum}    ${mobileNumber}
+    Comment    Mobile element name should be    ${fldMobileNumber}    ${mobileNumber}    #Check Mobile Number
+    Mobile element name should be    ${btnConfirm}    ${txtConfirm}
+    Mobile element name should be    xpath=//android.widget.LinearLayout[@index="2"]/android.widget.Button[@index="1"]    ${txtCancel}
+    Mobile Capture Screen At Verify Point    Apply AIS eStatement Page
+
+Input Email Address
+    [Arguments]    ${Email}
+    Click Mobile Element    ${fldEmailAddress}
+    Input Mobile Text    ${fldEmailAddress}    ${Email}
+    Hide Keyboard
+
+Input Wrong Email Format
+    [Arguments]    ${Email}
+    Click Mobile Element    ${fldEmailAddress}
+    Input Mobile Text    ${fldEmailAddress}    ${Email}
+    Hide Keyboard
+
+Click Apply Button
+    Click Mobile Element    ${btnApply}
+
+Confirm Subscribe AIS eStatement
+    Click Mobile Element    ${btnConfirm}
+
+Verify Popup Message Not Enter Email
+    [Arguments]    ${SN}=${EMPTY}
+    Mobile Element Text Should Be    ${msgDialog}    ${msgPleaseEnterYourEmail}
+    Mobile Capture Screen At Verify Point    Popup Message Not Input Email    ${SN}
+
+Verify Popup Message Wrong Email Format
+    Mobile element text should be    ${msgDialog}    ${msgEmailEnteredInvalid}
+    Mobile Capture Screen At Verify Point    Popup Message Wrong Email Format
+
+Select Language
+    [Arguments]    ${SN}    ${ar_LANG}
+    Click Mobile Element    xpath=//android.widget.Spinner[@index="0"]
+    Run Keyword If    '${ar_LANG}' == 'TH'    Click Mobile Element    ${ddlLanguageTH}
+    Run Keyword If    '${ar_LANG}' == 'EN'    Click Mobile Element    ${ddlLanguageEN}
+    Mobile Capture Screen At Verify Point    Verify Select Language    ${SN}
+
+Verify Mobile Number Applied AIS eStatement
+    Mobile Element Text Should Be    ${msgDialog}    ${msgAppliedAISeStatement}
+    Mobile Capture Screen At Verify Point    Mobile No. Applied AIS eStatement
+
+Verify Popup Applied AIS eStatement
+    [Arguments]    ${ar_LANG}
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Run Keyword If    '${ar_LANG}' == 'TH'    Mobile element text should be    ${msgDialog}    ${msgAppliedSuccess}
+    ${msg}    Aisappium Get Text    ${msgDialog}
+    log    ${msg}
+    Run Keyword If    '${ar_LANG}' == 'EN'    Should Match Regexp    ${msg}    ${msgAppliedSuccess}.*
+    Comment    Mobile element text should be    ${msgDialog}    ${msgAppliedSuccess}.*
+    Comment    Should Match Regexp    ${msgAppliedSuccess}    .+
+    Comment    ${msg}    Aisappium Get Text    ${msgDialog}
+    Comment    Should Match Regexp    ${msg}    ${msgAppliedSuccess}.*
+    Mobile Capture Screen At Verify Point    Popup Message Applied AIS eStatement
+    Click Mobile Element    ${btnOK}

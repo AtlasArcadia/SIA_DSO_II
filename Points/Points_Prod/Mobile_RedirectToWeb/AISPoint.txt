@@ -1,0 +1,194 @@
+*** Settings ***
+Resource          Resource/PageKeywords/TransferPoint.txt
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageRepository/HomeRepository.txt
+Resource          Resource/PageKeywords/Home.txt
+
+*** Test Cases ***
+[F11C_Priv_1-5_1,2_Y_1_2] Verify about AIS point page
+    [Documentation]    **owner** \ Noon
+    ...
+    ...    **Pre-requisite** \ \ Source Number : 3PE Status : Active
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    **Description**
+    ...    Verify หน้า เกี่ยวกับ เอไอเอส พอยท์
+    ...
+    ...    **Test Step**
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    8.ตรวจสอบหน้า เกี่ยวกับเอไอเอส พอยท์ [1]
+    ...    9.capture screen
+    ...
+    ...    **Expect Result**
+    ...
+    ...    [1]
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...    - จะดีแค่ไหน... ถ้าเราแบ่งปันความสุขที่มีให้กันได้
+    [Tags]    3PE    3BE    3PO    EN    TH    active
+    ...    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Click Mobile Element    ${mnuAboutAISPoint}
+    Verify Nowhereishappy
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11C_Priv_1-5_1,2_Y_2_2] Verify show term and condition
+    [Documentation]    **owner** \ Noon
+    ...
+    ...    **Pre-requisite** \ \ Source Number : 3PE Status : Active
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    **Description**
+    ...    verify เงื่อนไขการรับสิทธิ์ ^
+    ...
+    ...    **Test Step**
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    8. เลือก เงื่อนไขการรับสิทธิ์ ^
+    ...    9. verify text
+    ...    10.capture screen
+    ...
+    ...    **Expect Result**
+    ...
+    ...    [1]
+    ...    - แสดง ข้อความ เงื่อนไขการรับสิทธิ์
+    [Tags]    3PE    3BE    3PO    EN    TH    active
+    ...    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Click Mobile Element    ${mnuAboutAISPoint}
+    Verify show tern and condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11C_Priv_1-5_1,2_Y_3_2] Verify hide term and codition
+    [Documentation]    **owner** \ Noon
+    ...
+    ...    **Pre-requisite** \ \ Source Number : 3PE Status : Active
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    **Description**
+    ...    verify เงื่อนไขการรับสิทธิ์ v
+    ...
+    ...    **Test Step**
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    8. verify text
+    ...    9.capture screen
+    ...
+    ...    **Expect Result**
+    ...
+    ...    [1]
+    ...    - ซ่อน ข้อความ เงื่อนไขการรับสิทธิ์
+    [Tags]    3PE    3BE    3PO    EN    TH    active
+    ...    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Click Mobile Element    ${mnuAboutAISPoint}
+    Hide term and condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11C_Priv_1-5_1,2_Y_4_2] Verify all about AIS point page
+    [Documentation]    **owner** \ Noon
+    ...
+    ...    **Pre-requisite** \ \ Source Number : 3PE Status : Active
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    **Description**
+    ...    verify หน้า เกี่ยวกับ เอไอเอส พอยท์ ทั้งหมด
+    ...
+    ...    **Test Step**
+    ...
+    ...    1. เปิดApp myAIS
+    ...    2. Login ผ่าน 3G/4G หรือกดรับ OTP
+    ...    3. กด "ตกลง"
+    ...    4. เลือกเมนู "พอยท์ & สิทธิพิเศษ"
+    ...    5. คลิกปุ่ม ">"
+    ...    6.เข้าสู่หน้า แลกเปลี่ยนคะแนน
+    ...    7.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    6. ตรวจสอบหน้า เกี่ยวกับเอไอเอส พอยท์ [1]
+    ...    7. จับภาพหน้าจอ
+    ...
+    ...    **Expect Result**
+    ...
+    ...    [1]
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...    - แลกเปลี่ยนคะแนน
+    ...    - หมายเลขโทรศัพท์ 10 หลัก (จะต้องเป็นหมายเลขเดียวกันกับที่ใส่หน้า login)
+    ...    - แสดงจำนวนพอยท์
+    ...    - เมนูหน้าแรก
+    ...    - เมนูเกี่ยวกับเอไอเอ พอยท์
+    ...    - โอนคะแนน
+    ...    - แลกของรางวัล
+    ...    - "สะสมพอยท์ง่ายๆ ทุกการใช้งาน 25 บาท รับ 1 point
+    ...    >> เช็กพอยท์สะสมฟรี! คลิก
+    ...    >> เงื่อนไขการรับสิทธิ์
+    ...    >> ปุ่ม ^
+    ...    >> รายละเอียดเงื่อนไขการรับสิทธิ์
+    ...    >> ต้องไม่มี ปุ่มสมัครเข้าร่วมโครงการ
+    [Tags]    3PE    3BE    3PO    EN    TH    active
+    ...    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Click Mobile Element    ${mnuAboutAISPoint}
+    Mobile element text should be    ${lblConvertPoint}    ${ConvertPoint}
+    Home.Mobile number    ${Number}
+    Mobile check existing text in name    ${txtPoint}
+    Home.Verify menu
+    Verify about MyAIS
+    Home.Verify term and condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

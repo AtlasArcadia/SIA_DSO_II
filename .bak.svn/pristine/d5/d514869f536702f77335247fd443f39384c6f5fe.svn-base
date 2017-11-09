@@ -1,0 +1,114 @@
+*** Settings ***
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/FAQ_YourBalanceAndStatementLocalized.txt
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../PageRepository/${ar_OS}/FAQ_YourBalance&StatementRepository.txt
+
+*** Keywords ***
+Select Help And Support Menu
+    Select Menu    HelpAndSupport
+
+Select Your Balance And Statement Submenu
+    Select Sub Menu    YourBalanceAndStatement
+
+Select AIS Monthly Statement Question
+    [Arguments]    ${noQuestion}
+    Comment    Sleep    5
+    Wait Mobile Until Page Contains Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
+    Comment    Click Mobile Element At Position    ${lblAISMonthlyStatementQuestion${noQuestion}}    top    0.05
+    Click Mobile Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
+
+Verify AIS Monthly Statement Question
+    Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
+    Mobile element name should be    ${txtSubAISMonthlyStatement}    ${txtAISMonthlyStatementTopic}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion1}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion2}
+    Mobile Capture Screen At Verify Point    AIS Monthly Statement Question
+
+Select AIS Monthly Statement
+    Comment    Sleep    5
+    Wait Mobile Until Page Contains Element    ${lblAISMonthlyStatement}
+    Comment    Click Mobile Element At Position    ${lblAISMonthlyStatement}    top    0.05
+    Click Mobile Element    ${lblAISMonthlyStatement}
+
+Verify AIS Monthly Statement Answer
+    Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
+    Mobile element name should be    ${txtSubAISMonthlyStatement}    ${txtAISMonthlyStatementTopic}
+    Mobile check existing text in name    ${txtAnswerYourbalanceAndStatement}
+    Mobile Capture Screen At Verify Point    AIS Monthly Statement Answer
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify FAQ Your Balance And Statement Page
+    Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
+    Mobile element name should be    ${lblAISMonthlyStatement}    ${txtFAQAISMonthlyStatement}
+    Mobile element name should be    ${lblAISOne-2-CallCreditBalance}    ${txtFAQAISOne-2-CallCreditBalance}
+    Mobile element name should be    ${lblInvoice/BillAISFiber}    ${txtFAQInvoice/BillAISFiber}
+    Mobile Capture Screen At Verify Point    FAQ Your Balance And Statement Page
+
+Select AIS One-2-Call Credit Balance
+    Wait Mobile Until Page Contains Element    ${lblAISOne-2-CallCreditBalance}
+    Comment    Click Mobile Element At Position    ${lblAISOne-2-CallCreditBalance}    top    0.05
+    Click Mobile Element    ${lblAISOne-2-CallCreditBalance}
+
+Verify AIS 1-2-Call Credit Balance Question
+    Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
+    Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
+    Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${txtAISOne-2-CallCreditBalanceTopic}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion1}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion2}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion3}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion4}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion5}
+    Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Question
+
+Select AIS 1-2-Call Credit Balance Question
+    [Arguments]    ${noQuestion}
+    Click Mobile Element    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}
+    Comment    Click Mobile Element At Position    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}    top    0.05    #Select First Question
+
+Verify AIS 1-2-Call Credit Balance Answer
+    Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
+    Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${txtAISOne-2-CallCreditBalanceTopic}
+    Verify Answer Text    ${txtAnswerYourbalanceAndStatement}
+    Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Answer
+
+Verify Answer Text
+    [Arguments]    ${locator}
+    ${ans}=    Get mobile attribute    ${locator}    name
+    log    ${ans}
+    ${verifyText}    Should Match Regexp    ${ans}    .+
+    log    ${verifyText}
+    Comment    Mobile Capture Screen At Verify Point    Answer Text
+
+Select Invoice Or Bill AIS Fiber
+    Wait Mobile Until Page Contains Element    ${lblInvoice/BillAISFiber}
+    Comment    Click Mobile Element At Position    ${lblInvoice/BillAISFiber}    top    0.05
+    Click Mobile Element    ${lblInvoice/BillAISFiber}
+
+Verify Invoice/Bill AIS Fiber Question
+    Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
+    Mobile element name should be    ${lblYourBalance&Statement}    ${txtYourBalance&statementOfInvoice/BillAISFiber}
+    Mobile element name should be    ${txtInvoice/BillAISFiber}    ${txtInvoice/BillAISFiberTopic}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion1}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion2}
+    Mobile Capture Screen At Verify Point    Invoice or Bill AIS Fiber Question
+
+Select Invoice/Bill AIS Fiber Question
+    [Arguments]    ${noQuestion}
+    Sleep    5
+    Comment    Click Mobile Element At Position    ${lblInvoice/BillAISFiberQuestion${noQuestion}}    top    0.05    #Select First Question
+    Click Mobile Element    ${lblInvoice/BillAISFiberQuestion${noQuestion}}
+
+Verify Invoice/Bill AIS Fiber Answer
+    Wait Mobile Until Page Contains Element    ${txtInvoice/BillAISFiber}
+    Mobile element name should be    ${lblYourBalance&Statement}    ${txtYourbalancestatement}
+    Mobile element name should be    ${txtInvoice/BillAISFiber}    ${txtInvoice/BillAISFiberTopic}
+    Mobile check existing text in name    ${txtAnswerYourbalanceAndStatement}
+    Mobile Capture Screen At Verify Point    Invoice or Bill AIS Fiber Answer

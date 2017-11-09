@@ -1,0 +1,50 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/iSWOPLocalized.txt
+Resource          ../PageRepository/${ar_OS}/iSWOPRepository.txt
+
+*** Keywords ***
+Swop Internet To Voice
+    [Arguments]    ${ratio}=0.1
+    ${locator}=    Set Variable    ${indicatorVoiceAndInternetiSWOP}
+    &{size}    AisappiumEx.Get Element Size    ${locator}
+    &{location}    Get Element Location    ${locator}
+    ${width}=    Get From Dictionary    ${size}    width
+    ${height}=    Get From Dictionary    ${size}    height
+    ${y}=    Get From Dictionary    ${location}    y
+    ${x}=    Get From Dictionary    ${location}    x
+    ${halfY}=    Evaluate    ${y}+(${height}/2)
+    ${halfX}=    Evaluate    ${width}/2
+    ${marginTop}=    Evaluate    ${y}+(${height}*${ratio})
+    ${marginBelow}=    Evaluate    (${y}+${height})-(${height}*${ratio})
+    ${marginLeft}=    Evaluate    ${x}+(${width}*${ratio})
+    ${marginRight}=    Evaluate    ${width}-(${width}*${ratio})
+    Swipe    ${marginLeft}    ${halfY}    ${marginLeft}    ${marginBelow}
+
+Swop Voice To Internet
+    [Arguments]    ${ratio}=0.1
+    ${locator}=    Set Variable    ${indicatorVoiceAndInternetiSWOP}
+    &{size}    AisappiumEx.Get Element Size    ${locator}
+    &{location}    Get Element Location    ${locator}
+    ${width}=    Get From Dictionary    ${size}    width
+    ${height}=    Get From Dictionary    ${size}    height
+    ${y}=    Get From Dictionary    ${location}    y
+    ${x}=    Get From Dictionary    ${location}    x
+    ${halfY}=    Evaluate    ${y}+(${height}/2)
+    ${halfX}=    Evaluate    ${width}/2
+    ${marginTop}=    Evaluate    ${y}+(${height}*${ratio})
+    ${marginBelow}=    Evaluate    (${y}+${height})-(${height}*${ratio})
+    ${marginLeft}=    Evaluate    ${x}+(${width}*${ratio})
+    ${marginRight}=    Evaluate    ${width}-(${width}*${ratio})
+    Swipe    ${marginRight}    ${halfY}    ${marginRight}    ${marginBelow}
+
+Clear Value iSWOP
+    sleep    10
+    Select Sub Menu    iSWOP
+    Wait Mobile Until Page Contains Element    ${cardVoice}
+    Wait Mobile Until Page Contains Element    ${cardInternet}
+    Click Mobile Element    ${indicatorVoiceAndInternetiSWOP}
+    Click Mobile Element At Position    ${btnConfirmiSWOP}    below
+    Mobile Element Text Should Be    ${msgDialog}    ${txtAlertMsgiSWOP}
+    Click Mobile Element    ${btnOK}

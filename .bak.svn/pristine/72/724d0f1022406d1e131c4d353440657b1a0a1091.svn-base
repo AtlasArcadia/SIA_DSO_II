@@ -1,0 +1,223 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/TopupRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/TopUpLocalized.txt
+
+*** Keywords ***
+Select TopUp Channel
+    [Arguments]    ${CardType}
+    Click Mobile Element    ${rdo${CardType}}
+
+Select Card Type
+    [Arguments]    ${catdType}
+    Click Mobile Element    ${btnSelectCardType}
+    Click Mobile Element    ${rdo${catdType}}
+
+Select TopUp With Minimum Amount
+    Click Mobile Element    ${ddlSelectTopUpAmount}
+    Click Mobile Element    ${ddl50Baht}    #Select 50 Baht
+
+Click Next Button
+    Swipe to element    ${btnNext}
+    Click Mobile Element    ${btnNext}
+
+Verify Dialog Please Input Destination Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtPleaseEnterDestinationNumber}
+    Mobile Capture Screen At Verify Point    Please Input Destination Number
+
+Verify Top Up Page
+    Mobile element text should be    ${txtPleaseSelectTopUp}    ${PleaseSelectTopUpChannels}
+    Mobile element text should be    ${txtEnterDestinationNumber}    ${EnterDestinationNumberYouWishToTopUp}
+    Mobile element text should be    ${txtSelectTopUpAmount}    ${SelectTopUpAmount}
+    Mobile Capture Screen At Verify Point    Topup Page
+
+Clear Destination Number Field
+    Swipe to element    ${btnNext}
+    Clear Text    ${fldDestinationNumber}
+
+Input Destination Number
+    [Arguments]    ${Number}
+    Swipe to element    ${btnNext}
+    Clear Text    ${fldDestinationNumber}
+    Input Mobile Text    ${fldDestinationNumber}    ${Number}
+
+Verify Summary Top Up Credit Card Page
+    Mobile element text should be    ${txtSummaryOfTopUp}    ${SummaryOfTopUp}
+    Mobile element text should be    ${txtTopUpChannel}    ${TopUpChannel}
+    Mobile element text should be    ${txtCardType}    ${CardType}
+    Mobile element text should be    ${txtTopUpToNumber}    ${TopUpToNumber}
+    Mobile element text should be    ${txtAmount}    ${Amount}
+    Mobile Capture Screen At Verify Point    Summary Top Up Credit Card Page
+
+Confirm Summary Top Up
+    Click Mobile Element    ${btnConfirmSummaryTopUp}
+
+Verify Bank Page
+    Run Keyword If      "${ar_OS}"=="Android"       Mobile element name should be    ${logoBangkokBank}    ${LogoBangkok}
+    Run Keyword If      "${ar_OS}"=="iOS"       AISAppiumEx.Wait Until Page Contains Element    ${logoBangkokBank}
+    Mobile Capture Screen At Verify Point    Bank Page
+
+Verify Summary Top Up Debit Card Page
+    Mobile element text should be    ${txtSummaryOfTopUp}    ${SummaryOfTopUp}
+    Mobile element text should be    ${txtTopUpChannel}    ${TopUpChannel}
+    Mobile element text should be    ${txtTopUpToNumber}    ${TopUpToNumber}
+    Mobile element text should be    ${txtAmount}    ${Amount}
+    Mobile Capture Screen At Verify Point    Summary Top Up Credit Card Page
+
+Verify Dialog Message
+    [Arguments]    ${Message}
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${Message}
+    Mobile Capture Screen At Verify Point    Dialog Message
+
+Input Wrong PIN Card
+    Input Mobile Text    ${fldPinCode}    1111111111111111
+
+Verify Summary Of Topup With Refill Card Page
+    Mobile element text should be    ${txtSummaryOfTopUp}    ${SummaryOfTopUp}
+    Mobile element text should be    ${txtTopUpChannel}    ${TopUpChannel}
+    Mobile element text should be    ${txtTopUpToNumber}    ${TopUpToNumber}
+    Mobile element text should be    ${txtWithPin}    ${WithPin}
+    Mobile Capture Screen At Verify Point    Summary Top Up With Refill Card
+
+Input Correct PIN Card
+    [Arguments]    ${PINCode}
+    Input Mobile Text    ${fldPinCode}    ${PINCode}
+
+Verify SMS Source Number
+    [Arguments]    ${MsgVerifySMS}    ${Platfrom_Name}    ${TotalSMS}=1
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${Platfrom_Name}    ${TotalSMS}    ${lo_sms_timeout}    022719000
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${Platfrom_Name}    022719000    ${TotalSMS}
+    ${result}    Evaluate    ${TotalSMS}-1
+    : FOR    ${indexOfActual}    IN RANGE    ${TotalSMS}
+    \    Log    Actual : @{messages}[${indexOfActual}]
+    \    Log    Expect : ${MsgVerifySMS}
+    \    ${status}=    Run Keyword And Return Status    Should Match Regexp    @{messages}[${indexOfActual}]    ${MsgVerifySMS}
+    \    Run Keyword If    '${status}'=='True'    Exit For Loop
+    \    Run Keyword If    ${indexOfActual}==${result}    Fail    Message did not match with regex pattern...
+    \    ${indexOfActual}    Evaluate    ${indexOfActual}+1
+    Click Mobile Element    ${SenderSystem}
+    Mobile Capture Screen At Verify Point    Verify Mood SMS Source Number
+    AISAppiumEx.Go Back
+    Close Application
+
+Input Pin Code
+    [Arguments]    ${PinCode}
+    Click Mobile Element    ${fldPinCode}
+    Input Mobile Text    ${fldPinCode}    ${PinCode}
+
+Verify Dialog Please Enter Phone 10 Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtPleaseEnter10DigitPhoneNumber}
+    Mobile Capture Screen At Verify Point    Please enter a 10-digit phone number
+
+Verify Dialog You Provided Invalid Phone Number
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtYouprovidedinvalidphonenumber}
+    Mobile Capture Screen At Verify Point    You provided invalid phone number
+
+Verify SMS Destination Number From AIS
+    [Arguments]    ${MsgVerifySMSFromAIS}    ${Platfrom_Name}    ${TotalSMS}=1
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${Platfrom_Name}    ${TotalSMS}    ${lo_sms_timeout}    AIS
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${Platfrom_Name}    AIS    ${TotalSMS}
+    ${result}    Evaluate    ${TotalSMS}-1
+    : FOR    ${indexOfActual}    IN RANGE    ${TotalSMS}
+    \    Log    Actual : @{messages}[${indexOfActual}]
+    \    Log    Expect : ${MsgVerifySMSFromAIS}
+    \    ${status}=    Run Keyword And Return Status    Should Match Regexp    @{messages}[${indexOfActual}]    ${MsgVerifySMSFromAIS}
+    \    Run Keyword If    '${status}'=='True'    Exit For Loop
+    \    Run Keyword If    ${indexOfActual}==${result}    Fail    Message did not match with regex pattern...
+    \    ${indexOfActual}    Evaluate    ${indexOfActual}+1
+    Click Mobile Element    ${SenderAIS}
+    Mobile Capture Screen At Verify Point    Verify Mood SMS Destination Number From AIS
+    AISAppiumEx.Go Back
+
+Verify SMS Destination Number From System
+    [Arguments]    ${MsgVerifySMSFromSystem}    ${Platfrom_Name}    ${TotalSMS}=1
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${Platfrom_Name}    ${TotalSMS}    ${lo_sms_timeout}    022719000
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${Platfrom_Name}    022719000    ${TotalSMS}
+    ${result}    Evaluate    ${TotalSMS}-1
+    : FOR    ${indexOfActual}    IN RANGE    ${TotalSMS}
+    \    Log    Actual : @{messages}[${indexOfActual}]
+    \    Log    Expect : ${MsgVerifySMSFromSystem}
+    \    ${status}=    Run Keyword And Return Status    Should Match Regexp    @{messages}[${indexOfActual}]    ${MsgVerifySMSFromSystem}
+    \    Run Keyword If    '${status}'=='True'    Exit For Loop
+    \    Run Keyword If    ${indexOfActual}==${result}    Fail    Message did not match with regex pattern...
+    \    ${indexOfActual}    Evaluate    ${indexOfActual}+1
+    Click Mobile Element    ${SenderSystem}
+    Mobile Capture Screen At Verify Point    Verify Mood SMS Destination Number From System
+    Close Application
+
+Check Balance New More than Balance Old
+    [Arguments]    ${balanceOld}    ${balanceNew}
+    ${balanceTopup}    Evaluate    ${balanceNew}-${balanceOld}
+    Run Keyword If    ${balanceTopup} == 50    Log    Top Up Success
+    Run Keyword If    ${balanceTopup} != 50    Fail
+
+Verify Summary of Topup With mPay Page
+    Mobile element text should be    ${txtSummaryOfTopUp}    ${SummaryOfTopUp}
+    Mobile element text should be    ${txtTopUpChannel}    ${TopUpChannel}
+    Mobile element text should be    ${txtTopUpToNumber}    ${TopUpToNumber}
+    Mobile Capture Screen At Verify Point    Summary Top Up With mPay
+
+Verify Login mPay Page
+    Wait Mobile Until Element Visible    ${logomPay}
+    Mobile Capture Screen At Verify Point    Login mPay Page
+
+Input Number Login mPay
+    [Arguments]    ${Number}
+    Input Mobile Text    ${fldNumberLoginmPay}    ${Number}
+    Click Mobile Element    ${btnGetOTPmPay}
+
+Verify Error Message Login mPay
+    [Arguments]    ${ErrorMessagemPay}
+    Mobile element name should be    ${txtErrorMsgLoginmPay}    ${ErrorMessagemPay}
+    Mobile Capture Screen At Verify Point    Error Message Login mPay
+
+Verify SMS Topup Your Own Number
+    [Arguments]    ${MsgTopupYourOwnNumber}    ${Platfrom_Name}    ${TotalSMS}=1
+    Start Activity    appPackage=com.calea.echo    appActivity=com.calea.echo.MainActivity
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${Platfrom_Name}    ${TotalSMS}    ${lo_sms_timeout}    AIS
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${Platfrom_Name}    AIS    ${TotalSMS}
+    ${result}    Evaluate    ${TotalSMS}-1
+    : FOR    ${indexOfActual}    IN RANGE    ${TotalSMS}
+    \    Log    Actual : @{messages}[${indexOfActual}]
+    \    Log    Expect : ${MsgTopupYourOwnNumber}
+    \    ${status}=    Run Keyword And Return Status    Should Match Regexp    @{messages}[${indexOfActual}]    ${MsgTopupYourOwnNumber}
+    \    Run Keyword If    '${status}'=='True'    Exit For Loop
+    \    Run Keyword If    ${indexOfActual}==${result}    Fail    Message did not match with regex pattern...
+    \    ${indexOfActual}    Evaluate    ${indexOfActual}+1
+    Click Mobile Element    ${SenderAIS}
+    Mobile Capture Screen At Verify Point    SMS Topup Your Own Number
+    AISAppiumEx.Go Back
+
+Verify Not Select Top Up
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${txtSelectTopUpAmount2}
+    Mobile Capture Screen At Verify Point    Select top up amount
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Verify Number Must Be AIS Mobile Number
+    [Arguments]    ${ar_NType}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify Dialog Message    ${NumberMustBeAISMobileNumber}
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify Dialog Message    ${NumberMustBeAISMobileNumberBE}
+
+Verify Dialog Message By Match Regular
+    [Arguments]    ${Message}
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Should Match Regexp    ${msgDialog}    ${Message}
+    Mobile Capture Screen At Verify Point    Dialog Message

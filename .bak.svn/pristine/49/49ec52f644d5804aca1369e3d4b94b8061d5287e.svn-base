@@ -1,0 +1,654 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/DomesticPackage_ApplyOtherOnTopPackageRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/DomesticPackage_ApplyOtherOnTopPackageLocalized.txt
+
+*** Keywords ***
+Open And Verify SMS By Time
+    [Arguments]    ${messageExpect}    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}    ${timeout}
+    Open SMS App    ${remoteUrl}    ${platformName}    ${platformVersion}    ${udid}
+    Log    In Wait and Verify SMS By Time Out
+    Sleep    ${timeout}
+    Comment    Wait SMS    ${platformName}    ${totalSMS}    ${timeout}
+    @{unreadElements}    Aisappium Get Webelements    ${lblUnreadNumber}
+    : FOR    ${eachUnread}    IN    @{unreadElements}
+    \    ${number}=    Convert To Integer    ${eachUnread.get_attribute('text')}
+    Log To Console    'total sms:' ${number}
+    Comment    @{messages}=    Read SMS    ${platformName}    0614231950    ${number}
+    Log    In Mood Read SMS
+    @{emptyList}=    Create List
+    @{messages}=    Create List
+    @{senderNameElements}    AISAppiumEx.Get WebElements    ${lblSenderName}
+    : FOR    ${senderNameElement}    IN    @{senderNameElements}
+    \    ${senderName}=    Convert To String    ${senderNameElement.get_attribute('text')}
+    \    @{messages}=    Run Keyword If    '${senderName}' == 'AIS'    mood Collect SMS Message    ${senderNameElement}    ${number}
+    \    Run Keyword If    @{messages} != @{emptyList}    Exit For Loop
+    Run Keyword If    @{messages} == @{emptyList}    FAIL    Not found sender to read SMS
+    Mobile Capture Screen At Verify Point    Change Price Plan SMS
+    Press Keycode    4
+    Log    Out Mood Read SMS
+    ${lengthOfMsgExpect}    Get Length    ${messageExpect}
+    Log To Console    'Message Ex Amount:' ${lengthOfMsgExpect}
+    ${indexOfExpect}    Set Variable    0
+    : FOR    ${indexOfExpect}    IN RANGE    ${lengthOfMsgExpect}
+    \    log    'SMS:'${messages}
+    \    log    'Expect:'@{messageExpect}[${indexOfExpect}]
+    \    Verify SMS With Regex    ${messages}    @{messageExpect}[${indexOfExpect}]
+    \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
+    Log    Out Wait and Verify SMS By Time Out
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify On Top Package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify On Top Package_3PO_3BO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE" or "${ar_NType}"=="IPE"    Verify On Top Package_3PE_3BE    ${Number}
+
+Select Internet OnTop Package
+    Click Mobile Element    ${lblApplyOnTopNet}
+    Comment    Mobile element text should be    ${btnApplyOnTopInternetMonthly}    ${txtApplyOnTopInternetMonthly}
+    Comment    Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${txtApplyOnTopInternetOneTime}
+    Comment    Mobile element text should be    ${btnApplyOnTopWifi}    ${txtApplyOnTopWifi}
+    Comment    Mobile Capture Screen At Verify Point    Verify Net Apply On Top
+
+Select Monthly OnTop Package
+    Click Mobile Element    ${btnApplyOnTopInternetMonthly}
+    Mobile Capture Screen At Verify Point    Monthly OnTop Package
+
+Select Internet On-Top Package 199B. Max speed 1GB.
+    Swipe Element To Screen    ${subOnTopInternet199B.speed1GB.}
+    ${element}    Aisappium Get Webelement    ${subOnTopInternet199B.speed1GB.}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${subOnTopInternet199B.speed1GB.}
+    [Return]    ${package}
+
+Verify Page Detail And Select Package_3PO_3BO
+    [Arguments]    ${Number}    ${Package}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile check existing text    ${lblApplyOnTopYourBillingCycle}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopXtraTalkStepOne}
+    Mobile element text should be    ${lblApplyOnTopSelectPackage}    ${Package}
+    Comment    Mobile element text should be    ${lblDetailMaoMao19B}    ${txtDetailMaoMao19B}
+    Mobile check existing text    ${lblApplyOnTopDetailPackage}
+    Swipe to element    ${btnApplyOnTopConfirmBack}    screen
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmNext}
+    Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Page Detail Package
+
+Confirm Package
+    Click Mobile Element    ${btnApplyOnTopConfirmNext}
+
+Select Next Bill Cycle
+    Click Mobile Element    ${btnApplyOnTopNextBillingCycle}
+
+Verify Package And Effective Date
+    [Arguments]    ${Package}    ${PackageEffectiveDate}
+    Mobile element text should be    ${lblApplyOnTopPackageSelect}    ${Package}
+    Swipe Element To Screen    ${lblApplyOnTopEffectiveSelect}
+    Mobile element text should match regexp    ${lblApplyOnTopEffectiveSelect}    ${PackageEffectiveDate}
+    Mobile Capture Screen At Verify Point    Package And Effective Date
+
+Confirm Package And Comfirm Effective Date
+    Click Mobile Element    ${btnApplyOnTopConfirm}
+
+Verify Dialog Apply On Top Package
+    [Arguments]    ${successText}
+    Mobile element text should match regexp whole string    ${lblApplyOnTopConfirmDailogChangePackageSuccess}    ${successText}
+    Mobile Capture Screen At Verify Point    Change Package Success
+
+Confirm Dialog On Top Package
+    Click Mobile Element    ${btnApplyOnTopOkChangePackageSuccess}
+
+Select Mao Mao Combo 29 B.And MaoMao 99B
+    Swipe Element To Screen    ${SubOnTopMaoMaoCombo29BAndMaoMao99B}
+    ${element}    Aisappium Get Webelement    ${SubOnTopMaoMaoCombo29BAndMaoMao99B}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopMaoMaoCombo29BAndMaoMao99B}
+    [Return]    ${package}
+
+Select Next Day
+    Click Mobile Element    ${btnApplyOnTopNextDay}
+
+Select WiFi 9 B 1 Hr.
+    Swipe Element To Screen    ${SubOnTopWiFi9B1Hr}
+    ${element}    Aisappium Get Webelement    ${SubOnTopWiFi9B1Hr}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopWiFi9B1Hr}
+    [Return]    ${package}
+
+Select OneTime OnTop Package
+    Click Mobile Element    ${btnApplyOnTopInternetOneTime}
+    Mobile Capture Screen At Verify Point    OneTime OnTop Package
+
+Select WiFi OnTop Package
+    Click Mobile Element    ${btnApplyOnTopWifi}
+    Mobile Capture Screen At Verify Point    WiFi OnTop Package
+
+Select Talk OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalk}
+
+Select Monthly fee 100 B. Call AIS 150 min
+    Swipe Element To Screen    ${SubOnTopMonthly100B.CallAIS150min}
+    ${element}    Aisappium Get Webelement    ${SubOnTopMonthly100B.CallAIS150min}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopMonthly100B.CallAIS150min}
+    [Return]    ${package}
+
+Select Immediately
+    Click Mobile Element    ${btnApplyOnTopImmediately}
+
+Select Mao Mao 39 B. 60 min 5 Day
+    Swipe Element To Screen    ${SubOnTopMaoMao39B.60Min}
+    ${element}    Aisappium Get Webelement    ${SubOnTopMaoMao39B.60Min}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopMaoMao39B.60Min}
+    [Return]    ${package}
+
+Verify Package Detail And Effective Date
+    [Arguments]    ${Package}    ${PackageEffectiveDate}
+    Mobile element text should be    ${lblApplyOnTopPackageSelect}    ${Package}
+    Mobile check existing text    ${lblDetailOnTopPackage}
+    Mobile Capture Screen At Verify Point    Detail Package
+    Swipe Element To Screen    ${lblApplyOnTopEffectiveSelect}
+    Mobile element text should match regexp    ${lblApplyOnTopEffectiveSelect}    ${PackageEffectiveDate}
+    Mobile Capture Screen At Verify Point    Effective Date of Package
+
+Verify On Top Package_3PE_3BE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile element text should be    ${lblApplyOnTopTalkAndNet}    ${TalkAndNetOnTop}
+    Mobile element text should be    ${lblApplyOnTopNet}    ${InternetOnTop}
+    Mobile element text should be    ${lblApplyOnTopTalk}    ${TalkOnTop}
+    Mobile Capture Screen At Verify Point    Verify Page On Top Package
+
+Verify On Top Package_3PO_3BO
+    [Arguments]    ${Number}
+    Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile check existing text    ${lblApplyOnTopYourBillingCycle}
+    Mobile element text should be    ${lblApplyOnTopTalkAndNet}    ${TalkAndNetOnTopPackages}
+    Mobile element text should be    ${lblApplyOnTopNet}    ${InternetOnTopPackages}
+    Mobile element text should be    ${lblApplyOnTopTalk}    ${TalkOnTopPackages}
+    Mobile Capture Screen At Verify Point    Verify Page On Top Package
+
+Verify Talk And Net OnTop Package
+    Mobile element text should be    ${lblApplyOnTopTalkAndNet}    ${TalkAndNetOnTop}
+    Mobile element text should be    ${lblApplySubOnTopTalkAndNet}    ${TalkAndNetOnTopOROneTime}
+    Mobile check existing text    ${lbl1stPackageTalkAndNetOnTop}
+    Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
+    Mobile element text should be    ${lblApplyOnTopTermsAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Talk And Net OnTop Package
+
+Select And Verify Talk And Net OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalkAndNet}
+
+Verify Internet OnTop Package
+    Mobile element text should be    ${lblApplyOnTopNet}    ${InternetOnTop}
+    Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${txtApplyOnTopInternetOneTime}
+    Mobile element text should be    ${btnApplyOnTopInternetMonthly}    ${txtApplyOnTopInternetMonthly}
+    Mobile element text should be    ${btnApplyOnTopWifi}    ${txtApplyOnTopWifi}
+    Mobile Capture Screen At Verify Point    Internet OnTop Package
+
+Verify Talk OnTop Package
+    Mobile element text should be    ${btnApplyOnTopBuffetPackage}    ${OnTopBuffetPackage}
+    Mobile element text should be    ${btnApplyOnTopMinutesPackage}    ${OnTopMinutesPackage}
+    Mobile Capture Screen At Verify Point    Talk OnTop Package
+
+Select Combo 19B Net And Call
+    Swipe Element To Screen    ${SubOnTopTalkAndNetCombo19B}
+    ${element}    Aisappium Get Webelement    ${SubOnTopTalkAndNetCombo19B}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopTalkAndNetCombo19B}
+    [Return]    ${package}
+
+Verify Page Detail And Select Package
+    [Arguments]    ${Number}    ${Package}
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Page Detail And Select Package_3PO_3BO    ${Number}    ${Package}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE" or "${ar_NType}"=="IPE"    Verify Page Detail And Select Package_3PE_3BE    ${Number}    ${Package}
+
+Verify Page Detail And Select Package_3PE_3BE
+    [Arguments]    ${Number}    ${Package}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile element text should be    ${lblApplyOnTopSelectPackage}    ${Package}
+    Mobile check existing text    ${lblApplyOnTopDetailPackage}
+    Swipe Element To Screen    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmNext}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Page Detail Package
+
+Verify Confirm Package Page
+    [Arguments]    ${Number}    ${firstPackage}
+    Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile element text should be    ${lblYouHaveSelect}    ${YouHaveSelect}
+    Mobile element text should be    ${lblPackageNameConfirmPage}    ${firstPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirm}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Confirm Package Page
+
+Confirm Apply OnTop Package
+    Click Mobile Element    ${btnApplyOnTopConfirm}
+
+Select Mao Mao 14B 200MB
+    ${element}    Aisappium Get Webelement    ${SubInternetOnTopMaoMao14B200MB}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubInternetOnTopMaoMao14B200MB}
+    [Return]    ${package}
+
+Verify Internet OnTop One Time Package
+    Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${txtApplyOnTopInternetOneTime}
+    Mobile check existing text    ${SubInternetOnTopMaoMao14B200MB}
+    Mobile Capture Screen At Verify Point    Internet One Time OnTop Package one
+    Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Internet One Time OnTop Package two
+    Swipe Element To Screen    ${SubInternetOnTopMaoMao14B200MB}    screen    down
+
+Verify Internet OnTop Monthly Package
+    Swipe Element To Screen    ${btnApplyOnTopInternetMonthly}
+    Mobile element text should be    ${btnApplyOnTopInternetMonthly}    ${txtApplyOnTopInternetMonthly}
+    Mobile check existing text    ${SubInternetMonthly199B1G_${ar_NType}}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Internet Monthly OnTop Package
+
+Select Monthly fee 199B 1G
+    Swipe Element To Screen    ${SubInternetMonthly199B1G_${ar_NType}}
+    ${element}    Aisappium Get Webelement    ${SubInternetMonthly199B1G_${ar_NType}}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubInternetMonthly199B1G_${ar_NType}}
+    [Return]    ${package}
+
+Verify Internet OnTop Wifi Package
+    Swipe Element To Screen    ${btnApplyOnTopWifi}
+    Mobile element text should be    ${btnApplyOnTopWifi}    ${txtApplyOnTopWifi}
+    Mobile check existing text    ${SubOnTopWiFi9B1Hr}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Internet Wifi OnTop Package
+
+Verify Talk Buffet OnTop Package
+    Swipe Element To Screen    ${btnApplyOnTopBuffetPackage}
+    Mobile element text should be    ${btnApplyOnTopBuffetPackage}    ${OnTopBuffetPackage}
+    Mobile check existing text    ${SubTalkBuffetMaoMao9BFreeCallAIS}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Talk Buffet OnTop Package
+
+Select Mao Mao 9B free Call in AIS
+    Swipe Element To Screen    ${SubTalkBuffetMaoMao9BFreeCallAIS}
+    ${element}    Aisappium Get Webelement    ${SubTalkBuffetMaoMao9BFreeCallAIS}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubTalkBuffetMaoMao9BFreeCallAIS}
+    [Return]    ${package}
+
+Select Talk Buffet OnTop Package
+    Click Mobile Element    ${btnApplyTalkBuffetOnTop}
+    Mobile Capture Screen At Verify Point    Talk Buffet OnTop Package
+
+Select Talk Minutes OnTop Package
+    Click Mobile Element    ${btnApplyTalkMinutesOnTop}
+    Mobile Capture Screen At Verify Point    Talk Minutes OnTop Package
+
+Verify Talk Minutes OnTop Package
+    Swipe Element To Screen    ${btnApplyTalkMinutesOnTop}
+    Mobile element text should be    ${btnApplyTalkMinutesOnTop}    ${MinutesOnTopPackage}
+    Mobile check existing text    ${SubTalkMinutesMaoMao39B60Min}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Talk Buffet OnTop Package
+
+Select Mao Mao 39B 60Min
+    Swipe Element To Screen    ${SubTalkMinutesMaoMao39B60Min}
+    ${element}    Aisappium Get Webelement    ${SubTalkMinutesMaoMao39B60Min}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubTalkMinutesMaoMao39B60Min}
+    [Return]    ${package}
+
+Verify SMS From My AIS OnTop Internet Wifi
+    [Arguments]    ${MsgVerifySMS}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS From AIS with Match Regexp    ${MsgInternetWifi9B1Hr}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${virtual_device_1_SN}    3
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS From AIS with Match Regexp    ${MsgInternetWifi9B1Hr}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${virtual_device_1_SN}    2
+
+Verify SMS From My AIS OnTop Internet One Time
+    [Arguments]    ${MsgVerifySMS}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS From AIS with Match Regexp    ${MsgMaoMao14B200MB}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${virtual_device_1_SN}    2
+    Comment    Run Keyword If    "${ar_NType}"=="3PE" and "${ar_LANG}" == "TH"    Verify SMS From AIS with Match Regexp    ${MsgMaoMao14B200MB}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}
+    ...    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    1
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS From AIS with Match Regexp    ${MsgMaoMao14B200MB}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${virtual_device_1_SN}
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Verify On Top Package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify On Top Package_3PO_3BO    ${Number}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE" or "${ar_NType}"=="IPE"    Verify On Top Package_3PE_3BE    ${Number}
+
+Select Internet OnTop Package
+    Click Mobile Element    ${lblApplyOnTopNet}
+    Comment    Mobile element text should be    ${btnApplyOnTopInternetMonthly}    ${txtApplyOnTopInternetMonthly}
+    Comment    Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${txtApplyOnTopInternetOneTime}
+    Comment    Mobile element text should be    ${btnApplyOnTopWifi}    ${txtApplyOnTopWifi}
+    Comment    Mobile Capture Screen At Verify Point    Verify Net Apply On Top
+
+Select Monthly OnTop Package
+    Click Mobile Element    ${btnApplyOnTopInternetMonthly}
+    Mobile Capture Screen At Verify Point    Monthly OnTop Package
+
+Select Internet On-Top Package 199B. Max speed 1GB.
+    Swipe Element To Screen    ${subOnTopInternet199B.speed1GB.}
+    ${element}    Aisappium Get Webelement    ${subOnTopInternet199B.speed1GB.}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${subOnTopInternet199B.speed1GB.}
+    [Return]    ${package}
+
+Verify Page Detail And Select Package_3PO_3BO
+    [Arguments]    ${Number}    ${Package}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile check existing text    ${lblApplyOnTopYourBillingCycle}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopXtraTalkStepOne}
+    Mobile element text should be    ${lblApplyOnTopSelectPackage}    ${Package}
+    Comment    Mobile element text should be    ${lblDetailMaoMao19B}    ${txtDetailMaoMao19B}
+    Mobile check existing text    ${lblApplyOnTopDetailPackage}
+    Swipe to element    ${btnApplyOnTopConfirmBack}    screen
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmNext}
+    Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Page Detail Package
+
+Confirm Package
+    Click Mobile Element    ${btnApplyOnTopConfirmNext}
+
+Select Next Bill Cycle
+    Click Mobile Element    ${btnApplyOnTopNextBillingCycle}
+
+Verify Package And Effective Date
+    [Arguments]    ${Package}    ${PackageEffectiveDate}
+    Mobile element text should be    ${lblApplyOnTopPackageSelect}    ${Package}
+    Swipe Element To Screen    ${lblApplyOnTopEffectiveSelect}
+    Mobile element text should match regexp    ${lblApplyOnTopEffectiveSelect}    ${PackageEffectiveDate}
+    Mobile Capture Screen At Verify Point    Package And Effective Date
+
+Confirm Package And Comfirm Effective Date
+    Click Mobile Element    ${btnApplyOnTopConfirm}
+
+Verify Dialog Apply On Top Package
+    [Arguments]    ${successText}
+    Mobile element text should match regexp whole string    ${lblApplyOnTopConfirmDailogChangePackageSuccess}    ${successText}
+    Mobile Capture Screen At Verify Point    Change Package Success
+
+Confirm Dialog On Top Package
+    Click Mobile Element    ${btnApplyOnTopOkChangePackageSuccess}
+
+Select Mao Mao Combo 29 B.And MaoMao 99B
+    Swipe Element To Screen    ${SubOnTopMaoMaoCombo29BAndMaoMao99B}
+    ${element}    Aisappium Get Webelement    ${SubOnTopMaoMaoCombo29BAndMaoMao99B}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopMaoMaoCombo29BAndMaoMao99B}
+    [Return]    ${package}
+
+Select Next Day
+    Click Mobile Element    ${btnApplyOnTopNextDay}
+
+Select WiFi 9 B 1 Hr.
+    Swipe Element To Screen    ${SubOnTopWiFi9B1Hr}
+    ${element}    Aisappium Get Webelement    ${SubOnTopWiFi9B1Hr}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopWiFi9B1Hr}
+    [Return]    ${package}
+
+Select OneTime OnTop Package
+    Click Mobile Element    ${btnApplyOnTopInternetOneTime}
+    Mobile Capture Screen At Verify Point    OneTime OnTop Package
+
+Select WiFi OnTop Package
+    Click Mobile Element    ${btnApplyOnTopWifi}
+    Mobile Capture Screen At Verify Point    WiFi OnTop Package
+
+Select Talk OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalk}
+
+Select Monthly fee 100 B. Call AIS 150 min
+    Swipe Element To Screen    ${SubOnTopMonthly100B.CallAIS150min}
+    ${element}    Aisappium Get Webelement    ${SubOnTopMonthly100B.CallAIS150min}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopMonthly100B.CallAIS150min}
+    [Return]    ${package}
+
+Select Immediately
+    Click Mobile Element    ${btnApplyOnTopImmediately}
+
+Select Mao Mao 39 B. 60 min 5 Day
+    Swipe Element To Screen    ${SubOnTopMaoMao39B.60Min}
+    ${element}    Aisappium Get Webelement    ${SubOnTopMaoMao39B.60Min}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopMaoMao39B.60Min}
+    [Return]    ${package}
+
+Verify Package Detail And Effective Date
+    [Arguments]    ${Package}    ${PackageEffectiveDate}
+    Mobile element text should be    ${lblApplyOnTopPackageSelect}    ${Package}
+    Mobile check existing text    ${lblDetailOnTopPackage}
+    Mobile Capture Screen At Verify Point    Detail Package
+    Swipe Element To Screen    ${lblApplyOnTopEffectiveSelect}
+    Mobile element text should match regexp    ${lblApplyOnTopEffectiveSelect}    ${PackageEffectiveDate}
+    Mobile Capture Screen At Verify Point    Effective Date of Package
+
+Verify On Top Package_3PE_3BE
+    [Arguments]    ${Number}
+    Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile element text should be    ${lblApplyOnTopTalkAndNet}    ${TalkAndNetOnTop}
+    Mobile element text should be    ${lblApplyOnTopNet}    ${InternetOnTop}
+    Mobile element text should be    ${lblApplyOnTopTalk}    ${TalkOnTop}
+    Mobile Capture Screen At Verify Point    Verify Page On Top Package
+
+Verify On Top Package_3PO_3BO
+    [Arguments]    ${Number}
+    Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile check existing text    ${lblApplyOnTopYourBillingCycle}
+    Mobile element text should be    ${lblApplyOnTopTalkAndNet}    ${TalkAndNetOnTopPackages}
+    Mobile element text should be    ${lblApplyOnTopNet}    ${InternetOnTopPackages}
+    Mobile element text should be    ${lblApplyOnTopTalk}    ${TalkOnTopPackages}
+    Mobile Capture Screen At Verify Point    Verify Page On Top Package
+
+Verify Talk And Net OnTop Package
+    Mobile element text should be    ${lblApplyOnTopTalkAndNet}    ${TalkAndNetOnTop}
+    Mobile element text should be    ${lblApplySubOnTopTalkAndNet}    ${TalkAndNetOnTopOROneTime}
+    Mobile check existing text    ${lbl1stPackageTalkAndNetOnTop}
+    Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
+    Mobile element text should be    ${lblApplyOnTopTermsAndConditions}    ${TermAndConditions}
+    Mobile Capture Screen At Verify Point    Talk And Net OnTop Package
+
+Select And Verify Talk And Net OnTop Package
+    Click Mobile Element    ${lblApplyOnTopTalkAndNet}
+
+Verify Internet OnTop Package
+    Mobile element text should be    ${lblApplyOnTopNet}    ${InternetOnTop}
+    Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${txtApplyOnTopInternetOneTime}
+    Mobile element text should be    ${btnApplyOnTopInternetMonthly}    ${txtApplyOnTopInternetMonthly}
+    Mobile element text should be    ${btnApplyOnTopWifi}    ${txtApplyOnTopWifi}
+    Mobile Capture Screen At Verify Point    Internet OnTop Package
+
+Verify Talk OnTop Package
+    Mobile element text should be    ${btnApplyOnTopBuffetPackage}    ${OnTopBuffetPackage}
+    Mobile element text should be    ${btnApplyOnTopMinutesPackage}    ${OnTopMinutesPackage}
+    Mobile Capture Screen At Verify Point    Talk OnTop Package
+
+Select Combo 19B Net And Call
+    Swipe Element To Screen    ${SubOnTopTalkAndNetCombo19B}
+    ${element}    Aisappium Get Webelement    ${SubOnTopTalkAndNetCombo19B}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubOnTopTalkAndNetCombo19B}
+    [Return]    ${package}
+
+Verify Page Detail And Select Package
+    [Arguments]    ${Number}    ${Package}
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Verify Page Detail And Select Package_3PO_3BO    ${Number}    ${Package}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE" or "${ar_NType}"=="IPE"    Verify Page Detail And Select Package_3PE_3BE    ${Number}    ${Package}
+
+Verify Page Detail And Select Package_3PE_3BE
+    [Arguments]    ${Number}    ${Package}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile element text should be    ${lblApplyOnTopSelectPackage}    ${Package}
+    Mobile check existing text    ${lblApplyOnTopDetailPackage}
+    Swipe Element To Screen    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmNext}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Page Detail Package
+
+Verify Confirm Package Page
+    [Arguments]    ${Number}    ${firstPackage}
+    Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile element text should be    ${lblYouHaveSelect}    ${YouHaveSelect}
+    Mobile element text should be    ${lblPackageNameConfirmPage}    ${firstPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirm}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Confirm Package Page
+
+Confirm Apply OnTop Package
+    Click Mobile Element    ${btnApplyOnTopConfirm}
+
+Select Mao Mao 14B 200MB
+    ${element}    Aisappium Get Webelement    ${SubInternetOnTopMaoMao14B200MB}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubInternetOnTopMaoMao14B200MB}
+    [Return]    ${package}
+
+Verify Internet OnTop One Time Package
+    Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${txtApplyOnTopInternetOneTime}
+    Mobile check existing text    ${SubInternetOnTopMaoMao14B200MB}
+    Mobile Capture Screen At Verify Point    Internet One Time OnTop Package one
+    Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Internet One Time OnTop Package two
+    Swipe Element To Screen    ${SubInternetOnTopMaoMao14B200MB}    screen    down
+
+Verify Internet OnTop Monthly Package
+    Swipe Element To Screen    ${btnApplyOnTopInternetMonthly}
+    Mobile element text should be    ${btnApplyOnTopInternetMonthly}    ${txtApplyOnTopInternetMonthly}
+    Mobile check existing text    ${SubInternetMonthly199B1G_${ar_NType}}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Internet Monthly OnTop Package
+
+Select Monthly fee 199B 1G
+    Swipe Element To Screen    ${SubInternetMonthly199B1G_${ar_NType}}
+    ${element}    Aisappium Get Webelement    ${SubInternetMonthly199B1G_${ar_NType}}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubInternetMonthly199B1G_${ar_NType}}
+    [Return]    ${package}
+
+Verify Internet OnTop Wifi Package
+    Swipe Element To Screen    ${btnApplyOnTopWifi}
+    Mobile element text should be    ${btnApplyOnTopWifi}    ${txtApplyOnTopWifi}
+    Mobile check existing text    ${SubOnTopWiFi9B1Hr}
+    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Internet Wifi OnTop Package
+
+Verify Talk Buffet OnTop Package
+    Swipe Element To Screen    ${btnApplyOnTopBuffetPackage}
+    Mobile element text should be    ${btnApplyOnTopBuffetPackage}    ${OnTopBuffetPackage}
+    Mobile check existing text    ${SubTalkBuffetMaoMao9BFreeCallAIS}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Talk Buffet OnTop Package
+
+Select Mao Mao 9B free Call in AIS
+    Swipe Element To Screen    ${SubTalkBuffetMaoMao9BFreeCallAIS}
+    ${element}    Aisappium Get Webelement    ${SubTalkBuffetMaoMao9BFreeCallAIS}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubTalkBuffetMaoMao9BFreeCallAIS}
+    [Return]    ${package}
+
+Select Talk Buffet OnTop Package
+    Click Mobile Element    ${btnApplyTalkBuffetOnTop}
+    Mobile Capture Screen At Verify Point    Talk Buffet OnTop Package
+
+Select Talk Minutes OnTop Package
+    Click Mobile Element    ${btnApplyTalkMinutesOnTop}
+    Mobile Capture Screen At Verify Point    Talk Minutes OnTop Package
+
+Verify Talk Minutes OnTop Package
+    Swipe Element To Screen    ${btnApplyTalkMinutesOnTop}
+    Mobile element text should be    ${btnApplyTalkMinutesOnTop}    ${MinutesOnTopPackage}
+    Mobile check existing text    ${SubTalkMinutesMaoMao39B60Min}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Talk Buffet OnTop Package
+
+Select Mao Mao 39B 60Min
+    Swipe Element To Screen    ${SubTalkMinutesMaoMao39B60Min}
+    ${element}    Aisappium Get Webelement    ${SubTalkMinutesMaoMao39B60Min}
+    log    ${element}
+    ${package}=    AISAppiumEx.Get Text    ${element}
+    Click Mobile Element    ${SubTalkMinutesMaoMao39B60Min}
+    [Return]    ${package}
+
+Verify SMS From My AIS OnTop Internet Wifi
+    [Arguments]    ${MsgVerifySMS}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS From AIS with Match Regexp    ${MsgInternetWifi9B1Hr}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${virtual_device_1_SN}    3
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS From AIS with Match Regexp    ${MsgInternetWifi9B1Hr}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${virtual_device_1_SN}    2
+
+Verify SMS From My AIS OnTop Internet One Time
+    [Arguments]    ${MsgVerifySMS}    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify SMS From AIS with Match Regexp    ${MsgMaoMao14B200MB}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${virtual_device_1_SN}    2
+    Comment    Run Keyword If    "${ar_NType}"=="3PE" and "${ar_LANG}" == "TH"    Verify SMS From AIS with Match Regexp    ${MsgMaoMao14B200MB}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}
+    ...    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    1
+    Run Keyword If    "${ar_NType}"=="3BE"    Verify SMS From AIS with Match Regexp    ${MsgMaoMao14B200MB}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${virtual_device_1_SN}
+
+Confirm Next Page
+    Click Mobile Element    ${btnNextPageOtherOnTop}

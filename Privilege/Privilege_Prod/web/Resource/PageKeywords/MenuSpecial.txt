@@ -1,0 +1,42 @@
+*** Settings ***
+Resource          PrivilegeCommon.txt
+Resource          ../PageRepository/MenuSpecial.txt
+Resource          ../Localized/${ar_LANG}/MenuSpecialLocalized.txt
+
+*** Keywords ***
+Get Title Name
+    [Arguments]    ${locator}
+    ${title}=    Get Web Text    ${locator}
+    [Return]    ${title}
+
+verify in Campaign
+    [Arguments]    ${CampaginName}    ${RelateCampagin1}    ${RelateCampagin2}    ${RelateCampagin3}
+    Web Element Text Should Be    ${lblSubTitleSpecialMenu}    ${CampaginName}
+    comment    Web Element Should Be Visible    ${lblSubLogoSpecialMenu}
+    Web check existing text    ${lblSubDetailSpecialMenu}
+    Web Element Trim Text Should Be    ${lblTitleSpecialCondition}    ${Condition}
+    Web Capture Screen At Verify Point    Verify in ${CampaginName} First Picture
+    Scroll Web To Element    ${lblRelatedDealSpecial}
+    Web Element Trim Text Should Be    ${lblRelatedDealSpecial}    ${RelateDeal}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop1Special}    ${RelateCampagin1}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop2Special}    ${RelateCampagin2}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop3Special}    ${RelateCampagin3}
+    Web Capture Screen At Verify Point    Verify in ${CampaginName} Second Picture
+
+verify campagin in Spacial Page
+    [Arguments]    ${Name}    ${ListMenuNo}
+    ${title}=    Get Title Name    ${lblTitleMenuTravelPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${imgMenuSpecialPageNumber${ListMenuNo}}
+    Web Element Text Should Be    ${lblTitleMenuSpecialPageNumber${ListMenuNo}}    ${Name}
+    Web check existing text    ${lblDetailMainMenuSpeciallPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnDetailMenuSpeciallPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnLikeFacebookMenuSpecialPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnTweetMenuSpecialPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnMailMenuSpecialPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${imgSymbolMenuSpecialPageNumber${ListMenuNo}}
+    Click Web Element    ${btnDetailMenuSpecialPageNumber${ListMenuNo}}
+    [Return]    ${title}
+
+Verify Campaign Foot Master Health
+    ${title}=    verify campagin in Spacial Page    ${AisPrivilegeTitle}    1
+    verify in Campaign    ${title}    ${DreamWorldRelate}    ${AmataraWellnessRelate}    ${BMARelate}

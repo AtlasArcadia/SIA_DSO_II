@@ -1,0 +1,27 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../PageVariable/Platinum_BirthdayVariable.txt
+Resource          ../PageRepository/Platinum_BirthdayRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_BirthdayLocalized.txt
+
+*** Keywords ***
+Verify BirthDay Page Match With Birthday Date
+    sleep    20s
+    Scroll Web To Element    ${imgPlatinumBirthday}
+    Comment    ${name}    Get Web Text    ${lblPlatinumBirthdayline2}    #ของคุณ Test Test
+    Comment    ${name}    Should Match Regexp    ${name}    \ .*
+    Comment    ${HappyBirthday_Line2}    Replace String    ${HappyBirthday_Line2}    x    ${name}
+    Web Element Text Should Be    ${lblPlatinumBirthdayline1}    ${HappyBirthday_Line1}    #เอไอเอส เซเรเนด ขออวยพรให้ทุกวัน
+    Web Element Text Should Be    ${lblPlatinumBirthdayline2}    ${HappyBirthday_Line2}    #เต็มไปด้วยความสุข ความสำเร็จ
+    Web Element Text Should Be    ${lblPlatinumBirthdayline3}    ${HappyBirthday_Line3}    #และเจริญรุ่งเรืองตลอดไป
+    Web Element Text Should Be    ${lblPlatinumBirthdayline4}    ${HappyBirthday_Line4}    #เราขอมอบของขวัญวันเกิดสุดพิเศษ...
+    Web Element Text Should Be    ${lblPlatinumBirthdayline6}    ${HappyBirthday_Line5}    15s    #เสริมสิริมงคลในวันเกิดรับสิทธิ์ล่องเรือ ไหว้พระ 9 วัด ในเดือนเกิด ราคาพิเศษ
+    Web Element Text Should Be    ${lblPlatinumBirthdayline7}    ${HappyBirthday_Line6}    15s    #รับเน็ตฟรี 2GB* และโทรฟรี \ ในเครือข่ายตลอดวัน
+    Web Capture Screen At Verify Point    Platinum Happy Birthday
+
+Verify BirthDay Page Not Match With Birthday Date
+    Sleep    10s
+    Selenium2Library.Wait Until Element Is Visible    ${txtLoginGreeting1}
+    Scroll Web To Element    ${btnParkingName}
+    Element Should not Be Visible    ${BirthdayPlatinum}
+    Web Capture Screen At Verify Point    No Birthday 2

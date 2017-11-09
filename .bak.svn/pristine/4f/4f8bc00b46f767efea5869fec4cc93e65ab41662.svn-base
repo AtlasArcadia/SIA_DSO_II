@@ -1,0 +1,49 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/PointsAndPrivilegesLocalized.txt
+Resource          ../PageRepository/${ar_OS}/PointsAndPrivilegesRepository.txt
+
+*** Keywords ***
+All Teardown Keyword
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_Prod_local_config_file_path}    ${#dict_device_name}
+
+Get mylists titles
+    AISAppiumEx.Wait Until Element Is Visible    ${lblMyListTitle}    ${lo_general_timeout}
+    @{MylistTitle}    AISAppiumEx.Get Webelements    ${lblMyListTitle}
+    [Return]    @{MylistTitle}
+
+Find privileges menu
+    [Arguments]    ${mnuPriv}
+    AISAppiumEx.Wait Until Element Is Visible    ${objPrivContainer}
+    Swipe to element    ${mnuPriv}    ${objPrivContainer}    left
+
+Find points menu
+    [Arguments]    ${mnuPoints}
+    AISAppiumEx.Wait Until Element Is Visible    ${objPointContainer}
+    Swipe to element    ${mnuPoints}    ${objPointContainer}    left
+
+Points and privileges search keyword
+    [Arguments]    ${keyword}    ${udid}
+    AISAppiumEx.Wait Until Element Is Visible    ${txtSearchBox}
+    &{Location}    Get Element Location    ${txtSearchBox}
+    &{Size}    AISAppiumEx.Get Element Size    ${txtSearchBox}
+    ${x}    Get From Dictionary    ${Location}    x
+    ${y}    Get From Dictionary    ${Location}    y
+    ${width}    Get From Dictionary    ${Size}    width
+    ${height}    Get From Dictionary    ${Size}    height
+    ${clickAtX}    Evaluate    int(${x}+${width}/5)
+    ${clickAtL}    Evaluate    int(${y}+${height}/2)
+    ${rcIME}=    Run And Return Rc    adb -s ${udid} shell ime set com.android.adbkeyboard/.AdbIME
+    Click A Point    ${clickAtX}    ${clickAtL}    2000
+    Click A Point    ${clickAtX}    ${clickAtL}    2000
+    Comment    Input Mobile Text    ${txtSearchBox}    ${keyword}
+    ${command}=    Set Variable    adb -s ${udid} shell am broadcast -a ADB_INPUT_TEXT --es msg '${keyword}'
+    Log    ${command}
+    ${rcInputText}=    Run And Return Rc    ${command}
+    ${rcSearch}=    Run And Return Rc    adb -s ${udid} shell am broadcast -a ADB_EDITOR_CODE --ei code 3    # IME_ACTION_SEARCH

@@ -1,0 +1,76 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/RegisterAISFibreAndCoverageChecking.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F2,F3_Service_1-6_1-2_Y_1_2] Register AIS fibre
+    [Documentation]    Owner : It , Fang
+    ...
+    ...    *Test Step*
+    ...
+    ...    *EN*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Register AIS Fibre/Coverage Checking"
+    ...    4. Verify page \ "Register AIS Fibre/Coverage Checking"
+    ...    5. Cap Screen
+    ...
+    ...    *TH*
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2. กดเลือก เมนู "บริการ"
+    ...    3. กดเลือก เมนูย่อย "สมัคร AIS Fibre/เช็กพื้นที่ใช้บริการ"
+    ...    4. ทำการ ตรวจสอบ \ หน้า "สมัคร AIS Fibre/เช็กพื้นที่ใช้บริการ"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    success    regreesion    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Service Menu
+    Select RegisterAISFibre CheckCoverage Submenu
+    Verify Page AIS Fibre
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    For Quick Smoke
+
+test
+    [Documentation]    Owner : Mac (Rukpong),Now(3PE,3BE)
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...
+    ...    *Test Step*
+    ...    1. Login My AIS
+    ...    2. Click menu "Service"
+    ...    3. Click sub menu "Register AIS Fibre/Check Coverage"
+    ...    4. Verify page only
+    ...
+    ...    *remark*
+    ...    3PO,3BO have test case to run only EN
+    [Tags]    success
+    Comment    &{#dict_device_name}=    Create Dictionary
+    Comment    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}
+    ...    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    Comment    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Comment    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}
+    ...    ${ar_NETWORK}
+    Comment    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Comment    Select Menu    Service
+    Comment    Comment    Select Service Menu
+    Comment    Select Sub Menu    RegisterAISFibre/CheckCoverage
+    Comment    Comment    Select RegisterAISFibre CheckCoverage Submenu
+    Comment    Sleep    20
+    Comment    ${driver}    Aisappium Open Application    http://192.168.2.136:4723/wd/hub    platformName=Android    platformVersion=6.0.1    udid=520391d6ea8793af
+    ...    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity    deviceName=192.168.2.136:4723
+    Open Application    http://192.168.2.136:4445/wd/hub    platformName=Android    platformVersion=6.0.1    udid=520391d6ea8793af    appPackage=com.ais.mimo.eservice.debug    appActivity=com.ais.mimo.eservice.module.splashscreen.SplashScreenActivity
+    ...    deviceName=192.168.2.136:4723
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

@@ -1,0 +1,903 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/Home.txt
+
+*** Test Cases ***
+[F1_Home_1,3,5_1-2_Y_1_2_Test] Verify Page Current Package (No Remaining Package)
+    [Documentation]    *Test Step [TH]*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. ตรวจสอบหน้า "แพ็กเกจปัจจุบัน"
+    ...    - "แพ็กเกจปัจจุบัน"
+    ...    - "แพ็กเกจปัจจุบันของคุณ"
+    ...    - "บริการเสริม"
+    ...    - "รายละเอียด"
+    ...    3. จับภาพหน้าจอ
+    ...
+    ...    *Test Step [EN]*
+    ...    1. Login MyAIS
+    ...    2. Verify page "Current Package"
+    ...    - "Current Package"
+    ...    - "Your Current Package"
+    ...    - "Your Value Added Service"
+    ...    - "More" link
+    ...    3. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Check AIS Cloud Show First Time    ${ar_LANG}
+    Go to Current
+    Verify Current Package No Remaining Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_2_2_Test] Verify Page Current Package (Remaining Package)
+    [Documentation]    *Test Step [TH]*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. ตรวจสอบหน้า "แพ็กเกจคงเหลือ"
+    ...    - "แพ็กเกจคงเหลือ" เช็คว่ามีแพ็กเกจมั้ย
+    ...    - "รายละเอียด"
+    ...    3. จับภาพหน้าจอ
+    ...
+    ...    *Test Step [EN]*
+    ...    1. Login MyAIS
+    ...    2. Verify page "Remaining Package"
+    ...    - "Remaining Package"
+    ...    - "More" link
+    ...    3. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    HomeRemaining=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HomeRemaining
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Check AIS Cloud Show First Time    ${ar_LANG}
+    Verify Current Package Remaining Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_3_2_Test] Verify AIS Cloud+ storage (No Register)
+    [Documentation]    *Test Step [TH]*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลื่อนไปทางซ้าย (จนเจอ พื้นที่ใช้งาน AIS Cloud+)
+    ...    3. ตรวจสอบหน้า "พื้นที่ใช้งาน AIS Cloud+"
+    ...    - "พื้นที่ใช้งาน AIS Cloud+"
+    ...    - "Photo"
+    ...    - "Videos"
+    ...    - "Music"
+    ...    - "Files"
+    ...    - "สมัครฟรี"
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test Step [EN]*
+    ...    1. Login MyAIS
+    ...    2. Swipe (จนเจอ AIS Cloud+ storage)
+    ...    3. Verify page "AIS Cloud+ storage"
+    ...    - "AIS Cloud+ storage"
+    ...    - "Photo"
+    ...    - "Videos"
+    ...    - "Music"
+    ...    - "Files"
+    ...    - "Register Free" link
+    ...    4. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    HomeRemaining=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to AIS Cloud
+    Verify AIS Cloud+ storage No Register
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_4_2_Test] Verify AIS Cloud+ storage (Register)
+    [Documentation]    *Test Step [TH]*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลื่อนไปทางซ้าย (จนเจอ พื้นที่ใช้งาน AIS Cloud+)
+    ...    3. ตรวจสอบหน้า "พื้นที่ใช้งาน AIS Cloud+"
+    ...    - "พื้นที่ใช้งาน AIS Cloud+"
+    ...    - "Photo"
+    ...    - "Videos"
+    ...    - "Music"
+    ...    - "Files"
+    ...    - "ดูข้อมูล"
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test Step [EN]*
+    ...    1. Login MyAIS
+    ...    2. Swipe (จนเจอ AIS Cloud+ storage)
+    ...    3. Verify page "AIS Cloud+ storage"
+    ...    - "AIS Cloud+ storage"
+    ...    - "Photo"
+    ...    - "Videos"
+    ...    - "Music"
+    ...    - "Files"
+    ...    - "View" link
+    ...    4. Capture Screen
+    [Tags]    success    active    bug
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HomeRemaining
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to AIS Cloud
+    Verify AIS Cloud+ storage Register
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_5_2_Test] Verify Current Roaming Package(No Package)
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลื่อนไปทางซ้าย (จนเจอ แพ็กเกจโรมมิ่งปัจจุบัน)
+    ...    3. ตรวจสอบหน้า "แพ็กเกจโรมมิ่งปัจจุบัน"
+    ...    - "แพ็กเกจโรมมิ่งปัจจุบัน"
+    ...    - "คุณยังไม่ได้สมัครแพ็กเกจโรมมิ่ง"
+    ...    - "คุณสามารถสมัคร แพ็กเกจโรมมิ่งในราคาสุดคุ้ม เพื่อใช้งานอินเทอร์เน็ต/โทรและส่ง SMS ขณะอยู่ที่ต่างประเทศ"
+    ...    - "รายละเอียด"
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Swipe (จนเจอ Current Roaming Package)
+    ...    3. Verify page "Current Roaming Package"
+    ...    - "Current Roaming Package"
+    ...    - "You have no Roaming Packages." text
+    ...    - "Apply Roaming Package to enjoy saving internet/voice&SMS roaming while overseas." text
+    ...    - "More" link
+    ...    4. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    HomeRemaining=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to Roaming
+    Verify Current Roaming Package No Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_6_2_Test] Verify Current Roaming Package(Have Package)
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลื่อนไปทางซ้าย (จนเจอ แพ็กเกจโรมมิ่งปัจจุบัน)
+    ...    3. ตรวจสอบหน้า "แพ็กเกจโรมมิ่งปัจจุบัน"
+    ...    - "แพ็กเกจโรมมิ่งปัจจุบัน"
+    ...    - "รายละเอียด"
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Swipe (จนเจอ Current Roaming Package)
+    ...    3. Verify page "Current Roaming Package"
+    ...    - "Current Roaming Package"
+    ...    - "More" link
+    ...    4. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HomeRemaining
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to Roaming
+    Verify Current Roaming Package Have Package
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_7_2_Test] Verify Your Current Package page (From Current Package Home page)
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "รายละเอียด" (จากหน้า แพ็กเกจปัจจุบัน)
+    ...    3. ตรวจสอบหน้า "แพ็กเกจปัจจุบันของคุณ"
+    ...    - Header "แพ็กเกจปัจจุบันของคุณ"
+    ...    - เบอร์โทรศัพท์
+    ...    - "แพ็กเกจหลัก" at header (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "เปลี่ยนแพ็กหลัก"
+    ...    - "แพ็กเกจ Internet" at header (Verify ว่ามี On-Top pack)
+    ...    - ปุ่ม "สมัครแพ็กเสริม"
+    ...    - เงื่อนไขบริการ
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Click "More" (จาก Current Package Page)
+    ...    3. Verify Page "Your Current Package"
+    ...    - Header "Your Current Package"
+    ...    - Mobile no.
+    ...    - "Price Plan" at header (Verify ว่ามี Main pack)
+    ...    - "Change Price Plan" button
+    ...    - "Internet Package" at header (Verify ว่ามี On-Top pack)
+    ...    - "Apply Package" button
+    ...    - Terms & Conditions
+    ...    4. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Check AIS Cloud Show First Time    ${ar_LANG}
+    Go to Current
+    Swipe Element To Screen    ${lblMore}
+    Click Mobile Element    ${lblMore}
+    Verify Your Current Package Page From Current Package Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_8_2_Test] Verify Your Current Package page (From Remaining Package Home page)
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "รายละเอียด" (จากหน้า แพ็กเกจคงเหลือ)
+    ...    3. ตรวจสอบหน้า "แพ็กเกจปัจจุบันของคุณ"
+    ...    - Header "แพ็กเกจปัจจุบันของคุณ"
+    ...    - เบอร์โทรศัพท์
+    ...    - "แพ็กเกจหลัก" at header (Verify ว่ามี Main pack)
+    ...    - ปุ่ม "เปลี่ยนแพ็กหลัก"
+    ...    - "แพ็กเกจ Internet" at header (Verify ว่ามี On-Top pack)
+    ...    - ปุ่ม "สมัครแพ็กเสริม"
+    ...    - เงื่อนไขบริการ
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Click "More" (จาก Remaining Package Page)
+    ...    3. Verify Page "Your Current Package"
+    ...    - Header "Your Current Package"
+    ...    - Mobile no.
+    ...    - "Price Plan" at header (Verify ว่ามี Main pack)
+    ...    - "Change Price Plan" button
+    ...    - "Internet Package" at header (Verify ว่ามี On-Top pack)
+    ...    - "Apply Package" button
+    ...    - Terms & Conditions
+    ...    4. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    HomeRemaining=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HomeRemaining
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Check AIS Cloud Show First Time    ${ar_LANG}
+    Swipe Element To Screen    ${lblMore}
+    Click Mobile Element    ${lblMore}
+    Verify Your Current Package Page From Remaining Package Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_9_2_Test] Verify AIS Cloud+ storage (No Register) From Home Page
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลื่อนไปทางซ้าย (จนเจอ พื้นที่ใช้งาน AIS Cloud+)
+    ...    3. คลิก "พื้นที่ใช้งาน AIS Cloud+"
+    ...    4. ตรวจสอบหน้า "สมัครฟรี"
+    ...    - Header "พื้นที่ใช้งาน AIS Cloud+"
+    ...    - ปุ่ม "TH"
+    ...    - ปุ่ม "EN"
+    ...    - "Cloud+"
+    ...    - "เบอร์โทรศัพท์" auto detect
+    ...    - "รหัสผ่าน" text box
+    ...    - "อีเมล" text box
+    ...    - ปุ่ม "การลงทะเบียน"
+    ...    5. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Swipe (จนเจอ AIS Cloud+ storage)
+    ...    3. Click "Register Free"
+    ...    4. Verify Page "AIS Cloud+ storage"
+    ...    - Header "AIS Cloud+ storage"
+    ...    - "TH" button
+    ...    - "EN" button
+    ...    - "Cloud+"
+    ...    - "Mobile no" auto detect
+    ...    - "Password" text box
+    ...    - "E-mail Address" text box
+    ...    - "Register" button
+    ...    5. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to AIS Cloud
+    Swipe Element To Screen    ${lblCardAISCloud}
+    Click Mobile Element    ${lblRegisterCloud}
+    Verify AIS Cloud+ storage No Register From Home Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_10_2_Test] Verify AIS Cloud+ storage ( Register) From Home Page
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลื่อนไปทางซ้าย (จนเจอ พื้นที่ใช้งาน AIS Cloud+)
+    ...    3. คลิก "พื้นที่ใช้งาน AIS Cloud+"
+    ...    4. ตรวจสอบหน้า "สมัครฟรี"
+    ...    - Header "พื้นที่ใช้งาน AIS Cloud+"
+    ...    - ปุ่ม "TH"
+    ...    - ปุ่ม "EN"
+    ...    - "Cloud+"
+    ...    - "เบอร์โทรศัพท์" auto detect
+    ...    - "รหัสผ่าน" text box
+    ...    - ปุ่ม "เข้าใช้งาน"
+    ...    - "ลืมรหัสผ่าน?"
+    ...    - "คุณมีบัญชีหรือยัง? สร้างบัญชี"
+    ...    5. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Swipe (จนเจอ AIS Cloud+ storage)
+    ...    3. Click "View"
+    ...    4. Verify Page "AIS Cloud+ storage" page
+    ...    - Header "AIS Cloud+ storage"
+    ...    - "TH" button
+    ...    - "EN" button
+    ...    - "Cloud+"
+    ...    - "Mobile no" auto detect
+    ...    - "Password" text box
+    ...    - "Login" button
+    ...    - "Forgot Password?"
+    ...    - "Not registered? Create an account"
+    ...    5. Capture Screen
+    [Tags]    success    active    bug
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to AIS Cloud
+    Comment
+    Click Mobile Element    ${lblContainer}
+    Verify AIS Cloud+ storage Register From Home Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_11_2_Test] Verify Apply Roaming Package(No Package) From Home Page
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลื่อนไปทางซ้าย (จนเจอ แพ็กเกจโรมมิ่งปัจจุบัน)
+    ...    3. คลิก "รายละเอียด"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเกจโรมมิ่ง"
+    ...    - Header "สมัครแพ็กเกจโรมมิ่ง" \ - "เบอร์โทรศัพท์"
+    ...    - "ประเทศที่ต้องการสมัคร"
+    ...    - "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    - "ประเภทแพ็กเกจที่ต้องการ"
+    ...    - ปุ่ม "ดำเนินการต่อ"
+    ...    - เงื่อนไขบริการ
+    ...    5. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Swipe (จนเจอ Current Roaming Package)
+    ...    3. Click "More"
+    ...    4. Verify "Apply Roaming Package" page
+    ...    - Header "Apply Roaming Packages" \ - "Mobile no."
+    ...    - "Roaming country"
+    ...    - "Customer type" (auto detect)
+    ...    - "Package type"
+    ...    - "Continue" botton
+    ...    - Terms & Conditions
+    ...    5. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    HomeRemaining=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HomeRemaining
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Go to Roaming
+    Swipe Element To Screen    ${lblCardRoaming}
+    Click Mobile Element    ${lblMore}
+    Verify Apply Roaming Package No Package From Home Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_12_2_Test] Verify Current Package & Remaining (Have Package) From Home Page
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลื่อนไปทางซ้าย (จนเจอ แพ็กเกจโรมมิ่งปัจจุบัน)
+    ...    3. คลิก "รายละเอียด"
+    ...    4. ตรวจสอบหน้า "แพ็กเกจปัจจุบัน/ยอดคงเหลือ"
+    ...    - Header "แพ็กเกจปัจจุบัน/ยอดคงเหลือ" \ - "เบอร์โทรศัพท์"
+    ...    - "รายการแพ็กเกจ"
+    ...    5. จับภาพหน้าจอ
+    ...
+    ...    *Tes EN*
+    ...    1. Login MyAIS
+    ...    2. Swipe (จนเจอ Current Roaming Package)
+    ...    3. Click "More"
+    ...    4. Verify "Current Package & Remaining" page
+    ...    - Header "Current Package & Remaining" \ - "Mobile no."
+    ...    - "Package list"
+    ...    5. Capture Screen
+    [Tags]    success    active    bug
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HomeRemaining
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Check AIS Cloud Show First Time    ${ar_LANG}
+    Go to Roaming
+    Click Mobile Element    ${lblMore}
+    Verify Current Package & Remaining Have Package From Home Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_13_2_Test] Verify Top Up page (From Remaining Balance Home Page)
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "ยอดเงินคงเหลือ"
+    ...    3. ตรวจสอบหน้า "เติมเงิน"
+    ...    - ปุ่ม "Hamburger menu"
+    ...    - ปุ่ม "Camera"
+    ...    - "AIS Banner"
+    ...    - "เติมเงิน" at header
+    ...    - "ชื่อลูกค้า"
+    ...    - "เติมเงิน" tab
+    ...    - "เบอร์โทรศัพท์"
+    ...    - "เลือกช่องทางการเติมเงิน"
+    ...    - "บัตรเครดิต" (Check box)
+    ...    - "บัตรเดบิต" (Check box)
+    ...    - "mPAY Wallet" (Check box)
+    ...    - "บัตรเติมเงิน" (Check box)
+    ...    - "ระบุหมายเลขโทรศัพท์ที่ต้องการเติมเงิน"
+    ...    - "เบอร์โทรศัพท์" auto detect
+    ...    - "เลือกจำนวนที่ต้องการเติมเงิน"
+    ...    - "ระบุ"
+    ...    - "กรุณาตรวจสอบรายการเติมเงินของคุณอีกครั้ง
+    ...    แล้วกด ต่อไป เพื่อทำรายการ" text
+    ...    - "ต่อไป" button
+    ...    - เงื่อนไขบริการ
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Click "Remaining Balance"
+    ...    3. Verify "Top Up" page
+    ...    - "Hamburger menu" button
+    ...    - "Camera" button
+    ...    - "AIS Banner"
+    ...    - "Home" text
+    ...    - "Customer Name"
+    ...    - "Mobile no"
+    ...    - "Top Up" tab
+    ...    - "Mobile no."
+    ...    - "Please select top up channels"
+    ...    - "Credit Card" (Check box)
+    ...    - "Debit Card" (Check box)
+    ...    - "mPAY Wallet" (Check box)
+    ...    - "Refill Card" (Check box)
+    ...    - "Enter destination number you wish to top up"
+    ...    - "Mobile no." auto detect
+    ...    - "Select top up amount"
+    ...    - "Please select"
+    ...    - "Please verify your top up information and click Next to confirm transaction." text
+    ...    - "Next" button
+    ...    - Terms & Conditions
+    ...    4. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Click Mobile Element    ${btnRemaining}
+    Verify Top Up page From Remaining Balance Home Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_14_2_Test] Verify Top Up page (From Valid Until Home Page)
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "ใช้งานได้ถึงวันที่"
+    ...    3. ตรวจสอบหน้า "เติมเงิน"
+    ...    - ปุ่ม "Hamburger menu"
+    ...    - ปุ่ม "Camera"
+    ...    - "AIS Banner"
+    ...    - "เติมเงิน" at header
+    ...    - "ชื่อลูกค้า"
+    ...    - "เติมเงิน" tab
+    ...    - "เบอร์โทรศัพท์"
+    ...    - "เลือกช่องทางการเติมเงิน"
+    ...    - "บัตรเครดิต" (Check box)
+    ...    - "บัตรเดบิต" (Check box)
+    ...    - "mPAY Wallet" (Check box)
+    ...    - "บัตรเติมเงิน" (Check box)
+    ...    - "ระบุหมายเลขโทรศัพท์ที่ต้องการเติมเงิน"
+    ...    - "เบอร์โทรศัพท์" auto detect
+    ...    - "เลือกจำนวนที่ต้องการเติมเงิน"
+    ...    - "ระบุ"
+    ...    - "กรุณาตรวจสอบรายการเติมเงินของคุณอีกครั้ง
+    ...    แล้วกด ต่อไป เพื่อทำรายการ" text
+    ...    - "ต่อไป" button
+    ...    - เงื่อนไขบริการ
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Click "Valid Until"
+    ...    3. Verify "Top Up" page
+    ...    - "Hamburger menu" button
+    ...    - "Camera" button
+    ...    - "AIS Banner"
+    ...    - "Home" text
+    ...    - "Customer Name"
+    ...    - "Mobile no"
+    ...    - "Top Up" tab
+    ...    - "Mobile no."
+    ...    - "Please select top up channels"
+    ...    - "Credit Card" (Check box)
+    ...    - "Debit Card" (Check box)
+    ...    - "mPAY Wallet" (Check box)
+    ...    - "Refill Card" (Check box)
+    ...    - "Enter destination number you wish to top up"
+    ...    - "Mobile no." auto detect
+    ...    - "Select top up amount"
+    ...    - "Please select"
+    ...    - "Please verify your top up information and click Next to confirm transaction." text
+    ...    - "Next" button
+    ...    - Terms & Conditions
+    ...    4. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Click Mobile Element    ${btnValidUntil}
+    Verify Top Up page From Valid Until Home Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5,6_1-2_Y_15_2_Test] Verify Camera (First time)
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "กล้อง"
+    ...    3. คลิก "อณุญาต"
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Click "Camera"
+    ...    3. Click "Allow"
+    ...    4. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Click Mobile Element    ${btnCamera}
+    Verify Camera First time
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5,6_1-2_Y_16_2_Test] Verify Camera
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "กล้อง"
+    ...    3. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Click "Camera"
+    ...    3. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Click Mobile Element    ${btnCamera}
+    Verify Camera
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_17_2_Test] Verify Hamburger Menu
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู "Hamburger"
+    ...    3. ตรวจสอบหน้าเมนู "Hamburger"
+    ...    - "เบอร์โทรศัทท์"
+    ...    - "สมัคร my AIS"
+    ...    - "ข้อมูลของคุณ"
+    ...    - "AIS Online Store"
+    ...    - "AIS Website"
+    ...    - "AIS Facebook"
+    ...    - "AIS Twitter"
+    ...    - "AIS Line"
+    ...    - "ตั้งค่า"
+    ...    - "ออกจากระบบ"
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Click "Hamburger Menu"
+    ...    3. Verify "Hamburger Menu"
+    ...    - "Mobile no."
+    ...    - "Register"
+    ...    - "My Profile"
+    ...    - "AIS Online Store"
+    ...    - "AIS Website"
+    ...    - "AIS Facebook"
+    ...    - "AIS Twitter"
+    ...    - "AIS Line"
+    ...    - "Settings"
+    ...    - "Log Out"
+    ...    4. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Click Mobile Element    ${btnHamburger}
+    Verify Hamburger Menu    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_1,3,5_1-2_Y_18_2_Test] Verify Home Page
+    [Documentation]    *Test TH*
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. ตรวจสอบหน้า "Home"
+    ...    - ปุ่ม "Hamburger menu"
+    ...    - ปุ่ม "Camera"
+    ...    - "AIS Banner"
+    ...    - "หน้าหลัก" at header
+    ...    - "ชื่อลูกค้า"
+    ...    - "เบอร์โทรศัพท์"
+    ...    - "หน้าหลัก"
+    ...    - "ยอดเงินคงเหลือ"
+    ...    - "ใช้งานได้ถึงวันที่"
+    ...    - "รายละเอียด"
+    ...    3. จับภาพหน้าจอ
+    ...
+    ...    *Test EN*
+    ...    1. Login MyAIS
+    ...    2. Verify page "Home"
+    ...    - "Hamburger menu" button
+    ...    - "Camera" button
+    ...    - "AIS Banner"
+    ...    - "Home" text
+    ...    - "Customer Name"
+    ...    - "Mobile no"
+    ...    - "Home" tab
+    ...    - "Remaining Balance"
+    ...    - "Valid Until"
+    ...    - "More" link
+    ...    3. Capture Screen
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ...    Home=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Home
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Verify Home Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_HOME_6_1-2_Y_1_2] Verify Page Home
+    [Documentation]    *** Test Step***
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. ตรวจสอบหน้า "Home"
+    ...    - ปุ่ม "Hamburger menu"
+    ...    - ปุ่ม "Camera"
+    ...    - "AIS Banner"
+    ...    - "หน้าหลัก" at header
+    ...    - "ชื่อลูกค้า"
+    ...    - "เบอร์โทรศัพท์"
+    ...    - "หน้าหลัก"
+    ...    - "ยอดเงินคงเหลือ"
+    ...    - "ใช้งานได้ถึงวันที่"
+    ...    - "รายละเอียด"
+    ...    3. จับภาพหน้าจอ
+    ...
+    ...    1. Login MyAIS
+    ...    2. Verify page "Home"
+    ...    - "Hamburger menu" button
+    ...    - "Camera" button
+    ...    - "AIS Banner"
+    ...    - "Home" text
+    ...    - "Customer Name"
+    ...    - "Mobile no"
+    ...    - "Home" tab
+    ...    - "Remaining Balance"
+    ...    - "Valid Until"
+    ...    - "More" link
+    ...    3. Capture Screen
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Verify Home Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_HOME_6_1-2_Y_2_2] Verify Page Menu Home In Case: Current Package (No Remaining Package)
+    [Documentation]    *** Test Step***
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลื่อนไปทางซ้าย (จนเจอ แพ็กเกจปัจจุบัน)
+    ...    3. ตรวจสอบหน้า "แพ็กเกจปัจจุบัน"
+    ...    - "แพ็กเกจปัจจุบัน"
+    ...    - "แพ็กเกจปัจจุบันของคุณ"
+    ...    - "บริการเสริม"
+    ...    - "รายละเอียด"
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    1. Login MyAIS
+    ...    2. Swipe (จนเจอ Current Package)
+    ...    3. Verify page "Current Package"
+    ...    - "Your Current Package"
+    ...    - "Your Value Added Service"
+    ...    - "More" link
+    ...    4. Capture Screen
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Verify Page Menu Home In Case FBB
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_HOME_6_1-2_Y_3_2] Verify Page Your Current Package In Case Go to Your Current Package page (From Current Package Home page)
+    [Documentation]    ***Test Step***
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "รายละเอียด" (จากหน้า แพ็กเกจปัจจุบัน)
+    ...    3. ตรวจสอบหน้า "แพ็กเกจปัจจุบันของคุณ"
+    ...    - Header "แพ็กเกจปัจจุบันของคุณ"
+    ...    - เบอร์โทรศัพท์
+    ...    - "แพ็กเกจหลัก" at header (Verify ว่ามี Main pack)
+    ...    - "แพ็กเกจเสริม" at header (Verify ว่ามี On-Top pack)
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    1. Login MyAIS
+    ...    2. Click "More" (จาก Current Package Page)
+    ...    3. Verify Page "Your Current Package"
+    ...    - Header "Your Current Package"
+    ...    - Mobile no.
+    ...    - "Price Plan" at header (Verify ว่ามี Main pack)
+    ...    - "On-Top package" at header (Verify ว่ามี On-Top pack)
+    ...    4. Capture Screen
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Check AIS Cloud Show First Time    ${ar_LANG}
+    Go to Current
+    swipe in screen to element    ${lblMore2}    up
+    Click Mobile Element    ${lblMore2}
+    Verify Page Your Current Package In Case: Go to "Your Current Package" page FBB    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_HOME_6_1-2_Y_4_2] Verify Page Bill AIS Fibre In Case: Go to Bill AIS Fibre page (From Balance Home Page)
+    [Documentation]    ***Test Step***
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "ยอดค้างชำระ"
+    ...    3. ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    - "เบอร์โทรศัพท์"
+    ...    - "ชำระค่าบริการให้หมายเลขอื่น" button
+    ...    - "บิลทั้งหมด" button
+    ...    - "รายละเอียดค่าใช้บริการ"
+    ...    - "ช่องทางการชำระ"
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - "เงื่อนไขบริการ"
+    ...    4. จับภาพหน้าจอ
+    ...
+    ...    1. Login MyAIS
+    ...    2. Click "Balance"
+    ...    3. Verify "Bill AIS Fibre" page
+    ...    - "Bill AIS Fibre" at Header
+    ...    - "Mobile no"
+    ...    - "Payment to another number" button
+    ...    - "View all bills" button
+    ...    - "Your usage charges"
+    ...    - "Payment channels" (Check box)
+    ...    - "Back" button
+    ...    - "Next" button
+    ...    - Terms & Conditions
+    ...    4. Capture Screen
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Click Mobile Element    ${btnbalance}
+    Verify Page Bill AIS Fibre In Case: Go to "Bill AIS Fibre" page (From Balance Home Page)    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_HOME_6_1-2_Y_5_2] Verify Page Menu Home In Case: Go to Camera (First Time)
+    [Documentation]    ***Test Step***
+    ...
+    ...    1. Login MyAIS
+    ...    2. Click "Camera"
+    ...    3. Click "Allow"
+    ...    4. Capture Screen
+    ...
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "กล้อง"
+    ...    3. คลิก "อณุญาต"
+    ...    4. จับภาพหน้าจอ
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Click Mobile Element    ${btnCamera}
+    Verify Camera First time
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_HOME_6_1-2_Y_6_2] Verify Page Menu Home In Case: Go to Camera
+    [Documentation]    ***Test Step***
+    ...
+    ...    1. Login MyAIS
+    ...    2. Click "Camera"
+    ...    3. Capture Screen
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "กล้อง"
+    ...    3. จับภาพหน้าจอ
+    [Tags]    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Click Mobile Element    ${btnCamera}
+    Verify Camera
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

@@ -1,0 +1,95 @@
+*** Settings ***
+Resource          ../PageRepository/TravelRepository.txt
+Resource          ../Localized/${ar_LANG}/TravelLocalized.txt
+Resource          PrivilegeCommon.txt
+
+*** Keywords ***
+Get Title Name
+    [Arguments]    ${locator}
+    ${title}=    Get Web Text    ${locator}
+    [Return]    ${title}
+
+verify in Campagin
+    [Arguments]    ${CampaginName}    ${RelateCampagin1}    ${RelateCampagin2}    ${RelateCampagin3}
+    Web Element Text Should Be    ${lblSubTitleTravelMenu}    ${CampaginName}
+    Web Element Should Be Visible    ${lblSubLogoTravelMenu}
+    Web check existing text    ${lblSubDetailTravelMenu}
+    Web Element Trim Text Should Be    ${lblTitleTravelCondition}    ${Condition}
+    Web Capture Screen At Verify Point    Verify in ${CampaginName} First Picture
+    Comment    Scroll Web To Element    ${lblRelatedDealTravel}
+    Scroll Web To Element    ${imgLogoRelate1}
+    Web Element Trim Text Should Be    ${lblRelatedDealTravel}    ${RelateDeal}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop1Travel}    ${RelateCampagin1}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop2Travel}    ${RelateCampagin2}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop3Travel}    ${RelateCampagin3}
+    Web Capture Screen At Verify Point    Verify in ${CampaginName} Second Picture
+
+verify campagin in travel page
+    [Arguments]    ${Name}    ${ListMenuNo}
+    ${title}=    Get Title Name    ${lblTitleMenuTravelPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${imgMenuTravelPageTravelPageNumber${ListMenuNo}}
+    Web Element Text Should Be    ${lblTitleMenuTravelPageNumber${ListMenuNo}}    ${Name}
+    Web check existing text    ${lblDetailMainMenuTravelPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnDetailMenuTravelPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnLikeFacebookMenuTravelPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnTweetMenuTravelPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnMailMenuTravelPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${imgSymbolMenuTravelPageNumber${ListMenuNo}}
+    Click Web Element    ${btnDetailMenuTravelPageNumber${ListMenuNo}}
+    Web Capture Screen At Verify Point    Verify Campaign in Travel Page
+    ${ListMenuNo}
+    [Return]    ${title}
+
+Verify Qantas Campaign
+    ${title}=    verify campagin in travel page    ${QANTASTitle}    1
+    verify in Campagin    ${title}    ${DreamWorldRelate}    ${AmataraWellnessRelate}    ${BMARelate}
+
+Verify Auto Spa Campaign
+    ${title}    verify campagin in travel page    ${AutoSpaTitle}    2
+    verify in Campagin    ${title}    ${DreamWorldRelate}    ${AmataraWellnessRelate}    ${BMARelate}
+
+Verify Dream World Campaign
+    ${title}    verify campagin in travel page    ${DreamWorldTitle}    3
+    verify in Campagin    ${title}    ${AmataraWellnessRelate}    ${BMARelate}    ${AutoSpaRelate}
+
+Verify Amatara Wellness Resort Campaign
+    ${title}    verify campagin in travel page    ${AmataraWellnessResortTitle}    4
+    verify in Campagin    ${title}    ${DreamWorldRelate}    ${BMARelate}    ${AutoSpaRelate}
+
+Verify BMA Campaign
+    ${title}    verify campagin in travel page    ${BMATitle}    5
+    verify in Campagin    ${title}    ${DreamWorldRelate}    ${AmataraWellnessRelate}    ${AutoSpaRelate}
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Privilege_Prod_local_config_file_path}    ${#selenium_hub}
+
+Verify Travel Page
+    Web Element Should Be Visible    ${Banner}
+    Web Element Text Should Be    ${lblTravelTitle}    ${TravelTitle}
+    Web Element Should Be Visible    ${lblPageLessThanPage}
+    Web Element Should Be Visible    ${lblCurrentPage}
+    Web Element Should Be Visible    ${lblMoreThanPage}
+    Verify Menubar
+    Web Capture Screen At Verify Point    Verify In Menu Bar And Campaign Page
+    Verify Serenade Menu
+    Web Capture Screen At Verify Point    Verify In Serenade Menu
+    Scroll Web To Element    ${lblTitleMenuTravelPageNumber1}
+    Web Capture Screen At Verify Point    Verify In Campagin 1
+    Web Element Text Should Be    ${lblTitleMenuTravelPageNumber1}    ${QANTASTitle}
+    Web Element Text Should Be    ${lblTitleMenuTravelPageNumber2}    ${AutoSpaTitle}
+    Scroll Web To Element    ${lblTitleMenuTravelPageNumber3}
+    Web Capture Screen At Verify Point    Verify In Campagin 2
+    Web Element Text Should Be    ${lblTitleMenuTravelPageNumber3}    ${DreamWorldTitle}
+    Web Element Text Should Be    ${lblTitleMenuTravelPageNumber4}    ${AmataraWellnessResortTitle}
+    Scroll Web To Element    ${lblTitleMenuTravelPageNumber5}
+    Web Element Text Should Be    ${lblTitleMenuTravelPageNumber5}    ${BMATitle}
+    Web Capture Screen At Verify Point    Verify In Campagin 3
+    Scroll Web To Element    ${mnuBirthDayPrivilege}
+    Verify BirthdayPrivilege
+    Verify OurFriend
+    Verify Newsletter
+    Verify JoinCampaign
+    Web Capture Screen At Verify Point    Verify In Travel Page

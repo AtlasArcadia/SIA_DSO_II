@@ -1,0 +1,78 @@
+*** Settings ***
+Resource          Resource/PageKeywords/Emerald_Birthday.txt
+Resource          ../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F2_Emerald_1-4_1_Y_1_1] Birthday Page Case Match With Birthday Date
+    [Documentation]    *Owner* : Joe
+    ...    หน้าวันเกิด
+    ...    กรณีตรงกับเดือนเกิด
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3BE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่ส่วนสิทธิพิเศษวันเกิด
+    ...    5. ตรวจสอบหน้าเว็บแสดงข้อมูลและสิทธิพิเศษวันเกิด ในเดือนเกิด [1]
+    ...    6. ตรวจสอบรูปภาพ Birthday [2]
+    ...    7.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    '[1] ข้อมูลและสิทธิพิเศษวันเกิด
+    ...
+    ...    “ สุขสันต์วันเกิด คุณ............
+    ...    เอไอเอส เซเรเนด ขออวยพรให้ทุกวันของคุณ
+    ...    เต็มไปด้วยความสุข และความสำเร็จตลอดไป ”
+    ...    ขอมอบของขวัญพิเศษ
+    ...    สำหรับวันเกิดของคุณ
+    ...    เน็ตฟรี โทรฟรี ตลอดวัน"
+    ...
+    ...    [2] ตรวจสอบรุปภาพ Birthday
+    ...    - แสดงรูปภาพ Birthday Segment Emerald (ตามรูปด้านล่าง)
+    [Tags]    Production    TH    WebApplication    Sprint3    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_New_TypeN_Birthday=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_New_TypeN_Birthday
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify BirthDay Page Match With Birthday Date
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_Emerald_1-4_1_Y_1_2] Birthday Page Case Not Match With Birthday Date
+    [Documentation]    *Owner* : Joe
+    ...    หน้าวันเกิด
+    ...    กรณีไม่ตรงกับเดือนเกิด
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3BE :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่ส่วนสิทธิพิเศษวันเกิด
+    ...    5. ตรวจสอบไม่แสดงแบรนเนอร์ Birthday เมื่อไม่ตรงเดือนเกิด [1]
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1] ไม่แสดงแบรนเนอร์ Birthday เมื่อไม่ตรงเดือนเกิด
+    [Tags]    Production    TH    WebApplication    Sprint3    Success    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_New_TypeN=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_New_TypeN
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify BirthDay Page Not Match With Birthday Date
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_Test] Smoke Test
+    [Tags]    smoke
+    log    Smoke Test

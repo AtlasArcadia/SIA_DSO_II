@@ -1,0 +1,52 @@
+*** Settings ***
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
+Resource          ../PageRepository/PointsCommonRepository.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/ParallelLocalConfigKeyWord.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RunOnFailKeyword.txt
+Resource          ../Localized/${ar_LANG}/PointsCommonLocalized.txt
+Resource          ../../../../../AisRobotBuffet/Web/Generic/Keywords/WebGenericKeyword.txt
+Resource          ../PageVariable/PointsCommonVariable.txt
+
+*** Keywords ***
+Open Brownser Point Web
+    [Arguments]    ${lang}    ${IPSelenium}
+    Open Web Browser    ${urlAISPointProd}    ${ar_BROWSER}    http://${IPSelenium}/wd/hub
+    Maximize Browser Window
+    #have only TH Lang
+    Comment    Sleep    1
+    Comment    ${langOld}    Get Web Text    ${btnLanguage}
+    Comment    Run Keyword If    "${langOld}"=="EN" and "${lang}" == "EN"    Click Web Element    ${btnLanguage}
+    Comment    Run Keyword If    "${langOld}"=="TH" and "${lang}" == "TH"    Click Web Element    ${btnLanguage}
+    Comment    Sleep    1
+    Comment    ${langNew}    Get Web Text    ${btnLanguage}
+    Comment    Run Keyword If    "${langNew}"=="TH" and "${lang}" == "EN"    Log    Change Language EN Success
+    ...    ELSE IF    "${langNew}"=="EN" and "${lang}" == "TH"    Log    Change Language TH Success
+    Comment    Run Keyword If    "${langNew}"=="EN" and "${lang}" == "EN"    Fail
+    Comment    Run Keyword If    "${langNew}"=="TH" and "${lang}" == "TH"    Fail
+
+Select Menu
+    [Arguments]    ${Menu}
+    Click Web Element    ${mnu${Menu}}
+
+Verify Link
+    [Arguments]    ${link}
+    sleep    5
+    ${getLink}    Get Location
+    log    ${getLink}
+    log    ${link}
+    Run Keyword If    "${link}"!="${getLink}"    fail    Link are not same as T9
+    Run Keyword If    "${link}"=="${getLink}"    log    Link are same as T9
+
+Verify Menu Bar
+    Web Element Text Should Be    ${mnuHome}    ${Home}
+    Web Element Text Should Be    ${mnuAISPoints}    ${AISPoint}
+    Web Element Text Should Be    ${mnuTransferPoint}    ${TransferPoint}
+    Web Element Text Should Be    ${mnuReward}    ${Reward}
+
+Verify Popup To Join AIS Points
+    ${text}=    Get Web Text    ${lblYourNumberPopupRegisterAISPoints}
+    ${resultYourName}=    Should Match Regexp    ${text}    ${YourNumber}
+    Web Element Text Should Be    ${btnAboutAISPointsGetOTP}    ${AboutAISPointGetOTP}
+    Web Element Text Should Be    ${btnAboutAISPointsOK}    ${AboutAISPointOK}
+    Web Element Text Should Be    ${lblSpecifyOTPExpire15Min}    ${SpecifyOTPExpire15Min}
+    Web Capture Screen At Verify Point    Verify in Link Login AIS Point

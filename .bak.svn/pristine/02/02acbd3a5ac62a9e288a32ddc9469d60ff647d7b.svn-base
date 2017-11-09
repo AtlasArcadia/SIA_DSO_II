@@ -1,0 +1,82 @@
+*** Settings ***
+Resource          PrivilegeCommon.txt
+Resource          ../PageRepository/HealthyandBeautyRepository.txt
+Resource          ../Localized/${ar_LANG}/HealthyandBeautyLocalized.txt
+Resource          ../Localized/${ar_LANG}/PrivilegeLocalized.txt
+
+*** Keywords ***
+Verify JFitness Campaign
+    ${title}=    Verify campagin in HealthyandBeauty page    ${JFitnessTitle}    1
+    Verify In Campagin    ${title}    ${Condition}    ${RelateDeal}    ${PanClinicRelate}    ${DeLoopRelate}
+
+Verify campagin in HealthyandBeauty page
+    [Arguments]    ${Name}    ${ListMenuNo}
+    ${title}=    Get Title Name    ${lblTitleMenuHealthyPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${imgMenuHealthyPageHealthyPageNumber${ListMenuNo}}
+    Web Element Text Should Be    ${lblTitleMenuHealthyPageNumber${ListMenuNo}}    ${Name}
+    Web check existing text    ${lblDetailMainMenuHealthyPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnDetailMenuHealthyPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnLikeFacebookMenuHealthyPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnTweetMenuHealthyPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${btnMailMenuHealthyPageNumber${ListMenuNo}}
+    Web Element Should Be Visible    ${imgSymbolMenuHealthyPageNumber${ListMenuNo}}
+    Click Web Element    ${btnDetailMenuHealthyPageNumber${ListMenuNo}}
+    [Return]    ${title}
+
+Verify In Campagin
+    [Arguments]    ${CampaginName}    ${Condition}    ${Relate}    ${RelateCampagin1}    ${RelateCampagin2}
+    Web Element Text Should Be    ${lblSubTitleHealthyMenu}    ${CampaginName}
+    Web Element Should Be Visible    ${lblSubLogoHealthyMenu}
+    Web check existing text    ${lblSubDetailHealthyMenu}
+    Web Element Trim Text Should Be    ${lblTitleHealthyCondition}    ${Condition}
+    Web Capture Screen At Verify Point    Verify in ${CampaginName} First Picture
+    Scroll Web To Element    ${lblSubLogoRelateDeal}
+    Web Element Trim Text Should Be    ${lblRelatedDealHealthy}    ${RelateDeal}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop1Healthy}    ${RelateCampagin1}
+    Web Element Trim Text Should Be    ${lblRelatedDealShop2Healthy}    ${RelateCampagin2}
+    Web Capture Screen At Verify Point    Verify in ${CampaginName} Second Picture
+
+Get Title Name
+    [Arguments]    ${locator}
+    ${title}=    Get Web Text    ${locator}
+    [Return]    ${title}
+
+Verify DeLoop Campaign
+    ${title}=    Verify campagin in HealthyandBeauty page    ${DeLoopTitle}    2
+    Verify In Campagin    ${title}    ${Condition}    ${RelateDeal}    ${PanClinicRelate}    ${JFitnessRelate}
+
+Verify PanClinic campagin
+    ${title}=    Verify campagin in HealthyandBeauty page    ${PanClinicTitle}    3
+    Verify In Campagin    ${title}    ${Condition}    ${RelateDeal}    ${DeLoopRelate}    ${JFitnessRelate}
+
+Verify Health Page
+    Web Element Should Be Visible    ${Banner}
+    Web Element Text Should Be    ${lblHealthyTitle}    ${HealthyAndBeautyTitle}
+    Web Element Should Be Visible    ${lblPageLessThanPage}
+    Web Element Should Be Visible    ${lblCurrentPage}
+    Web Element Should Be Visible    ${lblMoreThanPage}
+    Verify Menubar
+    Web Capture Screen At Verify Point    Verify In Menu Bar And Campaign Page
+    Verify Serenade Menu
+    Web Capture Screen At Verify Point    Verify In Serenade Menu
+    Scroll Web To Element    ${lblTitleMenuHealthyPageNumber1}
+    Web Capture Screen At Verify Point    Verify In Campagin 1
+    Web Element Text Should Be    ${lblTitleMenuHealthyPageNumber1}    ${JFitnessTitle}
+    Scroll Web To Element    ${lblTitleMenuHealthyPageNumber2}
+    Web Capture Screen At Verify Point    Verify In Campagin 2
+    Web Element Text Should Be    ${lblTitleMenuHealthyPageNumber2}    ${DeLoopTitle}
+    Scroll Web To Element    ${lblTitleMenuHealthyPageNumber3}
+    Web Capture Screen At Verify Point    Verify In Campagin 3
+    Web Element Text Should Be    ${lblTitleMenuHealthyPageNumber3}    ${PanClinicTitle}
+    Scroll Web To Element    ${mnuBirthDayPrivilege}
+    Verify BirthdayPrivilege
+    Verify OurFriend
+    Verify Newsletter
+    Verify JoinCampaign
+    Web Capture Screen At Verify Point    Verify In Health Page
+
+Keywords For Teardown
+    [Arguments]    ${#selenium_hub}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Privilege_Prod_local_config_file_path}    ${#selenium_hub}

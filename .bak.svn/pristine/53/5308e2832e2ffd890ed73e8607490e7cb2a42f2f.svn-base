@@ -1,0 +1,2228 @@
+*** Settings ***
+Resource          ../../../../Config/LocalConfig.txt
+Resource          ../Resource/PageKeywords/PointsAndPrivileges.txt
+
+*** Test Cases ***
+[F1_Priv_1-5_1-2_Y_1_2] MyAIS Go to Points And Privileges menu
+    [Documentation]    -- Step --
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์&สิทธิพิเศษ'
+    ...    3. ตรวจสอบข้อมูลProfile เบอร์
+    ...    - ชื่อ-สกุล
+    ...    - เบอร์โทรศัพท์
+    ...    - MA SEGMENT
+    ...    - จำนวน Points
+    ...    4.ตรวจสอบหน้า "พอยท์&สิทธิพิเศษ"
+    ...    - ปุ่มค้นหา
+    ...    - เมนู MY LISTS
+    ...    - เมนู RECENT
+    ...    5.ตรวจสอบ Campaign ของ \ Privilege
+    ...    6.ตรวจสอบ Campaign ของ Points
+    ...    7.ตรวจสอบ Campaign ของ NEARBY
+    ...    8.Capture screen
+    [Tags]    active    success    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Verify Point And Privileges Page
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F3_Priv_1-5_1-2_Y_1_2] Search Feature Verify Search page
+    [Documentation]    --Step--
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม 'ค้นหา'
+    ...    4. ระบุข้อความที่ต้องการค้นหา "ทดสอบ" (EN = Test)
+    ...    5. กด ค้นหา
+    ...    6. ตรวจสอบหน้า 'ค้นหา'
+    ...    - ข้อความที่ระบุให้ค้นหา (อยู่ในช่องค้นหา)
+    ...    - แถบทั้งหมด
+    ...    - แถบสิทธิพิเศษ
+    ...    - แถบพอยท์
+    ...    7. Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Input Text via ADB Keyboard    ${txtSearchBox}    ${Test}    ${virtual_device_1_SN}
+    Verify Search Menu
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F3_Priv_1-5_1-2_Y_2_2] Search Feature Not found data
+    [Documentation]    --Step--
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม 'ค้นหา'
+    ...    4. ระบุข้อความที่ต้องการค้นหา ""กกก"" (EN = ddd)
+    ...    5. กด ค้นหา
+    ...    6. ตรวจสอบหน้า 'ค้นหา'
+    ...    - ข้อความที่ระบุให้ค้นหา (อยู่ในช่องค้นหา)
+    ...    - แถบทั้งหมด
+    ...    - แถบสิทธิพิเศษ
+    ...    - แถบพอยท์
+    ...    - 0 Results Found (Text)
+    ...    7. Capture screen"
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Verify Search Menu Not Found Result
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F3_Priv_1-5_1-2_Y_3_2] Search Feature Search Tab ALL
+    [Documentation]    --Step--
+    ...    "1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม 'ค้นหา'
+    ...    4. ระบุข้อความที่ต้องการค้นหา ""โดนัท"" (EN = Donut)
+    ...    5. กด ค้นหา
+    ...    6. กดเลือกแถบ ""ทั้งหมด""
+    ...    7. ตรวจสอบหน้า 'ค้นหา'
+    ...    - ข้อความที่ระบุให้ค้นหา (อยู่ในช่องค้นหา)
+    ...    - แถบทั้งหมด
+    ...    - แถบสิทธิพิเศษ
+    ...    - แถบพอยท์
+    ...    - Result Found ( Result Found>0)
+    ...    8. Capture screen"
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Verify Search Menu All Tab
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F3_Priv_1-5_1-2_Y_4_2] Search Feature - Search Tab Privileges
+    [Documentation]    --Step--
+    ...
+    ...    "1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม 'ค้นหา'
+    ...    4. ระบุข้อความที่ต้องการค้นหา ""โดนัท"" \ (EN = Donut)
+    ...    5. กด ค้นหา
+    ...    6. กดเลือกแถบ ""สิทธิพิเศษ""
+    ...    7. ตรวจสอบหน้า 'ค้นหา'
+    ...    - ข้อความที่ระบุให้ค้นหา (อยู่ในช่องค้นหา)
+    ...    - แถบทั้งหมด
+    ...    - แถบสิทธิพิเศษ
+    ...    - แถบพอยท์
+    ...    - Result Found ( Result Found>0)
+    ...    8. Capture screen"
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Verify Search Menu Privileges Tab
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F3_Priv_1-5_1-2_Y_5_2] Search Feature Search Tab Points
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Verify Search Menu Points Tab
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F4_Priv_1-5_1-2_Y_1_2] My Lists Feature Verify My Lists page
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To MyLists
+    Verify MyLists Page
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F4_Priv_1-5_1-2_Y_2_2] Favorite Privileges Campaign
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Fevorite Privileges Campaign And Verify
+    Unfevorite Privileges
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F4_Priv_1-5_1-2_Y_3_2] Unfavorite Privileges Campaign
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Fevorite Privileges Campaign And Verify
+    Unfevorite Privileges
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F4_Priv_1-5_1-2_Y_4_2] Favorite Points Campaign
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Fevorite Point Campaign And Verify
+    Unfevorite Point
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F4_Priv_1-5_1-2_Y_5_2] Unfavorite Points Campaign
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Fevorite Point
+    Unfavorite Point Campaign And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F4_Priv_1-5_1-2_Y_6_2] My Lists Feature Go to My Lists after close application
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    ${Campaign}    Fevorite Privileges Campaign Verify And Return Campaign Name
+    Close Application
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Verify Fevorite Privileges Campaign    ${Campaign}
+    Unfevorite Privileges
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F5_Priv_1-5_1-2_Y_1_2] Recents Feature Verify Recents page
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Recents Menu
+    Verify Recents Menu
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F5_Priv_1-5_1-2_Y_2_2] Recents Feature Check Recents History Privileges
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Select First Privileges Campaign And Verify Campaign Name
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F5_Priv_1-5_1-2_Y_3_2] Recents Feature Check Recents History Points
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Select Frist Points Campaign And Verify Campaign Name
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F5_Priv_1-5_1-2_Y_4_2] Recents Feature Go to Recents after close application
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. เลือก 'Campaign สิทธิพิเศษ' (เลือก Campaign แรก
+    ...    eg. เคเอฟซี)
+    ...    4. Capture screen
+    ...    5. กดเข้า Recents (รูปนาฬิกา)
+    ...    6. กดแถบ "สิทธิพิเศษ"
+    ...    7. ตรวจสอบหน้า "Recents"
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. Capture screen
+    ...    9. ปิด MyAIS Application
+    ...    10. เข้าสู่ระบบ MyAIS.
+    ...    11. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    12. กดเข้า Recents (รูปนาฬิกา)
+    ...    13. กดแถบ "สิทธิพิเศษ"
+    ...    14. ตรวจสอบหน้า "Recents"
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    15. Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Select Privileges Campaign (First Campaign eg.KFC)
+    ...    4. Capture screen
+    ...    5. Click "Recents"
+    ...    6. Click "Privileges" Tab
+    ...    7. Verify 'Recents' page
+    ...    - Campaign (Check Campaign name)
+    ...    8. Capture screen
+    ...    9. Close "My AIS" application
+    ...    10. Login \ MyAIS.
+    ...    11.Click Menu "Points & Privileges"
+    ...    12. Click "Recents"
+    ...    13. Click "Privileges" Tab
+    ...    14. Verify \ "Recents" page
+    ...    - Campaign (Check Campaign name)
+    ...    15. Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    ${recentCampaign}    Select First Privileges Campaign And Verify Campaign Name
+    Close Application
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Verify Recent Privileges Campaign    ${recentCampaign}
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_1_2] Privileges Feature Verify Privileges page
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "สิทธิพิเศษ"
+    ...    4. ตรวจสอบหน้า "สิทธิพิเศษ"
+    ...    - สิทธิพิเศษ (Label)
+    ...    - Nearby (category)
+    ...    - กินดื่ม (category)
+    ...    - ช๊อปปิ้ง (category)
+    ...    - บันเทิง (category)
+    ...    - ท่องเที่ยวและเดินทาง (category)
+    ...    - ไลฟ์สไตล์ (category)
+    ...    - เซเรเนด (category)
+    ...    5. Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Privileges" Campaign
+    ...    4. Verify \ "Privileges" page
+    ...    - Privileges (Label)
+    ...    - Nearby (category)
+    ...    - Food (category)
+    ...    - Shopping (category)
+    ...    - Entertainment (category)
+    ...    - Traveling (category)
+    ...    - Lifestyle (category)
+    ...    - Serenade (category)
+    ...    5. Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Verify Privileges
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_2_2] Privileges Feature Select Campaign from Nearby Category
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "สิทธิพิเศษ"
+    ...    4. เลือก Category "Nearby"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg. BLACK CANYON)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก Nearby)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Privileges" Campaign
+    ...    4. Select "Nearby" Category
+    ...    5. Capture screen
+    ...    6. Select Campaign(First Campaign eg. BLACK CANYON)
+    ...    7. Verify Campaign page( From Nearby Category)
+    ...    - Campaign (Check Campaign name)
+    ...    8. \ Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Nearby And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_3_2] Privileges Feature Select Campaign from Food Category
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "สิทธิพิเศษ"
+    ...    4. เลือก Category "กินดื่ม"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg. เคเอฟซี)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก กินดื่ม)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Privileges" Campaign
+    ...    4. Select "Food" Category
+    ...    5. Capture screen
+    ...    6. Select Campaign(First Campaign eg. KFC)
+    ...    7. Verify Campaign page( From Food Category)
+    ...    - Campaign (Check Campaign name)
+    ...    8. \ Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Food And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_4_2] Privileges Feature Select Campaign from Shopping Category
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "สิทธิพิเศษ"
+    ...    4. เลือก Category "ช้อปปิ้ง"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg. ช้อปปิ้)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก ช้อปปิ้ง)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Privileges" Campaign
+    ...    4. Select "Shopping" Category
+    ...    5. Capture screen
+    ...    6. Select Campaign(First Campaign eg. บีทูเอส)
+    ...    7. Verify Campaign page( From Shopping Category)
+    ...    - Campaign (Check Campaign name)
+    ...    8. \ Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Shopping And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_5_2] Privileges Feature Select Campaign from Entertainment Category
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "สิทธิพิเศษ"
+    ...    4. เลือก Category "บันเทิง"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg. สวนน้ำโพโรโระ)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก บันเทิง)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Privileges" Campaign
+    ...    4. Select "Entertainment" Category
+    ...    5. Capture screen
+    ...    6. Select Campaign(First Campaign eg. ไดโนฟาร์ม)
+    ...    7. Verify Campaign page( From Entertainment Category)
+    ...    - Campaign (Check Campaign name)
+    ...    8. \ Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Entertainment And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_6_2] Privileges Feature Select Campaign from Traveling Category
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "สิทธิพิเศษ"
+    ...    4. เลือก Category "ท่องเที่ยวและเดินทาง"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg. เดอะ คอรัล)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก ท่องเที่ยวและเดินทาง)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Privileges" Campaign
+    ...    4. Select "Traveling" Category
+    ...    5. Capture screen
+    ...    6. Select Campaign(First Campaign eg. ออโต้ สปา)
+    ...    7. Verify Campaign page( From Traveling Category)
+    ...    - Campaign (Check Campaign name)
+    ...    8. \ Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    PointsAndPrivileges.Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Travel And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_7_2] Privileges Feature Select Campaign from Lifestyle Category
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "สิทธิพิเศษ"
+    ...    4. เลือก Category "ไลฟ์สไตล์"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg. จัมป์ สเปซ ขอนแก่น)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก ไลฟ์สไตล์)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Privileges" Campaign
+    ...    4. Select "Lifestyle" Category
+    ...    5. Capture screen
+    ...    6. Select Campaign(First Campaign \ eg. จัมป์ สเปซ ขอนแก่น)
+    ...    7. Verify Campaign page( From Lifestyle Category)
+    ...    - Campaign (Check Campaign name)
+    ...    8. \ Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Life Style And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_8_2] Privileges Feature Select Campaign from Serenade Category
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "สิทธิพิเศษ"
+    ...    4. เลือก Category "เซเรเนด"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg. xxx)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก เซเรเนด)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Privileges" Campaign
+    ...    4. Select "Serenade" Category
+    ...    5. Capture screen
+    ...    6. Select Campaign(First Campaign \ eg. xxx)
+    ...    7. Verify Campaign page( From Serenade Category)
+    ...    - Campaign (Check Campaign name)
+    ...    8. \ Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Serenade And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_9_2] Privileges Feature Verify Call button
+    [Documentation]    Owner : Teay
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - N-Type Number : 3PE,3PO,3BE,3BO,IPE
+    ...    - Status : Active
+    ...    - Login เข้าระบบ
+    ...
+    ...    *TestStep*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม 'ค้นหา'
+    ...    4. ระบุข้อความที่ต้องการค้นหา "กิวโนะยะ"
+    ...    5. กด ค้นหา
+    ...    6. กดเลือกแถบ "สิทธิพิเศษ"
+    ...    7. Capture screen
+    ...    8. กดเลือก Campaign
+    ...    10.Capture screen
+    ...    11. กดปุ่ม "โทร"
+    ...    12. ตรวจสอบเบอร์โทร (ตรวจสอบว่าเปิด Phone ขึ้นมา)
+    ...    13. Capture screen
+    ...
+    ...    *and*
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "Search" bar
+    ...    4. Input text "xxx"
+    ...    5. Click "Search" button
+    ...    6. Click "Privileges" Tab
+    ...    7. Capture screen
+    ...    8. Select Campaign
+    ...    10.Capture screen (First Campaign \ eg. xxx)
+    ...    11. Verify "Call" button (Visible)
+    ...    12. Capture screen
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${CampaignCallPriv}    ${virtual_device_1_SN}
+    Verify Priv Call Feature
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_2_1_Y_10_2] Privileges Feature Verify Navigation button (เก่า)
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${CampaignMapPriv}    ${virtual_device_1_SN}
+    Verify Priv Map Feature
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_1_2] Points Feature Verify Points page
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Verify Points
+    [Teardown]
+
+[F7_Priv_2_1_Y_2_2] Points Feature Select Campaign from Nearby Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Nearby And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_3_2] Points Feature Select Campaign from Food and Drink Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Food And Drink And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_4_2] Points Feature Select Campaign from Voice Call and Internet Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Free Call And Free Net And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_5_2] Points Feature Select Campaign from Shopping Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Free Shopping And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_6_2] Points Feature Select Campaign from Device Discount Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Discount Phone And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_7_2] Points Feature Select Campaign from Movie Tickets Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Ticket And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_8_2] Points Feature Select Campaign from Aunjai Collections Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Aunjai Collections And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_9_2] Points Feature - Select Campaign from Hot Rewards Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Hot Rewards And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_10_2] Points Feature Select Campaign from Lucky Draw Category
+    [Tags]    inactive    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Lucky Draw And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_11_2] Points Feature Verify Call button
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${CampaignCallPoint}    ${virtual_device_1_SN}
+    Verify Points Call Feature
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F7_Priv_2_1_Y_12_2] Points Feature Verify Navigation button
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${CampaignMapPoint}    ${virtual_device_1_SN}
+    Verify Points Map Feature
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F8_Priv_2_1_Y_1_2] Nearby Feature Verify Nearby page
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Verify Nearby
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F8_Priv_2_1_Y_2_2] Nearby Feature Select campaign from Map view
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Verify Nearby Map Page
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F8_Priv_2_1_Y_3_2] Nearby Feature Select campaign from List view
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Go To Nearby List And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F5_Priv_2_1_Y_4_2] Recents Feature Go to Recents after close application
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    ${recentCampaign}    Select First Privileges Campaign And Verify Campaign Name
+    Close Application
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Verify Recent Privileges Campaign    ${recentCampaign}
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F6_Priv_2_1_Y_1_2] Privileges Feature Verify Privileges page
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Verify Privileges
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F6_Priv_2_1_Y_2_2] Privileges Feature Select Campaign from Nearby Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Nearby And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F6_Priv_2_1_Y_3_2] Privileges Feature Select Campaign from Food Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+
+[F6_Priv_2_1_Y_4_2] Privileges Feature Select Campaign from Shopping Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Shopping And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F6_Priv_2_1_Y_5_2] Privileges Feature Select Campaign from Entertainment Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+
+[F6_Priv_2_1_Y_6_2] Privileges Feature Select Campaign from Traveling Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Travel And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F6_Priv_2_1_Y_7_2] Privileges Feature Select Campaign from Lifestyle Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Life Style And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F6_Priv_2_1_Y_8_2] Privileges Feature Select Campaign from Serenade Category
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Go To Privileges Serenade And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F6_Priv_2_1_Y_9_2] Privileges Feature Verify Call button
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${CampaignCallPriv}    ${virtual_device_1_SN}
+    Verify Priv Call Feature
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F6_Priv_2_1_Y_10_2] Privileges Feature Verify Navigation button
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${CampaignMapPriv}    ${virtual_device_1_SN}
+    Verify Priv Map Feature
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F8_Priv_2_1_Y_3_2] Nearby Feature Select campaign from List view
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Go To Nearby List And Verify
+    [Teardown]    All Teardown Keyword    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_10_2] Verify navigation through the Campaign under the Privilege category.
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม 'ค้นหา'
+    ...    4. ระบุข้อความที่ต้องการค้นหา "กิวโนะยะ"
+    ...    5. กด ค้นหา
+    ...    6. กดเลือกแถบ "สิทธิพิเศษ"
+    ...    7. Capture screen
+    ...    8. กดเลือก Campaign
+    ...    10.Capture screen
+    ...    11. กดปุ่ม "นำทาง"
+    ...    12. ตรวจสอบเส้นทาง (ตรวจสอบว่าเปิด map ขึ้นมา)
+    ...    13. Capture screen
+    ...
+    ...
+    ...    *Expected result*
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${CampaignMapPriv}    ${virtual_device_1_SN}
+    Verify Priv Map Feature
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F6_Priv_1-5_1-2_Y_11_2] Access point and plivilage menu and then Verify Banner plivilage.
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3.เลือก สิทธิพิเศษ
+    ...    4. คลิก "เพิ่มเติม"
+    ...    5.เลือก Banner ไปซ้าย-ขวา
+    ...    6.ระบบสามารถเลือก Banner ได้
+    ...
+    ...    *Expected result*
+    ...    หน้าจอ 'สิทธิพิเศษ'
+    ...    คลิก "เพิ่มเติม"
+    ...    - ระบบสามารถเลือก Banner ไปซ้าย-ขวา ได้
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Privileges
+    AISAppiumEx.Wait Until Element Is Visible    ${lblPlivilegesBanner}
+    swipe in container to element    ${lblPlivilegesBanner}    ${lblPlivilegesBanner}    left
+    AISAppiumEx.Wait Until Element Is Visible    ${lblPlivilegesBanner}
+    swipe in container to element    ${lblPlivilegesBanner}    ${lblPlivilegesBanner}    right
+    AISAppiumEx.Wait Until Element Is Visible    ${lblPlivilegesBanner}
+    sleep    3
+    Click Mobile Element    ${lblPlivilegesBanner}
+    Mobile Capture Screen At Verify Point    PivilegesBenner
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1-2_Y_1_2] Points Feature Verify Points page
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. ตรวจสอบหน้า "พอยท์"
+    ...    - สิทธิพิเศษ (Label)
+    ...    - Nearby (category)
+    ...    - แลกอาหาร เครื่องดื่ม (category)
+    ...    - แลกค่าโทร ค่าเน็ตฟรี (category)
+    ...    - แลกช๊อปฟรีสะใจ (category)
+    ...    - แลกส่วนลดมือถือ (category)
+    ...    - แลกตั๋วหนัง (category)
+    ...    - แลกอุ่นใจคอลเลคชั่น (category)
+    ...    - ของรางวัลสุดฮ็อต (category)
+    ...    - แลกเปลี่ยนคะแนน (category)
+    ...    5. Capture screen
+    ...
+    ...
+    ...    *Expected result*
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Verify Points
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1-2_Y_2_2] Points Feature Select Campaign from Nearby Category.
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. เลือก Category "Nearby"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.WUTTISAK CLINIC)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก Nearby)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...
+    ...    *Expected result*
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Nearby And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1-2_Y_3_2] Points Feature Select Campaign from Food and Drink Category.
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. เลือก Category " แลกอาหาร เครื่องดื่ม"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.ร้านรสนิยม)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก แลกอาหาร เครื่องดื่ม)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *Expected result*
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Food And Drink And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1-2_Y_4_2] Points Feature Select Campaign from Voice Call and Internet Category.
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. เลือก Category "แลกค่าโทร ค่าเน็ตฟรี"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.xxx)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก แลกค่าโทร ค่าเน็ตฟรี)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...
+    ...    *Expected result*
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Free Call And Free Net And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1-2_Y_5_2] Points Feature Select Campaign from Shopping Category.
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. เลือก Category "แลกช้อปฟรีสะใจ"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.วุฒิ-ศักดิ์ คลีนิก)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก แลกช้อปฟรีสะใจ)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. Capture screen
+    ...
+    ...    *Expected result*
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Free Shopping And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1-2_Y_6_2] Points Feature Select Campaign from Device Discount Category.
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. เลือก Category "แลกส่วนลดมือถือ"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.xxx)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก แลกส่วนลดมือถือ)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8.Capture screen
+    ...
+    ...
+    ...    *Expected result*
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Discount Phone And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1-2_Y_7_2] Points Feature Select Campaign from Movie Tickets Category.
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. เลือก Category "แลกตั๋วหนัง"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.เอส เอฟ ซีเนม่า)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก แลกตั๋วหนัง)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *Expected result*
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Ticket And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1-2_Y_8_2] Points Feature Select Campaign from Aunjai Collections Category.
+    [Documentation]    *Owner : Chompoo*
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    N-Type Number : 3PE,3BE,3BO,3PO,IPE
+    ...
+    ...    Status : Active
+    ...
+    ...
+    ...    *Test Step*
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. เลือก Category "แลกอุ่นใจคอลเลกชั่น"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.xxx)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก แลกอุ่นใจคอลเลกชั่น)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    *Expected result*
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Aunjai Collections And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1_Y_9_2] SelectPoints and choose Campaign from Hot Rewards
+    [Documentation]    Owner By Noon
+    ...
+    ...    Pre-Requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. เลือก Category "แลกของรางวัลสุดฮ็อต"
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.สโนว์ แอนด์ ไอซ์ แพลนเน็ต)
+    ...    7. ตรวจสอบหน้า Campaign (ที่เข้ามาจาก แลกของรางวัลสุดฮ็อต)
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. \ Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Hot Rewards And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1_Y_10_2] Slect Points and choose campaing converts points
+    [Documentation]    Owner By Noon
+    ...
+    ...    Pre-Requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "พอยท์"
+    ...    4. เลือก Category "แลกเปลี่ยนคะแนน"
+    ...    5. redirect ไปหน้า แลกเปลี่ยนคะแนน
+    ...    6. ตรวจสอบหน้า แลกเปลี่ยนคะแนน
+    ...    7. Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Click Mobile element    ${lblMore}
+    Go To Points Convert Point
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1_Y_11_2] Verify Calling button by cateory points
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-Requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม 'ค้นหา'
+    ...    4. ระบุข้อความที่ต้องการค้นหา "อานตี้ แอนส์"
+    ...    5. กด ค้นหา
+    ...    6. กดเลือกแถบ "พอยท์"
+    ...    7. Capture screen
+    ...    8. กดเลือก Campaign
+    ...    10.Capture screen
+    ...    11. กดปุ่ม "โทร"
+    ...    12. ตรวจสอบเบอร์โทร (ตรวจสอบว่าเปิด Phone ขึ้นมา)
+    ...    13. Capture screen
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${AuntieAnne's}    ${virtual_device_1_SN}
+    Verify Point Call Feature
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1_Y_12_2]Verify nevigation button by category points
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-Requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม 'ค้นหา'
+    ...    4. ระบุข้อความที่ต้องการค้นหา "อานตี้ แอนส์"
+    ...    5. กด ค้นหา
+    ...    6. กดเลือกแถบ "พอยท์"
+    ...    7. Capture screen
+    ...    8. กดเลือก Campaign
+    ...    10.Capture screen
+    ...    11. กดปุ่ม "นำทาง"
+    ...    12. ตรวจสอบเส้นทาง (ตรวจสอบว่าเปิด map ขึ้นมา)
+    ...    13. Capture screen
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${AuntieAnne's}    ${virtual_device_1_SN}
+    Verify Points Map Feature
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_1_Y_13_2]Select Point and click more
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-Requisite
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3.เลือก พอยท์
+    ...    4. คลิก "เพิ่มเติม"
+    ...    5. ระบบแสดงจำนวนคงเหลือของ พอยท์ / Exp
+    ...    6.เลือก Banner
+    ...    7.ระบบสามารถเลือก Banner ไปซ้าย-ขวา ได้
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    หน้าจอ 'พอยท์'
+    ...    คลิก "เพิ่มเติม"
+    ...    - ระบบแสดงจำนวนคงเหลือของ พอยท์ / Exp
+    ...    - ระบบสามารถเลือก Banner ไปซ้าย-ขวา ได้
+    ...    กดปุ่ม กลับ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Sleep    5
+    Click Mobile Element    ${lblPointsBenner}
+    swipe in container to element    ${lblPointsBenner}    ${lblPointsBenner}    left
+    AISAppiumEx.Wait Until Element Is Visible    ${lblPointsBenner}
+    swipe in container to element    ${lblPointsBenner}    ${lblPointsBenner}    right
+    AISAppiumEx.Wait Until Element Is Visible    ${lblPointsBenner}
+    Verify Points
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F8_Priv_1-5_1_Y_1_2]Verify nearby page
+    [Documentation]    Owner by Noon
+    ...
+    ...    pre-Requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "Nearby"
+    ...    4. ตรวจสอบหน้า Nearby
+    ...    - Nearby (Label)
+    ...    5. Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Verify Nearby
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F8_Priv_1-5_1_Y_2_2]Select Campaing from Nearby page
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "Nearby"
+    ...    4. เลือกประเภทการแสดงเป็นแบบ "แผนที่" (ปุ่มขวาบน)
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.INTHANIN COFFEE)
+    ...    7.ตรวจสอบหน้า Campaign (ที่เข้ามาจาก "Nearby")
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Verify Nearby Map Page
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F8_Priv_1-5_1_Y_3_2]Select Campaing from nearby page(listmenu)
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-Requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. กดปุ่ม "เพิ่มเติม" ที่ Campaign "Nearby"
+    ...    4. เลือกประเภทการแสดงเป็นแบบ "ลิสรายการ" (ปุ่มขวาบน จะเป็นรูปแฮมเบอเกอร์เมนู)
+    ...    5. Capture screen
+    ...    6. กดเลือก Campaign(เลือก Campaign แรก eg.INTHANIN COFFEE)
+    ...    7.ตรวจสอบหน้า Campaign (ที่เข้ามาจาก "Nearby")
+    ...    - Campaign (ตรวจสอบชื่อว่าตรงกัน)
+    ...    8. Capture screen
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Go To Nearby List And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F9_Priv_1-5_1_Y_1_2]Menu Points and Privileages Select Privileges
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-Requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. เลือก สิทธิพิเศษ
+    ...    4. แสดงรายละเอียด Campaign ต่างๆ เมนู สิทธิพิเศษ
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    หน้าจอ 'สิทธิพิเศษ'
+    ...    - \ แสดงรายละเอียด Campaign ต่างๆ เมนู สิทธิพิเศษ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Verify Privileges
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F10_Priv_1-5_1_Y_1_2]Menu points and Previleges Select points
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre-requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. เข้าสู่ระบบ MyAIS.
+    ...    2. เลือกเมนู 'พอยท์ & สิทธิพิเศษ'
+    ...    3. เลือก พอยท์
+    ...    4. แสดงรายละเอียด Campaign ต่างๆ เมนู พอยท์
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    หน้าจอ 'พอยท์'
+    ...    - \ แสดงรายละเอียด Campaign ต่างๆ เมนู พอยท์
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Verify Points
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_2_Y_9_2]Select Campaign from Hot Rewards Category
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Points" Campaign
+    ...    4. Select "Hot Rewards" Category
+    ...    5. Capture screen
+    ...    6. Select Campaign(First Campaign eg.สโนว์ แอนด์ ไอซ์ แพลนเน็ต)
+    ...    7. Verify Campaign page( From Hot Rewards)
+    ...    - Campaign (Check Campaign name)
+    ...    8. \ Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Go To Points Hot Rewards And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_2_Y_10_2]Select Campaign from Convert Points Category
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Points" Campaign
+    ...    4. Select "Convert Points" Category
+    ...    5. Redirect to Convert Points
+    ...    6. Verify Convert Points page
+    ...    7. \ Capture screen
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Click Mobile element    ${lblMore}
+    Go To Points Convert Point
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_2_Y_11_2]Verify Call button
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "Search" bar
+    ...    4. Input text "xxx"
+    ...    5. Click "Search" button
+    ...    6. Click "Points" Tab
+    ...    7. Capture screen
+    ...    8. Select Campaign (First Campaign \ eg. xxx)
+    ...    10.Capture screen
+    ...    11. Verify "Call" button (Visible)
+    ...    12. Capture screen
+    ...
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${CampaignCallPriv}    ${virtual_device_1_SN}
+    Verify Priv Call Feature
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_2_Y_12_2]Verify Navigation button
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "Search" bar
+    ...    4. Input text "xxx"
+    ...    5. Click "Search" button
+    ...    6. Click "Points" Tab
+    ...    7. Capture screen
+    ...    8. Select Campaign (First Campaign \ eg. xxx)
+    ...    10.Capture screen
+    ...    11. Verify "Navigation" button (Visible)
+    ...    12. Capture screen
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Points and privileges search keyword    ${CampaignMapPriv}    ${virtual_device_1_SN}
+    Verify Priv Map Feature
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F7_Priv_1-5_2_Y_13_2]Select Points
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Points" Campaign
+    ...    4. Show Points/ Exp
+    ...    6. Select Banner
+    ...    7.Can slide Banner left-right
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Sleep    5
+    Click Mobile Element    ${lblPointsBenner}
+    swipe in container to element    ${lblPointsBenner}    ${lblPointsBenner}    left
+    AISAppiumEx.Wait Until Element Is Visible    ${lblPointsBenner}
+    swipe in container to element    ${lblPointsBenner}    ${lblPointsBenner}    right
+    AISAppiumEx.Wait Until Element Is Visible    ${lblPointsBenner}
+    Verify Points
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F8_Priv_1-5_2_Y_1_2]Verify Nearby page
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Nearby" Campaign
+    ...    4. Verify "Nearby" page
+    ...    - Nearby (Label)
+    ...    5. Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Verify Nearby
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F8_Priv_1-5_2_Y_2_2]Select campaign from Map view
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Nearby" Campaign
+    ...    4. Change to "Map view" (Top Right map icon)
+    ...    5. Capture screen
+    ...    6. \ Select Campaign (First Campaign eg.INTHANIN COFFEE)
+    ...    7.Verify Campaign page( From Nearby)
+    ...    - Campaign (Check Campaign name)
+    ...    8. Capture screen
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Verify Nearby Map Page
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F8_Priv_1-5_2_Y_3_2]Select campaign from List view
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. Login \ MyAIS.
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Nearby" Campaign
+    ...    4. Change to "List view" (Top Right hamburger icon)
+    ...    5. Capture screen
+    ...    6. \ Select Campaign (First Campaign eg.INTHANIN COFFEE)
+    ...    7.Verify Campaign page( From Nearby)
+    ...    - Campaign (Check Campaign name)
+    ...    8. Capture screen
+    ...
+    ...    Verify point
+    ...
+    ...    None
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Nearby
+    Go To Nearby List And Verify
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F9_Priv_1-5_2_Y_1_2]Click Menu Points & Privileges select previleges
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    "1. Login \ MyAIS.
+    ...    2.Click Menu ""Points & Privileges""
+    ...    3. Select Privileges
+    ...    4. Show Campaign Menu Privileges"
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    หน้าจอ 'สิทธิพิเศษ'
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Privileges
+    Verify Privileges
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F10_Priv_1-5_2_Y_1_2]Click Menu Points & Privile and more at Points
+    [Documentation]    Owner by Noon
+    ...
+    ...    Pre -requisite
+    ...
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...
+    ...    1. Login \ MyAIS
+    ...    2.Click Menu "Points & Privileges"
+    ...    3. Click "more" at "Points" Campaign
+    ...    4. Show campaign
+    ...
+    ...
+    ...    Verify point
+    ...
+    ...    - แสดงรายละเอียด Campaign ต่างๆ เมนู สิทธิพิเศษ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu Points And Privileges
+    Go To Points
+    Verify Points
+    [Teardown]    All Teardown Keyword For Point and Privilege    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    Log    Smoke

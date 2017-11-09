@@ -1,0 +1,1806 @@
+*** Settings ***
+Resource          ../Resource/PageKeywords/Payment.txt
+Resource          ../../../../Config/LocalConfig.txt
+
+*** Test Cases ***
+[F1_Payment_6_1-2_Y_1_2] Payment to fibre self number via credit card (visa)
+    [Documentation]    [F1_Payment_6_1-2_Y_1_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" \ >0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (VISA)
+    ...    9.Click "Next" Button
+    ...    10.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    11.Click "OK" button
+    ...    12. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือก "ประเภทบัตร" (VISA)
+    ...    9.กด ปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    11.กด ปุ่ม "ตกลง"
+    ...    12.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 100 B
+    Select Payment Channels    CreditCard
+    Select Card Type    VISA
+    Click Next To Summary
+    Verify Payment Details Credit Card
+    Confirm Top Payment
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_2_2] Payment to fibre self number via credit card (master)
+    [Documentation]    [F1_Payment_6_1-2_Y_2_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" > 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (MASTER)
+    ...    9.Click "Next" Button
+    ...    10.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    11.Click "OK" button
+    ...    12. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือก "ประเภทบัตร" (MASTER)
+    ...    9.กด ปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    11.กด ปุ่ม "ตกลง"
+    ...    12.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 100 B
+    Select Payment Channels    CreditCard
+    Select Card Type    Master
+    Click Next To Summary
+    Verify Payment Details Credit Card
+    Confirm Top Payment
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_3_2] Payment to fibre self number via credit card (jcb)
+    [Documentation]    [F1_Payment_6_1-2_Y_3_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" > 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (JCB)
+    ...    9.Click "Next" Button
+    ...    10.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    11.Click "OK" button
+    ...    12. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือก "ประเภทบัตร" (JCB)
+    ...    9.กด ปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    11.กด ปุ่ม "ตกลง"
+    ...    12.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 100 B
+    Select Payment Channels    CreditCard
+    Select Card Type    JCB
+    Click Next To Summary
+    Verify Payment Details Credit Card
+    Confirm Top Payment
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_4_2] Payment to fibre self number via credit card (amex)
+    [Documentation]    [F1_Payment_6_1-2_Y_4_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" > 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (AMEX)
+    ...    9.Click "Next" Button
+    ...    10.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    11.Click "OK" button
+    ...    12. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือก "ประเภทบัตร" (AMEX)
+    ...    9.กด ปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    11.กด ปุ่ม "ตกลง"
+    ...    12.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 100 B
+    Select Payment Channels    CreditCard
+    Select Card Type    AMEX
+    Click Next To Summary
+    Verify Payment Details Credit Card
+    Confirm Top Payment
+    Verify AMEX Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_5_2] Payment to fibre self number via debit card
+    [Documentation]    [F1_Payment_6_1-2_Y_5_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount"
+    ...    7.Select Payment channels (Debit Card)
+    ...    8.Click "Next" Button
+    ...    9.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    10.Click "OK" button
+    ...    11. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" \ >0
+    ...    7.เลือกช่องทางการชำระ (บัตรเดบิต)
+    ...    8.กด ปุ่ม "ต่อไป"
+    ...    9.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - จำนวนเงิน
+    ...    10.กด ปุ่ม "ตกลง"
+    ...    11.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 100 B
+    Select Payment Channels    DebitCard
+    Click Next To Summary
+    Verify Payment Details Debit Card
+    Confirm Top Payment
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_6_2] Payment self number via credit card (visa) set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_6_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" \ = 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (Master)
+    ...    9.Click "Next" Button
+    ...    10.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือกประเภทบัตร (VISA)
+    ...    9.กดปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบ Dialog message"กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 0 B
+    Select Payment Channels    CreditCard
+    Select Card Type    VISA
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_7_2] Payment self number via credit card (master) set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_7_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" \ = 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (Master)
+    ...    9.Click "Next" Button
+    ...    10.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือกประเภทบัตร (MASTER)
+    ...    9.กดปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบ Dialog message"กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 0 B
+    Select Payment Channels    CreditCard
+    Select Card Type    Master
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_8_2] Payment self number via credit card (jcb) set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_8_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" \ = 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (JCB)
+    ...    9.Click "Next" Button
+    ...    10.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือกประเภทบัตร (JCB)
+    ...    9.กดปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบ Dialog message"กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 0 B
+    Select Payment Channels    CreditCard
+    Select Card Type    JCB
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_9_2] Payment self number via credit card (amex) set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_9_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" \ = 0
+    ...    7.Select Payment channels (Credit Card)
+    ...    8.Select "card type" (AMEX)
+    ...    9.Click "Next" Button
+    ...    10.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.เลือกประเภทบัตร (AMEX)
+    ...    9.กดปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบ Dialog message"กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 0 B
+    Select Payment Channels    CreditCard
+    Select Card Type    AMEX
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_10_2] Payment self number via debit card set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_10_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" \ = 0
+    ...    7.Select Payment channels (Debit Card)
+    ...    8.Click "Next" Button
+    ...    9.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลือกช่องทางการชำระ (บัตรเดบิต)
+    ...    8.กดปุ่ม "ต่อไป"
+    ...    9.ตรวจสอบ Dialog message"กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 0 B
+    Select Payment Channels    DebitCard
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_11_2] Payment self number via credit card not select card type
+    [Documentation]    [F1_Payment_6_1-2_Y_11_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    6.Set "Your payment amount" \ > 0
+    ...    7.Do not select Payment channels
+    ...    8.Click "Next" Button
+    ...    9.Verify dialog message "Please select the type of card"
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    6.กรอก "ยอดที่ต้องการชำระ" = 0 Baht
+    ...    7.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    8.ไม่เลือกประเภทบัตร
+    ...    9.กดปุ่ม "ต่อไป"
+    ...    10.ตรวจสอบ Dialog message"กรุณาเลือกประเภทบัตร"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Verify Payment Page
+    Set Your payment amount 100 B
+    Click Next To Summary
+    Verify Dialog Message    ${PleaseSelectTypeCard}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_12_2] Payment to fiber another number verify bill AIS fibre
+    [Documentation]    [F1_Payment_6_1-2_Y_12_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Destination Number"
+    ...    "Name"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Capture screen
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ชื่อหมายเลขปลายทาง"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.Capture screen
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_13_2] Payment to fiber another number via credit card (visa)
+    [Documentation]    [F1_Payment_6_1-2_Y_13_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ >0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select "card type" (VISA)
+    ...    12.Click "Next" Button
+    ...    13.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    14.Click "OK" button
+    ...    15. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" > 0 Baht
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือกประเภทบัตร (VISA)
+    ...    12.กดปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    14.กด ปุ่ม "ตกลง"
+    ...    15.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 100 B
+    Select Payment Channels    CreditCard
+    Select Card Type    VISA
+    Click Next To Summary
+    Verify Payment Details Credit Card
+    Confirm Top Payment
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_14_2] Payment to fiber another number via credit card (master)
+    [Documentation]    [F1_Payment_6_1-2_Y_14_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ >0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select "card type" (MASTER)
+    ...    12.Click "Next" Button
+    ...    13.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    14.Click "OK" button
+    ...    15. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" > 0 Baht
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือกประเภทบัตร (MASTER)
+    ...    12.กดปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    14.กด ปุ่ม "ตกลง"
+    ...    15.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 100 B
+    Select Payment Channels    CreditCard
+    Select Card Type    Master
+    Click Next To Summary
+    Verify Payment Details Credit Card
+    Confirm Top Payment
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_15_2] Payment to fiber another number via credit card (jcb)
+    [Documentation]    [F1_Payment_6_1-2_Y_15_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ >0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select "card type" (JCB)
+    ...    12.Click "Next" Button
+    ...    13.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    14.Click "OK" button
+    ...    15. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" > 0 Baht
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือกประเภทบัตร (JCB)
+    ...    12.กดปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    14.กด ปุ่ม "ตกลง"
+    ...    15.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 100 B
+    Select Payment Channels    CreditCard
+    Select Card Type    JCB
+    Click Next To Summary
+    Verify Payment Details Credit Card
+    Confirm Top Payment
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_16_2] Payment to fiber another number via credit card (amex)
+    [Documentation]    [F1_Payment_6_1-2_Y_16_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ >0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select "card type" (AMEX)
+    ...    12.Click "Next" Button
+    ...    13.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    14.Click "OK" button
+    ...    15. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" > 0 Baht
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือกประเภทบัตร (AMEX)
+    ...    12.กดปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - ประเภทบัตร
+    ...    - จำนวนเงิน
+    ...    14.กด ปุ่ม "ตกลง"
+    ...    15.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 100 B
+    Select Payment Channels    CreditCard
+    Select Card Type    AMEX
+    Click Next To Summary
+    Verify Payment Details Credit Card
+    Confirm Top Payment
+    Verify AMEX Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_Y_17_2] Payment to fiber another number via debit card
+    [Documentation]    [F1_Payment_6_1-2_Y_17_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ >0
+    ...    10.Select Payment channels (Debit Card)
+    ...    11.Click "Next" Button
+    ...    12.Verify "Payment details"
+    ...    - Destination number
+    ...    - Payment channels
+    ...    - Card type
+    ...    - Amount
+    ...    13.Click "OK" button
+    ...    14. Verify "Bank page" (verify object in page)
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" > 0 Baht
+    ...    10.เลือกช่องทางการชำระ (บัตรเดบิต)
+    ...    11.กดปุ่ม "ต่อไป"
+    ...    12.ตรวจสอบหน้า "สรุปรายละเอียดการชำระเงิน"
+    ...    - หมายเลขที่ต้องการชำระ
+    ...    - ช่องทางการชำระ
+    ...    - จำนวนเงิน
+    ...    13.กด ปุ่ม "ตกลง"
+    ...    14.ตรวจสอบหน้า "ธนาคาร" (verify object in page)
+    [Tags]    success    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 100 B
+    Select Payment Channels    DebitCard
+    Click Next To Summary
+    Verify Payment Details Debit Card
+    Confirm Top Payment
+    Verify Bank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_18_2] Payment to fiber another number not input mobile number
+    [Documentation]    [F1_Payment_6_1-2_Y_18_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Do not input destination number
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "You have entered incorrect phone number.Please check and try again."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.ไม่ต้องกรอกหมายเลขที่ต้องการชำระค่าบริการ
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "หมายเลขโทรศัพท์ไม่ถูกต้อง กรุณาตรวจสอบและระบุใหม่อีกครั้ง"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Confirm Destination Number
+    Verify Dialog Message    ${EnteredIncorrectPhoneNumber}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_19_2] Payment to fiber another number input wrong digits
+    [Documentation]    [F1_Payment_6_1-2_Y_19_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination number (Wrong digit)
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "You have entered incorrect phone number.Please check and try again."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (ไม่ครบ 10 หลัก)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "หมายเลขโทรศัพท์ไม่ถูกต้อง กรุณาตรวจสอบและระบุใหม่อีกครั้ง"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    885000
+    Confirm Destination Number
+    Verify Dialog Message    ${EnteredIncorrectPhoneNumber}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_20_2] Payment to fiber another number input wrong format
+    [Documentation]    [F1_Payment_6_1-2_Y_1_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination number (Wrong digit)
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "You have entered incorrect phone number.Please check and try again."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (ไม่ถูกรูปแบบเช่น 6666666666)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "หมายเลขโทรศัพท์ไม่ถูกต้อง กรุณาตรวจสอบและระบุใหม่อีกครั้ง"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    6666666666
+    Confirm Destination Number
+    Verify Dialog Message    ${EnteredIncorrectPhoneNumber}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_21_2] Payment to fiber another number input AIS prepaid number
+    [Documentation]    [F1_Payment_6_1-2_Y_21_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination number (AIS Prepaid number)
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Destination number you have entered is One-2-Call! number. if you want to top up please click here."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (กรอกหมายเลขปลายทางเป็นเบอร์ในระบบเติมเงิน)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "หมายเลขที่คุณระบุเป็นหมายเลขในระบบเติมเงิน กรุณาตรวจสอบและระบุใหม่อีกครั้ง"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${AISPrepaidNumberTest}
+    Confirm Destination Number
+    Verify Dialog Message    ${DestinationNumberIsOne2Call}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_22_2] Payment to fiber another number Input other network Number (Non AIS)
+    [Documentation]    [F1_Payment_6_1-2_Y_22_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination number (Non AIS)
+    ...    7.Click "Next" button
+    ...    8.Verify dialog message "Please specify your AIS mobile number."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (กรอกหมายเลขปลายทางไม่ใช่เบอร์ในเครือข่าย AIS)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบ dialog message "กรุณาระบุหมายเลขโทรศัพท์ในเครือข่ายเอไอเอส"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${DtacNumber}
+    Confirm Destination Number
+    Verify Dialog Message    ${PleaseSpecifyYourAISMobileNumber}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_23_2] Payment to fiber another number via credit card (visa) set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_23_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ = 0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select "card type" (VISA)
+    ...    12.Click "Next" Button
+    ...    13.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ = 0
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือก "ประเภทบัตร" (VISA)
+    ...    12.กด ปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบ dialog message "กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 0 B
+    Select Payment Channels    CreditCard
+    Select Card Type    VISA
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_24_2] Payment to fiber another number via credit card (master) set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_24_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ = 0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select "card type" (Master)
+    ...    12.Click "Next" Button
+    ...    13.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ = 0
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือก "ประเภทบัตร" (MASTER)
+    ...    12.กด ปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบ dialog message "กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 0 B
+    Select Payment Channels    CreditCard
+    Select Card Type    Master
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_25_2] Payment to fiber another number via credit card (jcb) set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_25_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ = 0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Select "card type" (JCB)
+    ...    12.Click "Next" Button
+    ...    13.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ = 0
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือก "ประเภทบัตร" (JCB)
+    ...    12.กด ปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบ dialog message "กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 0 B
+    Select Payment Channels    CreditCard
+    Select Card Type    JCB
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_26_2] Payment to fiber another number via credit card (amex) set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_26_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ = 0
+    ...    10.Select Payment channels (Debit Card)
+    ...    11.Click "Next" Button
+    ...    12.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ = 0
+    ...    10.เลือกช่องทางการชำระ (บัตรเครดิต)
+    ...    11.เลือก "ประเภทบัตร" (AMEX)
+    ...    12.กด ปุ่ม "ต่อไป"
+    ...    13.ตรวจสอบ dialog message "กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 0 B
+    Select Payment Channels    CreditCard
+    Select Card Type    AMEX
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_27_2] Payment to fiber another number via debit card set amount 0 Baht
+    [Documentation]    [F1_Payment_6_1-2_Y_27_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ = 0
+    ...    10.Select Payment channels (Debit Card)
+    ...    11.Click "Next" Button
+    ...    12.Verify dialog message "Please enter the amount to be paid."
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ = 0
+    ...    10.เลือกช่องทางการชำระ (บัตรเดบิต)
+    ...    11.กด ปุ่ม "ต่อไป"
+    ...    12.ตรวจสอบ dialog message "กรุณากรอกยอดที่ต้องการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 0 B
+    Select Payment Channels    DebitCard
+    Click Next To Summary
+    Verify Dialog Message    ${EnterAmountToPaid}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Payment_6_1-2_N_28_2] Payment to fiber another number via credit card not select card type
+    [Documentation]    [F1_Payment_6_1-2_Y_28_2]
+    ...
+    ...    Support NType : FBB
+    ...
+    ...    *Owner : ENG*
+    ...
+    ...    **===Test Step--EN===**
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Payment"
+    ...    3. Verify Menu "Payment"
+    ...    - "Bill AIS Fibre"
+    ...    4.Click Menu "Bill AIS Fibre"
+    ...    5.Click "Payment to Fiber another number" icon
+    ...    6.Input destination mobile number (8850007910)
+    ...    7.Click "Next" button
+    ...    8.Verify "Bill AIS Fibre"
+    ...    "Your usage charges"
+    ...    "Payment channels"
+    ...    - Credit Card
+    ...    - Debit Card
+    ...    9.Set "Your payment amount" \ > 0
+    ...    10.Select Payment channels (Credit Card)
+    ...    11.Do not select "card type"
+    ...    12.Click "Next" Button
+    ...    13.Verify dialog message "Please select card type"
+    ...
+    ...    **===Test Step--TH===**
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเมนู "ชำระค่าบริการ"
+    ...    3. ตรวจสอบ เมนู ค่าบริการบิลเอไอเอส ไฟเบอร์
+    ...    - "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    4.กดเมนู "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    5.กดไอคอน "ชำระค่าบริการให้หมายเลขอื่น"
+    ...    6.กรอกหมายเลขที่ต้องการชำระค่าบริการ (08xxxxxxxxxx , 09xxxxxxxxx , 06xxxxxxxxxx)
+    ...    7.กดปุ่ม "ต่อไป"
+    ...    8.ตรวจสอบหน้า "ค่าบริการบิลเอไอเอส ไฟเบอร์"
+    ...    "รายละเอียดค่าใช้บริการ"
+    ...    "ช่องทางการชำระ"
+    ...    - บัตรเครดิต
+    ...    - บัตรเดบิต
+    ...    9.กรอก "ยอดที่ต้องการชำระ" \ > 0
+    ...    10.ไม่เลือก "ประเภทบัตร"
+    ...    11.กด ปุ่ม "ต่อไป"
+    ...    12.ตรวจสอบ dialog message "กรุณาเลือกช่องทางการชำระ"
+    [Tags]    fail    regression    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Payment
+    Verify Feature Payment
+    Select Payment Bill AIS Fibre
+    Select Payment to Fiber another number
+    Input Destination Number    ${FBBDestinationNumber}
+    Confirm Destination Number
+    Verify Bill AIS Fibre    ${FBBDestinationNumber}
+    Set Your payment amount 0 B
+    Select Payment Channels    CreditCard
+    Click Next To Summary
+    Verify Dialog Message    ${PleaseSelectCardType}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Prod] Smoke test
+    [Tags]    smoke
+    Log    Smoke

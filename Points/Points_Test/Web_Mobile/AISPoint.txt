@@ -1,0 +1,353 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/AISPoint.txt
+Library           String
+
+*** Test Cases ***
+[F2_PointsWebMobile_0_1_Y_2_1] Verify about ais point
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    3.verify URL : http://10.104.240.168/points/about
+    ...    4. จับภาพหน้าจอ
+    ...    5. verify page เกี่ยวกับเอไอเอส พอยท์
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...    - เมนูหน้าแรก
+    ...    - เมนูเกี่ยวกับเอไอเอ พอยท์
+    ...    - โอนคะแนน
+    ...    - แลกของรางวัล
+    ...    - ""ทุกการใช้งาน 25 บาท = 1 point เงื่อนไขเพิ่มเติม คลิก!"" (1)
+    ...    >> เช็กพอยท์สะสมฟรี! คลิก
+    ...    >> ปุ่มเข้าร่วมโครงการ
+    ...    >> เงื่อนไขการรับสิทธิ์
+    ...    >> ปุ่ม ^
+    ...    >> รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    active    regression    success    sanity    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Mobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NTYPE}
+    Open chrome mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Select Menu    About
+    Verify Url    ${urlAboutAISPoints}
+    Verify AIS Points Page Open Condition No Login
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_PointsWebMobile_0_1_Y_2_2] Verify register AIS Points
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    3.verify URL : http://10.104.240.168/points/about
+    ...    4. เลือก สมัครเข้าร่วมโครงการ
+    ...    5. verify page pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - แสดง pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    >> ""หมายเลขโทรศัพท์ของคุณ""
+    ...    >> ช่องกรอกหมายเลขโทรศัพท์
+    ...    >> ปุ่ม รับรหัสผ่าน
+    ...    >> ""ระบุรหัสผ่านที่ได้รับทาง SMS เพื่อเข้าสู่ระบบ
+    ...    รหัสผ่านของคุณมีอายุการใช้งาน 15 นาที""
+    ...    >> ช่องกรอก OTP
+    ...    >> ปุ่ม ตกลง"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Mobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NTYPE}
+    Open chrome mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Select Menu    About
+    Verify Url    ${urlAboutAISPoints}
+    Click Web Element    ${btnRegisterToAisPoint}
+    Verify Popup Register and Login Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_PointsWebMobile_0_1_Y_2_3] Verify check collect free point
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    3.verify URL : http://10.104.240.168/points/about
+    ...    4. เลือก เช็กพอยท์สะสมฟรี! คลิก
+    ...    5. verify page pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - แสดง pop up page ""เข้าสู่โครงการเอไอเอส พอยท์""
+    ...    >> ""หมายเลขโทรศัพท์ของคุณ""
+    ...    >> ช่องกรอกหมายเลขโทรศัพท์
+    ...    >> ปุ่ม รับรหัสผ่าน
+    ...    >> ""ระบุรหัสผ่านที่ได้รับทาง SMS เพื่อเข้าสู่ระบบ
+    ...    รหัสผ่านของคุณมีอายุการใช้งาน 15 นาที""
+    ...    >> ช่องกรอก OTP
+    ...    >> ปุ่ม ตกลง"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Mobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NTYPE}
+    Open chrome mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Select Menu    About
+    Verify Url    ${urlAboutAISPoints}
+    Click Web Element    ${btnCheckCollectPoints}
+    Verify Popup Register and Login Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_PointsWebMobile_0_1_Y_2_4] Verify condition open
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    3.verify URL : http://10.104.240.168/points/about
+    ...    4. เลือก เงื่อนไขการรับสิทธิ์ ^
+    ...    5. verify text
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - แสดง ข้อความ เงื่อนไขการรับสิทธิ์"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Mobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NTYPE}
+    Open chrome mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Select Menu    About
+    Verify Url    ${urlAboutAISPoints}
+    Verify Condition Is Open
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_PointsWebMobile_0_1_Y_2_5] Verify condition close
+    [Documentation]    *Owner : Now*
+    ...
+    ...
+    ...    * Pre - Requisite *
+    ...    ยังไม่ login
+    ...
+    ...
+    ...    * Test Step Descripttion *
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    3.verify URL : http://10.104.240.168/points/about
+    ...    4. เลือก เงื่อนไขการรับสิทธิ์
+    ...    5. verify text
+    ...    6 จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...    * Expect result *
+    ...    "*1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - ซ่อน ข้อความ เงื่อนไขการรับสิทธิ์"
+    [Tags]    active    regression    success    nonNTYPE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Mobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NTYPE}
+    Open chrome mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Select Menu    About
+    Verify Url    ${urlAboutAISPoints}
+    Verify Condition is Close
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_Smoke_0_0_Y_0] Smoke run
+    [Tags]    smoke    nonNTYPE    3PE    3PO    MPay
+    log    smoke
+
+[F0_Dummy_0_0_Y_1] Dummy EN Lang
+    [Tags]    dummy    3PO    3PE    MPay    nonNTYPE
+    log    dummy en
+
+[F2_PointsWebMobile_1_1_Y_2_3] Verify Check Collected Point Free
+    [Documentation]    *Owner* Oum
+    ...    เช็กพอยท์สะสมฟรี!
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step Descripttion*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    4.verify URL : http://www.ais.co.th/points/about
+    ...    6. verify เช็กพอยท์สะสมฟรี! คลิก
+    ...    7 จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expect result*
+    ...
+    ...    *1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...    - เช็กพอยท์สะสมฟรี! คลิก
+    ...
+    [Tags]    active    regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    About
+    Verify Url    ${urlAboutAISPoints}
+    Verify Check Point Free
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_PointsWebMobile_1_1_Y_2_4] Verify Condition Show Detail
+    [Documentation]    *Owner* Oum
+    ...    verify เงื่อนไขการรับสิทธิ์ ^
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    4.verify URL : http://10.104.240.168/points/about
+    ...    5. เลือก เงื่อนไขการรับสิทธิ์ ^
+    ...    6. verify text
+    ...    7 จับภาพหน้าจอ
+    ...
+    ...    *Expect result*
+    ...    *1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - แสดง ข้อความ เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    About
+    Verify Url    ${urlAboutAISPoints}
+    Verify Condition With Detail
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_PointsWebMobile_1_1_Y_2_5] Verify Condition Hide Detail
+    [Documentation]    *Owner* Oum
+    ...    verify เงื่อนไขการรับสิทธิ์
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step*
+    ...
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    4.verify URL : http://10.104.240.168/points/about
+    ...    5. เลือก เงื่อนไขการรับสิทธิ์
+    ...    6. verify text
+    ...    7 จับภาพหน้าจอ
+    ...
+    ...    *Expect result*
+    ...    *1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...
+    ...    2
+    ...    - ซ่อน ข้อความ เงื่อนไขการรับสิทธิ์
+    [Tags]    active    regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    About
+    Verify Url    ${urlAboutAISPoints}
+    Verify Condition Hide Details
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_PointsWebMobile_1_1_Y_2_6] Verify Page About AIS Point
+    [Documentation]    *Owner* Oum
+    ...    verify page เกี่ยวกับ เอไอเอส พอยท์
+    ...
+    ...    *Pre - Requisite*
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Test Step*
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก เกี่ยวกับเอไอเอส พอยท์
+    ...    4.verify URL : http://10.104.240.168/points/about
+    ...    5. จับภาพหน้าจอ
+    ...    6. verify page เกี่ยวกับเอไอเอส พอยท์ (1)
+    ...    7. จับภาพหน้าจอ
+    ...
+    ...    *Expect result*
+    ...    *1
+    ...    แสดงหน้า เกี่ยวกับเอไอเอส พอยท์
+    ...    - หมายเลขโทรศัพท์ 10 หลัก
+    ...    - แสดงจำนวนพอยท์ที่มี
+    ...    - ออกจากระบบ
+    ...    - เมนูหน้าแรก
+    ...    - เมนูเกี่ยวกับเอไอเอ พอยท์
+    ...    - โอนคะแนน
+    ...    - แลกของรางวัล
+    ...    - "ทุกการใช้งาน 25 บาท = 1 point เงื่อนไขเพิ่มเติม คลิก!" (1)
+    ...    >> เช็กพอยท์สะสมฟรี! คลิก
+    ...    >> เงื่อนไขการรับสิทธิ์
+    ...    >> ปุ่ม ^
+    ...    >> รายละเอียดเงื่อนไขการรับสิทธิ์
+    ...    >> ต้องไม่มี ปุ่มเข้าร่วมโครงการ
+    [Tags]    active    regression    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Web Browser On Mobile    ${urlAISPoint}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login To Web Point    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Menu    About
+    Verify Url    ${urlAboutAISPoints}
+    Verify Page About AIS Point
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

@@ -1,0 +1,236 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_HighlightCampaignLocalized.txt
+Resource          ../PageRepository/Platinum_HighlightCampaignRepository.txt
+Resource          ../PageVariable/Platinum_HighlightCampaignVariable.txt
+
+*** Keywords ***
+Verify HC MyAIS
+    Sleep    5s
+    Scroll Web To Element    ${btnNextBanner}    #${btnNextBanner}
+    Find banner    myAIS
+    Web Capture Screen At Verify Point    BannermyAIS
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Comment    Sleep    5s
+    Comment    Select Window    url=${urlMyAIS}
+    Verify URL New Window    ${urlMyAIS}    Link myAIS
+    Click Web Element    ${symbolX}
+    Web Element Should Be Visible    ${imgSpecailAISlogo}
+    Web Element Text Should Be    ${txtmyAISTitle1}    ${myAISTitle1}
+    Web Element Text Should Be    ${txtmyAISTitle2}    ${myAISTitle2}
+    Web Capture Screen At Verify Point    WebmyAIS
+    Comment    ${lo}=    Get Location
+    Comment    Run Keyword If    "${lo}" == "${urlMyAIS}"    Web Capture Screen At Verify Point    WebmyAIS
+    ...    ELSE    Fail
+
+Verify HC Specail Serenade
+    Sleep    5s
+    Scroll Web To Element    ${BannerHighlightCampaign}    #${btnNextBanner}
+    Find banner    SpecailSerenade
+    Web Capture Screen At Verify Point    BannerSpecailSerenade
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Comment    Sleep    4s
+    Comment    Select Window    url=${urlSpecailSerenade}
+    Verify URL New Window    ${urlSpecailSerenade}    Link SpecailSerenade
+    Web Element Should Be Visible    ${imgSpecailAISlogo}
+    Web Element Text Should Be    ${lblSpecailSerenade}    ${SpecailSerenade}
+    Web Capture Screen At Verify Point    WebSpecailSerenade
+    Comment    ${lo}    Get Location
+    Comment    Run Keyword If    "${lo}" == "${urlSpecailSerenade}"    Web Capture Screen At Verify Point    WebSpecailSerenade
+    ...    ELSE    Fail
+
+Verify HC Embassy
+    Sleep    5s
+    Scroll Web To Element    ${btnNextBanner}    #${btnNextBanner}
+    Find banner    Embassy
+    Web Capture Screen At Verify Point    BannerEmbassy
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Comment    Sleep    5s
+    Comment    Select Window    url=${urlEmbassy}
+    Verify URL New Window    ${urlEmbassy}    Link Embassy
+    Web Element Should Be Visible    ${imgmyAISLogo}
+    Scroll Web To Element    ${imgEmbassy}
+    Web Element Should Be Visible    ${imgEmbassy}
+    Web Element Text Should Be    ${txtEmbassy}    ${EmbassyDiplomat}
+    Web Capture Screen At Verify Point    WebEmbassy
+    Comment    ${lo}    Get Location
+    Comment    Run Keyword If    "${lo}" == "${urlEmbassy}"    Web Capture Screen At Verify Point    WebEmbassy
+    ...    ELSE    Fail
+
+Verify HC Exclusive Airport Lounge
+    Sleep    5s
+    Scroll Web To Element    ${btnNextBanner}    #${btnNextBanner}
+    Find banner    AirportLounge
+    Web Capture Screen At Verify Point    BannerAirportLounge
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Comment    Sleep    5s
+    Comment    Select Window    url=${urlAirportLounge}
+    Verify URL New Window    ${urlAirportLounge}    Link AirportLounge
+    Web Element Should Be Visible    ${imgmyAISLogo}
+    Scroll Web To Element    ${imgSerenadePrivilege}
+    Web Element Should Be Visible    ${imgSerenadePrivilege}
+    Web Element Text Should Be    ${txtTravel1}    ${lblTravelinStyle1}    #Verify รูปภาพ
+    Web Element Text Should Be    ${txtTravel2}    ${lblTravelinStyle2}
+    Web Capture Screen At Verify Point    WebAirportLounge
+    Comment    ${lo}    Get Location
+    Comment    Run Keyword If    "${lo}" == "${urlAirportLounge}"    Web Capture Screen At Verify Point    WebAirportLounge
+    ...    ELSE    Fail
+
+Verify HC Free Coffee
+    Sleep    7s
+    Scroll Web To Element    ${btnNextBanner}    #${btnNextBanner}
+    Find banner    FreeCoffee
+    Web Capture Screen At Verify Point    BannerFreeCoffee
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Verify URL New Window    ${urlFreeCoffee}    Link FreeCoffee
+    Web Element Should Be Visible    ${imgmyAISLogo}
+    Scroll Web To Element    ${lblFreeCoffeePrivilage}
+    Web Element Should Be Visible    ${lblFreeCoffeePrivilage}
+    Web Element Text Should Be    ${txtCoffee1}    ${lblCoffee1}
+    Web Capture Screen At Verify Point    WebFreeCoffee
+
+Verify HC Netflix
+    Sleep    7s
+    Scroll Web To Element    ${BannerHighlightCampaign}    #${btnNextBanner}
+    Comment    Scroll Web To Element    ${btnNextBanner}
+    Find banner    Netflix
+    Web Capture Screen At Verify Point    BannerNetflix
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Verify URL New Window    ${urlNetflix}    Link Netflix
+    Web Element Should Be Visible    ${imgSpecailAISlogo}
+    Web Element Text Should Be    ${txtNetflix1}    ${Netflix1}
+    Web Element Text Should Be    ${txtNetflix2}    ${Netflix2}
+    Web Element Text Should Be    ${txtNetflix3}    ${Netflix3}
+    Web Element Text Should Be    ${txtNetflix4}    ${Netflix4}
+    Web Element Text Should Be    ${txtNetflix5}    ${Netflix5}
+    Select Frame    ${iframeNetflix}
+    Web Element Should Be Visible    ${imgNetflixLogo}
+    Web Capture Screen At Verify Point    WebNetflix
+
+Verify HC GalaxyS8
+    Sleep    7s
+    Scroll Web To Element    ${BannerHighlightCampaign}    #${btnNextBanner}
+    Comment    Scroll Web To Element    ${btnNextBanner}
+    Set Selenium Speed    0.1
+    Find banner    GalaxyS8
+    Web Capture Screen At Verify Point    BannerGalaxyS8
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Verify URL New Window    ${urlGalaxyS8}    Link GalaxyS8
+    Web Element Should Be Visible    ${imgSpecailAISlogo}
+    Web Element Text Should Be    ${lblGalaxyS8}    ${txtGalaxyS8}
+    Web Capture Screen At Verify Point    WebGalaxyS8
+
+Verify HC My Kitchen
+    Sleep    5s
+    Scroll Web To Element    ${btnNextBanner}    #${btnNextBanner}
+    Set Selenium Speed    0.1
+    Find banner    myKitchen
+    Web Capture Screen At Verify Point    BannermyKitchen
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Verify URL New Window    ${urlMyKitchen}    Link myKitchen
+    Web Element Should Be Visible    ${imgSpecailAISlogo}
+    Web Element Text Should Be    ${lblmyKitchen1}    ${myKitchen1}
+    Web Element Text Should Be    ${lblmyKitchen2}    ${myKitchen2}
+    Web Element Text Should Be    ${lblmyKitchen3}    ${myKitchen3}
+    Web Element Text Should Be    ${lblmyKitchen4}    ${myKitchen4}
+    Web Element Text Should Be    ${lblmyKitchen5}    ${myKitchen5}
+    Web Capture Screen At Verify Point    WebmyKitchen
+
+Verify Hilight Campaign
+    [Arguments]    ${CampaignAmount}
+    Scroll Web To Element    ${imgBanner}
+    Web Element Text Should Be    ${lblHilightCampaignTitle}    ${lblHCTitle}
+    ${CampaignAmount}=    Evaluate    ${CampaignAmount}+1
+    : FOR    ${index}    IN RANGE    1    ${CampaignAmount}
+    \    Scroll Web To Element    ${btnHCPage${index}}
+    \    Web Element Should Be Visible    ${btnHCPage${index}}
+    Selenium2Library.Page Should Not Contain Element    ${btnHCPage${CampaignAmount}}
+    Web Capture Screen At Verify Point    HilightCampaign
+
+Verify Slide Banner
+    Scroll Web To Element    ${imgBanner}
+    ${banner1}    verify active banner
+    Click Web Element    ${btnNextBanner}
+    ${banner2}    verify active banner
+    Run Keyword If    "${banner1}" == "${banner2}"    Fail
+    ...    ELSE    Web Capture Screen At Verify Point    NextCampaign
+    Click Web Element    ${btnPrevBanner}
+    ${banner3}    verify active banner
+    Run Keyword If    "${banner1}" == "${banner3}"    Web Capture Screen At Verify Point    PrevCampaign
+    ...    ELSE    Fail
+    Comment    Run Keyword If    "${banner1}" == "${banner3}"    Web Capture Screen At Verify Point    PrevCampaign
+    ...    ELSE    Fail
+
+Verify HC Page Button
+    Sleep    7s
+    Scroll Web To Element    ${btnHCPage1}
+    Set Selenium Speed    0.1
+    Click Web Element    ${btnHCPage1}
+    Web Capture Screen At Verify Point    CampaignPage1
+    Click Web Element    ${btnHCPage2}
+    Web Capture Screen At Verify Point    CampaignPage2
+    Click Web Element    ${btnHCPage3}
+    Web Capture Screen At Verify Point    CampaignPage3
+    Click Web Element    ${btnHCPage4}
+    Web Capture Screen At Verify Point    CampaignPage4
+    Click Web Element    ${btnHCPage5}
+    Web Capture Screen At Verify Point    CampaignPage5
+    Click Web Element    ${btnHCPage6}
+    Web Capture Screen At Verify Point    CampaignPage6
+    Click Web Element    ${btnHCPage7}
+    Web Capture Screen At Verify Point    CampaignPage7
+    Click Web Element    ${btnHCPage8}
+    Web Capture Screen At Verify Point    CampaignPage8
+    Click Web Element    ${btnHCPage9}
+    Web Capture Screen At Verify Point    CampaignPage9
+    Comment    Click Web Element    ${btnHCPage10}
+    Comment    Web Capture Screen At Verify Point    CampaignPage10
+    Comment    Click Web Element    ${btnHCPage11}
+    Comment    Web Capture Screen At Verify Point    CampaignPage11
+
+verify active banner
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerAirportLounge}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
+    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerUltimateDining}
+    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerAISDCandTCDC}
+    ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcBannerSiamParagon}
+    ${srcBanner9}    Get Regexp Matches    ${srcBanner}    ${srcBannerMercuryVille}
+    ${srcBanner10}    Get Regexp Matches    ${srcBanner}    ${srcBannerTop10Cafe}
+    ${srcBanner11}    Get Regexp Matches    ${srcBanner}    ${srcBannerTravelInStyle}
+    : FOR    ${index}    IN RANGE    1    12
+    \    Log    ${srcBanner${index}}
+    \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
+    \    ...    ELSE    Continue For Loop
+    ${Banner}    Set Variable If    "${index}" == "1"    myAIS
+    ${Banner}    Set Variable If    "${index}" == "2"    FreeCoffee    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    AirportLounge    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    Embassy    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "5"    myKitchen    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "6"    UltimateDining    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "7"    AISDCandTCDC    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "8"    SiamParagon    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "9"    MercuryVille    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "10"    Top10Cafe    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "11"    TravelInStyle    ${Banner}
+    [Return]    ${Banner}
+
+Find banner
+    [Arguments]    ${banner}
+    Comment    Click Web Element    ${btnHCPage1}
+    ${count}=    Selenium2Library.Get Matching Xpath Count    ${btnHCAllPage}
+    : FOR    ${index}    IN RANGE    1    ${count}+1    1
+    \    ${ActiveBanner}    match active banner from name    ${banner}
+    \    Run Keyword If    "${banner}" == "${ActiveBanner}"    Exit For Loop
+    \    ...    ELSE    Click Web Element    ${btnNextBanner}
+
+match active banner from name
+    [Arguments]    ${BannerName}
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${Banner}    Get Regexp Matches    ${srcBanner}    ${srcBanner${BannerName}}
+    Return From Keyword If    "${Banner}" == "[]"
+    ${Name}    Set Variable    ${BannerName}
+    [Return]    ${Name}

@@ -1,0 +1,1221 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Reward.txt
+
+*** Test Cases ***
+[F4_PointsWeb_1_1_Y_2_1] Verify menu bar of redeem reward not login
+    [Documentation]    **Owner : Now**
+    ...
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แสดงเมนูแลกของรางวัล
+    ...    >> แลกค่าโทร ค่าเน็ตฟรี
+    ...    >> แลกขนม เครื่องดื่ม
+    ...    >> แลกช้อปฟรีสะใจ
+    ...    >> แลกส่วนลดมือถือ
+    ...    >> แลกตั๋วหนัง"
+    [Tags]    success    active    regression    sanity
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1_1_Y_2_2] Verify redeem food and drinking page not login
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. เลือก แลกค่าโทร ค่าเน๊ตฟรี
+    ...    4. ตรวจสอบหน้าแลกค่าโทร ค่าเน็ตฟรี
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกค่าโทร ค่าเน็ตฟรี
+    ...    - รายละเอียด ค่าโทร ค่าเน็ต
+    ...    >>รูป, เน็ตฟรี 7 วัน เล่นเน็ต 400 MB ฟรี นาน 7 วัน, 70 พอยท์
+    ...    >>รูป, เน็ตฟรี 1 วัน เล่นเน็ต 3G ฟรี 200 MB ฟรี ตลอด 24 ชม., 20 พอยท์
+    ...    >>รูป, โทรฟรี 60 นาที 5 วันโทร 60 นาที ทุกเครือข่าย ฟรี 5 วัน, 50 พอยท์
+    ...    >>รูป, โทรฟรี 18 นาที 1 วันโทร 18 นาที ทุกเครือข่ายฟรี ตลอด 24 ชม., 20 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Food
+    Verify First Reward    Food
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1_1_Y_2_3] Verify redeem shop free page not login
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. เลือก แลกขนม เครื่องดื่ม
+    ...    4. ตรวจสอบหน้าแลกขนม เครื่องดื่ม
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกขนม เครื่องดื่ม
+    ...    - รายละเอียด แลกขนม เครื่องดื่ม
+    ...    >>รูป, The Waffle Test
+    ...    วาฟเฟิลออริจินัล 1 ชิ้น (มูลค่า 16 บาท แถมฟรี! ตุ๊กตากระดาษมูลค่า 19 บาท), 30 พอยท์
+    ...    >>รูป, Mister Donut
+    ...    โดนัท 1 ชิ้น (ชิ้นละไม่เกิน 15 บาท), 30 พอยท์
+    ...    >>รูป, Mister Donut 6 pieces
+    ...    โดนัท 6 ชิ้น (มูลค่า 90 บาท), 100 พอยท์
+    ...    >>รูป, Miss Mamon
+    ...    ขนมเค้กมาม่อน 1 ชิ้น (มูลค่าชิ้นละ 30 บาท), 30 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    ShopFree
+    Verify First Reward    ShopFree
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1_1_Y_2_4] Verify redeem discount mobile page not login
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. เลือก แลกช้อปฟรีสะใจ
+    ...    4. ตรวจสอบหน้าแลกช้อปฟรีสะใจ
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกช้อปฟรีสะใจ
+    ...    - รายละเอียด แลกช้อปฟรีสะใจ
+    ...    >>รูป, โรบินสัน
+    ...    เติมเงิน 50 บาท ใน Roinson Gift Card, 100 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ สุราษฏร์ธานี
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม สุราษฏร์ธานี
+    ...    , 50 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ ยะลา
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม ยะลา, 50 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ ภูเก็ต
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม ภูเก็ต, 50 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Mobile
+    Verify First Reward    Mobile
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1_1_Y_2_5] Verify redeem movie ticket page not login
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล(*1)
+    ...    3. เลือก แลกส่วนลดมือถือ
+    ...    4. ตรวจสอบหน้าแลกส่วนลดมือถือ
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกส่วนลดมือถือ
+    ...    - รายละเอียด แลกส่วนลดมือถือ
+    ...    >>รูป, ส่วนลดซื้อมือถือ 1,000 บาท
+    ...    ส่วนลดซื้อมือถือ 1,000 บาท เมื่อซื้อมือถือเครื่องใหม่ ทุกยี่ห้อ ทุกรุ่น ที่ AIS Shop, 200 พอยท์
+    ...    >>รูป, ส่วนลดซื้อมือถือ 500 บาท
+    ...    ส่วนลดซื้อมือถือ 500 บาท เมื่อซื้อมือถือเครื่องใหม่ ทุกยี่ห้อ ทุกรุ่น ที่ AIS Shop
+    ...    , 100 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Movie
+    Verify First Reward    Movie
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1_1_Y_2_6] Verify redeem Aunjai collection page not login
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกตั๋วหนัง
+    ...    4. ตรวจสอบหน้าแลกตั๋วหนัง
+    ...    5. capture screen
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกตั๋วหนัง
+    ...    - รายละเอียด แลกตั๋วหนัง
+    ...    >>รูป, SF Cinema
+    ...    ตั๋วหนัง 1 ที่นั่ง, 150 พอยท์
+    ...    >>รูป, Pop Corn @ SF
+    ...    ป๊อปคอร์น 64 ออนซ์ 1 กล่อง
+    ...    , 100 พอยท์
+    ...    >>รูป, Major & EGV
+    ...    ตั๋วหนัง 1 ที่นั่ง, 150 พอยท์
+    ...    >>รูป, Embassy
+    ...    ตั๋วหนัง 1 ที่นั่ง (มูลค่า 1,000-1,200 บาท), 400 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Aunjai
+    Verify First Reward    Aunjai
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1_1_Y_2_7] Verify redeem telnet page not login
+    [Documentation]    **Owner : Now**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...    ** Pre-Requisite **
+    ...    ยังไม่ login
+    ...    ** Test Step **
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกค่าเน็ตฟรี
+    ...    4. ตรวจสอบหน้าแลกค่าเน็ตฟรี
+    ...    5. capture screen
+    ...    "
+    ...
+    ...
+    ...    **Verify Point**
+    ...    "*1
+    ...    แลกค่าเน็ตฟรี
+    ...    - รายละเอียด แลกค่าเน็ตฟรี
+    ...    >>รูป, แลกค่าเน็ต
+    ...    เล่นเน็ต 300 MB ฟรี, 20 พอยท์
+    ...    >>รูป, แลกค่าเน็ต
+    ...    เล่นเน็ต 500 MB ฟรี, 30 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Telnet
+    Verify First Reward    Telnet
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F0_0_0_Y_0_Test] Smoke test
+    [Tags]    smoke
+    log    Smoke Test
+
+[F0_0_0_Y_1_Test] Dummy test
+    [Tags]    dummy
+    log    Dummy Lang
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_8] Redeem Food
+    [Documentation]    **Owner : Chompoo**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...
+    ...    ** Pre-Requisite **
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - มี points เพียงพอ
+    ...    ** Test Step **
+    ...
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. เข้าสู่ระบบ เอไอเอพอยท์
+    ...    3. ตรวจสอบคะแนนก่อนแลกของรางวัล
+    ...    4.เลือก แลกของรางวัล
+    ...    5. เลือก แลกขนม เครื่องดื่ม
+    ...    6. เลือก "แลกเลย!" \ campaign ที่ต้องการแลก (Mister Donut)
+    ...    7. capture screen
+    ...    8. ตรวจสอบหน้า pop up ยืนยัน การแลก (1)
+    ...    9. Capture screen
+    ...    10. กด ยืนยัน
+    ...    11. ตรวจสอบหน้า pop up แลกของรางวัลเรียบร้อยแล้ว (2)
+    ...    12. Capture screen
+    ...    13. กด ตกลง
+    ...    14. ตรวจสอบคะแนนหลังทำการแลกของรางวัล
+    ...    15. เปรียบเทียบคะแนนก่อนและหลัง (3)
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "1
+    ...    หน้ายืนยันการแลก
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    - จำนวนพอยท์
+    ...    - รูปของรางวัล
+    ...    - ชื่อแคมเปญ, รายละเอียด
+    ...    - ปุ่ม ยืนยัน
+    ...    2
+    ...    หน้าแลกของรางวัลเรียบร้อยแล้ว
+    ...    - แลกของรางวัลเรียบร้อยแล้ว
+    ...    - ข้อความ "คุณมีเอไอเอส พอยท์คงเหลือ 380 พอยท์" (อยากให้เช็คพอยท์คงเหลือด้วยว่าแสดงถูกต้องหรือไม่)
+    ...    - ปุ่ม ตกลง
+    ...    3
+    ...    คะแนนที่ใช้ไป = 30"
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Point Before Redeem
+    ${BeforePoint}    Get Web Text    ${lblPoint}
+    ${BeforePoint}    String.Remove String    ${BeforePoint}    ${SPACE}    ${Point}
+    log    ${BeforePoint}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Food
+    Web check existing text    ${lblConditionDetail}
+    Scroll Web To Element    ${BtnCampaignMisterDonut}
+    Selenium2Library.Click Element    ${BtnCampaignMisterDonut}
+    Selenium2Library.Capture Page Screenshot
+    Verify Reward Before Redeem PopUp
+    Selenium2Library.Capture Page Screenshot
+    Selenium2Library.Click Element    ${btnPopUpConfirm}
+    Verify Redeem Reward Already
+    Selenium2Library.Capture Page Screenshot
+    Selenium2Library.Click Element    ${btnPopUpPointBalanceConfirm}
+    Verify Point After Redeem
+    ${AfterPoint}    Get Web Text    ${lblPoint}
+    ${AfterPoint}    String.Remove String    ${AfterPoint}    ${SPACE}    ${Point}
+    log    ${AfterPoint}
+    ${ComparePoint}=    Evaluate    ${BeforePoint}-${AfterPoint}
+    log to console    ${ComparePoint}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_9] Redeem Food campaign Mister Donut
+    [Documentation]    **Owner : Chompoo**
+    ...
+    ...    **remark*มีโอกาส Fail เนื่องจาก เจอข้อความว่า "ขออภัยค่ะ คุณไม่สามารถทำรายการได้ในขณะนี้
+    ...    กรุณาทำรายการใหม่ภายหลัง" แทนจุด verify *
+    ...
+    ...    ** Pre-Requisite **
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...    - มี points ไม่เพียงพอ
+    ...    ** Test Step **
+    ...    1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2. เข้าสู่ระบบ เอไอเอพอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกขนม เครื่องดื่ม
+    ...    5. ตรวจสอบปุ่ม "แลกเลย!" \ campaign ที่ต้องการแลก (Mister Donut)
+    ...    6. capture screen)
+    ...    "
+    ...
+    ...    **Verify Point**
+    ...    "1
+    ...    ไม่สามารถกดปุ่ม "แลกเลย!"
+    [Tags]    active    Fail
+    [Timeout]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Food
+    Web check existing text    ${lblConditionDetail}
+    Scroll Web To Element    ${BtnCampaignMisterDonut}
+    Web Element Should Be Visible    ${BtnCampaignMisterDonut}
+    Selenium2Library.Capture Page Screenshot
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_1] Verify menu bar of redeem reward
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    แสดงเมนูแลกของรางวัล
+    ...    >> แลกค่าโทร ค่าเน็ตฟรี
+    ...    >> แลกขนม เครื่องดื่ม
+    ...    >> แลกช้อปฟรีสะใจ
+    ...    >> แลกส่วนลดมือถือ
+    ...    >> แลกตั๋วหนัง
+    ...    >> แลกค่าเน็ตฟรี"
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. capture screen
+    ...    "
+    [Tags]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_2] Verify redeem food and drinking page
+    [Documentation]    **Owner:Now,Tinpan()**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    แลกขนม เครื่องดื่ม
+    ...    - รายละเอียด แลกขนม เครื่องดื่ม
+    ...    >>รูป, The Waffle Test
+    ...    วาฟเฟิลออริจินัล 1 ชิ้น (มูลค่า 16 บาท แถมฟรี! ตุ๊กตากระดาษมูลค่า 19 บาท), 30 พอยท์
+    ...    >>รูป, Mister Donut
+    ...    โดนัท 1 ชิ้น (ชิ้นละไม่เกิน 15 บาท), 30 พอยท์
+    ...    >>รูป, Mister Donut 6 pieces
+    ...    โดนัท 6 ชิ้น (มูลค่า 90 บาท), 100 พอยท์
+    ...    >>รูป, Miss Mamon
+    ...    ขนมเค้กมาม่อน 1 ชิ้น (มูลค่าชิ้นละ 30 บาท), 30 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกขนม เครื่องดื่ม
+    ...    5. ตรวจสอบหน้าแลกขนม เครื่องดื่ม
+    ...    6. capture screen
+    ...    "
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Food
+    Verify First Reward    Food
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_3] Verify redeem shop free page
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    แลกช้อปฟรีสะใจ
+    ...    - รายละเอียด แลกช้อปฟรีสะใจ
+    ...    >>รูป, โรบินสัน
+    ...    เติมเงิน 50 บาท ใน Roinson Gift Card, 100 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ สุราษฏร์ธานี
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม สุราษฏร์ธานี
+    ...    , 50 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ ยะลา
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม ยะลา, 50 พอยท์
+    ...    >>รูป, โคลีเซี่ยม @ ภูเก็ต
+    ...    แทนส่วนลดเงินสด 30 บาท ที่โคลีเซี่ยม ภูเก็ต, 50 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกช้อปฟรีสะใจ
+    ...    5. ตรวจสอบหน้าแลกช้อปฟรีสะใจ
+    ...    6. capture screen
+    ...    "
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    ShopFree
+    Verify First Reward    ShopFree
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_4] Verify redeem discount mobile page
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    แลกส่วนลดมือถือ
+    ...    - รายละเอียด แลกส่วนลดมือถือ
+    ...    >>รูป, ส่วนลดซื้อมือถือ 1,000 บาท
+    ...    ส่วนลดซื้อมือถือ 1,000 บาท เมื่อซื้อมือถือเครื่องใหม่ ทุกยี่ห้อ ทุกรุ่น ที่ AIS Shop, 200 พอยท์
+    ...    >>รูป, ส่วนลดซื้อมือถือ 500 บาท
+    ...    ส่วนลดซื้อมือถือ 500 บาท เมื่อซื้อมือถือเครื่องใหม่ ทุกยี่ห้อ ทุกรุ่น ที่ AIS Shop
+    ...    , 100 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกส่วนลดมือถือ
+    ...    4. ตรวจสอบหน้าแลกส่วนลดมือถือ
+    ...    5. capture screen
+    ...    "
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Mobile
+    Verify First Reward    Mobile
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_5] Verify redeem movie ticket page
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    แลกตั๋วหนัง
+    ...    - รายละเอียด แลกตั๋วหนัง
+    ...    >>รูป, SF Cinema
+    ...    ตั๋วหนัง 1 ที่นั่ง, 150 พอยท์
+    ...    >>รูป, Pop Corn @ SF
+    ...    ป๊อปคอร์น 64 ออนซ์ 1 กล่อง
+    ...    , 100 พอยท์
+    ...    >>รูป, Major & EGV
+    ...    ตั๋วหนัง 1 ที่นั่ง, 150 พอยท์
+    ...    >>รูป, Embassy
+    ...    ตั๋วหนัง 1 ที่นั่ง (มูลค่า 1,000-1,200 บาท), 400 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกตั๋วหนัง
+    ...    5. ตรวจสอบหน้าแลกตั๋วหนัง
+    ...    6. capture screen
+    ...    "
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Movie
+    Verify First Reward    Movie
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_6] Verify redeem Aunjai collection page
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    แลกอุ่นใจคอลเลคชั่น
+    ...    - รายละเอียด แลกอุ่นใจคอลเลคชั่น
+    ...    >>รูป, ร่ม AIS
+    ...    ร่ม AIS 1 คัน, 300 พอยท์
+    ...    >>รูป, พวงกุญแจอุ่นใจ ขนาด 5 นิ้ว
+    ...    พวงกุญแจอุ่นใจ ขนาด 5 นิ้ว 1 ตัว, 100 พอยท์
+    ...    >>รูป, ผ้าห่ม AIS
+    ...    ผ้าห่ม AIS 1 ผืน, 500 พอยท์
+    ...    >>รูป, ตุ๊กตาอุ่นใจ ขนาด 16 นิ้ว
+    ...    ตุ๊กตาอุ่นใจ ขนาด 16 นิ้ว 1 ตัว, 300 พอยท์
+    ...    >>รูป, ตุ๊กตาอุ่นใจ ขนาด 10 นิ้ว
+    ...    ตุ๊กตาอุ่นใจ ขนาด 10 นิ้ว 1 ตัว, 250 พอยท์
+    ...    >>รูป, ดินสออุ่นใจ
+    ...    ดินสออุ่นใจ 1 แท่ง, 100 พอยท์
+    ...    >>รูป, จานรองแก้ว
+    ...    จานรองแก้ว 1 ชิ้น, 50 พอยท์
+    ...    >>รูป, กระเป๋าฟรุ้งฟริ้งอุ่นใจเดซี่ (S Size)
+    ...    กระเป๋าฟรุ้งฟริ้งอุ่นใจเดซี่ (S Size) 1 ใบ, 300 พอยท์
+    ...    >>รูป, กระเป๋าฟรุ้งฟริ้งอุ่นใจเดซี่ (M Size)
+    ...    กระเป๋าฟรุ้งฟริ้งอุ่นใจเดซี่ (M Size) 1 ใบ, 200 พอยท์
+    ...    >>รูป, Power Bank
+    ...    Power Bank 1 ชิ้น, 1500 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    2.เลือก แลกของรางวัล
+    ...    3. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    4. ตรวจสอบหน้าแลกอุ่นใจคอลเลคชั่น
+    ...    5. capture screen
+    ...    "
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Aunjai
+    Verify First Reward    Aunjai
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_7] Verify redeem telnet page
+    [Documentation]    **Owner:Now**
+    ...
+    ...
+    ...    **Remark**
+    ...
+    ...
+    ...    **Pre-Requirsit**
+    ...    "- Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว"
+    ...
+    ...
+    ...
+    ...    **Verify**
+    ...    "*1
+    ...    แลกค่าเน็ตฟรี
+    ...    - รายละเอียด แลกค่าเน็ตฟรี
+    ...    >>รูป, แลกค่าเน็ต
+    ...    เล่นเน็ต 300 MB ฟรี, 20 พอยท์
+    ...    >>รูป, แลกค่าเน็ต
+    ...    เล่นเน็ต 500 MB ฟรี, 30 พอยท์
+    ...    - เงื่อนไขการรับสิทธิ์ ^
+    ...    - รายละเอียดเงื่อนไขการรับสิทธิ์"
+    ...
+    ...
+    ...    **Step**
+    ...    "1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. ตรวจสอบหน้าแลกค่าเน็ตฟรี
+    ...    5. capture screen
+    ...    "
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Verify Reward Sub Menu
+    Select Reward Submenu    Telnet
+    Verify First Reward    Telnet
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_10] Verify detail button redeem telnet
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    ...    - ปุ่ม ยืนยัน
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Telnet
+    Verify Reward Popup
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_11] Verify detail button redeem discount mobile
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกส่วนลดมือถือ
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Mobile
+    Verify Reward Popup
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_12] Verify detail button redeem Aunjai collection
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Aunjai
+    Verify Reward Popup
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_13] Verify detail button redeem food and drink
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอาหาร เครื่องดื่ม
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Food
+    Verify Reward Popup
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_14] Verify detail button redeem movie ticket
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แแลกตั๋วหนัง
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Movie
+    Verify Reward Popup
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_15] Verify detail button redeem shop free
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกช้อปฟรีสะใจ
+    ...    5. ตรวจสอบปุ่ม รายละเอียด!
+    ...    6. capture screen
+    ...    *1 verify pop up
+    ...    - คุณต้องการใช้เอไอเอส พอยท์
+    ...    >> รูป, text,จำนวนพอยท์
+    ...    - เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    ShopFree
+    Verify Reward Popup
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_16] Verify redeem shop free
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม ยืนยัน
+    ...    7. capture screen
+    ...    *1 verify pop up
+    ...    - ระบบกำลังทำรายการให้ท่านอยู่ กรุณารอสักครู่ค่ะ
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    ShopFree
+    Verify Redeem Reward
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_17] Verify redeem telnet in case no campaign
+    [Documentation]    **Owner:Nat**
+    [Tags]    Reject
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Telnet
+    Select first reward
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_18] Verify redeem telnet in case not enough point
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม ยืนยัน
+    ...    7. capture screen
+    ...    *1
+    ...    - ไม่สามารถกดปุ่ม ยืนยัน ได้
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_NotEnough
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Telnet
+    Verify Redeem Reward Not Enough Point
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_19] Verify redeem telnet condition in case show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Telnet
+    Verify Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_20] Verify redeem telnet condition in case not show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Telnet
+    Verify Not Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_21] Verify redeem discount mobile condition in case show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกค่าเน็ตฟรี
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Mobile
+    Verify Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_22] Verify redeem discount mobile condition in case not show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกส่วนลดมือถือ
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Mobile
+    Verify Not Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_23] Verify redeem Aunjai collection condition in case show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Aunjai
+    Verify Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_24] Verify redeem Aunjai collection condition in case not show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอุ่นใจคอลเลคชั่น
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Aunjai
+    Verify Not Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_25] Verify redeem food and drink condition in case show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอาหาร เครื่องดื่ม
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Food
+    Verify Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_26] Verify redeem food and drink condition in case not show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกอาหาร เครื่องดื่ม
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Food
+    Verify Not Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_27] Verify redeem movie ticket condition in case show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกตั๋วหนัง
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Movie
+    Verify Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_28] Verify redeem movie ticket condition in case not show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกตั๋วหนัง
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    Movie
+    Verify Not Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_29] Verify redeem shop free condition in case show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกช้อปฟรีสะใจ
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์ ^
+    ...    7. capture screen
+    ...    *1
+    ...    verify ข้อความที่แสดง
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    ShopFree
+    Verify Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_PointsWeb_1-2,11-12_1_Y_2_30] Verify redeem shop free condition in case not show condition
+    [Documentation]    **Owner:Nat**
+    ...
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว1.เปิดเว็บ "http://10.104.240.168/points/"
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก แลกของรางวัล
+    ...    4. เลือก แลกช้อปฟรีสะใจ
+    ...    5. เลือกปุ่ม รายละเอียด!
+    ...    6. ตรวจสอบปุ่ม เงื่อนไขการรับสิทธิ์
+    ...    7. capture screen
+    ...    *1
+    ...    เงื่อนไขการรับสิทธิ์
+    [Tags]    TestSite    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Points_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Point Web    ${ar_LANG}    ${virtual_device_1_IPSelenium}
+    Login Pointweb    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Select Menu    Reward
+    Select Reward Submenu    ShopFree
+    Verify Not Show Reward Condition
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

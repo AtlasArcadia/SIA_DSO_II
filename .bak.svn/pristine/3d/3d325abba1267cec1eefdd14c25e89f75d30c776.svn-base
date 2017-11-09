@@ -1,0 +1,377 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/TransferPoint.txt
+
+*** Test Cases ***
+[F11D_Priv_1-3_1-2_Y_41_1] Verify page KBank card
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    verify page KBank Card \ - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 ตรวจสอบ KBank Card
+    ...    5. เลือก KBank Card
+    ...    6. verify page KBank Card
+    ...    7. จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    *1
+    ...    แสดงรูป KBank Transfer to AIS Point
+    ...    - แสดงรายละเอียดเกี่ยวกับ KBank Card
+    ...    - ปุ่ม กลับ
+    ...    - ข้อกำหนดและเงื่อนไข ^
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    KBangCard
+    Verify KBank Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_42_1] Verify back button KBank card page
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Page KBank Card
+    ...
+    ...    - verify ปุ่ม กลับ
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก KBank Card
+    ...    5 เลือกปุ่ม ""กลับ""
+    ...    6 verify URL : http://10.104.240.168/points/transferPoint/transferCard
+    ...
+    ...    *Expected Result: *
+    ...    กลับมาที่หน้า โอนคะแนน
+    ...    - แลกเปลี่ยนคะแนน
+    ...    - Card ที่ให้ทำการโอนคะแนน
+    ...    >> PTT
+    ...    >> The 1 Card
+    ...    >> Kbank
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    KBangCard
+    Verify Select Back Button    KBankPage
+    Verify Main Transfer Point Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_43_1] Verify in case show term and condition KBank card page
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Page KBank Card
+    ...
+    ...    - verify ข้อกำหนดและเงื่อนไข ^
+    ...    กรณี ที่แสดงเงื่อนไข
+    ...    - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก KBank Card
+    ...    5 เลือกปุ่ม ""^""
+    ...    6 verify ข้อกำหนดและเงื่อนไข ^
+    ...
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    "*1
+    ...    KBank Transfer to AIS Point >> Test 1. คะแนนสะสม KBank Card ทุก 500 คะแนน โอนเป็นคะแนน AIS Points ได้ 80 คะแนน สามารถโอนได้ไม่จำกัดจำนวนครั้ง
+    ...    2.สามารถโอนคะแนนสะสม KBank Card ไปเป็น AIS Point ได้ที่ http://kbankcard.askkbank.com/TH/Reward/Pages/InstantRewards.aspx "
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    KBangCard
+    Verify Show Term And Condition    KBankPage
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_44_1] Verify in case not show term and condition KBank card page
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Page KBank Card
+    ...
+    ...    - verify ข้อกำหนดและเงื่อนไข
+    ...    กรณี ที่ไม่แสดงเงื่อนไข
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก KBank Card
+    ...    5 เลือกปุ่ม
+    ...    6 verify ข้อกำหนดและเงื่อนไข
+    ...
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    *1
+    ...    ข้อกำหนดและเงื่อนไข
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    KBangCard
+    Verify Not Show Term And Condition    KBankPage
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_45_1] Verify in case show term and condition PTT Blue card page
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Page PTT Blue Card
+    ...    - verify ข้อกำหนดและเงื่อนไข ^
+    ...    กรณี ที่แสดงเงื่อนไข
+    ...    - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก PTT Blue Card
+    ...    5 เลือกปุ่ม ""^""
+    ...    6 verify ข้อกำหนดและเงื่อนไข ^
+    ...
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    *1
+    ...    1. คะแนนสะสม AIS Points ทุก 100 คะแนน โอนเป็นคะแนน PTT Blue Card ได้ 400 คะแนน และสามารถโอนได้ไม่จำกัดจำนวนครั้ง
+    ...    2. คะแนนสะสม PTT Blue Card ทุก 500 คะแนน โอนเป็นคะแนน AIS Points ได้ 80 คะแนน สามารถโอนได้ไม่จำกัดจำนวนครั้ง
+    ...    3.สามารถโอนคะแนนสะสม PTT Blue Card ไปเป็น AIS Point ได้ที่ www.pttbluecard.com และโอนคะแนนสะสม AIS Point ไปเป็นคะแนนสะสม PTT Blue Card ได้ที่ www.ais.co.th/points
+    ...    4.รับสิทธิ์การโอนคะแนนที่เว็บไซต์ โดยใช้
+    ...
+    ...    - หมายเลขบัตร PTT Blue Card
+    ...    - หมายเลขโทรศัพท์มือถือ AIS โดยชื่อเจ้าของบัตร PTT Blue Card และ เจ้าของหมายเลขโทรศัพท์ไม่จำเป็นต้องเป็นบุคคลเดียวกัน
+    ...
+    ...    5.หากทำการโอนคะแนนแล้ว ระบบจะตัดคะแนนสะสมทันที และไม่สามารถยกเลิก เปลี่ยนแปลง หรือคืนเป็นเงินสดได้
+    ...    6.หลังทำรายการเสร็จสมบูรณ์ คะแนนสะสม AIS Point จะสามารถใช้ได้ทันที
+    ...    7.หลังทำรายการเสร็จสมบูรณ์ คะแนนสะสม PTT Blue Card จะสามารถใช้ได้ในวันถัดไป
+    ...    8.คะแนนสะสมที่ถูกโอนมาเป็น AIS Point ระหว่างวันที่ 1 มิถุนายน 2560 ถึงวันที่ 31ธันวาคม 2560 จะหมดอายุวันที่ 31 มีนาคม 2561 ส่วนคะแนนที่โอนตั้งแต่วันที่ 1 มกราคม 2561 เป็นต้นไปจะหมดอายุวันที่ 31 ธันวาคม 2561
+    ...    9.คะแนนสะสม PTT Blue Card มีอายุ 2 ปี นับจากวันที่คะแนนสะสมเข้าระบบ โดยบริษัทฯ จะทำการตัดคะแนนสะสมที่หมดอายุปีละ 2 ครั้ง ในวันที่ 30 มิถุนายน และวันที่ 31 ธันวาคม ของทุกปี
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Verify Show Term And Condition    PTTBlueCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_46_1] Verify in case not show term and condition PTT Blue card page
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Page PTT Blue Card
+    ...    - verify ข้อกำหนดและเงื่อนไข กรณี ที่ไม่แสดงเงื่อนไข
+    ...    - Login เข้าระบบ
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก PTT Blue Card
+    ...    5 เลือกปุ่ม
+    ...    6 verify ข้อกำหนดและเงื่อนไข
+    ...
+    ...    *Expected Result: *
+    ...    *1
+    ...    ข้อกำหนดและเงื่อนไข
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    PTTBlueCard
+    Verify Not Show Term And Condition    PTTBlueCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_47_1] Verify in case show term and condition The One card page
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Page The 1 Card
+    ...
+    ...    - verify ข้อกำหนดและเงื่อนไข ^กรณี ที่แสดงเงื่อนไข
+    ...    - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก The 1 Card
+    ...    5 เลือกปุ่ม ""^""
+    ...    6 verify ข้อกำหนดและเงื่อนไข ^
+    ...
+    ...    *Expected Result: *
+    ...    *1
+    ...    1. คะแนนสะสม AIS Points ขั้นต่ำที่สามารถโอนได้คือ 50 คะแนน และสามารถโอนได้สูงสุดไม่เกิน 200 คะแนนต่อครั้ง
+    ...    2. คะแนนสะสม The 1 Card ขั้นต่ำที่สามารถโอนได้คือ 400 คะแนน และสามารถโอนได้สูงสุดไม่เกิน 1,600 คะแนนต่อครั้ง
+    ...    3. สามารถโอนคะแนนได้ที่เว็บไซต์ www.ais.co.th/points หรือ my AIS Application โดยใช้
+    ...    - หมายเลขโทรศัพท์ AIS
+    ...    - หมายเลขบัตร The 1 Card โดยชื่อเจ้าของบัตร The 1 Card และชื่อเจ้าของหมายเลขโทรศัพท์ ไม่จำเป็นต้องเป็นบุคคลเดียวกัน
+    ...
+    ...    4. หากทำการโอนคะแนนแล้ว ระบบจะตัดคะแนนสะสม AIS Points ทันที และไม่สามารถยกเลิก เปลี่ยนแปลง หรือคืนเป็นเงินสดได้
+    ...    5. หลังทำรายการเสร็จสมบูรณ์ คะแนน The 1 Card จะสามารถใช้ได้ในวันถัดไป
+    ...    6. คะแนน The 1 Card มีอายุ 2 ปี นับจากวันที่คะแนนสะสมเข้าระบบ โดยบริษัทฯ จะทำการประมวลคะแนนสะสมทุกสิ้นปีปฏิทิน
+    ...    7. คะแนนสะสม AIS Points จะหมดอายุในวันที่ 31 มีนาคม 2561
+    ...    8. บริษัทฯ ขอสงวนสิทธิ์ในการเปลี่ยนแปลงเงื่อนไข โดยไม่ต้องแจ้งให้ทราบล่วงหน้า
+    ...    9. สามารถตรวจสอบรายละเอียดเพิ่มเติมที่ www.ais.co.th/points และ www.the-1-card.com หรือ The 1 Card Call Center โทร. 02-660-1000
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Verify Show Term And Condition    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11D_Priv_1-3_1-2_Y_48_1] Verify in case not show term and condition The One card page
+    [Documentation]    *Owner: Bee*
+    ...
+    ...    *Description: *
+    ...    Page The 1 Card
+    ...    - verify ข้อกำหนดและเงื่อนไข
+    ...    กรณี ที่ไม่แสดงเงื่อนไข
+    ...    - Login เข้าระบบ
+    ...
+    ...    - เบอร์สมัคร AIS Point แล้ว
+    ...
+    ...    *Pre-Requisite: *
+    ...    N-Type Number : 3PE, 3BE, 3PO
+    ...    Status : Active
+    ...
+    ...    *Test Step: *
+    ...    1.เปิดเว็บ ""http://10.104.240.168/points/""
+    ...    2.เข้าสู่ระบบ เอไอเอส พอยท์
+    ...    3.เลือก โอนคะแนน
+    ...    4 เลือก The 1 Card
+    ...    5 เลือกปุ่ม
+    ...    6 verify ข้อกำหนดและเงื่อนไข
+    ...
+    ...
+    ...
+    ...    *Expected Result: *
+    ...    *1
+    ...    ข้อกำหนดและเงื่อนไข
+    [Tags]    success    active
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Point_MobileRedirectToWeb_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
+    Select Menu    PointsAndPrivileges
+    Select Point Menu
+    Close Dialog PopUp SSL Certificate Error
+    Select Icon    TransferPoint
+    Select Card    TheOneCard
+    Verify Not Show Term And Condition    TheOneCard
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

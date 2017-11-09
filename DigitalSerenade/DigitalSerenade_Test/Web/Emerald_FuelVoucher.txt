@@ -1,0 +1,41 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Emerald_FuelVoucher.txt
+
+*** Test Cases ***
+[F3_Emerald_1_1_Y_2_1] Fuel Voucher
+    [Documentation]    *Owner* : Oum
+    ...    หน้าส่วนลดปั๊มน้ำมัน
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า สิทธิพิเศษปั๊มน้ำมัน
+    ...    6. ตรวจสอบ หน้าเว็บแสดงแบนเนอร์ สิทธิพิเศษปั๊มน้ำมันและรูปตรงตาม segment [1]
+    ...    7.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...
+    ...    '[1] ตรวจสอบหน้าเว็บแสดงรูปแบนเนอร์ สิทธิพิเศษปั๊มน้ำมัน ของ segment Emerald (ในกรอบสีแดงต้องเป็นรูปการ์ด Emerald)
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_New_TypeN=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_New_TypeN
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Highlight FuelVoucher
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+*** Keywords ***
+Verify Highlight FuelVoucher
+    Sleep    15
+    Wait Web Until Page Contains Element    ${HighlightFuelVoucher}
+    Scroll Web To Element    ${HighlightFuelVoucher}
+    Sleep    3
+    Web Capture Screen At Verify Point    Highlight Fuel Voucher

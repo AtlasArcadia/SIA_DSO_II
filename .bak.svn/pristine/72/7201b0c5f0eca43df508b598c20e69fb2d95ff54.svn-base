@@ -1,0 +1,90 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/AISPointLocalized.txt
+Resource          ../PageRepository/AISPointRepository.txt
+Resource          ../PageVariable/AISPointsVariable.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/TransferPointLocalized.txt
+
+*** Keyword ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_Points_WebMobile_Test_local_config_file_path}    ${#dict_device_name}
+
+Verify AIS Points Page Open Condition No Login
+    Scroll Web To Element    ${lblCollect25BahtTo1Points}
+    Web Element Should Be Visible    ${lblCollect25BahtTo1Points}
+    Scroll Web To Element    ${lblCheckCollectPoints}
+    Web Element Should Be Visible    ${lblCheckCollectPoints}
+    Web Capture Screen At Verify Point    Verify Img Detail in AIS Point Page
+    Scroll Web To Element    ${btnRegisterToAisPoint}
+    Web Element Should Be Visible    ${btnRegisterToAisPoint}
+    Web Capture Screen At Verify Point    Verify Button Register in AIS Point Page
+    Scroll Web To Element    ${lblCondition}
+    check condition is open
+    Scroll Web To Element    ${lblConditionDetail}
+    Web check existing text    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    Verify Condition Detail in AIS Point Page
+
+check condition is open
+    Scroll Web To Element    ${lblCondition}
+    ${status}=    Run Keyword And Return Status    Wait Until Element Is Not Visible    ${lblConditionDetail}    5
+    Run Keyword If    ${status}    Click Web Element    ${lblCondition}
+
+check condition is close
+    Scroll Web To Element    ${lblCondition}
+    ${status}=    Run Keyword And Return Status    Web Element Should Be Visible    ${lblConditionDetail}    5
+    Run Keyword If    ${status}    Click Web Element    ${lblCondition}
+
+Verify Condition Is Open
+    check condition is open
+    Scroll Web To Element    ${lblConditionDetail}
+    Web check existing text    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    Verify Condition Detail is Open
+
+Verify Condition is Close
+    check condition is close
+    Element Should Not Be Visible    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    Verify Condition Detail is Close
+
+Verify Check Point Free
+    Scroll Web To Element    ${lblCheckCollectPoints}
+    Web Element Text Should Be    ${lblCheckCollectPoints}    ${CheckPointFree}
+    Web Capture Screen At Verify Point    check point free
+
+Verify Condition With Detail
+    Scroll Web To Element    ${lblCondition}
+    Web Element Text Should Be    ${lblCondition}    ${Condition}
+    Web check existing text    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    condition with detail
+
+Verify Condition Hide Details
+    Scroll Web To Element    ${lblCondition}
+    Web Element Text Should Be    ${lblCondition}    ${Condition}
+    Click Web Element    ${lblCondition}
+    Wait Until Element Is Not Visible    ${lblConditionDetail}
+    Web Capture Screen At Verify Point    Condition No detail
+
+Verify Page About AIS Point
+    Web Element Should Be Visible    ${lblMobileNumber}
+    ${MobileNo}=    Get Web Text    ${lblMobileNumber}
+    ${resultYourName}=    Should Match Regexp    ${MobileNo}    \\d\\d\\d\-\\d\\d\\d\-\\d\\d\\d\\d    #Check 10 digit
+    Web check existing text    ${lblPoint}    #แสดงจำนวนพอยท์ที่มี
+    Web Element Should Be Visible    ${btnLogOut}    #ออกจากระบบ
+    Web Element Should Be Visible    ${mnuHome}    #เมนูหน้าแรก
+    Web Element Should Be Visible    ${mnuAbout}    #เมนูเกี่ยวกับเอไอเอ พอยท์
+    Web Element Should Be Visible    ${mnuTransferPoint}    #โอนคะแนน
+    Web Capture Screen At Verify Point    about AIS Point1
+    Mouse Over    ${mnuReward}
+    Web Element Should Be Visible    ${mnuReward}    #แลกของรางวัล
+    Web Capture Screen At Verify Point    about AIS Point2
+    Scroll Web To Element    ${txt25BahtEqualTo1Point}
+    Web Element Should Be Visible    ${txt25BahtEqualTo1Point}    #ทุกการใช้งาน 25 บาท = 1 point เงื่อนไขเพิ่มเติม คลิก!
+    Web Element Text Should Be    ${lblCheckCollectPoints}    ${CheckPointFree}    #เช็กพอยท์สะสมฟรี! คลิก
+    Web Capture Screen At Verify Point    about AIS Point3
+    Scroll Web To Element    ${lblConditionStatusOpen}
+    Web Element Should Be Visible    ${lblConditionStatusOpen}    #ปุ่ม^
+    Web check existing text    ${lblConditionDetail}    #รายละเอียดเงื่อนไขการรับสิทธิ์
+    Wait Until Element Is Not Visible    ${btnRegisterToAisPoint}    #ต้องไม่มี ปุ่มเข้าร่วมโครงการ
+    Web Capture Screen At Verify Point    about AIS Point4

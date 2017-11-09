@@ -1,0 +1,518 @@
+*** Settings ***
+Resource          PointsCommon.txt
+Resource          ../PageRepository/TransferPointRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/TransferPointLocalized.txt
+Resource          ../PageVariable/TransferPointVariable.txt
+
+*** Keywords ***
+Select MenutransferPoint
+    Click Mobile Element    ${btnPoint}
+    Wait Mobile Until Element Visible    ${lblConvertPoint}
+    sleep    10s
+    Swipe to element    ${mnuTransferPoint}    Direction=left
+    Wait Mobile Until Element Visible    ${mnuTransferPoint}
+    Click Mobile Element    ${mnuTransferPoint}
+
+Select PTTCard
+    sleep    5s
+    Swipe to element    ${imgPTTBlueCard}
+    Click Mobile Element    ${imgPTTBlueCard}
+    sleep    10s
+    Swipe element to specific area    ${btnTransferPointPTTCard}    ratio=0.25    Round=4
+    Click Mobile Element    ${btnTransferPointPTTCard}
+
+Select Card
+    [Arguments]    ${CardName}
+    Wait Mobile Until Element Visible    ${img${CardName}}
+    Swipe element to specific area    ${img${CardName}}    ratio=0.2    Round=4
+    sleep    10s
+    : FOR    ${index}    IN RANGE    1    5
+    \    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${img${CardName}}    10s
+    \    Run Keyword If    '${status}'=='True'    Click Mobile Element    ${img${CardName}}
+
+Click Transfer Point Button PTT Card
+    Comment    sleep    10s
+    Wait Mobile Until Element Visible    ${btnTransferPoints}
+    Swipe element to specific area    ${btnTransferPoint}    ratio=0.25    Round=4
+    Click Mobile Element    ${btnTransferPoint}
+
+Accept Term And Condition And Click Next
+    Click Mobile Element    ${ChkboxacceptTermAndCondition}
+    Mobile Capture Screen At Verify Point    Term and condition
+    Click Mobile Element    ${btnNext}
+
+Input ID Card
+    [Arguments]    ${IDCard}
+    Wait Mobile Until Element Visible    ${txtFieldCardNumber}
+    Swipe element to specific area    ${btnOK}    ratio=0.4
+    Click Mobile Element    ${txtFieldCardNumber}
+    Input Mobile Text    ${txtFieldCardNumber}    ${IDCard}
+    Swipe element to specific area    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    sleep    5
+
+Check Error Message Not Enough Point
+    Mobile element name should be    ${dialogPopup}    ${NotEnoughPoint}
+    Mobile Capture Screen At Verify Point    error msg
+
+Accept Term And Condition
+    Wait Mobile Until Element Visible    ${boxPopupTermAndCondition}
+    Click Mobile Element    ${ChkboxacceptTermAndCondition}
+    Click Mobile Element    ${btnNext}
+
+Input ID PTT
+    Wait Mobile Until Element Visible    ${txtFieldCardNumber}
+    Swipe element to specific area    ${btnOK}    ratio=0.4
+    Input Mobile Text    ${txtFieldCardNumber}    ${idPTT}
+    Click Mobile Element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+    Mobile Capture Screen At Verify Point    Input ID
+
+Get Transfer Point
+    Comment    Swipe to element    ${btnPlus}    ratio=0.25    Round=3
+    ${temp1}    AISAppiumEx.Get Text    ${txtFieldTransferPoint}
+    [Return]    ${temp1}
+
+Get Receive Point
+    ${temp2}    Get mobile attribute    ${txtFieldReceivePoint}    name
+    [Return]    ${temp2}
+
+Verify the total of cards
+    [Arguments]    ${TotalCard}
+    sleep    4
+    Wait Mobile Until Element Visible    //android.view.View[@resource-id="point_holder"]//android.widget.Image
+    ${noCard}=    AISAppiumEx.Get Matching Xpath Count    //android.view.View[@resource-id="point_holder"]//android.widget.Image
+    Should Be Equal    ${noCard}    ${TotalCard}
+    Swipe element to specific area    ${txtTitleTheOneCardPage}
+    Mobile Capture Screen At Verify Point    Number Of Card
+
+Click back button
+    sleep    10s
+    Wait Mobile Until Element Visible    ${btnBack}
+    Swipe element to specific area    ${btnBack}
+    Click Mobile Element    ${btnBack}
+    Comment    //*[@resource-id="point_holder"]//android.view.View[@index="2"]/android.widget.Button[@index="0"]
+
+Verify term and condition
+    [Arguments]    ${CardName}
+    Mobile element name should be    ${popupTitleTermAndConditionDetail}    ${ConditionTitle}
+    Wait Mobile Until Element Visible    ${popupTermAndConditionDetail}
+    Swipe element to specific area    ${txtPopupTermAndConditionDetail_${CardName}}
+    Wait Mobile Until Element Visible    ${ChkboxacceptTermAndCondition}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Mobile Capture Screen At Verify Point    Verify page term and condition
+
+Button next disable
+    Wait Mobile Until Element Visible    ${ChkboxacceptTermAndCondition}
+    Wait Mobile Until Element Visible    ${btnNext}
+
+Botton next enable
+    Click Mobile Element    ${ChkboxacceptTermAndCondition}
+    Wait Mobile Until Element Visible    ${btnNext}
+
+Verify point and privileges page
+    Mobile element text should be    //*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_main_tv_title"]    ${PonitAndPrivileges}
+    Mobile check existing text    ${txtAmountPoint}
+    Mobile element text should be    ${txtMyList}    ${MyLists}
+    Mobile element text should be    ${txtRecents}    ${Recents}
+    Mobile Capture Screen At Verify Point    PointsAndPrivileges page
+
+Verify Transfer point page
+    [Arguments]    ${card}
+    Wait Mobile Until Element Visible    ${img${card}}
+    Wait Mobile Until Element Visible    ${txtFieldCardNumber}    #ช่องใส่ไอดีการด
+    Wait Mobile Until Element Visible    ${btnOK}    #ปุ่มตกลง
+    Wait Mobile Until Element Visible    ${txtFieldTransferPoint}    #เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
+    Mobile Capture Screen At Verify Point    Transfer point pageI
+    Swipe element to specific area    ${txtFieldReceivePoint}
+    sleep    5
+    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    Wait Mobile Until Element Visible    ${btnPlus}    #ปุ่มบวก
+    Wait Mobile Until Element Visible    ${btnMinus}    #ปุ่มลบ
+    Wait Mobile Until Element Visible    ${btnBack}    #ปุ่มกลับ
+    Wait Mobile Until Element Visible    ${btnTransferPoint}    #ปุ่มโอน
+    Wait Mobile Until Element Visible    ${popupTitleTermAndConditionDetail}    #ข้อกำหนดและเงื่อนไข
+    Mobile Capture Screen At Verify Point    Transfer point pageII
+
+Verify Click Button Add Point On The One Card Page
+    Wait Mobile Until Element Visible    ${txtFieldCardNumber}
+    ${Point1}    AISAppiumEx.Get Text    //android.widget.EditText[@index="1"]
+    sleep    5
+    Mobile Capture Screen At Verify Point    Verify Before Increase Point
+    ${PointI}    Convert To Integer    ${Point1}
+    Comment    Swipe element to specific area    //android.widget.EditText[@index="1"]
+    Comment    sleep    10s
+    Swipe element to specific area    ${btnTransferPoint_TransferPage}    ratio=0.35    Round=3
+    sleep    10s
+    Click Mobile Element    ${btnPlus}    #Click +
+    Mobile Capture Screen At Verify Point    Verify After Increase Point
+    ${Point2}    AISAppiumEx.Get Text    //android.widget.EditText[@index="1"]
+    ${PointII}    Convert To Integer    ${Point2}
+    ${sum}    Evaluate    ${PointII}-${PointI}
+    Run Keyword If    "${sum}" == "50"    Mobile Capture Screen At Verify Point    Verify Increase Point
+    ...    ELSE    Fail
+
+Get current point
+    ${Points}=    Get mobile attribute    //*[@resource-id="point"]    name
+    ${Points}=    Should Match Regexp    ${Points}    \\d+
+    ${Points}=    Convert To Integer    ${Points}
+    [Return]    ${Points}
+
+Get current transfer AIS point
+    Sleep    2s
+    Swipe element to specific area    //android.widget.EditText[@index="1"]
+    ${Point}=    AISAppiumEx.Get Text    //android.widget.EditText[@index="1"]
+    [Return]    ${point}
+
+Click Plus Point Transfer Until Max
+    [Arguments]    ${maxPoints}
+    Sleep    2s
+    Swipe element to specific area    ${btnPlus}    ratio=0.35    Round=3
+    : FOR    ${Index}    IN RANGE    1    5
+    \    Swipe element to specific area    ${btnTransferPoint_TransferPage}    ratio=0.35    Round=3
+    \    Sleep    10
+    \    Click Mobile Element    ${btnPlus}
+    ${CurrentTransferPoints}=    Get current transfer AIS point
+    Should Be Equal As Integers    ${CurrentTransferPoints}    ${maxPoints}
+
+Click Transfer Point Button
+    Swipe element to specific area    ${popupTitleTermAndConditionDetail}    ratio=0.25    Round=3
+    sleep    10s
+    Comment    Click Mobile Element    ${btnTransferPoints}
+    Comment    Mobile Capture Screen At Verify Point    btn
+    : FOR    ${index}    IN RANGE    1    3
+    \    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnTransferPoints}    10s
+    \    Run Keyword If    '${status}'=='True'    Click Mobile Element    ${btnTransferPoints}
+    Mobile Capture Screen At Verify Point    btn
+
+Verify Popup Confirm Transaction
+    [Arguments]    ${CardName}    ${TransferPoints}    ${ReceivePoints}
+    Mobile element name should be    ${txtConfirmTransaction}    ${PopupHeaderConfirmTransaction}    #ยืนยันทำรายการ
+    Mobile element name should be    ${txtTransferAISPoint}    ${TransferAISPointTo}    #โอนคะแนน"เอไอเอส พอยท์"
+    ${TransferXXXPoints1}    Replace String    ${TransferXXXPoints}    [Points]    ${TransferPoints}    #จำนวน 100 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่กำหนดไว้ในหน้าโอนคะแนน)
+    Mobile element name should be    ${txtPointFromAISPoint}    ${TransferXXXPoints1}
+    Mobile element name should be    ${txtCardPoint}    ${Is${CardName}Points}    #เป็นคะแนน "xxxxxx \ Card"
+    ${TransferXXXPoints2}    Replace String    ${TransferXXXPoints}    [Points]    ${ReceivePoints}    #จำนวน 400 คะแนน (จำนวนคะแนนจะต้องเท่ากับที่แสดงในหน้าโอนคะแนน)
+    Mobile element name should be    ${txtPointToCard}    ${TransferXXXPoints2}
+    Wait Mobile Until Element Visible    ${btnCancelTransaction}    #ปุ่ม ยกเลิก
+    Wait Mobile Until Element Visible    ${btnConfirmTransaction}    #ปุ่ม ยืนยัน
+    Wait Mobile Until Element Visible    ${symbolCross}    #ปุ่ม X
+    Mobile Capture Screen At Verify Point    dialog confirm transaction
+
+Verify Transfer Page Success
+    Wait Mobile Until Element Visible    ${imgCorrect}
+    Wait Mobile Until Element Visible    ${txtDetailTransferSuccess}
+    Wait Mobile Until Element Visible    ${btnBackToMainPage}
+    Wait Mobile Until Element Visible    ${btnTransferAgain}
+    Mobile Capture Screen At Verify Point    Transfer Success
+
+Get Point
+    ${temp}    Get mobile attribute    ${txtPoint}    name
+    ${Point}    Should Match Regexp    ${temp}    \\d+
+    [Return]    ${Point}
+
+Verify Disable Next Button
+    Click Mobile Element    ${btnNext}    #disable next button
+    Wait Mobile Until Element Visible    ${popupTitleTermAndConditionDetail}
+    Wait Mobile Until Element Visible    ${popupTermAndConditionDetail}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Mobile Capture Screen At Verify Point    Disable Next Button
+
+Verify Next Button Is Enable
+    Click Mobile Element    ${ChkboxacceptTermAndCondition}
+    Mobile Capture Screen At Verify Point    Enable Next Button
+    Click Mobile Element    ${btnNext}
+    Wait Mobile Until Element Visible    ${txtFieldCardNumber}
+
+Verify KBank Page
+    [Documentation]    *Expected Result: *
+    ...    *1
+    ...    แสดงรูป KBank Transfer to AIS Point
+    ...    - แสดงรายละเอียดเกี่ยวกับ KBank Card
+    ...    - ปุ่ม กลับ
+    ...    - ข้อกำหนดและเงื่อนไข ^
+    Wait Mobile Until Element Visible    ${imgKBankPage}
+    Swipe element to specific area    ${lblSubTitleKBank1}
+    Mobile element name should be    ${lblSubTitleKBank1}    ${KasikornCardTitle}    # แสดงรายละเอียดเกี่ยวกับ KBank Card
+    Mobile element name should be    ${lblSubTitleKBank2}    ${KasikornCardSubTitle}    # แสดงรายละเอียดเกี่ยวกับ KBank Card
+    Mobile Capture Screen At Verify Point    K Bang card page up
+    Swipe element to specific area    ${btnBack}
+    Mobile element name should be    ${btnBack}    ${Back}    # ปุ่มกลับ
+    Mobile element name should be    ${btnTransferPoints}    ${TransferPoint}    # ปุ่มโอนคะแนน
+    Mobile element name should be    ${lblTermAndCondition}    ${ConditionTitle}
+    Mobile Capture Screen At Verify Point    K Bang card page below
+
+Verify Click Show And Hide Term And Condition
+    Swipe element to specific area    ${popupTitleTermAndConditionDetail}
+    Click Mobile Element    ${lblTermAndCondition}    #Click show
+    Mobile check existing text in name    ${txtTermAndConditionDetail}    #Term and condition detail
+    Mobile Capture Screen At Verify Point    show condition
+    Swipe element to specific area    ${popupTitleTermAndConditionDetail}
+    Click Mobile Element    ${lblTermAndCondition}    #Click Hide
+    Wait Mobile Until Page Does Not Contain Element    ${txtTermAndConditionDetail}    #Term and condition detail
+    Mobile Capture Screen At Verify Point    hide condition
+
+Verify PTT Page
+    Swipe element to specific area    ${imgPTTBlueCard}
+    Mobile element name should be    ${titleCardNamePTTPage}    ${PttBlueCardTitle}
+    Mobile element name should be    ${titleCardNamePTTPage2}    ${PTTBlueCardSubTitle}
+    #${Actual}=    Get mobile attribute    ${titleCardNamePTTPage2}    name
+    #Should Be Equal As Strings    ${Actual}    ${PTTBlueCardSubTitle}
+    Swipe element to specific area    ${btnTransferPoints}    ratio=0.25    Round=4
+    Wait Mobile Until Element Visible    ${btnTransferPoints}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Swipe element to specific area    ${popupTitleTermAndConditionDetail}
+    Wait Mobile Until Element Visible    ${popupTitleTermAndConditionDetail}
+    Wait Mobile Until Element Visible    ${popupTitleTermAndConditionDetail2}
+    Mobile Capture Screen At Verify Point    detail
+
+Go Back And Verify Privilege Page
+    Click Mobile Element    ${btnBackOnTopLeft}    #back button
+    Wait Mobile Until Element Visible    ${btnPoint}    #ปุ่ม >
+    Mobile element text should be    ${mnuPointsAndPrivileges}    ${PointAndPrivilege}    #พอยท์ & สิทธิพิเศษ
+    Wait Mobile Until Element Visible    ${lblMyList}    #My Lists
+    Wait Mobile Until Element Visible    ${lblRecent}    #Recents
+    Wait Mobile Until Element Visible    ${lblPoints}    #พอยท์
+    Mobile Capture Screen At Verify Point    Verify point and Privilege page
+
+Verify No Term And Condition
+    sleep    5
+    AISAppiumEx.Page Should not Contain Element    ${ChkboxacceptTermAndCondition}    #ตรวจสอบไม่มี Popup ข้อกำหนดและเงื่อนไข
+
+Verify Click Button Add Point
+    [Arguments]    ${maxPoints}
+    Sleep    2s
+    Swipe element to specific area    ${btnPlus}
+    : FOR    ${Index}    IN RANGE    1    10
+    \    ${CurrentTransferPoints}=    Get current transfer AIS point
+    \    Run Keyword If    '${CurrentTransferPoints}'<'${maxPoints}'    Click Mobile Element    ${btnPlus}
+    \    ...    ELSE    Exit For Loop
+    ${CurrentTransferPoints}=    Get current transfer AIS point
+    Should Be Equal As Integers    ${CurrentTransferPoints}    ${maxPoints}
+    Mobile Capture Screen At Verify Point    Cannot plus more than 400
+
+Click Transfer Point Button Page Input ID
+    Swipe element to specific area    ${popupTitleTermAndConditionDetail}    ratio=0.25    Round=3
+    sleep    3
+    Mobile Capture Screen At Verify Point    btn
+    : FOR    ${index}    IN RANGE    1    3
+    \    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnTransferPoint_TransferPage}    10s
+    \    Run Keyword If    '${status}'=='True'    Click Mobile Element    ${btnTransferPoint_TransferPage}
+
+Verify PTT Blue Card Point Case Decrease Point
+    ${before}=    AISAppiumEx.Get Text    ${txtFieldTransferPoint}
+    Swipe element to specific area    ${btnPlus}
+    Click Mobile Element    ${btnPlus}
+    Mobile Capture Screen At Verify Point    After Click Button Plus
+    Click Mobile Element    ${btnMinus}
+    ${after}=    AISAppiumEx.Get Text    ${txtFieldTransferPoint}
+    Should Be Equal As Integers    ${before}    ${after}
+    Mobile Capture Screen At Verify Point    After Click Button Minus
+
+Verify PTT Blue Card Point Case Increase Point
+    Swipe element to specific area    ${btnPlus}
+    Wait Mobile Until Element Visible    ${txtFieldTransferPoint}
+    ${Point1}    AISAppiumEx.Get Text    ${txtFieldTransferPoint}
+    Swipe element to specific area    ${btnTransferPoint_TransferPage}
+    sleep    5s
+    Click Mobile Element    ${btnPlus}
+    Mobile Capture Screen At Verify Point    Verify Before Increase Point
+    ${Point2}    AISAppiumEx.Get Text    ${txtFieldTransferPoint}    #get transfer point after click Plus button
+    ${sum}    Evaluate    ${Point2}-${Point1}
+    Run Keyword If    "${sum}" == "100"    Mobile Capture Screen At Verify Point    Verify Increase Point
+    ...    ELSE    Fail
+
+Verify Select Back Button
+    [Arguments]    ${CardName}
+    Sleep    5s
+    Wait Mobile Until Element Visible    ${img${CardName}}
+    Swipe element to specific area    ${btnBack}    ratio=0.2    Round=4
+    Mobile Capture Screen At Verify Point    button back ${CardName} page
+    Click Mobile Element    ${btnBack}
+
+Verify Main Transfer Point Page
+    [Documentation]    - แลกเปลี่ยนคะแนน
+    ...    - Card ที่ให้ทำการโอนคะแนน
+    ...    >> PTT
+    ...    >> The 1 Card
+    ...    >> Kbank
+    sleep    5s
+    Wait Mobile Until Element Visible    ${lblHeader}
+    Swipe element to specific area    ${mnuFirstPage}    Direction=down
+    Swipe element to specific area    ${imgKBangCard}
+    Wait Mobile Until Element Visible    ${imgKBangCard}
+    Mobile Capture Screen At Verify Point    KBank Card
+    Swipe element to specific area    ${imgPTTBlueCard}    ratio=0.1
+    Wait Mobile Until Element Visible    ${imgPTTBlueCard}
+    Comment    Mobile Capture Screen At Verify Point    PPT Blue Card
+    Swipe element to specific area    ${imgTheOneCard}
+    Wait Mobile Until Element Visible    ${imgTheOneCard}
+    Mobile Capture Screen At Verify Point    PPT Blue Card and The One Card
+
+Verify Show Term And Condition
+    [Arguments]    ${CardName}
+    Wait Mobile Until Element Visible    ${img${CardName}}
+    Swipe element to specific area    ${lblTermAndCondition}
+    Mobile element name should be    ${lblTermAndCondition}    ${ConditionTitle}
+    Mobile check existing text in name    ${lblTermAndConditionDetail}
+    Mobile Capture Screen At Verify Point    show term and condition ${CardName} card
+
+Verify Not Show Term And Condition
+    [Arguments]    ${CardName}
+    Wait Mobile Until Element Visible    ${img${CardName}}
+    Swipe element to specific area    ${lblTermAndCondition}
+    Sleep    3s
+    Wait Mobile Until Element Visible    ${lblTermAndCondition}
+    AISAppiumEx.Click Element    ${lblTermAndCondition}
+    Comment    Click Mobile Element    ${lblTermAndCondition}
+    Sleep    5s
+    AISAppiumEx.Page Should Not Contain Element    ${lblTermAndConditionDetail}
+    Mobile Capture Screen At Verify Point    not show term and condition ${CardName}
+
+Verify the1Card incomplete ID
+    Mobile element name should be    ${txtThe1CardPopupErr1}    ${The1CardPopupErr1}
+    Mobile element name should be    ${txtThe1CardPopupErr2}    ${The1CardPopupErr2}
+
+Verify PTT And The One Card
+    Swipe element to specific area    ${imgPTTBlueCard}    ratio=0.3    Direction=down
+    Mobile element name should be    ${titlePTTCardTotalCardPage}    ${PttBlueCardTitle}
+    Mobile element name should be    ${titlePTTCardTotalCardPage2}    ${PTTBlueCardSubTitleTotalCard}
+    Mobile Capture Screen At Verify Point    detail
+    Swipe element to specific area    ${titleTheOneCardTotalCardPage}
+    Mobile element name should be    ${titleTheOneCardTotalCardPage}    ${TheOneCardTitle}
+    Mobile element name should be    ${titleTheOneCardTotalCardPage2}    ${TheOneCardSubTitleTotalCard}
+    Mobile Capture Screen At Verify Point    detail 2
+
+Verify the one card
+    Swipe element to specific area    ${imgTheOneCard}
+    Swipe element to specific area    ${txtTitleTheOneCard}
+    sleep    5
+    Wait Mobile Until Element Visible    ${imgTheOneCard}
+    Mobile element name should be    ${txtTitleTheOneCard}    ${TheOneCardTitle}
+    Mobile element name should be    ${txtSubTitleTheOneCard}    ${TheOneCardSubTitle1}
+    sleep    5
+    Click Mobile Element    ${imgTheOneCard}    #//*[@resource-id="point_holder"]/android.view.View[@index="3"]    #เลือกการ์ด
+    Wait Mobile Until Element Visible    ${imgTheOneCard}
+    Mobile element name should be    ${txtTitleTheOneCardPage}    ${TheOneCardTitle}
+    Swipe element to specific area    ${txtSubTitleTheOneCardPage}
+    Mobile check existing text in name    ${txtSubTitleTheOneCardPage}
+    Mobile check existing text in name    ${txtTheOneCardDetail}
+    Swipe element to specific area    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnBack}    #verปุ่มกลับ
+    Wait Mobile Until Element Visible    ${btnTransferPoint}    #verปุ่มโอน
+    Mobile check existing text in name    ${txtTheOneCardTermAndCondition}
+    Mobile check existing text in name    ${txtTheOneCardTermAndConditionDetail}
+    Mobile Capture Screen At Verify Point    Verify the 1 card
+
+Verify Click Button decrease Point On The One Card Page
+    ${before}=    AISAppiumEx.Get Text    ${txtFieldTransferPoint}
+    Swipe element to specific area    ${btnTransferPoint_TransferPage}    ratio=0.35    Round=3
+    sleep    5
+    Click Mobile Element    ${btnPlus}
+    Mobile Capture Screen At Verify Point    After Click Button Plus
+    Click Mobile Element    ${btnMinus}
+    ${after}=    AISAppiumEx.Get Text    ${txtFieldTransferPoint}
+    Should Be Equal As Integers    ${before}    ${after}
+    Mobile Capture Screen At Verify Point    After Click Button Minus
+
+Verify Transfer Point Page After Input ID Card
+    Wait Mobile Until Element Visible    ${imgTheOneCard}    #image The 1 Card
+    Mobile element name should match regexp ignore case sensitive    ${txtOwnerCardName}    ชื่อผู้ถือบัตร: .*
+    Wait Mobile Until Element Visible    ${txtFieldCardNumber}    #ID Card
+    Wait Mobile Until Element Visible    ${txtFieldTransferPoint}    #เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
+    Wait Mobile Until Element Visible    ${btnPlus}    #ปุ่มบวก
+    Wait Mobile Until Element Visible    ${btnMinus}    #ปุ่มลบ
+    Wait Mobile Until Element Visible    ${imgArrow_SetTransferPointPage}    #ลูกศร
+    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    Wait Mobile Until Element Visible    ${btnBack}    #ปุ่มกลับ
+    Wait Mobile Until Element Visible    ${btnTransferPoint_TransferPage}    #ปุ่มโอน
+    Wait Mobile Until Element Visible    ${popupTitleTermAndConditionDetail}    #ข้อกำหนดและเงื่อนไข
+    Mobile Capture Screen At Verify Point    Verify transfer after input ID Card
+
+Click Transfer Point Again
+    Click Mobile Element    ${btnTransferAgain}
+    Wait Mobile Until Element Visible    ${txtFieldCardNumber}    #ช่องใส่ไอดีการด
+    Mobile Capture Screen At Verify Point    Transfer Again
+
+Verify Remain Point After Transfer
+    [Arguments]    ${initialPoint}    ${remainPoint}
+    ${Point'sDifferent}    Evaluate    ${initialPoint}-${remainPoint}
+    Mobile Capture Screen At Verify Point    Point's Different
+    [Return]    ${Point'sDifferent}
+
+Confirm Transfer Point
+    Click Mobile Element    ${btnConfirmTransaction}
+
+Back To Main Page
+    Click Mobile Element    ${btnBackToMainPage}
+    Swipe element to specific area    ${imgPTTBlueCard}
+    Wait Mobile Until Element Visible    ${imgPTTBlueCard}
+    Mobile Capture Screen At Verify Point    back to card page
+
+Verify error message case incomplete ID card
+    Wait Mobile Until Element Visible    ${popupIncompleteIDCard_PTTBlueCard}
+    Mobile element name should be    ${txtPopupWrongIDCard_PTTBlueCard}    ${ErrorIDPTTBlueCardWrong}    #หมายเลข PTT Blue Card ที่คุณระบุไม่ถูกต้อง กรุณาตรวจสอบและทำรายการใหม่อีกครั้ง
+    Mobile Capture Screen At Verify Point    Wrong id card
+
+Verify Popup And Click Cancel
+    Mobile element name should be    ${txtConfirmTransaction}    ${PopupHeaderConfirmTransaction}
+    Click Mobile Element    ${btnCancelTransaction}
+    Mobile Capture Screen At Verify Point    popup
+
+Verify Point
+    [Arguments]    ${MyPoint}    ${MyNewPoint}
+    Should Be Equal    ${MyPoint}    ${MyNewPoint}
+    Mobile Capture Screen At Verify Point    Equal Point
+
+Verify Point is changed
+    [Arguments]    ${MyPoint}    ${MyNewPoint}
+    ${Point'sDifferent}    Evaluate    ${MyPoint}-${MyNewPoint}
+    Mobile Capture Screen At Verify Point    Point's Different
+
+Verify Cards
+    Swipe element to specific area    ${imgPTTBlueCard}
+    Wait Mobile Until Element Visible    ${imgPTTBlueCard}
+    Swipe element to specific area    ${imgTheOneCard}
+    Wait Mobile Until Element Visible    ${imgTheOneCard}
+    Mobile Capture Screen At Verify Point    Card
+
+Verify Popup Term And Condition
+    Wait Mobile Until Element Visible    ${boxPopupTermAndCondition}
+    Mobile Capture Screen At Verify Point    Term And Condition Page
+
+Mobile number
+    [Arguments]    ${Number}
+    ${tel1}=    Get mobile attribute    ${txtMobileNumber}    name
+    Log    ${tel1}
+    ${tel2}=    Remove String    ${tel1}    -
+    log    ${tel2}
+    ${tel3}=    Convert To Integer    ${tel2}
+    log    0${tel3}
+    ${Num1}=    Convert To Integer    ${Number}
+    log    0${Num1}
+    Should Be Equal    ${tel3}    ${Num1}
+
+Verify menu
+    Wait Mobile Until Element Visible    ${mnuFirstPage}
+    Wait Mobile Until Element Visible    ${mnuAboutAISPoint}
+    Wait Mobile Until Element Visible    ${mnuTransferPoint}
+    Wait Mobile Until Element Visible    ${mnuRedeemReward}
+
+Verify contain KBank Card
+    sleep    5
+    Wait Mobile Until Page Contains Element    ${imgKBangCard}
+    Swipe element to specific area    ${imgKBangCard}
+    Mobile Capture Screen At Verify Point    KBank
+
+Verify contain PTT Blue Card
+    sleep    5s
+    Wait Mobile Until Element Visible    ${imgPTTBlueCard}
+    Swipe element to specific area    ${imgPTTBlueCard}
+    Mobile Capture Screen At Verify Point    PTTBlueCard
+
+Verify contain TheOne Card
+    sleep    5s
+    Wait Mobile Until Element Visible    ${imgTheOneCard}
+    Swipe element to specific area    ${imgTheOneCard}    ratio=0.1
+    Mobile Capture Screen At Verify Point    TheOneCard

@@ -1,0 +1,17 @@
+*** Settings ***
+Resource          DegitalSerenadeCommon.txt
+Resource          ../PageVariable/Emerald_SurpriseCampaignVariable.txt
+Resource          ../PageRepository/Emerald_SurpriseCampaignRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_SurpriseCampaignLocalized.txt
+
+*** Keywords ***
+Verify Surprise Campaign
+    Sleep    8s
+    Scroll Web To Element    ${imgSurpriseCampaign}
+    Click Web Element    ${imgSurpriseCampaign}
+    Sleep    15s
+    Select Window    url=${urlSurpriseCampaign}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${urlSurpriseCampaign}"    Fail
+    Web Element Should Be Visible    ${lblAnnouce}
+    Web Capture Screen At Verify Point    UltimateSurprise

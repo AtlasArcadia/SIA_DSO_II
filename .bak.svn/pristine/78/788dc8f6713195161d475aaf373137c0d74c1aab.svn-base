@@ -1,0 +1,528 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Emerald_Privilege.txt
+
+*** Test Cases ***
+[F5_Emerald_1_1_Y_2_1] Verify Privilege Page
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.ตรวจสอบหน้า Privileges [1]
+    ...    6.จับภาพหน้าจอ[1] ตรวจสอบหน้า Privileges
+    ...    - สัมผัสได้ถึงความพิเศษทุกวัน
+    ...    - Campaign = 3 Page
+    ...    - แต่ละ Page แสดง 4 Campaign
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Privilege Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_2] Verify Slide Banner Button
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1. คลิกลิ้งค์ที่ได้รับจาก ข้อความ URL:
+    ...    2. เปิดลิ้งค์ไปที่เบราซ์เซอร์
+    ...    3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    4. เข้าสู่ระบบ
+    ...    5. เลื่อนมาที่ส่วน \ สัมผัสได้ถึงความพิเศษทุกวัน
+    ...    6. เลื่อนแบนเนอร์ซ้ายขวา
+    ...    7. คลิกแบนเนอร์
+    ...    8. ตรวจสอบว่าสามารถ redirect ไปยังหน้ารายละเอียดสิทธิพิเศษอื่นๆ
+    ...    [1]ตรวจสอบแบนเนอร์
+    ...    - ตรวจสอบ รูปแบนเนอร์ที่แสดง เปลี่ยน จากก่อนกดปุ่ม >
+    ...
+    ...    '[2]ตรวจสอบแบนเนอร์
+    ...    - ตรวจสอบ รูปแบนเนอร์ที่แสดง เปลี่ยน จากก่อนกดปุ่ม <
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Slide Banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_3] Verify Page Button
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Hilight Campaign
+    ...    5.กดปุ่ม page ที่ 1
+    ...    6.ตรวจสอบแบนเนอร์ [1]
+    ...    7.จับภาพหน้าจอ
+    ...    8.กดปุ่ม page ที่ 2
+    ...    9.ตรวจสอบแบนเนอร์ [2]
+    ...    10.จับภาพหน้าจอ
+    ...    11.กดปุ่ม page ที่ 3
+    ...    12.ตรวจสอบแบนเนอร์ [3]
+    ...    13.จับภาพหน้าจอ
+    ...
+    ...
+    ...    [1]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ TheCoffeeBeanTeaLeaf
+    ...    - แสดงแบนเนอร์ Blackcanyon
+    ...    - แสดงแบนเนอร์ Cinnabon
+    ...    - แสดงแบนเนอร์ Mezzo
+    ...
+    ...    '[2]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ SF
+    ...    - แสดงแบนเนอร์ Sukishi
+    ...    - แสดงแบนเนอร์ Miracle
+    ...    - แสดงแบนเนอร์ Major
+    ...
+    ...    '[3]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ S&P
+    ...    - แสดงแบนเนอร์ ColdStone
+    ...    - แสดงแบนเนอร์ Tops
+    ...    - แสดงแบนเนอร์ Octoberflowers
+    ...
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Page Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_4] Verify More Button
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1. คลิกลิ้งค์ที่ได้รับจาก ข้อความ URL:
+    ...    2. เปิดลิ้งค์ไปที่เบราซ์เซอร์
+    ...    3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    4. เข้าสู่ระบบ
+    ...    5. เลื่อนมาที่ส่วน สัมผัสได้ถึงความพิเศษทุกวัน
+    ...    6.เลื่อนแบนเนอร์ซ้ายขวา
+    ...    7. คลิกปุ่มเพิ่มเติม
+    ...    8. ตรวจสอบว่าสามารถ redirect ไปยังหน้าแสดง Campaign ทั้งหมด [1]
+    ...    [1]สามารถคลิกปุ่มเพิ่มเติม และ redirect ไปยังหน้าแสดง Campaign ทั้งหมด
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Other Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_5] Verify Coffee Bean Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ TheCoffeeBeanTeaLeaf
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1382#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - The Coffee Bean & Tea Leaf
+    ...    - รับส่วนลด 10%
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Coffee Bean Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_6] Verify Black Canyon Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ TheCoffeeBeanTeaLeaf
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=2107#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Black Canyon
+    ...    - เครื่องดื่มราคาพิเศษ 75.-
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify BlackCanyon
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_7] Verify Cinnabon Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Cinnabon
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1996#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - CINNABON
+    ...    - ซื้อ 3 ชิ้น รับฟรี 1 ชิ้น
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Cinnabon
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_8] Verify Mezzo Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Mezzo
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/237/Mezzo-Coffee
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Mezzo Coffee
+    ...    - ซื้อ 1 ฟรี 1
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Mezzo
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_9] Verify SF Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ SF
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/170/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%AD-SF
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - โรงภาพยนตร์ในเครือ SF
+    ...    - รับสิทธิ์ได้ 2 ที่นั่ง/เดือน
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify SF
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_10] Verify Sukishi Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Sukishi
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1148(เว็บใช้ไม่ได้)
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    -
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Sukishi
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_11] Verify Miracle Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Miracle
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/335/Miracle-co-working-space
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Miracle co-working space
+    ...    - ใช้บริการฟรี
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Miracle
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_12] Verify Major Cineplex Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Major
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/233/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%A0%E0%B8%B2%E0%B8%9E%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B9%8C%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B8%AD-Major-Cineplex
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - โรงภาพยนตร์ในเครือ Major Cineplex
+    ...    - รับสิทธิ์ได้ 2 ที่นั่ง/เดือน
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Major
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_13] Verify SandP Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ S&P
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1823#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - S&P
+    ...    - รับส่วนลด 30 บาท
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify SandP
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_14] Verify Cold Stone Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ ColdStone
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/privilege/th/privilege-deal.aspx?id=1520#tips
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Cold Stone
+    ...    - รับฟรี! Plain Waffle
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify ColdStone
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_15] Verify Tops Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Tops
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/191/Tops
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Tops
+    ...    - รับฟรี คูปองส่วนลด 140 บาท
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Tops
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_16] Verify October flower Banner
+    [Documentation]    Owner: Nat
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิกแบนเนอร์ Octoberflowers
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...    [1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/328/October-Flower
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - October Flower
+    ...    - รับส่วนลดสูงสุด 20%
+    [Tags]    TestSite    TH    WebApplication    Sprint2    Success    3PE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify OctoberFlower
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_17]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_Emerald_1_1_Y_2_18]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+
+[F5_Emerald_1_1_Y_2_19]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+
+[F5_Emerald_1_1_Y_2_20]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+
+[F5_Emerald_1_1_Y_2_21]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+
+[F5_Emerald_1_1_Y_2_22]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+
+[F5_Emerald_1_1_Y_2_23]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+
+[F5_Emerald_1_1_Y_2_24]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
