@@ -5,6 +5,14 @@ Resource          ../PageRepository/${ar_OS}/RoamingPackage_InternationalService
 Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/RoamingPackage_InternationalService.txt
 
 *** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
 Switch International service Mode
     [Arguments]    ${Switch}
     ${checked}	AISAppiumEx.Get Element Attribute	${btnSwitchInternationalRoamingService}	checked
