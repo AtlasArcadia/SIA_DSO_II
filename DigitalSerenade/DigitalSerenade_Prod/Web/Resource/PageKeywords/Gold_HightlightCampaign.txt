@@ -7,24 +7,30 @@ Resource          ../Localized/${ar_LANG}/${ar_nType}/Gold_HightlightCampaignLoc
 
 *** Keywords ***
 Verify HC MyAIS
-    Scroll Web To Element    ${btnNextBanner}
     ${index}    Find banner    myAIS
-    Web Capture Screen At Verify Point    myAIS
+    Web Capture Screen At Verify Point    myAIS banner
+    Comment    Click Web Element    xpath=//div[@class="owl-item active"]//img[@src="https://ws-adv.ais.co.th/impression/banners/2017/6/27/banner-68b67992f2196ef1bb42d1ec07019c0d.1498556333096.jpeg?bannerId=441&campaignId=425&channelId=8&keywords=HL02&positionId=8&tokenId"]
     choose banner    myAIS
     Sleep    5s
     Select Window    url=${BannermyAISLink}
     Sleep    10s
-    Verify Link    ${BannermyAISLink}
+    ${lo}=    Get Location
+    Run Keyword If    "${lo}" == "${BannermyAISLink}"    Web Capture Screen At Verify Point    WebmyAIS
+    ...    ELSE    Fail
     sleep    3s
-    Click Web Element    ${btnClosePopUpMyAISHC}
     Web Capture Screen At Verify Point    PopUpMyAISHC
     ${status}=    Run Keyword And Return Status    Web Element Should Be Visible    ${PopUpMyAISHC}
     Run Keyword If    "${status}" == "True"    Click Web Element    ${btnClosePopUpMyAISHC}
-    Scroll Web To Element    ${txtmyAISTitle1}
-    Web Element Text Should Be    ${txtmyAISTitle1}    ${myAISTitle1}
-    Web Element Text Should Be    ${txtmyAISTitle2}    ${myAISTitle2}
     Web Element Should Be Visible    ${imgmyAISLogo}
-    Web Capture Screen At Verify Point    Verify HC myAIS
+    :FOR    ${index}    IN RANGE    1    2
+    \    Scroll Web To Element    ${btnBannermyAIS${index}}
+    \    Web Element Should Be Visible    ${btnBannermyAIS${index}}
+    Selenium2Library.Page Should Not Contain Element    xpath=//div[@id="slider-herobanner"]//div[@class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"]/span[3]
+    Click Web Element    ${btnBannermyAIS1}
+    Web Capture Screen At Verify Point    Banner1
+    Click Web Element    ${btnBannermyAIS2}
+    Web Capture Screen At Verify Point    Banner2
+    Web Capture Screen At Verify Point    Verify campaign myAIS
 
 Verify HC Embassy
     Sleep    5
