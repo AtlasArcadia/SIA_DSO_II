@@ -223,8 +223,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Roaming Package Submenu
-    Select Roaming Country Australia iOS
-    Select Package Type Data iOS
+    Select Roaming Country To Australia
+    Select Package Type To Data
     Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select First Package In Select Package Page
     Verify Specify Effective Date    ${Number}
@@ -247,8 +247,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Roaming Package Submenu
-    Select Roaming Country Australia iOS
-    Select Package Type Data iOS
+    Select Roaming Country To Australia
+    Select Package Type To Data
     Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select Detail First Package
     Verify Detail First Package Page    ${Number}
@@ -271,8 +271,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Roaming Package Submenu
-    Select Roaming Country Australia iOS
-    Select Package Type Data iOS
+    Select Roaming Country To Australia
+    Select Package Type To Data
     Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select First Package In Select Package Page
     Select Immediate Button
@@ -296,8 +296,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Roaming Package Submenu
-    Select Roaming Country China iOS
-    Select Package Type Data iOS
+    Select Roaming Country To China
+    Select Package Type To Data
     Click Continue On Apply Roaming Package Page
     Select First Package In Select Package Page
     Select Specify Start Date Button
@@ -321,7 +321,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Menu
     Select Apply Roaming Package Submenu
     Verify Apply Roaming Package Page iOS    ${Number}
-    Select Package Type Data iOS
+    Select Package Type To Data
     Click Continue On Apply Roaming Package Page
     Verify Dialog Message No Country Select
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
@@ -361,7 +361,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Menu
     Select Apply Roaming Package Submenu
     Verify Apply Roaming Package Page iOS    ${Number}
-    Select Roaming Country To Australia iOS
+    Select Roaming Country To Australia
     Click Continue On Apply Roaming Package Page
     Verify Dialog Message No Package Type
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
@@ -380,8 +380,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Roaming Package Submenu
-    Select Roaming Country To Australia iOS
-    Select Package Type Data iOS
+    Select Roaming Country To Australia
+    Select Package Type To Data
     Click Continue On Apply Roaming Package Page
     Select First Package In Select Package Page
     Select Specify Effective Date Specify
@@ -406,8 +406,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Roaming Package Submenu
-    Select Roaming Country To Australia iOS
-    Select Package Type Data iOS
+    Select Roaming Country To Australia
+    Select Package Type To Data
     Click Continue On Apply Roaming Package Page
     Select First Package In Select Package Page
     Select Specify Effective Date Specify
@@ -431,4 +431,10 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    Select Package Type To Data
+    Click Continue On Apply Roaming Package Page And Capture Screen iOS
+    Select First Package In Select Package Page iOS
     [Teardown]    Keywords For TearDown    ${#dict_device_name}

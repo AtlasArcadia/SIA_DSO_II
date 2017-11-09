@@ -69,7 +69,20 @@ Select Roaming Country To Australia
     Run Keyword If    "${ar_OS}"=="Android"    Select Roaming Country To Australia Android
     ...    ELSE IF    "${ar_OS}"=="iOS"    Select Roaming Country To Australia iOS
 
+Select Roaming Country To Australia Android
+    Select roaming country to    Australia
+
+Select Roaming Country To Australia iOS
+    Select roaming country to    Australia
+
 Select Roaming Country To China
+    Run Keyword If    "${ar_OS}"=="Android"    Select Roaming Country To China Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Roaming Country To China iOS
+
+Select Roaming Country To China Android
+    Select roaming country to    China
+
+Select Roaming Country To China iOS
     Select roaming country to    China
 
 Select Roaming Country To England
@@ -91,6 +104,13 @@ Select Package Type To Please Select
     Select package type to    PleaseSelect
 
 Select Package Type To Data
+    Run Keyword If    "${ar_OS}"=="Android"    Select Package Type To Data Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"   Select Package Type To Data iOS
+
+Select Package Type To Data Android
+    Select package type to    Data
+
+Select Package Type To Data iOS
     Select package type to    Data
 
 Select Package Type To VoiceAndSMS
@@ -147,7 +167,6 @@ Select Subscribe Button Android
     Click Mobile Element    ${btnSubscribeSpecifyEffectiveDate}
 
 Select Subscribe Button iOS
-    Swipe to element    ${btnSubscribeApplyRoaming}     screen
     Click Mobile Element    ${btnSubscribeApplyRoaming}
 
 Select Confirm In Summary Page
@@ -363,7 +382,7 @@ Verify Dialog Message No Select State Android
     Mobile Capture Screen At Verify Point    Verify Dialog Message Specify Date Yesterday
 
 Verify Dialog Message No Select State iOS
-    Mobile element text should be    ${lblDialog}    ${txtDialogMessageNoStateSelect}
+    Mobile element text should be    ${lblDialogMessage}    ${txtDialogMessageNoStateSelect}
     Mobile Capture Screen At Verify Point    Verify Dialog Message Please Select State
 
 Verify Converted To Thailand Time
@@ -947,28 +966,6 @@ Select Australia Bridge DataRoam Unlimited 1 Day Selected Networks Package
 
 Verify Australia Bridge DataRoam Unlimited 1 Day Selected Networks Summary Page Future
     Verify summary page future to    AustraliaBridgeDataRoamUnlimited1Day
-
-Select Roaming Country To Australia Android
-    Select roaming country to    Australia
-
-Select Roaming Country To Australia iOS
-    Select roaming country to    Australia
-
-select roaming country Android
-        select roaming country
-
-Select Roaming Country Australia iOS
-    Click Mobile Element    ${ddlRoamingCountryApplyRoamingPackagePage}
-    Input Mobile Text    ${cboRoamingCountryApplyRoamingPackagePageSearch}     ${txtAustralia}
-    Click Mobile Element    ${itemAustraliaCountryApplyRoamingPackagePage}
-
-Select Roaming Country China iOS
-    Click Mobile Element    ${ddlRoamingCountryApplyRoamingPackagePage}
-    Input Mobile Text    ${cboRoamingCountryApplyRoamingPackagePageSearch}     ${txtChina}
-    Click Mobile Element    ${itemChinaCountryApplyRoamingPackagePage}
-
-Select Package Type Data iOS
-    Select package type to Data
 
 Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Click Mobile Element    ${btnContinueApplyRoaming}
