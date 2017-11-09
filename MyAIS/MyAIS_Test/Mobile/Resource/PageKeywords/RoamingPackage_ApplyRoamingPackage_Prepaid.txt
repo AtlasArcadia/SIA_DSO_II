@@ -750,11 +750,33 @@ Select roaming country to iOS
 
 Select customer type to
     [Arguments]    ${CustomerType}
+    Run Keyword If    "${ar_OS}"=="Android"    Select customer type to Android    ${CustomerType}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select customer type to iOS    ${CustomerType}
+
+Select customer type to Android
+    [Arguments]    ${CustomerType}
+    Click Mobile Element    ${ddlCustomerTypeApplyRoamingPackagePage}
+    Run Keyword If    "${CustomerType}"!="PleaseSelect"    select customer type    ${CustomerType}
+    ...    ELSE    Click Mobile Element    ${itmPleaseSelectApplyRoamingPackagePage}
+
+Select customer type to iOS
+    [Arguments]    ${CustomerType}
     Click Mobile Element    ${ddlCustomerTypeApplyRoamingPackagePage}
     Run Keyword If    "${CustomerType}"!="PleaseSelect"    select customer type    ${CustomerType}
     ...    ELSE    Click Mobile Element    ${itmPleaseSelectApplyRoamingPackagePage}
 
 Select package type to
+    [Arguments]    ${CustomerType}
+    Run Keyword If    "${ar_OS}"=="Android"    Select package type to Android    ${CustomerType}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select package type to iOS    ${CustomerType}
+
+Select package type to Android
+    [Arguments]    ${PackageType}
+    Click Mobile Element    ${ddlPackageTypeApplyRoamingPackagePage}
+    Run Keyword If    "${PackageType}"!="PleaseSelect"    select package type    ${PackageType}
+    ...    ELSE    Click Mobile Element    ${itmPleaseSelectApplyRoamingPackagePage}
+
+Select package type to iOS
     [Arguments]    ${PackageType}
     Click Mobile Element    ${ddlPackageTypeApplyRoamingPackagePage}
     Run Keyword If    "${PackageType}"!="PleaseSelect"    select package type    ${PackageType}
@@ -1012,3 +1034,6 @@ Verify Apply Roaming Package Page iOS
     Mobile element name should be    ${ddlPleaseSelectPackageApplyRoamingPackagePage}     ${txtPleaseSelectPackage}
     Mobile element name should be    ${btnContinueApplyRoaming}    ${txtContinueApplyRoaming}
     Mobile element text should be    ${lblTermAndConditionApplyRoamingPackagePage}    ${txtTermAndConditionApplyRoamingPackagePage}
+
+Click to Continue Page
+    Click Mobile Element    ${btnContinueApplyRoaming}
