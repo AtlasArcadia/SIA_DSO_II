@@ -31,6 +31,7 @@ Click Continue On Apply Roaming Package Page iOS
 Get Country Customer And Package Type
     Run Keyword If    "${ar_OS}"=="Android"    Get Country Customer And Package Type Android
     ...    ELSE IF    "${ar_OS}"=="iOS"    Get Country Customer And Package Type iOS
+    [Return]    ${Country}    ${Package}
 
 Get Country Customer And Package Type Android
     ${Country}=    Get mobile text    ${itmDdlRoamingCountryApplyRoamingPackagePage}
@@ -41,7 +42,7 @@ Get Country Customer And Package Type Android
 Get Country Customer And Package Type iOS
     ${Country}=    Get mobile text    ${itmDdlRoamingCountryApplyRoamingPackagePage}
     ${Package}=    Get mobile text    ${itmDdlPackageTypeApplyRoamingPackagePage}
-    [Return]    ${Country}    $${Package}
+    [Return]    ${Country}    ${Package}
 
 Select Package Menu
     Run Keyword If    "${ar_OS}"=="Android"    Select Package Menu Android
@@ -247,7 +248,7 @@ Verify Package Roaming Page Android
 
 Verify Package Roaming Page iOS
     [Arguments]    ${MobileNo}    ${CountryType}    ${PackageType}
-    Mobile element text should be    ${TitleApplyRoamingPackagePage}     ${txtHeaderApplyRoamingPackage}
+    Mobile element text should be    ${TitleApplyRoamingPackagePage}     ${HeaderApplyRoamingPackage}
     ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
@@ -255,7 +256,7 @@ Verify Package Roaming Page iOS
     Mobile element text should be    ${lblCountrySelectRoamingPackagePage}    ${CountryType}
     Get Mobile Text    ${lblCustomerTypeSelectRoamingPackagePage}
     Mobile element text should be    ${lblPackageTypeSelectRoamingPackagePage}    ${PackageType}
-    Mobile element text should be    ${lblFirstPackageSelectRoamingPackagePage}
+    Wait Mobile Until Element Visible    ${lblFirstPackageSelectRoamingPackagePage}
     Mobile Capture Screen At Verify Point    Verify Package Roaming Page iOS
 
 Verify Dialog Message No Country Select
@@ -1087,4 +1088,7 @@ verify summary immediate page
     Mobile element name should be    ${lblValidityPackageSummaryPage}    ${ValidityPackageSummaryPage}
     Mobile element name should be    ${lblStartDatePackageSummaryPage}    ${StartDatePackageSummaryPage}
     Mobile element name should be    ${lblEndDatePackageSummaryPage}    ${EndDatePackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnConfirmPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnEditPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnCancelPackageSummaryPage}
     Mobile Capture Screen At Verify Point    Verify In Summary Page
