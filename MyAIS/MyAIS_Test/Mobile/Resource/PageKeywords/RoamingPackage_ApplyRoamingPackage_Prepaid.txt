@@ -28,10 +28,19 @@ Click Continue On Apply Roaming Package Page iOS
     Click Mobile Element    ${btnContinueApplyRoaming}
 
 Get Country Customer And Package Type
+    Run Keyword If    "${ar_OS}"=="Android"    Get Country Customer And Package Type Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Get Country Customer And Package Type iOS
+
+Get Country Customer And Package Type Android
     ${Country}=    Get mobile text    ${itmDdlRoamingCountryApplyRoamingPackagePage}
     ${Customer}=    Get mobile text    ${itmDdlCustomerTypeApplyRoamingPackagePage}
     ${Package}=    Get mobile text    ${itmDdlPackageTypeApplyRoamingPackagePage}
     [Return]    ${Country}    ${Customer}    ${Package}
+
+Get Country Customer And Package Type iOS
+    ${Country}=    Get mobile text    ${itmDdlRoamingCountryApplyRoamingPackagePage}
+    ${Package}=    Get mobile text    ${itmDdlPackageTypeApplyRoamingPackagePage}
+    [Return]    ${Country}    $${Package}
 
 Select Package Menu
     Run Keyword If    "${ar_OS}"=="Android"    Select Package Menu Android
@@ -65,13 +74,6 @@ Set Current Date iOS
     Click Mobile Element    ${btnAddDate}
     Click Mobile Element    ${btnOkSelectTime}
 
-Select Roaming Country To Australia
-    Run Keyword If    "${ar_OS}"=="Android"    Select Roaming Country To Australia Android
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Roaming Country To Australia iOS
-
-Select Roaming Country To China
-    Select roaming country to    China
-
 Select Roaming Country To England
     Select roaming country to    England
 
@@ -91,6 +93,13 @@ Select Package Type To Please Select
     Select package type to    PleaseSelect
 
 Select Package Type To Data
+    Run Keyword If    "${ar_OS}"=="Android"    Select Package Type To Data Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Package Type To Data iOS
+
+Select Package Type To Data Android
+    Select package type to    Data
+
+Select Package Type To Data iOS
     Select package type to    Data
 
 Select Package Type To VoiceAndSMS
@@ -136,7 +145,8 @@ Select Specify Start Date Button Android
     Click Mobile Element    ${rboSpecifyEffectiveDateSpecifyDate}
 
 Select Specify Start Date Button iOS
-    Click Mobile Element    ${rboSpecifyEffectiveDateSpecifyDate}
+    Click Mobile Element    ${rboSpecifyEffectiveDateSpecify}
+    Click Mobile Element    ${btnSubscribeApplyRoaming}
 
 Select Subscribe Button
     Run Keyword If    "${ar_OS}"=="Android"    Select Subscribe Button Android
@@ -147,11 +157,17 @@ Select Subscribe Button Android
     Click Mobile Element    ${btnSubscribeSpecifyEffectiveDate}
 
 Select Subscribe Button iOS
-    Swipe to element    ${btnSubscribeApplyRoaming}     screen
     Click Mobile Element    ${btnSubscribeApplyRoaming}
 
 Select Confirm In Summary Page
+    Run Keyword If    "${ar_OS}"=="Android"    Select Confirm In Summary Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Confirm In Summary Page iOS
+
+Select Confirm In Summary Page Android
     Click Mobile Element    ${btnConfirmSummaryPage}
+
+Select Confirm In Summary Page iOS
+    Click Mobile Element    ${btnConfirmPackageSummaryPage}
 
 Select Immediate Button
     Run Keyword If    "${ar_OS}"=="Android"    Select Immediate Button Android
@@ -162,7 +178,6 @@ Select Immediate Button Android
 
 Select Immediate Button iOS
     Click Mobile Element    ${rboSpecifyEffectiveDateImmediate}
-    Click Mobile Element    ${btnSubscribeApplyRoaming}
 
 Set Specify Date More Than 30 Days
     Click Mobile Element    ${btnChoosingDate}
@@ -212,8 +227,9 @@ Verify Apply Roaming Package Page Android
 
 Verify Package Roaming Page
     [Arguments]    ${MobileNo}    ${CountryType}    ${CustomerType}    ${PackageType}
-    Run Keyword If    "${ar_OS}"=="Android"    Verify Apply Roaming Package Page Android    ${MobileNo}    ${CountryType}    ${CustomerType}    ${PackageType}
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Apply Roaming Package Page iOS    ${MobileNo}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Package Roaming Page Android    ${MobileNo}    ${CountryType}    ${CustomerType}    ${PackageType}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Package Roaming Page iOS    ${MobileNo}    ${CountryType}    ${PackageType}
+
 Verify Package Roaming Page Android
     [Arguments]    ${MobileNo}    ${CountryType}    ${CustomerType}    ${PackageType}
     Wait Until Keyword Succeeds    ${lo_general_timeout}    3    Mobile element text should be    ${lblHeader}    ${txtHeaderApplyRoamingPackage}
@@ -225,13 +241,17 @@ Verify Package Roaming Page Android
     Mobile Capture Screen At Verify Point    Verify In Package Roaming Page
 
 Verify Package Roaming Page iOS
-    [Arguments]    ${MobileNo}    ${CountryType}    ${CustomerType}    ${PackageType}
+    [Arguments]    ${MobileNo}    ${CountryType}    ${PackageType}
     Mobile element text should be    ${TitleApplyRoamingPackagePage}     ${txtHeaderApplyRoamingPackage}
-    Mobile element text should be    ${lblMobileNumber}    ${MobileNo}
-    Mobile element text should be    ${lblCountrySelectRoamingPackagePage}    ${txtSpecifyEffectiveDate}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${MobileNo}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblCountrySelectRoamingPackagePage}    ${CountryType}
+    Get Mobile Text    ${lblCustomerTypeSelectRoamingPackagePage}
     Mobile element text should be    ${lblPackageTypeSelectRoamingPackagePage}    ${PackageType}
-    Wait Mobile Until Element Visible    ${lblFirstPackageSelectRoamingPackagePage}
-    Mobile Capture Screen At Verify Point    Verify In Package Roaming Page iOS
+    Mobile element text should be    ${lblFirstPackageSelectRoamingPackagePage}
+    Mobile Capture Screen At Verify Point    Verify Package Roaming Page iOS
 
 Verify Dialog Message No Country Select
     Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Message No Country Select Android
@@ -363,7 +383,7 @@ Verify Dialog Message No Select State Android
     Mobile Capture Screen At Verify Point    Verify Dialog Message Specify Date Yesterday
 
 Verify Dialog Message No Select State iOS
-    Mobile element text should be    ${lblDialog}    ${txtDialogMessageNoStateSelect}
+    Mobile element text should be    ${lblDialogMessage}    ${txtDialogMessageNoStateSelect}
     Mobile Capture Screen At Verify Point    Verify Dialog Message Please Select State
 
 Verify Converted To Thailand Time
@@ -739,16 +759,38 @@ Select roaming country to Android
 Select roaming country to iOS
     [Arguments]    ${Country}
     Click Mobile Element    ${ddlRoamingCountryApplyRoamingPackagePage}
-    Input Mobile Text    ${cboRoamingCountryApplyRoamingPackagePageSearch}     ${txt${Country}}
+    Input Mobile Text    ${cboRoamingCountryApplyRoamingPackagePageSearch}     ${${Country}}
     Click Mobile Element    ${item${Country}CountryApplyRoamingPackagePage}
 
 Select customer type to
+    [Arguments]    ${CustomerType}
+    Run Keyword If    "${ar_OS}"=="Android"    Select customer type to Android    ${CustomerType}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select customer type to iOS    ${CustomerType}
+
+Select customer type to Android
+    [Arguments]    ${CustomerType}
+    Click Mobile Element    ${ddlCustomerTypeApplyRoamingPackagePage}
+    Run Keyword If    "${CustomerType}"!="PleaseSelect"    select customer type    ${CustomerType}
+    ...    ELSE    Click Mobile Element    ${itmPleaseSelectApplyRoamingPackagePage}
+
+Select customer type to iOS
     [Arguments]    ${CustomerType}
     Click Mobile Element    ${ddlCustomerTypeApplyRoamingPackagePage}
     Run Keyword If    "${CustomerType}"!="PleaseSelect"    select customer type    ${CustomerType}
     ...    ELSE    Click Mobile Element    ${itmPleaseSelectApplyRoamingPackagePage}
 
 Select package type to
+    [Arguments]    ${CustomerType}
+    Run Keyword If    "${ar_OS}"=="Android"    Select package type to Android    ${CustomerType}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select package type to iOS    ${CustomerType}
+
+Select package type to Android
+    [Arguments]    ${PackageType}
+    Click Mobile Element    ${ddlPackageTypeApplyRoamingPackagePage}
+    Run Keyword If    "${PackageType}"!="PleaseSelect"    select package type    ${PackageType}
+    ...    ELSE    Click Mobile Element    ${itmPleaseSelectApplyRoamingPackagePage}
+
+Select package type to iOS
     [Arguments]    ${PackageType}
     Click Mobile Element    ${ddlPackageTypeApplyRoamingPackagePage}
     Run Keyword If    "${PackageType}"!="PleaseSelect"    select package type    ${PackageType}
@@ -948,19 +990,25 @@ Select Australia Bridge DataRoam Unlimited 1 Day Selected Networks Package
 Verify Australia Bridge DataRoam Unlimited 1 Day Selected Networks Summary Page Future
     Verify summary page future to    AustraliaBridgeDataRoamUnlimited1Day
 
+Select Roaming Country To Australia
+    Run Keyword If    "${ar_OS}"=="Android"    Select Roaming Country To Australia Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Roaming Country To Australia iOS
+
 Select Roaming Country To Australia Android
     Select roaming country to    Australia
 
 Select Roaming Country To Australia iOS
     Select roaming country to    Australia
 
-select roaming country Android
-        select roaming country
+Select Roaming Country To China
+    Run Keyword If    "${ar_OS}"=="Android"    Select Roaming Country To China Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Roaming Country To China iOS
 
-Select Roaming Country Australia iOS
-    Click Mobile Element    ${ddlRoamingCountryApplyRoamingPackagePage}
-    Input Mobile Text    ${cboRoamingCountryApplyRoamingPackagePageSearch}     ${txtAustralia}
-    Click Mobile Element    ${itemAustraliaCountryApplyRoamingPackagePage}
+Select Roaming Country To China Android
+    Select roaming country to    China
+
+Select Roaming Country To China iOS
+    Select roaming country to    China
 
 Select Roaming Country China iOS
     Click Mobile Element    ${ddlRoamingCountryApplyRoamingPackagePage}
@@ -974,14 +1022,18 @@ Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Click Mobile Element    ${btnContinueApplyRoaming}
     Mobile Capture Screen At Verify Point    Select Roaming Package Page iOS
 
-Select Specify Effective Date Specify
-    Click Mobile Element    ${rboSpecifyEffectiveDateSpecify}
-    Click Mobile Element    ${btnSubscribeApplyRoaming}
-
 Verify Dialog Message No Set Start Time
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Message No Set Start Time Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dialog Message No Set Start Time iOS
+
+Verify Dialog Message No Set Start Time Android
     Mobile element name should be    ${lblDialogMessage}   ${txtDialogMessageNoStartTime}
     Mobile Capture Screen At Verify Point    Verify In Dialog Please Set Start Time
     Click Mobile Element    ${btnDialogOk}
+
+Verify Dialog Message No Set Start Time iOS
+    Mobile element name should be    ${lblDialogMessage}   ${txtDialogMessageNoStartTime}
+    Mobile Capture Screen At Verify Point    Verify In Dialog Please Set Start Time
 
 Verify Apply Roaming Package Page iOS
     [Arguments]    ${Number}
@@ -996,3 +1048,11 @@ Verify Apply Roaming Package Page iOS
     Mobile element name should be    ${ddlPleaseSelectPackageApplyRoamingPackagePage}     ${txtPleaseSelectPackage}
     Mobile element name should be    ${btnContinueApplyRoaming}    ${txtContinueApplyRoaming}
     Mobile element text should be    ${lblTermAndConditionApplyRoamingPackagePage}    ${txtTermAndConditionApplyRoamingPackagePage}
+
+verify summary immediate page
+    Mobile element name should be    ${lblPackageDescriptionSummaryPage}    ${PackageDescriptionSummaryPage}
+    Mobile element name should be    ${lblPackagePricePackageSummaryPage}    ${PackagePricePackageSummaryPage}
+    Mobile element name should be    ${lblValidityPackageSummaryPage}    ${ValidityPackageSummaryPage}
+    Mobile element name should be    ${lblStartDatePackageSummaryPage}    ${StartDatePackageSummaryPage}
+    Mobile element name should be    ${lblEndDatePackageSummaryPage}    ${EndDatePackageSummaryPage}
+    Mobile Capture Screen At Verify Point    Verify In Summary Page
