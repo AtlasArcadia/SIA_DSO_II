@@ -1489,7 +1489,7 @@ Verify Pop up msg VISA in case amount 0 Baht
     Click Mobile Element    ${btnNext}
     Sleep    5
     Wait Mobile Until Page Does Not Contain Element    ${lblProgressBar}
-    Click Mobile Element    ${txtPaymentAmount}
+    Click Mobile Element    ${txtPaymentAmount}    60
     Clear Text    ${txtPaymentAmount}
     Input Mobile Text    ${txtPaymentAmount}    0
     Click Mobile Element    ${lblVISAPayment}
@@ -1497,6 +1497,7 @@ Verify Pop up msg VISA in case amount 0 Baht
     Click Mobile Element    ${btnNext}
     Mobile element text should be    ${lblPleasePopUpAlert}    ${InputAmount0Baht}
     Mobile Capture Screen At Verify Point    Amount0Baht VISA
+    Sleep    5
 
 Verify Pop up msg MasterCard in case amount 0 Baht
     Input number sub menu payment    ${AISPostpaidNumber}
@@ -3663,7 +3664,8 @@ Select Payment Channal
 Select Payment Channal For have CreditCard
     [Arguments]    ${channal}
     Log    in select channal
-    Wait Mobile Until Page Does Not Contain Element    ${lblProgressBar}
+    Sleep    5
+    Wait Mobile Until Page Does Not Contain Element    ${lblProgressBar}    120
     Click Mobile Element    ${btnPaymentHaveCredit${channal}}
 
 Confirm Payment Detail
@@ -3673,7 +3675,8 @@ Confirm Payment Detail
     Wait Mobile Until Page Does Not Contain Element    ${lblProgressBar}
 
 Confirm Payment Detail For have CreditCard
-    Wait Mobile Until Page Does Not Contain Element    ${lblProgressBar}
+    Sleep    5
+    Wait Mobile Until Page Does Not Contain Element    ${lblProgressBar}    120
     Swipe Element To Screen From Location    ${btnTermAndConditionPaymentHaveCard}    swipe_line=Vertical
     Click Mobile Element    ${btnNext}
 
