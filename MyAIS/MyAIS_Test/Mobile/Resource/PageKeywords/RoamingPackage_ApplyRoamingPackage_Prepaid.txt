@@ -136,7 +136,8 @@ Select Specify Start Date Button Android
     Click Mobile Element    ${rboSpecifyEffectiveDateSpecifyDate}
 
 Select Specify Start Date Button iOS
-    Click Mobile Element    ${rboSpecifyEffectiveDateSpecifyDate}
+    Click Mobile Element    ${rboSpecifyEffectiveDateSpecify}
+    Click Mobile Element    ${btnSubscribeApplyRoaming}
 
 Select Subscribe Button
     Run Keyword If    "${ar_OS}"=="Android"    Select Subscribe Button Android
@@ -150,7 +151,14 @@ Select Subscribe Button iOS
     Click Mobile Element    ${btnSubscribeApplyRoaming}
 
 Select Confirm In Summary Page
+    Run Keyword If    "${ar_OS}"=="Android"    Select Confirm In Summary Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Confirm In Summary Page iOS
+
+Select Confirm In Summary Page Android
     Click Mobile Element    ${btnConfirmSummaryPage}
+
+Select Confirm In Summary Page iOS
+    Click Mobile Element    ${btnConfirmPackageSummaryPage}
 
 Select Immediate Button
     Run Keyword If    "${ar_OS}"=="Android"    Select Immediate Button Android
@@ -161,7 +169,6 @@ Select Immediate Button Android
 
 Select Immediate Button iOS
     Click Mobile Element    ${rboSpecifyEffectiveDateImmediate}
-    Click Mobile Element    ${btnSubscribeApplyRoaming}
 
 Set Specify Date More Than 30 Days
     Click Mobile Element    ${btnChoosingDate}
@@ -979,14 +986,18 @@ Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Click Mobile Element    ${btnContinueApplyRoaming}
     Mobile Capture Screen At Verify Point    Select Roaming Package Page iOS
 
-Select Specify Effective Date Specify
-    Click Mobile Element    ${rboSpecifyEffectiveDateSpecify}
-    Click Mobile Element    ${btnSubscribeApplyRoaming}
-
 Verify Dialog Message No Set Start Time
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Message No Set Start Time Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dialog Message No Set Start Time iOS
+
+Verify Dialog Message No Set Start Time Android
     Mobile element name should be    ${lblDialogMessage}   ${txtDialogMessageNoStartTime}
     Mobile Capture Screen At Verify Point    Verify In Dialog Please Set Start Time
     Click Mobile Element    ${btnDialogOk}
+
+Verify Dialog Message No Set Start Time iOS
+    Mobile element name should be    ${lblDialogMessage}   ${txtDialogMessageNoStartTime}
+    Mobile Capture Screen At Verify Point    Verify In Dialog Please Set Start Time
 
 Verify Apply Roaming Package Page iOS
     [Arguments]    ${Number}
