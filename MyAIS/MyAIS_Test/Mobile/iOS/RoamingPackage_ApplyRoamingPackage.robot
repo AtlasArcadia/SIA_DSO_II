@@ -18,6 +18,13 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    ${CountryType}    ${PackageType}    Get Country Customer And Package Type
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page    ${Number}    ${CountryType}    ${PackageType}
+    Select First Package In Select Package Page
+    Select Immediate Button
+    Select Subscribe Button
+    verify summary immediate page
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_2_2] Subscribe Data Package : Immediate In case : Have only countries
