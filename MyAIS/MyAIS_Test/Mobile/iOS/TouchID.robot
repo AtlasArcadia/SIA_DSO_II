@@ -109,7 +109,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...    7. ตรวจสอบหน้าจอ "การล็อกรหัส"
     ...
     [Tags]    success    active    regression    sanity    3PO    3PE
-    ...    3BO    3BE    demo
+    ...    3BO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -308,7 +308,7 @@ Resource          ../Resource/PageKeywords/TouchID.txt
     ...    7. ตรวจสอบ "ระบบรีเซ็ตรหัสของคุณ กรุณาทำการตั้งรหัสใหม่"
     ...    8. กดปุ่ม "ตกลง"
     ...    9. ตรวจสอบ ปิดฟังก์ชั่น ล็อกรหัส สำเร็จ
-    [Tags]    success    active    regression    sanity    3PO    3PE    3BO    3BE
+    [Tags]    success    active    regression    sanity    3PO    3PE    3BO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
