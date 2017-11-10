@@ -278,6 +278,10 @@ Select Sub Menu from QuickMenu
     [Arguments]    ${SubMenuName}
     Click Mobile Element    ${subMnuQuickMenu${SubMenuName}}
 
+Select Sub Menu from Package
+    [Arguments]    ${Argument}
+    Click Mobile Element    ${subMnu${Argument}}
+
 Login mPay
     [Arguments]    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}    ${Number}    ${PINmPay}
     Sleep    2
@@ -847,3 +851,11 @@ swipe to element android test
     \    ${foundTarget}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}    1
     \    Exit For Loop If    '${foundTarget}'=='True'
     Run Keyword If    '${foundTarget}'=='False'    FAIL    This element is not found.
+
+Mobile element number should be
+    [Arguments]    ${lblMobileNo}    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNo}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    ${StatusNumber}    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    [Return]    ${StatusNumber}

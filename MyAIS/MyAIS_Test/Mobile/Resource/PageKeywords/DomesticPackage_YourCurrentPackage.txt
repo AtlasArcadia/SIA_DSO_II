@@ -5,6 +5,14 @@ Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/DomesticPackage_Y
 Resource          ../PageRepository/${ar_OS}/DomesticPackage_YourCurrentPackageRepository.txt
 
 *** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
 Verify page current package main package only_3PO
     [Arguments]    ${Number}
     Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
@@ -282,3 +290,52 @@ Verify page current package main+on-top package_IPE
     Swipe Element To Screen    ${lblTermAndConditions}
     Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
     Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package
+
+Verify Page Menu Package
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Page Menu Package iOS
+
+Verify Page Menu Package iOS
+    comment    Header "แพ็กเกจในประเทศ"
+    Mobile element text should be    ${lblDomesticPackage}    ${HeadCurrentPackageAndService}
+    comment    แพ็กเกจปัจจุบันของคุณ
+    Mobile element text should be    ${subMnuCurrentPackage}    ${DomesticPackage}
+    comment    สมัครแพ็กเกจเสริมอินเทอร์เน็ต
+    Mobile element text should be    ${subMnuApplyInternetOnTopPackages}    ${ApplyInternetOnTopPackage}
+    comment    สมัครแพ็กเสริมอื่นๆ
+    Mobile element text should be    ${subMnuApplyOtherOnTopPackages}    ${ApplyOtherOnTopPackage}
+    comment    เปลี่ยนแพ็กเสริมหลัก
+    #Mobile element text should be    ${btnChangePricePlan}     ${ChangePricePlan}
+    comment    Header "แพ็กเกจโรมมิ่ง"
+    Mobile element text should be    ${lblRoamingPackage}    ${RoamingPackage}
+    comment    แพ็กเกจปัจจุบัน/ยอดคงเหลือ
+    Mobile element text should be    ${subMnuCurrentPackageRoaming}    ${CurrentPackageRoaming}
+    comment    สมัครแพ็กเกจโรมมิ่ง
+    Mobile element text should be    ${subMnuApplyRoamingPackage}    ${ApplyRoamingPackage}    #สมัครแพ็กเกจโรมมิ่ง
+    comment    อัตราค่าบริการโรมมิ่ง
+    Mobile element text should be    ${subMnuRoamingServiceRates}    ${RoamingServiceRates}    #อัตราค่าบริการโรมมิ่ง
+    comment    บริการระหว่างประเทศ
+    Mobile element text should be    ${subMnuInternationalRoaming}    ${InternationalService}    #บริการระหว่างประเทศ
+    comment    รูปถ่าย
+    Mobile Capture Screen At Verify Point    Verify Page Menu Package
+
+Verify Page Current Package Main Package Only
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Page Current Package Main Package Only iOS    ${Number}
+
+Verify Page Current Package Main Package Only iOS
+    [Arguments]    ${Number}
+    Sleep    15
+    comment    หมายเลขโทรศัพท์
+    Mobile element number should be    ${lblMobileNumber}    ${Number}
+    comment    แถบ "แพ็กเกจหลัก"
+    Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
+    comment    Verify ว่ามี Main pack
+    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage}
+    comment    ปุ่ม "เปลียนแพ็กหลัก"
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
+    comment    บริการเสริม
+    Mobile element text should be    ${lblHeadValueAddService}    ${ValueAddService}
+    comment    เงื่อนไขบริการ
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    comment    รูปถ่าย
+    Mobile Capture Screen At Verify Point    Verify Page Current Package Main Package Only

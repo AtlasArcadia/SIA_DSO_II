@@ -4,12 +4,22 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
 
 *** Test Cases ***
 [F5_Package_IOS_1-3_1-2_Y_1_2] Verify page Apply Other OnTop Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Asma
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...       - หมายเลขโทรศัพท์
+    ...       - แพ็กเกจเสริมโทรและเน็ต
+    ...       - แพ็กเกจเสริมอินเทอร์เน็ต
+    ...       - แพ็กเกจเสริมสำหรับโทร
+    ...       - เงื่อนไขบริการ
+    ...    5. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -21,12 +31,23 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1-3_1-2_Y_2_2] Verify page Apply Other OnTop Package menu: Talk & Net OnTop Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Asma
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. ตรวจสอบเมนู "แพ็กเกจเสริมโทรและเน็ต"
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    - เงื่อนไขบริการ
+    ...    5. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -38,12 +59,23 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1-3_1-2_Y_3_2] Verify page Apply Other OnTop Package menu: Internet OnTop Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Asma
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    5. ตรวจสอบเมนู "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    - แพ็กเกจเสริมอินเทอร์เน็ต
+    ...    - Entertainment
+    ...    - แบบรายครั้ง
+    ...    - แบบรายเดือน
+    ...    - WiFi
+    ...    6. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -55,13 +87,22 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1-3_1-2_Y_4_2] Verify page Apply Other OnTop Package menu: Talk OnTop Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Asma
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมสำหรับโทร"
+    ...    5. ตรวจสอบเมนู "แพ็กเกจเสริมสำหรับโทร"
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - แบบบุฟเฟต์
+    ...    - แบบนาที
+    ...    6. จับภาพหน้าจอ
+    ...        [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
