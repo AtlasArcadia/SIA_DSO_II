@@ -1,0 +1,26 @@
+*** Settings ***
+Resource          MyAISCommon.txt
+Resource          Login.txt
+Resource          ../PageRepository/${ar_OS}/RoamingPackage_InternationalServicePostpaidRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/RoamingPackage_InternationalServicePostpaid.txt
+
+*** Keywords ***
+Switch International service Mode
+    [Arguments]    ${Switch}
+    ${checked}    AISAppiumEx.Get Element Attribute    ${btnSwitchInternationalRoamingService}    checked
+    Run Keyword If    ('${Switch}'=='On') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchInternationalRoamingService}
+    Run Keyword If    ('${Switch}'=='Off') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchInternationalRoamingService}
+
+Switch InternationalCall Service mode
+    [Arguments]    ${Switch}
+    ${checked}    AISAppiumEx.Get Element Attribute    ${btnSwitchInternationalCallService}    checked
+    Run Keyword If    ('${Switch}'=='On') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchInternationalCallService}
+    Run Keyword If    ('${Switch}'=='Off') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchInternationalCallService}
+
+Keywords For TearDown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Comment    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
