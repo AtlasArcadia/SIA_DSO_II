@@ -39,9 +39,9 @@ class Runner implements Serializable{
     boolean AllReportMultiExecutors = false
     boolean ExportToReportExcel = false
     boolean ExportToReportExcelMultiExecutors = false
-    boolean All = true
+    boolean All = false
     boolean IsSmoke = false
-    boolean IsSanity = false
+    boolean IsSanity = true
     boolean activeFalse = false
     
     def get_tag() {                                 
