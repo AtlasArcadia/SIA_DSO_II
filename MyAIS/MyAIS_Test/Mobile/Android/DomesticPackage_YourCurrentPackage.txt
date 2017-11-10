@@ -44,6 +44,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...    - อัตราค่าบริการโรมมิ่ง
     ...    4. จับภาพหน้าจอ
     [Tags]    success    active    regression
+    [Setup]
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -376,20 +377,20 @@ Verify Page Change Price Plan
 
 Verify Page Menu Package Of Boss And Non-Boss Postpaid Number
     Wait Mobile Until Page Contains Element    ${lblDomesticPackage}    60
-    Comment    Mobile element text should be    ${subMnuYourCurrentPackage}    ${CurrentPackage}
-    Comment    Mobile element text should be    ${lblDomesticPackage}    ${DomesticPackage}
-    Comment    Mobile element text should be    ${subMnuInternetOnTopPackage}    ${ApplyInternetOnTopPackage}
-    Comment    Mobile element text should be    ${subMnuApplyEntertainmentOnTopPackage}    ${ApplyEntertainmentOnTopPackage}
-    Comment    Mobile element text should be    ${subMnuApplyOtherOnTopPackages}    ${ApplyOtherOnTopPackage}
-    Comment    Mobile element text should be    ${subMnuChangePricePlan}    ${ChangePricePlan}
-    Swipe to element    ${subMnuRoamingServiceRates}
-    sleep    15
-    Mobile element text should be    ${lblRoamingPackage}    ${RoamingPackage}
+    Mobile element text should be    ${subMnuYourCurrentPackage}    ${CurrentPackage}
+    Mobile element text should be    ${lblDomesticPackage}    ${DomesticPackage}
+    Mobile element text should be    ${subMnuInternetOnTopPackage}    ${ApplyInternetOnTopPackage}
+    Mobile element text should be    ${subMnuApplyEntertainmentOnTopPackage}    ${ApplyEntertainmentOnTopPackage}
+    Mobile element text should be    ${subMnuApplyOtherOnTopPackages}    ${ApplyOtherOnTopPackage}
+    Mobile element text should be    ${subMnuChangePricePlan}    ${ChangePricePlan}
+    Swipe Element To Screen    ${subMnuRoamingServiceRates}
+    sleep    60
+    Mobile element text should be    ${lblRoamingPackage}    ${RoamingPackage}    #${lblRoamingPackage}    #${RoamingPackage}
     Mobile element text should be    ${subMnuCurrentPackageRoaming}    ${CurrentPackageRoaming}
     Mobile element text should be    ${subMnuApplyRoamingPackage}    ${ApplyRoamingPackage}
     Mobile element text should be    ${subMnuRoamingServiceRates}    ${RoamingServiceRates}
     Mobile element text should be    ${lblInternationalServices}    ${InternationalServices}
-    Mobile Capture Screen At Verify Point    Verify Page Menu Package
+    Mobile Capture Screen At Verify Point    Verify \ Menu Package
 
 Verify Page Menu Package for FBB
     Wait Mobile Until Page Contains Element    ${lblDomesticPackage}    60

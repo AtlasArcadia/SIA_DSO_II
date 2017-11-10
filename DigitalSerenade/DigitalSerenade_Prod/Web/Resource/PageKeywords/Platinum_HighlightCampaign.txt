@@ -16,12 +16,15 @@ Verify HC MyAIS
     Verify URL New Window    ${urlMyAIS}    Link myAIS
     Click Web Element    ${symbolX}
     Web Element Should Be Visible    ${imgSpecailAISlogo}
-    Web Element Text Should Be    ${txtmyAISTitle1}    ${myAISTitle1}
-    Web Element Text Should Be    ${txtmyAISTitle2}    ${myAISTitle2}
-    Web Capture Screen At Verify Point    WebmyAIS
-    Comment    ${lo}=    Get Location
-    Comment    Run Keyword If    "${lo}" == "${urlMyAIS}"    Web Capture Screen At Verify Point    WebmyAIS
-    ...    ELSE    Fail
+    :FOR    ${index}    IN RANGE    1    2
+    \    Scroll Web To Element    ${btnBannermyAIS${index}}
+    \    Web Element Should Be Visible    ${btnBannermyAIS${index}}
+    Selenium2Library.Page Should Not Contain Element    xpath=//div[@id="slider-herobanner"]//div[@class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"]/span[3]
+    Click Web Element    ${btnBannermyAIS1}
+    Web Capture Screen At Verify Point    Banner1
+    Click Web Element    ${btnBannermyAIS2}
+    Web Capture Screen At Verify Point    Banner2
+    Web Capture Screen At Verify Point    Verify campaign myAIS
 
 Verify HC Specail Serenade
     Sleep    5s

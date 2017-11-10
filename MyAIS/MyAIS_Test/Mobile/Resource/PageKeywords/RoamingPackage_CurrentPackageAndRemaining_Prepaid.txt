@@ -13,26 +13,6 @@ Keywords For Teardown
     Run Keyword And Ignore Error    Close Application
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
-Verify Current Package And Remaining Have No Data Roaming Package
-    [Arguments]    ${Number}
-    Run Keyword If    "${ar_OS}"=="Android"    Verify Current Package And Remaining Have No Data Roaming Package Android    ${Number}
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Current Package And Remaining Have No Data Roaming Package iOS    ${Number}
-
-Verify Current Package And Remaining Have No Data Roaming Package Android
-    [Arguments]    ${MobileNumber}
-    Mobile element name should be    ${lblMobileNumberCurrentPackageAndRemaining}    ${MobileNumber}
-    Mobile element name should be    ${lblHaveNoDataRoamingPackageCurrentPackage}    ${msgYouHaveNoDataRoamingPackage}
-    Mobile Capture Screen At Verify Point    Verify No Data Roaming Package
-
-Verify Current Package And Remaining Have No Data Roaming Package iOS
-    [Arguments]    ${Number}
-    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberCurrentPackageAndRemaining}
-    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
-    Log    ${MobileNumber}
-    Should Be Equal    ${MobileNumber}    ${Number}
-    Wait Mobile Until Element Visible    ${lblSubscribeNo}
-    Mobile Capture Screen At Verify Point    Verify Current Package And Remaining Have No Data Roaming Package iOS
-
 Verify Current Package Have Remaining Usage
     [Arguments]    ${Number}
     Run Keyword If    "${ar_OS}"=="Android"    Verify Current Package Have Remaining Usage Android    ${Number}
@@ -52,3 +32,26 @@ Verify Current Package Have Remaining Usage iOS
     Should Be Equal    ${MobileNumber}    ${Number}
     Wait Mobile Until Element Visible    ${lblSubscribeNo}
     Mobile Capture Screen At Verify Point    Verify Current Package Have Remaining Usage iOS
+
+Verify Current Package And Remaining Have No Data Roaming Package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Current Package And Remaining Have No Data Roaming Package Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Current Package And Remaining Have No Data Roaming Package iOS    ${Number}
+
+Verify Current Package And Remaining Have No Data Roaming Package Android
+    [Arguments]    ${MobileNumber}
+    Mobile element name should be    ${lblMobileNumberCurrentPackageAndRemaining}    ${MobileNumber}
+    Mobile element name should be    ${lblHaveNoDataRoamingPackageCurrentPackage}    ${msgYouHaveNoDataRoamingPackage}
+    Mobile Capture Screen At Verify Point    Verify No Data Roaming Package
+
+Verify Current Package And Remaining Have No Data Roaming Package iOS
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberCurrentPackageAndRemaining}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}
+    Wait Mobile Until Element Visible    ${lblSubscribeNo}
+    Get Mobile Text    ${lblSubscribeNo}
+    Mobile Capture Screen At Verify Point    Verify Current Package And Remaining Have No Data Roaming Package iOS
+
+
