@@ -396,7 +396,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Type To Data
     Click Continue On Apply Roaming Package Page
     Select First Package In Select Package Page
-    Select Specify Effective Date Specify
+    Select Specify Start Date Button
     Select Subscribe Button
     Verify Dialog Message No Set Start Time
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
@@ -422,7 +422,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Type To Data
     Click Continue On Apply Roaming Package Page
     Select First Package In Select Package Page
-    Select Specify Effective Date Specify
+    Select Specify Start Date Button
     Set Current Date
     Select Subscribe Button
     Verify Dialog Message No Select State
@@ -449,5 +449,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Type To Data
     Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select First Package In Select Package Page iOS
+    Select Immediate Button
+    Select Subscribe Button
+    Select Confirm In Summary Page
     Verify Dialog Message Current AIS Postpaid But Select AIS 12Call
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
