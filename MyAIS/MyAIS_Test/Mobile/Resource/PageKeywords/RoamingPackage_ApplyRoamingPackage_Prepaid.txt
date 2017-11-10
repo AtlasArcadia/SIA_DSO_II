@@ -106,6 +106,13 @@ Select Package Type To Data iOS
     Select package type to    Data
 
 Select Package Type To VoiceAndSMS
+    Run Keyword If    "${ar_OS}"=="Android"    Select Package Type To VoiceAndSMS Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Package Type To VoiceAndSMS iOS
+
+Select Package Type To VoiceAndSMS Android
+    Select package type to    VoiceAndSMS
+
+Select Package Type To VoiceAndSMS iOS
     Select package type to    VoiceAndSMS
 
 Select Detail First Package
@@ -1082,7 +1089,7 @@ Verify Apply Roaming Package Page iOS
     Mobile element name should be    ${btnContinueApplyRoaming}    ${ContinueApplyRoaming}
     Mobile element text should be    ${lblTermAndConditionApplyRoamingPackagePage}    ${TermAndConditionApplyRoamingPackagePage}
 
-verify summary immediate page
+Verify Summary Immediate Page Australia
     Mobile element name should be    ${lblPackageDescriptionSummaryPage}    ${PackageDescriptionSummaryPage}
     Mobile element name should be    ${lblPackagePricePackageSummaryPage}    ${PackagePricePackageSummaryPage}
     Mobile element name should be    ${lblValidityPackageSummaryPage}    ${ValidityPackageSummaryPage}
@@ -1091,4 +1098,15 @@ verify summary immediate page
     Wait Mobile Until Element Visible    ${btnConfirmPackageSummaryPage}
     Wait Mobile Until Element Visible    ${btnEditPackageSummaryPage}
     Wait Mobile Until Element Visible    ${btnCancelPackageSummaryPage}
-    Mobile Capture Screen At Verify Point    Verify In Summary Page
+    Mobile Capture Screen At Verify Point    verify summary immediate page australia
+
+Verify Summary Immediate Page China
+    Mobile element name should be    ${lblPackageDescriptionSummaryPage}    ${NonStopDataRoamZoneB1DayAllNetworksInChinaNameSummaryPage}
+    Mobile element name should be    ${lblPackagePricePackageSummaryPage}    ${NonStopDataRoamZoneB1DayAllNetworksInChinaPriceSummaryPage}
+    Mobile element name should be    ${lblValidityPackageSummaryPage}    ${ValidityPackageSummaryPage}
+    Mobile element name should be    ${lblStartDatePackageSummaryPage}    ${StartDatePackageSummaryPage}
+    Mobile element name should be    ${lblEndDatePackageSummaryPage}    ${EndDatePackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnConfirmPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnEditPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnCancelPackageSummaryPage}
+    Mobile Capture Screen At Verify Point    verify summary immediate page australia
