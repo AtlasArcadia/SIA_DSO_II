@@ -10,7 +10,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -28,7 +28,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select First Package In Select Package Page
     Select Immediate Button
     Select Subscribe Button
-    verify summary immediate page
+    Verify Summary Immediate Page Australia
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_2_2] Subscribe Data Package : Immediate In case : Have only countries
@@ -46,6 +46,17 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To China
+    Select Package Type To Data
+    ${Country}    ${Package}    Get Country Customer And Package Type iOS
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
+    Select First Package In Select Package Page
+    Select Immediate Button
+    Select Subscribe Button
+    Verify Summary Immediate Page China
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_3_2] Subscribe Voice Package : Immediate In case : countries with states
@@ -55,7 +66,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -63,6 +74,17 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    Select Package Type To VoiceAndSMS
+    ${Country}    ${Package}    Get Country Customer And Package Type iOS
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
+    Select First Package In Select Package Page
+    Select Immediate Button
+    Select Subscribe Button
+    Comment    Verify Summary Immediate Page Australia
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_4_2] Subscribe Voice Package : Immediate In case : Have only countries
@@ -72,7 +94,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -80,6 +102,17 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To China
+    Select Package Type To VoiceAndSMS
+    ${Country}    ${Package}    Get Country Customer And Package Type iOS
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
+    Select First Package In Select Package Page
+    Select Immediate Button
+    Select Subscribe Button
+    Comment    Verify Summary Immediate Page China
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_5_2] Subscribe Data Package : FutureIn case : countries with states
@@ -97,6 +130,17 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    Select Package Type To Data
+    ${Country}    ${Package}    Get Country Customer And Package Type iOS
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
+    Select First Package In Select Package Page
+    Select Specify Start Date Button
+    Select Subscribe Button
+    Comment    Verify Summary Immediate Page Australia
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_6_2] Subscribe Data Package : FutureIn case : Have only countries
@@ -114,6 +158,17 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To China
+    Select Package Type To Data
+    ${Country}    ${Package}    Get Country Customer And Package Type iOS
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
+    Select First Package In Select Package Page
+    Select Specify Start Date Button
+    Select Subscribe Button
+    Comment    Verify Summary Immediate Page China
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_7_2] Subscribe Voice Package : FutureIn case : countries with states
@@ -165,6 +220,9 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Verify Apply Roaming Package Page    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_10_2] Apply Roaming Packages Verify page :Package list
@@ -182,6 +240,13 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    Select Package Type To Data
+    ${Country}    ${Package}    Get Country Customer And Package Type iOS
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_11_2] Apply Roaming Packages Verify page : Package Detail
@@ -191,7 +256,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -199,6 +264,14 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Apply Roaming Package Submenu
+    Select Roaming Country To Australia
+    Select Package Type To Data
+    ${Country}    ${Package}    Get Country Customer And Package Type iOS
+    Click Continue On Apply Roaming Package Page
+    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
+    Verify Detail First Package Page    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_12_2] Apply Roaming Packages Verify page : Specify Effective Date (From Package list page)
@@ -224,7 +297,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - วันที่
     ...    - เวลา
     ...    11. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -242,13 +315,13 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_13_2] Apply Roaming Packages Verify page : Specify Effective Date (From Package Detail page)
-    [Documentation]    Owner :
+    [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -266,13 +339,13 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_14_2] Apply Roaming Packages Verify page : Package summary
-    [Documentation]    Owner :
+    [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -292,7 +365,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_15_2] Check Convert time (China only)
-    [Documentation]    Owner :
+    [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
@@ -316,13 +389,13 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_N_16_2] Error : Apply Roaming Packages page (Not select roaming country)
-    [Documentation]    Owner :
+    [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -339,7 +412,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_N_17_2] Error : Apply Roaming Packages page (Not select customer type)
-    [Documentation]    Owner :
+    [Documentation]    ***Owner :
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
@@ -356,13 +429,13 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_N_18_2] Error : Apply Roaming Packages page (Not select package type)
-    [Documentation]    Owner :
+    [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -379,10 +452,10 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_N_19_2] Error : Select Effective Date ( Not select effective date )
-    [Documentation]    Owner :
+    [Documentation]    ***Owner : Lek***
     ...
     ...    TestStep
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -402,7 +475,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_N_22_2] Error : Select Effective Date In case : countries with states
-    [Documentation]    Owner :
+    [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
@@ -429,7 +502,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_N_23_2] Error : Subscribe Package
-    [Documentation]    Owner :
+    [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE

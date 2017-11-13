@@ -15,6 +15,11 @@ Keywords For Teardown
 
 Verify Page Roming Service Rate Not Select Country
     [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Page Roming Service Rate Not Select Country Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Page Roming Service Rate Not Select Country iOS    ${Number}
+
+Verify Page Roming Service Rate Not Select Country Android
+    [Arguments]    ${Number}
     Mobile element name should be    ${lblMobileNumberRoamingServiceRates}    ${Number}
     Mobile element name should be    ${lblVoiceCallRoaming}    ${txtVoiceCallRoaming}    # Voice Call Roaming
     Mobile element name should be    ${lblVoiceCallRoamingPleaseSelect}    ${txtVoiceCallRoamingPleaseSelectCountry}    # Please select country and customer type
@@ -28,7 +33,27 @@ Verify Page Roming Service Rate Not Select Country
     Mobile element name should be    ${lblCondition}    ${txtCondition}    #Condition
     Mobile Capture Screen At Verify Point    Verify Roaming Service Rate
 
+Verify Page Roming Service Rate Not Select Country iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblVoiceCallRoaming}
+    Mobile element text should be    ${lblHeaderRoamingServiceRates}     ${HeaderRoamingServiceRates}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberRoamingServiceRates}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblVoiceCallRoaming}    ${VoiceCallRoaming}
+    Mobile element text should be    ${lblVoiceCallRoamingPleaseSelect}     ${VoiceCallRoamingPleaseSelectCountry}
+    Mobile element text should be    ${lblSMSRoaming}    ${SMSRoaming}
+    Mobile element text should be    ${lblSMSAndDataRoamingPleaseSelect}     ${SMSRoamingPleaseSelectCountry}
+    Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${GreatSavingRoamingPackages}
+    Mobile Capture Screen At Verify Point    Verify In Page Roaming Service Rate Not Select Country
+
 Verify Roaming Service Rate With Select Country
+    [Arguments]    ${Country}    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Roaming Service Rate With Select Country Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Roaming Service Rate With Select Country iOS    ${Country}    ${Number}
+
+Verify Roaming Service Rate With Select Country Android
     [Arguments]    ${Number}
     Mobile element name should be    ${lblMobileNumberRoamingServiceRates}    ${Number}    #Mobile Number
     Mobile element name should be    ${lblVoiceCallRoaming}    ${txtVoiceCallRoaming}    #Voice Call Roaming
@@ -43,7 +68,58 @@ Verify Roaming Service Rate With Select Country
     Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${txtGreatSavingRoamingPackages}    #Great Saving Roaming Packages
     Mobile Capture Screen At Verify Point    Verify Roaming Service Rate Case Select Country
 
+Verify Roaming Service Rate With Select Country iOS
+    [Arguments]    ${Country}    ${Number}
+    Wait Mobile Until Element Visible    ${lblVoiceCallRoaming}
+    Mobile element text should be    ${lblHeaderRoamingServiceRates}     ${HeaderRoamingServiceRates}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberRoamingServiceRates}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblVoiceCallRoaming}    ${VoiceCallRoaming}
+    Mobile element text should be    ${lblVoiceCallRoamingLocalCall}    ${LocalCall}
+    Mobile element text should be    ${lblVoiceCallRoamingCallToThailand}    ${CallToThailand}
+    Mobile element text should be    ${lblVoiceCallRoamingCallToOtherCountry}    ${CallToOtherCountry}
+    Mobile element text should be    ${lblVoiceCallRoamingReceivingCall}    ${ReceivingCall}
+    Mobile element text should be    ${lblValueVoiceCallRoamingLocalCall}    ${${Country}VoiceCallRoamingLocalCall}
+    Mobile element text should be    ${lblValueVoiceCallRoamingCallToThailand}    ${${Country}VoiceCallRoamingCallToThailand}
+    Mobile element text should be    ${lblValueVoiceCallRoamingCallToOtherCountry}    ${${Country}VoiceCallRoamingCallToOtherCountry}
+    Mobile element text should be    ${lblValueVoiceCallRoamingReceivingCall}    ${${Country}VoiceCallRoamingReceivingCall}
+    Mobile element text should be    ${lblSMSRoaming}    ${SMSRoaming}
+    Mobile element text should be    ${lblDataRoaming}    ${DataRoaming}
+    Mobile element text should be    ${lblValueSmsRoaming}    ${${Country}SmsRoaming}
+    Mobile element text should be    ${lblValueDataRate}    ${${Country}DataRate}
+    Mobile element text should be    ${lblValueDataRateMinimum}    ${${Country}DataRateMinimum}
+    Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${GreatSavingRoamingPackages}
+    Mobile Capture Screen At Verify Point    Verify In Page Roaming Service Rate With Select Country Australia
+
+Select Country To Australia
+    Run Keyword If    "${ar_OS}"=="Android"    Select Country To Australia Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Country To Australia iOS
+
+Select Country To Australia Android
+    Select Country    Australia
+
+Select Country To Australia ios
+    Select Country    Australia
+
+Select Country To Cameroon
+    Run Keyword If    "${ar_OS}"=="Android"    Select Country To Cameroon Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Country To Cameroon iOS
+
+Select Country To Cameroon Android
+    Select Country    Cameroon
+
+Select Country To Cameroon ios
+    Select Country    Cameroon
+
+
 Select Country
+    [Arguments]    ${CountryName}
+    Run Keyword If    "${ar_OS}"=="Android"    Select Country Android    ${CountryName}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Country iOS    ${CountryName}
+
+Select Country Android
     [Arguments]    ${CountryName}
     Click Mobile Element    ${ddlChooseCountryRoamingServiceRates}
     Swipe to element    ${ddlCountry${CountryName}}    screen    up    0.4    100
@@ -52,9 +128,20 @@ Select Country
     log    ${countryName}
     [Return]    ${countryName}
 
+Select Country iOS
+    [Arguments]    ${Country}
+    Click Mobile Element    ${ddlChooseCountryRoamingServiceRates}
+    Input Mobile Text    ${cboServiceRateCountrySearch}     ${${Country}}
+    Click Mobile Element    ${item${Country}CountryRoamingServiceRatePage}
+
 Verify Apply Roaming Package Page
-    [Arguments]    ${CountryName}    ${CustomerType}    ${MobileNumber}
-    Mobile element name should be    ${lblMobileNumberApplyRoamingPackage}    ${MobileNumber}    #Mobile Number
+    [Arguments]    ${CountryName}    ${Number}    ${CustomerType}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Apply Roaming Package Page Android    ${CountryName}    ${Number}    ${CustomerType}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Apply Roaming Package Page iOS    ${CountryName}    ${Number}
+
+Verify Apply Roaming Package Page Android
+    [Arguments]    ${CountryName}    ${Number}    ${CustomerType}
+    Mobile element name should be    ${lblMobileNumberApplyRoamingPackage}    ${Number}    #Mobile Number
     Mobile element name should be    ${lblRoamingCountry}    ${txtRoamingCountry}    #Roaming Country
     Mobile element name should be    ${ddlApplyRoamingCountry}    ${CountryName}    #Country Name
     Mobile element name should be    ${lblCustomerType}    ${txtCustomerType}    #Customer type
@@ -63,6 +150,22 @@ Verify Apply Roaming Package Page
     Mobile element name should be    ${ddlApplyRoamingPackageType}    ${txtPleaseSelect}    #Please Select
     Mobile element name should be    ${btnContinue}    ${txtContinue}    #Continue
     Mobile element name should be    ${lblCondition}    ${txtCondition}    #Condition
+    Mobile Capture Screen At Verify Point    Verify Apply Roaming Page
+
+Verify Apply Roaming Package Page iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblRoamingCountryApplyRoamingPackagePage}
+    Mobile element text should be    ${HeaderApplyRoamingPackagePage}     ${ApplyRoamingPackagePage}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberRoamingServiceRates}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblRoamingCountryApplyRoamingPackagePage}    ${RoamingCountryApplyRoamingPackagePage}
+    Mobile element name should be    ${ddlRoamingCountryApplyRoamingPackagePage}    ${CameroonRoamingCountryApplyRoamingPackagePage}
+    Mobile element text should be    ${lblPackageTypeApplyRoamingPackagePage}    ${PackageTypeApplyRoamingPackagePage}
+    Mobile element name should be    ${ddlPackageTypeApplyRoamingPackagePage}     ${PleaseSelectPackageTypeApplyRoamingPackagePage}
+    Mobile element name should be    ${btnContinueApplyRoaming}    ${ContinueApplyRoaming}
+    Mobile element text should be    ${lblTermAndConditionApplyRoamingPackagePage}    ${TermAndConditionApplyRoamingPackagePage}
     Mobile Capture Screen At Verify Point    Verify Apply Roaming Page
 
 Click Great Saving Roaming Packages Button
@@ -124,6 +227,11 @@ Verify Please Select Start Date After Current Date
 
 Verify Page Roming Service Rate
     [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Page Roming Service Rate Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Page Roming Service Rate iOS    ${Number}
+
+Verify Page Roming Service Rate Android
+    [Arguments]    ${Number}
     Mobile element name should be    ${lblMobileNumberRoamingServiceRates}    ${Number}
     Mobile element name should be    ${lblVoiceCallRoaming}    ${txtVoiceCallRoaming}    # Voice Call Roaming
     Mobile element name should be    ${lblVoiceCallRoamingPleaseSelect}    ${txtVoiceCallRoamingPleaseSelectCountry}    # Please select country and customer type
@@ -136,3 +244,38 @@ Verify Page Roming Service Rate
     Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${txtGreatSavingRoamingPackages}    # Great Saving Roaming Packages
     Mobile element name should be    ${lblCondition}    ${txtCondition}    #Condition
     Mobile Capture Screen At Verify Point    Verify Roaming Service Rate
+
+Verify Page Roming Service Rate iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblVoiceCallRoaming}
+    Mobile element text should be    ${lblHeaderRoamingServiceRates}     ${HeaderRoamingServiceRates}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblVoiceCallRoaming}    ${VoiceCallRoaming}
+    Mobile element text should be    ${lblVoiceCallRoamingPleaseSelect}     ${VoiceCallRoamingPleaseSelectCountry}
+    Mobile element text should be    ${lblSMSRoaming}    ${SMSRoaming}
+    Mobile element text should be    ${lblSMSAndDataRoamingPleaseSelect}     ${SMSRoamingPleaseSelectCountry}
+    Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${GreatSavingRoamingPackages}
+    Mobile Capture Screen At Verify Point    Verify In Page Roaming Service Rate
+
+Select Package Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Package Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Package Menu iOS
+
+Select Package Menu Android
+    Select Menu    Package
+
+Select Package Menu iOS
+    Select Menu    Package
+
+Select Roaming Service Rate Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Roaming Service Rate Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Roaming Service Rate Submenu iOS
+
+Select Roaming Service Rate Submenu Android
+    Select Sub Menu    RoamingServiceRates
+
+Select Roaming Service Rate Submenu iOS
+    Select Sub Menu    RoamingServiceRates

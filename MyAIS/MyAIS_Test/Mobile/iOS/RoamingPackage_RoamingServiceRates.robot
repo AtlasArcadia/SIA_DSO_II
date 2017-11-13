@@ -4,7 +4,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
 
 *** Test Cases ***
 [F9_Package_IOS_1,3_1-2_Y_1_2] Check Roaming Service RatesIn case : Not select country
-    [Documentation]    Owner :
+    [Documentation]    Owner :****Lek****
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
@@ -18,10 +18,13 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Roaming Service Rate Submenu
+    Verify Page Roming Service Rate Not Select Country    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F9_Package_IOS_1,3_1-2_Y_2_2] Check Roaming Service RatesIn case : Select country
-    [Documentation]    Owner :
+    [Documentation]    Owner :****Lek****
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
@@ -35,10 +38,14 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Roaming Service Rate Submenu
+    Select Country To Cameroon
+    Verify Roaming Service Rate With Select Country    Cameroon    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F9_Package_IOS_1,3_1-2_Y_3_2] Go to Apply Roaming Packages page
-    [Documentation]    Owner :
+    [Documentation]    Owner :****Lek****
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
@@ -52,6 +59,12 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Roaming Service Rate Submenu
+    Select Country To Cameroon
+    Verify Roaming Service Rate With Select Country    Cameroon    ${Number}
+    Click Great Saving Roaming Packages Button
+    Verify Apply Roaming Package Page iOS    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F9_Package_IOS_1,3_1-2_Y_4_2] Check Roaming Service RatesIn Case: เลือก วัน/เวลา เดียวกันกับที่สมัคร
