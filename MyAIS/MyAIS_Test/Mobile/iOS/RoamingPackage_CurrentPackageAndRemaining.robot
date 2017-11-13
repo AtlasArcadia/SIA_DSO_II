@@ -20,7 +20,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemai
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    CurrentPackageAndRemaining
-    Verify Current Package Have Remaining Usage
+    Verify Current Package Have Remaining Usage    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F7_Package_IOS_1,3_1-2_Y_2_2] Check current package In case : Don’t have Remaining usage

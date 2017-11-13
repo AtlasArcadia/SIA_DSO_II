@@ -271,7 +271,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ${Country}    ${Package}    Get Country Customer And Package Type iOS
     Click Continue On Apply Roaming Package Page
     Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
-    Verify Detail First Package Page    ${Number}
+    Select Detail First Package
+    Verify Detail First Package Page    ${Number}    ${Country}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_12_2] Apply Roaming Packages Verify page : Specify Effective Date (From Package list page)
@@ -335,6 +336,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Type To Data
     Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select Detail First Package
+    Next Detail First Package
     Verify Detail First Package Page    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
