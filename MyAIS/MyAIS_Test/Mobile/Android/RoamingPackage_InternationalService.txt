@@ -19,7 +19,6 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.t
     ...    - เบอร์โทรศัพท์
     ...    - บริการข้ามแดนอัตโนมัติ (IR)
     ...    5. จับภาพหน้าจอ
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -34,6 +33,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.t
     Mobile element text should be    ${lblHeaderInternationalService}    ${HeaderInternationalService}
     Mobile element text should be    ${lblInternationalRoamingService}    ${InternationalRoamingService}
     Mobile Capture Screen At Verify Point    International Services Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F10_Package_1_1,3_Y_2_2]Verify PopUp open International Roaming Service mode
     [Documentation]    **Owner:Chompoo**
@@ -49,7 +49,6 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.t
     ...    4. กดเปิดใช้งาน "บริการข้ามแดนอัตโนมัติ (IR)"
     ...    5. ตรวจสอบ popup message "xxx"
     ...    6. จับภาพหน้าจอ
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -62,7 +61,15 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.t
     Click Mobile Element    ${lblInternationalServices}
     Switch International service Mode    On
     Mobile element text should be    ${lblPopupmessageInternationalRoamingService}    ${PopupmessageOpenInternationalRoamingService}
-    Click Mobile Element    ${btnPopupSubmitInternationalRoamingService}
+    Comment    : FOR    ${Index}    IN RANGE    1    100
+    Comment    \    Switch International service Mode    On
+    Comment    \    Mobile element text should be    ${lblPopupmessageInternationalRoamingService}    ${PopupmessageOpenInternationalRoamingService}
+    Comment    \    ${Text}=    Get mobile text    ${lblPopupmessageInternationalRoamingService}
+    Comment    \    Run Keyword If    '${PopupmessageOpenInternationalRoamingService}'!="""${Text}"""    Click Mobile Element    ${btnPopupSubmitInternationalRoamingService}
+    ...    ELSE    Exit For Loop
+    sleep    60
+    Mobile Capture Screen At Verify Point    Verify Pop up
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F10_Package_1_1,3_Y_3_2]Verify PopUp close International Roaming Service mode
     [Documentation]    **Owner:Chompoo**
@@ -80,7 +87,6 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.t
     ...    6. กดปิดใช้งาน "บริการข้ามแดนอัตโนมัติ (IR)"
     ...    7. ตรวจสอบ popup message "xxx"
     ...    8. จับภาพหน้าจอ
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -94,7 +100,10 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.t
     Switch International service Mode    On
     Mobile element text should be    ${lblPopupmessageInternationalRoamingService}    ${PopupmessageOpenInternationalRoamingService}
     Click Mobile Element    ${btnPopupSubmitInternationalRoamingService}
-    sleep    15
+    sleep    60
+    Click Mobile Element    //*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_toolbar_simple_btn_back"]
     Switch International service Mode    Off
+    Click Mobile Element    ${lblInternationalServices}
     Mobile element text should be    ${lblPopupmessageInternationalRoamingService}    ${PopupmessageCloseInternationalRoamingService}
-    Click Mobile Element    ${btnPopupSubmitInternationalRoamingService}
+    Mobile Capture Screen At Verify Point    Verify Pop up
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
