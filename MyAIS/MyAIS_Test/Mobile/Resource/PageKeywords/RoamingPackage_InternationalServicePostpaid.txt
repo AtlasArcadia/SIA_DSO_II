@@ -17,10 +17,10 @@ Switch InternationalCall Service mode
     Run Keyword If    ('${Switch}'=='On') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchInternationalCallService}
     Run Keyword If    ('${Switch}'=='Off') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchInternationalCallService}
 
-Keywords For TearDown
+Keywords For Teardown
     [Arguments]    ${#dict_device_name}
     Run Keyword If Test Failed    Capture Screen with Specific name
-    Comment    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
     Run Keyword And Ignore Error    Logout
-    Run Keyword And Continue On Failure    Close Application
+    Run Keyword And Ignore Error    Close Application
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}

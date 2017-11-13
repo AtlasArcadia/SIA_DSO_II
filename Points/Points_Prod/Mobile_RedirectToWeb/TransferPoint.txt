@@ -293,11 +293,14 @@ Resource          Resource/PageKeywords/TransferPoint.txt
     Select Point Menu
     Close Dialog PopUp SSL Certificate Error
     Select Icon    TransferPoint
-    Select Card    TheOneCard
-    Click Mobile Element    ${imgTheOneCard}
-    Swipe element to specific area    xpath=//android.widget.Button[@index="3"]
+    #Select Card    TheOneCard
+    Wait Mobile Until Page Contains Element    xpath=//*[@text="PointTransfer_02052017_171128_125fc76"]
+    Click Mobile Element    xpath=//*[@text="PointTransfer_02052017_171128_125fc76"]
+    sleep    5s
+    Swipe element to specific area    ${btnTransferPoints}
     Click Transfer Point Button
     Verify term and condition    TheOneCard
+    Comment    Mobile Capture Screen At Verify Point    Test
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F11D_Priv_1-5_1-2_Y_7_2] Verify transfer point case not select term and condition
