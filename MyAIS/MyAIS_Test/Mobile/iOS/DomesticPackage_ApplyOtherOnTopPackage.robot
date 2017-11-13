@@ -28,6 +28,9 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu from Package    ApplyOtherOnTopPackages
+    Verify page Apply Other OnTop Package    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1-3_1-2_Y_2_2] Verify page Apply Other OnTop Package menu: Talk & Net OnTop Package

@@ -296,25 +296,25 @@ Verify Page Menu Package
 
 Verify Page Menu Package iOS
     comment    Header "แพ็กเกจในประเทศ"
-    Mobile element text should be    ${lblDomesticPackage}    ${HeadCurrentPackageAndService}
+    Mobile element text should be    ${lblDomesticPackage}    ${DomesticPackage}
     comment    แพ็กเกจปัจจุบันของคุณ
-    Mobile element text should be    ${subMnuCurrentPackage}    ${DomesticPackage}
+    Mobile element text should be    ${subMnuCurrentPackage}    ${CurrentPackage}
     comment    สมัครแพ็กเกจเสริมอินเทอร์เน็ต
     Mobile element text should be    ${subMnuApplyInternetOnTopPackages}    ${ApplyInternetOnTopPackage}
     comment    สมัครแพ็กเสริมอื่นๆ
     Mobile element text should be    ${subMnuApplyOtherOnTopPackages}    ${ApplyOtherOnTopPackage}
     comment    เปลี่ยนแพ็กเสริมหลัก
-    #Mobile element text should be    ${btnChangePricePlan}     ${ChangePricePlan}
+    Mobile element text should be    ${btnChangePricePlan}     ${ChangePricePlan}
     comment    Header "แพ็กเกจโรมมิ่ง"
     Mobile element text should be    ${lblRoamingPackage}    ${RoamingPackage}
     comment    แพ็กเกจปัจจุบัน/ยอดคงเหลือ
     Mobile element text should be    ${subMnuCurrentPackageRoaming}    ${CurrentPackageRoaming}
     comment    สมัครแพ็กเกจโรมมิ่ง
-    Mobile element text should be    ${subMnuApplyRoamingPackage}    ${ApplyRoamingPackage}    #สมัครแพ็กเกจโรมมิ่ง
+    Mobile element text should be    ${subMnuApplyRoamingPackage}    ${ApplyRoamingPackage}
     comment    อัตราค่าบริการโรมมิ่ง
-    Mobile element text should be    ${subMnuRoamingServiceRates}    ${RoamingServiceRates}    #อัตราค่าบริการโรมมิ่ง
+    Mobile element text should be    ${subMnuRoamingServiceRates}    ${RoamingServiceRates}
     comment    บริการระหว่างประเทศ
-    Mobile element text should be    ${subMnuInternationalRoaming}    ${InternationalService}    #บริการระหว่างประเทศ
+    Mobile element text should be    ${subMnuInternationalService}    ${InternationalService}
     comment    รูปถ่าย
     Mobile Capture Screen At Verify Point    Verify Page Menu Package
 
@@ -324,7 +324,7 @@ Verify Page Current Package Main Package Only
 
 Verify Page Current Package Main Package Only iOS
     [Arguments]    ${Number}
-    Sleep    15
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}    120
     comment    หมายเลขโทรศัพท์
     Mobile element number should be    ${lblMobileNumber}    ${Number}
     comment    แถบ "แพ็กเกจหลัก"
@@ -335,6 +335,62 @@ Verify Page Current Package Main Package Only iOS
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
     comment    บริการเสริม
     Mobile element text should be    ${lblHeadValueAddService}    ${ValueAddService}
+    comment    เงื่อนไขบริการ
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    comment    รูปถ่าย
+    Mobile Capture Screen At Verify Point    Verify Page Current Package Main Package Only
+
+Verify Page Current Package Main One On Top package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Page Current Package Main One On Top package iOS    ${Number}
+
+Verify Page Current Package Main One On Top package iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}    120
+    comment    หมายเลขโทรศัพท์
+    Mobile element number should be    ${lblMobileNumber}    ${Number}
+    comment    แถบ "แพ็กเกจหลัก"
+    Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
+    comment    Verify ว่ามี Main pack
+    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage}
+    comment    ปุ่ม "เปลียนแพ็กหลัก"
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
+    Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
+    comment    แถบ "แพ็กเกจ Internet"
+    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    comment    Verify ว่ามี On-Top Pack
+    Wait Mobile Until Page Contains Element    ${lblInternetPackageOneOnTopPage}
+    comment    ปุ่ม "สมัครแพ็กเสริม"
+    Wait Mobile Until Page Contains Element    ${btnApplyPackage}
+    comment    เงื่อนไขบริการ
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    comment    รูปถ่าย
+    Mobile Capture Screen At Verify Point    Verify Page Current Package Main Package Only
+
+Verify Page Current Package Main Two On Top package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Page Current Package Main Two On Top package iOS    ${Number}
+
+Verify Page Current Package Main Two On Top package iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}    120
+    comment    หมายเลขโทรศัพท์
+    Mobile element number should be    ${lblMobileNumber}    ${Number}
+    comment    แถบ "แพ็กเกจหลัก"
+    Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
+    comment    Verify ว่ามี Main pack
+    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage}
+    comment    ปุ่ม "เปลียนแพ็กหลัก"
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
+    Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
+    comment    แถบ "แพ็กเกจ Internet"
+    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    comment    Verify ว่ามี On-Top Pack   1
+    Wait Mobile Until Page Contains Element    ${lblInternetPackageOneOnTopPage}
+    comment    Verify ว่ามี On-Top Pack   2
+    Wait Mobile Until Page Contains Element    ${lblInternetPackageTwoOnTopPage}
+    comment    ปุ่ม "สมัครแพ็กเสริม"
+    Wait Mobile Until Page Contains Element    ${btnApplyPackage}
     comment    เงื่อนไขบริการ
     Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
     comment    รูปถ่าย
