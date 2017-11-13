@@ -112,6 +112,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
+
     ...    1. เข้าสู่ระบบ My AIS
     ...    2. กดเมนู "แพ็กเกจ"
     ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
@@ -137,6 +139,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    13. Capture screen
     [Tags]    TH    EN    active    success    3PE    3BE
     ...    Onhold
+
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -164,6 +167,9 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+
+    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
+
     ...    1. เข้าสู่ระบบ My AIS
     ...    2. กดเมนู "แพ็กเกจ"
     ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
@@ -189,6 +195,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    13. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     ...    Onhold
+
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -478,6 +485,9 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
+
     ...    1. เข้าสู่ระบบ My AIS
     ...    2. กดเมนู "แพ็กเกจ"
     ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
@@ -497,6 +507,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    11. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     ...    demo
+
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
