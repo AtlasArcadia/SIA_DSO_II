@@ -72,13 +72,35 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_5_2] Apply Other OnTop PackageIn case : Talk & Net OnTop Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมโทรและเน็ต"
+    ...    5. เลือกแพ็กเกจที่ 1
+    ...    6. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 6.)
+    ...    - รายละเอียดแพ็กเกจ
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    7. กดปุ่ม "ต่อไป"
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 6.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
+    ...    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -95,13 +117,41 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_6_2] Apply Other OnTop PackageIn case : Internet OnTop Package - Entertainment
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    Reject
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    5. เลือก "Entertainment"
+    ...    6. ตรวจสอบรายการ "Entertainment"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจที่ 1
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. จับภาพหน้าจอ
+    [Tags]    TH    EN    active    success    3PE    3BE
+    ...    Reject
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -114,12 +164,39 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_7_2] Apply Other OnTop PackageIn case : Internet OnTop Package - OneTime OnTop Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    5. เลือก "แบบรายครั้ง"
+    ...    6. ตรวจสอบรายการ "แบบรายครั้ง"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจที่ 1
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -138,12 +215,39 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_8_2] Apply Other OnTop PackageIn case : Internet OnTop Package - Monthly OnTop Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    5. เลือก "แบบรายเดือน"
+    ...    6. ตรวจสอบรายการ "แบบรายเดือน"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจที่ 1
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -162,12 +266,39 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_9_2] Apply Other OnTop PackageIn case : Internet OnTop Package - WiFi
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมอินเทอร์เน็ต"
+    ...    5. เลือก "WiFi"
+    ...    6. ตรวจสอบรายการ "WiFi"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจที่ 1
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11.จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -186,12 +317,39 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_10_2] Apply Other OnTop PackageIn case : Talk OnTop Package - Buffet OnTop Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมสำหรับโทร"
+    ...    5. เลือก "แบบบุฟเฟ่ต์"
+    ...    6. ตรวจสอบรายการ "แบบบุฟเฟ่ต์"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจ (First package)
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -210,13 +368,40 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_1,3_1-2_Y_11_2] Apply Other OnTop PackageIn case : Talk OnTop Package - Minutes OnTop Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    ...    '1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก "แพ็กเกจเสริมสำหรับโทร"
+    ...    5. เลือก "แบบนาที"
+    ...    6. ตรวจสอบรายการ "แบบนาที"
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจที่ xx
+    ...    7. เลือกแพ็กเกจ (First package)
+    ...    8. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 1
+    ...    - หมายเลขโทรศัพท์
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - รายละเอียดแพ็กเกจ
+    ...    - ปุ่ม "ต่อไป"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    9. กดปุ่ม "ต่อไป"
+    ...    10. ตรวจสอบหน้า สมัครแพ็กเกจเสริมอื่นๆ ขั้นตอนที่ 2
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจ (เช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8.)
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - ปุ่ม "กลับ"
+    ...    -เงื่อนไขบริการ
+    ...    11. จับภาพหน้าจอ
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

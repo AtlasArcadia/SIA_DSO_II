@@ -402,20 +402,21 @@ Verify PTT And The One Card
     Mobile Capture Screen At Verify Point    detail 2
 
 Verify the one card
-    Swipe element to specific area    ${imgTheOneCard}
-    Swipe element to specific area    ${txtTitleTheOneCard}
+    Comment    Swipe element to specific area    ${imgTheOneCard}
+    Swipe element to specific area    ${txtTitleTheOneCard}    ratio=0.25    Round=3
     sleep    5
     Wait Mobile Until Element Visible    ${imgTheOneCard}
-    Mobile element name should be    ${txtTitleTheOneCard}    ${TheOneCardTitle}
-    Mobile element name should be    ${txtSubTitleTheOneCard}    ${TheOneCardSubTitle1}
-    sleep    5
+    Mobile element text should be    ${txtTitleTheOneCard}    ${TheOneCardTitle}
+    Comment    Mobile element text should be    //*[@text="โอนกันได้ แลกง่ายขึ้น คะแนน AIS Points โอนเป็นคะแนน The 1 Card ได้ง่ายๆ AIS Points 100 คะแนน = The 1 Card 800 คะแนน"]    ${TheOneCardSubTitle1}
+    Comment    sleep    5
     Click Mobile Element    ${imgTheOneCard}    #//*[@resource-id="point_holder"]/android.view.View[@index="3"]    #เลือกการ์ด
-    Wait Mobile Until Element Visible    ${imgTheOneCard}
-    Mobile element name should be    ${txtTitleTheOneCardPage}    ${TheOneCardTitle}
-    Swipe element to specific area    ${txtSubTitleTheOneCardPage}
-    Mobile check existing text in name    ${txtSubTitleTheOneCardPage}
-    Mobile check existing text in name    ${txtTheOneCardDetail}
-    Swipe element to specific area    ${btnBack}
+    Comment    Wait Mobile Until Element Visible    ${imgTheOneCard}
+    Comment    Mobile element text should be    ${txtTitleTheOneCardPage}    ${TheOneCardTitle}
+    Comment    Swipe element to specific area    ${txtSubTitleTheOneCardPage}    ratio=0.25    Round=3
+    Comment    Mobile check existing text in name    ${txtSubTitleTheOneCardPage}
+    Comment    Mobile check existing text in name    ${txtTheOneCardDetail}
+    Swipe element to specific area    xpath=//android.widget.Button[@index="3"]
+    Comment    Swipe element to specific area    //*[@resource-id="point_holder"]/android.view.View[@index="0"]/android.view.View[@index="1"]//android.view.View[@index="2"]/android.widget.Button[@index="0"]    ratio=0.25    Round=3
     Wait Mobile Until Element Visible    ${btnBack}    #verปุ่มกลับ
     Wait Mobile Until Element Visible    ${btnTransferPoint}    #verปุ่มโอน
     Mobile check existing text in name    ${txtTheOneCardTermAndCondition}
@@ -531,5 +532,5 @@ Verify contain PTT Blue Card
 Verify contain TheOne Card
     sleep    5s
     Wait Mobile Until Element Visible    ${imgTheOneCard}
-    Swipe element to specific area    ${imgTheOneCard}    ratio=0.1
+    Swipe element to specific area    ${imgTheOneCard}    #ratio=0.1
     Mobile Capture Screen At Verify Point    TheOneCard
