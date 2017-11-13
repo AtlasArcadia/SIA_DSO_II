@@ -4,12 +4,35 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
 
 *** Test Cases ***
 [F8_Package_IOS_1,3_1-2_Y_1_2] Subscribe Data Package : Immediate In case : countries with states
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" (eg. ออสเตรเลีย)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (ดาต้า)
+    ...    7. กดปุ่ม "ดำเนินการต่อ"
+    ...    8. ตรวจสอบหน้า "รายการแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศ
+    ...    - ประเภทลูกค้า (auto detect)
+    ...    - ประเภทแพ็กเกจ
+    ...    - รายการแพ็กเกจ
+    ...    9. เลือก แพ็กเกจที่ 1
+    ...    10. เลือก "เริ่มใช้งานทันที" (radio button)
+    ...    11. กดปุ่ม "สมัครแพ็ก"
+    ...    12. ตรวจสอบหน้า "สรุปการสมัครแพ็กเกจ"
+    ...    - ชื่อแพ็กเกจ
+    ...    - ราคา
+    ...    - จำนวนวันใช้งาน(วัน)
+    ...    - แพ็กเกจเริ่มต้นวันที่
+    ...    - แพ็กเกจสิ้นสุดวันที่
+    ...    13. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -32,12 +55,35 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_2_2] Subscribe Data Package : Immediate In case : Have only countries
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" (eg. จีน)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (ดาต้า)
+    ...    7. กดปุ่ม "ดำเนินการต่อ"
+    ...    8. ตรวจสอบหน้า "รายการแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศ
+    ...    - ประเภทลูกค้า (auto detect)
+    ...    - ประเภทแพ็กเกจ
+    ...    - รายการแพ็กเกจ
+    ...    9. เลือก แพ็กเกจที่ 1
+    ...    10. เลือก "เริ่มใช้งานทันที" (radio button)
+    ...    11. กดปุ่ม "สมัครแพ็ก"
+    ...    12. ตรวจสอบหน้า "สรุปการสมัครแพ็กเกจ"
+    ...    - ชื่อแพ็กเกจ
+    ...    - ราคา
+    ...    - จำนวนวันใช้งาน(วัน)
+    ...    - แพ็กเกจเริ่มต้นวันที่
+    ...    - แพ็กเกจสิ้นสุดวันที่
+    ...    13. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -60,13 +106,37 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_3_2] Subscribe Voice Package : Immediate In case : countries with states
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" (eg. ออสเตรเลีย)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (โทรออกและส่งSMS)
+    ...    7. กดปุ่ม "ดำเนินการต่อ"
+    ...    8. ตรวจสอบหน้า "รายการแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศ
+    ...    - ประเภทลูกค้า (auto detect)
+    ...    - ประเภทแพ็กเกจ
+    ...    - รายการแพ็กเกจ
+    ...    9. เลือก แพ็กเกจที่ 1
+    ...    10. เลือก "เริ่มใช้งานทันที" (radio button)
+    ...    11. กดปุ่ม "สมัครแพ็ก"
+    ...    12. ตรวจสอบหน้า "สรุปการสมัครแพ็กเกจ"
+    ...    - ชื่อแพ็กเกจ
+    ...    - ราคา
+    ...    - จำนวนวันใช้งาน(วัน)
+    ...    - แพ็กเกจเริ่มต้นวันที่
+    ...    - แพ็กเกจสิ้นสุดวันที่
+    ...    13. Capture screen
+    [Tags]    TH    EN    active    success    3PE    3BE
+    ...    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -88,13 +158,37 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_4_2] Subscribe Voice Package : Immediate In case : Have only countries
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" \ (eg. ญี่ปุ่น)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (โทรออกและส่งSMS)
+    ...    7. กดปุ่ม "ดำเนินการต่อ"
+    ...    8. ตรวจสอบหน้า "รายการแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศ
+    ...    - ประเภทลูกค้า (auto detect)
+    ...    - ประเภทแพ็กเกจ
+    ...    - รายการแพ็กเกจ
+    ...    9. เลือก แพ็กเกจที่ 1
+    ...    10. เลือก "เริ่มใช้งานทันที" (radio button)
+    ...    11. กดปุ่ม "สมัครแพ็ก"
+    ...    12. ตรวจสอบหน้า "สรุปการสมัครแพ็กเกจ"
+    ...    - ชื่อแพ็กเกจ
+    ...    - ราคา
+    ...    - จำนวนวันใช้งาน(วัน)
+    ...    - แพ็กเกจเริ่มต้นวันที่
+    ...    - แพ็กเกจสิ้นสุดวันที่
+    ...    13. จับภาพหน้าจอ
+    [Tags]    TH    EN    active    success    3PE    3BE
+    ...    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -116,12 +210,38 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_5_2] Subscribe Data Package : FutureIn case : countries with states
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" (eg. ออสเตรเลีย)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (ดาต้า)
+    ...    7. กดปุ่ม "ดำเนินการต่อ"
+    ...    8. ตรวจสอบหน้า "รายการแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศ
+    ...    - ประเภทลูกค้า (auto detect)
+    ...    - ประเภทแพ็กเกจ
+    ...    - รายการแพ็กเกจ
+    ...    9. \ เลือก แพ็กเกจที่ 1
+    ...    10. เลือก "กำหนดวันเริ่มใช้งานล่วงหน้า(ไม่เกิน 30 วัน)" (radio button)
+    ...    11. เลือก "วันที่" เลือกใช้งานแพ็กเกจ
+    ...    12. เลือก "เวลา" เลือกใช้งานแพ็กเกจ
+    ...    13. เลือก "รัฐ/เมือง" (Victoria)
+    ...    14. กดปุ่ม "สมัครแพ็ก"
+    ...    15. ตรวจสอบหน้า "สรุปการสมัครแพ็กเกจ"
+    ...    - ชื่อแพ็กเกจ
+    ...    - ราคา
+    ...    - จำนวนวันใช้งาน(วัน)
+    ...    - แพ็กเกจเริ่มต้นวันที่
+    ...    - แพ็กเกจสิ้นสุดวันที่
+    ...    16. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -144,12 +264,37 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_6_2] Subscribe Data Package : FutureIn case : Have only countries
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" (eg. จีน)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (ดาต้า)
+    ...    7. กดปุ่ม "ดำเนินการต่อ"
+    ...    8. ตรวจสอบหน้า "รายการแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศ
+    ...    - ประเภทลูกค้า (auto detect)
+    ...    - ประเภทแพ็กเกจ
+    ...    - รายการแพ็กเกจ
+    ...    9. เลือก แพ็กเกจที่ 1
+    ...    10. เลือก "กำหนดวันเริ่มใช้งานล่วงหน้า(ไม่เกิน 30 วัน)" (radio button)
+    ...    11. เลือก "วันที่" เลือกใช้งานแพ็กเกจ
+    ...    12. เลือก "เวลา" เลือกใช้งานแพ็กเกจ
+    ...    13. กดปุ่ม "สมัครแพ็ก"
+    ...    14. ตรวจสอบหน้า "สรุปการสมัครแพ็กเกจ"
+    ...    - ชื่อแพ็กเกจ
+    ...    - ราคา
+    ...    - จำนวนวันใช้งาน(วัน)
+    ...    - แพ็กเกจเริ่มต้นวันที่
+    ...    - แพ็กเกจสิ้นสุดวันที่
+    ...    15. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -172,12 +317,38 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_7_2] Subscribe Voice Package : FutureIn case : countries with states
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" (eg. ออสเตรเลีย)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (โทรออกและส่งSMS)
+    ...    7. กดปุ่ม "ดำเนินการต่อ"
+    ...    8. ตรวจสอบหน้า "รายการแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศ
+    ...    - ประเภทลูกค้า (auto detect)
+    ...    - ประเภทแพ็กเกจ
+    ...    - รายการแพ็กเกจ
+    ...    9. เลือก แพ็กเกจที่ 1
+    ...    10. เลือก "กำหนดวันเริ่มใช้งานล่วงหน้า(ไม่เกิน 30 วัน)" (radio button)
+    ...    11. เลือก "วันที่" เลือกใช้งานแพ็กเกจ
+    ...    12. เลือก "เวลา" เลือกใช้งานแพ็กเกจ
+    ...    13. เลือก "รัฐ/เมือง" (Victoria)
+    ...    14. กดปุ่ม "สมัครแพ็ก"
+    ...    15. ตรวจสอบหน้า "สรุปการสมัครแพ็กเกจ"
+    ...    - ชื่อแพ็กเกจ
+    ...    - ราคา
+    ...    - จำนวนวันใช้งาน(วัน)
+    ...    - แพ็กเกจเริ่มต้นวันที่
+    ...    - แพ็กเกจสิ้นสุดวันที่
+    ...    16.จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -189,12 +360,37 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_8_2] Subscribe Voice Package : FutureIn case : Have only countries
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" (eg. ญี่ปุ่น)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (โทรออกและส่งSMS)
+    ...    7. กดปุ่ม "ดำเนินการต่อ"
+    ...    8. ตรวจสอบหน้า "รายการแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศ
+    ...    - ประเภทลูกค้า (auto detect)
+    ...    - ประเภทแพ็กเกจ
+    ...    - รายการแพ็กเกจ
+    ...    9. เลือก แพ็กเกจที่ 1
+    ...    10. เลือก "กำหนดวันเริ่มใช้งานล่วงหน้า(ไม่เกิน 30 วัน)" (radio button)
+    ...    11. เลือก "วันที่" เลือกใช้งานแพ็กเกจ
+    ...    12. เลือก "เวลา" เลือกใช้งานแพ็กเกจ
+    ...    13. กดปุ่ม "สมัครแพ็ก"
+    ...    14. ตรวจสอบหน้า "สรุปการสมัครแพ็กเกจ"
+    ...    - ชื่อแพ็กเกจ
+    ...    - ราคา
+    ...    - จำนวนวันใช้งาน(วัน)
+    ...    - แพ็กเกจเริ่มต้นวันที่
+    ...    - แพ็กเกจสิ้นสุดวันที่
+    ...    15. \ จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -206,12 +402,23 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_9_2] Apply Roaming Packages Verify page :Apply Roaming Package
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. ตรวจสอบหน้า "สมัครแพ็คเกจโรมมิ่ง"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศที่ต้องการสมัคร
+    ...    - ระบบของหมายเลขที่ต้องการสมัคร (auto detect)
+    ...    - ประเภทแพ็กเกจที่ต้องการ
+    ...    - ปุ่ม "ดำเนินการต่อ"
+    ...    - เงื่อนไขบริการ
+    ...    5. Capture screen
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -226,12 +433,27 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_10_2] Apply Roaming Packages Verify page :Package list
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" (eg. Australia)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (eg. ดาต้า)
+    ...    7. จับภาพหน้าจอ
+    ...    8. กดปุ่ม "ดำเนินการต่อ"
+    ...    9. ตรวจสอบหน้า "รายการแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - ประเทศ
+    ...    - ประเภทลูกค้า (auto detect)
+    ...    - ประเภทแพ็กเกจ
+    ...    - รายการแพ็กเกจ (Check object visible)
+    ...    10. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -250,13 +472,31 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_11_2] Apply Roaming Packages Verify page : Package Detail
-    [Documentation]    Owner :
+    [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Test Step
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. กดเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "สมัครแพ็คเกจโรมมิ่ง"
+    ...    4. เลือก "ประเทศที่ต้องการสมัคร" (eg. Australia)
+    ...    5. เลือก "ระบบของหมายเลขที่ต้องการสมัคร" (auto detect)
+    ...    6. เลือก "ประเภทแพ็กเกจที่ต้องการ" (eg. ดาต้า)
+    ...    7. กดปุ่ม "ดำเนินการต่อ"
+    ...    8. จับภาพหน้าจอ
+    ...    9. กดปุ่ม "รายละเอียด"
+    ...    10. ตรวจสอบหน้า "รายละเอียดแพ็กเกจ"
+    ...    - หมายเลขโทรศัพท์
+    ...    - รายละเอียดแพ็กเกจ
+    ...    - ราคา
+    ...    - จำนวนการใช้งาน
+    ...    - ระยะเวลาใช้งาน
+    ...    - ประเทศที่ต้องการสมัคร (label)
+    ...    11. จับภาพหน้าจอ
+    [Tags]    TH    EN    active    success    3PE    3BE
+    ...    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
