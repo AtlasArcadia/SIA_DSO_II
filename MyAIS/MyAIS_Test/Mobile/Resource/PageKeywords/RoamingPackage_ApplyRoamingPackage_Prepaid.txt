@@ -104,8 +104,16 @@ Select Package Type To Data Android
 
 Select Package Type To Data iOS
     Select package type to    Data
+    Mobile Capture Screen At Verify Point    Select Package Type To Data iOS
 
 Select Package Type To VoiceAndSMS
+    Run Keyword If    "${ar_OS}"=="Android"    Select Package Type To VoiceAndSMS Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Package Type To VoiceAndSMS iOS
+
+Select Package Type To VoiceAndSMS Android
+    Select package type to    VoiceAndSMS
+
+Select Package Type To VoiceAndSMS iOS
     Select package type to    VoiceAndSMS
 
 Select Detail First Package
@@ -118,6 +126,9 @@ Select Detail First Package Android
 Select Detail First Package iOS
     Wait Mobile Until Element Visible    ${lblFirstPackageDetailSelectRoamingPackagePage}
     Click Mobile Element    ${lblFirstPackageDetailSelectRoamingPackagePage}
+    Comment    Click Mobile Element    ${btnFirstPackageDetailSelectRoamingPackagePage}
+
+Next Detail First Package
     Click Mobile Element    ${btnFirstPackageDetailSelectRoamingPackagePage}
 
 Select Non Stop Data Roam Zone A1 Day Selected Networks Package
@@ -355,9 +366,9 @@ Verify No Start Time
     Mobile Capture Screen At Verify Point    Verify Dialog Message No Specify Start Time
 
 Verify Detail First Package Page
-    [Arguments]    ${Number}
+    [Arguments]    ${Number}    ${Country}
     Run Keyword If    "${ar_OS}"=="Android"    Verify Detail First Package Page Android   ${Number}
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Detail First Package Page iOS    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Detail First Package Page iOS    ${Number}    ${Country}
 
 Verify Detail First Package Page Android
     [Arguments]    ${NoMobile}
@@ -372,21 +383,18 @@ Verify Detail First Package Page Android
     Mobile Capture Screen At Verify Point    Verify In Detail First Package Page
 
 Verify Detail First Package Page iOS
-    [Arguments]    ${Number}
-    Wait Mobile Until Element Visible    ${lblSpecifyEffectiveDate}
+    [Arguments]    ${Number}    ${Country}
     Mobile element text should be    ${TitleApplyRoamingPackagePage}     ${HeaderApplyRoamingPackage}
     ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
     Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
-    Mobile element text should be    ${lblSpecifyEffectiveDate}    ${SpecifyEffectiveDate}
-    Click Mobile Element    ${rboSpecifyEffectiveDateSpecify}
-    Mobile element text should be    ${lblSpacifySetStartTime}     ${SpacifySetDateTimeApplyRoaming}
-    Mobile element text should be    ${lblSpacifyDateApplyRoaming}    ${SpacifyDateApplyRoaming}
-    Mobile element text should be    ${lblSpacifyTimeApplyRoaming}     ${SpacifyTimeApplyRoaming}
-    Mobile element name should be    ${btnCancelSubscribeApplyoaming}    ${CancelSubscribeApplyoaming}
-    Mobile element name should be    ${btnSubscribeApplyRoaming}    ${SubscribeApplyRoaming}
-    Mobile Capture Screen At Verify Point    Verify In Detail First Package Page
+    Mobile element text should be    ${lblCountryDetailPage}    ${Country}
+    Wait Mobile Until Element Visible    ${lblPackageNameDetailPage}
+    Wait Mobile Until Element Visible    ${lblPackageRateDetailPage}
+    Wait Mobile Until Element Visible    ${lblPackageAmountDetailPage}
+    Wait Mobile Until Element Visible    ${lblPackageValidityDetailPage}
+    Mobile Capture Screen At Verify Point    Verify Detail First Package Page iOS
 
 Verify Dialog Message Current AIS Postpaid But Select AIS 12Call
     Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Message Current AIS Postpaid But Select AIS 12Call Android
@@ -1081,8 +1089,9 @@ Verify Apply Roaming Package Page iOS
     Mobile element name should be    ${ddlPleaseSelectPackageApplyRoamingPackagePage}     ${PleaseSelectPackage}
     Mobile element name should be    ${btnContinueApplyRoaming}    ${ContinueApplyRoaming}
     Mobile element text should be    ${lblTermAndConditionApplyRoamingPackagePage}    ${TermAndConditionApplyRoamingPackagePage}
+    Mobile Capture Screen At Verify Point    Verify Apply Roaming Package Page iOS
 
-verify summary immediate page
+Verify Summary Immediate Page Australia
     Mobile element name should be    ${lblPackageDescriptionSummaryPage}    ${PackageDescriptionSummaryPage}
     Mobile element name should be    ${lblPackagePricePackageSummaryPage}    ${PackagePricePackageSummaryPage}
     Mobile element name should be    ${lblValidityPackageSummaryPage}    ${ValidityPackageSummaryPage}
@@ -1091,4 +1100,15 @@ verify summary immediate page
     Wait Mobile Until Element Visible    ${btnConfirmPackageSummaryPage}
     Wait Mobile Until Element Visible    ${btnEditPackageSummaryPage}
     Wait Mobile Until Element Visible    ${btnCancelPackageSummaryPage}
-    Mobile Capture Screen At Verify Point    Verify In Summary Page
+    Mobile Capture Screen At Verify Point    verify summary immediate page australia
+
+Verify Summary Immediate Page China
+    Mobile element name should be    ${lblPackageDescriptionSummaryPage}    ${NonStopDataRoamZoneB1DayAllNetworksInChinaNameSummaryPage}
+    Mobile element name should be    ${lblPackagePricePackageSummaryPage}    ${NonStopDataRoamZoneB1DayAllNetworksInChinaPriceSummaryPage}
+    Mobile element name should be    ${lblValidityPackageSummaryPage}    ${ValidityPackageSummaryPage}
+    Mobile element name should be    ${lblStartDatePackageSummaryPage}    ${StartDatePackageSummaryPage}
+    Mobile element name should be    ${lblEndDatePackageSummaryPage}    ${EndDatePackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnConfirmPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnEditPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnCancelPackageSummaryPage}
+    Mobile Capture Screen At Verify Point    Verify Summary Immediate Page China
