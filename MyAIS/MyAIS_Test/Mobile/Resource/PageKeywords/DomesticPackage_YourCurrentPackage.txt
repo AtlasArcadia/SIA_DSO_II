@@ -304,7 +304,7 @@ Verify Page Menu Package iOS
     comment    สมัครแพ็กเสริมอื่นๆ
     Mobile element text should be    ${subMnuApplyOtherOnTopPackages}    ${ApplyOtherOnTopPackage}
     comment    เปลี่ยนแพ็กเสริมหลัก
-    Mobile element text should be    ${btnChangePricePlan}     ${ChangePricePlan}
+    Mobile element text should be    ${subMnuChangePricePlan}     ${ChangePricePlan}
     comment    Header "แพ็กเกจโรมมิ่ง"
     Mobile element text should be    ${lblRoamingPackage}    ${RoamingPackage}
     comment    แพ็กเกจปัจจุบัน/ยอดคงเหลือ
@@ -330,7 +330,8 @@ Verify Page Current Package Main Package Only iOS
     comment    แถบ "แพ็กเกจหลัก"
     Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
     comment    Verify ว่ามี Main pack
-    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage}
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
     comment    ปุ่ม "เปลียนแพ็กหลัก"
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
     comment    บริการเสริม
@@ -352,14 +353,16 @@ Verify Page Current Package Main One On Top package iOS
     comment    แถบ "แพ็กเกจหลัก"
     Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
     comment    Verify ว่ามี Main pack
-    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage}
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
     comment    ปุ่ม "เปลียนแพ็กหลัก"
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
     Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
-    comment    แถบ "แพ็กเกจ Internet"
+    comment    แถบ "แพ็กเกจ Internet" แถบ "แพ็กเกจอื่นๆ"
     Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
     comment    Verify ว่ามี On-Top Pack
-    Wait Mobile Until Page Contains Element    ${lblInternetPackageOneOnTopPage}
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblInternetPackageOneOnTopPage}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOtherOneOnTopPackage}
     comment    ปุ่ม "สมัครแพ็กเสริม"
     Wait Mobile Until Page Contains Element    ${btnApplyPackage}
     comment    เงื่อนไขบริการ
@@ -379,16 +382,19 @@ Verify Page Current Package Main Two On Top package iOS
     comment    แถบ "แพ็กเกจหลัก"
     Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
     comment    Verify ว่ามี Main pack
-    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage}
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
     comment    ปุ่ม "เปลียนแพ็กหลัก"
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
     Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     comment    แถบ "แพ็กเกจ Internet"
     Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
     comment    Verify ว่ามี On-Top Pack   1
-    Wait Mobile Until Page Contains Element    ${lblInternetPackageOneOnTopPage}
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblInternetPackageOneOnTopPage}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOtherOneOnTopPackage}
     comment    Verify ว่ามี On-Top Pack   2
-    Wait Mobile Until Page Contains Element    ${lblInternetPackageTwoOnTopPage}
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblInternetPackageTwoOnTopPage}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOtherTwoOnTopPackage}
     comment    ปุ่ม "สมัครแพ็กเสริม"
     Wait Mobile Until Page Contains Element    ${btnApplyPackage}
     comment    เงื่อนไขบริการ
