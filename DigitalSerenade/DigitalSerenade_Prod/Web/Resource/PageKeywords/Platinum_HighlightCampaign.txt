@@ -14,9 +14,9 @@ Verify HC MyAIS
     Comment    Sleep    5s
     Comment    Select Window    url=${urlMyAIS}
     Verify URL New Window    ${urlMyAIS}    Link myAIS
+    Comment    Click Web Element    ${symbolX}
     Click Web Element    ${symbolX}
-    Web Element Should Be Visible    ${imgSpecailAISlogo}
-    :FOR    ${index}    IN RANGE    1    2
+    : FOR    ${index}    IN RANGE    1    2
     \    Scroll Web To Element    ${btnBannermyAIS${index}}
     \    Web Element Should Be Visible    ${btnBannermyAIS${index}}
     Selenium2Library.Page Should Not Contain Element    xpath=//div[@id="slider-herobanner"]//div[@class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"]/span[3]
@@ -138,6 +138,10 @@ Verify HC My Kitchen
     Web Element Text Should Be    ${lblmyKitchen4}    ${myKitchen4}
     Web Element Text Should Be    ${lblmyKitchen5}    ${myKitchen5}
     Web Capture Screen At Verify Point    WebmyKitchen
+    Web Element Should Be Visible    ${imgmyKitchenBanner}
+    Comment    Web Element Text Should Be    ${txtmyKitchenCondition}    ${myKitchen}
+    Comment    Web Element Should Be Visible    ${txtmyKitchenConditionList}
+    Web Capture Screen At Verify Point    Verify myKitchen
 
 Verify Hilight Campaign
     [Arguments]    ${CampaignAmount}
@@ -186,10 +190,10 @@ Verify HC Page Button
     Web Capture Screen At Verify Point    CampaignPage8
     Click Web Element    ${btnHCPage9}
     Web Capture Screen At Verify Point    CampaignPage9
-    Comment    Click Web Element    ${btnHCPage10}
-    Comment    Web Capture Screen At Verify Point    CampaignPage10
-    Comment    Click Web Element    ${btnHCPage11}
-    Comment    Web Capture Screen At Verify Point    CampaignPage11
+    Click Web Element    ${btnHCPage10}
+    Web Capture Screen At Verify Point    CampaignPage10
+    Click Web Element    ${btnHCPage11}
+    Web Capture Screen At Verify Point    CampaignPage11
 
 verify active banner
     ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
@@ -201,9 +205,9 @@ verify active banner
     ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerUltimateDining}
     ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerAISDCandTCDC}
     ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcBannerSiamParagon}
-    ${srcBanner9}    Get Regexp Matches    ${srcBanner}    ${srcBannerMercuryVille}
+    ${srcBanner9}    Get Regexp Matches    ${srcBanner}    ${srcTop10RoofTops}
     ${srcBanner10}    Get Regexp Matches    ${srcBanner}    ${srcBannerTop10Cafe}
-    ${srcBanner11}    Get Regexp Matches    ${srcBanner}    ${srcBannerTravelInStyle}
+    ${srcBanner11}    Get Regexp Matches    ${srcBanner}    ${srcBannerSiamDiscovery}
     : FOR    ${index}    IN RANGE    1    12
     \    Log    ${srcBanner${index}}
     \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
@@ -216,9 +220,9 @@ verify active banner
     ${Banner}    Set Variable If    "${index}" == "6"    UltimateDining    ${Banner}
     ${Banner}    Set Variable If    "${index}" == "7"    AISDCandTCDC    ${Banner}
     ${Banner}    Set Variable If    "${index}" == "8"    SiamParagon    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "9"    MercuryVille    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "9"    Top10RoofTops    ${Banner}
     ${Banner}    Set Variable If    "${index}" == "10"    Top10Cafe    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "11"    TravelInStyle    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "11"    SiamDiscovery    ${Banner}
     [Return]    ${Banner}
 
 Find banner

@@ -424,6 +424,10 @@ Verify Dialog Message No Select State iOS
     Mobile Capture Screen At Verify Point    Verify Dialog Message Please Select State
 
 Verify Converted To Thailand Time
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Converted To Thailand Time Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Converted To Thailand Time iOS
+
+Verify Converted To Thailand Time Android
     [Documentation]    13. Verify ""Converted to Thailand time""
     ...    ""Date and time converted to Thailand time.""
     ...    - Date dd mm yyyy Time hh:mm \ eg. Date 21 Dec 2016 Time 23:00
@@ -439,6 +443,14 @@ Verify Converted To Thailand Time
     Mobile element text should match regexp    ${lblConvertDateTimeToThailandTimeDetail}    ${txtConVertDateTimeToThailandTimeRex}
     Mobile element text should be    ${lblStartAndEndDateThailandTime}    ${txtTheStartAndEndDateOfYourSelected}
     Mobile Capture Screen At Verify Point    Verify In Converted To Thailand Time
+
+Verify Converted To Thailand Time iOS
+    [Documentation]    13. Verify ""Converted to Thailand time""
+    ...    ""Date and time converted to Thailand time.""
+    ...    - Date dd mm yyyy Time hh:mm \ eg. Date 21 Dec 2016 Time 23:00
+    ...    (*Thai time should be Current Date and time = 23:00 )
+    Mobile element text should be    ${lblConvertDateTimeToThailandTime}    ${DateStartAndEndBaseOnThailand}
+    Mobile element text should match regexp    ${lblConvertDateTimeToThailandTimeDetail}    ${ConVertDateTimeToThailandTimeRex}
 
 Verify Hot Deal Voice Roam 150 Min Summary Page immediate
     Verify summary page immediate to    HotDealVoiceRoam150Minutes
@@ -465,6 +477,10 @@ Verify Super Value Voice Roam 40 Min 7 Day Summary Page Future
     Verify summary page future to    SuperValueVoiceRoam40Min7Day
 
 Verify End And Start Time
+    Run Keyword If    "${ar_OS}"=="Android"    Verify End And Start Time Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify End And Start Time iOS
+
+Verify End And Start Time Android
     [Documentation]    13. Verify ""Converted to Thailand time""
     ...    ""Date and time converted to Thailand time.""
     ...    - Date dd mm yyyy Time hh:mm \ eg. Date 21 Dec 2016 Time 23:00
@@ -479,6 +495,20 @@ Verify End And Start Time
     Mobile element text should match regexp    ${lblPackageStartDate}    ${txtStartDateRex}
     Mobile element text should match regexp    ${lblPackageEndDate}    ${txtEndDateRex}
     Mobile Capture Screen At Verify Point    Verify In End And Start Time
+
+Verify End And Start Time iOS
+    [Documentation]    14. Verify ""Package start and end""
+    ...    ""The start and end date of your selected package are \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ based on Thailand time.""
+    ...    - Package starts on dd mm yyyy \ hh:mm
+    ...    eg. Package starts on 21 Dec 2016 23:00 \ \ \ \ \ \ \ \ \ - Package ends on dd mm yyyy \ hh:mm ( end time can be equal start time+23:59 hr. or start time+24:00 hr.)
+    ...    eg. Package ends on 22 Dec 2016 22:59
+    ...    or \ Package ends on 22 Dec 2016 23:00
+    Swipe to element    ${lblTheStartAndEndDateOfYourSelected}
+    Mobile element text should be    ${lblTheStartAndEndDateOfYourSelected}    ${TheStartAndEndDateOfYourSelected}
+    Mobile element text should match regexp    ${lblPackageStartDate}    ${StartDateRex}
+    Mobile element text should match regexp    ${lblPackageEndDate}    ${EndDateRex}
+    Mobile Capture Screen At Verify Point    Verify In End And Start Time
+
 
 Select package immediate data countries with state
     Run Keyword If    "${ar_NType}"=="3PO"    Select Non Stop Data Roam Zone A1 Day Selected Networks Package
@@ -733,6 +763,10 @@ set time 00:00
     \    ...    ELSE    Click Mobile Element    ${btnIncreaseMinute}
 
 set date tomorrow
+    Run Keyword If    "${ar_OS}"=="Android"    set date tomorrow Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    set date tomorrow iOS
+
+set date tomorrow Android
     ${getDate}    Get Current Date
     log    ${getDate}
     ${date}=    Convert Date    ${getDate}
@@ -754,6 +788,77 @@ set date tomorrow
     \    ${currentDate}=    Get mobile text    ${numpickDate${ar_LANG}}
     \    ${dd}    Convert To Integer    ${currentDate}
     \    Run Keyword If    ${dd}==${setDate}    Exit For Loop
+
+set date tomorrow iOS
+    Swipe Set Time 00:00
+
+Swipe Set Time 00:00
+    Run Keyword If    "${ar_LANG}"=="EN"    Swipe Set Time 00:00 EN
+    ...    ELSE IF    "${ar_LANG}"=="TH"    Swipe Set Time 00:00 TH
+
+Swipe Set Time 00:00 EN
+    ${getDate}    Get Current Date
+    log    ${getDate}
+    ${date}=    Convert Date    ${getDate}
+    ${time}=    Add Time To Date    ${date}    1 day    exclude_millis=yes    result_format=datetime
+    ${setDate}    Set Variable    ${time.day}
+    ${setMonth}    Set Variable    ${time.month}
+    ${setYear}    Set Variable    ${time.year}
+    ${setHour}    Set Variable    ${time.hour}
+    ${setMinute}    Set Variable    ${time.minute}
+    ${hh}    Convert To Integer    ${setHour}
+    ${mm}    Convert To Integer    ${setMinute}
+    Click Mobile Element    ${btnAddDate}
+    Swipe by Percent    10    90    10    89    100
+    : FOR    ${index}    IN RANGE    24
+    \    ${hh}    Evaluate    ${hh}+1
+    \    Run Keyword If    ${hh}==12    Exit For Loop
+    \    Run Keyword If    ${hh}==0    Exit For Loop
+    \    Run Keyword If    ${hh}>0    Swipe by Percent minute
+    ${mm}    Evaluate    ${mm}-1
+    : FOR    ${index}    IN RANGE    60
+    \    ${mm}    Evaluate    ${mm}+1
+    \    Run Keyword If    ${mm}==60    Exit For Loop
+    \    Run Keyword If    ${mm}==0    Exit For Loop
+    \    Run Keyword If    ${mm}>0    Swipe by Percent second
+    Swipe by Percent AM And PM
+    Click Mobile Element    ${btnOkSelectTime}
+
+Swipe Set Time 00:00 TH
+    ${getDate}    Get Current Date
+    log    ${getDate}
+    ${date}=    Convert Date    ${getDate}
+    ${time}=    Add Time To Date    ${date}    1 day    exclude_millis=yes    result_format=datetime
+    ${setDate}    Set Variable    ${time.day}
+    ${setMonth}    Set Variable    ${time.month}
+    ${setYear}    Set Variable    ${time.year}
+    ${setHour}    Set Variable    ${time.hour}
+    ${setMinute}    Set Variable    ${time.minute}
+    ${hh}    Convert To Integer    ${setHour}
+    ${mm}    Convert To Integer    ${setMinute}
+    Click Mobile Element    ${btnAddDate}
+    Swipe by Percent    10    90    10    89    100
+    : FOR    ${index}    IN RANGE    24
+    \    ${hh}    Evaluate    ${hh}+1
+    \    Run Keyword If    ${hh}==24    Exit For Loop
+    \    Run Keyword If    ${hh}==0    Exit For Loop
+    \    Run Keyword If    ${hh}>0    Swipe by Percent minute
+    ${mm}    Evaluate    ${mm}-1
+    : FOR    ${index}    IN RANGE    60
+    \    ${mm}    Evaluate    ${mm}+1
+    \    Run Keyword If    ${mm}==60    Exit For Loop
+    \    Run Keyword If    ${mm}==0    Exit For Loop
+    \    Run Keyword If    ${mm}>0    Swipe by Percent second
+    Click Mobile Element    ${btnOkSelectTime}
+
+Swipe by Percent minute
+    Swipe by Percent    55    90    55    89    100
+
+Swipe by Percent second
+    Swipe by Percent    80    90    80    89    100
+
+Swipe by Percent AM And PM
+    Swipe by Percent    90    89    90    90    100
 
 set yesterday
     [Arguments]    ${TimeZone}=local
@@ -1059,6 +1164,7 @@ Select Package Type Data iOS
 Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Wait Mobile Until Element Visible    ${btnContinueApplyRoaming}
     Click Mobile Element    ${btnContinueApplyRoaming}
+    Wait Mobile Until Element Visible    ${lblFirstPackageSelectRoamingPackagePage}
     Mobile Capture Screen At Verify Point    Select Roaming Package Page iOS
 
 Verify Dialog Message No Set Start Time
@@ -1113,4 +1219,3 @@ Verify Summary Immediate Page China
     Wait Mobile Until Element Visible    ${btnCancelPackageSummaryPage}
     Mobile Capture Screen At Verify Point    verify summary immediate page australia
     Mobile Capture Screen At Verify Point    Verify Summary Immediate Page China
-
