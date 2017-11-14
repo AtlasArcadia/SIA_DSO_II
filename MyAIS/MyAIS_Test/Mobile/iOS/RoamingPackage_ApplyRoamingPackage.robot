@@ -546,7 +546,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Menu
     Select Apply Roaming Package Submenu
     Select Roaming Country To Australia
-    Select Package Type To Data
+    Select package type to    Data
     Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select First Package In Select Package Page
     Verify Specify Effective Date    ${Number}
@@ -570,11 +570,11 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Menu
     Select Apply Roaming Package Submenu
     Select Roaming Country To Australia
-    Select Package Type To Data
+    Select package type to    Data
     Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select Detail First Package
     Next Detail First Package
-    Verify Detail First Package Page    ${Number}
+    Verify Specify Effective Date    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_14_2] Apply Roaming Packages Verify page : Package summary
@@ -595,7 +595,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Menu
     Select Apply Roaming Package Submenu
     Select Roaming Country To Australia
-    Select Package Type To Data
+    Select package type to    Data
     Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select First Package In Select Package Page
     Select Immediate Button
@@ -621,10 +621,13 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Menu
     Select Apply Roaming Package Submenu
     Select Roaming Country To China
-    Select Package Type To Data
-    Click Continue On Apply Roaming Package Page
+    Select package type to    Data
+    Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select First Package In Select Package Page
     Select Specify Start Date Button
+    set date tomorrow
+    Verify Converted To Thailand Time
+    Verify End And Start Time
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_N_16_2] Error : Apply Roaming Packages page (Not select roaming country)
@@ -645,7 +648,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Menu
     Select Apply Roaming Package Submenu
     Verify Apply Roaming Package Page iOS    ${Number}
-    Select Package Type To Data
+    Select package type to    Data
     Click Continue On Apply Roaming Package Page
     Verify Dialog Message No Country Select
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
@@ -658,6 +661,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    Status : Active
     ...    Test Step
     [Tags]    TH    EN    active    success    3PE    3BE
+    ...    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -705,7 +709,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Menu
     Select Apply Roaming Package Submenu
     Select Roaming Country To Australia
-    Select Package Type To Data
+    Select package type to    Data
     Click Continue On Apply Roaming Package Page
     Select First Package In Select Package Page
     Select Specify Start Date Button
@@ -731,7 +735,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Package Menu
     Select Apply Roaming Package Submenu
     Select Roaming Country To Australia
-    Select Package Type To Data
+    Select package type to    Data
     Click Continue On Apply Roaming Package Page
     Select First Package In Select Package Page
     Select Specify Start Date Button
@@ -748,6 +752,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    Status : Active
     ...    Test Step
     [Tags]    TH    EN    active    success    3PE    3BE
+    ...    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

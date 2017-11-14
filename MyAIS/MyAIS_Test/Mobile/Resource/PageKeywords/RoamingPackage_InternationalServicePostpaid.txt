@@ -18,9 +18,51 @@ Switch InternationalCall Service mode
     Run Keyword If    ('${Switch}'=='Off') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchInternationalCallService}
 
 Keywords For TearDown
+    Run Keyword If    "${ar_OS}"=="Android"    Keywords For TearDown Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Keywords For TearDown iOS
+
+Keywords For TearDown Android
     [Arguments]    ${#dict_device_name}
     Run Keyword If Test Failed    Capture Screen with Specific name
     Comment    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
     Run Keyword And Ignore Error    Logout
     Run Keyword And Continue On Failure    Close Application
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Keywords For Teardown iOS
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Package Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Package Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Package Menu iOS
+
+Select Package Menu Android
+    Select Menu    Package
+
+Select Package Menu iOS
+    Select Menu    Package
+
+Select International Service Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select International Service Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select International Service Submenu iOS
+
+Select International Service Submenu Android
+    Select Sub Menu    InternationalService
+
+Select International Service Submenu iOS
+    Select Sub Menu    InternationalService
+
+Verify Dialog Message On International Service iOS
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOnInternationalService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message
+
+Verify Dialog Message Off International Service iOS
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOffInternationalService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message
