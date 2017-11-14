@@ -25,8 +25,8 @@ Select Card
     [Arguments]    ${CardName}
     Wait Mobile Until Element Visible    ${img${CardName}}
     Swipe element to specific area    ${img${CardName}}    ratio=0.2    Round=4
-    sleep    10s
-    : FOR    ${index}    IN RANGE    1    5
+    Comment    sleep    10s
+    :FOR    ${index}    IN RANGE    1    5
     \    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${img${CardName}}    10s
     \    Run Keyword If    '${status}'=='True'    Click Mobile Element    ${img${CardName}}
 
@@ -89,9 +89,9 @@ Verify the total of cards
 
 Click back button
     sleep    10s
-    Wait Mobile Until Element Visible    ${btnBack}
-    Swipe element to specific area    ${btnBack}
-    Click Mobile Element    ${btnBack}
+    Wait Mobile Until Element Visible    ${btnBackThe1Card}
+    Swipe element to specific area    ${btnBackThe1Card}
+    Click Mobile Element    ${btnBackThe1Card}
     Comment    //*[@resource-id="point_holder"]//android.view.View[@index="2"]/android.widget.Button[@index="0"]
 
 Verify term and condition
@@ -194,7 +194,8 @@ Click Plus Point Transfer Until Max
     Should Be Equal As Integers    ${CurrentTransferPoints}    ${maxPoints}
 
 Click Transfer Point Button
-    Swipe element to specific area    ${popupTitleTermAndConditionDetail}    ratio=0.25    Round=3
+    Comment    Swipe element to specific area    ${popupTitleTermAndConditionDetail}    ratio=0.25    Round=3
+    Swipe element to specific area    ${btnTransferPoints}    ratio=0.25    Round=3
     sleep    10s
     Comment    Click Mobile Element    ${btnTransferPoints}
     Comment    Mobile Capture Screen At Verify Point    btn
@@ -407,18 +408,18 @@ Verify the one card
     sleep    5
     Wait Mobile Until Element Visible    ${imgTheOneCard}
     Mobile element text should be    ${txtTitleTheOneCard}    ${TheOneCardTitle}
-    Comment    Mobile element text should be    //*[@text="โอนกันได้ แลกง่ายขึ้น คะแนน AIS Points โอนเป็นคะแนน The 1 Card ได้ง่ายๆ AIS Points 100 คะแนน = The 1 Card 800 คะแนน"]    ${TheOneCardSubTitle1}
     Comment    sleep    5
-    Click Mobile Element    ${imgTheOneCard}    #//*[@resource-id="point_holder"]/android.view.View[@index="3"]    #เลือกการ์ด
-    Comment    Wait Mobile Until Element Visible    ${imgTheOneCard}
-    Comment    Mobile element text should be    ${txtTitleTheOneCardPage}    ${TheOneCardTitle}
-    Comment    Swipe element to specific area    ${txtSubTitleTheOneCardPage}    ratio=0.25    Round=3
-    Comment    Mobile check existing text in name    ${txtSubTitleTheOneCardPage}
-    Comment    Mobile check existing text in name    ${txtTheOneCardDetail}
-    Swipe element to specific area    xpath=//android.widget.Button[@index="3"]
+    Comment    Click Mobile Element    ${imgTheOneCard}    #เลือกการ์ด
+    Select Card    TheOneCard
+    Wait Mobile Until Element Visible    ${imgTheOneCard}
+    Mobile element text should be    ${txtTitleTheOneCardPage}    ${TheOneCardTitle}
+    Swipe element to specific area    ${txtSubTitleTheOneCardPage}    ratio=0.25    Round=3
+    Mobile check existing text in name    ${txtSubTitleTheOneCardPage}
+    Mobile check existing text in name    ${txtTheOneCardDetail}
+    Swipe element to specific area    ${btnTransferPoints}
     Comment    Swipe element to specific area    //*[@resource-id="point_holder"]/android.view.View[@index="0"]/android.view.View[@index="1"]//android.view.View[@index="2"]/android.widget.Button[@index="0"]    ratio=0.25    Round=3
-    Wait Mobile Until Element Visible    ${btnBack}    #verปุ่มกลับ
-    Wait Mobile Until Element Visible    ${btnTransferPoint}    #verปุ่มโอน
+    Wait Mobile Until Element Visible    ${btnBackThe1Card}    #verปุ่มกลับ
+    Wait Mobile Until Element Visible    ${btnTransferPoints}    #verปุ่มโอน
     Mobile check existing text in name    ${txtTheOneCardTermAndCondition}
     Mobile check existing text in name    ${txtTheOneCardTermAndConditionDetail}
     Mobile Capture Screen At Verify Point    Verify the 1 card
