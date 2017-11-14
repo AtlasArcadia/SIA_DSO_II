@@ -1,0 +1,52 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../PageRepository/${ar_OS}/DomesticPackage_ApplyEntertainmentOntopPackage_PrepaidRepository.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/DomesticPackage_ApplyEntertainmentOntopPackage_PrepaidLocalized.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Package Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Package Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Package Menu iOS
+
+Select Package Menu Android
+    Select Menu    Package
+
+Select Package Menu iOS
+    Select Menu    Package
+
+Select Apply Entertainment On Top Package Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Apply Entertainment On Top Package Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Apply Entertainment On Top Package Submenu iOS
+
+Select Apply Entertainment On Top Package Submenu Android
+    Select Sub Menu    ApplyEntertainmentOnTopPackage
+
+Select Apply Entertainment On Top Package Submenu iOS
+    Select Sub Menu    ApplyEntertainmentOnTopPackage
+
+Verify Page Apply Entertainment On Top Package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Page Apply Entertainment On Top Package Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Page Apply Entertainment On Top Package iOS    ${Number}
+
+Verify Page Apply Entertainment On Top Package Android
+    [Arguments]    ${Number}
+
+Verify Page Apply Entertainment On Top Package iOS
+    [Arguments]    ${Number}
+
+Verify Dialog Message Not Found Package
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessage}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message You Requested Transaction Is Not Found
+    Click Mobile Element    ${btnDialogClose}
+    Mobile element text should be    ${lblHeaderApplyEntertainmentOnTopPackage}    ${HeaderApplyEntertainmentOnTopPackage}
