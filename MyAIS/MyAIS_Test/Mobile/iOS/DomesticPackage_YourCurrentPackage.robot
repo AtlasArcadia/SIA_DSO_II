@@ -84,7 +84,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_YourCurrentPackage.tx
     ...    - ปุ่ม "สมัครแพ็กเสริม"
     ...    - เงื่อนไขบริการ
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_OneOnTopPack
