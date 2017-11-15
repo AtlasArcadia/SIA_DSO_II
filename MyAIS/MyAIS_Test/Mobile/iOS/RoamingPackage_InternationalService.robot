@@ -18,7 +18,6 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.t
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    #not yet complete because Login MyAIS Fail
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F11_Package_IOS_1,3_1-2_Y_2_2] Verify popup message Enable IR *popup msg loading
@@ -36,7 +35,6 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.t
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    #not yet complete because Login MyAIS Fail
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F11_Package_IOS_1,3_1-2_Y_3_2] Verify popup message Disable IR *popup msg loading
@@ -54,5 +52,4 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalService.t
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    #not yet complete because Login MyAIS Fail
     [Teardown]    Keywords For TearDown    ${#dict_device_name}

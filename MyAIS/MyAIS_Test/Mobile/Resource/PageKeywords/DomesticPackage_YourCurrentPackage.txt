@@ -5,6 +5,14 @@ Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/DomesticPackage_Y
 Resource          ../PageRepository/${ar_OS}/DomesticPackage_YourCurrentPackageRepository.txt
 
 *** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
 Verify page current package main package only_3PO
     [Arguments]    ${Number}
     Wait Mobile Until Page Contains Element    ${lblHeadCurrentPackageAndService}
@@ -282,3 +290,123 @@ Verify page current package main+on-top package_IPE
     Swipe Element To Screen    ${lblTermAndConditions}
     Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
     Mobile Capture Screen At Verify Point    Current Package Main+OnTop Package
+
+Verify Page Menu Package
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Page Menu Package iOS
+
+Verify Page Menu Package iOS
+    comment    Header "แพ็กเกจในประเทศ"
+    Mobile element text should be    ${lblDomesticPackage}    ${DomesticPackage}
+    comment    แพ็กเกจปัจจุบันของคุณ
+    Mobile element text should be    ${subMnuCurrentPackage}    ${CurrentPackage}
+    comment    สมัครแพ็กเกจเสริมอินเทอร์เน็ต
+    Mobile element text should be    ${subMnuApplyInternetOnTopPackages}    ${ApplyInternetOnTopPackage}
+    comment    สมัครแพ็กเสริมอื่นๆ
+    Mobile element text should be    ${subMnuApplyOtherOnTopPackages}    ${ApplyOtherOnTopPackage}
+    comment    เปลี่ยนแพ็กเสริมหลัก
+    Mobile element text should be    ${subMnuChangePricePlan}     ${ChangePricePlan}
+    comment    Header "แพ็กเกจโรมมิ่ง"
+    Mobile element text should be    ${lblRoamingPackage}    ${RoamingPackage}
+    comment    แพ็กเกจปัจจุบัน/ยอดคงเหลือ
+    Mobile element text should be    ${subMnuCurrentPackageRoaming}    ${CurrentPackageRoaming}
+    comment    สมัครแพ็กเกจโรมมิ่ง
+    Mobile element text should be    ${subMnuApplyRoamingPackage}    ${ApplyRoamingPackage}
+    comment    อัตราค่าบริการโรมมิ่ง
+    Mobile element text should be    ${subMnuRoamingServiceRates}    ${RoamingServiceRates}
+    comment    บริการระหว่างประเทศ
+    Mobile element text should be    ${subMnuInternationalService}    ${InternationalService}
+    comment    รูปถ่าย
+    Mobile Capture Screen At Verify Point    Verify Page Menu Package
+
+Verify Page Current Package Main Package Only
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Page Current Package Main Package Only iOS    ${Number}
+
+Verify Page Current Package Main Package Only iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}    120
+    comment    หมายเลขโทรศัพท์
+    Mobile element number should be    ${lblMobileNumber}    ${Number}
+    comment    แถบ "แพ็กเกจหลัก"
+    Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
+    comment    Verify ว่ามี Main pack
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
+    comment    ปุ่ม "เปลียนแพ็กหลัก"
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
+    comment    บริการเสริม
+    Mobile element text should be    ${lblHeadValueAddService}    ${ValueAddService}
+    comment    เงื่อนไขบริการ
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    comment    รูปถ่าย
+    Mobile Capture Screen At Verify Point    Verify Page Current Package Main Package Only
+
+Verify Page Current Package Main One On Top package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Page Current Package Main One On Top package iOS    ${Number}
+
+Verify Page Current Package Main One On Top package iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}    120
+    comment    หมายเลขโทรศัพท์
+    Mobile element number should be    ${lblMobileNumber}    ${Number}
+    comment    แถบ "แพ็กเกจหลัก"
+    Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
+    comment    Verify ว่ามี Main pack
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
+    comment    ปุ่ม "เปลียนแพ็กหลัก"
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
+    Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
+    comment    แถบ "แพ็กเกจ Internet" แถบ "แพ็กเกจอื่นๆ"
+    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    comment    Verify ว่ามี On-Top Pack
+    Find And Check Package    1
+    comment    ปุ่ม "สมัครแพ็กเสริม"
+    Wait Mobile Until Page Contains Element    ${btnApplyPackage}
+    comment    เงื่อนไขบริการ
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    comment    รูปถ่าย
+    Mobile Capture Screen At Verify Point    Verify Page Current Package Main Package Only
+
+Verify Page Current Package Main Two On Top package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Page Current Package Main Two On Top package iOS    ${Number}
+
+Verify Page Current Package Main Two On Top package iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}    120
+    comment    หมายเลขโทรศัพท์
+    Mobile element number should be    ${lblMobileNumber}    ${Number}
+    comment    แถบ "แพ็กเกจหลัก"
+    Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
+    comment    Verify ว่ามี Main pack
+    Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
+    comment    ปุ่ม "เปลียนแพ็กหลัก"
+    Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
+    Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
+    comment    แถบ "แพ็กเกจ Internet"
+    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    comment    Verify ว่ามี On-Top Pack
+    Find And Check Package    2
+    comment    ปุ่ม "สมัครแพ็กเสริม"
+    Wait Mobile Until Page Contains Element    ${btnApplyPackage}
+    comment    เงื่อนไขบริการ
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    comment    รูปถ่าย
+    Mobile Capture Screen At Verify Point    Verify Page Current Package Main Package Only
+
+
+Find And Check Package
+    [Arguments]    ${NumPackage}=1
+    : FOR    ${index}    IN RANGE    3    6
+    \    ${StatusPackage}    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}]/*[1]
+    \    ${text}    Run Keyword If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}+1]/*[1]
+    \    Log    ${text}
+    \    Exit For Loop If    ('${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan') and ${NumPackage}==1
+    \    ${text}    Run Keyword If    ('${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan') and ${NumPackage}==2    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}+2]/*[1]
+    \    Log    ${text}
+    \    Exit For Loop If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'
+
+
