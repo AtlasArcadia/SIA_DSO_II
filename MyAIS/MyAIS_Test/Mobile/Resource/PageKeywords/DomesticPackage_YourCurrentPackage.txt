@@ -399,13 +399,13 @@ Verify Page Current Package Main Two On Top package iOS
 
 
 Find And Check Package
-    [Arguments]    ${NumPackage}
+    [Arguments]    ${NumPackage}=1
     : FOR    ${index}    IN RANGE    3    6
     \    ${StatusPackage}    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}]/*[1]
     \    ${text}    Run Keyword If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}+1]/*[1]
     \    Log    ${text}
     \    Exit For Loop If    ('${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan') and ${NumPackage}==1
-    \    ${text}    Run Keyword If    ('${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan') and ${NumPackage}==2    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}+1]/*[1]
+    \    ${text}    Run Keyword If    ('${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan') and ${NumPackage}==2    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}+2]/*[1]
     \    Log    ${text}
     \    Exit For Loop If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'
 
