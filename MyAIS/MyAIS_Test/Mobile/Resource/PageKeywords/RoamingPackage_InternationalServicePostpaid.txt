@@ -1,7 +1,7 @@
 *** Settings ***
 Resource          MyAISCommon.txt
 Resource          Login.txt
-Resource          ../PageRepository/${ar_OS}/RoamingPackage_InternationalServicePostpaidRepository.txt
+Resource          ../PageRepository/${ar_OS}/RoamingPackage_InternationalService_PostpaidRepository.txt
 Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/RoamingPackage_InternationalServicePostpaid.txt
 
 *** Keywords ***
@@ -19,8 +19,116 @@ Switch InternationalCall Service mode
 
 Keywords For TearDown
     [Arguments]    ${#dict_device_name}
+    Run Keyword If    "${ar_OS}"=="Android"    Keywords For TearDown Android    ${#dict_device_name}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Keywords For TearDown iOS    ${#dict_device_name}
+
+Keywords For TearDown Android
+    [Arguments]    ${#dict_device_name}
     Run Keyword If Test Failed    Capture Screen with Specific name
     Comment    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
     Run Keyword And Ignore Error    Logout
     Run Keyword And Continue On Failure    Close Application
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Keywords For Teardown iOS
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Package Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Package Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Package Menu iOS
+
+Select Package Menu Android
+    Select Menu    Package
+
+Select Package Menu iOS
+    Select Menu    Package
+
+Select International Service Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select International Service Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select International Service Submenu iOS
+
+Select International Service Submenu Android
+    Select Sub Menu    InternationalService
+
+Select International Service Submenu iOS
+    Select Sub Menu    InternationalService
+
+Verify International Roaming Service Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify International Roaming Service Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify International Roaming Service Page iOS    ${Number}
+
+Verify International Roaming Service Page Android
+    Wait Mobile Until Element Visible    ${lblHeaderInternationalRoamingService}
+    Wait Mobile Until Element Visible    ${btnBackInternationalRoamingServicePage}
+    Mobile element text should be    ${lblHeaderInternationalRoamingService}    ${HeaderInternationalRoamingService}
+    Mobile element text should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblInternationalRoamingService}    ${InternationalRoamingService}
+    Wait Mobile Until Element Visible    ${btnSwitchInternationalRoamingService}
+    Mobile element text should be    ${lblTermAndConditionInternationalService}    ${TermAndConditionInternationalService}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Service Page
+
+Verify International Roaming Service Page iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${btnBackInternationalRoamingServicePage}
+    Mobile element text should be    ${lblHeaderInternationalRoamingService}    ${HeaderInternationalRoamingService}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท
+    Mobile element text should be    ${lblInternationalRoamingService}    ${InternationalRoamingService}
+    Wait Mobile Until Element Visible    ${btnInternationalRoamingService}
+    Mobile element text should be    ${lblTermAndConditionInternationalService}    ${TermAndConditionInternationalService}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Service Page
+
+Verify Dialog Message On International Service
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Message On International Service Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dialog Message On International Service iOS
+
+Verify Dialog Message On International Service Android
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOnInternationalRoamingService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message
+
+Verify Dialog Message On International Service iOS
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOnInternationalRoamingService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message International roaming service is now activated.
+
+
+Verify Dialog Message Off International Service
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Message Off International Service Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dialog Message Off International Service iOS
+
+Verify Dialog Message Off International Service Android
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOffInternationalRoamingService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message
+
+Verify Dialog Message Off International Service iOS
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOffInternationalRoamingService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message International roaming service is now deactivated.
+
+Select Switch International Roaming Service
+    Run Keyword If    "${ar_NType}_IRService"=="3PE_IRService"    Select Switch International Roaming Service Type 3PE
+    ...    ELSE IF    "${ar_NType}_IRService"=="3BE_IRService"    Select Switch International Roaming Service Type 3BE
+
+Select Switch International Roaming Service Type 3PE
+    Wait Mobile Until Element Visible    ${btnInternationalRoamingService}
+    Click Mobile Element    ${btnInternationalRoamingService}
+
+Select Switch International Roaming Service Type 3BE
+    Wait Mobile Until Element Visible    ${btnInternationalRoamingService}
+    Click Mobile Element    ${btnInternationalRoamingService}
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Sleep    30s
+    Click Mobile Element    ${btnDialogOK}
+    Sleep    30s
+    Wait Mobile Until Element Visible    ${btnInternationalRoamingService}
+    Click Mobile Element    ${btnInternationalRoamingService}
