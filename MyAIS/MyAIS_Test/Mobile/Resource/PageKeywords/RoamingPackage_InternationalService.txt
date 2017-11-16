@@ -15,6 +15,42 @@ Keywords For Teardown
 
 Switch International service Mode
     [Arguments]    ${Switch}
-    ${checked}	AISAppiumEx.Get Element Attribute	${btnSwitchInternationalRoamingService}	checked
-    Run Keyword If	('${Switch}'=='On') and ('${checked}'=='false')	Click Mobile Element	${btnSwitchInternationalRoamingService}
-    Run Keyword If	('${Switch}'=='Off') and ('${checked}'=='false')	Click Mobile Element	${btnSwitchInternationalRoamingService}
+    ${checked}    AISAppiumEx.Get Element Attribute    ${btnSwitchInternationalRoamingService}    checked
+    Run Keyword If    ('${Switch}'=='On') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchInternationalRoamingService}
+    Run Keyword If    ('${Switch}'=='Off') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchInternationalRoamingService}
+
+Verify International Service
+    [Arguments]    ${Number}
+    Swipe to element    ${lblInternationalServices}
+    Click Mobile Element    ${lblInternationalServices}
+    Mobile element name should be    ${lblMobileNumber}    ${Number}
+    Mobile element text should be    ${lblHeaderInternationalService}    ${HeaderInternationalService}
+    Mobile element text should be    ${lblInternationalRoamingService}    ${InternationalRoamingService}
+    Mobile Capture Screen At Verify Point    International Services Page
+
+Verify pop up open International Service
+    Swipe to element    ${lblInternationalServices}
+    Click Mobile Element    ${lblInternationalServices}
+    Switch International service Mode    On
+    Mobile element text should be    ${lblPopupmessageInternationalRoamingService}    ${PopupmessageOpenInternationalRoamingService}
+    Comment    : FOR    ${Index}    IN RANGE    1    100
+    Comment    Switch International service Mode    On
+    Comment    Mobile element text should be    ${lblPopupmessageInternationalRoamingService}    ${PopupmessageOpenInternationalRoamingService}
+    Comment    ${Text}=    Get mobile text    ${lblPopupmessageInternationalRoamingService}
+    Comment    Run Keyword If    '${PopupmessageOpenInternationalRoamingService}'!="""${Text}"""    Click Mobile Element    ${btnPopupSubmitInternationalRoamingService}
+    ...    ELSE    Exit For Loop
+    sleep    60
+    Mobile Capture Screen At Verify Point    Verify Pop up
+
+Verify pop up close International Service
+    Swipe to element    ${lblInternationalServices}
+    Click Mobile Element    ${lblInternationalServices}
+    Switch International service Mode    On
+    Mobile element text should be    ${lblPopupmessageInternationalRoamingService}    ${PopupmessageOpenInternationalRoamingService}
+    Click Mobile Element    ${btnPopupSubmitInternationalRoamingService}
+    sleep    60
+    Click Mobile Element    //*[@resource-id="com.ais.mimo.eservice.debug:id/my_ais_library_toolbar_simple_btn_back"]
+    Switch International service Mode    Off
+    Click Mobile Element    ${lblInternationalServices}
+    Mobile element text should be    ${lblPopupmessageInternationalRoamingService}    ${PopupmessageCloseInternationalRoamingService}
+    Mobile Capture Screen At Verify Point    Verify Pop up
