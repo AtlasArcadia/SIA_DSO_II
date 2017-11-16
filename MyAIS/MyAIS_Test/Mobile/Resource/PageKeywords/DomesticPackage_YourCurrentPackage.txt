@@ -359,7 +359,8 @@ Verify Page Current Package Main One On Top package iOS
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
     Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     comment    แถบ "แพ็กเกจ Internet" แถบ "แพ็กเกจอื่นๆ"
-    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    Run Keyword If    "${ar_NType}"=="3PE"    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Mobile element text should be    ${lblHeadOnTopPackage}    ${HeadOnTopInternetPackage}
     comment    Verify ว่ามี On-Top Pack
     Find And Check Package    1
     comment    ปุ่ม "สมัครแพ็กเสริม"
@@ -385,9 +386,10 @@ Verify Page Current Package Main Two On Top package iOS
     ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
     comment    ปุ่ม "เปลียนแพ็กหลัก"
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
-    Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     comment    แถบ "แพ็กเกจ Internet"
-    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    Run Keyword If    "${ar_NType}"=="3PE"    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Mobile element text should be    ${lblHeadOnTopPackage}    ${HeadOnTopInternetPackage}
+    Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     comment    Verify ว่ามี On-Top Pack
     Find And Check Package    2
     comment    ปุ่ม "สมัครแพ็กเสริม"
