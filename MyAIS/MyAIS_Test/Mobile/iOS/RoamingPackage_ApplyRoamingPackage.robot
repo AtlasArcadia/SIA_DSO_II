@@ -33,7 +33,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    13. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -493,7 +493,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - ระยะเวลาใช้งาน
     ...    - ประเทศที่ต้องการสมัคร (label)
     ...    11. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -503,7 +503,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Roaming Package Submenu
-    Select Roaming Country To Australia
+    Select Roaming Country To China
     Select Package Type To Data
     ${Country}    ${Package}    Get Country Customer And Package Type iOS
     Click Continue On Apply Roaming Package Page
