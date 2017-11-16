@@ -389,6 +389,7 @@ Verify Detail First Package Page iOS
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
     Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Wait Mobile Until Element Visible    ${lblCountryDetailPage}    30
     Mobile element text should be    ${lblCountryDetailPage}    ${Country}
     Wait Mobile Until Element Visible    ${lblPackageNameDetailPage}
     Wait Mobile Until Element Visible    ${lblPackageRateDetailPage}
@@ -503,7 +504,7 @@ Verify End And Start Time iOS
     ...    eg. Package starts on 21 Dec 2016 23:00 \ \ \ \ \ \ \ \ \ - Package ends on dd mm yyyy \ hh:mm ( end time can be equal start time+23:59 hr. or start time+24:00 hr.)
     ...    eg. Package ends on 22 Dec 2016 22:59
     ...    or \ Package ends on 22 Dec 2016 23:00
-    Swipe to element    ${lblTheStartAndEndDateOfYourSelected}
+    Swipe to element    ${lblPackageEndDate}    ${lblTheStartAndEndDateOfYourSelected}    up
     Mobile element text should be    ${lblTheStartAndEndDateOfYourSelected}    ${TheStartAndEndDateOfYourSelected}
     Mobile element text should match regexp    ${lblPackageStartDate}    ${StartDateRex}
     Mobile element text should match regexp    ${lblPackageEndDate}    ${EndDateRex}
@@ -793,34 +794,32 @@ set date tomorrow iOS
     Swipe Set Time 00:00
 
 Swipe Set Time 00:00
-    Run Keyword If    "${ar_LANG}"=="EN"    Swipe Set Time 00:00 EN
-    ...    ELSE IF    "${ar_LANG}"=="TH"    Swipe Set Time 00:00 TH
+    Run Keyword If    "${ar_LANG}"=="EN"    Swipe Set Time 00:00 EN    #EN Set Date Time on Mac OSX Type 12HH AM-PM
+    ...    ELSE IF    "${ar_LANG}"=="TH"    Swipe Set Time 00:00 TH    #TH Set Date Time on Mac OSX Type 24HH
 
 Swipe Set Time 00:00 EN
     ${getDate}    Get Current Date
     log    ${getDate}
     ${date}=    Convert Date    ${getDate}
     ${time}=    Add Time To Date    ${date}    1 day    exclude_millis=yes    result_format=datetime
-    ${setDate}    Set Variable    ${time.day}
-    ${setMonth}    Set Variable    ${time.month}
-    ${setYear}    Set Variable    ${time.year}
     ${setHour}    Set Variable    ${time.hour}
     ${setMinute}    Set Variable    ${time.minute}
     ${hh}    Convert To Integer    ${setHour}
     ${mm}    Convert To Integer    ${setMinute}
     Click Mobile Element    ${btnAddDate}
+    Run Keyword If     ${hh}>12    Hour >12    ${hh}
     Swipe by Percent    10    90    10    89    100
-    : FOR    ${index}    IN RANGE    24
-    \    ${hh}    Evaluate    ${hh}+1
-    \    Run Keyword If    ${hh}==12    Exit For Loop
+    ${hh}    Evaluate    ${hh}+1
+    : FOR    ${index}    IN RANGE    13
     \    Run Keyword If    ${hh}==0    Exit For Loop
-    \    Run Keyword If    ${hh}>0    Swipe by Percent minute
-    ${mm}    Evaluate    ${mm}-1
-    : FOR    ${index}    IN RANGE    60
-    \    ${mm}    Evaluate    ${mm}+1
-    \    Run Keyword If    ${mm}==60    Exit For Loop
+    \    Run Keyword If    ${hh}==12    Exit For Loop
+    \    Run Keyword If    ${hh}>0    Swipe by Percent minute EN
+    \    ${hh}    Evaluate    ${hh}+1
+    : FOR    ${index}    IN RANGE    61
     \    Run Keyword If    ${mm}==0    Exit For Loop
-    \    Run Keyword If    ${mm}>0    Swipe by Percent second
+    \    Run Keyword If    ${mm}==60    Exit For Loop
+    \    Run Keyword If    ${mm}>0    Swipe by Percent second EN
+    \    ${mm}    Evaluate    ${mm}+1
     Swipe by Percent AM And PM
     Click Mobile Element    ${btnOkSelectTime}
 
@@ -829,36 +828,44 @@ Swipe Set Time 00:00 TH
     log    ${getDate}
     ${date}=    Convert Date    ${getDate}
     ${time}=    Add Time To Date    ${date}    1 day    exclude_millis=yes    result_format=datetime
-    ${setDate}    Set Variable    ${time.day}
-    ${setMonth}    Set Variable    ${time.month}
-    ${setYear}    Set Variable    ${time.year}
     ${setHour}    Set Variable    ${time.hour}
     ${setMinute}    Set Variable    ${time.minute}
     ${hh}    Convert To Integer    ${setHour}
     ${mm}    Convert To Integer    ${setMinute}
     Click Mobile Element    ${btnAddDate}
     Swipe by Percent    10    90    10    89    100
-    : FOR    ${index}    IN RANGE    24
-    \    ${hh}    Evaluate    ${hh}+1
-    \    Run Keyword If    ${hh}==24    Exit For Loop
+    ${hh}    Evaluate    ${hh}+1
+    : FOR    ${index}    IN RANGE    25
     \    Run Keyword If    ${hh}==0    Exit For Loop
-    \    Run Keyword If    ${hh}>0    Swipe by Percent minute
-    ${mm}    Evaluate    ${mm}-1
-    : FOR    ${index}    IN RANGE    60
-    \    ${mm}    Evaluate    ${mm}+1
-    \    Run Keyword If    ${mm}==60    Exit For Loop
+    \    Run Keyword If    ${hh}==24    Exit For Loop
+    \    Run Keyword If    ${hh}>0    Swipe by Percent minute TH
+    \    ${hh}    Evaluate    ${hh}+1
+    : FOR    ${index}    IN RANGE    61
     \    Run Keyword If    ${mm}==0    Exit For Loop
-    \    Run Keyword If    ${mm}>0    Swipe by Percent second
+    \    Run Keyword If    ${mm}==60    Exit For Loop
+    \    Run Keyword If    ${mm}>0    Swipe by Percent second TH
+    \    ${mm}    Evaluate    ${mm}+1
     Click Mobile Element    ${btnOkSelectTime}
 
-Swipe by Percent minute
+Hour >12
+    [Arguments]    ${hh}
+    ${hh}    Evaluate    ${hh}-12
+    Set Test Variable    ${hh}
+
+Swipe by Percent minute EN
     Swipe by Percent    55    90    55    89    100
 
-Swipe by Percent second
+Swipe by Percent second EN
+    Swipe by Percent    68    90    68    89    100
+
+Swipe by Percent minute TH
+    Swipe by Percent    55    90    55    89    100
+
+Swipe by Percent second TH
     Swipe by Percent    80    90    80    89    100
 
 Swipe by Percent AM And PM
-    Swipe by Percent    90    89    90    90    100
+    Swipe by Percent    83    88    83    90    100
 
 set yesterday
     [Arguments]    ${TimeZone}=local
