@@ -595,4 +595,69 @@ Verify Select First Package Minutes OnTop Package Step2
     Wait Mobile Until Element Visible    ${btnConfirm}
     Mobile Capture Screen At Verify Point    Verify Select First Package Minutes OnTop Package Step2
 
+Verify page Apply Other OnTop Package
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify page Apply Other OnTop Package iOS    ${Number}
 
+Verify page Apply Other OnTop Package iOS
+    [Arguments]    ${Number}
+    comment    รอเพจโหดล
+    Wait Mobile Until Element Visible    ${lblTalkAndNetOntopPackage}
+    comment    หมายเลขโทรศัพท์
+    Mobile element number should be    ${lblMobileNumber}    ${Number}
+    comment    แพ็กเกจเสริมโทรและเน็ต
+    Mobile element text should be    ${lblTalkAndNetOntopPackage}    ${TalkAndNetOnTop}
+    comment    แพ็กเกจเสริมอินเทอร์เน็ต
+    Mobile element text should be    ${lblInterNetOnTopPackage}    ${InternetOnTop}
+    comment    แพ็กเกจเสริมสำหรับโทร
+    Mobile element text should be    ${lblTalkOnTopPackage}    ${TalkOnTop}
+    comment    เงื่อนไขบริการ
+    Wait Mobile Until Element Visible    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify page Apply Other OnTop Package
+
+Verify Talk And Net OnTop Package Menu
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Talk And Net OnTop Package Menu iOS
+
+Verify Talk And Net OnTop Package Menu iOS
+    comment    ตรวจสอบแพ็กเกจเสริมโทรและเน็ต
+    Mobile element text should be    ${titleTalkAndNetOntopPackage}    ${TalkAndNetOnTop}
+    comment    เช็คแพ็กเกจทั้งหมด
+    Check Package
+    comment    เงื่อนไขบริการ
+    Wait Mobile Until Element Visible    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Verify Talk And Net OnTop Package
+
+Check Package
+    : FOR    ${Package}    IN RANGE    1    20
+    \    Swipe Element To Screen From Location    ${lblFirstPackage}[${Package}+3]/*[2]    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
+    \    ${text}    AISAppiumEx.Get Text    ${lblFirstPackage}[${Package}+3]/*[2]
+    \    comment    แพ็กเกจ    Log    ${text}
+    \    ${text}    AISAppiumEx.Get Text    ${lblFirstPackage}[${Package}+4]/*[1]
+    \    Exit For Loop If    '${text}'=='More' or '${text}'=='แพ็กเกจอื่นๆ'
+
+Verify Internet OnTop Package Menu
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Internet OnTop Package Menu iOS
+
+Verify Internet OnTop Package Menu iOS
+    comment    ตรวจสอบแพ็กเกจเสริมอินเทอร์เน็ต
+    Mobile element text should be    ${lblInterNetOnTopPackage}    ${InternetOnTop}
+    comment    แบบรายครั้ง
+    Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${ApplyOnTopInternetOneTime}
+    comment    แบบรายเดือน
+    Mobile element text should be    ${btnApplyOnTopInternetMonthly}    ${ApplyOnTopInternetMonthly}
+    comment    WiFi
+    Mobile element text should be    ${btnApplyOnTopWifi}    ${ApplyOnTopWifi}
+    Mobile Capture Screen At Verify Point    Verify Internet OnTop Package Menu
+
+
+Verify Talk OnTop Package Menu
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify Talk OnTop Package Menu iOS
+
+Verify Talk OnTop Package Menu iOS
+    comment    แพ็กเกจเสริมโทรและเน็ต
+    Mobile element text should be    ${lblTalkOnTopPackage}    ${TalkOnTop}
+    comment    แบบบุฟเฟต์
+    Mobile element text should be    ${btnTalkOnTopBuffet}    ${OnTopBuffetPackage}
+    comment    แบบนาที
+    Mobile element text should be    ${btnTalkOnTopMinutes}    ${OnTopMinutesPackage}
+    Mobile Capture Screen At Verify Point    Verify Talk OnTop PackageMenu

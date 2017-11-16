@@ -30,9 +30,10 @@ Verify Current Package Have Remaining Usage iOS
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
     Should Be Equal    ${MobileNumber}    ${Number}
-    Get Mobile Text    ${lblPackageNameCurrentPackage}
-    Get Mobile Text    ${lblPackageValidityStartDateCurrentPackage}
-    Get Mobile Text    ${lblRemainingUsageCurrentPackage}
+    Wait Mobile Until Element Visible    ${lblPackageNameCurrentPackage}    30
+    ${CheckText}    Get Mobile Text    ${lblPackageValidityStartDateCurrentPackage}
+    Should Match Regexp    ${CheckText}    ${ValidityDetail}
+    Wait Mobile Until Element Visible    ${lblRemainingUsageCurrentPackage}
     Mobile Capture Screen At Verify Point    Verify Current Package Have Remaining Usage iOS
 
 Verify Current Package And Remaining Have No Data Roaming Package
@@ -52,8 +53,8 @@ Verify Current Package And Remaining Have No Data Roaming Package iOS
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
     Should Be Equal    ${MobileNumber}    ${Number}
-    Wait Mobile Until Element Visible    ${lblSubscribeNo}
-    Get Mobile Text    ${lblSubscribeNo}
+    Wait Mobile Until Element Visible    ${lblSubscribeNo}    30
+    Mobile Element Text Should Be    ${lblSubscribeNo}    ${msgYouHaveNoDataRoamingPackage}
     Mobile Capture Screen At Verify Point    Verify Current Package And Remaining Have No Data Roaming Package iOS
 
 
