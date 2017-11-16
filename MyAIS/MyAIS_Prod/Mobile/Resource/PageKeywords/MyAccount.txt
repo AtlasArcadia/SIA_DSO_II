@@ -31,3 +31,39 @@ Close Facebook App
     ${rc}=    Run And Return Rc    ${command}
     Log    ${rc}
     Sleep    2
+
+Verify My AIS Account page
+    Mobile element text should be    ${lblHeaderMyAISAccount}    ${HeaderMyAISAccount}
+    Mobile element text should be    ${lblTitleMyAISAccount}    ${TitleMyAISAccount}
+    Mobile element text should be    ${lblMyAISAccountMainMunber}    ${MyAISAccountMainMunber}
+    Mobile element text should be    ${lblMyAISAccountEmail}    ${MyAISAccountEmail}
+    Mobile element text should be    ${lblMyAISAccountPassword}    ${MyAISAccountPassword}
+    Mobile element text should be    ${lblHeaderMyList}    ${HeaderMyList}
+    Mobile check existing text    ${lblNumberMyList}
+    Mobile element text should be    ${lblManageMyAISAccount}    ${ManageMyAISAccount}
+    Wait Mobile Until Page Contains Element    ${btnMyAISAccountAdd}
+    Mobile Capture Screen At Verify Point    My AIS Account
+
+Add member dosen't my list
+    Click Mobile Element    ${btnMyAISAccountAdd}
+    Mobile check existing text    ${lblRegisterMyAISAccountTypeAIS}
+    Mobile check existing text    ${lblRegisterMyAISAccountNumber}
+
+RequestOPT
+    Click Mobile Element    ${lblRegisterMyAISAccountRequestOTP}
+    Click Mobile Element    ${txtBoxRegisterMyAISAccountInputOTP}
+    Input Mobile Text    ${txtBoxRegisterMyAISAccountInputOTP}    1111
+    Click Mobile Element    ${btnRegisterMyAISAccountSubmitOTP}
+    Mobile Capture Screen At Verify Point    Register number
+
+Verify my AIS Account has list
+    Mobile element text should be    ${lblHeaderMyAISAccount}    ${HeaderMyAISAccount}
+    Mobile element text should be    ${lblTitleMyAISAccount}    ${TitleMyAISAccount}
+    Mobile element text should be    ${lblMyAISAccountMainMunber}    ${MyAISAccountMainMunber}
+    Mobile element text should be    ${lblMyAISAccountEmail}    ${MyAISAccountEmail}
+    Mobile element text should be    ${lblMyAISAccountPassword}    ${MyAISAccountPassword}
+    Mobile element text should be    ${lblHeaderMyList}    ${HeaderMyList}
+    Mobile check existing text    ${lblNumberMyList}
+    Mobile element text should be    ${lblManageMyAISAccount}    ${ManageMyAISAccount}
+    Wait Mobile Until Page Contains Element    ${btnMyAISAccountAdd}
+    Mobile Capture Screen At Verify Point    My AIS Account
