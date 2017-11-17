@@ -33,6 +33,11 @@ Select Apply Entertainment On Top Package Submenu Android
 Select Apply Entertainment On Top Package Submenu iOS
     Select Sub Menu    ApplyEntertainmentOnTopPackage
 
+Verify Page Apply Entertainment On Top Package By NType
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_NType}"=="3PE"    Verify Dialog Message Not Found Package
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Verify Page Apply Entertainment On Top Package    ${Number}
+
 Verify Page Apply Entertainment On Top Package
     [Arguments]    ${Number}
     Run Keyword If    "${ar_OS}"=="Android"    Verify Page Apply Entertainment On Top Package Android    ${Number}
@@ -43,6 +48,41 @@ Verify Page Apply Entertainment On Top Package Android
 
 Verify Page Apply Entertainment On Top Package iOS
     [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblApplyEntertainmentOnTopPackage}
+    Mobile element text should be    ${lblHeaderApplyEntertainmentOnTopPackage}     ${HeaderApplyEntertainmentOnTopPackage}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberApplyEntertainmentOnTopPackage}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblApplyEntertainmentOnTopPackage}    ${ApplyEntertainmentOnTopPackage}
+    Mobile element text should be    ${lblHeaderEntertainment}    ${HeaderEntertainment}
+    Mobile element text should be    ${lblFirstPackageApplyEntertainmentOnTopPackage}    ${FirstPackageApplyEntertainmentOnTopPackage}
+    Mobile element text should be    ${lblSecondPackageApplyEntertainmentOnTopPackage}     ${SecondPackageApplyEntertainmentOnTopPackage}
+    Mobile element text should be   ${lblTermAndConditionApplyEntertainmentOnTopPackage}    ${TermAndConditionApplyEntertainmentOnTopPackage}
+    Mobile Capture Screen At Verify Point    Verify Apply Entertainment On Top Package Page
+
+Verify Page First Package Detail
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Page First Package Detail Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Page First Package Detail iOS    ${Number}
+
+Verify Page First Package Detail Android
+    [Arguments]    ${Number}
+
+Verify Page First Package Detail iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblPackageName}
+    Mobile element text should be    ${lblHeaderEntertainmentPackage}     ${HeaderEntertainmentPackage}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberApplyEntertainmentOnTopPackage}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblPackageName}    ${FirstPackageName}
+    Mobile element text should be    ${lblPackageDetail}    ${FirstPackageDetail}
+    Mobile element text should be    ${lblTermAndCondition}    ${TermAndConditionApplyEntertainmentOnTopPackage}
+    Wait Mobile Until Element Visible    ${btnContinueDetailApplyEntertainmentOnTopPackage}
+    Wait Mobile Until Element Visible    ${btnBackDetailApplyEntertainmentOnTopPackage}
+    Mobile Capture Screen At Verify Point    Verify First Package Detail Page
 
 Verify Dialog Message Not Found Package
     Wait Mobile Until Element Visible    ${lblDialogMessage}
@@ -50,3 +90,45 @@ Verify Dialog Message Not Found Package
     Mobile Capture Screen At Verify Point    Verify Dialog Message You Requested Transaction Is Not Found
     Click Mobile Element    ${btnDialogClose}
     Mobile element text should be    ${lblHeaderApplyEntertainmentOnTopPackage}    ${HeaderApplyEntertainmentOnTopPackage}
+
+Select First Package
+    Wait Mobile Until Element Visible    ${lblFirstPackageApplyEntertainmentOnTopPackage}
+    Click Mobile Element    ${lblFirstPackageApplyEntertainmentOnTopPackage}
+
+Select Second Package
+    Wait Mobile Until Element Visible    ${lblSecondPackageApplyEntertainmentOnTopPackage}
+    Click Mobile Element    ${lblSecondPackageApplyEntertainmentOnTopPackage}
+
+Select Continue Apply Entertainment On Top Package
+    Click Mobile Element    ${btnContinueDetailApplyEntertainmentOnTopPackage}
+
+Verify Summary Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Summary Page Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Summary Page iOS    ${Number}
+
+Verify Summary Page Android
+    [Arguments]    ${Number}
+
+Verify Summary Page iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblYouHaveSelectPackageSummary}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberApplyEntertainmentOnTopPackage}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblPackageNameSummary}    ${PackageNameSummary}
+    Mobile element text should be    ${lblPackageEffectiveDateSummaryPage}    ${PackageEffectiveDateSummaryPage}
+    Mobile element text should be    ${lblPackageEffectiveDateDetail}    ${PackageEffectiveDateDetail}
+    Mobile element text should be    ${lblTermAndCondition}    ${TermAndConditionApplyEntertainmentOnTopPackage}
+    Wait Mobile Until Element Visible    ${btnConfirmDetailApplyEntertainmentOnTopPackage}
+    Wait Mobile Until Element Visible    ${btnBackApplyEntertainmentOnTopPackage}
+    Mobile Capture Screen At Verify Point    Verify First Package Detail Page
+
+Select Confirm Package Entertainment
+    Click Mobile Element    ${btnConfirmDetailApplyEntertainmentOnTopPackage}
+
+Verify Dialog Message Apply Entertainment Package
+    Wait Mobile Until Element Visible    ${lblDialogMessageSummary}
+    Mobile element text should be    ${lblDialogMessageSummary}    ${DialogMessageSecondPackageSummary}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message
