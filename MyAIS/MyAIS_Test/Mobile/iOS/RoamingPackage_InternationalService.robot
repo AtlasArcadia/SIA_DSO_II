@@ -7,10 +7,33 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     [Documentation]    Owner : Lek
     ...
     ...    *Pre-requisite*
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...    EN
+    ...    Test Step
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "International Service" menu
+    ...    4. Verify page "International Service"
+    ...    - International Service
+    ...    - Mobile no
+    ...    - International Roaming Service
+    ...    5. Capture screen
+    ...
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Have IR Service
+    ...    TH
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "บริการระหว่างประเทศ"
+    ...    4. ตรวจสอบหน้า "บริการระหว่างประเทศ"
+    ...    - บริการระหว่างประเทศ
+    ...    - เบอร์โทรศัพท์
+    ...    - บริการข้ามแดนอัตโนมัติ (IR)
+    ...    5. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE    IRService
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -28,10 +51,30 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     [Documentation]    Owner : Lek
     ...
     ...    *Pre-requisite*
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...    EN
+    ...    Test Step
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "International Service" menu
+    ...    4. Click "International Roaming Service"
+    ...    5. Verify page popup message "xxx"
+    ...    6. Capture screen
+    ...
+    ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Have IR Service
+    ...    TH
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "บริการระหว่างประเทศ"
+    ...    4. กดเปิดใช้งาน "บริการข้ามแดนอัตโนมัติ (IR)"
+    ...    5. ตรวจสอบ popup message "xxx"
+    ...    6. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE    IRService
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -50,10 +93,33 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     [Documentation]    Owner : Lek
     ...
     ...    *Pre-requisite*
+    ...    Source Number : 3PE
+    ...    Status : Active
+    ...    Have IR Service
+    ...    EN
+    ...    Test Step
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "International Service" menu
+    ...    4. Click "International Roaming Service"
+    ...    5. Click "OK" (popup เปิด IR)
+    ...    6. Click "International Roaming Service"
+    ...    7. Verify page popup message "xxx"
+    ...    8. Capture screen
+    ...
     ...    Source Number : 3PE,3BE
     ...    Status : Active
     ...    Have IR Service
+    ...    TH
     ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "บริการระหว่างประเทศ"
+    ...    4. กดเปิดใช้งาน "บริการข้ามแดนอัตโนมัติ (IR)"
+    ...    5. กด "ตกลง" (popup เปิด IR)
+    ...    6. กดปิดใช้งาน "บริการข้ามแดนอัตโนมัติ (IR)"
+    ...    7. ตรวจสอบ popup message "xxx"
+    ...    8. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE    IRService    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
