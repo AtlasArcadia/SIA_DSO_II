@@ -172,7 +172,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     Click Mobile Element    ${btnOkOpenInternationalRoamingService}
     Click Mobile Element    ${btnConfirmOpenIR}
     Click Mobile Element    ${btnBackRoamingPage}
-    Sleep    5s
+    Sleep    30s
     Click Mobile Element    ${lblInternationalServices}
     Switch International service Mode    Off
     Sleep    5s
@@ -237,7 +237,18 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     Switch International service Mode    On
     Click Mobile Element    ${btnOkOpenInternationalRoamingService}
     Click Mobile Element    ${btnConfirmOpenIR}
-    Sleep    10s
+    Click Mobile Element    ${btnBackRoamingPage}
+    Sleep    30s
+    Click Mobile Element    ${lblInternationalServices}
     Switch International service Mode    Off
-    Sleep    5s
+    Click Mobile Element    ${btnCloseIR}
+    sleep    10s
+    Click Mobile Element    ${btnBackRoamingPage}
+    sleep    10s
+    Click Mobile Element    ${lblInternationalServices}
+    sleep    30s
+    Switch InternationalCall Service mode    Off
+    sleep    5s
+    Mobile element text should be    ${lblPopupMessageCloseInternationalCall}    ${PopupMessageCloseInternationalCall}
+    Mobile Capture Screen At Verify Point    CloseInternationalCallservice
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
