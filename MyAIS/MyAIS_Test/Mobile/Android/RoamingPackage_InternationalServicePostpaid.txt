@@ -28,6 +28,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...    5. จับภาพหน้าจอ"
     ...
     ...    Verify point :
+    [Tags]    3PO    3BO    success    TH    EN
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -44,7 +45,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     Mobile element text should be    ${lblInternationalCallService}    ${InternationalCallService}
     Mobile element text should be    ${lblTerm&Conditions}    ${Term&Conditions}
     Mobile Capture Screen At Verify Point    International Services Page
-    [Teardown]
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F10_Package_2_1_Y_2_2] Verify popup message open International Roaming Service
     [Documentation]    Owner by : Noon
@@ -68,6 +69,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...    6. จับภาพหน้าจอ"
     ...
     ...    Verify point
+    [Tags]    3PO    3BO    success    TH    EN
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -81,7 +83,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     Switch International service Mode    On
     Mobile element text should be    ${lblPopUpOpenIR}    ${PopUpOpenIR}
     Mobile Capture Screen At Verify Point    Message OpenIR
-    [Teardown]
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F10_Package_2_1_Y_3_2] Verify popup message open International Call Service
     [Documentation]    Owner by : Noon
@@ -106,6 +108,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...
     ...
     ...    Verify point
+    [Tags]    3PO    3BO    success    TH    EN
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -119,7 +122,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     Switch InternationalCall Service mode    On
     Mobile element text should be    ${lblPopUpOpenInternationalCallService}    ${PopUpOpenInternationalCallService}
     Mobile Capture Screen At Verify Point    Message OpenInternationalCallService
-    [Teardown]
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F10_Package_2_1_Y_4_2] Verify popup message close International Roaming Service
     [Documentation]    Owner by : Noon
@@ -158,24 +161,29 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...
     ...
     ...    Verify point
+    [Tags]    3PO    3BO    success    TH    EN
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
-    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
     Select Menu    Package
     Swipe to element    ${lblInternationalServices}
     Click Mobile Element    ${lblInternationalServices}
     Switch International service Mode    On
     Click Mobile Element    ${btnOkOpenInternationalRoamingService}
     Click Mobile Element    ${btnConfirmOpenIR}
+    Click Mobile Element    ${btnBackRoamingPage}
+    Sleep    30s
+    Click Mobile Element    ${lblInternationalServices}
     Sleep    10s
     Switch International service Mode    Off
-    Sleep    5s
+    Sleep    10s
     Mobile element text should be    ${lblPopUpCloseIR}    ${PopUpCloseIR}
     Mobile Capture Screen At Verify Point    Message CloseInternationalRoamingService
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F10_Package_2_1_Y_5_2] Verify popup message close International Call Service
     [Documentation]    Owner by : Noon
@@ -221,19 +229,32 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...
     ...
     ...    Verify point
+    [Tags]    3PO    3BO    success    TH    EN
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
-    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}
     Select Menu    Package
     Swipe to element    ${lblInternationalServices}
     Click Mobile Element    ${lblInternationalServices}
     Switch International service Mode    On
     Click Mobile Element    ${btnOkOpenInternationalRoamingService}
     Click Mobile Element    ${btnConfirmOpenIR}
-    Sleep    10s
+    Click Mobile Element    ${btnBackRoamingPage}
+    Sleep    30s
+    Click Mobile Element    ${lblInternationalServices}
     Switch International service Mode    Off
-    Sleep    5s
+    Click Mobile Element    ${btnCloseIR}
+    sleep    10s
+    Click Mobile Element    ${btnBackRoamingPage}
+    sleep    10s
+    Click Mobile Element    ${lblInternationalServices}
+    sleep    30s
+    Switch InternationalCall Service mode    Off
+    sleep    5s
+    Mobile element text should be    ${lblPopupMessageCloseInternationalCall}    ${PopupMessageCloseInternationalCall}
+    Mobile Capture Screen At Verify Point    CloseInternationalCallservice
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
