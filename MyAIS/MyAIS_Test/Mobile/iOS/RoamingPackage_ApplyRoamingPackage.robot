@@ -33,7 +33,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    13. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -257,8 +257,10 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
     Select First Package In Select Package Page
     Select Specify Start Date Button
+    ${StartDate}    Set Specify Start Date Not More Than 30 Day
+    Select Start to Use in State
     Select Subscribe Button
-    Comment    Verify Summary Immediate Page Australia
+    Verify Summary Specify Page Australia    ${StartDate}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_6_2] Subscribe Data Package : FutureIn case : Have only countries
@@ -310,8 +312,9 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
     Select First Package In Select Package Page
     Select Specify Start Date Button
+    ${StartDate}    Set Specify Start Date Not More Than 30 Day
     Select Subscribe Button
-    Comment    Verify Summary Immediate Page China
+    Verify Summary Specify Page China    ${StartDate}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1,3_1-2_Y_7_2] Subscribe Voice Package : FutureIn case : countries with states
@@ -417,7 +420,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - ปุ่ม "ดำเนินการต่อ"
     ...    - เงื่อนไขบริการ
     ...    5. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -452,7 +455,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - ประเภทแพ็กเกจ
     ...    - รายการแพ็กเกจ (Check object visible)
     ...    10. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

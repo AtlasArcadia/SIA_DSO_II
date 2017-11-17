@@ -172,6 +172,7 @@ Select Subscribe Button Android
     Click Mobile Element    ${btnSubscribeSpecifyEffectiveDate}
 
 Select Subscribe Button iOS
+    Swipe Element From Location   ${btnSubscribeApplyRoaming}
     Wait Mobile Until Element Visible    ${btnSubscribeApplyRoaming}
     Click Mobile Element    ${btnSubscribeApplyRoaming}
 
@@ -1218,3 +1219,42 @@ Verify Summary Immediate Page China
     Wait Mobile Until Element Visible    ${btnEditPackageSummaryPage}
     Wait Mobile Until Element Visible    ${btnCancelPackageSummaryPage}
     Mobile Capture Screen At Verify Point    Verify Summary Immediate Page China
+
+Set Specify Start Date Not More Than 30 Day
+    Click Mobile Element    ${btnAddDate}
+    Swipe by Percent    10    90    10    89    100
+    Click Mobile Element    ${btnOkSelectTime}
+    ${StartDate}    Get Mobile Text    ${btnAddDate}
+    [Return]    ${StartDate}
+
+Select Start to Use in State
+    Click Mobile Element    ${ddlPleaseSelectCountryApplyRoamingPackagePage}
+    Click Mobile Element    ${btnStateVictoria}
+
+Verify Summary Specify Page Australia
+    [Arguments]    ${StartDate}
+    Mobile element name should be    ${lblPackageDescriptionSummaryPage}    ${PackageDescriptionSummaryPage}
+    Mobile element name should be    ${lblPackagePricePackageSummaryPage}    ${PackagePricePackageSummaryPage}
+    Mobile element name should be    ${lblValidityPackageSummaryPage}    ${ValidityPackageSummaryPage}
+    ${Start}    Get Mobile Text    ${lblStartDatePackageSummaryPage}
+    Should Match Regexp    ${Start}    ${StartDate}.*
+    Wait Mobile Until Element Visible    ${lblEndDatePackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnConfirmPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnEditPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnCancelPackageSummaryPage}
+    Mobile Capture Screen At Verify Point    Verify Summary Specify Page Australia
+
+Verify Summary Specify Page China
+    [Arguments]    ${StartDate}
+    Mobile element name should be    ${lblPackageDescriptionSummaryPage}    ${NonStopDataRoamZoneB1DayAllNetworksInChinaNameSummaryPage}
+    Mobile element name should be    ${lblPackagePricePackageSummaryPage}    ${NonStopDataRoamZoneB1DayAllNetworksInChinaPriceSummaryPage}
+    Mobile element name should be    ${lblValidityPackageSummaryPage}    ${ValidityPackageSummaryPage}
+    ${Start}    Get Mobile Text    ${lblStartDatePackageSummaryPage}
+    Should Match Regexp    ${Start}    ${StartDate}.*
+    Wait Mobile Until Element Visible    ${lblEndDatePackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnConfirmPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnEditPackageSummaryPage}
+    Wait Mobile Until Element Visible    ${btnCancelPackageSummaryPage}
+    Mobile Capture Screen At Verify Point    Verify Summary Specify Page China
+
+
