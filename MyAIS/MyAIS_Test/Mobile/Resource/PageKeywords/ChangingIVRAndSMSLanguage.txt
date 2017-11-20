@@ -1,0 +1,20 @@
+*** Settings ***
+Resource          Login.txt
+Resource          MyAISCommon.txt
+Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/ChangingIVRAndSMSLanguageLocalized.txt
+Resource          ../PageRepository/${ar_OS}/ChangingIVRAndSMSLanguageRepository.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Continue On Failure    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Service Menu
+    Select Menu    Service
+
+Select Changing IVR And SMS Language Submenu
+    Select Sub Menu    RegisterAISFibre/CheckCoverage
