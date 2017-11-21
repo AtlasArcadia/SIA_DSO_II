@@ -15,6 +15,10 @@ Keywords For Teardown
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
 Verify Service Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Service Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Service Page iOS
+
+Verify Service Page Android
     Mobile element name should be    ${subMnuBalanceTransfer}    ${txtBalanceTransfer}
     Mobile element name should be    ${subMnuValidityTransfer}    ${txtValidityTransfer}
     Mobile element name should be    ${subMnuRegisterAISFibre/CheckCoverage}    ${txtRegisterAISFibre}
@@ -23,7 +27,21 @@ Verify Service Page
     Mobile element name should be    ${subMnuChangingIVR}    ${MnuChangingIVR}
     Mobile Capture Screen At Verify Point    ServicePage
 
+Verify Service Page iOS
+    Mobile element name should be    ${subMnuBalanceTransfer}    ${BalanceTransfer}
+    Mobile element name should be    ${subMnuValidityTransfer}    ${ValidityTransfer}
+    Mobile element name should be    ${subMnuRegisterAISFibre/CheckCoverage}    ${RegisterAISFibre}
+    Mobile element name should be    ${subMnuRequest/ChangeWiFiPassword}    ${RequestAndChangeWifiPassword}
+    Mobile element name should be    ${subMnuCallingMelody}    ${CallingMelody}
+    Mobile element name should be    ${subMnuChangingIVR}    ${MnuChangingIVR}
+    Mobile Capture Screen At Verify Point    Verify Service Page iOS
+
 Verify Balance Transfer Page
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Transfer Page Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Transfer Page iOS    ${Number}
+
+Verify Balance Transfer Page Android
     [Arguments]    ${CustomerNumber}
     Mobile element name should be    ${lblCustomerMobileNumber}    ${CustomerNumber}
     Mobile element name should be    ${lblBalanceTransferDescription}    ${txtBalanceTransferDescription}
@@ -34,26 +52,76 @@ Verify Balance Transfer Page
     Mobile element name should be    ${lblTermAndCondition}    ${txtTermAndCondition}
     Mobile Capture Screen At Verify Point    BalanceTransfer Page
 
+Verify Balance Transfer Page iOS
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblCustomerMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal	   ${MobileNumber}    ${Number}
+    Mobile element name should be    ${lblBalanceTransferDescription}    ${BalanceTransferDescription}
+    Mobile element name should be    ${lblBalanceTransferDestinationNumberTitle}    ${BalanceTransferDestinationNumberTitle}
+    Mobile element name should be    ${lblBalanceTransferAmountTitle}    ${BlanceTransferAmountTitle}
+    Swipe Element From Location    ${lblTermAndCondition}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile element name should be    ${lblTermAndCondition}    ${TermAndCondition}
+    Mobile Capture Screen At Verify Point    Verify Balance Transfer Page iOS
+
 Wait until Page Load Success
     Run Keyword And Ignore Error    AISAppiumEx.Wait Until Element Is Visible    ${lblProgressBar}    2
     AISAppiumEx.Wait Until Page Does Not Contain Element    ${lblProgressBar}    10    #danger workaround
 
 Select Min Amount
+    Run Keyword If    "${ar_OS}"=="Android"    Select Min Amount Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Min Amount iOS
+
+Select Min Amount Android
+    Click Mobile Element    ${listTransferAmount}
+    Click Mobile Element    ${listFirstAmount}
+    Run Keyword If    "${ar_NType}"=="IPE"    Mobile Capture Screen At Verify Point    Transfer to number
+
+Select Min Amount iOS
+    Wait Mobile Until Element Visible    ${listTransferAmount}
     Click Mobile Element    ${listTransferAmount}
     Click Mobile Element    ${listFirstAmount}
     Run Keyword If    "${ar_NType}"=="IPE"    Mobile Capture Screen At Verify Point    Transfer to number
 
 Set Destination Number
     [Arguments]    ${DestinationNumber}
+    Run Keyword If    "${ar_OS}"=="Android"    Set Destination Number Android    ${DestinationNumber}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Set Destination Number iOS    ${DestinationNumber}
+
+Set Destination Number Android
+    [Arguments]    ${DestinationNumber}
     Input Mobile Text    ${lblDestinationNumber}    ${DestinationNumber}
     Hide Keyboard
 
+Set Destination Number iOS
+    [Arguments]    ${DestinationNumber}
+    Wait Mobile Until Element Visible    ${lblDestinationNumber}
+    Input Mobile Text    ${lblDestinationNumber}    ${DestinationNumber}
+
 Confirm Balance Transfer
+    Run Keyword If    "${ar_OS}"=="Android"    Confirm Balance Transfer Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Confirm Balance Transfer iOS
+
+Confirm Balance Transfer Android
     Click Mobile Element    ${btnConfrimBalanceTransfer}
 
+Confirm Balance Transfer iOS
+    Wait Mobile Until Element Visible    ${btnConfirmBalanceTransfer}
+    Click Mobile Element    ${btnConfirmBalanceTransfer}
+
 Verify And Select Confirm Balance Transfer Dialog Message
+    Run Keyword If    "${ar_OS}"=="Android"    Verify And Select Confirm Balance Transfer Dialog Message Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify And Select Confirm Balance Transfer Dialog Message iOS
+
+Verify And Select Confirm Balance Transfer Dialog Message Android
     Mobile element text should match regexp whole string    ${txtConfirmDailogMessage}    ${txtConfirmBalanceTransfer}
     Click Mobile Element    ${btnConfirmDailogMessage}
+
+Verify And Select Confirm Balance Transfer Dialog Message iOS
+    Wait Mobile Until Element Visible    ${txtConfirmDialogMessage}    60
+    Mobile element text should match regexp whole string    ${txtConfirmDialogMessage}    ${ConfirmBalanceTransfer}
 
 Verify Balance Transfer Success
     Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferSuccess}
@@ -66,23 +134,61 @@ Verify Balance Transfer To Postpaid Number
     Click Mobile Element    ${btnOK}
 
 Verify Balance Transfer To Other Network
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Transfer To Other Network Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Transfer To Other Network iOS
+
+Verify Balance Transfer To Other Network Android
     Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToDtacNumber}
     Mobile Capture Screen At Verify Point    Balance Transfer To Other Network
     Click Mobile Element    ${btnOK}
 
+Verify Balance Transfer To Other Network iOS
+    Wait Mobile Until Element Visible    ${txtDialogMessage}    60
+    Mobile element text should be    ${txtDialogMessage}    ${BalanceTransferToDtacNumber}
+    Mobile Capture Screen At Verify Point    Verify Balance Transfer To Other Network iOS
+    Click Mobile Element    ${btnOK}
+
 Verify Balance Transfer To Self Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Transfer To Self Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Transfer To Self Number iOS
+
+Verify Balance Transfer To Self Number Android
     Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToSelfNumber}
     Mobile Capture Screen At Verify Point    Balance Transfr To Self Number
     Click Mobile Element    ${btnOK}
 
+Verify Balance Transfer To Self Number iOS
+    Mobile element text should be    ${txtDialogMessage}    ${BalanceTransferToSelfNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfr To Self Number
+    Click Mobile Element    ${btnOK}
+
 Verify Not Input Destination Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Not Input Destination Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Not Input Destination Number iOS
+
+Verify Not Input Destination Number Android
     Mobile element text should be    ${txtDailogMessage}    ${txtNotInputDestinationNumber}
     Mobile Capture Screen At Verify Point    Balance transfer Not Input Destination Number
     Click Mobile Element    ${btnOK}
 
+Verify Not Input Destination Number iOS
+    Mobile element text should be    ${txtDialogMessage}    ${NotInputDestinationNumber}
+    Mobile Capture Screen At Verify Point    Verify Not Input Destination Number Android iOS
+    Click Mobile Element    ${btnOK}
+
 Verify Input Wrong Format Destination Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Input Wrong Format Destination Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Input Wrong Format Destination Number iOS
+
+Verify Input Wrong Format Destination Number Android
     Mobile element text should be    ${txtDailogMessage}    ${txtWrongDigitNumber}
     Mobile Capture Screen At Verify Point    Balance Transfer Wrong Digit Number
+    Click Mobile Element    ${btnOK}
+
+Verify Input Wrong Format Destination Number iOS
+    Wait Mobile Until Element Visible    ${txtDialogMessage}    60
+    Mobile element text should be    ${txtDialogMessage}    ${WrongDigiNumber}
+    Mobile Capture Screen At Verify Point    Verify Input Wrong Format Destination Number iOS
     Click Mobile Element    ${btnOK}
 
 Verify Not Select Amount
@@ -130,4 +236,7 @@ Verify Balance Transfer To Blacklist Number
 Verify Balance Transfer From Number Register Date < 90 Days
     Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToFromNumberRegisterLessThan90Days}
     Mobile Capture Screen At Verify Point    Balance Transfer To Register Date Less Than 90 Days Number
+    Click Mobile Element    ${btnOK}
+
+Click OK Button
     Click Mobile Element    ${btnOK}

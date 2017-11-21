@@ -8,7 +8,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     ...    Source Number : 3PE, 3BE
     ...    Status : Active
     ...    Teststep
-    [Tags]    success    3be    3pe
+    [Tags]    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -17,7 +17,8 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    Verify Service Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_Y_2_2] Verify Balance Transfer page
     [Documentation]    *Owner* :
@@ -34,7 +35,8 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    Verify Balance Transfer Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_Y_3_2] Balance Transfer Case : Transfer to Prepaid Number (3PE)
     [Documentation]    *Owner* :
@@ -51,7 +53,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_4_2] Balance Transfer Case : Transfer to Prepaid Number (3BE)
     [Documentation]    *Owner* :
@@ -68,7 +70,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_5_2] Balance Transfer Case : Transfer to Postpaid Number
     [Documentation]    *Owner* :
@@ -84,7 +86,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_6_2] Balance Transfer Case : Transfer to other network
     [Documentation]    *Owner* :
@@ -101,7 +103,13 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    Set Destination Number    ${DtacNumber}    #Other Network Number
+    Select Min Amount
+    Click OK Button
+    Verify And Select Confirm Balance Transfer Dialog Message
+    Confirm Balance Transfer
+    Verify Balance Transfer To Other Network
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_7_2] Balance Transfer Case : Transfer to Self Number
     [Documentation]    *Owner* :
@@ -118,7 +126,13 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    Set Destination Number    ${Number}    #MyNumber
+    Select Min Amount
+    Click OK Button
+    Verify And Select Confirm Balance Transfer Dialog Message
+    Confirm Balance Transfer
+    Verify Balance Transfer To Self Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_8_2] Balance Transfer Case : Not input destination number
     [Documentation]    *Owner* :
@@ -135,7 +149,10 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    Select Min Amount
+    Click OK Button
+    Verify Not Input Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_Y_9_2] Balance Transfer Case : Input destination number wrong format (eg. 6666666666)
     [Documentation]    *Owner* :
@@ -152,14 +169,18 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    Set Destination Number    ${WrongFormatNumber}    #WrongFormat
+    Select Min Amount
+    Click OK Button
+    Verify Input Wrong Format Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_Y_10_2] Balance Transfer Case : Input destination number wrong digit (eg. 093701)
     [Documentation]    *Owner* :
     ...    Source Number : 3PE, 3BE
     ...    Status : Active
     ...    Teststep
-    [Tags]    success    3be    3pe
+    [Tags]    success    3be    3pe    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -169,7 +190,11 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    Set Destination Number    ${WrongDigitNumber}    #WrongFormat
+    Select Min Amount
+    Click OK Button
+    Verify Input Wrong Format Destination Number
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_Y_11_2] Balance Transfer Case : Not select amount
     [Documentation]    *Owner* :
@@ -186,7 +211,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_12_2] Balance Transfer Case : Insufficient balance
     [Documentation]    *Owner* :
@@ -203,7 +228,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_13_2] Balance Transfer Case : Destination number has max balance
     [Documentation]    *Owner* :
@@ -220,7 +245,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_14_2] Balance Transfer Case : Source Number Status = suspend
     [Documentation]    *Owner* :
@@ -237,7 +262,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_15_2] Balance Transfer Case : Destination Number Status = suspend
     [Documentation]    *Owner* :
@@ -254,7 +279,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_16_2] Balance Transfer Case : Source Number = Black List
     [Documentation]    *Owner* :
@@ -271,7 +296,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_17_2] Balance Transfer Case : Dest Number = Black List
     [Documentation]    *Owner* :
@@ -288,7 +313,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1_2_N_18_2] Balance Transfer Case : Source Number register date < 90 Days
     [Documentation]    *Owner* :
@@ -305,4 +330,4 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
