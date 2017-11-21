@@ -159,7 +159,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     ...    Source Number : 3PE, 3BE
     ...    Status : Active
     ...    Teststep
-    [Tags]    success    3be    3pe        demo
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -180,7 +180,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     ...    Source Number : 3PE, 3BE
     ...    Status : Active
     ...    Teststep
-    [Tags]    success    3be    3pe
+    [Tags]    success    3be    3pe    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -190,7 +190,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    Set Destination Number    ${WrongFormatNumber}    #WrongFormat
+    Set Destination Number    ${WrongDigitNumber}    #WrongFormat
     Select Min Amount
     Click OK Button
     Verify Input Wrong Format Destination Number
