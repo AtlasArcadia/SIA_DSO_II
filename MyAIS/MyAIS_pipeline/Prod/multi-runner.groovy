@@ -40,7 +40,7 @@ class Runner implements Serializable{
     boolean ExportToReportExcel = false
     boolean ExportToReportExcelMultiExecutors = true
     boolean All = true
-    boolean IsSmoke = true
+    boolean IsSmoke = false
     boolean IsSanity = false
     boolean activeFalse = false
     
