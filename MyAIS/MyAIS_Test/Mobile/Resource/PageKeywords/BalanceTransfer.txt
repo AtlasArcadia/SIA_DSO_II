@@ -192,8 +192,18 @@ Verify Input Wrong Format Destination Number iOS
     Click Mobile Element    ${btnOK}
 
 Verify Not Select Amount
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Not Select Amount Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Not Select Amount iOS
+
+Verify Not Select Amount Android
     Mobile element text should be    ${txtDailogMessage}    ${txtNotSelectAmount}
     Mobile Capture Screen At Verify Point    Balance Transfer Not Select Amount
+    Click Mobile Element    ${btnOK}
+
+Verify Not Select Amount iOS
+    Wait Mobile Until Element Visible    ${txtDialogMessage}    60
+    Mobile element text should be    ${txtDialogMessage}    ${NotSelectAmount}
+    Mobile Capture Screen At Verify Point    Verify Not Select Amount iOS
     Click Mobile Element    ${btnOK}
 
 Verify Source Number Insufficient Balance
@@ -209,18 +219,48 @@ Verify Source Number Insufficient Balance
     Mobile Capture Screen At Verify Point    BalanceTransfer Page
 
 Verify Transfer To Max Balance Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Transfer To Max Balance Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Transfer To Max Balance Number iOS
+
+Verify Transfer To Max Balance Number Android
     Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToMaxBalanceNumber}
     Mobile Capture Screen At Verify Point    Balance Transfer To Max Balance Number
     Click Mobile Element    ${btnOK}
 
+Verify Transfer To Max Balance Number iOS
+    Wait Mobile Until Element Visible    ${txtDialogMessage}    60
+    Mobile element text should be    ${txtDialogMessage}    ${BalanceTransferToMaxBalanceNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfer To Max Balance Number
+    Click Mobile Element    ${btnOK}
+
 Verify Balance Transfer Source Suspend Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Transfer Source Suspend Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Transfer Source Suspend Number iOS
+
+Verify Balance Transfer Source Suspend Number Android
     Mobile element text should be    ${txtDailogMessage}    ${txtSourceSuspendNumber}
     Mobile Capture Screen At Verify Point    Source Suspend Number
     Click Mobile Element    ${btnOK}
 
+Verify Balance Transfer Source Suspend Number iOS
+    Wait Mobile Until Element Visible    ${txtDialogMessage}    60
+    Mobile element text should be    ${txtDialogMessage}    ${SourceSuspendNumber}
+    Mobile Capture Screen At Verify Point    Verify Balance Transfer Source Suspend Number iOS
+    Click Mobile Element    ${btnOK}
+
 Verify Balance Transfer To Suspend Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Transfer To Suspend Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Transfer To Suspend Number iOS
+
+Verify Balance Transfer To Suspend Number Android
     Mobile element text should be    ${txtDailogMessage}    ${txtDestinationSuspendNumber}
     Mobile Capture Screen At Verify Point    Balance Transfer To Suspend Number
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer To Suspend Number iOS
+    Wait Mobile Until Element Visible    ${txtDialogMessage}    60
+    Mobile element text should be    ${txtDialogMessage}    ${DestinationSuspendNumber}
+    Mobile Capture Screen At Verify Point    Verify Balance Transfer To Suspend Number iOS
     Click Mobile Element    ${btnOK}
 
 Verify Balance Transfer From Blacklist Number
@@ -239,4 +279,5 @@ Verify Balance Transfer From Number Register Date < 90 Days
     Click Mobile Element    ${btnOK}
 
 Click OK Button
+    Swipe Element From Location    ${btnOK}
     Click Mobile Element    ${btnOK}
