@@ -38,7 +38,7 @@ Login Serenade
 Open Browser Serenade
     [Arguments]    ${IPSelenium}    ${lang}=en    ${block_location}=${False}
     ${dc}=    create google disire capabilities    ${lang}    ${block_location}
-    Run Keyword If    "${ar_Browser}" == "ff"    Open Browser    ${URLSerenade}    ff    ${ff_Profile}
+    Run Keyword If    "${ar_Browser}" == "ff"    Open Browser    ${URLSerenade}    ff    ff_profile_dir=${lo_ff_Profile}
     ...    ELSE    Open Web Browser    ${URLSerenade}    ${ar_BROWSER}    http://${IPSelenium}/wd/hub    desired_capabilities=${dc}
     Run Keyword If    "${ar_Browser}" != "ff"    Maximize Browser Window
 
@@ -87,3 +87,7 @@ Verify URL New Window
     Select Window    url=${URL}
     Location Should Be    ${URL}
     Web Capture Screen At Verify Point    ${imgCaptureName}
+
+Choose ENG
+    Scroll Web To Element    ${lblChooseLang}
+    Click Web Element    ${lblENG}
