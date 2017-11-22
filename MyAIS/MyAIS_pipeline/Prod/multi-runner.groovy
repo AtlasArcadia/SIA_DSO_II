@@ -2,14 +2,14 @@
 class Runner implements Serializable{
 	boolean AISeStatement = false
 	boolean RegisterAISFibreAndCoverageChecking = false
-	boolean RequestAndChangeWifiPassword = false
+	boolean RequestAndChangeWifiPassword = true
 	boolean FAQ_YourBalanceAndStatement = false
 	boolean FAQ_InternationalRoaming = false
 	boolean MyAccount = false
 	boolean FAQ_InternetAndAISFibre = false
 	boolean ConsultAgent = false
 	boolean HowToUse = false
-	boolean FAQ_SpecialCampaignAndPrivileges = false
+	boolean FAQ_SpecialCampaignAndPrivileges = true
 	boolean DomesticPackage_YourCurrentPackage = false
 	boolean PointsAndPrivileges = false
 	boolean RoamingPackage_ApplyRoamingPackage = false
@@ -39,7 +39,7 @@ class Runner implements Serializable{
     boolean AllReportMultiExecutors = true
     boolean ExportToReportExcel = false
     boolean ExportToReportExcelMultiExecutors = true
-    boolean All = true
+    boolean All = false
     boolean IsSmoke = false
     boolean IsSanity = false
     boolean activeFalse = false
@@ -333,7 +333,8 @@ def run_MyAIS_RequestAndChangeWifiPassword_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BE_EN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PE_EN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PO_EN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BO_EN.xml '
 			def START_TIME_TH = getTime()
 			echo START_TIME_TH
@@ -342,7 +343,8 @@ def run_MyAIS_RequestAndChangeWifiPassword_Production(runner){
 			echo END_TIME_TH
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3PO_TH.xml -l log3PO_TH.html -r report3PE_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3BO_TH.xml -l log3BO_TH.html -r report3BE_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_TH_3BO.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_TH_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BE_TH.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PE_TH.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PO_TH.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BO_TH.xml '
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output.xml -N RequestAndChangeWifiPassword ' + env.outputPath +'\\RequestAndChangeWifiPassword\\outputEN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\outputTH.xml'
@@ -368,7 +370,8 @@ def run_MyAIS_RegisterAISFibreAndCoverageChecking_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output_3BE_EN.xml '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output_3PE_EN.xml '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output_3PO_EN.xml '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output_3BO_EN.xml '
 			def START_TIME_TH = getTime()
 			echo START_TIME_TH
@@ -377,7 +380,8 @@ def run_MyAIS_RegisterAISFibreAndCoverageChecking_Production(runner){
 			echo END_TIME_TH
 			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3PO_TH.xml -l log3PO_TH.html -r report3PE_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3BO_TH.xml -l log3BO_TH.html -r report3BE_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_TH_3BO.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output*_TH_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output_3BE_TH.xml '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output_3PE_TH.xml '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output_3PO_TH.xml '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\output_3BO_TH.xml '
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking -o output.xml -N RegisterAISFibreAndCoverageChecking ' + env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\outputEN.xml '+ env.outputPath +'\\RegisterAISFibreAndCoverageChecking\\outputTH.xml'
@@ -439,7 +443,8 @@ def run_MyAIS_FAQ_YourBalanceAndStatement_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\output_*_EN.xml '
 			//------------------------------------------------------------------------------------------------------
 			def START_TIME_TH = getTime()
@@ -451,7 +456,8 @@ def run_MyAIS_FAQ_YourBalanceAndStatement_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\*TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\output_*_TH.xml '
 			//------------------------------------------------------------------------------------------------------
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\FAQ_YourBalanceAndStatement -o output.xml -N FAQ_YourBalanceAndStatement ' + env.outputPath +'\\FAQ_YourBalanceAndStatement\\outputEN.xml '+ env.outputPath +'\\FAQ_YourBalanceAndStatement\\outputTH.xml'
@@ -478,7 +484,8 @@ def run_MyAIS_FAQ_InternationalRoaming_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\FAQ_InternationalRoaming\\output_*_EN.xml '
 			//------------------------------------------------------------------------------------------------------
 			def START_TIME_TH = getTime()
@@ -490,7 +497,8 @@ def run_MyAIS_FAQ_InternationalRoaming_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_InternationalRoaming\\*TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\FAQ_InternationalRoaming\\output_*_TH.xml '
 			//------------------------------------------------------------------------------------------------------
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\FAQ_InternationalRoaming -o output.xml -N FAQ_InternationalRoaming ' + env.outputPath +'\\FAQ_InternationalRoaming\\outputEN.xml '+ env.outputPath +'\\FAQ_InternationalRoaming\\outputTH.xml'
@@ -517,7 +525,8 @@ def run_MyAIS_FAQ_SMSCancellationOrInquiries_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\output_*_EN.xml '
 			//------------------------------------------------------------------------------------------------------
 			def START_TIME_TH = getTime()
@@ -529,7 +538,8 @@ def run_MyAIS_FAQ_SMSCancellationOrInquiries_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\*TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\output_*_TH.xml '
 			//------------------------------------------------------------------------------------------------------
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries -o output.xml -N FAQ_SMSCancellationOrInquiries ' + env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\outputEN.xml '+ env.outputPath +'\\FAQ_SMSCancellationOrInquiries\\outputTH.xml'
@@ -556,7 +566,8 @@ def run_MyAIS_FAQ_MainPackageAndOnTopPackage_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\output_*_EN.xml '
 			//------------------------------------------------------------------------------------------------------
 			def START_TIME_TH = getTime()
@@ -568,7 +579,8 @@ def run_MyAIS_FAQ_MainPackageAndOnTopPackage_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\*TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\output_*_TH.xml '
 			//------------------------------------------------------------------------------------------------------
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage -o output.xml -N FAQ_MainPackageAndOnTopPackage ' + env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\outputEN.xml '+ env.outputPath +'\\FAQ_MainPackageAndOnTopPackage\\outputTH.xml'
@@ -595,7 +607,8 @@ def run_MyAIS_FAQ_InternetAndAISFibre_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\output_*_EN.xml '
 			//------------------------------------------------------------------------------------------------------
 		   	def START_TIME_TH = getTime()
@@ -607,7 +620,8 @@ def run_MyAIS_FAQ_InternetAndAISFibre_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\*TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\output_*_TH.xml '
 			//------------------------------------------------------------------------------------------------------
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\FAQ_InternetAndAISFibre -o output.xml -N FAQ_InternetAndAISFibre ' + env.outputPath +'\\FAQ_InternetAndAISFibre\\outputEN.xml '+ env.outputPath +'\\FAQ_InternetAndAISFibre\\outputTH.xml'
@@ -634,7 +648,8 @@ def run_MyAIS_ConsultAgent_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\ConsultAgent\\output_*_EN.xml '
 			//------------------------------------------------------------------------------------------------------
 			def START_TIME_TH = getTime()
@@ -646,7 +661,8 @@ def run_MyAIS_ConsultAgent_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\ConsultAgent\\*TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\ConsultAgent -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\ConsultAgent\\output_*_TH.xml '
 			//------------------------------------------------------------------------------------------------------
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\ConsultAgent -o output.xml -N ConsultAgent ' + env.outputPath +'\\ConsultAgent\\outputEN.xml '+ env.outputPath +'\\ConsultAgent\\outputTH.xml'
@@ -673,7 +689,8 @@ def run_MyAIS_HowToUse_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\HowToUse\\*EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\HowToUse\\*EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\HowToUse\\*EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\HowToUse\\*EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\HowToUse\\*EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\HowToUse\\output_*_EN.xml '
 			//------------------------------------------------------------------------------------------------------
 			def START_TIME_TH = getTime()
@@ -685,7 +702,8 @@ def run_MyAIS_HowToUse_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html -R -N 3BO --nostatusrc '+ env.outputPath +'\\HowToUse\\*TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\HowToUse\\*TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\HowToUse\\*TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\HowToUse\\*TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\HowToUse\\*TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\HowToUse -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\HowToUse\\output_*_TH.xml '
 			//------------------------------------------------------------------------------------------------------
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\HowToUse -o output.xml -N HowToUse ' + env.outputPath +'\\HowToUse\\outputEN.xml '+ env.outputPath +'\\HowToUse\\outputTH.xml'
@@ -708,7 +726,8 @@ def run_Home_Production(runner){
 			bat 'pybot -v ar_LANG:EN -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i home --nostatusrc ' + workspace + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
-			bat 'rebot --outputdir '+ outputPath +'\\Home -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ outputPath +'\\Home\\output*_EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ outputPath +'\\Home -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ outputPath +'\\Home\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ outputPath +'\\Home -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ outputPath +'\\Home\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ outputPath +'\\Home -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ outputPath +'\\Home\\output_3PE_EN.xml '+ outputPath +'\\Home\\output_3BE_EN.xml '
 			def START_TIME_TH = getTime()
@@ -716,7 +735,8 @@ def run_Home_Production(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i home --nostatusrc '+ workspace + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ outputPath +'\\Home -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ outputPath +'\\Home\\output*_TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ outputPath +'\\Home -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ outputPath +'\\Home\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ outputPath +'\\Home -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ outputPath +'\\Home\\output*_TH_3BE.xml'
 			bat 'rebot --outputdir '+ outputPath +'\\Home -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ outputPath +'\\Home\\output_3PE_TH.xml '+ outputPath +'\\Home\\output_3BE_TH.xml '
 			bat 'rebot --nostatusrc --outputdir '+ outputPath +'\\Home -o output.xml -N Home ' + outputPath +'\\Home\\outputEN.xml '+ outputPath +'\\Home\\outputTH.xml'
@@ -739,7 +759,8 @@ def run_Calling_Production(runner){
 			bat 'pybot -v ar_LANG:EN -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i calling_melody --nostatusrc ' + workspace + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
-			bat 'rebot --outputdir '+ outputPath +'\\CallingMelody -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ outputPath +'\\CallingMelody\\output*_EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ outputPath +'\\CallingMelody -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ outputPath +'\\CallingMelody\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ outputPath +'\\CallingMelody -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ outputPath +'\\CallingMelody\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ outputPath +'\\CallingMelody -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ outputPath +'\\CallingMelody\\output_3PE_EN.xml '+ outputPath +'\\CallingMelody\\output_3BE_EN.xml '
 			def START_TIME_TH = getTime()
@@ -747,7 +768,8 @@ def run_Calling_Production(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i calling_melody --nostatusrc '+ workspace + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ outputPath +'\\CallingMelody -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ outputPath +'\\CallingMelody\\output*_TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ outputPath +'\\CallingMelody -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ outputPath +'\\CallingMelody\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ outputPath +'\\CallingMelody -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ outputPath +'\\CallingMelody\\output*_TH_3BE.xml'
 			bat 'rebot --outputdir '+ outputPath +'\\CallingMelody -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ outputPath +'\\CallingMelody\\output_3PE_TH.xml '+ outputPath +'\\CallingMelody\\output_3BE_TH.xml '
 			bat 'rebot --nostatusrc --outputdir '+ outputPath +'\\CallingMelody -o output.xml -N CallingMelody ' + outputPath +'\\CallingMelody\\outputEN.xml '+ outputPath +'\\CallingMelody\\outputTH.xml'
@@ -771,7 +793,8 @@ def run_FAQ_SpecialCampaignAndPrivileges(runner){
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_EN_3BO.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_EN_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PO_EN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BO_EN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PE_EN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BE_EN.xml'
@@ -780,7 +803,8 @@ def run_FAQ_SpecialCampaignAndPrivileges(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i faq_special_campaign_and_privileges --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_TH_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_TH_3BE.xml'
@@ -807,7 +831,8 @@ def run_PointsAndPrivileges(runner){
 			bat 'pybot -v ar_LANG:EN -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:8000 -v ar_Tag:' + runner.get_tag() + ' -i points_and_privileges --nostatusrc ' + env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
-			bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_EN_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_EN_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_EN_3BE.xml'
@@ -817,7 +842,8 @@ def run_PointsAndPrivileges(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:8000 -v ar_Tag:' + runner.get_tag() + ' -i points_and_privileges --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_TH_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\PointsAndPrivileges -o output_3BE_TH.xml -l log3BE_TH.html -r report3PO_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\PointsAndPrivileges\\output*_TH_3BE.xml'
@@ -878,7 +904,8 @@ def run_DomesticPackage_ChangePricePlan(runner){
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_EN_3BO.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_EN_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output_3PO_EN.xml '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output_3BO_EN.xml '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output_3BE_EN.xml '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output_3PE_EN.xml '
@@ -887,7 +914,8 @@ def run_DomesticPackage_ChangePricePlan(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i domesticpackage_changepriceplan --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_TH_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_TH_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ChangePricePlan -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ChangePricePlan\\output*_TH_3PE.xml'
@@ -913,7 +941,8 @@ def run_DomesticPackage_ApplyInternetOntopPackage(runner){
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_EN_3BO.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_EN_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output_3PO_EN.xml '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output_3BO_EN.xml '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output_3PE_EN.xml '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output_3BE_EN.xml '
@@ -922,7 +951,8 @@ def run_DomesticPackage_ApplyInternetOntopPackage(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i domesticpackage_apply_internet_ontop_package --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_TH_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyInternetOntopPackage\\output*_TH_3BE.xml'
@@ -948,7 +978,8 @@ def run_RoamingPackage_CurrentPackageAndRemaining(runner){
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_EN_3BO.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_EN_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output_3PO_EN.xml '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output_3BO_EN.xml '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output_3BE_EN.xml '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output_3PE_EN.xml '
@@ -957,7 +988,8 @@ def run_RoamingPackage_CurrentPackageAndRemaining(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i roaming_package_current_package --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_TH_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RoamingPackage_CurrentPackageAndRemaining\\output*_TH_3BE.xml'
@@ -983,7 +1015,8 @@ def run_RoamingPackage_RoamingServiceRates(runner){
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_EN_3BO.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_EN_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output_3PO_EN.xml '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output_3BO_EN.xml '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output_3BE_EN.xml '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output_3PE_EN.xml '
@@ -992,7 +1025,8 @@ def run_RoamingPackage_RoamingServiceRates(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i roaming_package_roaming_service_rates --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_TH_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RoamingPackage_RoamingServiceRates\\output*_TH_3BE.xml'
@@ -1018,7 +1052,8 @@ def run_DomesticPackage_ApplyOtherOnTopPackage(runner){
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_EN_3BO.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_EN_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output_3PO_EN.xml '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output_3BO_EN.xml '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output_3PE_EN.xml '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output_3BE_EN.xml'
@@ -1027,7 +1062,8 @@ def run_DomesticPackage_ApplyOtherOnTopPackage(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i domesticpackage_applyotherontoppackage --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_TH_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\DomesticPackage_ApplyOtherOnTopPackage\\output*_TH_3BE.xml'
@@ -1115,7 +1151,8 @@ def run_TouchID(runner){
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3BO_EN.xml -l log3BO_EN.html -r report3BO_EN.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\TouchID\\output*_EN_3BO.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\TouchID\\output*_EN_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\TouchID\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\TouchID\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\TouchID\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\TouchID\\output_3BE_EN.xml '+ env.outputPath +'\\TouchID\\output_3PE_EN.xml '+ env.outputPath +'\\TouchID\\output_3PO_EN.xml '+ env.outputPath +'\\TouchID\\output_3BO_EN.xml '
@@ -1124,7 +1161,8 @@ def run_TouchID(runner){
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i touchid --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3PO_TH.xml -l log3PO_TH.html -r report3PE_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\TouchID\\output*_TH_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3PO_TH.xml -l log3PO_TH.html -r report3PE_TH.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\TouchID\\output*_TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3BO_TH.xml -l log3BO_TH.html -r report3BE_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\TouchID\\output*_TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\TouchID\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\TouchID -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\TouchID\\output*_TH_3BE.xml'
@@ -1214,14 +1252,16 @@ def run_Quickmenu_Search_Prepaid(runner){
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\Quickmenu_Search_Prepaid -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output*_EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\Quickmenu_Search_Prepaid -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output*_EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\Quickmenu_Search_Prepaid -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output*_EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\Quickmenu_Search_Prepaid -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output_3BE_EN.xml '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output_3PE_EN.xml '
 			def START_TIME_TH = getTime()
 			echo START_TIME_TH
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i quickmenu_search_prepaid --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
-			bat 'rebot --outputdir '+ env.outputPath +'\\Quickmenu_Search_Prepaid -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output*_TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\Quickmenu_Search_Prepaid -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\Quickmenu_Search_Prepaid -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output*_TH_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\Quickmenu_Search_Prepaid -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output_3BE_TH.xml '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\output_3PE_TH.xml '
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\Quickmenu_Search_Prepaid -o output.xml -N Quickmenu_Search_Prepaid ' + env.outputPath +'\\Quickmenu_Search_Prepaid\\outputEN.xml '+ env.outputPath +'\\Quickmenu_Search_Prepaid\\outputTH.xml'
@@ -1279,7 +1319,8 @@ def run_MyAIS_TopUpAndPayment_Production(runner){
 			echo END_TIME_EN
 			//Rebot EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\TopUpAndPayment -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\TopUpAndPayment\\*EN_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\TopUpAndPayment -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\TopUpAndPayment\\*EN_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\TopUpAndPayment -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\TopUpAndPayment\\*EN_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\TopUpAndPayment -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\TopUpAndPayment\\output_*_EN.xml '
 			//------------------------------------------------------------------------------------------------------
 			def START_TIME_TH = getTime()
@@ -1289,7 +1330,8 @@ def run_MyAIS_TopUpAndPayment_Production(runner){
 			echo END_TIME_TH
 			//Rebot EN
 			bat 'rebot --outputdir '+ env.outputPath +'\\TopUpAndPayment -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html -R -N 3BE --nostatusrc '+ env.outputPath +'\\TopUpAndPayment\\*TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\TopUpAndPayment -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\TopUpAndPayment\\*TH_3PE.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\TopUpAndPayment -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html -R -N 3PE --nostatusrc '+ env.outputPath +'\\TopUpAndPayment\\*TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\TopUpAndPayment -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\TopUpAndPayment\\output_*_TH.xml '
 			//------------------------------------------------------------------------------------------------------
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\TopUpAndPayment -o output.xml -N TopUpAndPayment ' + env.outputPath +'\\TopUpAndPayment\\outputEN.xml '+ env.outputPath +'\\TopUpAndPayment\\outputTH.xml'
@@ -1313,7 +1355,8 @@ def run_MyAIS_PaymentTopUp_Production(runner){
 			def END_TIME_EN = getTime()
 			echo END_TIME_EN
 			//Rebot EN
-			bat 'rebot --outputdir '+ env.outputPath +'\\PaymentTopUp -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\PaymentTopUp\\*EN_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\PaymentTopUp -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\PaymentTopUp\\*EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\PaymentTopUp -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\PaymentTopUp\\output_*_EN.xml '
 			//------------------------------------------------------------------------------------------------------
 			def START_TIME_TH = getTime()
@@ -1322,7 +1365,8 @@ def run_MyAIS_PaymentTopUp_Production(runner){
 			def END_TIME_TH = getTime()
 			echo END_TIME_TH
 			//Rebot EN
-			bat 'rebot --outputdir '+ env.outputPath +'\\PaymentTopUp -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\PaymentTopUp\\*TH_3PO.xml'
+			// wait device change batterry
+			// bat 'rebot --outputdir '+ env.outputPath +'\\PaymentTopUp -o output_3PO_TH.xml -l log3PO_TH.html -r report3PO_TH.html -R -N 3PO --nostatusrc '+ env.outputPath +'\\PaymentTopUp\\*TH_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\PaymentTopUp -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\PaymentTopUp\\output_*_TH.xml '
 			//------------------------------------------------------------------------------------------------------
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\PaymentTopUp -o output.xml -N PaymentTopUp ' + env.outputPath +'\\PaymentTopUp\\outputEN.xml '+ env.outputPath +'\\PaymentTopUp\\outputTH.xml'
