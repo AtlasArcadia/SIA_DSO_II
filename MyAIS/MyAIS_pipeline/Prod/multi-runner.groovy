@@ -335,7 +335,10 @@ def run_MyAIS_RequestAndChangeWifiPassword_Production(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_EN_3BE.xml'
 			// wait device change batterry
 			// bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_EN_3PE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BE_EN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PE_EN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PO_EN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BO_EN.xml '
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BE_EN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PE_EN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PO_EN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BO_EN.xml '
+			
+			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3*_EN.xml '
+
 			def START_TIME_TH = getTime()
 			echo START_TIME_TH
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i request_and_change_wifi_password --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
@@ -346,7 +349,10 @@ def run_MyAIS_RequestAndChangeWifiPassword_Production(runner){
 			// wait device change batterry
 			// bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output*_TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BE_TH.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PE_TH.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PO_TH.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BO_TH.xml '
+			// bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BE_TH.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PE_TH.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3PO_TH.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3BO_TH.xml '
+			
+			bat 'rebot --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\RequestAndChangeWifiPassword\\output_3*_TH.xml '
+
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\RequestAndChangeWifiPassword -o output.xml -N RequestAndChangeWifiPassword ' + env.outputPath +'\\RequestAndChangeWifiPassword\\outputEN.xml '+ env.outputPath +'\\RequestAndChangeWifiPassword\\outputTH.xml'
 			//Publish report
 			build job: '(X07)_MyAIS_RequestAndChangeWifiPassword_Prod', propagate: false
@@ -797,7 +803,8 @@ def run_FAQ_SpecialCampaignAndPrivileges(runner){
 			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3PO_EN.xml -l log3PO_EN.html -r report3PO_EN.html  -R -N 3PO --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_EN_3PO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3BE_EN.xml -l log3BE_EN.html -r report3BE_EN.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_EN_3BE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3PE_EN.xml -l log3PE_EN.html -r report3PE_EN.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_EN_3PE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PO_EN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BO_EN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PE_EN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BE_EN.xml'
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PO_EN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BO_EN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PE_EN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BE_EN.xml'
+			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o outputEN.xml -N EN -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_EN + '" --endtime "' + END_TIME_EN + '" '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3*_EN.xml '
 			def START_TIME_TH = getTime()
 			echo START_TIME_TH
 			bat 'pybot -v ar_LANG:TH -v ar_BROWSER:gc -v ar_NETWORK:Data -v ar_OS:Android -v ar_TAKE_TIMEOUT:3000 -v ar_Tag:' + runner.get_tag() + ' -i faq_special_campaign_and_privileges --nostatusrc '+ env.WORKSPACE + '\\MyAIS\\MyAIS_Prod\\Mobile\\Android\\MyAISExecutor.txt'
@@ -808,8 +815,12 @@ def run_FAQ_SpecialCampaignAndPrivileges(runner){
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3BO_TH.xml -l log3BO_TH.html -r report3BO_TH.html  -R -N 3BO --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_TH_3BO.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3PE_TH.xml -l log3PE_TH.html -r report3PE_TH.html  -R -N 3PE --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_TH_3PE.xml'
 			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output_3BE_TH.xml -l log3BE_TH.html -r report3BE_TH.html  -R -N 3BE --nostatusrc '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output*_TH_3BE.xml'
-			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PO_TH.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BO_TH.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PE_TH.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BE_TH.xml'
+			// bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PO_TH.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BO_TH.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3PE_TH.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3BE_TH.xml'
+			
+			bat 'rebot --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o outputTH.xml -N TH -l log.html -r report.html --nostatusrc --starttime "' + START_TIME_TH + '" --endtime "' + END_TIME_TH + '" '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\output_3*_TH.xml '
+
 			bat 'rebot --nostatusrc --outputdir '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges -o output.xml -N FAQ_SpecialCampaignAndPrivileges ' + env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\outputEN.xml '+ env.outputPath +'\\FAQ_SpecialCampaignAndPrivileges\\outputTH.xml'
+			
 			//Publish report
 			build job: '(X21)_MyAIS_FAQ_SpecialCampaignAndPrivileges_Prod', propagate: false
 		}
