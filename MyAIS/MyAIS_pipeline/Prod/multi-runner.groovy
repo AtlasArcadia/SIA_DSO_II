@@ -2,14 +2,14 @@
 class Runner implements Serializable{
 	boolean AISeStatement = false
 	boolean RegisterAISFibreAndCoverageChecking = false
-	boolean RequestAndChangeWifiPassword = true
+	boolean RequestAndChangeWifiPassword = false
 	boolean FAQ_YourBalanceAndStatement = false
 	boolean FAQ_InternationalRoaming = false
 	boolean MyAccount = false
 	boolean FAQ_InternetAndAISFibre = false
 	boolean ConsultAgent = false
 	boolean HowToUse = false
-	boolean FAQ_SpecialCampaignAndPrivileges = true
+	boolean FAQ_SpecialCampaignAndPrivileges = false
 	boolean DomesticPackage_YourCurrentPackage = false
 	boolean PointsAndPrivileges = false
 	boolean RoamingPackage_ApplyRoamingPackage = false
@@ -39,8 +39,8 @@ class Runner implements Serializable{
     boolean AllReportMultiExecutors = true
     boolean ExportToReportExcel = false
     boolean ExportToReportExcelMultiExecutors = true
-    boolean All = false
-    boolean IsSmoke = false
+    boolean All = true
+    boolean IsSmoke = true
     boolean IsSanity = false
     boolean activeFalse = false
     

@@ -28,21 +28,21 @@ Verify Greeting and Name and Number Profile Page
 
 Verify Segment And Expire Date
     [Arguments]    ${Segment}    ${Type}    ${LifeCycle}
-    Scroll Web To Element    ${lbl${Segment}SegmentProfile}
-    Mouse Over    ${lbl${Segment}SegmentProfile}
-    Web Element Text Should Be    ${lbl${Segment}SegmentProfile}    ${${Segment}SegmentProfileType${Type}_${LifeCycle}}
+    Scroll Web To Element    ${lbl${Segment}SegmentProfileENG}
+    Mouse Over    ${lbl${Segment}SegmentProfileENG}
+    Web Element Text Should Be    ${lbl${Segment}SegmentProfileENG}    ${${Segment}SegmentProfileType${Type}_${LifeCycle}}
     Web Capture Screen At Verify Point    Verify Segment
-    Scroll Web To Element    ${lbl${Segment}TimePeriodProfile}
-    Mouse Over    ${lbl${Segment}TimePeriodProfile}
-    ${ExpireDate}    Get Web Text    ${lbl${Segment}TimePeriodProfile}
+    Scroll Web To Element    ${lbl${Segment}TimePeriodProfileENG}
+    Mouse Over    ${lbl${Segment}TimePeriodProfileENG}
+    ${ExpireDate}    Get Web Text    ${lbl${Segment}TimePeriodProfileENG}
     Should Match Regexp    ${ExpireDate}    ${${Segment}TimePeriodProfileType${Type}}
     Web Capture Screen At Verify Point    Verify Expire Date
 
 Verify Amendment Line x
     [Arguments]    ${Line}    ${Segment}    ${Type}
-    Scroll Web To Element    ${lbl${Segment}AmendmentTypeProfile${Line}}
-    Mouse Over    ${lbl${Segment}AmendmentTypeProfile${Line}}
-    Web Element Text Should Be    ${lbl${Segment}AmendmentTypeProfile${Line}}    ${${Segment}AmendmentTypeProfile${Line}Type${Type}}
+    Scroll Web To Element    ${lbl${Segment}AmendmentTypeProfileENG${Line}}
+    Mouse Over    ${lbl${Segment}AmendmentTypeProfileENG${Line}}
+    Web Element Text Should Be    ${lbl${Segment}AmendmentTypeProfileENG${Line}}    ${${Segment}AmendmentTypeProfile${Line}Type${Type}}
     Web Capture Screen At Verify Point    Verify Amendment ${Line}
 
 Verify Profile Page New
@@ -87,7 +87,7 @@ Verify Profile Page Downgrade EN
     Verify Title Profile Page    ${Segment}    ${Type}
     Verify Greeting and Name and Number Profile Page ENG    ${Mobile}    ${Segment}    ${Type}    Downgrade
     Verify Segment And Expire Date    ${Segment}    ${Type}    Downgrade
-    Comment    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
+    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
     Comment    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
     [Teardown]
 
