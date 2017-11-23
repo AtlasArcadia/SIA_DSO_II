@@ -46,7 +46,8 @@ Input ID Card
     Wait Mobile Until Element Visible    ${txtFieldCardNumber}
     Comment    Swipe element to specific area    ${btnOK}    ratio=0.4
     Click Mobile Element    ${txtFieldCardNumber}
-    Input Mobile Text    //android.view.View[@index="0"]//android.view.View[@index="1"]//android.view.View[@index="1"]/android.view.View[@index="0"]/android.widget.EditText[@index="0"]    ${IDCard}
+    Comment    Input Mobile Text    //android.view.View[@index="0"]//android.view.View[@index="1"]//android.view.View[@index="1"]/android.view.View[@index="0"]/android.widget.EditText[@index="0"]    ${IDCard}
+    Input Mobile Text    ${txtFieldCardNumber}    ${IDCard}
     Swipe element to specific area    ${btnOK}
     Click Mobile Element    ${btnOK}
     Click Mobile Element    ${btnOK}
@@ -144,18 +145,15 @@ Verify Transfer point page
     Wait Mobile Until Element Visible    ${txtFieldTransferPoint}    #เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
     Mobile Capture Screen At Verify Point    Transfer point pageI
     Comment    Swipe element to specific area    ${txtFieldReceivePoint}
-    Comment    Swipe element to specific area    xpath=//android.view.View[@index="2"]/android.view.View[@index="0"]/android.view.View[@index="1"]/android.view.View[@text="400"]
-    Swipe element to specific area    ${btnBackThe1Card}
+    Comment    Swipe element to specific area    ${btnBackThe1Card}
     sleep    5
     Comment    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
     Comment    Wait Mobile Until Element Visible    xpath=//android.view.View[@index="2"]/android.view.View[@index="0"]/android.view.View[@index="1"]/android.view.View[@text="400"]
-    Wait Mobile Until Element Visible    ${btnPlus}    #ปุ่มบวก
-    Swipe element to specific area    xpath=//android.widget.EditText[@index="1"]
-    sleep    5
-    Comment    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
-    Wait Mobile Until Element Visible    xpath=//android.widget.EditText[@index="1"]
     Comment    Wait Mobile Until Element Visible    ${btnPlus}    #ปุ่มบวก
-    Wait Mobile Until Element Visible    xpath=//android.widget.Button[@index="2"]
+    Swipe element to specific area    ${txtFieldReceivePoint}
+    sleep    5
+    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    Wait Mobile Until Element Visible    ${btnPlus}    #ปุ่มบวก
     Wait Mobile Until Element Visible    ${btnMinus}    #ปุ่มลบ
     Wait Mobile Until Element Visible    ${btnBackThe1Card}    #ปุ่มกลับ
     Wait Mobile Until Element Visible    ${btnTransferPoint}    #ปุ่มโอน
@@ -452,13 +450,14 @@ Verify Click Button decrease Point On The One Card Page
 Verify Transfer Point Page After Input ID Card
     Wait Mobile Until Element Visible    ${imgTheOneCard}    #image The 1 Card
     Comment    Mobile element name should match regexp ignore case sensitive    ${txtOwnerCardName}    ชื่อผู้ถือบัตร: .*
+    Mobile element name should match regexp ignore case sensitive    ${txtOwnerCardName}    ชื่อผู้ถือบัตร: .*
     Mobile check existing text in name    ${txtOwnerCardName}
     Wait Mobile Until Element Visible    ${txtFieldCardNumber}    #ID Card
     Wait Mobile Until Element Visible    ${txtFieldTransferPoint}    #เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
     Wait Mobile Until Element Visible    ${btnPlus}    #ปุ่มบวก
     Wait Mobile Until Element Visible    ${btnMinus}    #ปุ่มลบ
     Wait Mobile Until Element Visible    ${imgArrow_SetTransferPointPage}    #ลูกศร
-    Comment    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
     Wait Mobile Until Element Visible    ${btnBackThe1Card}    #ปุ่มกลับ
     Wait Mobile Until Element Visible    ${btnTransferPoint_TransferPage}    #ปุ่มโอน
     Wait Mobile Until Element Visible    ${popupTitleTermAndConditionDetail}    #ข้อกำหนดและเงื่อนไข
