@@ -264,7 +264,17 @@ Verify Balance Transfer To Suspend Number iOS
     Click Mobile Element    ${btnOK}
 
 Verify Balance Transfer From Blacklist Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Transfer From Blacklist Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Transfer From Blacklist Number iOS
+
+Verify Balance Transfer From Blacklist Number Android
     Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferFromBlacklistNumber}
+    Mobile Capture Screen At Verify Point    Balance Transfer From Blacklist Number
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer From Blacklist Number iOS
+    Wait Mobile Until Element Visible    ${txtDialogMessage}    60
+    Mobile element text should be    ${txtDialogMessage}    ${BalanceTransferFromBlacklistNumber}
     Mobile Capture Screen At Verify Point    Balance Transfer From Blacklist Number
     Click Mobile Element    ${btnOK}
 
