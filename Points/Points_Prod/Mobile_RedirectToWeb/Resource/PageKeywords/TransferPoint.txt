@@ -186,8 +186,8 @@ Get current point
 
 Get current transfer AIS point
     Sleep    2s
-    Swipe element to specific area    //android.widget.EditText[@index="1"]
-    ${Point}=    AISAppiumEx.Get Text    //android.widget.EditText[@index="1"]
+    Swipe element to specific area    ${txtFieldReceivePoint}    #//android.view.View[@index="0"]//android.view.View[@index="2"]//android.widget.EditText[@index="1"]    #//android.widget.EditText[@index="1"]
+    ${Point}=    AISAppiumEx.Get Text    ${txtFieldReceivePoint}    #//android.view.View[@index="0"]//android.view.View[@index="2"]//android.widget.EditText[@index="1"]    #//android.widget.EditText[@index="1"]
     [Return]    ${point}
 
 Click Plus Point Transfer Until Max
@@ -450,6 +450,7 @@ Verify Click Button decrease Point On The One Card Page
 
 Verify Transfer Point Page After Input ID Card
     Wait Mobile Until Element Visible    ${imgTheOneCard}    #image The 1 Card
+    Comment    Mobile element name should match regexp ignore case sensitive    ${txtOwnerCardName}    ชื่อผู้ถือบัตร: .*
     Mobile element name should match regexp ignore case sensitive    ${txtOwnerCardName}    ชื่อผู้ถือบัตร: .*
     Mobile check existing text in name    ${txtOwnerCardName}
     Wait Mobile Until Element Visible    ${txtFieldCardNumber}    #ID Card
