@@ -90,15 +90,19 @@ Resource          Resource/PageKeywords/Home.txt
     Comment    ${mainP2}=    Remove String    ${mainP}    ,
     Comment    Log    ${mainP1}
     Comment    ${mainP1}=    Remove String    ${mainP1}    ,
+    ${mainPI}=    Remove String    ${mainP}    Points
+    Log    ${mainPI}
     Mobile Capture Screen At Verify Point    point
     Select Point Menu
     Comment    Close Dialog PopUp SSL Certificate Error
     Mobile element text should be    ${lblConvertPoint}    ${ConvertPoint}
     ${P1}=    Get mobile attribute    ${txtPoint}    name
     Log    ${P1}
+    ${PI}=    Remove String    ${P1}    พอยท์
+    Log    ${PI}
     Home.Mobile number    ${Number}
     Comment    Check point are Equal    ${mainP}
-    Should Be Equal    ${mainP}    ${P1}
+    Should Be Equal    ${mainPI}    ${PI}
     Mobile Capture Screen At Verify Point    Convert point page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
