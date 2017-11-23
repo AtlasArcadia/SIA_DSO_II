@@ -47,7 +47,7 @@ Input ID Card
     Comment    Swipe element to specific area    ${btnOK}    ratio=0.4
     Click Mobile Element    ${txtFieldCardNumber}
     Input Mobile Text    //android.view.View[@index="0"]//android.view.View[@index="1"]//android.view.View[@index="1"]/android.view.View[@index="0"]/android.widget.EditText[@index="0"]    ${IDCard}
-    Comment    Swipe element to specific area    ${btnOK}
+    Swipe element to specific area    ${btnOK}
     Comment    Click Mobile Element    ${btnOK}
     Click Mobile Element    ${btnOK}
     sleep    5
@@ -144,13 +144,14 @@ Verify Transfer point page
     Wait Mobile Until Element Visible    ${txtFieldTransferPoint}    #เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
     Mobile Capture Screen At Verify Point    Transfer point pageI
     Comment    Swipe element to specific area    ${txtFieldReceivePoint}
-    Swipe element to specific area    xpath=//android.view.View[@index="2"]/android.view.View[@index="0"]/android.view.View[@index="1"]/android.view.View[@text="400"]
+    Comment    Swipe element to specific area    xpath=//android.view.View[@index="2"]/android.view.View[@index="0"]/android.view.View[@index="1"]/android.view.View[@text="400"]
+    Swipe element to specific area    ${btnBackThe1Card}
     sleep    5
     Comment    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
-    Wait Mobile Until Element Visible    xpath=//android.view.View[@index="2"]/android.view.View[@index="0"]/android.view.View[@index="1"]/android.view.View[@text="400"]
+    Comment    Wait Mobile Until Element Visible    xpath=//android.view.View[@index="2"]/android.view.View[@index="0"]/android.view.View[@index="1"]/android.view.View[@text="400"]
     Wait Mobile Until Element Visible    ${btnPlus}    #ปุ่มบวก
     Wait Mobile Until Element Visible    ${btnMinus}    #ปุ่มลบ
-    Wait Mobile Until Element Visible    ${btnBack}    #ปุ่มกลับ
+    Wait Mobile Until Element Visible    ${btnBackThe1Card}    #ปุ่มกลับ
     Wait Mobile Until Element Visible    ${btnTransferPoint}    #ปุ่มโอน
     Wait Mobile Until Element Visible    ${popupTitleTermAndConditionDetail}    #ข้อกำหนดและเงื่อนไข
     Mobile Capture Screen At Verify Point    Transfer point pageII
@@ -190,7 +191,7 @@ Click Plus Point Transfer Until Max
     Sleep    2s
     Swipe element to specific area    ${btnPlus}    ratio=0.35    Round=3
     : FOR    ${Index}    IN RANGE    1    5
-    \    Swipe element to specific area    ${btnTransferPoint_TransferPage}    ratio=0.35    Round=3
+    \    Comment    Swipe element to specific area    ${btnTransferPoint_TransferPage}    ratio=0.35    Round=3
     \    Sleep    10
     \    Click Mobile Element    ${btnPlus}
     ${CurrentTransferPoints}=    Get current transfer AIS point
@@ -202,12 +203,12 @@ Click Transfer Point Button
     : FOR    ${index}    IN RANGE    1    2
     \    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnTransferPoints}    5s
     \    Run Keyword If    '${status}'=='True'    Click Mobile Element    ${btnTransferPoints}
-    sleep    5s
-    Comment    Click Mobile Element    ${btnTransferPoints}
-    Comment    Mobile Capture Screen At Verify Point    btn
-    : FOR    ${index}    IN RANGE    1    3
-    \    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnTransferPoints}    10s
-    \    Run Keyword If    '${status}'=='True'    Click Mobile Element    ${btnTransferPoints}
+    \    sleep    5s
+    Comment    Comment    Click Mobile Element    ${btnTransferPoints}
+    Comment    Comment    Mobile Capture Screen At Verify Point    btn
+    Comment    : FOR    ${index}    IN RANGE    1    3
+    Comment    \    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnTransferPoints}    10s
+    Comment    \    Run Keyword If    '${status}'=='True'    Click Mobile Element    ${btnTransferPoints}
     Mobile Capture Screen At Verify Point    btn
 
 Verify Popup Confirm Transaction
@@ -272,7 +273,8 @@ Verify Click Show And Hide Term And Condition
     Click Mobile Element    ${lblTermAndCondition}    #Click show
     Mobile check existing text in name    ${txtTermAndConditionDetail}    #Term and condition detail
     Mobile Capture Screen At Verify Point    show condition
-    Swipe element to specific area    ${popupTitleTermAndConditionDetail}
+    Comment    Swipe element to specific area    ${popupTitleTermAndConditionDetail}
+    sleep    5
     Click Mobile Element    ${lblTermAndCondition}    #Click Hide
     Wait Mobile Until Page Does Not Contain Element    ${txtTermAndConditionDetail}    #Term and condition detail
     Mobile Capture Screen At Verify Point    hide condition
@@ -443,14 +445,15 @@ Verify Click Button decrease Point On The One Card Page
 
 Verify Transfer Point Page After Input ID Card
     Wait Mobile Until Element Visible    ${imgTheOneCard}    #image The 1 Card
-    Mobile element name should match regexp ignore case sensitive    ${txtOwnerCardName}    ชื่อผู้ถือบัตร: .*
+    Comment    Mobile element name should match regexp ignore case sensitive    ${txtOwnerCardName}    ชื่อผู้ถือบัตร: .*
+    Comment    Mobile check existing text in name    ${txtOwnerCardName}
     Wait Mobile Until Element Visible    ${txtFieldCardNumber}    #ID Card
     Wait Mobile Until Element Visible    ${txtFieldTransferPoint}    #เอไอเอส พอยท์ ที่ต้องการโอน ตั้งต้นที่ 50
     Wait Mobile Until Element Visible    ${btnPlus}    #ปุ่มบวก
     Wait Mobile Until Element Visible    ${btnMinus}    #ปุ่มลบ
     Wait Mobile Until Element Visible    ${imgArrow_SetTransferPointPage}    #ลูกศร
-    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
-    Wait Mobile Until Element Visible    ${btnBack}    #ปุ่มกลับ
+    Comment    Wait Mobile Until Element Visible    ${txtFieldReceivePoint}    #The 1 Card คะแนนที่จะได้รับ ตั้งต้นที่ 400
+    Wait Mobile Until Element Visible    ${btnBackThe1Card}    #ปุ่มกลับ
     Wait Mobile Until Element Visible    ${btnTransferPoint_TransferPage}    #ปุ่มโอน
     Wait Mobile Until Element Visible    ${popupTitleTermAndConditionDetail}    #ข้อกำหนดและเงื่อนไข
     Mobile Capture Screen At Verify Point    Verify transfer after input ID Card
