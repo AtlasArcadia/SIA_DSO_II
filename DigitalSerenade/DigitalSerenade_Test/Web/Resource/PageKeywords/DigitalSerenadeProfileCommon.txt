@@ -57,19 +57,13 @@ Verify Profile Page Sustain
 
 Verify Profile Page Downgrade
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${AmendmentLine}=1
-    Verify Title Profile Page    ${Segment}    ${Type}
-    Verify Greeting and Name and Number Profile Page    ${Mobile}    ${Segment}    ${Type}    Downgrade
-    Verify Segment And Expire Date    ${Segment}    ${Type}    Downgrade
-    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
-    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
+    Run Keyword If    "${ar_LANG}" == "EN"    Verify Profile Page Downgrade EN    ${Mobile}    ${Segment}    ${Type}
+    Run Keyword If    "${ar_LANG}" == "TH"    Verify Profile Page Downgrade TH    ${Mobile}    ${Segment}    ${Type}
 
 Verify Profile Page Upgrade
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${AmendmentLine}=1
-    Verify Title Profile Page    ${Segment}    ${Type}
-    Verify Greeting and Name and Number Profile Page ENG    ${Mobile}    ${Segment}    ${Type}    Downgrade
-    Verify Segment And Expire Date ENG    ${Segment}    ${Type}    Downgrade
-    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
-    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
+    Run Keyword If    "${ar_LANG}" == "EN"    Verify Profile Page Upgrade EN    ${Mobile}    ${Segment}    ${Type}
+    Run Keyword If    "${ar_LANG}" == "TH"    Verify Profile Page Upgrade TH    ${Mobile}    ${Segment}    ${Type}
     [Teardown]
 
 Verify Greeting and Name and Number Profile Page ENG
@@ -145,5 +139,21 @@ Verify Profile Page Upgrade EN
     Verify Title Profile Page    ${Segment}    ${Type}
     Verify Greeting and Name and Number Profile Page ENG    ${Mobile}    ${Segment}    ${Type}    Upgrade
     Verify Segment And Expire Date ENG    ${Segment}    ${Type}    Upgrade
+    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
+    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
+
+Verify Profile Page Downgrade EN
+    [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${AmendmentLine}=1
+    Verify Title Profile Page    ${Segment}    ${Type}
+    Verify Greeting and Name and Number Profile Page ENG    ${Mobile}    ${Segment}    ${Type}    Downgrade
+    Verify Segment And Expire Date ENG    ${Segment}    ${Type}    Downgrade
+    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
+    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
+
+Verify Profile Page Downgrade TH
+    [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${AmendmentLine}=1
+    Verify Title Profile Page    ${Segment}    ${Type}
+    Verify Greeting and Name and Number Profile Page    ${Mobile}    ${Segment}    ${Type}    Downgrade
+    Verify Segment And Expire Date    ${Segment}    ${Type}    Downgrade
     Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
     Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
