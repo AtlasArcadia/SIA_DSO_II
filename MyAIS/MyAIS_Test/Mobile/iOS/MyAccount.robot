@@ -23,7 +23,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - ตั้งค่า
     ...    - ออกจากระบบ
     ...    4.จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -198,7 +198,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. คลิก AIS Line
     ...    4. ตรวจสอบหน้า AIS Line
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -284,7 +284,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - Setting
     ...    - Log Out
     ...    4. Capture Screen -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
@@ -361,7 +361,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. Click AIS Online Store
     ...    4. Verify AIS Online Store Page
     ...    5. Capture Screen -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
@@ -447,7 +447,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. Click AIS Line
     ...    4. Verify AIS Line Page
     ...    5. Capture Screen -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
@@ -520,7 +520,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - Your Credit/Debit Card detail
     ...    - Your requested transaction is not found.
     ...    5. Capture Screen -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RegisteredNoCredit
@@ -558,54 +558,3 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Select Sub Menu Hamburger    CreditDebit
     Verify Have Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F3_MyAccount_IOS_1,3_1-2_Y_1_1] Verify MyAIS Account : not have my List
-    [Documentation]    **Owner:Tong**
-    ...    Source Number : 3PE
-    ...    Status : Active1. Login my AIS
-    [Tags]    active    success    regression    demo
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
-    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
-    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
-    Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    Select Hamburger
-    Verify MyAccount Page
-    Select Sub Menu Hamburger    MyAccount
-
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F3_MyAccount_IOS_1,3_1-2_Y_2_1] VeriFy Add Member : not have my List
-    [Documentation]    **Owner**
-    ...    Source Number : 3PE
-    ...    Status : Active1. Login my AIS
-    [Tags]    active    success    regression
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RegisteredHaveCredit
-    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
-    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
-    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
-    Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    Select Hamburger
-    Select Sub Menu Hamburger    MyAccount
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F3_MyAccount_IOS_1,3_1-2_Y_3_1] Verify MyAIS Account : have my List
-    [Documentation]    **Owner:Nat**
-    ...    Source Number : 3PE
-    ...    Status : Active1. Login my AIS
-    [Tags]    active    success    regression
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RegisteredHaveCredit
-    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
-    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
-    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
-    Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    Select Hamburger
-    Select Sub Menu Hamburger    MyAccount
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
