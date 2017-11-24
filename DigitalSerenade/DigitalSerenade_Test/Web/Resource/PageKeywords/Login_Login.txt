@@ -11,9 +11,9 @@ Verify Login Page
     Log    ${URL}
     Run Keyword If    "${URL}" != "${webURL}"    Fail
     Selenium2Library.Wait Until Element Is Visible    ${LoginTitle}
-    Element Should Be Visible    ${LoginTitle}
+    Selenium2Library.Element Should Be Visible    ${LoginTitle}
     Selenium2Library.Element Text Should Be    ${LoginTitle}    ${txtLoginTitle}
-    Element Should Be Visible    ${txtMobileNumber}
+    Selenium2Library.Element Should Be Visible    ${txtMobileNumber}
     Comment    ${mono}    Get Web Text    ${MobileNumber}
     Comment    Log    ${mono}
     Web Capture Screen At Verify Point    Verify URL and Login Page
@@ -97,10 +97,27 @@ Login Not Input OTP
 
 Verify Login Not Input OTP
     Sleep    2s
-    Element Should Be Visible    //*[@id="login" and @disabled="disabled"]
+    Selenium2Library.Element Should Be Visible    //*[@id="login" and @disabled="disabled"]
     Web Capture Screen At Verify Point    Not Input OTP
 
 Verify Login Success
+    Run Keyword If    "${ar_LANG}"=="TH"    Verify Login Success TH
+    Run Keyword If    "${ar_LANG}"=="EN"    Verify Login Success ENG
+
+Verify Login Success ENG
+    Web Element Should Be Visible    ${txtLoginGreeting1}
+    ${txtWelcome1}    Get Web Text    ${txtLoginGreeting1}
+    ${txtWelcome2}    Get Web Text    ${txtLoginGreeting2}
+    ${welcome}    Set Variable    ${txtWelcome1} ${txtWelcome2}
+    Log    ${welcome}
+    ${NumberInProfilePage}=    Get Web Text    ${lblEmeraldNumberProfileENG}
+    ${Number}=    Should Match Regexp    ${NumberInProfilePage}    \\d{10}
+    Run Keyword If    "${txtWelcome}" == "${welcome}"    Web Capture Screen At Verify Point    LoginSuccess
+    ...    ELSE    Fail
+    Scroll Web To Element    ${txtLoginGreeting1}
+    Web Capture Screen At Verify Point    LoginSuccess
+
+Verify Login Success TH
     Web Element Should Be Visible    ${txtLoginGreeting1}
     ${txtWelcome1}    Get Web Text    ${txtLoginGreeting1}
     ${txtWelcome2}    Get Web Text    ${txtLoginGreeting2}

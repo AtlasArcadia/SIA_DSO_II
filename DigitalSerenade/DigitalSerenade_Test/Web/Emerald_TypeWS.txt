@@ -19,36 +19,54 @@ Resource          Resource/PageKeywords/DigitalSerenadeProfileCommon.txt
     ...    *Expected Result*
     [Tags]    wait sim
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_New_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_New_TypeWS
     Open Browser Serenade    ${virtual_device_1_IPSelenium}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Profile Page New    ${Number}    Emerald    WS
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Emerald_1_1_Y_2_26] Serenade Emerald Sustain
     [Documentation]    *Owner* : Oum
     ...
-    ...
+    ...    โปรไฟล์ Serenade Emerald \
+    ...    - Sustain ได้รับสิทธิ์เซเรเนดจากการเป็นพนักงาน
     ...
     ...    *Pre-requisite*
-    ...
+    ...    - Serenade Emerald Customer - Downgrade
+    ...    - Ntype 3BO :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
-    ...
-    ...
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    5.จับภาพหน้าจอ
     ...
     ...    *Expected Result*
+    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - It is our pleasure to take care of
+    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - as an AIS Serenade Emerald customer
+    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
+    ...    - This privilege is offered because you are a valued AIS employee.
     [Tags]    wait sim
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
     Open Browser Serenade    ${virtual_device_1_IPSelenium}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Profile Page Sustain    ${Number}    Emerald    WS
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Emerald_1_1_Y_2_27] Serenade Emerald Downgrade
-    [Documentation]    *Owner* : Oum
+    [Documentation]    *Owner* : Oum, Pu
     ...    - Downgrade ได้รับสิทธิ์เซเรเนดจากการเป็นพนักงาน
+    ...
+    ...
+    ...    **"Actual Result on productio : 20/11/17
+    ...    "" It is our pleasure to take care of"" ซึ่งผิด ยังไม่มีกำหนดแก้ ให้ยึด wording ตามที่ได้นี้ก่อน"**
     ...
     ...    *Pre-requisite*
     ...    - Serenade Emerald Customer - Downgrade
@@ -69,6 +87,14 @@ Resource          Resource/PageKeywords/DigitalSerenadeProfileCommon.txt
     ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ เอ็มเมอรัลด์
     ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
     ...    - ความพิเศษนี้มอบให้คุณจากการเป็นพนักงานคนสำคัญ ในเครือเอไอเอส
+    ...
+    ...    *Expected Result ENG*
+    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - We are pleased to take care of
+    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - as an AIS Serenade Emerald customer
+    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
+    ...    - This privilege is offered because you are a valued AIS employee.
     [Tags]    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Downgrade_TypeWS=include
