@@ -131,7 +131,7 @@ Resource          ../Resource/PageKeywords/ValidityTransfer.txt
     Select Menu    Service
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Service_IOS_1,3_1-2_Y_9_2] Validity Transfer Case : Input destination number wrong digit (eg. 093701)
+[F2_Service_IOS_1,3_1-2_N_9_2] Validity Transfer Case : Input destination number wrong digit (eg. 093701)
     [Documentation]    *Owner* :*** lek ***
     ...
     ...    *Pre-requisite*
@@ -150,7 +150,7 @@ Resource          ../Resource/PageKeywords/ValidityTransfer.txt
     ...    7. ตรวจสอบ dialog message "กรุณากรอกเลขหมายผู้รับโอน ให้ถูกต้อง"
     ...    8. Capture screen
     ...    9. เลือก"ตกลง"
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    fail    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -166,7 +166,7 @@ Resource          ../Resource/PageKeywords/ValidityTransfer.txt
     Verify Please Input Correct Destination Number
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Service_IOS_1,3_1-2_Y_10_2] Validity Transfer Case : Not select amount
+[F2_Service_IOS_1,3_1-2_N_10_2] Validity Transfer Case : Not select amount
     [Documentation]    *Owner* :*** lek ***
     ...
     ...    *Pre-requisite*
@@ -185,7 +185,7 @@ Resource          ../Resource/PageKeywords/ValidityTransfer.txt
     ...    7. ตรวจสอบ dialog message "กรุณาเลือกจำนวนที่ต้องการ"
     ...    8. Capture screen
     ...    9. เลือก"ตกลง"
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    fail    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -200,7 +200,7 @@ Resource          ../Resource/PageKeywords/ValidityTransfer.txt
     Verify Not Select Amount
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Service_IOS_1,3_1-2_Y_11_2] Validity TransferCase : Insufficient Balance
+[F2_Service_IOS_1,3_1-2_N_11_2] Validity TransferCase : Insufficient Balance
     [Documentation]    *Owner* :*** lek ***
     ...
     ...    *Pre-requisite*
@@ -222,7 +222,7 @@ Resource          ../Resource/PageKeywords/ValidityTransfer.txt
     ...    9. ตรวจสอบ dialog message "ยอดเงินคงเหลือของคุณไม่พอสำหรับโอนค่าโทร กรุณาเติมเงินและทำรายการใหม่อีกครั้ง"
     ...    10. Capture screen
     ...    11. เลือก"ตกลง"
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    fail    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InsufficientBalance
