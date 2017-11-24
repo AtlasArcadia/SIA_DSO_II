@@ -24,9 +24,23 @@ Keywords For Teardown
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
 Select Service Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Service Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Service Menu iOS
+
+Select Service Menu Android
+    Select Menu    Service
+
+Select Service Menu iOS
     Select Menu    Service
 
 Select Calling Melody Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Calling Melody Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Calling Melody Submenu iOS
+
+Select Calling Melody Submenu Android
+    Select Sub Menu    CallingMelody
+
+Select Calling Melody Submenu iOS
     Select Sub Menu    CallingMelody
 
 Close Banner
@@ -47,6 +61,27 @@ Wait Until Calling Melody Load Finished
     Wait Until Keyword Succeeds    30 sec    5 sec    wait Calling Melody Loaded
 
 Verify Logo In Calling Melody Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Logo In Calling Melody Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Logo In Calling Melody Page iOS
+
+Verify Logo In Calling Melody Page Android
     log    verify page
     Wait Mobile Until Element Visible    ${lblLogoCallingMelody}
     Mobile Capture Screen At Verify Point    Verify Calling Melody Page From Logo
+
+Verify Logo In Calling Melody Page iOS
+    Wait Mobile Until Element Visible    ${lblLogoCallingMelody}
+    Comment    Verify Logo
+    Mobile Capture Screen At Verify Point    Verify Calling Melody Page Form Logo
+
+Verify Calling Melody Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Calling Melody Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Calling Melody Page iOS
+
+Verify Calling Melody Page Android
+
+Verify Calling Melody Page iOS
+    Wait Mobile Until Element Visible    ${lblHeaderCallingMelody}
+    Mobile element text should be    ${lblHeaderCallingMelody}     ${HeaderCallingMelody}
+    Comment    Verify Header เพลงรอสาย
+    Mobile Capture Screen At Verify Point    Verify Header Calling Melody Page

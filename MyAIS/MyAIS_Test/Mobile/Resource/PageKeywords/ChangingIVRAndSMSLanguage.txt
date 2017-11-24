@@ -10,11 +10,81 @@ Keywords For Teardown
     Run Keyword If Test Failed    Capture Screen with Specific name
     Run Keyword If Test Failed    Log Dialog Msg From MyAIS
     Run Keyword And Ignore Error    Logout
-    Run Keyword And Continue On Failure    Close Application
+    Run Keyword And Ignore Error    Close Application
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
 Select Service Menu
     Select Menu    Service
 
 Select Changing IVR And SMS Language Submenu
-    Select Sub Menu    RegisterAISFibre/CheckCoverage
+    Select Sub Menu    ChangingIVR
+
+Verify Changing IVR And SMS Language Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Changing IVR And SMS Language Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Changing IVR And SMS Language Page iOS
+
+Verify Changing IVR And SMS Language Page Android
+
+
+Verify Changing IVR And SMS Language Page iOS
+    Wait Mobile Until Element Visible    ${lblHeaderChangingIVRAndSMSLanguage}
+    Mobile element text should be    ${lblHeaderChangingIVRAndSMSLanguage}    ${HeaderChangingIVRAndSMSLanguage}
+    Comment    เปลี่ยนภาษา IVR & SMS
+    Mobile element text should be    ${lblDescriptionChangingIVRAndSMSLanguage}    ${DescriptionChangingIVRAndSMSLanguage}
+    Comment    Description
+    Mobile element text should be    ${lblChangingIVRLanguage}    ${ChangingIVRLanguage}
+    Comment    ภาษาในการรับฟังข้อความจากระบบตอบรับอัตโนมัติ
+    Wait Mobile Until Element Visible    ${rboThaiChangingIVRLanguage}
+    Comment    IVR Thai
+    Wait Mobile Until Element Visible    ${rboEnglishChangingIVRLanguage}
+    Comment    IVR English
+    Mobile element text should be    ${lblChangingSMSLanguage}    ${ChangingSMSLanguage}
+    Comment    ภาษาของข้อความ SMS ที่จะได้รับ
+    Wait Mobile Until Element Visible    ${rboThaiChangingSMSLanguage}
+    Comment    SMS Thai
+    Wait Mobile Until Element Visible    ${rboEnglishChangingSMSLanguage}
+    Comment    SMS English
+    Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
+    Comment    Terms & Conditions
+    Wait Mobile Until Element Visible    ${btnConfirmChangingIVRAndSMSLanguage}
+    Comment    Confirm
+    Wait Mobile Until Element Visible    ${btnCancelChangingIVRAndSMSLanguage}
+    Comment    Cancel
+    Mobile Capture Screen At Verify Point    Verify In Page Changing IVR And SMS Language
+
+Select IVR Thai Language
+    Wait Mobile Until Element Visible    ${rboThaiChangingIVRLanguage}
+    Click Mobile Element    ${rboThaiChangingIVRLanguage}
+
+Select IVR English Language
+    Wait Mobile Until Element Visible    ${rboEnglishChangingIVRLanguage}
+    Click Mobile Element    ${rboEnglishChangingIVRLanguage}
+
+Select SMS Thai Language
+    Wait Mobile Until Element Visible    ${rboThaiChangingSMSLanguage}
+    Click Mobile Element    ${rboThaiChangingSMSLanguage}
+
+Select SMS English Language
+    Wait Mobile Until Element Visible    ${rboEnglishChangingSMSLanguage}
+    Click Mobile Element    ${rboEnglishChangingSMSLanguage}
+
+Click Confirm Change Language
+    Click Mobile Element    ${btnConfirmChangingIVRAndSMSLanguage}
+
+Verify Dialog Message Change IVR Language Complete
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageChangeIVRLanguageComplete}
+    Comment    ดำเนินการเปลี่ยนภาษา IVR เรียบร้อยแล้ว กรุณารอรับ SMS ยืนยันการทำรายการขอบคุณที่ใช้บริการ
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Changing IVR Language Complete
+
+Verify Dialog Message Change SMS Language Complete
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageChangeSMSLanguageComplete}
+    Comment    ดำเนินการเปลี่ยนภาษา SMS เรียบร้อยแล้ว กรุณารอรับ SMS ยืนยันการทำรายการขอบคุณที่ใช้บริการ
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Changing SMS Language Complete
+
+Verify Dialog Message No Select Language
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageNoSelectLanguage}
+    Comment    กรุณาระบุภาษาที่คุณต้องการเปลี่ยนแปลง
+    Mobile Capture Screen At Verify Point    Verify Dialog Message No Select Language
