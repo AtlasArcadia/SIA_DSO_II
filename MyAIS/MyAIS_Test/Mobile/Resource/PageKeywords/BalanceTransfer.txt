@@ -28,12 +28,12 @@ Verify Service Page Android
     Mobile Capture Screen At Verify Point    ServicePage
 
 Verify Service Page iOS
-    Mobile element name should be    ${subMnuBalanceTransfer}    ${BalanceTransfer}
-    Mobile element name should be    ${subMnuValidityTransfer}    ${ValidityTransfer}
-    Mobile element name should be    ${subMnuRegisterAISFibre/CheckCoverage}    ${RegisterAISFibre}
-    Mobile element name should be    ${subMnuRequest/ChangeWiFiPassword}    ${RequestAndChangeWifiPassword}
-    Mobile element name should be    ${subMnuCallingMelody}    ${CallingMelody}
-    Mobile element name should be    ${subMnuChangingIVR}    ${MnuChangingIVR}
+    Mobile element text should be    ${subMnuBalanceTransfer}    ${BalanceTransfer}
+    Mobile element text should be    ${subMnuValidityTransfer}    ${ValidityTransfer}
+    Mobile element text should be    ${subMnuRegisterAISFibre/CheckCoverage}    ${RegisterAISFibre}
+    Mobile element text should be    ${subMnuRequest/ChangeWiFiPassword}    ${RequestAndChangeWifiPassword}
+    Mobile element text should be    ${subMnuCallingMelody}    ${CallingMelody}
+    Mobile element text should be    ${subMnuChangingIVR}    ${MnuChangingIVR}
     Mobile Capture Screen At Verify Point    Verify Service Page iOS
 
 Verify Balance Transfer Page
@@ -58,12 +58,12 @@ Verify Balance Transfer Page iOS
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
     Should Be Equal	   ${MobileNumber}    ${Number}
-    Mobile element name should be    ${lblBalanceTransferDescription}    ${BalanceTransferDescription}
-    Mobile element name should be    ${lblBalanceTransferDestinationNumberTitle}    ${BalanceTransferDestinationNumberTitle}
-    Mobile element name should be    ${lblBalanceTransferAmountTitle}    ${BlanceTransferAmountTitle}
+    Mobile element text should be    ${lblBalanceTransferDescription}    ${BalanceTransferDescription}
+    Mobile element text should be    ${lblBalanceTransferDestinationNumberTitle}    ${BalanceTransferDestinationNumberTitle}
+    Mobile element text should be    ${lblBalanceTransferAmountTitle}    ${BlanceTransferAmountTitle}
     Swipe Element From Location    ${lblTermAndCondition}
     Wait Mobile Until Element Visible    ${btnOK}
-    Mobile element name should be    ${lblTermAndCondition}    ${TermAndCondition}
+    Mobile element text should be    ${lblTermAndCondition}    ${TermAndCondition}
     Mobile Capture Screen At Verify Point    Verify Balance Transfer Page iOS
 
 Wait until Page Load Success
@@ -206,7 +206,13 @@ Verify Not Select Amount iOS
     Mobile Capture Screen At Verify Point    Verify Not Select Amount iOS
     Click Mobile Element    ${btnOK}
 
+
 Verify Source Number Insufficient Balance
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Source Number Insufficient Balance Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Source Number Insufficient Balance iOS    ${Number}
+
+Verify Source Number Insufficient Balance Android
     [Arguments]    ${CustomerNumber}
     Mobile element text should be    ${lblCustomerMobileNumber}    ${CustomerNumber}
     Mobile element text should be    ${lblBalanceTransferDescription}    ${txtBalanceTransferDescription}
@@ -217,6 +223,21 @@ Verify Source Number Insufficient Balance
     Wait Mobile Until Element Visible    ${btnConfrimBalanceTransfer}
     Mobile element text should be    ${lblTermAndCondition}    ${txtTermAndCondition}
     Mobile Capture Screen At Verify Point    BalanceTransfer Page
+
+Verify Source Number Insufficient Balance iOS
+    [Arguments]    ${Number}
+    ${rawMobileNumber}=    Get mobile text    ${lblCustomerMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal	   ${MobileNumber}    ${Number}
+    Mobile element text should be    ${lblBalanceTransferDescription}    ${BalanceTransferDescription}
+    Mobile element text should be    ${lblBalanceTransferDestinationNumberTitle}    ${BalanceTransferDestinationNumberTitle}
+    Mobile element text should be    ${lblBalanceTransferAmountTitle}    ${BlanceTransferAmountTitle}
+    Mobile element text should be    ${lblInsufficientBalanceTransfer}    ${InsufficientBalanceTransfer}
+    Swipe Element From Location    ${lblTermAndCondition}
+    Wait Mobile Until Element Visible    ${btnOK}
+    Mobile element text should be    ${lblTermAndCondition}    ${TermAndCondition}
+    Mobile Capture Screen At Verify Point    Verify Balance Transfer Page iOS
 
 Verify Transfer To Max Balance Number
     Run Keyword If    "${ar_OS}"=="Android"    Verify Transfer To Max Balance Number Android
