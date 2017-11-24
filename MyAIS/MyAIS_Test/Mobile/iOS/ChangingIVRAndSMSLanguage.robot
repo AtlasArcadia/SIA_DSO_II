@@ -198,7 +198,7 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     Verify Dialog Message Change SMS Language Complete
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F6_Service_IOS_1,3_1-2_Y_6_2] Changing IVR & SMS Language In case: ไม่เลือกภาษา
+[F6_Service_IOS_1,3_1-2_N_6_2] Changing IVR & SMS Language In case: ไม่เลือกภาษา
     [Documentation]    **Owner: Lek**
     ...
     ...    *Pre-requisite*
@@ -219,7 +219,7 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     ...    5. กด "ตกลง"
     ...    6. ตรวจสแบ popup msg: กรุณาระบุภาษาที่คุณต้องการเปลี่ยนแปลง
     ...    7. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    fail    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
