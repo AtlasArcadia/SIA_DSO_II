@@ -3,7 +3,7 @@ Resource          ../../../../Config/LocalConfig.txt
 Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
 
 *** Test Cases ***
-[F6_Service_IOS_1,3_1-2_Y_1_2] Verify page "Changing IVR & SMS Language"
+[F6_Service_IOS_1,3_1-2_Y_1_2] Verify page Changing IVR & SMS Language
     [Documentation]    **Owner: Lek**
     ...
     ...    *Pre-requisite*
@@ -50,9 +50,8 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Service Menu
-    Select Calling Melody Submenu
-    Wait Until Calling Melody Load Finished
-    Verify Logo In Calling Melody Page
+    Select Changing IVR And SMS Language Submenu
+    Verify Changing IVR And SMS Language Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F6_Service_IOS_1,3_1-2_Y_2_2] Changing IVR & SMS Language In case: เปลี่ยนภาษาสำเร็จ(IVR Language: Thai)
@@ -85,9 +84,10 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Service Menu
-    Select Calling Melody Submenu
-    Wait Until Calling Melody Load Finished
-    Verify Logo In Calling Melody Page
+    Select Changing IVR And SMS Language Submenu
+    Select IVR Thai Language
+    Click Confirm Change Language
+    Verify Dialog Message Change IVR Language Complete
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F6_Service_IOS_1,3_1-2_Y_3_2] Changing IVR & SMS Language In case: เปลี่ยนภาษาสำเร็จ(IVR Language: English)
@@ -120,9 +120,10 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Service Menu
-    Select Calling Melody Submenu
-    Wait Until Calling Melody Load Finished
-    Verify Logo In Calling Melody Page
+    Select Changing IVR And SMS Language Submenu
+    Select IVR English Language
+    Click Confirm Change Language
+    Verify Dialog Message Change IVR Language Complete
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F6_Service_IOS_1,3_1-2_Y_4_2] Changing IVR & SMS Language In case: เปลี่ยนภาษาสำเร็จ(SMS Language: Thai)
@@ -155,9 +156,10 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Service Menu
-    Select Calling Melody Submenu
-    Wait Until Calling Melody Load Finished
-    Verify Logo In Calling Melody Page
+    Select Changing IVR And SMS Language Submenu
+    Select SMS Thai Language
+    Click Confirm Change Language
+    Verify Dialog Message Change SMS Language Complete
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F6_Service_IOS_1,3_1-2_Y_5_2] Changing IVR & SMS Language In case: เปลี่ยนภาษาสำเร็จ(SMS Language: English)
@@ -190,9 +192,10 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Service Menu
-    Select Calling Melody Submenu
-    Wait Until Calling Melody Load Finished
-    Verify Logo In Calling Melody Page
+    Select Changing IVR And SMS Language Submenu
+    Select SMS English Language
+    Click Confirm Change Language
+    Verify Dialog Message Change SMS Language Complete
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F6_Service_IOS_1,3_1-2_Y_6_2] Changing IVR & SMS Language In case: ไม่เลือกภาษา
@@ -225,7 +228,7 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Service Menu
-    Select Calling Melody Submenu
-    Wait Until Calling Melody Load Finished
-    Verify Logo In Calling Melody Page
+    Select Changing IVR And SMS Language Submenu
+    Click Confirm Change Language
+    Verify Dialog Message No Select Language
     [Teardown]    Keywords For Teardown    ${#dict_device_name}

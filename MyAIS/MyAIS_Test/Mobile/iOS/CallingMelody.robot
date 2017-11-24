@@ -22,7 +22,7 @@ Resource          ../Resource/PageKeywords/CallingMelody.txt
     ...    3. เลือกsub เมนู "เพลงรอสาย"
     ...    4. ตรวจสอบ หน้า"เพลงรอสาย"  (Logo AIS)
     ...    5. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -32,6 +32,5 @@ Resource          ../Resource/PageKeywords/CallingMelody.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Service Menu
     Select Calling Melody Submenu
-    Wait Until Calling Melody Load Finished
-    Verify Logo In Calling Melody Page
+    Verify Calling Melody Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}

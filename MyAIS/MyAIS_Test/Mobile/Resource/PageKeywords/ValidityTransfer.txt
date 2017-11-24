@@ -3,6 +3,7 @@ Resource          MyAISCommon.txt
 Resource          Login.txt
 Resource          ../PageRepository/${ar_OS}/ValidityTransferRopository.txt
 Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/ValidityTransferLocalized.txt
+Resource          ../PageVariable/ValidityTransferVariable.txt
 
 *** Keywords ***
 Keywords For Teardown
@@ -28,31 +29,89 @@ Verify Validity Transfer Page
 
 Input Destination Number
     [Arguments]    ${DestinationNumber}
+    Run Keyword If    "${ar_OS}"=="Android"    Input Destination Number Android    ${DestinationNumber}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Input Destination Number iOS    ${DestinationNumber}
+
+Input Destination Number Android
+    [Arguments]    ${DestinationNumber}
     Click Mobile Element    ${fldDestinationNumber}
     Input Mobile Text    ${fldDestinationNumber}    ${DestinationNumber}
     Hide Keyboard
 
+Input Destination Number iOS
+    [Arguments]    ${DestinationNumber}
+    Input Mobile Text    ${fldDestinationNumber}    ${DestinationNumber}
+    Click Mobile Element    ${lblEnterDesNumber}
+
 Select Amount Of Day
+    Run Keyword If    "${ar_OS}"=="Android"    Select Amount Of Day Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Amount Of Day iOS
+
+Select Amount Of Day Android
     Click Mobile Element    ${fldSelectDay}
     Click Mobile Element    ${rdoMinimumDate}
 
+Select Amount Of Day iOS
+    Click Mobile Element    ${fldSelectDay}
+    Click Mobile Element    ${itemFiveDay}
+
 Click OK Button
+    Run Keyword If    "${ar_OS}"=="Android"    Click OK Button Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Click OK Button iOS
+
+Click OK Button Android
+    Swipe to element    ${btnOK}
+    Click Mobile Element    ${btnOK}
+
+Click OK Button iOS
     Swipe to element    ${btnOK}
     Click Mobile Element    ${btnOK}
 
 Click Confirm Button
+    Run Keyword If    "${ar_OS}"=="Android"    Click Confirm Button Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Click Confirm Button iOS
+
+Click Confirm Button Android
+    Click Mobile Element    ${btnConfirm}
+
+Click Confirm Button iOS
     Click Mobile Element    ${btnConfirm}
 
 Verify Making Transfer To Destination Number
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Making Transfer To Destination Number Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Making Transfer To Destination Number iOS
+
+Verify Making Transfer To Destination Number Android
     [Arguments]    ${Number}
     Wait Mobile Until Page Contains Element    ${msgDialog}
     ${txtMakeFiveDayTransfer}    Replace String    ${txtMakeFiveDayTransfer}    [Number]    ${Number}
     Mobile element name should be    ${msgDialog}    ${txtMakeFiveDayTransfer}
     Mobile Capture Screen At Verify Point    Verify Transfer
 
+Verify Making Transfer To Destination Number iOS
+    Wait Mobile Until Element Visible    ${msgDialog}
+    ${NumberDestination}    Get mobile text    ${fldDestinationNumber}
+    log    ${NumberDestination}
+    ${MakeFiveDayTransfer}    Replace String    ${MakeFiveDayTransfer}    [Number]    ${NumberDestination}
+    Mobile element text should be    ${msgDialog}    ${MakeFiveDayTransfer}
+    Comment    คุณต้องการโอนวันจำนวน 5 วัน ให้หมายเลข
+    Mobile Capture Screen At Verify Point    Verify Transfer
+
 Verify Transaction Successfully
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Transaction Successfully Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Transaction Successfully iOS
+
+Verify Transaction Successfully Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
-    Mobile element name should be    ${msgDialog}    ${txtTransactionSuccessful}
+    Mobile element name should be    ${msgDialog}    ${TransactionSuccessful}
+    Mobile Capture Screen At Verify Point    Verify Transaction successful
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Transaction Successfully iOS
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element text should be    ${msgDialog}    ${TransactionSuccessful}
+    Comment    ดำเนินการเรียบร้อยแล้ว กรุณารอรับ SMS เพื่อยืนยันการทำรายการ
     Mobile Capture Screen At Verify Point    Verify Transaction successful
     Click Mobile Element    ${btnOKFinish}
 
@@ -69,16 +128,35 @@ Verify Cannot Transfer To Self Number
     Click Mobile Element    ${btnOKFinish}
 
 Verify Please Input Correct Destination Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Please Input Correct Destination Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Please Input Correct Destination Number iOS
+
+Verify Please Input Correct Destination Number Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtEnterCorrectDestinationNumber}
     Mobile Capture Screen At Verify Point    Verify Enter Correct Destination Number
     Click Mobile Element    ${btnOKFinish}
 
+Verify Please Input Correct Destination Number iOS
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${EnterCorrectDestinationNumber}
+    Mobile Capture Screen At Verify Point    Verify Enter Correct Destination Number
+
 Verify Not Select Amount
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Not Select Amount Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Not Select Amount iOS
+
+Verify Not Select Amount Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtSelectAmount}
     Mobile Capture Screen At Verify Point    Verify Please Select Amount
     Click Mobile Element    ${btnOKFinish}
+
+Verify Not Select Amount iOS
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${SelectAmount}
+    Mobile Capture Screen At Verify Point    Verify Please Select Amount
+
 
 Verify Not 12Call Number
     Wait Mobile Until Page Contains Element    ${msgDialog}
@@ -87,18 +165,45 @@ Verify Not 12Call Number
     Click Mobile Element    ${btnOKFinish}
 
 Verify Insufficient Balance
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Insufficient Balance Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Insufficient Balance iOS
+
+Verify Insufficient Balance Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtInsufficientBalance}
     Mobile Capture Screen At Verify Point    Verify Balance Not Sufficient
     Click Mobile Element    ${btnOKFinish}
 
+Verify Insufficient Balance iOS
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element text should be    ${msgDialog}    ${InsufficientBalance}
+    Comment    ยอดเงินคงเหลือของคุณไม่พอสำหรับโอนค่าโทร กรุณาเติมเงินและทำรายการใหม่อีกครั้ง
+    Mobile Capture Screen At Verify Point    Verify Balance Not Sufficient
+    Click Mobile Element    ${btnOKFinish}
+
 Verify Mobile Number Not Eligible
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Mobile Number Not Eligible Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Mobile Number Not Eligible iOS
+
+Verify Mobile Number Not Eligible Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtMobileNumberNotEligible}
     Mobile Capture Screen At Verify Point    Verify Mobile Number Not Eligible Validity Transfer Service
     Click Mobile Element    ${btnOKFinish}
 
+Verify Mobile Number Not Eligible iOS
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element text should be    ${msgDialog}    ${MobileNumberNotEligible}
+    Comment    หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้
+    Mobile Capture Screen At Verify Point    Verify Mobile Number Not Eligible Validity Transfer Service
+    Click Mobile Element    ${btnOKFinish}
+
 Verify Transfer Insufficient Validity
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Transfer Insufficient Validity Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Transfer Insufficient Validity iOS    ${Number}
+
+Verify Transfer Insufficient Validity Android
     [Arguments]    ${Number}
     Wait Mobile Until Page Contains Element    ${fldMobileNumber}
     Mobile Capture Screen At Verify Point    Validity Transfer Upper Page
@@ -113,41 +218,124 @@ Verify Transfer Insufficient Validity
     Mobile element name should be    ${lblTermAndCondition}    ${txtTermAndCondition}
     Mobile Capture Screen At Verify Point    Validity Transfer Lower Page
 
+Verify Transfer Insufficient Validity iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${fldMobileNumber}
+    ${rawMobileNumber}=    Get mobile text    ${fldMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblDescription}    ${Description}
+    Mobile element text should be    ${lblEnterDesNumber}    ${EnterDesNumber}
+    Mobile element text should be    ${lblTransferAmount}    ${TransferAmount}
+    Wait Mobile Until Element Visible    ${ddlInsufficientValidity}
+    Click Mobile Element    ${ddlInsufficientValidity}
+    Mobile element text should be    ${ddlInsufficientValidityText}    ${InsufficientValidity}
+    Mobile element name should be    ${btnOK}    ${OK}
+    Mobile element text should be    ${lblTermAndCondition}    ${TermAndCondition}
+    Mobile Capture Screen At Verify Point    Validity Transfer Insufficient Validity Page
+
 Verify Balance Checking Unavailable
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Checking Unavailable Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Checking Unavailable iOS
+
+Verify Balance Checking Unavailable Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtBalanceCheckingUnavailable}
     Mobile Capture Screen At Verify Point    Verify Unavailable Balance Checking
     Click Mobile Element    ${btnOKFinish}
 
+Verify Balance Checking Unavailable iOS
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element text should be   ${msgDialog}    ${BalanceCheckingUnavailable}
+    Comment    ไม่สามารถเช็กยอดเงินคงเหลือได้ในขณะนี้ กรุณาใช้บริการใหม่ภายหลัง
+    Mobile Capture Screen At Verify Point    Verify Unavailable Balance Checking
+    Click Mobile Element    ${btnOKFinish}
+
 Verify Destination Number Not Eligible
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Destination Number Not Eligible Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Destination Number Not Eligible iOS
+
+Verify Destination Number Not Eligible Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtDesNumberNotEligible}
     Mobile Capture Screen At Verify Point    Verify Des Number Not Eligible
     Click Mobile Element    ${btnOKFinish}
 
+Verify Destination Number Not Eligible iOS
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element text should be    ${msgDialog}    ${DesNumberNotEligible}
+    Comment    หมายเลขปลายทางไม่สามารถใช้บริการโอนเงิน/โอนวันได้
+    Mobile Capture Screen At Verify Point    Verify Destination Number Not Eligible
+    Click Mobile Element    ${btnOKFinish}
+
 Verify This Service Unavailable
+    Run Keyword If    "${ar_OS}"=="Android"    Verify This Service Unavailable Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify This Service Unavailable iOS
+
+Verify This Service Unavailable Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtThisServiceUnavailableAtTheMoment}
     Mobile Capture Screen At Verify Point    Verify Service Unavailable At Moment
     Click Mobile Element    ${btnOKFinish}
 
+Verify This Service Unavailable iOS
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element text should be   ${msgDialog}    ${ThisServiceUnavailableAtTheMoment}
+    Comment    ไม่สามารถใช้บริการนี้ได้ในขณะนี้
+    Mobile Capture Screen At Verify Point    Verify Service Unavailable At Moment
+    Click Mobile Element    ${btnOKFinish}
+
 Verify Service Reserve For AIS Prepaid
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Service Reserve For AIS Prepaid Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Service Reserve For AIS Prepaid iOS
+
+Verify Service Reserve For AIS Prepaid Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtServiceReserveForOnlyAISPrepaid}
     Mobile Capture Screen At Verify Point    Verify Service Reserve For AIS Prepaid Customer
     Click Mobile Element    ${btnOKFinish}
 
+Verify Service Reserve For AIS Prepaid iOS
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element text should be   ${msgDialog}    ${ServiceReserveForOnlyAISPrepaid}
+    Comment    บริการโอนเงิน/โอนวัน ขอสงวนสิทธิ์เฉพาะลูกค้าที่มีอายุการใช้งานตั้งแต่ 90 วันขึ้นไป และ 30 วันขึ้นไปสำหรับบริการโอนวัน
+    Mobile Capture Screen At Verify Point    Verify Service Reserve For AIS Prepaid Customer
+    Click Mobile Element    ${btnOKFinish}
+
 Verify Service Unavailable
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Service Unavailable Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Service Unavailable iOS
+
+Verify Service Unavailable Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtServiceUnavailable}
     Mobile Capture Screen At Verify Point    Verify Service Unvailable Cause Of Max Validity
     Click Mobile Element    ${btnOKFinish}
 
+Verify Service Unavailable iOS
+    Wait Mobile Until Element Visible    ${msgDialog}
+    Mobile element text should be   ${msgDialog}    ${ServiceUnavailable}
+    Comment    ขออภัย ไม่สามารถใช้บริการได้ในขณะนี้ กรุณาใช้บริการใหม่ภายหลัง
+    Mobile Capture Screen At Verify Point    Verify Service Unvailable Cause Of Max Validity
+    Click Mobile Element    ${btnOKFinish}
+
 Set Destination Number
-    [Arguments]    ${ar_NType}
+    Run Keyword If    "${ar_OS}"=="Android"    Set Destination Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Set Destination Number iOS
+
+Set Destination Number Android
     Run Keyword If    '${ar_NType}'=='3PE'    Input Destination Number
 
+Set Destination Number iOS
+    Run Keyword If    "${ar_NType}"=="3PE"    Input Destination Number    ${AISNonBosPrepaidDestinationNumber3PE}
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Input Destination Number    ${AISNonBosPrepaidDestinationNumber3BE}
+
 Input Suspend Number
+    Run Keyword If    "${ar_OS}"=="Android"    Input Suspend Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Input Suspend Number iOS
+
+Input Suspend Number Android
     ${Number}    Set Variable If    '${ar_NType}' == '3PE'    ${AISNonBosPrepaidSuspensionNumberTest}    #Suspend Number
     ${Number}    Set Variable If    '${ar_NType}' == '3BE'    ${AISNonBosPrepaidSuspensionNumberTest}    ${Number}    #Suspend Number
     ${Number}    Set Variable If    '${ar_NType}' == 'IPE'    ${AIS_IPESuspend}    ${Number}    #Suspend Number_IPE
@@ -155,7 +343,20 @@ Input Suspend Number
     Input Destination Number    ${Number}
     [Return]    ${Number}
 
+
+Input Suspend Number iOS
+    ${NumberSuspend}=    Run Keyword If    "${ar_NType}" == "3PE"    Set Variable    ${AISNonBosPrepaidSuspensionNumberTest3PE}
+    ...    ELSE IF    "${ar_NType}" == "3BE"    Set Variable    ${AISNonBosPrepaidSuspensionNumberTest3PE}
+    Run Keyword If    "${ar_NType}"=="3PE"    Input Destination Number    ${AISNonBosPrepaidSuspensionNumberTest3PE}    #Suspend Number
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Input Destination Number    ${AISNonBosPrepaidSuspensionNumberTest3BE}    #Suspend Number
+    log    ${NumberSuspend}
+    [Return]    ${NumberSuspend}
+
 Input Max Validity Number
+    Run Keyword If    "${ar_OS}"=="Android"    Input Max Validity Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Input Max Validity Number iOS
+
+Input Max Validity Number Android
     ${Number}    Set Variable If    '${ar_NType}' == '3BE'    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest}    #MaxValidity
     ${Number}    Set Variable If    '${ar_NType}' == '3PE'    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest}    ${Number}
     ${Number}    Set Variable If    '${ar_NType}' == 'IPE'    ${AIS_IPEMaxValidity}    ${Number}    #MaxValidity_IPE
@@ -163,13 +364,33 @@ Input Max Validity Number
     Input Destination Number    ${Number}
     [Return]    ${Number}
 
+Input Max Validity Number iOS
+    ${NumberMaxvalidity}=    Run Keyword If    "${ar_NType}" == "3PE"    Set Variable    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest3PE}
+    ...    ELSE IF    "${ar_NType}" == "3BE"    Set Variable    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest3BE}
+    Run Keyword If    "${ar_NType}"=="3PE"    Input Destination Number    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest3PE}    #MaxValidity
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Input Destination Number    ${AISNonBosPrepaidMaxBalanceAndValidityNumberTest3BE}    #MaxValidity
+    log    ${NumberMaxvalidity}
+    [Return]    ${NumberMaxValidity}
+
 Input Blacklist Number
+    Run Keyword If    "${ar_OS}"=="Android"    Input Blacklist Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Input Blacklist Number iOS
+
+Input Blacklist Number Android
     ${Number}    Set Variable If    '${ar_NType}' == '3PE'    ${AISNonBosPrepaidBlacklistNumberTest}
     ${Number}    Set Variable If    '${ar_NType}' == '3BE'    ${Number}    ${AISNonBosPrepaidBlacklistNumberTest}
     ${Number}    Set Variable If    '${ar_NType}' == 'IPE'    ${Number}    ${AIS_IPEBlacklist}
     log    ${Number}
     Input Destination Number    ${Number}
     [Return]    ${Number}
+
+Input Blacklist Number iOS
+    ${NumberBlacklist}=    Run Keyword If    "${ar_NType}" == "3PE"    Set Variable    ${AISNonBosPrepaidBlacklistNumberTest3PE}
+    ...    ELSE IF    "${ar_NType}" == "3BE"    Set Variable    ${AISNonBosPrepaidBlacklistNumberTest3BE}
+    Run Keyword If    "${ar_NType}"=="3PE"    Input Destination Number    ${AISNonBosPrepaidBlacklistNumberTest3PE}    #Blacklist
+    ...    ELSE IF    "${ar_NType}"=="3BE"    Input Destination Number    ${AISNonBosPrepaidBlacklistNumberTest3BE}    #Blacklist
+    log    ${NumberBlacklist}
+    [Return]    ${NumberBlacklist}
 
 Input Number And Click Confirm
     Input Destination Number    ${AISNonBosPrepaidNumberTest}    #3PE

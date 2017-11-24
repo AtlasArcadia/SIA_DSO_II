@@ -345,16 +345,17 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     ...       - ปุ่ม "ตกลง"
     ...       - เงื่อนไขบริการ
     ...    5. Capture screen
-    [Tags]    success    3be    3pe
+    [Tags]    success    3be    3pe    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_InsufficientBalance=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_InsufficientBalance
     Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
+    Verify Source Number Insufficient Balance    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1,3_1-2_N_13_2] Balance Transfer Case : Destination number has max balance
@@ -464,7 +465,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     ...    9. ตรวจสอบ dialog message "หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
     ...    10. Capture screen
     ...    11. เลือก"ตกลง"
-    [Tags]    success    3be    3pe    demo
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Blacklist=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Blacklist

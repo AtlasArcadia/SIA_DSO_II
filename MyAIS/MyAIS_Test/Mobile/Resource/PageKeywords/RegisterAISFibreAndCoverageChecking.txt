@@ -10,15 +10,40 @@ Keywords For Teardown
     Run Keyword If Test Failed    Capture Screen with Specific name
     Run Keyword If Test Failed    Log Dialog Msg From MyAIS
     Run Keyword And Ignore Error    Logout
-    Run Keyword And Continue On Failure    Close Application
+    Run Keyword And Ignore Error    Close Application
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
 Verify Page AIS Fibre
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Page AIS Fibre Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Page AIS Fibre iOS
+
+Verify Page AIS Fibre Android
     Wait Mobile Until Page Contains Element    ${lblAisLogo}
     Mobile Capture Screen At Verify Point    AIS_Fiber_Registration_On_Page
 
+Verify Page AIS Fibre iOS
+    Wait Mobile Until Element Visible    ${lblHeaderAISFibreRegistration}
+    Comment    Verify Header สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ
+    Wait Mobile Until Page Contains Element    ${lblAisLogo}
+    Comment    Verify Logo AIS Fibre
+    Mobile Capture Screen At Verify Point    Verify Page AIS Fibre Registration
+
 Select Service Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Service Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Service Menu iOS
+
+Select Service Menu Android
+    Select Menu    Service
+
+Select Service Menu iOS
     Select Menu    Service
 
 Select RegisterAISFibre CheckCoverage Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select RegisterAISFibre CheckCoverage Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select RegisterAISFibre CheckCoverage Submenu iOS
+
+Select RegisterAISFibre CheckCoverage Submenu Android
+    Select Sub Menu    RegisterAISFibre/CheckCoverage
+
+Select RegisterAISFibre CheckCoverage Submenu iOS
     Select Sub Menu    RegisterAISFibre/CheckCoverage

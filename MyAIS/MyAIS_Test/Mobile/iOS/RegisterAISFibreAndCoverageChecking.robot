@@ -3,7 +3,7 @@ Resource          ../../../../Config/LocalConfig.txt
 Resource          ../Resource/PageKeywords/RegisterAISFibreAndCoverageChecking.txt
 
 *** Test Cases ***
-[F3_Service_IOS_1,3_1-2_Y_1_2] Register AIS Fibre Case : Verify "Register AIS Fibre" page
+[F3_Service_IOS_1,3_1-2_Y_1_2] Register AIS Fibre Case : Verify Register AIS Fibre page
     [Documentation]    *Owner* : Lek
     ...
     ...    *Pre-requisite*
@@ -23,5 +23,7 @@ Resource          ../Resource/PageKeywords/RegisterAISFibreAndCoverageChecking.t
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    Select Menu    Service
-    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+    Select Service Menu
+    Select RegisterAISFibre CheckCoverage Submenu
+    Verify Page AIS Fibre
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
