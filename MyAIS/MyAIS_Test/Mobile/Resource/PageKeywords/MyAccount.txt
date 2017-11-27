@@ -6,8 +6,8 @@ Resource          ../PageRepository/${ar_OS}/MyAccountRepository.txt
 
 *** Keywords ***
 Select Hamburger
-    Wait Mobile Until Page Contains Element    ${btnHamberger}
-    Click Mobile Element    ${btnHamberger}
+    ${ClickHumberger}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${btnHamberger}
+    Run Keyword If    '${ClickHumberger}'=='True'    Click Mobile Element    ${btnHamberger}    ELSE    Click Mobile Element    ${btnHamberger2}
 
 Verify Sub Menu in Hamberger
     [Arguments]    ${Number}
@@ -411,5 +411,39 @@ Verify MyAccount Page
     Mobile element name should be    ${lblMyAISAccountPassword}    ${MyAISAccountPassword}
     Wait Mobile Until Element Visible    ${btnMyAISAccountAdd}
     Mobile Capture Screen At Verify Point    Verify MyAccount Page
+
+Verify Manage MyAIS Account
+    Wait Mobile Until Element Visible    ${btnMyAISAccountAdd}
+    Click Mobile Element    ${btnMyAISAccountAdd}
+    Wait Mobile Until Element Visible    ${lblRegisterMyAISAccountTypeAIS}
+    Wait Mobile Until Element Visible    ${lblRegisterMyAISAccountNumber}
+
+Request And Input OTP
+    Click Mobile Element    ${lblRegisterMyAISAccountRequestOTP}
+    Click Mobile Element    ${btnPrimaryNo}
+    Input Mobile Text    ${fldInputOTP}    1111
+    Click Mobile Element    ${btnOKOTP}
+    Click Mobile Element    ${btnOK}
+
+Verify MyList
+   Wait Mobile Until Element Visible        ${lblHeaderMyList}    60
+   Mobile element name should be    ${lblHeaderMyList}    ${HeaderMyList}
+   Wait Mobile Until Element Visible    ${lblNumberMyList}
+   Mobile Capture Screen At Verify Point    Verify MyList
+
+Verify MyAccount Page have My List
+    Mobile element name should be    ${lblHeaderMyAISAccount}    ${HeaderMyAISAccount}
+    Mobile element name should be    ${lblTitleMyAISAccount}    ${TitleMyAISAccount}
+    Mobile element name should be    ${lblMyAISAccountMainMunber}    ${MyAISAccountMainMunber}
+    Mobile element name should be    ${lblMyAISAccountEmail}    ${MyAISAccountEmail}
+    Mobile element name should be    ${lblMyAISAccountPassword}    ${MyAISAccountPassword}
+    Mobile element name should be    ${lblHeaderMyList}    ${HeaderMyList}
+    Wait Mobile Until Element Visible    ${lblNumberMyList}
+    Mobile element name should be    ${lblManageMyAISAccount}    ${ManageMyAISAccount}
+    Wait Mobile Until Element Visible    ${btnMyAISAccountAdd}
+    Mobile Capture Screen At Verify Point    Verify MyAccount Page have My List
+
+
+
 
 

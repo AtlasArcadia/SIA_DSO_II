@@ -562,17 +562,27 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
 [F3_MyAccount_IOS_1,3_1-2_Y_1_1] Verify MyAIS Account : not have my List
     [Documentation]    **Owner:Tong**
     ...    Source Number : 3PE
-    ...    Status : Active1. Login my AIS
-    [Tags]    active    success    regression    demo
+    ...    Status : Active
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู "Hamburger"
+    ...    3. คลิก "บัญชี my AIS"
+    ...    4. ตรวจสอบหน้า "บัญชี my AIS"
+    ...    - "บัญชี my AIS" at header
+    ...    - "บัญชีของคุณ"
+    ...    - "หมายเลขหลัก"
+    ...    - "อีเมล"
+    ...    - "รหัสผ่าน"
+    ...    - ปุ่ม "เพิ่ม+"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MyAccount=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MyAccount
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Hamburger
-    Verify MyAccount Page
     Select Sub Menu Hamburger    MyAccount
     Verify MyAccount Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
@@ -580,32 +590,62 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
 [F3_MyAccount_IOS_1,3_1-2_Y_2_1] VeriFy Add Member : not have my List
     [Documentation]    **Owner**
     ...    Source Number : 3PE
-    ...    Status : Active1. Login my AIS
+    ...    Status : Active
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู "Hamburger"
+    ...    3. คลิก "บัญชี my AIS"
+    ...    4. กดปุ่ม  "เพิ่ม+"  หมายเลขในบัญชี my AIS ของคุณ
+    ...    5.แสดงหมายเลข AIS Member ที่อยู่ภายใต้ ID เดียวกัน
+    ...     - เอไอเอส รายเดือน
+    ...     - เอไอเอส วัน-ทู-คอล!
+    ...     - เอไอเอสไฟเบอร์
+    ...    6.กดปุ่ม รับรหัส OTP  "จากเบอร์ที่ต้องการ Add "
+    ...    7.กรอก OTP ที่ได้รับและตกลง (เมื่อตรวจสอบจะพบเครื่องหมายติ๊กถูกข้างหน้าเบอร์ที่แอด Member"
+    ...    8.กดปุ่ม  "ตกลง"
+    ...    **แสดงเบอร์ที่อยู่ใน my AIS ของคุณ
     [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RegisteredHaveCredit
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MyAccount=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MyAccount
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Hamburger
     Select Sub Menu Hamburger    MyAccount
+    Verify Manage MyAIS Account
+    Request And Input OTP
+    Verify MyList
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F3_MyAccount_IOS_1,3_1-2_Y_3_1] Verify MyAIS Account : have my List
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
-    ...    Status : Active1. Login my AIS
-    [Tags]    active    success    regression
+    ...    Status : Active
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. คลิกเมนู "Hamburger"
+    ...    3. คลิก "บัญชี my AIS"
+    ...    4. ตรวจสอบหน้า "บัญชี my AIS"
+    ...    - "บัญชี my AIS" at header
+    ...    - "บัญชีของคุณ"
+    ...    - "หมายเลขหลัก"
+    ...        ...    - "อีเมล"
+    ...    - "รหัสผ่าน"
+    ...    - "หมายเลขในบัญชี my AIS ของคุณ" at header
+    ...    - "เบอร์โทรศัพท์"
+    ...    - "จัดการหมายเลขในบัญชี my AIS ของคุณ"
+    ...    - ปุ่ม "เพิ่ม+"
+    ...    5. จับภาพหน้าจอ
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RegisteredHaveCredit
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MyAccount=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MyAccount
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Hamburger
     Select Sub Menu Hamburger    MyAccount
+    Verify MyAccount Page have My List
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
