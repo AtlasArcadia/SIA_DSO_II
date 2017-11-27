@@ -49,9 +49,9 @@ Verify Page Roming Service Rate Not Select Country iOS
     Mobile Capture Screen At Verify Point    Verify In Page Roaming Service Rate Not Select Country
 
 Verify Roaming Service Rate With Select Country
-    [Arguments]    ${Country}    ${Number}
+    [Arguments]    ${Number}
     Run Keyword If    "${ar_OS}"=="Android"    Verify Roaming Service Rate With Select Country Android    ${Number}
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Roaming Service Rate With Select Country iOS    ${Country}    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Roaming Service Rate With Select Country iOS    ${Number}
 
 Verify Roaming Service Rate With Select Country Android
     [Arguments]    ${Number}
@@ -76,6 +76,7 @@ Verify Roaming Service Rate With Select Country iOS
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
     Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    ${ChooseCountry}=    Get mobile text    ${ddlChooseCountryRoamingServiceRates}
     Mobile element text should be    ${lblVoiceCallRoaming}    ${VoiceCallRoaming}
     Mobile element text should be    ${lblVoiceCallRoamingLocalCall}    ${LocalCall}
     Mobile element text should be    ${lblVoiceCallRoamingCallToThailand}    ${CallToThailand}
@@ -92,6 +93,7 @@ Verify Roaming Service Rate With Select Country iOS
     Mobile element text should be    ${lblValueDataRateMinimum}    ${${Country}DataRateMinimum}
     Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${GreatSavingRoamingPackages}
     Mobile Capture Screen At Verify Point    Verify In Page Roaming Service Rate With Select Country Australia
+    [Return]    ${ChooseCountry}
 
 Select Country To Australia
     Run Keyword If    "${ar_OS}"=="Android"    Select Country To Australia Android
@@ -153,7 +155,7 @@ Verify Apply Roaming Package Page Android
     Mobile Capture Screen At Verify Point    Verify Apply Roaming Page
 
 Verify Apply Roaming Package Page iOS
-    [Arguments]    ${Number}
+    [Arguments]    ${Number}    ${ChooseCountry}
     Wait Mobile Until Element Visible    ${lblRoamingCountryApplyRoamingPackagePage}
     Mobile element text should be    ${HeaderApplyRoamingPackagePage}     ${ApplyRoamingPackagePage}
     ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberRoamingServiceRates}
@@ -161,7 +163,7 @@ Verify Apply Roaming Package Page iOS
     Log    ${MobileNumber}
     Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
     Mobile element text should be    ${lblRoamingCountryApplyRoamingPackagePage}    ${RoamingCountryApplyRoamingPackagePage}
-    Mobile element name should be    ${ddlRoamingCountryApplyRoamingPackagePage}    ${Cameroon}
+    Mobile element name should be    ${ddlRoamingCountryApplyRoamingPackagePage}    ${ChooseCountry}
     Mobile element text should be    ${lblPackageTypeApplyRoamingPackagePage}    ${PackageTypeApplyRoamingPackagePage}
     Mobile element name should be    ${ddlPackageTypeApplyRoamingPackagePage}     ${PleaseSelectPackageTypeApplyRoamingPackagePage}
     Mobile element name should be    ${btnContinueApplyRoaming}    ${ContinueApplyRoaming}
