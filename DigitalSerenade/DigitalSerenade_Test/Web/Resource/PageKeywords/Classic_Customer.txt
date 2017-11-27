@@ -5,10 +5,21 @@ Resource          DegitalSerenadeCommon.txt
 
 *** Keywords ***
 Verify Profile Page With No Serenade
+    Run Keyword If    "${ar_LANG}"=="TH"    Verify Profile Page With No Serenade TH
+    Run Keyword If    "${ar_LANG}"=="EN"    Verify Profile Page With No Serenade EN
+
+Verify Profile Page With No Serenade EN
+    Scroll Web To Element    ${lblContent1}
+    Web Element Text Should Be    ${lblContent1}    ${Content1}
+    Web Element Text Should Be    ${lblContent2}    ${Content2}
+    Web Element Text Should Be    ${lblContent3}    ${Content3}
+    Web Capture Screen At Verify Point    Verify Profile Page No Serenade EN
+
+Verify Profile Page With No Serenade TH
     Scroll Web To Element    ${lblTitle1}
     Mouse Over    ${lblTitle1}
     Web Element Text Should Be    ${lblTitle1}    ${Title1}
     Web Element Text Should Be    ${lblContent1}    ${Content1}
     Web Element Text Should Be    ${lblContent2}    ${Content2}
     Web Element Text Should Be    ${lblContent3}    ${Content3}
-    Web Capture Screen At Verify Point    Verify Profile Page No Serenade
+    Web Capture Screen At Verify Point    Verify Profile Page No Serenade TH

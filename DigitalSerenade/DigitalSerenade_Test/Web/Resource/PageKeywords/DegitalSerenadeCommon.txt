@@ -92,3 +92,27 @@ Verify URL New Window
 Choose ENG
     Scroll Web To Element    ${lblChooseLang}
     Click Web Element    ${lblENG}
+
+Login Not Serenade EN
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}    ${Close}=true
+    Sleep    5
+    Input Web Text    ${txtMobileNo}    ${MobileNumber}
+    Click Web Element    ${btnRequestOTP}
+    Open SMS App    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${PlatfromName}    1    ${lo_sms_timeout}    AIS
+    ${time}=    Evaluate    str(time.time())    time
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${PlatfromName}    AIS    1
+    Log    @{messages}[0]
+    @{OTP}=    Get Regexp Matches    @{messages}[0]    \\d\\d\\d\\d
+    Run Keyword If    "${Close}" =="true"    Close SMS App    ${PlatfromName}    ${SN}
+    Input Web Text    ${txtInputOTP}    @{OTP}[0]
+    Click Web Element    ${btnSubmit}
+    Comment    Wait Until Element Is Not Visible    ${btnSubmit}    ${lo_general_timeout}
+
+Login Not Serenade
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}    ${Close}=true
+    Run Keyword If    "${ar_LANG}"=="TH"    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${MobileNumber}
+    Run Keyword If    "${ar_LANG}"=="EN"    Login Not Serenade EN    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}
+    ...    ${MobileNumber}
