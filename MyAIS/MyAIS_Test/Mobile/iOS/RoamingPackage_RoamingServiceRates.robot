@@ -37,7 +37,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...           • โปรดเลือกประเทศและระบบ
     ...         - ปุ่ม "แพ็กเกจโรมมิ่งราคาประหยัด"
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -99,7 +99,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     Select Package Menu
     Select Roaming Service Rate Submenu
     Select Country To Cameroon
-    Verify Roaming Service Rate With Select Country    Cameroon    ${Number}
+    ${ChooseCountry}    Verify Roaming Service Rate With Select Country iOS    Cameroon    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F9_Package_IOS_1,3_1-2_Y_3_2] Go to Apply Roaming Packages page
@@ -153,7 +153,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...         - ระบบของหมายเลขที่ต้องการสมัคร (จะเหมือนกับที่ทำการเลือกจากหน้าอัตราค่าบริการโรมมิ่ง)
     ...         - ประเภทแพ็กเกจที่ต้องการ (โปรดเลือก)
     ...    10. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -164,9 +164,9 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     Select Package Menu
     Select Roaming Service Rate Submenu
     Select Country To Cameroon
-    Verify Roaming Service Rate With Select Country    Cameroon    ${Number}
+    ${ChooseCountry}    Verify Roaming Service Rate With Select Country iOS    Cameroon    ${Number}
     Click Great Saving Roaming Packages Button
-    Verify Apply Roaming Package Page iOS    ${Number}
+    Verify Apply Roaming Package Page iOS    ${Number}    ${ChooseCountry}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F9_Package_IOS_1,3_1-2_Y_4_2] Check Roaming Service RatesIn Case: เลือก วัน/เวลา เดียวกันกับที่สมัคร
