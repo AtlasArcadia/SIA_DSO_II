@@ -124,13 +124,34 @@ Verify And Select Confirm Balance Transfer Dialog Message iOS
     Mobile element text should match regexp whole string    ${txtConfirmDialogMessage}    ${ConfirmBalanceTransfer}
 
 Verify Balance Transfer Success
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Transfer Success Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Transfer Success iOS
+
+Verify Balance Transfer Success Android
     Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferSuccess}
     Mobile Capture Screen At Verify Point    Balance Transfer Success
     Click Mobile Element    ${btnOkDialog}
 
+Verify Balance Transfer Success iOS
+    Wait Mobile Until Element Visible    ${txtDialogMessage}    60
+    Mobile element text should be    ${txtDialogMessage}    ${BalanceTransferSuccess}
+    Run Keyword If    "${ar_NType}"=="3BE"    Mobile Capture Screen At Verify Point    Verify Balance Transfer to Prepaid Number Success 3BE
+    Run Keyword If    "${ar_NType}"=="3PE"    Mobile Capture Screen At Verify Point    Verify Balance Transfer to Prepaid Number Success 3PE
+    Click Mobile Element    ${btnOK}
+
 Verify Balance Transfer To Postpaid Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Balance Transfer To Postpaid Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Balance Transfer To Postpaid Number iOS
+
+Verify Balance Transfer To Postpaid Number Android
     Mobile element text should be    ${txtDailogMessage}    ${txtBalanceTransferToPostpaidNumber}
     Mobile Capture Screen At Verify Point    Balance Transfer To Postpaid Number
+    Click Mobile Element    ${btnOK}
+
+Verify Balance Transfer To Postpaid Number iOS
+    Wait Mobile Until Element Visible    ${txtDialogMessage}    60
+    Mobile element text should be    ${txtDialogMessage}    ${BalanceTransferToPostpaidNumber}
+    Mobile Capture Screen At Verify Point    Verify Balance Transfer To Postpaid Number iOS
     Click Mobile Element    ${btnOK}
 
 Verify Balance Transfer To Other Network
@@ -312,3 +333,5 @@ Verify Balance Transfer From Number Register Date < 90 Days
 Click OK Button
     Swipe Element From Location    ${btnOK}
     Click Mobile Element    ${btnOK}
+
+
