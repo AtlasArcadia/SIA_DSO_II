@@ -48,7 +48,7 @@ Resource          ../Resource/PageKeywords/ValidityTransfer.txt
     ...    9. ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุรารอรับ SMS เพื่อยืนยันการทำรายการ"
     ...    10. Capture screen
     ...    11. เลือก"ตกลง"none
-    [Tags]    success    3be    3pe    demo
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -116,7 +116,7 @@ Resource          ../Resource/PageKeywords/ValidityTransfer.txt
     ...     9. ตรวจสอบ dialog message "หมายเลขปลายทางที่ต้องการโอนเงิน/โอนวัน ไม่ใช่หมายเลขในระบบ เอไอเอส 3G วัน-ทู-คอล กรุณระบุใหม่อีกครั้ง"
     ...     10. Capture screen
     ...     11. เลือก"ตกลง"none
-    [Tags]    success    3be    3pe
+    [Tags]    success    3be    3pe    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
