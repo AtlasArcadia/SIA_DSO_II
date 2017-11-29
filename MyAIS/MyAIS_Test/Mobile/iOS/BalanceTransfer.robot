@@ -75,7 +75,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     ...    9. ตรวจสอบ dialog message "ดำเนินการเรียบร้อยแล้ว กรุรารอรับ SMS เพื่อยืนยันการทำรายการ"
     ...    10. Capture screen
     ...    11. เลือก"ตกลง"
-    [Tags]    success    3be    3pe    demo
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -517,7 +517,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     ...    8. เลือกปุ่ม "ยืนยัน"
     ...    9. ตรวจสอบ dialog message "หมายเลขของคุณไม่สามารถใช้บริการโอนเงิน/โอนวันได้"
     ...    10. Capture screen
-    [Tags]    success    3be    3pe    demo
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -527,12 +527,12 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Service
     Select Sub Menu    BalanceTransfer
-    Set Destination Number    ${AISNonBosPrepaidBlacklistNumberTest}
+    Set Destination Number    ${AISBlacklistNumberTest}
     Select Min Amount
     Click OK Button
     Verify And Select Confirm Balance Transfer Dialog Message
     Confirm Balance Transfer
-    Verify Balance Transfer From Blacklist Number
+    Verify Balance Transfer To Blacklist Number
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Service_IOS_1,3_1-2_N_18_2] Balance Transfer Case : Source Number register date < 90 Days
@@ -551,10 +551,10 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     ...    9. ตรวจสอบ dialog message "บริการโอนเงิน/โอนวัน ขอสงวนสิทธิ์เฉพาะลูกค้าที่มีอายุการใช้งานตั้งแต่ 90 วันขึ้นไป และ 30 วันขึ้นไปสำหรับบริการโอนวัน"
     ...    10. Capture screen
     ...    11. เลือก"ตกลง"
-    [Tags]    success    3be    3pe
+    [Tags]    success    3be    3pe    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RegisterLessThan30Days
     Set Network Connection    ${${ar_NETWORK}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
