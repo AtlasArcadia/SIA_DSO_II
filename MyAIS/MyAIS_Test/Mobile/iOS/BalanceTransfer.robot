@@ -93,7 +93,7 @@ Resource          ../Resource/PageKeywords/BalanceTransfer.txt
     Verify Balance Transfer Success
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Service_IOS_1,3_1-2_N_4_2] Balance Transfer Case : Transfer to Prepaid Number (3BE)
+[F1_Service_IOS_1,3_1-2_Y_4_2] Balance Transfer Case : Transfer to Prepaid Number (3BE)
     [Documentation]    *Owner* : Tong
     ...    Source Number : 3PE, 3BE
     ...    Status : Active
