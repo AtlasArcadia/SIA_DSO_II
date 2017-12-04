@@ -181,7 +181,7 @@ Verify Confirm Package Page
     Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
     Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
     Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
-    Mobile element text should be    ${lblYouHaveSelect}    ${YouHaveSelect}
+    Mobile element text should be    ${lblYouHaveSelect}    ${txtYouHaveSelected}
     Mobile element text should be    ${lblPackageNameConfirmPage}    ${firstPackage}
     Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
     Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirm}
@@ -226,7 +226,6 @@ Select Mao Mao 9B free Call in AIS
     ${package}=    AISAppiumEx.Get Text    ${element}
     Click Mobile Element    ${SubTalkBuffetMaoMao9BFreeCallAIS}
     [Return]    ${package}
-
 
 Select Mao Mao 39B 60Min
     Swipe Element To Screen    ${SubTalkMinutesMaoMao39B60Min}
@@ -650,7 +649,6 @@ Verify Internet OnTop Package Menu iOS
     Mobile element text should be    ${btnApplyOnTopWifi}    ${ApplyOnTopWifi}
     Mobile Capture Screen At Verify Point    Verify Internet OnTop Package Menu
 
-
 Verify Talk OnTop Package Menu
     Run Keyword If    "${ar_OS}"=="iOS"    Verify Talk OnTop Package Menu iOS
 
@@ -662,3 +660,17 @@ Verify Talk OnTop Package Menu iOS
     comment    แบบนาที
     Mobile element text should be    ${btnTalkOnTopMinutes}    ${OnTopMinutesPackage}
     Mobile Capture Screen At Verify Point    Verify Talk OnTop PackageMenu
+
+Verify Entertainment VIU Premium Ontop Package
+    Wait Mobile Until Element Visible    ${btnVIUPremium}
+    Click Mobile Element    ${btnVIUPremium}
+    ${PackageName}=    Get mobile text    ${lblEntertrainmentPackageName}
+    Log    ${PackageName}
+    Mobile element text should be    ${lblEntertrainmentPackageName}    ${PackageName}
+    Click Mobile Element    ${btnNext}
+    Wait Mobile Until Element Visible    ${lblYouHaveSelect}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnConfirmPackage}
+    Wait Mobile Until Element Visible    ${popUpDialog}
+    AISAppiumEx.Element Text Should Be    ${popUpDialog}    ${txtConfirmDialogEntertrainment}
+    AISAppiumEx.Capture Page Screenshot    Verify Entertainment VIU Package
