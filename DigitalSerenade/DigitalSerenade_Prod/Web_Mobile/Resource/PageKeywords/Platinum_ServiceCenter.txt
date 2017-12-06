@@ -1,0 +1,20 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../PageRepository/Platinum_ServiceCenterRepository.txt
+Resource          ../PageVariable/Platinum_ServiceCenterVariable.txt
+
+*** Keywords ***
+Verify Service Center
+    Wait Web Until Page Contains Element    ${lblPlatinumTitleProfile1}
+    Scroll Web To Element    ${AISTouchPointClick}
+    sleep    10s
+    Web Capture Screen At Verify Point    AISTouchPointClick
+    Click Web Element    ${AISTouchPointClick}
+    sleep    10s
+    Select Window    url=${ServiceCenterLink}
+    Location Should Be    ${ServiceCenterLink}
+    Web Element Should Be Visible    ${AISLogo}
+    Web Element Should Be Visible    ${AISBanner}
+    Web Element Should Be Visible    ${AISShop}
+    Web Capture Screen At Verify Point    Service Center

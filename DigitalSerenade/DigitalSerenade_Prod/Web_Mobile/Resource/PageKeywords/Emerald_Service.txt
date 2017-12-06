@@ -1,0 +1,64 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../PageRepository/Emerald_ServiceRepository.txt
+Resource          ../PageVariable/Emerald_ServiceVariable.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_ServiceLocalized.txt
+
+*** Keywords ***
+Verify Service
+    Wait Web Until Page Contains Element    ${lblPlatinumTitleProfile1}
+    Scroll Web To Element    ${ImgAISMobileCare}
+    sleep    15s
+    Click Web Element    ${ImgAISMobileCare}
+    sleep    3s
+    Select Window    url=http://www.ais.co.th/
+    ${lo}    Get Location
+    Location Should Be    ${AISLink}
+    Web Capture Screen At Verify Point    AISLink
+    sleep    5s
+    Select Window    url=${AISServiceLink}
+    Location Should Be    ${AISServiceLink}
+    Web Capture Screen At Verify Point    AISServiceLink
+
+Click Service Campaign
+    [Arguments]    ${location}    ${imgName}
+    Selenium2Library.Wait Until Element Is Visible    ${location}
+    Scroll Web To Element    ${location}
+    Sleep    10s
+    Web Capture Screen At Verify Point    ${imgName}
+    Click Web Element    ${location}
+
+Verify Mobile Care
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    ${lblMobileCare}
+    Web Element Text Should Be    ${lblMobileCare}    ${txtMobileCare}
+    Web Element Text Should Be    ${lblPackage}    ${SubContentMobileCare}
+    Web Capture Screen At Verify Point    Mobile Care
+
+Verify Call Center
+    Selenium2Library.Wait Until Element Is Visible    ${AISLogo}
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    ${lblSpecialService}
+    Web Element Should Be Visible    ${lblSpecialService}
+    Web Element Should Be Visible    ${lblSpecialNumber1148}
+    Comment    Web Element Text Should Be
+    Web Element Text Should Be    ${lblCallCenter_Description}    ${CallCenter_Description}
+    Web Capture Screen At Verify Point    Call Center
+
+Verify mPay
+    Selenium2Library.Wait Until Element Is Visible    ${AISLogo}
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    ${lbleServiceTitle}
+    Web Element Text Should Be    ${lbleServiceTitle}    ${eServiceTitle}
+    Web Element Text Should Be    ${lbleServiceSubtitle1}    ${eServiceSubtitle1}
+    Web Element Text Should Be    ${lbleServiceSubtitle2}    ${eServiceSubtitle2}
+    Web Capture Screen At Verify Point    mPay
+
+Verify Data Roaming
+    Selenium2Library.Wait Until Element Is Visible    ${AISLogo}
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    ${lblDataRoamingRow1}
+    Web Element Text Should Be    ${lblDataRoamingRow1}    ${DataRoamingRow1}
+    Web Element Text Should Be    ${lblDataRoamingRow2}    ${DataRoamingRow2}
+    Web Element Text Should Be    ${lblDataRoamingRow3}    ${DataRoamingRow3}
+    Web Capture Screen At Verify Point    Data Roaming Page
