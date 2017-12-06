@@ -118,6 +118,9 @@ Verify Package Detail And Effective Date
     Mobile Capture Screen At Verify Point    Detail Package
     Swipe Element To Screen    ${lblApplyOnTopEffectiveSelect}
     Mobile element text should match regexp    ${lblApplyOnTopEffectiveSelect}    ${PackageEffectiveDate}
+    Click Mobile Element    ${btnConfirmPackage}
+    Wait Mobile Until Element Visible    ${popUpDialog}
+    AISAppiumEx.Element Text Should Be    ${popUpDialog}    ${txtConfirmDialogEntertrainment}
     Mobile Capture Screen At Verify Point    Effective Date of Package
 
 Verify On Top Package_3PE_3BE
@@ -182,9 +185,11 @@ Verify Confirm Package Page
     Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
     Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
     Mobile element text should be    ${lblYouHaveSelect}    ${txtYouHaveSelected}
-    Mobile element text should be    ${lblPackageNameConfirmPage}    ${firstPackage}
-    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
-    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirm}
+    Comment    Mobile element text should be    ${lblPackageNameConfirmPage}    ${firstPackage}
+    Comment    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Click Mobile Element    ${btnImmediately}
+    Wait Mobile Until Page Contains Element    ${btnNext}
+    Click Mobile Element    ${btnNext}
     Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
     Mobile Capture Screen At Verify Point    Confirm Package Page
 
@@ -298,7 +303,7 @@ Select WiFi 9 B 1 Hr.
     [Return]    ${package}
 
 Select Immediately
-    Click Mobile Element    ${btnApplyOnTopImmediately}
+    Click Mobile Element    ${btnImmediately}
 
 Select And Verify Talk And Net OnTop Package
     Click Mobile Element    ${lblApplyOnTopTalkAndNet}
