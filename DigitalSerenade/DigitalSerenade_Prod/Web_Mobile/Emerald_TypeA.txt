@@ -1,0 +1,89 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Emerald_TypeA.txt
+
+*** Test Cases ***
+[F1_Emerald_1_1_Y_2_17] Verify emerald new type A
+    [Documentation]    *** Owner: Now ***
+    ...
+    ...
+    ...    *** Source Requisite ***
+    ...
+    ...
+    ...    *** Test Step ***
+    ...
+    ...
+    ...    *** Expect Result***
+    [Tags]    onhold
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_New_TypeN=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_New_TypeN
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Profile Page New    ${Number}    Emerald    A
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Emerald_1_1_Y_2_18] Verify emerald sustain type A
+    [Documentation]    *** Owner: Now ***
+    ...
+    ...
+    ...    *** Source Requisite ***
+    ...
+    ...
+    ...    *** Test Step ***
+    ...
+    ...
+    ...    *** Expect Result***
+    [Tags]    onhold
+    &{#dict_device_name}=    Create Dictionary
+    ${lo_DigitalSerenade_Web_Test_local_config_file_path}    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Profile Page Sustain    ${Number}    Emerald    A
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Emerald_1_1_Y_2_19] Verify emerald downgrade type A
+    [Documentation]    *** Owner: Now ***
+    ...
+    ...
+    ...    *** Source Requisite ***
+    ...
+    ...
+    ...    *** Test Step ***
+    ...
+    ...
+    ...    *** Expect Result***
+    [Tags]    onhold
+    &{#dict_device_name}=    Create Dictionary
+    ${lo_DigitalSerenade_Web_Test_local_config_file_path}    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Profile Page Downgrade    ${Number}    Emerald    A
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Emerald_1_1_Y_2_20] Verify emerald upgrade type A Reject
+    [Documentation]    *** Owner: Now ***
+    ...
+    ...
+    ...    *** Source Requisite ***
+    ...
+    ...
+    ...    *** Test Step ***
+    ...
+    ...
+    ...    *** Expect Result***
+    [Tags]    Reject
+    &{#dict_device_name}=    Create Dictionary
+    ${lo_DigitalSerenade_Web_Test_local_config_file_path}    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Profile Page Upgrade    ${Number}    Emerald    A
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+test
+    ${show}=    Should Match Regexp    หมายเลข 0933510477    \\d{10}
+    ${show}=    Should Match Regexp    09/21/2016 - 12/31/2017    - \\d\\d/\\d\\d/\\d\\d
+    ${show}=    String.Remove String Using Regexp    ${show}    /\\d*/

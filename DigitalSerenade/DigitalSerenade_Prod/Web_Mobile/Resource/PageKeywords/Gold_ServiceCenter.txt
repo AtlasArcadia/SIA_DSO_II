@@ -1,0 +1,24 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../PageRepository/Gold_ServiceCenterRepository.txt
+Resource          ../PageVariable/Gold_ServiceCenterVariable.txt
+
+*** Keywords ***
+Verify Service Center
+    Wait Web Until Page Contains Element    ${lblGoldTitleProfile1}
+    Scroll Web To Element    ${AISTouchPointClick}
+    Mouse Over    ${AISTouchPointClick}
+    sleep    10s
+    Web Capture Screen At Verify Point    AISTouchPointClick
+    Click Web Element    ${AISTouchPointClick}
+    sleep    10s
+    Select Window    url=${ServiceCenterLink}
+    Location Should Be    ${ServiceCenterLink}
+    Scroll Web To Element    ${AISLogo}
+    Web Element Should Be Visible    ${AISLogo}
+    Web Element Should Be Visible    ${AISBanner}
+    Comment    ${tempBanner}    Selenium2Library.Get Element Attribute    ${AISBanner}@src
+    Comment    Should Be Equal    ${AISBannerLink}    ${tempBanner}
+    Web Element Should Be Visible    ${AISShop}
+    Web Capture Screen At Verify Point    Service Center
