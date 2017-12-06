@@ -17,8 +17,8 @@ Resource          ../../../../Config/LocalConfig.txt
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    Select Menu    Service
-    Verify Service Page
+    Select Help And Support Menu
+    Verify Menu Help And Support
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Help_IOS_1,3_1-2_Y_2_2] Verify Help&Support page
@@ -30,6 +30,6 @@ Resource          ../../../../Config/LocalConfig.txt
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    Select Menu    Service
-    Verify Service Page
+    Select Help And Support Menu
+    Verify Menu Help And Support
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
