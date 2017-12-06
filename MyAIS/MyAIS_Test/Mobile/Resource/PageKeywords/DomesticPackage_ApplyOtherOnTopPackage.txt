@@ -118,6 +118,9 @@ Verify Package Detail And Effective Date
     Mobile Capture Screen At Verify Point    Detail Package
     Swipe Element To Screen    ${lblApplyOnTopEffectiveSelect}
     Mobile element text should match regexp    ${lblApplyOnTopEffectiveSelect}    ${PackageEffectiveDate}
+    Click Mobile Element    ${btnConfirmPackage}
+    Wait Mobile Until Element Visible    ${popUpDialog}
+    AISAppiumEx.Element Text Should Be    ${popUpDialog}    ${txtConfirmDialogEntertrainment}
     Mobile Capture Screen At Verify Point    Effective Date of Package
 
 Verify On Top Package_3PE_3BE
@@ -181,28 +184,30 @@ Verify Confirm Package Page
     Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
     Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
     Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
-    Mobile element text should be    ${lblYouHaveSelect}    ${YouHaveSelect}
-    Mobile element text should be    ${lblPackageNameConfirmPage}    ${firstPackage}
-    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
-    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirm}
+    Mobile element text should be    ${lblYouHaveSelect}    ${txtYouHaveSelected}
+    Comment    Mobile element text should be    ${lblPackageNameConfirmPage}    ${firstPackage}
+    Comment    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Click Mobile Element    ${btnImmediately}
+    Wait Mobile Until Page Contains Element    ${btnNext}
+    Click Mobile Element    ${btnNext}
     Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
     Mobile Capture Screen At Verify Point    Confirm Package Page
 
 Select Mao Mao 14B 200MB
-    ${element}    Aisappium Get Webelement    ${SubInternetOnTopMaoMao14B200MB}
+    ${element}    Aisappium Get Webelement    ${SubInternetOnTopMaoMao14B200MB${ar_NType}}
     log    ${element}
     ${package}=    AISAppiumEx.Get Text    ${element}
-    Click Mobile Element    ${SubInternetOnTopMaoMao14B200MB}
+    Click Mobile Element    ${SubInternetOnTopMaoMao14B200MB${ar_NType}}
     [Return]    ${package}
 
 Verify Internet OnTop One Time Package
     Mobile element text should be    ${btnApplyOnTopInternetOneTime}    ${txtApplyOnTopInternetOneTime}
-    Mobile check existing text    ${SubInternetOnTopMaoMao14B200MB}
+    Mobile check existing text    ${SubInternetOnTopMaoMao14B200MB${ar_NType}}
     Mobile Capture Screen At Verify Point    Internet One Time OnTop Package one
     Swipe Element To Screen    ${lblApplyOnTopTermsAndConditions}
     Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
     Mobile Capture Screen At Verify Point    Internet One Time OnTop Package two
-    Swipe Element To Screen    ${SubInternetOnTopMaoMao14B200MB}    screen    down
+    Swipe Element To Screen    ${SubInternetOnTopMaoMao14B200MB${ar_NType}}    screen    down
 
 Select Monthly fee 199B 1G
     Swipe Element To Screen    ${SubInternetMonthly199B1G_${ar_NType}}
@@ -226,7 +231,6 @@ Select Mao Mao 9B free Call in AIS
     ${package}=    AISAppiumEx.Get Text    ${element}
     Click Mobile Element    ${SubTalkBuffetMaoMao9BFreeCallAIS}
     [Return]    ${package}
-
 
 Select Mao Mao 39B 60Min
     Swipe Element To Screen    ${SubTalkMinutesMaoMao39B60Min}
@@ -291,15 +295,15 @@ Select Mao Mao Combo 29 B.And MaoMao 99B
     [Return]    ${package}
 
 Select WiFi 9 B 1 Hr.
-    Swipe Element To Screen    ${SubOnTopWiFi9B1Hr}
-    ${element}    Aisappium Get Webelement    ${SubOnTopWiFi9B1Hr}
+    Swipe Element To Screen    ${SubOnTopWiFi9B1Hr${ar_NType}}
+    ${element}    Aisappium Get Webelement    ${SubOnTopWiFi9B1Hr${ar_NType}}
     log    ${element}
     ${package}=    AISAppiumEx.Get Text    ${element}
-    Click Mobile Element    ${SubOnTopWiFi9B1Hr}
+    Click Mobile Element    ${SubOnTopWiFi9B1Hr${ar_NType}}
     [Return]    ${package}
 
 Select Immediately
-    Click Mobile Element    ${btnApplyOnTopImmediately}
+    Click Mobile Element    ${btnImmediately}
 
 Select And Verify Talk And Net OnTop Package
     Click Mobile Element    ${lblApplyOnTopTalkAndNet}
@@ -327,7 +331,7 @@ Verify Internet OnTop Monthly Package
 Verify Internet OnTop Wifi Package
     Swipe Element To Screen    ${btnApplyOnTopWifi}
     Mobile element text should be    ${btnApplyOnTopWifi}    ${txtApplyOnTopWifi}
-    Mobile check existing text    ${SubOnTopWiFi9B1Hr}
+    Mobile check existing text    ${SubOnTopWiFi9B1Hr${ar_NType}}
     Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
     Mobile Capture Screen At Verify Point    Internet Wifi OnTop Package
 
@@ -650,7 +654,6 @@ Verify Internet OnTop Package Menu iOS
     Mobile element text should be    ${btnApplyOnTopWifi}    ${ApplyOnTopWifi}
     Mobile Capture Screen At Verify Point    Verify Internet OnTop Package Menu
 
-
 Verify Talk OnTop Package Menu
     Run Keyword If    "${ar_OS}"=="iOS"    Verify Talk OnTop Package Menu iOS
 
@@ -662,3 +665,17 @@ Verify Talk OnTop Package Menu iOS
     comment    แบบนาที
     Mobile element text should be    ${btnTalkOnTopMinutes}    ${OnTopMinutesPackage}
     Mobile Capture Screen At Verify Point    Verify Talk OnTop PackageMenu
+
+Verify Entertainment VIU Premium Ontop Package
+    Wait Mobile Until Element Visible    ${btnVIUPremium}
+    Click Mobile Element    ${btnVIUPremium}
+    ${PackageName}=    Get mobile text    ${lblEntertrainmentPackageName}
+    Log    ${PackageName}
+    Mobile element text should be    ${lblEntertrainmentPackageName}    ${PackageName}
+    Click Mobile Element    ${btnNext}
+    Wait Mobile Until Element Visible    ${lblYouHaveSelect}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnConfirmPackage}
+    Wait Mobile Until Element Visible    ${popUpDialog}
+    AISAppiumEx.Element Text Should Be    ${popUpDialog}    ${txtConfirmDialogEntertrainment}
+    AISAppiumEx.Capture Page Screenshot    Verify Entertainment VIU Package

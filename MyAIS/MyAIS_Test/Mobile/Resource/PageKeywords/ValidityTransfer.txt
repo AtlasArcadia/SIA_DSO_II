@@ -16,6 +16,11 @@ Keywords For Teardown
 
 Verify Validity Transfer Page
     [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Validity Transfer Page Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Validity Transfer Page iOS    ${Number}
+
+Verify Validity Transfer Page Android
+    [Arguments]    ${Number}
     Wait Mobile Until Page Contains Element    ${fldMobileNumber}
     Mobile Capture Screen At Verify Point    Validity Transfer Top Page
     Mobile element name should be    ${fldMobileNumber}    ${Number}
@@ -25,6 +30,19 @@ Verify Validity Transfer Page
     Swipe to element    ${lblTermAndCondition}
     Mobile element name should be    ${btnOK}    ${txtOK}
     Mobile element name should be    ${lblTermAndCondition}    ${txtTermAndCondition}
+    Mobile Capture Screen At Verify Point    Validity Transfer below Page
+
+Verify Validity Transfer Page iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${fldMobileNumber}
+    Mobile Capture Screen At Verify Point    Validity Transfer Top Page
+    Mobile element number should be    ${fldMobileNumber}    ${Number}
+    Mobile element name should be    ${lblDescription}    ${Description}
+    Mobile element name should be    ${lblEnterDesNumber}    ${EnterDesNumber}
+    Mobile element name should be    ${lblTransferAmount}    ${TransferAmount}
+    Swipe to element    ${lblTermAndCondition}
+    Mobile element name should be    ${btnOK}    ${OK}
+    Mobile element name should be    ${lblTermAndCondition}    ${TermAndCondition}
     Mobile Capture Screen At Verify Point    Validity Transfer below Page
 
 Input Destination Number
@@ -116,14 +134,34 @@ Verify Transaction Successfully iOS
     Click Mobile Element    ${btnOKFinish}
 
 Verify The Number Must Be AIS Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify The Number Must Be AIS Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify The Number Must Be AIS Number iOS
+
+Verify The Number Must Be AIS Number Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtMustBe12CallNumber}
     Mobile Capture Screen At Verify Point    Verify Number Must Be AIS Number
     Click Mobile Element    ${btnOKFinish}
 
+Verify The Number Must Be AIS Number iOS
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${MustBe12CallNumber}
+    Mobile Capture Screen At Verify Point    Verify Number Must Be AIS Number
+    Click Mobile Element    ${btnOKFinish}
+
 Verify Cannot Transfer To Self Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Cannot Transfer To Self Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Cannot Transfer To Self Number iOS
+
+Verify Cannot Transfer To Self Number Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtCannotUseSelfNumber}
+    Mobile Capture Screen At Verify Point    Verify Transfer To Self Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Cannot Transfer To Self Number iOS
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${CannotUseSelfNumber}
     Mobile Capture Screen At Verify Point    Verify Transfer To Self Number
     Click Mobile Element    ${btnOKFinish}
 
@@ -157,10 +195,19 @@ Verify Not Select Amount iOS
     Mobile element name should be    ${msgDialog}    ${SelectAmount}
     Mobile Capture Screen At Verify Point    Verify Please Select Amount
 
-
 Verify Not 12Call Number
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Not 12Call Number Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Not 12Call Number iOS
+
+Verify Not 12Call Number Android
     Wait Mobile Until Page Contains Element    ${msgDialog}
     Mobile element name should be    ${msgDialog}    ${txtNot12CallNumber}
+    Mobile Capture Screen At Verify Point    Verify Destination Number Not 123 Number
+    Click Mobile Element    ${btnOKFinish}
+
+Verify Not 12Call Number iOS
+    Wait Mobile Until Page Contains Element    ${msgDialog}
+    Mobile element name should be    ${msgDialog}    ${Not12CallNumber}
     Mobile Capture Screen At Verify Point    Verify Destination Number Not 123 Number
     Click Mobile Element    ${btnOKFinish}
 
@@ -231,6 +278,7 @@ Verify Transfer Insufficient Validity iOS
     Wait Mobile Until Element Visible    ${ddlInsufficientValidity}
     Click Mobile Element    ${ddlInsufficientValidity}
     Mobile element text should be    ${ddlInsufficientValidityText}    ${InsufficientValidity}
+    Click Mobile Element    ${ddlInsufficientValidityText}
     Mobile element name should be    ${btnOK}    ${OK}
     Mobile element text should be    ${lblTermAndCondition}    ${TermAndCondition}
     Mobile Capture Screen At Verify Point    Validity Transfer Insufficient Validity Page

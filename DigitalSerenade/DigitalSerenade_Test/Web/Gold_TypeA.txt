@@ -4,44 +4,68 @@ Resource          Resource/PageKeywords/Gold_TypeA.txt
 Resource          Resource/PageKeywords/DigitalSerenadeProfileCommon.txt
 
 *** Test Cases ***
-[F1_Gold_4_1_Y_2_17]
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${virtual_device_1_IPSelenium}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_Gold_4_1_Y_2_18] Serenade Gold Sustain
+[F1_Gold_1_2_Y_2_17] Serenade Gold New
     [Documentation]    *Owner* : Joe
     ...
-    ...    โปรไฟล์ Serenade Gold
-    ...    - Sustain ได้รับสิทธิ์เซเรเนดจากการรวมกลุ่มภายใต้ ID เดียวกัน (Serenade by Account)
     ...
     ...    *Pre-requisite*
-    ...    - Serenade Gold Customer - Sustain
-    ...    - Ntype 3PO :
+    ...    - Serenade Gold Customer - New
+    ...    - Ntype 3PE :
     ...    - URL : https://10.104.240.249/WelcomeToSerenade
     ...
     ...
     ...    *Test Step*
-    ...
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade /
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
     ...    5.จับภาพหน้าจอ
     ...
     ...
-    ...    *Expected Result*
     ...
+    ...    *Expected Result*
     ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - เอไอเอส เซเรเนด มีความยินดีที่มีโอกาสดูแล
-    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ โกลด์อีกครั้ง
-    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
-    ...    - ความพิเศษนี้มอบให้คุณโดยพิจารณาการใช้งานรวมทุกเลขหมายภายใต้ชื่อจดทะเบียนของท่าน
-    [Tags]    3PE    TestSite    TH    Sprint1    WebApplication    Success
+    ...    - It is our pleasure to take care of
+    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - as an AIS Serenade Gold customer
+    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
+    ...    - This privilege is offered when AIS numbers and AIS service are rounded up under the same identification number.
+    [Tags]    3PE    TestSite    EN    Sprint6    WebApplication    Success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold_New_TypeA=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold_New_TypeA
+    Open Browser Serenade    ${virtual_device_1_IPSelenium}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Profile Page New    ${Number}    Gold    A
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Gold_1_2_Y_2_18] Serenade Gold Sustain
+    [Documentation]    *Owner* : Joe
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer - Sustain
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade /
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    5.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - It is our pleasure to take care of
+    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - as an AIS Serenade Gold customer
+    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
+    ...    - This privilege is offered when AIS numbers and AIS service are rounded up under the same identification number.
+    [Tags]    3PE    TestSite    EN    Sprint6    WebApplication    Success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold_Sustain_TypeA=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold_Sustain_TypeA
@@ -50,18 +74,72 @@ Resource          Resource/PageKeywords/DigitalSerenadeProfileCommon.txt
     Verify Profile Page Sustain    ${Number}    Gold    A    1
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Gold_4_1_Y_2_19]
+[F1_Gold_1_2_Y_2_19] Serenade Gold Downgrade
+    [Documentation]    *Owner* : Joe
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer - Downgrade
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade /
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    5.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - It is our pleasure to take care of
+    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - as an AIS Serenade Gold customer
+    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
+    ...    - This privilege is offered when AIS numbers and AIS service are rounded up under the same identification number.
+    [Tags]    3PE    TestSite    EN    Sprint6    WebApplication    Success
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold_Downgrade_TypeA=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold_Downgrade_TypeA
     Open Browser Serenade    ${virtual_device_1_IPSelenium}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Profile Page Downgrade    ${Number}    Gold    A
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Gold_4_1_Y_2_20]
+[F1_Gold_1_2_Y_2_20] Serenade Gold Upgrade
+    [Documentation]    *Owner* : Joe
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    - Serenade Gold Customer - Upgrade
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade /
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    5.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - It is our pleasure to take care of
+    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - as an AIS Serenade Gold customer
+    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
+    ...    - This privilege is offered when AIS numbers and AIS service are rounded up under the same identification number.
+    [Tags]    3PE    TestSite    EN    Sprint6    WebApplication    Success
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_Serenade_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold_Upgrade_TypeA=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold_Upgrade_TypeA
     Open Browser Serenade    ${virtual_device_1_IPSelenium}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    Verify Profile Page Upgrade    ${Number}    Gold    A
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
