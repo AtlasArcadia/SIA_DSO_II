@@ -193,6 +193,10 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Select Help And Support Menu
     Select International Roaming Submenu
     Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    1
+    Verify International Roaming Asnwer Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_52_2] Go to International Roaming - International Roaming Verify Second question
