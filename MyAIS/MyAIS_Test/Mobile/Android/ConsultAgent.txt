@@ -116,37 +116,3 @@ Resource          ../../../../Config/LocalConfig.txt
 [F0_0_0_Y_0_Test] Smoke test
     [Tags]    smoke
     Log    For Quick Smoke
-
-*** Keywords ***
-Keywords For Teardown
-    [Arguments]    ${#dict_device_name}
-    Run Keyword If Test Failed    Capture Screen with Specific name
-    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
-    Run Keyword And Ignore Error    Logout
-    Run Keyword And Ignore Error    Close Application
-    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
-
-Verify AskAunjai Page
-    Sleep    20
-    Mobile element name should be    ${txtHeadAskAunjai}    ${AskAunjai}
-    Mobile Capture Screen At Verify Point    AskAunjai Page
-
-Select Help And Support Menu
-    Select Menu    HelpAndSupport
-
-Select Ask Aunjai Submenu
-    Select Sub Menu    AskAunjai
-
-Verify Menu Help And Support
-    Mobile element text should be    ${txtConsultAgent}    ${lblConsultAgent}
-    Mobile element text should be    ${subMnuAskAunjai}    ${lblAskAunJai}
-    Mobile element text should be    ${txtFAQ}    ${lblFAQ}
-    Mobile element text should be    ${subMnuMainPackageAndOnTopPackage}    ${lblMainPackageAndOnTopPackage}
-    Mobile element text should be    ${subMnuInternetAndAISFiber}    ${lblInternetAndAISFIBRE}
-    Mobile element text should be    ${subMnuYourBalanceAndStatement}    ${lblYourBalanceAndStatement}
-    Mobile element text should be    ${subMnuInternationalRoaming}    ${lblInternationalRoaming}
-    Mobile element text should be    ${subMnuSMSCancellation/Inquiries}    ${lblSMSCancellationOrInquiries}
-    Swipe to element    ${subMnuHowToUse}    screen
-    Mobile element text should be    ${txtHowToUse}    ${lblHowToUseApplication}
-    Mobile element text should be    ${subMnuHowToUse}    ${lblHowToUse}
-    Mobile Capture Screen At Verify Point    HowToUse_VerifyPage

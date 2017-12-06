@@ -9,7 +9,24 @@ Resource          ../../../../Config/LocalConfig.txt
     ...    Status : Active
     ...
     ...    Test Step
-    [Tags]    success    3PE    3BE
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+   ...    - ผู้ช่วย
+   ...        • ถาม อุ่นใจ
+   ...    - ถามตอบ
+   ...        •  แพ็กเกจหลัก/แพ็กเกจเสริม
+   ...        • อินเทอร์เน็ต/ไฟเบอร์
+   ...        • ตรวจสอบใบแจ้งและยอดเงิน
+   ...        • การใช้งานต่างประเทศ
+   ...        • การยกเลิก SMS โฆษณา
+   ...    - วิธีใช้งาน application
+   ...        • วิธีใช้งาน
+    ...    4.กด เมนู "ถาม อุ่นใจ"
+    ...    5.ตรวจสอบหน้าผู้ช่วย "ถาม อุ่นใจ"
+    ...    "ถามอุ่นใจ"
+    ...    6. จับภาพหน้าจอ
+    [Tags]    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -19,10 +36,32 @@ Resource          ../../../../Config/LocalConfig.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
     Verify Menu Help And Support
+    Select Ask Aunjai Submenu
+    Verify AskAunjai Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Help_IOS_1,3_1-2_Y_2_2] Verify Help&Support page
-    [Tags]    success    3PE    3BE
+    [Documentation]    ***Owner : Tong***
+    ...    Ntype : 3PE
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.ตรวจสอบเมนู "ช่วยเหลือ"
+   ...    - ผู้ช่วย
+   ...        • ถาม อุ่นใจ
+   ...    - ถามตอบ
+   ...        • แพ็กเกจหลัก/แพ็กเกจเสริม
+   ...        • อินเทอร์เน็ต/ไฟเบอร์
+   ...        • ตรวจสอบใบแจ้งและยอดเงิน
+   ...        • การใช้งานต่างประเทศ
+   ...       • การยกเลิก SMS โฆษณา
+   ...       • แคมเปญและสิทธิพิเศษ
+   ...    - วิธีใช้งาน application
+   ...        • วิธีใช้งาน
+   ...    4. จับภาพหน้าจอ
+    [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

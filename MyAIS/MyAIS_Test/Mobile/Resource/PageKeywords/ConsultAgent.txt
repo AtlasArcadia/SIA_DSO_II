@@ -3,3 +3,80 @@ Resource          Login.txt
 Resource          MyAISCommon.txt
 Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/ConsultAgentLocalized.txt
 Resource          ../PageRepository/${ar_OS}/ConsultAgentRepository.txt
+
+*** Keywords ***
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close Application
+    Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
+
+Select Help And Support Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Help And Support Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Help And Support Menu iOS
+
+Select Help And Support Menu Android
+    Select Menu    HelpAndSupport
+
+Select Help And Support Menu iOS
+    Select Menu    HelpAndSupport
+
+Select Ask Aunjai Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Ask Aunjai Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Ask Aunjai Submenu iOS
+
+Select Ask Aunjai Submenu Android
+    Select Sub Menu    AskAunjai
+
+Select Ask Aunjai Submenu iOS
+    Select Sub Menu    AskAunjai
+
+Verify AskAunjai Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AskAunjai Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AskAunjai Page iOS
+
+Verify AskAunjai Page Android
+    Sleep    20
+    Mobile element name should be    ${txtHeadAskAunjai}    ${AskAunjai}
+    Mobile Capture Screen At Verify Point    AskAunjai Page
+
+Verify AskAunjai Page iOS
+    Sleep    5
+    Wait Mobile Until Element Visible    ${txtHeadAskAunjai}    30
+    Mobile element name should be    ${txtHeadAskAunjai}    ${AskAunjai}
+    Mobile Capture Screen At Verify Point    Verify AskAunjai Page iOS
+
+Verify Menu Help And Support
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Menu Help And Support Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Menu Help And Support iOS
+
+Verify Menu Help And Support Android
+    Mobile element text should be    ${txtConsultAgent}    ${lblConsultAgent}
+    Mobile element text should be    ${subMnuAskAunjai}    ${lblAskAunJai}
+    Mobile element text should be    ${txtFAQ}    ${lblFAQ}
+    Mobile element text should be    ${subMnuMainPackageAndOnTopPackage}    ${lblMainPackageAndOnTopPackage}
+    Mobile element text should be    ${subMnuInternetAndAISFiber}    ${lblInternetAndAISFIBRE}
+    Mobile element text should be    ${subMnuYourBalanceAndStatement}    ${lblYourBalanceAndStatement}
+    Mobile element text should be    ${subMnuInternationalRoaming}    ${lblInternationalRoaming}
+    Mobile element text should be    ${subMnuSMSCancellation/Inquiries}    ${lblSMSCancellationOrInquiries}
+    Swipe to element    ${subMnuHowToUse}    screen
+    Mobile element text should be    ${txtHowToUse}    ${lblHowToUseApplication}
+    Mobile element text should be    ${subMnuHowToUse}    ${lblHowToUse}
+    Mobile Capture Screen At Verify Point    HowToUse_VerifyPage
+
+Verify Menu Help And Support iOS
+    Wait Mobile Until Element Visible    ${txtConsultAgent}    30
+    Mobile element text should be    ${txtConsultAgent}    ${lblConsultAgent}
+    Mobile element text should be    ${subMnuAskAunjai}    ${lblAskAunJai}
+    Mobile element text should be    ${txtFAQ}    ${lblFAQ}
+    Mobile element text should be    ${subMnuMainPackageAndOnTopPackage}    ${lblMainPackageAndOnTopPackage}
+    Mobile element text should be    ${subMnuInternetAndAISFiber}    ${lblInternetAndAISFIBRE}
+    Mobile element text should be    ${subMnuYourBalanceAndStatement}    ${lblYourBalanceAndStatement}
+    Mobile element text should be    ${subMnuInternationalRoaming}    ${lblInternationalRoaming}
+    Mobile element text should be    ${subMnuSMSCancellation/Inquiries}    ${lblSMSCancellationOrInquiries}
+    Mobile element text should be    ${subMnuSpecialCampaignAndPrivileges}    ${lblSpecialCampaignAndPrivileges}
+    Mobile element text should be    ${txtHowToUse}    ${lblHowToUseApplication}
+    Mobile element text should be    ${subMnuHowToUse}    ${lblHowToUse}
+    Mobile Capture Screen At Verify Point    Verify Menu Help And Support iOS
