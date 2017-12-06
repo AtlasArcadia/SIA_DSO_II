@@ -123,11 +123,37 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_36_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue(AIS Playbox Issue) First question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือกเมนู "อินเทอร์เน็ต/ไฟเบอร์"
+    ...    4.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    5.เลือก "ปัญหา Fibre / Playbox / WiFi"
+    ...    6.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - การใช้งาน เอไอเอสไฟเบอร์
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    7.เลือก "ปัญหาดูรายการ AIS Playbox"
+    ...    8.ตรวจสอบหน้า "ถามตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาดูรายการ AIS Playbox" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...       - คำถามข้อที่3
+    ...       - คำถามข้อที่4
+    ...    9.เลือก " คำถามข้อที่1 "
+    ...    10.ตรวจสอบหน้า "คำตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาดูรายการ AIS Playbox" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -140,11 +166,37 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_37_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (AIS Playbox Issue) Second question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือกเมนู "อินเทอร์เน็ต/ไฟเบอร์"
+    ...    4.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    5.เลือก "ปัญหา Fibre / Playbox / WiFi"
+    ...    6.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - การใช้งาน เอไอเอสไฟเบอร์
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    7.เลือก "ปัญหาดูรายการ AIS Playbox"
+    ...    8.ตรวจสอบหน้า "ถามตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาดูรายการ AIS Playbox" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...       - คำถามข้อที่3
+    ...       - คำถามข้อที่4
+    ...    9.เลือก " คำถามข้อที่2 "
+    ...    10.ตรวจสอบหน้า "คำตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาดูรายการ AIS Playbox" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -157,11 +209,37 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_38_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (AIS Playbox Issue) Third question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือกเมนู "อินเทอร์เน็ต/ไฟเบอร์"
+    ...    4.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    5.เลือก "ปัญหา Fibre / Playbox / WiFi"
+    ...    6.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - การใช้งาน เอไอเอสไฟเบอร์
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    7.เลือก "ปัญหาดูรายการ AIS Playbox"
+    ...    8.ตรวจสอบหน้า "ถามตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาดูรายการ AIS Playbox" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...       - คำถามข้อที่3
+    ...       - คำถามข้อที่4
+    ...    9.เลือก " คำถามข้อที่3 "
+    ...    10.ตรวจสอบหน้า "คำตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาดูรายการ AIS Playbox" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -174,11 +252,37 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_39_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (AIS Playbox Issue) Fourth question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือกเมนู "อินเทอร์เน็ต/ไฟเบอร์"
+    ...    4.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    5.เลือก "ปัญหา Fibre / Playbox / WiFi"
+    ...    6.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - การใช้งาน เอไอเอสไฟเบอร์
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    7.เลือก "ปัญหาดูรายการ AIS Playbox"
+    ...    8.ตรวจสอบหน้า "ถามตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาดูรายการ AIS Playbox" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...       - คำถามข้อที่3
+    ...       - คำถามข้อที่4
+    ...    9.เลือก " คำถามข้อที่4 "
+    ...    10.ตรวจสอบหน้า "คำตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาดูรายการ AIS Playbox" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -191,11 +295,37 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_40_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (Wi-Fi Issue) First question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือกเมนู "อินเทอร์เน็ต/ไฟเบอร์"
+    ...    4.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    5.เลือก "ปัญหา Fibre / Playbox / WiFi"
+    ...    6.ตรวจสอบ ปัญหา Fibre / Playbox / WiFi
+    ...       "อินเทอร์เน็ต/ไฟเบอร์"(Text)
+    ...       "ปัญหา Fibre / Playbox / WiFi"(Text)
+    ...          ปัญหา Fibre
+    ...          ปัญหา  Playbox
+    ...          ปัญหา WiFi
+    ...    7.เลือก "ปัญหาสัญญาณ WI-FI"
+    ...    8.ตรวจสอบหน้า "ถามตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาสัญญาณ WI-FI" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...       - คำถามข้อที่2
+    ...    9.เลือก " คำถามข้อที่1 "
+    ...    10.ตรวจสอบหน้า "คำตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาสัญญาณ WI-FI" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -208,11 +338,37 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_41_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (Wi-Fi Issue) Second question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1.ล๊อคอิน My AIS Application
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือกเมนู "อินเทอร์เน็ต/ไฟเบอร์"
+    ...    4.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    5.เลือก "ปัญหา Fibre / Playbox / WiFi"
+    ...    6.ตรวจสอบ ปัญหา Fibre / Playbox / WiFi
+    ...       "อินเทอร์เน็ต/ไฟเบอร์"(Text)
+    ...       "ปัญหา Fibre / Playbox / WiFi"(Text)
+    ...          ปัญหา Fibre
+    ...          ปัญหา  Playbox
+    ...          ปัญหา WiFi
+    ...    7.เลือก "ปัญหาสัญญาณ WI-FI"
+    ...    8.ตรวจสอบหน้า "ถามตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาสัญญาณ WI-FI" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...       - คำถามข้อที่3
+    ...    9.เลือก " คำถามข้อที่2 "
+    ...    10.ตรวจสอบหน้า "คำตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาสัญญาณ WI-FI" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -225,11 +381,30 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_47_2] Go to Internet & AIS FIBRE Verify AIS Fibre Usage First question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือกเมนู "อินเทอร์เน็ต/ไฟเบอร์"
+    ...    4.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - การใช้งาน เอไอเอสไฟเบอร์
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    5.เลือก "การใช้งาน เอไอเอสไฟเบอร์"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาอินเทอร์เน็ต" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...    7.เลือก " คำถามข้อที่1 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "การใช้งาน เอไอเอสไฟเบอร์" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -242,11 +417,30 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_48_2] Go to Internet & AIS FIBRE Verify AIS Fibre Usage Second question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือกเมนู "อินเทอร์เน็ต/ไฟเบอร์"
+    ...    4.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - การใช้งาน เอไอเอสไฟเบอร์
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    5.เลือก "การใช้งาน เอไอเอสไฟเบอร์"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาอินเทอร์เน็ต" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...    7.เลือก " คำถามข้อที่2 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "การใช้งาน เอไอเอสไฟเบอร์" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -259,11 +453,32 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_49_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (Wi-Fi Issue) Third question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือกเมนู "อินเทอร์เน็ต/ไฟเบอร์"
+    ...    4.ตรวจสอบถามตอบหน้า "อินเทอร์เน็ต/ไฟเบอร์"
+    ...       "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...       - ปัญหาอินเทอร์เน็ต
+    ...       - การใช้งาน เอไอเอสไฟเบอร์
+    ...       - ปัญหา Fibre / Playbox / WiFi
+    ...    5.เลือก "ปัญหา Fibre / Playbox / WiFi"
+    ...    6.เลือก "ปัญหากล่อง AIS Fibre"
+    ...    7.ตรวจสอบหน้า "ถามตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาสัญญาน WI-FI" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...       - คำถามข้อที่3
+    ...    8.เลือก " คำถามข้อที่3 "
+    ...    9.ตรวจสอบหน้า "คำตอบ"
+    ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
+    ...         "ปัญหาสัญญาน WI-FI" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include

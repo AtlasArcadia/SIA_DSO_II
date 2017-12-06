@@ -174,11 +174,31 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_50_2] Go to Your Balance & Statement Verify AIS Monthly Statement Third question
-    [Documentation]    ***Owner : ***
+    [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
     ...    Test Step
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...    4.ตรวจสอบหน้าถามตอบ "ตรวจสอบใบแจ้งและยอดเงิน"
+    ...       "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...       - ใบแจ้งค่าใช้บริการรายเดือน
+    ...       - ตรวจสอบยอดเงินวัน-ทู-คอล!
+    ...       - ใบแจ้งค่าใช้บริการไฟเบอร์
+    ...    5.เลือก "ใบแจ้งค่าใช้บริการรายเดือน"
+    ...    6.ตรวจสอบหน้า "ถามตอบ"
+    ...         "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...         "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
+    ...       - คำถามข้อที่1
+    ...       - คำถามข้อที่2
+    ...       - คำถามข้อที่3
+    ...    7.เลือก " คำถามข้อที่3 "
+    ...    8.ตรวจสอบหน้า "คำตอบ"
+    ...         "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
+    ...         "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
+    ...       - Other text (Use Regular expression = ".*")
     [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
