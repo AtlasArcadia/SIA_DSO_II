@@ -137,13 +137,52 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_51_2] Go to International Roaming - International Roaming Verify First question
-    [Documentation]    **Owner: **
+    [Documentation]    **Owner: *Asma*
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE
     ...    Status : Active
     ...
-    [Tags]    TH    EN    active    success    3PE
+    ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "การใช้งานต่างประเทศ"
+    ...    4.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    - การใช้งานในต่างประเทศ
+    ...    - แพ็กเกจและค่าบริการที่ต่างประเทศ
+    ...    5.เลือก เมนู "การใช้งานในต่างประเทศ"
+    ...    6.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่4
+    ...    - คำถามข้อที่5
+    ...    7.เลือก "คำถามข้อที่1"
+    ...    8.ตรวจสอบหน้าคำตอบ
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...     - Other text (Use Regular expression = ".*")none
+    ...
+    ...    EN
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "International Roaming"
+    ...    4.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    5.Click "International Roaming"
+    ...    6.Verify "FAQ" page "International Roaming" (Text)
+    ...    "International Roaming" (Text) - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click "First question"
+    ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text) - Other text (Use Regular expression = ".*")none
+    [Tags]    TH    EN    active    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -152,15 +191,55 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_52_2] Go to International Roaming - International Roaming Verify Second question
-    [Documentation]    **Owner: **
+    [Documentation]    **Owner: *Asma*
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE
     ...    Status : Active
     ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "การใช้งานต่างประเทศ"
+    ...    4.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    - การใช้งานในต่างประเทศ
+    ...    - แพ็กเกจและค่าบริการที่ต่างประเทศ
+    ...    5.เลือก เมนู "การใช้งานในต่างประเทศ"
+    ...    6.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่4
+    ...    - คำถามข้อที่5
+    ...    7.เลือก "คำถามข้อที่2"
+    ...    8.ตรวจสอบหน้าคำตอบ
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - Other text (Use Regular expression = ".*")none
+    ...
+    ...    EN
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "International Roaming"
+    ...    4.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    5.Click "International Roaming"6.Verify "FAQ" page "International Roaming" (Text) "International Roaming" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click "Second question"
+    ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")none
     [Tags]    TH    EN    active    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -173,12 +252,50 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_53_2] Go to International Roaming - International Roaming Verify Third question
-    [Documentation]    **Owner: **
+    [Documentation]    **Owner: *Asma*
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE
     ...    Status : Active
     ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "การใช้งานต่างประเทศ"
+    ...    4.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    - การใช้งานในต่างประเทศ
+    ...    - แพ็กเกจและค่าบริการที่ต่างประเทศ
+    ...    5.เลือก เมนู "การใช้งานในต่างประเทศ"
+    ...    6.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่4
+    ...    - คำถามข้อที่5
+    ...    7.เลือก "คำถามข้อที่3"
+    ...    8.ตรวจสอบหน้าคำตอบ
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - Other text (Use Regular expression = ".*")none
+    ...
+    ...    EN
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "International Roaming"
+    ...    4.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    5.Click "International Roaming"6.Verify "FAQ" page "International Roaming" (Text) "International Roaming" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click "Third question"
+    ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")none
     [Tags]    TH    EN    active    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -191,12 +308,51 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_54_2] Go to International Roaming - International Roaming Verify Fourth question
-    [Documentation]    **Owner: **
+    [Documentation]    **Owner: *Asma*
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE
     ...    Status : Active
     ...
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "การใช้งานต่างประเทศ"
+    ...    4.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    - การใช้งานในต่างประเทศ
+    ...    - แพ็กเกจและค่าบริการที่ต่างประเทศ
+    ...    5.เลือก เมนู "การใช้งานในต่างประเทศ"
+    ...    6.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่4
+    ...    - คำถามข้อที่5
+    ...    7.เลือก "คำถามข้อที่4"
+    ...    8.ตรวจสอบหน้าคำตอบ
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - Other text (Use Regular expression = ".*")none
+    ...
+    ...    EN
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "International Roaming"
+    ...    4.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    5.Click "International Roaming"6.Verify "FAQ" page "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click "Fourth question"
+    ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")none
     [Tags]    TH    EN    active    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -209,13 +365,52 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_55_2] Go to International Roaming - International Roaming Verify Fifth question
-    [Documentation]    **Owner: **
+    [Documentation]    **Owner: *Asma*
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE
     ...    Status : Active
     ...
-
+    ...    1. Login เข้าสู่ระบบ My AIS
+    ...    2.กดเข้าเมนู "ช่วยเหลือ"
+    ...    3.เลือก เมนู "การใช้งานต่างประเทศ"
+    ...    4.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    - การใช้งานในต่างประเทศ
+    ...    - แพ็กเกจและค่าบริการที่ต่างประเทศ
+    ...    5.เลือก เมนู "การใช้งานในต่างประเทศ"
+    ...    6.ตรวจสอบหน้าถามตอบ "การใช้งานในต่างประเทศ"
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - คำถามข้อที่1
+    ...    - คำถามข้อที่2
+    ...    - คำถามข้อที่3
+    ...    - คำถามข้อที่4
+    ...    - คำถามข้อที่5
+    ...    7.เลือก "คำถามข้อที่5"
+    ...    8.ตรวจสอบหน้าคำตอบ
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    "การใช้งานในต่างประเทศ" (Text)
+    ...    - Other text (Use Regular expression = ".*")none
+    ...
+    ...    EN
+    ...
+    ...    1.Login to My AIS Application
+    ...    2.Click Menu "Help&Support"
+    ...    3.Click menu "International Roaming"
+    ...    4.Verify FAQ "International Roaming" Page
+    ...    "International Roaming" (Text)
+    ...    - International Roaming
+    ...    - Roaming Package & Roaming Service Rates
+    ...    5.Click "International Roaming"6.Verify "FAQ" page "International Roaming" (Text) "International Roaming" (Text)
+    ...    - First question
+    ...    - Second question
+    ...    - Third question
+    ...    - Fourth question
+    ...    - Fifth question
+    ...    7.Click "Fourth question"
+    ...    8.Verify "Answer"
+    ...    Page "International Roaming" (Text)
+    ...    "International Roaming" (Text)
+    ...    - Other text (Use Regular expression = ".*")none
     [Tags]    TH    EN    active    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include

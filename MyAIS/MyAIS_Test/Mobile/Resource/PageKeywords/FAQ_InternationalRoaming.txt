@@ -20,9 +20,19 @@ Select International Roaming Submenu
     Select Sub Menu    InternationalRoaming
 
 Verify International Roaming Menu Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify International Roaming Menu Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify International Roaming Menu Page iOS
+
+Verify International Roaming Menu Page Android
     Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
     Mobile element name should be    ${lblInternationalRoaming}    ${txtInternationalRoaming}
     Mobile element name should be    ${lblRoamingPackageAndServiceRate}    ${txtRoamingPackageAndServiceRates}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Menu
+
+Verify International Roaming Menu Page iOS
+    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
+    Mobile element name should be    ${lblInternationalRoaming}    ${InternationalRoaming}
+    Mobile element name should be    ${lblRoamingPackageAndServiceRate}    ${RoamingPackageAndServiceRates}
     Mobile Capture Screen At Verify Point    Verify International Roaming Menu
 
 Select into International Roaming
