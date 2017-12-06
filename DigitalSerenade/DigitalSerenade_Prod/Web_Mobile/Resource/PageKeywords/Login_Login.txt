@@ -10,7 +10,7 @@ Verify Login Page
     Sleep    5s
     ${URL}    Get Location
     Log    ${URL}
-    Run Keyword If    "${URL}" != "${webURL}"    Fail
+    Run Keyword If    "${URL}" != "${URLSerenade}"    Fail
     Web Element Should Be Visible    ${LoginTitle}
     Web Element Text Should Be    ${LoginTitle}    ${txtLoginTitle}
     Web Element Should Be Visible    ${txtMobileNumber}
@@ -50,9 +50,9 @@ Verify Login With Other Network Mobile Number
     Web Capture Screen At Verify Point    OtherNetworkNumber
 
 Login Wrong OTP
-    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}    ${Close}=true
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${Number}    ${Close}=true
     Sleep    2
-    Input Web Text    ${txtMobileNo}    ${MobileNumber}
+    Input Web Text    ${txtMobileNo}    ${Number}
     Click Web Element    ${btnRequestOTP}
     Input Web Text    ${txtInputOTP}    ${WrongOTP}
     Click Web Element    ${btnSubmit}
@@ -65,9 +65,9 @@ Verify Login Wrong OTP
     Web Capture Screen At Verify Point    WrongOTP
 
 Login Not Input OTP
-    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}    ${Close}=true
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${Number}    ${Close}=true
     Sleep    2
-    Input Web Text    ${txtMobileNo}    ${MobileNumber}
+    Input Web Text    ${txtMobileNo}    ${Number}
     Click Web Element    ${btnRequestOTP}
     Input Web Text    ${txtInputOTP}    ${EMPTY}
 
