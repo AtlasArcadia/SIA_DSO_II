@@ -679,3 +679,17 @@ Verify Entertainment VIU Premium Ontop Package
     Wait Mobile Until Element Visible    ${popUpDialog}
     AISAppiumEx.Element Text Should Be    ${popUpDialog}    ${txtConfirmDialogEntertrainment}
     AISAppiumEx.Capture Page Screenshot    Verify Entertainment VIU Package
+
+Verify Confirm Package Page Prepaid
+    [Arguments]    ${Number}    ${firstPackage}
+    Mobile element text should be    ${titleApplyOnTopPackage}    ${lblApplyOnTopPackage}
+    Wait Mobile Until Page Contains Element    ${btnApplyOnTopBack}
+    Mobile element text should be    ${lblApplyOnTopNumberPhone}    ${Number}
+    Mobile element text should be    ${lblYouHaveSelect}    ${YouHaveSelect}
+    Comment    Mobile element text should be    ${lblPackageNameConfirmPage}    ${firstPackage}
+    Comment    Wait Mobile Until Page Contains Element    ${btnApplyOnTopConfirmBack}
+    Comment    Click Mobile Element    ${btnImmediately}
+    Comment    Wait Mobile Until Page Contains Element    ${btnNext}
+    Comment    Click Mobile Element    ${btnNext}
+    Run Keyword If    "${ar_NType}"=="3BE" or "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblApplyOnTopTermsAndConditions}
+    Mobile Capture Screen At Verify Point    Confirm Package Page
