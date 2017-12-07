@@ -35,14 +35,14 @@ class Runner implements Serializable{
 	boolean PaymentTopUp = false
 	boolean CopyLogFromExecutorA = false
 	boolean CopyLogFromExecutorB = false
-    boolean AllReport = false
-    boolean AllReportMultiExecutors = false
-    boolean ExportToReportExcel = false
-    boolean ExportToReportExcelMultiExecutors = false
-    boolean All = true
-    boolean IsSmoke = true
-    boolean IsSanity = false
-    boolean activeFalse = false
+	boolean AllReport = false
+	boolean AllReportMultiExecutors = false
+	boolean ExportToReportExcel = false
+	boolean ExportToReportExcelMultiExecutors = false
+	boolean All = true
+	boolean IsSmoke = true
+	boolean IsSanity = false
+	boolean activeFalse = false
     
     def get_tag() {                                 
         if(IsSmoke){
@@ -126,12 +126,15 @@ parallel firstBranch: {
 
 				stage ('MyAIS_Quickmenu_Search_Prepaid_Prod_Parallel'){
 				    run_Quickmenu_Search_Prepaid(runner)
-			    }
+			   	 }
 				
 				stage('MyAIS_TopUpAndPayment_Prod_Parallel'){
 					run_MyAIS_TopUpAndPayment_Production(runner)
 				}
 
+				stage ('MyAIS_PointsAndPrivileges_Prod_Parallel'){
+					run_PointsAndPrivileges(runner)
+				}
 
 				// ================ Copy File ======================
 		
@@ -157,10 +160,6 @@ parallel firstBranch: {
 
 				stage ('MyAIS_FAQ_SpecialCampaignAndPrivileges_Prod_Parallel'){
 					run_FAQ_SpecialCampaignAndPrivileges(runner)
-				}
-
-				stage ('MyAIS_PointsAndPrivileges_Prod_Parallel'){
-					run_PointsAndPrivileges(runner)
 				}
 
 				stage ('MyAIS_DomesticPackage_ChangePricePlan_Prod_Parallel'){
