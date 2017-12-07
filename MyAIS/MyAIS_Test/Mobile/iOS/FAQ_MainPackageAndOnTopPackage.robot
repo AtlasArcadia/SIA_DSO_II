@@ -41,8 +41,8 @@ Resource          ../../../../Config/LocalConfig.txt
     Verify Main Package And On Top Package FAQ Page
     Select FAQ Promotion And Package    AISPostpaid
     Verify AIS Postpaid FAQ Page
-    ${FAQ_Name}    Select Promotion and Package Question    1
-    Verify AIS Postpaid Answer    1
+    ${FAQ_Name}    Select Promotion and Package Question iOS   1
+    Verify AIS Postpaid Answer    1    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_3_2] Go to Promotion & Package Go Verify AIS Prepaid Second question
