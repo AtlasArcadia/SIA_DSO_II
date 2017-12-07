@@ -37,3 +37,17 @@ Open And Verify SMS By Time
     \    Verify SMS With Regex    ${messages}    @{messageExpect}[${indexOfExpect}]
     \    ${indexOfExpect}    Evaluate    ${indexOfExpect}+1
     Log    Out Wait and Verify SMS By Time Out
+
+Verify Entertainment VIU Premium Ontop Package
+    Wait Mobile Until Element Visible    ${btnVIUPremium}
+    Click Mobile Element    ${btnVIUPremium}
+    ${PackageName}=    Get mobile text    ${lblEntertrainmentPackageName}
+    Log    ${PackageName}
+    Mobile element text should be    ${lblEntertrainmentPackageName}    ${PackageName}
+    Click Mobile Element    ${btnNext}
+    Wait Mobile Until Element Visible    ${lblYouHaveSelect}
+    Click Mobile Element    ${btnNext}
+    Click Mobile Element    ${btnConfirmPackage}
+    Wait Mobile Until Element Visible    ${popUpDialog}
+    AISAppiumEx.Element Text Should Be    ${popUpDialog}    ${txtConfirmDialogEntertrainment}
+    AISAppiumEx.Capture Page Screenshot    Verify Entertainment VIU Package
