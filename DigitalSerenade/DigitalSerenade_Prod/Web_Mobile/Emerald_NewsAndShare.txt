@@ -30,8 +30,6 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ...
     ...    [2]ตรวจสอบหน้าเว็บ
     ...    - Open LINE to continue.
-    ...    - โลโก้ LINE
-    ...    - Open INE (ปุ่ม)
     [Tags]    active    TH    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -43,7 +41,7 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F11_EmeraldWebMobile_1_1_Y_2_2] Verify Update News Via Facebook
-    [Documentation]    *Owner* : Oum
+    [Documentation]    *Owner* : Chompoo
     ...    ช่องทางอัพเดทข่าวสารและบริการออนไลน์
     ...    - Facebook
     ...
@@ -69,7 +67,7 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ...
     ...    [2]ตรวจสอบหน้าเว็บ
     ...    - โลโก้ Facebook
-    ...    - การตรวจสอบสถานะความปลอดภัย (กรณีที่ไม่ได้ login facebook ไว้)
+    ...    - AIS
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -150,6 +148,15 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     Verify MyAIS Installed
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
+[F11_EmeraldWebMobile_1_1_Y_2_5] Verify Update News Via myAIS App uninstall
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Social Button    MyAIS
+    Verify MyAIS Uninstalled
+
 [F11_EmeraldWebMobile_1_1_Y_2_6] Verify Update News Page
     [Documentation]    *Owner* : Oum
     ...    ช่องทางอัพเดทข่าวสารและบริการออนไลน์ (Emerald)
@@ -182,7 +189,7 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Line Emerald
+    Verify Online Icon
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F12_EmeraldWebMobile_1_1_Y_2_1] Share On Facebook
