@@ -26,6 +26,8 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_27_2] Go to International Roaming - Roaming Package & Roaming Service Rates Verify First question
@@ -62,6 +64,12 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select Roaming Package & Roaming Services Rate
+    Verify Roaming Package & Roaming Service Rates Page
+    ${QuestionText}    Select Roaming Package & Roaming Service Rates Question iOS    1
+    Verify Roaming Package & Roaming Service Rates Answer Page iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_28_2] Go to International Roaming - Roaming Package & Roaming Service Rates Verify Second question
@@ -89,7 +97,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ...         "การใช้งานในต่างประเทศ" (Text)
     ...         "แพ็กเกจและค่าบริการที่ต่างประเทศ" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    active    success    3PE
+    [Tags]    TH    EN    active    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -98,6 +106,12 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select Roaming Package & Roaming Services Rate
+    Verify Roaming Package & Roaming Service Rates Page
+    ${QuestionText}    Select Roaming Package & Roaming Service Rates Question iOS    2
+    Verify Roaming Package & Roaming Service Rates Answer Page iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_29_2] Go to International Roaming - Roaming Package & Roaming Service Rates Verify Third question
@@ -125,7 +139,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ...         "การใช้งานในต่างประเทศ" (Text)
     ...         "แพ็กเกจและค่าบริการที่ต่างประเทศ" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    active    success    3PE
+    [Tags]    TH    EN    active    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -134,6 +148,12 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select Roaming Package & Roaming Services Rate
+    Verify Roaming Package & Roaming Service Rates Page
+    ${QuestionText}    Select Roaming Package & Roaming Service Rates Question iOS    3
+    Verify Roaming Package & Roaming Service Rates Answer Page iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_51_2] Go to International Roaming - International Roaming Verify First question

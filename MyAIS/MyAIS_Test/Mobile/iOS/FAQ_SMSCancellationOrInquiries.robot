@@ -30,6 +30,8 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select SMS Cancellation Inquiries Submenu
+    Verify SMS Cancellation/Inquiries Question Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_31_2] Go to SMS Cancellation/Inquiries Verify First question
@@ -55,7 +57,7 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    active    success    3PE
+    [Tags]    TH    EN    active    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -64,6 +66,10 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select SMS Cancellation Inquiries Submenu
+    Verify SMS Cancellation/Inquiries Question Page
+    ${QuestionText}    Select SMS Cancellation/Inquiries Question iOS    1
+    Verify SMS Cancellation/Inquiries First Answer iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_32_2] Go to SMS Cancellation/Inquiries Verify Second question
@@ -98,6 +104,10 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select SMS Cancellation Inquiries Submenu
+    Verify SMS Cancellation/Inquiries Question Page
+    ${QuestionText}    Select SMS Cancellation/Inquiries Question iOS    2
+    Verify SMS Cancellation/Inquiries Second Answer iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_33_2] Go to SMS Cancellation/Inquiries Verify Third question
@@ -132,6 +142,10 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select SMS Cancellation Inquiries Submenu
+    Verify SMS Cancellation/Inquiries Question Page
+    ${QuestionText}    Select SMS Cancellation/Inquiries Question iOS    3
+    Verify SMS Cancellation/Inquiries Answer iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_34_2] Go to SMS Cancellation/Inquiries Verify Fourth question
@@ -166,6 +180,10 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select SMS Cancellation Inquiries Submenu
+    Verify SMS Cancellation/Inquiries Question Page
+    ${QuestionText}    Select SMS Cancellation/Inquiries Question iOS    4
+    Verify SMS Cancellation/Inquiries Fourth Answer iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_35_2] Go to SMS Cancellation/Inquiries Verify Fifth question
@@ -200,4 +218,8 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select SMS Cancellation Inquiries Submenu
+    Verify SMS Cancellation/Inquiries Question Page
+    ${QuestionText}    Select SMS Cancellation/Inquiries Question iOS    5
+    Verify SMS Cancellation/Inquiries Answer iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
