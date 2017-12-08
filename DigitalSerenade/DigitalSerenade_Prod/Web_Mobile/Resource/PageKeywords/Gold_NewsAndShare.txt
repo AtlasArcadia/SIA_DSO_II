@@ -16,6 +16,7 @@ Verify Line Web
     Sleep    5s
     Select Window    url=${urlLineNewsServices}
     Verify Link    ${urlLineNewsServices}
+    Web Element Text Should Be    ${lblOpenLINEtocontinue}    ${OpenLINEtocontinue}
     Comment    Scroll Web To Element    ${imgLineLogo}
     Comment    Web Element Should Be Visible    ${imgLineLogo}
     Comment    Scroll Web To Element    ${imgLineQR}
@@ -25,13 +26,15 @@ Verify Line Web
     Web Capture Screen At Verify Point    Verify Web Line
 
 Verify Facebook Web
-    Sleep    10
+    Sleep    5s
     Select Window    url=${urlFacebookNewsServices}
     Verify Link    ${urlFacebookNewsServices}
-    Scroll Web To Element    ${lblFacebookSecurity}
-    Web Element Text Should Be    ${lblFacebookSecurity}    ${FacebookSecurity}
+    Comment    Scroll Web To Element    ${lblFacebookSecurity}
+    Comment    Web Element Text Should Be    ${lblFacebookSecurity}    ${FacebookSecurity}
     Scroll Web To Element    ${imgFacebookLogo}
     Web Element Should Be Visible    ${imgFacebookLogo}
+    Scroll Web To Element    ${lblAISonFB}
+    Web Element Text Should Be    ${lblAISonFB}    ${AISonFB}
     Web Capture Screen At Verify Point    Verify Web Face
 
 Verify Contact Us
@@ -46,36 +49,29 @@ Verify Contact Us
     Web Capture Screen At Verify Point    Verify Web Contact Us
 
 Verify Line Gold
-    Sleep    10
-    Scroll Web To Element    ${icnLineGold}
-    Mouse Over    ${icnLineGold}
+    sleep    10
     Web Element Should Be Visible    ${icnLineGold}
-    Web Capture Screen At Verify Point    Verify Line Gold Icon
-    Select Social Button    LineGold
-    Sleep    5s
-    Select Window    url=${urlLineNewsServices}
-    Verify Link    ${urlLineNewsServices}
-    Comment    Scroll Web To Element    ${imgLineLogo}
-    Comment    Web Element Should Be Visible    ${imgLineLogo}
-    Comment    Scroll Web To Element    ${imgLineQR}
-    Comment    Web Element Should Be Visible    ${imgLineQR}
-    Comment    Scroll Web To Element    ${lblLine}
-    Comment    Web Element Should Be Visible    ${lblLine}
-    Web Capture Screen At Verify Point    Verify Web Line
+    Scroll Web To Element    ${icnLineGold}
+    Web Element Should Be Visible    ${icnLine}
+    Web Element Should Be Visible    ${icnFacebook}
+    Web Element Should Be Visible    ${icnContactUs}
+    Web Element Should Be Visible    ${icnMyAIS}
+    Web Capture Screen At Verify Point    Verify Web update icon
 
 Verify Share To Facebook No Login
+    sleep    15
     Scroll Web To Element    ${btnShareToFacebook}
+    Web Capture Screen At Verify Point    Button Share Facebook
     Click Web Element    ${btnShareToFacebook}
-    Sleep    10
+    Sleep    5
     Select Window    url=${urlShareToFacebook}
     Verify Link    ${urlShareToFacebook}
-    Scroll Web To Element    ${lblFacebookLogoLoginPage}
     Web Element Should Be Visible    ${lblFacebookLogoLoginPage}
-    Web Element Should Be Visible    ${btnFacebookNextLoginPage}
-    Web Element Should Be Visible    ${btnFacebookRegisterLoginPage}
+    Web Element Text Should Be    ${lblLoginToshare}    ${LoginToshare}
     Web Capture Screen At Verify Point    Verify Share to facebook with no login
 
 Verify Popup Condition
+    Scroll Web To Element    ${btnToConditionSerenade}
     Click Web Element    ${btnToConditionSerenade}
     Mouse Over    ${lblConditionPopupHeaderDetail}
     Web Element Text Should Be    ${lblConditionPopupHeaderDetail}    ${ConditionPopupHeaderDetail}
@@ -96,4 +92,14 @@ Verify MyAIS Installed
     Wait Mobile Until Element Visible    ${imgMyAISLogoPlayStore}
     Wait Mobile Until Element Visible    ${btnOpenPlayStore}
     Mobile Capture Screen At Verify Point    Verify in myAIS
+    Mobile Switch App    Chrome
+
+Verify MyAIS Uninstalled
+    Sleep    5s
+    Mobile Switch App    Play Store
+    Sleep    3s
+    Wait Mobile Until Element Visible    ${imgHeaderPlayStore}
+    Wait Mobile Until Element Visible    ${imgMyAISLogoPlayStore}
+    Wait Mobile Until Element Visible    ${btnInstallPlayStore}
+    Mobile Capture Screen At Verify Point    Verify in myAIS uninstall
     Mobile Switch App    Chrome
