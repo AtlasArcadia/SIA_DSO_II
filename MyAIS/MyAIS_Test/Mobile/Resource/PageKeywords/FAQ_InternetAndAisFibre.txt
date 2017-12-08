@@ -23,10 +23,22 @@ Select AIS Fibre Usage
     Click Mobile Element    ${subMnuAISFibreUsage}
 
 Veriify Internet And AIS Fibre Page
+    Run Keyword If    "${ar_OS}"=="Android"    Veriify Internet And AIS Fibre Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Veriify Internet And AIS Fibre Page iOS
+
+Veriify Internet And AIS Fibre Page Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${subMnuInternetProblem}    ${txtSubMnuInternetProblem}
     Mobile element name should be    ${subMnuAISFibreUsage}    ${txtSubMnuAisFibreUsage}
     Mobile element name should be    ${subMnuAISFibre/AISPlaybox/WifiIssues}    ${txtSubMnuAISFibre/AISPlaybox/Wi-FiIssues}
+    Mobile Capture Screen At Verify Point    FAQ Internet And AIS Fibre Page
+
+Veriify Internet And AIS Fibre Page iOS
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${subMnuInternetProblem}    ${InternetProblem}
+    Mobile element name should be    ${subMnuAISFibreUsage}    ${AISFibreUsage}
+    Mobile element name should be    ${subMnuAISFibre/AISPlaybox/WifiIssues}    ${AISFibreAISPlayboxWifiIssues}
     Mobile Capture Screen At Verify Point    FAQ Internet And AIS Fibre Page
 
 Verify AIS Fibre Usage Page
@@ -52,6 +64,10 @@ Select AIS Fibre And AIS Playbox And Wifi Issues Submenu
     Click Mobile Element    ${subMnuAISFibre/AISPlaybox/WifiIssues}
 
 Verify AIS Fibre And AIS Playbox And Wifi Issues
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Fibre And AIS Playbox And Wifi Issues Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Fibre And AIS Playbox And Wifi Issues iOS
+
+Verify AIS Fibre And AIS Playbox And Wifi Issues Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${lblAISFibre/AISPlaybox/WifiIssuesPage}    ${txtLblAISFibreAISPlayboxWifiIssues}
     Mobile check existing text in name    ${subMnuAISFibreIssues}    ${txtSubMnuAISFibreIssues}
@@ -60,10 +76,23 @@ Verify AIS Fibre And AIS Playbox And Wifi Issues
     Comment    Wait Mobile Until Page Contains Element    ${lblAisFibreIssuesQuestion1}
     Mobile Capture Screen At Verify Point    FAQ Internet And Ais Fibre AIS Fibre AIS Playbox Wifi Issues Page
 
+Verify AIS Fibre And AIS Playbox And Wifi Issues iOS
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblAISFibre/AISPlaybox/WifiIssuesPage}    ${AISFibreAISPlayboxWifiIssues}
+    Mobile check existing text in name    ${subMnuAISFibreIssues}
+    Mobile check existing text in name    ${subMnuAISPlayboxIssues}
+    Mobile check existing text in name    ${subMnuWifiIssues}
+    Mobile Capture Screen At Verify Point    FAQ Internet And Ais Fibre AIS Fibre AIS Playbox Wifi Issues Page
+
 Select Wifi Issues Submenu
     Click Mobile Element    ${subMnuWifiIssues}
 
 Verify Wifi Issues Question Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Wifi Issues Question Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Wifi Issues Question Page iOS
+
+Verify Wifi Issues Question Page Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${lblWifiIssues}    ${txtLblWifiIssues}
     Mobile check existing text in name    ${lblWifiIssuesQuestion1}
@@ -71,11 +100,29 @@ Verify Wifi Issues Question Page
     Mobile check existing text in name    ${lblWifiIssuesQuestion3}
     Mobile Capture Screen At Verify Point    Verify Wifi Issues Question
 
+Verify Wifi Issues Question Page iOS
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblWifiIssues}    ${WifiIssues}
+    Mobile check existing text in name    ${lblWifiIssuesQuestion1}
+    Mobile check existing text in name    ${lblWifiIssuesQuestion2}
+    Mobile check existing text in name    ${lblWifiIssuesQuestion3}
+    Mobile Capture Screen At Verify Point    Verify Wifi Issues Question
+
+
 Select Wifi Issues Question
     [Arguments]    ${NoQuestion}
     Comment    Swipe To    ${lblWifiIssuesQuestion${NoQuestion}}
     Swipe element to specific area    ${lblWifiIssuesQuestion${NoQuestion}}
     Click Mobile Element    ${lblWifiIssuesQuestion${NoQuestion}}
+
+Select Wifi Issues Question iOS
+    [Arguments]    ${noQuestion}
+    sleep    15s
+    Wait Mobile Until Page Contains Element    ${lblWifiIssuesQuestion${noQuestion}}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblWifiIssuesQuestion${noQuestion}}    name
+    Click Mobile Element    ${lblWifiIssuesQuestion${noQuestion}}
+    [Return]    ${QuestionText}
 
 Verify Wifi Issues Answer
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
@@ -205,9 +252,14 @@ Verify AIS Issuse Answer Page
     Mobile Capture Screen At Verify Point    AIS Issuse Answer Page
 
 Select Sub Menu AIS Playbox Issues
+    sleep    25s
     Click Mobile Element    ${subMnuAISPlayboxIssues}
 
 Verify AIS Playbox Issues Question Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Playbox Issues Question Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Playbox Issues Question Page iOS
+
+Verify AIS Playbox Issues Question Page Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${lblAISPlayboxIssues}    ${txtLblAISPlayboxIssues}
     Check AIS Playbox Issues Text In Question    1
@@ -216,14 +268,45 @@ Verify AIS Playbox Issues Question Page
     Check AIS Playbox Issues Text In Question    4
     Mobile Capture Screen At Verify Point    Verify Ais Playbox Issues Question
 
+Verify AIS Playbox Issues Question Page iOS
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblAISPlayboxIssues}    ${AISPlayboxIssues}
+    Mobile check existing text in name    ${lblAISPlayboxIssuesQuestion1}
+    Mobile check existing text in name    ${lblAISPlayboxIssuesQuestion2}
+    Mobile check existing text in name    ${lblAISPlayboxIssuesQuestion3}
+    Mobile check existing text in name    ${lblAISPlayboxIssuesQuestion4}
+    Mobile Capture Screen At Verify Point    Verify Ais Playbox Issues Question
+
 Select AIS Playbox Issues Question
     [Arguments]    ${noQuestion}
+    Run Keyword If    "${ar_OS}"=="Android"    Select AIS Playbox Issues Question Android    ${noQuestion}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select AIS Playbox Issues Question iOS    ${noQuestion}
+
+Select AIS Playbox Issues Question Android
+    [Arguments]    ${noQuestion}
     Click Mobile Element    ${lblAISPlayboxIssuesQuestion${noQuestion}}
+
+Select AIS Playbox Issues Question iOS
+    [Arguments]    ${noQuestion}
+    sleep    15s
+    Wait Mobile Until Page Contains Element    ${lblAISPlayboxIssuesQuestion${noQuestion}}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblAISPlayboxIssuesQuestion${noQuestion}}    name
+    Click Mobile Element    ${lblAISPlayboxIssuesQuestion${noQuestion}}
+    [Return]    ${QuestionText}
 
 Verify AIS Playbox Issues Answer Page
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${lblAISPlayboxIssues}    ${txtLblAISPlayboxIssues}
     Check Other Text In Internet and Fibre    ${lblOtherText}
+    Mobile Capture Screen At Verify Point    AIS Playbox Issues Answer
+
+Verify AIS Playbox Issues Answer Page iOS
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblAISPlayboxIssues}    ${AISPlayboxIssues}
+    Mobile element name should be    ${lblAISPlayboxIssuesQuestionAndAnswer}    ${QuestionText}
     Mobile Capture Screen At Verify Point    AIS Playbox Issues Answer
 
 Check AIS Playbox Issues Text In Question
@@ -238,3 +321,11 @@ Verify Wifi Issues Answer Page
     Mobile element name should be    ${lblWifiIssues}    ${txtLblWifiIssues}
     Check Other Text In Internet and Fibre    ${lblOtherText}
     Mobile Capture Screen At Verify Point    AIS Wifi Issues Answer
+
+Verify Wifi Issues Answer Page iOS
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblWifiIssues}    ${WifiIssues}
+    Mobile element name should be    ${lblAISPlayboxIssuesQuestionAndAnswer}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    AIS Playbox Issues Answer
