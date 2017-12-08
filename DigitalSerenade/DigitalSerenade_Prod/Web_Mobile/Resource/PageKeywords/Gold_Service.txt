@@ -10,7 +10,7 @@ Click Service Campaign
     [Arguments]    ${location}    ${imgName}
     Scroll Web To Element    ${location}
     Web Element Should Be Visible    ${location}
-    Scroll Web To Element    ${location}
+    Comment    Scroll Web To Element    ${location}
     Sleep    10s
     Web Capture Screen At Verify Point    ${imgName}
     Click Web Element    ${location}
@@ -27,6 +27,8 @@ Verify Call Center
     Scroll Web To Element    ${AISLogo}
     Web Element Should Be Visible    ${AISLogo}
     Scroll Web To Element    ${lblSpecialService}
+    Comment    Web check existing text    xpath=//*[@id="HeaderContain"]/div[1]/img
+    Web Element Should Be Visible    xpath=//*[@src="images/service/serenade_club/text-specialservice.png"]
     Web Element Text Should Be    ${lblSpecialService}    ${CallCenter_Description}
     Web Element Should Be Visible    ${lblSpecialNumber1148}
     Web Capture Screen At Verify Point    Call Center
@@ -34,16 +36,20 @@ Verify Call Center
 Verify mPay
     Scroll Web To Element    ${AISLogo}
     Web Element Should Be Visible    ${AISLogo}
-    Scroll Web To Element    ${lbleServiceTitle}
-    Web Element Text Should Be    ${lbleServiceTitle}    ${eServiceTitle}
-    Web Element Text Should Be    ${lbleServiceSubtitle1}    ${eServiceSubtitle1}
-    Web Element Text Should Be    ${lbleServiceSubtitle2}    ${eServiceSubtitle2}
+    Comment    Scroll Web To Element    ${lbleServiceTitle}
+    Comment    Web Element Text Should Be    ${lbleServiceTitle}    ${eServiceTitle}
+    Comment    Web Element Text Should Be    ${lbleServiceSubtitle1}    ${eServiceSubtitle1}
+    Comment    Web Element Text Should Be    ${lbleServiceSubtitle2}    ${eServiceSubtitle2}
+    Click Web Element    xpath=//*[@id="mpayms_btn_condition_off"]/a
+    Web Element Text Should Be    xpath=//*[@id="mpayms_condition_txt"]/div/div/div    เงื่อนไขโปรโมชั่น เอไอเอส รายเดือน
+    Comment    Scroll Web To Element    xpath=//*[@id="mpayms_condition_txt"]/div/div/div//div
+    Comment    Web Element Text Should Be    xpath=//*[@id="mpayms_condition_txt"]/div/div/div//div    เงื่อนไขโปรโมชั่น เอไอเอส ไฟเบอร์
     Web Capture Screen At Verify Point    mPay
 
 Verify Data Roaming
     Scroll Web To Element    ${AISLogo}
     Web Element Should Be Visible    ${AISLogo}
-    Scroll Web To Element    ${lblDataRoamingRow1}
+    Comment    Scroll Web To Element    ${lblDataRoamingRow1}
     Web Element Text Should Be    ${lblDataRoamingRow1}    ${DataRoamingRow1}
     Web Element Text Should Be    ${lblDataRoamingRow2}    ${DataRoamingRow2}
     Web Element Text Should Be    ${lblDataRoamingRow3}    ${DataRoamingRow3}
