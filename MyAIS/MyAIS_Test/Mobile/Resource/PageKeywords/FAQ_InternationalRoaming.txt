@@ -40,10 +40,24 @@ Verify International Roaming Menu Page iOS
 
 Select into International Roaming
     Click Mobile Element    ${lblInternationalRoaming}
+    Sleep    5
 
 Verify International Roaming Question Page
-    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTopic}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify International Roaming Question Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify International Roaming Question Page iOS
+
+Verify International Roaming Question Page Android
     Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question1}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question2}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question3}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question4}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question5}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Question
+
+Verify International Roaming Question Page iOS
+    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
+    Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoaming}
     Mobile check existing text in name    ${lblInternationalRoaming_Question1}
     Mobile check existing text in name    ${lblInternationalRoaming_Question2}
     Mobile check existing text in name    ${lblInternationalRoaming_Question3}
@@ -55,10 +69,21 @@ Select International Roaming Question
     [Arguments]    ${Q_Number}
     Wait Mobile Until Page Contains Element    ${lblInternationalRoaming_Question${Q_Number}}
     Click Mobile Element    ${lblInternationalRoaming_Question${Q_Number}}
+    sleep    5
 
 Verify International Roaming Asnwer Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify International Roaming Asnwer Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify International Roaming Asnwer Page iOS
+
+Verify International Roaming Asnwer Page Android
     Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
     Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile check existing text in name    ${lblInternationalRoaming_Answer}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Asnwer
+
+Verify International Roaming Asnwer Page iOS
+    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
+    Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoaming}
     Mobile check existing text in name    ${lblInternationalRoaming_Answer}
     Mobile Capture Screen At Verify Point    Verify International Roaming Asnwer
 

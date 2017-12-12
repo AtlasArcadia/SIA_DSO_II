@@ -202,7 +202,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ...    - Fifth question
     ...    7.Click "First question"
     ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text) - Other text (Use Regular expression = ".*")none
-    [Tags]    TH    EN    active    success    3PE    demo
+    [Tags]    TH    EN    active    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -264,7 +264,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ...    7.Click "Second question"
     ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    TH    EN    active    success    3PE
+    [Tags]    TH    EN    active    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -273,6 +273,12 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    2
+    Verify International Roaming Asnwer Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_53_2] Go to International Roaming - International Roaming Verify Third question
@@ -320,7 +326,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ...    7.Click "Third question"
     ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    TH    EN    active    success    3PE
+    [Tags]    TH    EN    active    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -329,6 +335,12 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    3
+    Verify International Roaming Asnwer Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_54_2] Go to International Roaming - International Roaming Verify Fourth question
@@ -377,7 +389,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ...    7.Click "Fourth question"
     ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    TH    EN    active    success    3PE
+    [Tags]    TH    EN    active    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -386,6 +398,12 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    4
+    Verify International Roaming Asnwer Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_55_2] Go to International Roaming - International Roaming Verify Fifth question
@@ -435,7 +453,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ...    Page "International Roaming" (Text)
     ...    "International Roaming" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    TH    EN    active    success    3PE
+    [Tags]    TH    EN    active    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -444,4 +462,10 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select International Roaming Submenu
+    Verify International Roaming Menu Page
+    Select into International Roaming
+    Verify International Roaming Question Page
+    Select International Roaming Question    5
+    Verify International Roaming Asnwer Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
