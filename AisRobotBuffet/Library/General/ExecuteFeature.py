@@ -55,7 +55,10 @@ def execute_feature(suite_location, output_location="", list_of_feature="" , lis
     #check and set tag for run test case
     stag = ' '
     if tag is not None:
-        stag = ' -i ' + tag
+        # stag = ' -i ' + tag
+        stag = tag.replace(',', ' -i ')
+        stag = ' -i ' + stag + ' '
+        print "stag : " + stag
 
     # if application is not have N-Type
     if (list_of_NType.lower() == "none"):
@@ -333,3 +336,12 @@ def _release_virtual_local_config(config_file, device_name, timestamp):
     LocalConfiger.release_virtual_local_config(config_file, device_name, timestamp)
 
     # execute_feature('Login', '../../../mobile/MyAIS/','D:\AIS\RobotFramework\Config\NTypeOnFeature.xml','EN')
+
+
+# if __name__ == "__main__":
+#     stag = ' '
+#     tag = "3PO,3BO,TH,Test"
+#     if tag is not None:
+#         stag = tag.replace(',' , ' -i ')
+#         stag = ' -i ' + stag + ' '
+#         print stag
