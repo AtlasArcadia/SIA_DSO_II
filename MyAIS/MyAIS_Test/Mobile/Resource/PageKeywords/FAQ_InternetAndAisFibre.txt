@@ -14,10 +14,25 @@ Keywords For Teardown
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
 Select Help And Support Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Help And Support Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Help And Support Menu iOS
+
+Select Help And Support Menu Android
+    Select Menu    HelpAndSupport
+
+Select Help And Support Menu iOS
     Select Menu    HelpAndSupport
 
 Select Internet And Ais Fibre Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Internet And Ais Fibre Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Internet And Ais Fibre Submenu iOS
+
+Select Internet And Ais Fibre Submenu Android
     Select Sub Menu    InternetAndAISFiber
+
+Select Internet And Ais Fibre Submenu iOS
+    Select Sub Menu    InternetAndAISFiber
+    Sleep    5
 
 Select AIS Fibre Usage
     Click Mobile Element    ${subMnuAISFibreUsage}
@@ -160,7 +175,15 @@ Verify Wifi Issues Answer
     Mobile Capture Screen At Verify Point    Verify AIS Wifi Issues Answer
 
 Select Internet Problem
+    Run Keyword If    "${ar_OS}"=="Android"    Select Internet Problem Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Internet Problem iOS
+
+Select Internet Problem Android
     Click Mobile Element    ${subMnuInternetProblem}
+
+Select Internet Problem iOS
+    Click Mobile Element    ${subMnuInternetProblem}
+    Sleep    5    #Sleep for Loading
 
 Verify Internet Problem Page
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
@@ -232,13 +255,29 @@ Verify AIS Issues Answer
     Mobile Capture Screen At Verify Point    AIS Issuse Answer Page
 
 Verify FAQ Internet And AIS Fibre Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify FAQ Internet And AIS Fibre Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify FAQ Internet And AIS Fibre Page iOS
+
+Verify FAQ Internet And AIS Fibre Page Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${subMnuInternetProblem}    ${txtSubMnuInternetProblem}
     Mobile element name should be    ${subMnuAISFibreUsage}    ${txtSubMnuAisFibreUsage}
     Mobile element name should be    ${subMnuAISFibre/AISPlaybox/WifiIssues}    ${txtSubMnuAISFibre/AISPlaybox/Wi-FiIssues}
     Mobile Capture Screen At Verify Point    FAQ Internet And AIS Fibre Page
 
+Verify FAQ Internet And AIS Fibre Page iOS
+    Wait Mobile Until Element Visible    ${lblInternet&AISFibre}    30
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${subMnuInternetProblem}    ${InternetProblem}
+    Mobile element name should be    ${subMnuAISFibreUsage}    ${AisFibreUsage}
+    Mobile element name should be    ${subMnuAISFibre/AISPlaybox/WifiIssues}    ${AISFibreAISPlayboxWifiIssues}
+    Mobile Capture Screen At Verify Point    Verify FAQ Internet And AIS Fibre Page iOS
+
 Verify FAQ Internet And AIS Fibre Internet Problem Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify FAQ Internet And AIS Fibre Internet Problem Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify FAQ Internet And AIS Fibre Internet Problem Page iOS
+
+Verify FAQ Internet And AIS Fibre Internet Problem Page Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${lblInternetProblem}    ${txtLblInternetProblem}
     Check Internet Problem Text In Question    1
@@ -246,20 +285,63 @@ Verify FAQ Internet And AIS Fibre Internet Problem Page
     Check Internet Problem Text In Question    3
     Mobile Capture Screen At Verify Point    FAQ Internet And Ais Fibre Internet Problem Page
 
+Verify FAQ Internet And AIS Fibre Internet Problem Page iOS
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblHeadTopic}    ${InternetProblem}
+    Check Internet Problem Text In Question    1
+    Check Internet Problem Text In Question    2
+    Check Internet Problem Text In Question    3
+    Mobile Capture Screen At Verify Point    FAQ Internet And Ais Fibre Internet Problem Page
+
 Check Internet Problem Text In Question
+    [Arguments]    ${noQuestion}
+    Run Keyword If    "${ar_OS}"=="Android"    Check Internet Problem Text In Question Android    ${noQuestion}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Check Internet Problem Text In Question iOS    ${noQuestion}
+
+Check Internet Problem Text In Question Android
+    [Arguments]    ${noQuestion}
+    Mobile check existing text in name    ${lblInternetProblemQuestion${noQuestion}}
+
+Check Internet Problem Text In Question iOS
     [Arguments]    ${noQuestion}
     Mobile check existing text in name    ${lblInternetProblemQuestion${noQuestion}}
 
 Select Internet and AISFibre Question
     [Arguments]    ${noQuestion}
+    Run Keyword If    "${ar_OS}"=="Android"    Select Internet and AISFibre Question Android    ${noQuestion}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Internet and AISFibre Question iOS    ${noQuestion}
+
+Select Internet and AISFibre Question Android
+    [Arguments]    ${noQuestion}
     Comment    Click Mobile Element At Position    ${lblInternetProblemQuestion${noQuestion}}    top    0.01
     Click Mobile Element    ${lblInternetProblemQuestion${noQuestion}}
 
+Select Internet and AISFibre Question iOS
+    [Arguments]    ${noQuestion}
+    ${FAQ_Name}    Get mobile text    ${lblInternetProblemQuestion${noQuestion}}
+    Click Mobile Element    ${lblInternetProblemQuestion${noQuestion}}
+    [Return]    ${FAQ_Name}
+
 Verify Internet Problem Answer Page
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Internet Problem Answer Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Internet Problem Answer Page iOS    ${noQuestion}    ${FAQ_Name}
+
+Verify Internet Problem Answer Page Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${lblInternetProblem}    ${txtLblInternetProblem}
     Check Other Text In Internet and Fibre    ${lblOtherText}
     Mobile Capture Screen At Verify Point    Internet Problem Answer Page
+
+Verify Internet Problem Answer Page iOS
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
+    Sleep    5
+    Wait Mobile Until Element Visible     ${lblInternet&AISFibre}
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblInternetProblem}    ${InternetProblem}
+    ${FAQText}=    Get mobile text    ${lblHeadAnswerTopic}
+    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
+    Mobile Capture Screen At Verify Point    Internet Problem Answer Page ${noQuestion}
 
 Check Other Text In Internet and Fibre
     [Arguments]    ${locator}
