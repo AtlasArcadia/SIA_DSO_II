@@ -33,14 +33,13 @@ class Runner implements Serializable{
 	boolean Quickmenu_Search_Postpaid = false
 	boolean TopUpAndPayment = false
 	boolean PaymentTopUp = false
-	boolean CopyLogFromExecutorA = true
-	boolean CopyLogFromExecutorB = true
-	boolean AllReport = false
-	boolean AllReportMultiExecutors = true
+	boolean CopyLogFromExecutorA = false
+	boolean CopyLogFromExecutorB = false
+	boolean AllReportMultiExecutors = false
 	boolean ExportToReportExcel = false
-	boolean ExportToReportExcelMultiExecutors = true
+	boolean ExportToReportExcelMultiExecutors = false
 	boolean All = true
-	boolean IsSmoke = false
+	boolean IsSmoke = true
 	boolean IsSanity = false
 	boolean activeFalse = false
     
