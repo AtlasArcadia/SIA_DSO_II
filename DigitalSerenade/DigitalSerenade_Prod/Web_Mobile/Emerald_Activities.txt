@@ -3,7 +3,7 @@ Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Emerald_Activities.txt
 
 *** Test Cases ***
-[F10_EmeraldWebMobile_1_1_Y_2_2]
+[F10_EmeraldWebMobile_2_1_Y_1_1] Previous activity campaign pic
     [Documentation]    *Owner* : Oum
     ...    Campaign กิจกรรมที่ผ่านมาแล้ว ของ Segment: Emerald
     ...    - VDO + Click link ไปยัง web site
@@ -32,4 +32,18 @@ Resource          Resource/PageKeywords/Emerald_Activities.txt
     ...    - โลโก้ Youtube
     ...    - AIS Serenade Exclusive Trip India 2016
     [Tags]    on hold
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F10_EmeraldWebMobile_2_1_Y_1_] Previous activity campaign VDO
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Activity VDO
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
