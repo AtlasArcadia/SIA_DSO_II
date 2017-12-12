@@ -316,7 +316,7 @@ Quickmenu_Search_Prepaid
     ...    platform=${ar_OS}
     # by N-Type support = 2
     ${parallel_number}=    Set Variable    2
-    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Prepaid    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Prepaid    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag},${ar_LANG}
     ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}    process_number=${parallel_number}
 
 Quickmenu_VerifyButton
@@ -358,8 +358,10 @@ Quickmenu_Search_Postpaid
     ...    network=${ar_NETWORK}    platform=${ar_OS}
     # by N-Type support = 2
     ${parallel_number}=    Set Variable    2
-    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag},3PO,3BO,${ar_LANG}
     ...    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}    process_number=${parallel_number}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    list_of_NType=3BO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag},3BO,${ar_LANG} -e 3PO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}    process_number=${parallel_number}
 
 TopUpAndPayment
     [Tags]    topupandpayment
