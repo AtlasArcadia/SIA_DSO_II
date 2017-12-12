@@ -196,15 +196,15 @@ parallel firstBranch: {
 					run_MyAIS_Quickmenu_VerifyMenu_Production(runner)
 				}
 
+				stage('MyAIS_PaymentTopUp_Prod_Parallel'){
+					run_MyAIS_PaymentTopUp_Production(runner)
+				}
 
 				stage ('MyAIS_TouchID_Prod_Parallel'){
 					run_TouchID(runner)
 				}
-						
-						
-				stage('MyAIS_PaymentTopUp_Prod_Parallel'){
-					run_MyAIS_PaymentTopUp_Production(runner)
-				}
+							
+				
 
 				// ================ Copy File ======================
 
