@@ -42,19 +42,48 @@ Veriify Internet And AIS Fibre Page iOS
     Mobile Capture Screen At Verify Point    FAQ Internet And AIS Fibre Page
 
 Verify AIS Fibre Usage Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Fibre Usage Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Fibre Usage Page iOS
+
+Verify AIS Fibre Usage Page Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${lblAISFibreUsage}    ${txtLblAISFibreUsage}
     Mobile check existing text in name    ${lblAisFibreIssuesQuestion1}
     Mobile check existing text in name    ${lblAisFibreIssuesQuestion2}
     Mobile Capture Screen At Verify Point    Verify AIS Fibre Usage
 
+Verify AIS Fibre Usage Page iOS
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblAISFibreUsage}    ${AISFibreUsage}
+    Mobile check existing text in name    ${lblAisFibreIssuesQuestion1}
+    Mobile check existing text in name    ${lblAisFibreIssuesQuestion2}
+    Mobile Capture Screen At Verify Point    Verify AIS Fibre Usage
+
 Select AIS Usage Question
+    [Arguments]    ${NoQuestion}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Fibre Usage Page Android    ${NoQuestion}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Fibre Usage Page iOS    ${NoQuestion}
+
+Select AIS Usage Question Android
     [Arguments]    ${NoQuestion}
     Comment    Swipe To    ${lblAISUsageFibreQuestion${NoQuestion}}
     Swipe element to specific area    ${lblAISUsageFibreQuestion${NoQuestion}}
     Click Mobile Element    ${lblAISUsageFibreQuestion${NoQuestion}}
 
+Select AIS Usage Question iOS
+    [Arguments]    ${noQuestion}
+    sleep    15s
+    Wait Mobile Until Page Contains Element    ${lblAISUsageFibreQuestion${noQuestion}}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblAISUsageFibreQuestion${noQuestion}}    name
+    Click Mobile Element    ${lblAISUsageFibreQuestion${noQuestion}}
+    [Return]    ${QuestionText}
+
 Verify AIS Fibre Answer Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Fibre Answer Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Fibre Answer Page iOS
+
+Verify AIS Fibre Answer Page Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${lblAISFibreUsage}    ${txtLblAISFibreUsage}
     Mobile check existing text in name    ${lblAISUsageFibreAnswer}
@@ -157,6 +186,10 @@ Select AIS Fibre Issues
     Click Mobile Element    ${subMnuAISFibreIssues}
 
 Verify AIS Issues Question
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Issues Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Issues Question iOS
+
+Verify AIS Issues Question Android
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
     Mobile element name should be    ${lblAISFibreIssues}    ${txtLblAisFibreIssues}
     Mobile check existing text in name    ${lblAisFibreIssuesQuestion1}
@@ -164,11 +197,33 @@ Verify AIS Issues Question
     Mobile check existing text in name    ${lblAisFibreIssuesQuestion3}
     Mobile Capture Screen At Verify Point    Verify Ais Fibre Issues Question
 
+Verify AIS Issues Question iOS
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblAISFibreIssues}    ${AisFibreIssues}
+    Mobile check existing text in name    ${lblAisFibreIssuesQuestion1}
+    Mobile check existing text in name    ${lblAisFibreIssuesQuestion2}
+    Mobile check existing text in name    ${lblAisFibreIssuesQuestion3}
+    Mobile Capture Screen At Verify Point    Verify Ais Fibre Issues Question
+
 Select AIS Issues Question
+    [Arguments]    ${NoQuestion}
+    Run Keyword If    "${ar_OS}"=="Android"    Select AIS Issues Question Android    ${NoQuestion}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select AIS Issues Question iOS    ${NoQuestion}
+
+Select AIS Issues Question Android
     [Arguments]    ${NoQuestion}
     Comment    Swipe To    ${lblAisFibreIssuesQuestion${NoQuestion}}
     Swipe element to specific area    ${lblAisFibreIssuesQuestion${NoQuestion}}
     Click Mobile Element    ${lblAisFibreIssuesQuestion${NoQuestion}}
+
+Select AIS Issues Question iOS
+    [Arguments]    ${noQuestion}
+    sleep    15s
+    Wait Mobile Until Page Contains Element    ${lblAisFibreIssuesQuestion${noQuestion}}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblAisFibreIssuesQuestion${noQuestion}}    name
+    Click Mobile Element    ${lblAisFibreIssuesQuestion${noQuestion}}
+    [Return]    ${QuestionText}
 
 Verify AIS Issues Answer
     Mobile element name should be    ${lblInternet&AISFibre}    ${txtLblInternetAISFibre}
@@ -328,4 +383,20 @@ Verify Wifi Issues Answer Page iOS
     Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
     Mobile element name should be    ${lblWifiIssues}    ${WifiIssues}
     Mobile element name should be    ${lblAISPlayboxIssuesQuestionAndAnswer}    ${QuestionText}
-    Mobile Capture Screen At Verify Point    AIS Playbox Issues Answer
+    Mobile Capture Screen At Verify Point    AIS Wifi Issues Answer
+
+Verify AIS Fibre Answer Page iOS
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblAISFibreUsage}    ${AISFibreUsage}
+    Mobile element name should be    ${lblAISUsageFibreQuestionAndAnswer}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    AIS Fibre Usage Answer
+
+Verify AIS Issues Answer iOS
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Mobile element name should be    ${lblInternet&AISFibre}    ${InternetAISFibre}
+    Mobile element name should be    ${lblAISFibreIssues}    ${AISFibreIssues}
+    Mobile element name should be    ${lblAisFibreIssuesQuestionAndAnswer}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    AIS Fibre Issuse Answer Page
