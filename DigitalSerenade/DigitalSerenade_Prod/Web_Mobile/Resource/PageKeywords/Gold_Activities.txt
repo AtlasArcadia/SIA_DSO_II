@@ -1,0 +1,18 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../PageRepository/Gold_ActivitiesRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_ActivitiesLocalized.txt
+Resource          ../PageVariable/Gold_ActivitiesVariable.txt
+
+*** Keywords ***
+Verify Activity VDO
+    Scroll Web To Element    ${GoldActivity}
+    Select Frame    ${YoutubeFrame}    #Select Frame
+    Mobile Capture Screen At Verify Point    Verify in Web
+    Click Web Element    ${btnPlayYoutube}    #Click youtube
+    Sleep    5s
+    Mobile Switch App    YouTube
+    Sleep    3s
+    Mobile element text should be    ${lblYoutubeTitle}    ${YoutubeTitle}
+    Mobile Capture Screen At Verify Point    Verify in youtube
+    Mobile Switch App    Chrome
