@@ -100,10 +100,10 @@ Verify AIS Postpaid Answer iOS
     [Arguments]    ${QuestionNumber}    ${FAQ_Name}
     Sleep    5
     Wait Mobile Until Element Visible     ${lblPromotionsAndPackages}
-    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}
+    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
     Mobile element name should be    ${lblAISPostpaidHead}    ${AISPostpaidTopic}
-    Wait Mobile Until Page Contains Element    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}
-    Mobile element name should be    ${FAQ_Name}     ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}
+    ${FAQText}=    Get mobile text    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}
+    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
     Mobile Capture Screen At Verify Point    Verify AIS Postpaid Answer iOS ${QuestionNumber}
 
 Verify AIS Postpaid FAQ Page
@@ -121,8 +121,8 @@ Verify AIS Postpaid FAQ Page Android
 
 Verify AIS Postpaid FAQ Page iOS
     Wait Mobile Until Element Visible    ${lblPromotionsAndPackages}    30
-    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}
-    Mobile element name should be    ${lblAISPostpaidHead}    ${AISPostpaidTopic}
+    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
+    Mobile element name should be    ${lblHeadTopic}    ${AISPostpaidTopic}
     Check Promotion&Package Text In Question    1
     Check Promotion&Package Text In Question    2
     Check Promotion&Package Text In Question    3
@@ -147,17 +147,45 @@ Select Promotion and Package Question iOS
     [Return]    ${FAQ_Name}
 
 Verify FAQ Promotion And Package AIS 12Call Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify FAQ Promotion And Package AIS 12Call Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify FAQ Promotion And Package AIS 12Call Page iOS
+
+Verify FAQ Promotion And Package AIS 12Call Page Android
     Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}
     Mobile element name should be    ${lblFAQHead}    ${txtAIS12Call}
     Check Promotion&Package Text In Question    1
     Check Promotion&Package Text In Question    2
     Mobile Capture Screen At Verify Point    FAQ Promotion And Package AIS 12Call Page
 
+Verify FAQ Promotion And Package AIS 12Call Page iOS
+    Wait Mobile Until Element Visible    ${lblPromotionsAndPackages}    30
+    #Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}
+    ${Checktext}=    Get mobile text    ${lblPromotionsAndPackages}
+    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
+    Mobile element name should be    ${lblHeadTopic}    ${AIS12Call}
+    Check Promotion&Package Text In Question    1
+    Check Promotion&Package Text In Question    2
+    Mobile Capture Screen At Verify Point    Verify FAQ Promotion And Package AIS 12Call Page iOS
+
 Select Promotion And Package AIS 12Call Question
+    [Arguments]    ${QuestionNumber}
+    Run Keyword If    "${ar_OS}"=="Android"    Select Promotion And Package AIS 12Call Question Android    ${QuestionNumber}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Promotion And Package AIS 12Call Question iOS    ${QuestionNumber}
+
+Select Promotion And Package AIS 12Call Question Android
     [Arguments]    ${Argument}
     Click Mobile Element    ${lblPromotionAndPackageAIS12Call_FAQ${Argument}}
 
+Select Promotion And Package AIS 12Call Question iOS
+    [Arguments]    ${QuestionNumber}
+    Click Mobile Element    ${lblPromotionAndPackageAIS12Call_FAQ${QuestionNumber}}
+    Sleep    5
+
 Verify Promotion And Package AIS 12Call Question Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Promotion And Package AIS 12Call Question Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Promotion And Package AIS 12Call Question Page iOS
+
+Verify Promotion And Package AIS 12Call Question Page Android
     Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}
     Mobile element name should be    ${lblFAQHead}    ${txtAIS12Call}
     Check AIS12Call Text In Question    1
@@ -165,11 +193,37 @@ Verify Promotion And Package AIS 12Call Question Page
     Check AIS12Call Text In Question    3
     Mobile Capture Screen At Verify Point    Verify Promotion and Package 12 Call Question Page
 
+Verify Promotion And Package AIS 12Call Question Page iOS
+    Wait Mobile Until Element Visible    ${lblPromotionsAndPackages}    30
+    ${Checktext}=    Get mobile text    ${lblPromotionsAndPackages}
+    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
+    Mobile element name should be    ${lblHeadTopic}    ${AIS12Call}
+    Check AIS12Call Text In Question    1
+    Check AIS12Call Text In Question    2
+    Check AIS12Call Text In Question    3
+    Mobile Capture Screen At Verify Point    Verify Promotion And Package AIS 12Call Question Page iOS
+
 Select Sub AIS 12Call Question
+    Run Keyword If    "${ar_OS}"=="Android"    Select Sub AIS 12Call Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Sub AIS 12Call Question iOS
+    [Return]    ${FAQ_Name}
+
+Select Sub AIS 12Call Question Android
     [Arguments]    ${Argument}
     Click Mobile Element    ${lblPromotionAndPackageAIS12Call_FAQ${Argument}}
 
+Select Sub AIS 12Call Question iOS
+    [Arguments]    ${Argument}
+    ${FAQ_Name}    Get mobile text    ${lblPromotionAndPackageAIS12Call_FAQ${Argument}}
+    Click Mobile Element    ${lblPromotionAndPackageAIS12Call_FAQ${Argument}}
+    [Return]    ${FAQ_Name}
+
 Verify Promotion And Package AIS 12Call Answer
+    [Arguments]    ${QuestionNumber}    ${FAQ_Name}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Promotion And Package AIS 12Call Answer Android    ${QuestionNumber}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Promotion And Package AIS 12Call Answer iOS    ${QuestionNumber}    ${FAQ_Name}
+
+Verify Promotion And Package AIS 12Call Answer Android
     [Arguments]    ${QuestionNumber}
     Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}    5
     Mobile element name should be    ${lblFAQHead}    ${txtAIS12Call}    5
@@ -179,7 +233,22 @@ Verify Promotion And Package AIS 12Call Answer
     Log    ${RealAnswer_FAQ}
     Mobile Capture Screen At Verify Point    Promotion And Package AIS 12Call Answer
 
+Verify Promotion And Package AIS 12Call Answer iOS
+    [Arguments]    ${QuestionNumber}    ${FAQ_Name}
+    Sleep    5
+    Wait Mobile Until Element Visible     ${lblPromotionsAndPackages}
+    ${Checktext}=    Get mobile text    ${lblPromotionsAndPackages}
+    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
+    Mobile element name should be    ${lblHeadTopic}    ${AIS12Call}
+    ${FAQText}=    Get mobile text    ${lblAnswerAIS12Call_FAQ${QuestionNumber}}
+    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
+    Mobile Capture Screen At Verify Point    Verify Promotion And Package AIS 12Call Answer iOS ${QuestionNumber}
+
 Verify FAQ Promotion And Package AIS Fibre Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify FAQ Promotion And Package AIS Fibre Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify FAQ Promotion And Package AIS Fibre Page iOS
+
+Verify FAQ Promotion And Package AIS Fibre Page Android
     Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}
     Mobile element name should be    ${lblFAQHead}    ${txtsubFibre}
     Check Promotion&Package Text In Question    1
@@ -187,12 +256,39 @@ Verify FAQ Promotion And Package AIS Fibre Page
     Check Promotion&Package Text In Question    3
     Mobile Capture Screen At Verify Point    FAQ Promotion And Package AIS Fibre Page
 
+Verify FAQ Promotion And Package AIS Fibre Page iOS
+    Wait Mobile Until Element Visible    ${lblPromotionsAndPackages}    30
+    #Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}
+    ${Checktext}=    Get mobile text    ${lblPromotionsAndPackages}
+    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
+    Mobile element name should be    ${lblHeadTopic}    ${AISFibre}
+    Check Promotion&Package Text In Question    1
+    Check Promotion&Package Text In Question    2
+    Check Promotion&Package Text In Question    3
+    Mobile Capture Screen At Verify Point    Verify FAQ Promotion And Package AIS Fibre Page iOS
+
 Select Promotion And Package AIS Fibre Question
+    [Arguments]    ${Argument}
+    Run Keyword If    "${ar_OS}"=="Android"    Select Promotion And Package AIS Fibre Question Android    ${Argument}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Promotion And Package AIS Fibre Question iOS    ${Argument}
+
+Select Promotion And Package AIS Fibre Question Android
     [Arguments]    ${Argument}
     Comment    Click Mobile Element At Position    ${lblPromotionAndPackageAISFibre_FAQ${Argument}}    top    0.01
     Click Mobile Element    ${lblPromotionAndPackageAISFibre_FAQ${Argument}}
 
+Select Promotion And Package AIS Fibre Question iOS
+    [Arguments]    ${Argument}
+    ${FAQ_Name}    Get mobile text    ${lblPromotionAndPackageAISFibre_FAQ${Argument}}
+    Click Mobile Element    ${lblPromotionAndPackageAISFibre_FAQ${Argument}}
+    [Return]    ${FAQ_Name}
+
 Verify Promotion And Package AIS Fibre Answer
+    [Arguments]    ${Argument}    ${FAQ_Name}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Promotion And Package AIS Fibre Answer Android    ${Argument}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Promotion And Package AIS Fibre Answer iOS    ${Argument}    ${FAQ_Name}
+
+Verify Promotion And Package AIS Fibre Answer Android
     [Arguments]    ${QuestionNumber}
     Mobile element name should be    ${lblPromotionsAndPackages}    ${txtPromotionsPackages}    5
     Mobile element name should be    ${lblFAQHead}    ${txtsubFibre}    5
@@ -201,6 +297,17 @@ Verify Promotion And Package AIS Fibre Answer
     Should Match Regexp    "${RealAnswer_FAQ}"    .+
     Log    ${RealAnswer_FAQ}
     Mobile Capture Screen At Verify Point    Promotion And Package AIS Fibre Answer
+
+Verify Promotion And Package AIS Fibre Answer iOS
+    [Arguments]    ${QuestionNumber}    ${FAQ_Name}
+    Sleep    5
+    Wait Mobile Until Element Visible     ${lblPromotionsAndPackages}
+    ${Checktext}=    Get mobile text    ${lblPromotionsAndPackages}
+    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
+    Mobile element name should be    ${lblHeadTopic}    ${AISFibreTopic}
+    ${FAQText}=    Get mobile text    ${lblAnswerAISFibre_FAQ${QuestionNumber}}
+    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
+    Mobile Capture Screen At Verify Point    Verify Promotion And Package AIS Fibre Answer iOS ${QuestionNumber}
 
 Check Promotion&Package Text In Question
     [Arguments]    ${Argument}
@@ -217,8 +324,17 @@ Check Promotion&Package Text In Question iOS
     Mobile check existing text in name    ${lblPromotion&Package_FAQ${Argument}}
 
 Check AIS12Call Text In Question
+    [Arguments]    ${Argument}
+    Run Keyword If    "${ar_OS}"=="Android"    Check AIS12Call Text In Question Android    ${Argument}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Check AIS12Call Text In Question iOS    ${Argument}
+
+Check AIS12Call Text In Question Android
     [Arguments]    ${noQuestion}
     Mobile check existing text in name    ${lblPromotionAndPackageAIS12Call_FAQ${noQuestion}}
+
+Check AIS12Call Text In Question iOS
+    [Arguments]    ${Argument}
+    Mobile check existing text in name    ${lblPromotionAndPackageAIS12Call_FAQ${Argument}}
 
 Verify Topic AIS Fibre
     Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
