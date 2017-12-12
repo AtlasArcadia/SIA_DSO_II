@@ -347,22 +347,24 @@ Quickmenu_VerifyMenu
 
 Quickmenu_Search_Postpaid
     [Tags]    quickmenu_search_postpaid
-    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    3PO,3BO
-    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDTH    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
-    ...    platform=${ar_OS}
-    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    3PO,3BO
-    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDEN    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
-    ...    platform=${ar_OS}
-    Run Keyword If    "${ar_Tag}" == "sanity"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    3PO,3BO
-    ...    language=${ar_LANG}    browser=${ar_BROWSER}    tag=sanity    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}
-    ...    platform=${ar_OS}
-    Comment    # by N-Type support = 2
-    Comment    ${parallel_number}=    Set Variable    2
+    Comment    Run Keyword If    "${ar_LANG}"=="TH"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid
+    ...    3PO,3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDTH    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}    platform=${ar_OS}
+    Comment    Run Keyword If    "${ar_LANG}"=="EN"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid
+    ...    3PO,3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=${ar_Tag}ANDEN    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}    platform=${ar_OS}
+    Comment    Run Keyword If    "${ar_Tag}" == "sanity"    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid
+    ...    3PO,3BO    language=${ar_LANG}    browser=${ar_BROWSER}    tag=sanity    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True
+    ...    network=${ar_NETWORK}    platform=${ar_OS}
+    # by N-Type support = 2
+    ${parallel_number}=    Set Variable    2
     Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    language=${ar_LANG}    browser=${ar_BROWSER}
     ...    tag=${ar_Tag},3PO,3BO,${ar_LANG}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}    process_number=${parallel_number}
-    Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    list_of_NType=3BO    language=${ar_LANG}
+    Comment    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    3BO    language=${ar_LANG}
     ...    browser=${ar_BROWSER}    tag=${ar_Tag},3BO,${ar_LANG} -e 3PO    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}
     ...    process_number=${parallel_number}
+    Execute Feature    ${CURDIR}\\    D:\\Output\\Prod\\    Quickmenu_Search_Postpaid    3BO    language=${ar_LANG}    browser=${ar_BROWSER}
+    ...    tag=${ar_Tag}AND${ar_LANG}    take_timeout=${ar_TAKE_TIMEOUT}    is_parallel=True    network=${ar_NETWORK}    platform=${ar_OS}    process_number=${parallel_number}
 
 TopUpAndPayment
     [Tags]    topupandpayment
