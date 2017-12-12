@@ -18,6 +18,8 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Internet And AIS Fibre Submenu
+    Verify FAQ Internet And AIS Fibre Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_10_2] Go to Internet & AIS FIBRE Verify Internet Problem first question
@@ -26,7 +28,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...    Status : Active
     ...
     ...    Test Step
-    [Tags]    success    3PE
+    [Tags]    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -35,6 +37,12 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Internet And AIS Fibre Submenu
+    Verify FAQ Internet And AIS Fibre Page
+    Select Internet Problem
+    Verify FAQ Internet And AIS Fibre Internet Problem Page
+    ${FAQ_Name}    Select Internet and AISFibre Question iOS	1
+    Verify Internet Problem Answer Page    1    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_11_2] Go to Internet & AIS FIBRE Verify Internet Problem Second question
@@ -52,6 +60,12 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Internet And AIS Fibre Submenu
+    Verify FAQ Internet And AIS Fibre Page
+    Select Internet Problem
+    Verify FAQ Internet And AIS Fibre Internet Problem Page
+    ${FAQ_Name}    Select Internet and AISFibre Question	2
+    Verify Internet Problem Answer Page    2    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_12_2] Go to Internet & AIS FIBRE Verify Internet Problem Third question
@@ -69,6 +83,12 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Internet And AIS Fibre Submenu
+    Verify FAQ Internet And AIS Fibre Page
+    Select Internet Problem
+    Verify FAQ Internet And AIS Fibre Internet Problem Page
+    ${FAQ_Name}    Select Internet and AISFibre Question	3
+    Verify Internet Problem Answer Page    3    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_13_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue(AIS Fibre issue) First question
