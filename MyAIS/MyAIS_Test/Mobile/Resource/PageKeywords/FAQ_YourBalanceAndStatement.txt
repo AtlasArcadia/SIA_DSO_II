@@ -6,9 +6,23 @@ Resource          ../PageRepository/${ar_OS}/FAQ_YourBalance&StatementRepository
 
 *** Keywords ***
 Select Help And Support Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Help And Support Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Help And Support Menu iOS
+
+Select Help And Support Menu Android
+    Select Menu    HelpAndSupport
+
+Select Help And Support Menu iOS
     Select Menu    HelpAndSupport
 
 Select Your Balance And Statement Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Your Balance And Statement Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Your Balance And Statement Submenu iOS
+
+Select Your Balance And Statement Submenu Android
+    Select Sub Menu    YourBalanceAndStatement
+
+Select Your Balance And Statement Submenu iOS
     Select Sub Menu    YourBalanceAndStatement
 
 Select AIS Monthly Statement Question
@@ -46,11 +60,22 @@ Keywords For Teardown
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
 Verify FAQ Your Balance And Statement Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify FAQ Your Balance And Statement Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify FAQ Your Balance And Statement Page iOS
+
+Verify FAQ Your Balance And Statement Page Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${lblAISMonthlyStatement}    ${txtFAQAISMonthlyStatement}
     Mobile element name should be    ${lblAISOne-2-CallCreditBalance}    ${txtFAQAISOne-2-CallCreditBalance}
     Mobile element name should be    ${lblInvoice/BillAISFiber}    ${txtFAQInvoice/BillAISFiber}
     Mobile Capture Screen At Verify Point    FAQ Your Balance And Statement Page
+
+Verify FAQ Your Balance And Statement Page iOS
+    Wait Mobile Until Element Visible    ${lblAISMonthlyStatement}    30
+    Mobile element name should be    ${lblAISMonthlyStatement}    ${FAQAISMonthlyStatement}
+    Mobile element name should be    ${lblAISOne-2-CallCreditBalance}    ${FAQAISOne-2-CallCreditBalance}
+    Mobile element name should be    ${lblInvoice/BillAISFiber}    ${FAQInvoice/BillAISFiber}
+    Mobile Capture Screen At Verify Point    Verify FAQ Your Balance And Statement Page iOS
 
 Select AIS One-2-Call Credit Balance
     Wait Mobile Until Page Contains Element    ${lblAISOne-2-CallCreditBalance}
