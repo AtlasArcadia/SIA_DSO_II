@@ -72,17 +72,23 @@ Verify FAQ Your Balance And Statement Page Android
 
 Verify FAQ Your Balance And Statement Page iOS
     Wait Mobile Until Element Visible    ${lblAISMonthlyStatement}    30
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
     Mobile element name should be    ${lblAISMonthlyStatement}    ${FAQAISMonthlyStatement}
     Mobile element name should be    ${lblAISOne-2-CallCreditBalance}    ${FAQAISOne-2-CallCreditBalance}
     Mobile element name should be    ${lblInvoice/BillAISFiber}    ${FAQInvoice/BillAISFiber}
-    Mobile Capture Screen At Verify Point    Verify FAQ Your Balance And Statement Page iOS
+    Mobile Capture Screen At Verify Point    FAQ Your Balance And Statement Page
 
 Select AIS One-2-Call Credit Balance
     Wait Mobile Until Page Contains Element    ${lblAISOne-2-CallCreditBalance}
     Comment    Click Mobile Element At Position    ${lblAISOne-2-CallCreditBalance}    top    0.05
     Click Mobile Element    ${lblAISOne-2-CallCreditBalance}
+    Sleep    5
 
 Verify AIS 1-2-Call Credit Balance Question
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS 1-2-Call Credit Balance Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS 1-2-Call Credit Balance Question iOS
+
+Verify AIS 1-2-Call Credit Balance Question Android
     Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${txtAISOne-2-CallCreditBalanceTopic}
@@ -93,15 +99,37 @@ Verify AIS 1-2-Call Credit Balance Question
     Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion5}
     Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Question
 
+Verify AIS 1-2-Call Credit Balance Question iOS
+    Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
+    Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${AISOne-2-CallCreditBalanceTopic}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion1}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion2}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion3}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion4}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion5}
+    Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Question
+
 Select AIS 1-2-Call Credit Balance Question
     [Arguments]    ${noQuestion}
     Click Mobile Element    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}
+    Sleep    5
     Comment    Click Mobile Element At Position    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}    top    0.05    #Select First Question
 
 Verify AIS 1-2-Call Credit Balance Answer
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS 1-2-Call Credit Balance Answer Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS 1-2-Call Credit Balance Answer iOS
+
+Verify AIS 1-2-Call Credit Balance Answer Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${txtAISOne-2-CallCreditBalanceTopic}
     Verify Answer Text    ${txtAnswerYourbalanceAndStatement}
+    Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Answer
+
+Verify AIS 1-2-Call Credit Balance Answer iOS
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
+    Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${AISOne-2-CallCreditBalanceTopic}
+    Wait Mobile Until Page Contains Element    ${txtAnswerYourbalanceAndStatement}
     Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Answer
 
 Verify Answer Text
@@ -116,6 +144,7 @@ Select Invoice Or Bill AIS Fiber
     Wait Mobile Until Page Contains Element    ${lblInvoice/BillAISFiber}
     Comment    Click Mobile Element At Position    ${lblInvoice/BillAISFiber}    top    0.05
     Click Mobile Element    ${lblInvoice/BillAISFiber}
+    Sleep    5
 
 Verify Invoice/Bill AIS Fiber Question
     Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
@@ -130,6 +159,7 @@ Select Invoice/Bill AIS Fiber Question
     Sleep    5
     Comment    Click Mobile Element At Position    ${lblInvoice/BillAISFiberQuestion${noQuestion}}    top    0.05    #Select First Question
     Click Mobile Element    ${lblInvoice/BillAISFiberQuestion${noQuestion}}
+    Sleep    5
 
 Verify Invoice/Bill AIS Fiber Answer
     Wait Mobile Until Page Contains Element    ${txtInvoice/BillAISFiber}
