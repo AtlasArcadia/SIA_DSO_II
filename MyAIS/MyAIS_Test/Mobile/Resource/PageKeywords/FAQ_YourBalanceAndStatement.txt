@@ -181,9 +181,21 @@ Select Invoice Or Bill AIS Fiber
     Sleep    5
 
 Verify Invoice/Bill AIS Fiber Question
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Invoice/Bill AIS Fiber Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Invoice/Bill AIS Fiber Question iOS
+
+Verify Invoice/Bill AIS Fiber Question Android
     Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtYourBalance&statementOfInvoice/BillAISFiber}
     Mobile element name should be    ${txtInvoice/BillAISFiber}    ${txtInvoice/BillAISFiberTopic}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion1}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion2}
+    Mobile Capture Screen At Verify Point    Invoice or Bill AIS Fiber Question
+
+Verify Invoice/Bill AIS Fiber Question iOS
+    Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
+    Mobile element name should be    ${lblYourBalance&Statement}    ${YourBalance&statementOfInvoice/BillAISFiber}
+    Mobile element name should be    ${txtInvoice/BillAISFiber}    ${Invoice/BillAISFiberTopic}
     Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion1}
     Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion2}
     Mobile Capture Screen At Verify Point    Invoice or Bill AIS Fiber Question
@@ -196,8 +208,19 @@ Select Invoice/Bill AIS Fiber Question
     Sleep    5
 
 Verify Invoice/Bill AIS Fiber Answer
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Invoice/Bill AIS Fiber Answer Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Invoice/Bill AIS Fiber Answer iOS
+
+Verify Invoice/Bill AIS Fiber Answer Android
     Wait Mobile Until Page Contains Element    ${txtInvoice/BillAISFiber}
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtYourbalancestatement}
     Mobile element name should be    ${txtInvoice/BillAISFiber}    ${txtInvoice/BillAISFiberTopic}
     Mobile check existing text in name    ${txtAnswerYourbalanceAndStatement}
-    Mobile Capture Screen At Verify Point    Invoice or Bill AIS Fiber Answer
+    Mobile Capture Screen At Verify Point    Verify Invoice/Bill AIS Fiber Answer
+
+Verify Invoice/Bill AIS Fiber Answer iOS
+    Wait Mobile Until Page Contains Element    ${txtInvoice/BillAISFiber}
+    Mobile element name should be    ${lblYourBalance&Statement}    ${txtYourbalancestatement}
+    Mobile element name should be    ${txtInvoice/BillAISFiber}    ${txtInvoice/BillAISFiberTopic}
+    Wait Mobile Until Page Contains Element    ${txtAnswerYourbalanceAndStatement}
+    Mobile Capture Screen At Verify Point    Verify Invoice/Bill AIS Fiber Answer
