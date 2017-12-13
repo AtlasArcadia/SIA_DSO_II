@@ -45,6 +45,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
+    Verify Help and Support
     Select Sub Menu    SpecialCampaignAndPrivileges
     Verify Special Campaign And Privileges
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
@@ -152,7 +153,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    success    active    regression
+    [Tags]    success    active    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -212,7 +213,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     ...    8.ตรวจสอบหน้า "คำตอบ"
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ" (Text)
-- Other text (Use Regular expression = ".*")none
+    ...    - Other text (Use Regular expression = ".*")none
     [Tags]    success    active    regression
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include

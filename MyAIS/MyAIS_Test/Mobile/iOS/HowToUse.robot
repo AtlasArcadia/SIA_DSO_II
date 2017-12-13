@@ -93,7 +93,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...    - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่? ( คำถามข้อที่7)
     ...    5.เลือก " คำถามข้อที่1 "
     ...    6.ตรวจสอบ "คำตอบ"none
-    [Tags]    success    debug    active
+    [Tags]    success    debug    active    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -105,7 +105,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     Select How To Use Submenu
     Verify How To Use Page
     Select Question    FirstQuestion
-    Verify Answer
+    Verify Answer How To Use Application Page    1
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F3_Help_IOS_1,3_1-2_Y_3_2] Go to How to use Verify Second question
@@ -159,7 +159,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     Select How To Use Submenu
     Verify How To Use Page
     Select Question    SecondQuestion
-    Verify Answer
+    Verify Answer How To Use Application Page     2
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F3_Help_IOS_1,3_1-2_Y_4_2] Go to How to use Verify Third question
@@ -224,7 +224,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     Select How To Use Submenu
     Verify How To Use Page
     Select Question    ThirdQuestion
-    Verify Answer
+    Verify Answer How To Use Application Page    3
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F3_Help_IOS_1,3_1-2_Y_5_2] Go to How to use Verify Fourth question
@@ -278,7 +278,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     Select How To Use Submenu
     Verify How To Use Page
     Select Question    FourthQuestion
-    Verify Answer
+    Verify Answer How To Use Application Page    4
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F3_Help_IOS_1,3_1-2_Y_6_2] Go to How to use Verify Fifth question
@@ -332,7 +332,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     Select How To Use Submenu
     Verify How To Use Page
     Select Question    FifthQuestion
-    Verify Answer
+    Verify Answer How To Use Application Page    5
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F3_Help_IOS_1,3_1-2_Y_7_2] Go to How to use Verify Sixth question
@@ -386,7 +386,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     Select How To Use Submenu
     Verify How To Use Page
     Select Question    SixthQuestion
-    Verify Answer
+    Verify Answer How To Use Application Page    6
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F3_Help_IOS_1,3_1-2_Y_8_2] Go to How to use Verify Seventh question
@@ -437,5 +437,5 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     Select Help And Support Menu
     Select How To Use Submenu
     Select Question    SeventhQuestion
-    Verify Answer
+    Verify Answer How To Use Application Page    7
     [Teardown]    Keywords For Teardown    ${#dict_device_name}

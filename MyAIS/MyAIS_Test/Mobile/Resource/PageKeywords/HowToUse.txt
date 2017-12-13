@@ -26,6 +26,10 @@ Verify Answer
     Mobile Capture Screen At Verify Point    HowToUse_VerrifyAns
 
 Verify How To Use Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify How To Use Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify How To Use Page iOS
+
+Verify How To Use Page Android
     Mobile element text should be    ${txtHowToUseApplication}    ${HowToUseApplication}
     Mobile element text should be    ${btnFirstQuestion}    ${WhatIsMyAIS}
     Mobile element text should be    ${btnSecondQuestion}    ${HowToSubscribeMyAIS}
@@ -35,6 +39,17 @@ Verify How To Use Page
     Mobile element text should be    ${btnSixthQuestion}    ${CanUseMyAISToGoAbroad}
     Comment    Mobile element text should be    ${btnSixthQuestion}    ${ChangeTheMasterNumber}
     Comment    Mobile element text should be    ${btnSeventhQuestion}    ${CanUseMyAISToGoAbroad}
+    Mobile Capture Screen At Verify Point    HowToUse_VerrifyPage
+
+Verify How To Use Page iOS
+    Mobile element text should be    ${txtHowToUseApplication}    ${HowToUseApplication}
+    Mobile element text should be    ${btnFirstQuestion}    ${WhatIsMyAIS}
+    Mobile element text should be    ${btnSecondQuestion}    ${HowToSubscribeMyAIS}
+    Mobile element text should be    ${btnThirdQuestion}    ${CanCreatedPerOneIDCard}
+    Mobile element text should be    ${btnFourthQuestion}    ${HowToUseMyAIS}
+    Mobile element text should be    ${btnFifthQuestion}    ${ForgotPasswordToLoginToMyAIS}
+    Mobile element text should be    ${btnSixthQuestion}    ${ChangeTheMasterNumber}
+    Mobile element text should be    ${btnSeventhQuestion}    ${CanUseMyAISToGoAbroad}
     Mobile Capture Screen At Verify Point    HowToUse_VerrifyPage
 
 Verify Menu Help And Support
@@ -51,6 +66,13 @@ Verify Menu Help And Support
     Mobile element text should be    ${subMnuHowToUse}    ${lblHowToUse}
     Mobile Capture Screen At Verify Point    HowToUse_VerifyPage
     Swipe to element    ${btnMenu}    screen    down
+
+Verify Answer How To Use Application Page
+    [Arguments]    ${Answer}
+    Wait Mobile Until Page Contains Element    ${txtAnswer${Answer}}
+    ${text}    AISAppiumEx.Get Element Attribute    ${txtAnswer${Answer}}    value
+    Log    ${text}
+    Mobile Capture Screen At Verify Point    HowToUse_VerrifyAns
 
 Select Help And Support Menu
     Select Menu    HelpAndSupport

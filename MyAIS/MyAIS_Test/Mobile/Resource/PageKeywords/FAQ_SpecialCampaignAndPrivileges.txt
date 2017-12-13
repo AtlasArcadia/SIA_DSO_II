@@ -8,14 +8,17 @@ Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/FAQ_SpecialCampai
 Select Topic
     [Arguments]    ${Topic}
     Click Mobile Element    ${lblTopic${Topic}}
+    sleep    5
 
 Select Serenade Privileges Question
     [Arguments]    ${Question}
     Click Mobile Element    ${lblSerenadePrivileges_Q${Question}}
+    sleep    5
 
 Select Serenade Card And Sticker Question
     [Arguments]    ${Question}
     Click Mobile Element    ${lblSerenadeCardAndSticker_Q${Question}}
+    sleep    5
 
 Keywords For Teardown
     [Arguments]    ${#dict_device_name}
@@ -25,6 +28,19 @@ Keywords For Teardown
     Run Keyword And Ignore Error    Close Application
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
+Verify Help and Support
+    Mobile element name should be    ${lblConsultAgent}    ${ConsultAgent}
+    Mobile element name should be    ${lblAskAunjai}    ${AskAunjai}
+    Mobile element name should be    ${lblFAQHeader}    ${FAQHeader}
+    Mobile element name should be    ${lblMainPackageAndOntopPackage}    ${MainPackageAndOntopPackage}
+    Mobile element name should be    ${lblInternetAndAISFiber}    ${InternetAndAISFiber}
+    Mobile element name should be    ${lblYourBalanceAndStatement}    ${YourBalanceAndStatement}
+    Mobile element name should be    ${lblInternationalRoaming}    ${InternationalRoaming}
+    Mobile element name should be    ${lblSMSCancellationAndInquiries}    ${SMSCancellationAndInquiries}
+    Mobile element name should be    ${lblSpecialCampaignAndPrivileges}    ${SpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblTitleHowToUseApp}    ${TitleHowToUseApp}
+    Mobile element name should be    ${lblHowToUse}    ${HowToUse}
+
 Verify Special Campaign And Privileges
     Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
     Mobile element name should be    ${lblTopicSerenadePrivileges}    ${contentSerenadePrivileges}
@@ -32,6 +48,10 @@ Verify Special Campaign And Privileges
     Mobile Capture Screen At Verify Point    FAQ Special Campaign And Privileges
 
 Verify Topic Serenade Privileges
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Topic Serenade Privileges Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Topic Serenade Privileges iOS
+
+Verify Topic Serenade Privileges Android
     Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
     Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
     Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
@@ -39,7 +59,19 @@ Verify Topic Serenade Privileges
     Mobile element name should be    ${lblSerenadePrivileges_Q2}    ${SerenadePrivilegesQ2}
     Mobile Capture Screen At Verify Point    Topic Serenade Privileges
 
+Verify Topic Serenade Privileges iOS
+    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblSerenadePrivileges}    ${topicNameSerenadePrivileges}
+    Mobile element name should be    ${lblSerenadePrivileges_Q1}    ${SerenadePrivilegesQ1}
+    Mobile element name should be    ${lblSerenadePrivileges_Q2}    ${SerenadePrivilegesQ2}
+    Mobile Capture Screen At Verify Point    Topic Serenade Privileges
+
 Verify Answer Serenade Privileges
+    [Arguments]    ${Question}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Answer Serenade Privileges Android    ${Question}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Answer Serenade Privileges iOS    ${Question}
+
+Verify Answer Serenade Privileges Android
     [Arguments]    ${Question}
     Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
     Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
@@ -49,7 +81,18 @@ Verify Answer Serenade Privileges
     Mobile check existing text in name    ${lblAnswerSerenadePrivileges}
     Mobile Capture Screen At Verify Point    Answer Serenade Privileges ${Question}
 
+Verify Answer Serenade Privileges iOS
+    [Arguments]    ${Question}
+    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblSerenadePrivileges}    ${topicNameSerenadePrivileges}
+    Wait Mobile Until Page Contains Element    ${lblAnswerSerenadePrivileges}
+    Mobile Capture Screen At Verify Point    Answer Serenade Privileges ${Question}
+
 Verify Topic Serenade Card And Sticker
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Topic Serenade Card And Sticker Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Topic Serenade Card And Sticker iOS
+
+Verify Topic Serenade Card And Sticker Android
     Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
     Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
     Run Keyword If    '${ar_LANG}'=='EN'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
@@ -58,7 +101,19 @@ Verify Topic Serenade Card And Sticker
     Mobile element name should be    ${lblSerenadeCardAndSticker_Q2}    ${SerenadeCardAndStickerQ2}
     Mobile Capture Screen At Verify Point    Topic Serenade Card And Sticker
 
+Verify Topic Serenade Card And Sticker iOS
+    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblHeaderSenadeCardAndSticker}    ${topicNameSerenadeCardSticker}
+    Mobile element name should be    ${lblSerenadeCardAndSticker_Q1}    ${SerenadeCardAndStickerQ1}
+    Mobile element name should be    ${lblSerenadeCardAndSticker_Q2}    ${SerenadeCardAndStickerQ2}
+    Mobile Capture Screen At Verify Point    Topic Serenade Privileges
+
 Verify Answer Serenade Card And Sticker
+    [Arguments]    ${Question}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Answer Serenade Card And Sticker Android    ${Question}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Answer Serenade Card And Sticker iOS    ${Question}
+
+Verify Answer Serenade Card And Sticker Android
     [Arguments]    ${Question}
     Mobile element text should be    ${lblFAQHeader}    ${FAQHeader}
     Run Keyword If    '${ar_LANG}'=='TH'    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${workAroundWordTitleSerenadePrivileges}
@@ -67,3 +122,11 @@ Verify Answer Serenade Card And Sticker
     Mobile element name should be    ${lblTopicTitle}    ${topicNameSerenadeCardSticker}
     Mobile check existing text in name    ${lblAnswerSerenadeCardAndSticker}
     Mobile Capture Screen At Verify Point    Answer Serenade Card And Sticker ${Question}
+
+Verify Answer Serenade Card And Sticker iOS
+    [Arguments]    ${Question}
+    Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
+    Mobile element name should be    ${lblHeaderSenadeCardAndSticker}    ${topicNameSerenadeCardSticker}
+    Wait Mobile Until Page Contains Element    ${lblAnswerSerenadePrivileges}
+    Mobile Capture Screen At Verify Point    Answer Serenade Privileges ${Question}
+
