@@ -27,17 +27,40 @@ Select Your Balance And Statement Submenu iOS
 
 Select AIS Monthly Statement Question
     [Arguments]    ${noQuestion}
+    Run Keyword If    "${ar_OS}"=="Android"    Select AIS Monthly Statement Question Android    ${noQuestion}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select AIS Monthly Statement Question iOS    ${noQuestion}
+
+Select AIS Monthly Statement Question Android
+    [Arguments]    ${noQuestion}
     Comment    Sleep    5
     Wait Mobile Until Page Contains Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
     Comment    Click Mobile Element At Position    ${lblAISMonthlyStatementQuestion${noQuestion}}    top    0.05
     Click Mobile Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
 
+Select AIS Monthly Statement Question iOS
+    [Arguments]    ${Argument}
+    ${FAQ_Name}    Get mobile text    ${lblPromotionAndPackageAISFibre_FAQ${Argument}}
+    Click Mobile Element    ${lblPromotionAndPackageAISFibre_FAQ${Argument}}
+    [Return]    ${FAQ_Name}
+
 Verify AIS Monthly Statement Question
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Monthly Statement Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Monthly Statement Question iOS
+
+Verify AIS Monthly Statement Question Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${txtSubAISMonthlyStatement}    ${txtAISMonthlyStatementTopic}
     Mobile check existing text in name    ${lblAISMonthlyStatementQuestion1}
     Mobile check existing text in name    ${lblAISMonthlyStatementQuestion2}
     Mobile Capture Screen At Verify Point    AIS Monthly Statement Question
+
+Verify AIS Monthly Statement Question iOS
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
+    Mobile element name should be    ${SubAISMonthlyStatement}    ${AISMonthlyStatementTopic}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion1}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion2}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion3}
+    Mobile Capture Screen At Verify Point    AIS Monthly Statement Question iOS
 
 Select AIS Monthly Statement
     Comment    Sleep    5
@@ -46,10 +69,21 @@ Select AIS Monthly Statement
     Click Mobile Element    ${lblAISMonthlyStatement}
 
 Verify AIS Monthly Statement Answer
+    Run Keyword If    "${ar_OS}"=="Android"    Verify FAQ Your Balance And Statement Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify FAQ Your Balance And Statement Page iOS
+
+Verify AIS Monthly Statement Answer Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${txtSubAISMonthlyStatement}    ${txtAISMonthlyStatementTopic}
     Mobile check existing text in name    ${txtAnswerYourbalanceAndStatement}
     Mobile Capture Screen At Verify Point    AIS Monthly Statement Answer
+
+Verify AIS Monthly Statement Answer iOS
+    [Arguments]    ${FAQ_Name}
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
+    Mobile element name should be    ${lblSubAISMonthlyStatement}    ${AISMonthlyStatementTopic}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestionAndAnswer}    ${FAQ_Name}
+    Mobile Capture Screen At Verify Point    AIS Monthly Statement Answer iOS
 
 Keywords For Teardown
     [Arguments]    ${#dict_device_name}
