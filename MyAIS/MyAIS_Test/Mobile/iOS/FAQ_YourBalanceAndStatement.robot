@@ -9,7 +9,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...    Status : Active
     ...
     ...    Test Step
-    [Tags]    success    3PE    demo
+    [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -369,7 +369,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...         "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...         "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    TH    EN    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -378,4 +378,10 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Your Balance And Statement Submenu
+    Verify FAQ Your Balance And Statement Page
+    Select AIS Monthly Statement
+    Verify AIS Monthly Statement Question
+    ${FAQ_Name}    Select AIS Monthly Statement Question iOS    3
+    Verify AIS Monthly Statement Answer iOS    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}

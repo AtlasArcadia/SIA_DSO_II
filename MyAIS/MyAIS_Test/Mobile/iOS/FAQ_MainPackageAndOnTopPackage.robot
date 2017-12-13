@@ -170,7 +170,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...    Status : Active
     ...
     ...    Test Step
-    [Tags]    success    3PE    demo
+    [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -219,7 +219,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...       - " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...       - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    TH    EN    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -228,6 +228,14 @@ Resource          ../../../../Config/LocalConfig.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Main Package And On Top Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    1
+    Verify Promotion And Package AIS 12Call Question Page
+    ${FAQ_Name}    Select Sub AIS 12Call Question iOS   3
+    Verify Promotion And Package AIS 12Call Answer     3    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_43_2] Go to Main Package & On Top Package Verify AIS 1-2-Call! ( Mao mao) - First question
@@ -250,7 +258,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - ถามตอบข้อที่1
     ...       - ถามตอบข้อที่2
-    ...    7.เลือก " ถามตอบข้อที่1 "
+    ...    7.เลือก " ถามตอบข้อที่2 "
     ...    8.ตรวจสอบหน้า "ถามตอบ"
     ...        " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...         "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
@@ -262,7 +270,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...       - " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...       - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    TH    EN    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -271,6 +279,14 @@ Resource          ../../../../Config/LocalConfig.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Main Package And On Top Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    2
+    Verify Promotion And Package AIS 12Call Question Page
+    ${FAQ_Name}    Select Sub AIS 12Call Question iOS   1
+    Verify Promotion And Package AIS 12Call Answer     1    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_44_2] Go to Main Package & On Top Package Verify AIS 1-2-Call! ( Mao mao) -Second question
@@ -293,7 +309,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - ถามตอบข้อที่1
     ...       - ถามตอบข้อที่2
-    ...    7.เลือก " ถามตอบข้อที่1 "
+    ...    7.เลือก " ถามตอบข้อที่2 "
     ...    8.ตรวจสอบหน้า "ถามตอบ"
     ...        " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...         "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
@@ -305,7 +321,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...       - " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...       - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    TH    EN    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -314,6 +330,14 @@ Resource          ../../../../Config/LocalConfig.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Main Package And On Top Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    2
+    Verify Promotion And Package AIS 12Call Question Page
+    ${FAQ_Name}    Select Sub AIS 12Call Question iOS   2
+    Verify Promotion And Package AIS 12Call Answer     2    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_45_2] Go to Main Package & On Top Package Verify AIS 1-2-Call! ( Mao mao) -Third question
@@ -336,7 +360,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - ถามตอบข้อที่1
     ...       - ถามตอบข้อที่2
-    ...    7.เลือก " ถามตอบข้อที่1 "
+    ...    7.เลือก " ถามตอบข้อที่2 "
     ...    8.ตรวจสอบหน้า "ถามตอบ"
     ...        " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...         "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
@@ -348,7 +372,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...       - " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...       - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    TH    EN    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -357,6 +381,14 @@ Resource          ../../../../Config/LocalConfig.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Main Package And On Top Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    Select FAQ Promotion And Package    AIS12Call
+    Verify FAQ Promotion And Package AIS 12Call Page
+    Select Promotion And Package AIS 12Call Question    2
+    Verify Promotion And Package AIS 12Call Question Page
+    ${FAQ_Name}    Select Sub AIS 12Call Question iOS   3
+    Verify Promotion And Package AIS 12Call Answer     3    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_46_2] Go to Main Package & On Top Package Verify AIS Fibre Third question
@@ -385,7 +417,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...        " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...         "- สำหรับลูกค้าไฟเบอร์" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    TH    EN    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -394,4 +426,10 @@ Resource          ../../../../Config/LocalConfig.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Help And Support Menu
+    Select Main Package And On Top Package Submenu
+    Verify Main Package And On Top Package FAQ Page
+    Select FAQ Promotion And Package    AISFibre
+    Verify FAQ Promotion And Package AIS Fibre Page
+    ${FAQ_Name}    Select Promotion And Package AIS Fibre Question iOS   3
+    Verify Promotion And Package AIS Fibre Answer    3    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
