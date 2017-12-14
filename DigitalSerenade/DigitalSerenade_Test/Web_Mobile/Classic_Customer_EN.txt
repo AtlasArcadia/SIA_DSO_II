@@ -1,0 +1,51 @@
+*** Settings ***
+Resource          ../Web_Mobile/Resource/PageKeywords/Classic_Customer.txt
+Resource          ../Web_Mobile/Config/LocalConfig.txt
+Resource          Pagekeywords/Classic_EN.txt
+Resource          Pagekeywords/Login_EN.txt
+
+*** Test Cases ***
+[F1_ClassicWebMobile_1_1_Y_2_1] Verify profile page with no serenade
+    [Documentation]    ** Created by : WanpenK **
+    ...    ** Create date : 14-Dec-17 **
+    ...
+    ...    *F1_ClassicWebMobile_1_1_Y_2_1*
+    ...
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi
+    ...    - โปรไฟล์ Classic
+    ...    - กรณีไม่ใช่ลูกค้า Serenade
+    ...
+    ...
+    ...    **Pre-Requisite **
+    ...    - Ntype 3PE : 0933300609
+    ...    - Classic Customer
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...
+    ...    **Test Steps **
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
+    ...    - 2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    - 3.Login เข้าสู่ระบบ
+    ...    - 4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    - 5.จับภาพหน้าจอ
+    ...
+    ...
+    ...    **Expected Result**
+    ...    - [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - This welcome package is reserved for AIS Serenade customers who received direct notification from AIS only
+    [Tags]    3PE    TestSite    Success    Sprint23    WebMobileApplication    EN
+    [Setup]    Set Library Search Order    AISAppiumEx
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Classic=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Classic
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Selenium2Library.Wait Until Element Is Visible    Xpath=//*[@class='content'][position()='1']    30s
+    DigitalSerenadeVerifyWelcomePageClassicENLine1    This welcome package is reserved
+    DigitalSerenadeVerifyWelcomePageClassicENLine2    for AIS Serenade customers
+    DigitalSerenadeVerifyWelcomePageClassicENLine3    who received direct notification from AIS only
+    sleep    3s
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+*** Keywords ***

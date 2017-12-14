@@ -1,0 +1,160 @@
+*** Settings ***
+Resource          ../Web_Mobile/Config/LocalConfig.txt
+Resource          ../Web_Mobile/Resource/PageKeywords/Emerald_TypeWS.txt
+Resource          Pagekeywords/Login_EN.txt
+Resource          Pagekeywords/Emerald_EN.txt
+
+*** Test Cases ***
+[F1_EmeraldWebMobile_1_2_Y_2_9]Verify emerald new type C
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 13-Dec-17 **
+    ...
+    ...    *F1_EmeraldWebMobile_1_2_Y_2_9*
+    ...    - โปรไฟล์ Serenade Emerald - New ได้รับสิทธิ์เซเรเนดจากการซื้อ Mass promotion ที่กำหนด ที่มีค่าบริการสูงเทียบเท่าเซเรเนด
+    ...
+    ...    *Pre-Requisite *
+    ...    - Serenade Emerald Customer - New
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...
+    ...
+    ...    *Test Steps *
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    - 2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    - 3.Login เข้าสู่ระบบ
+    ...    - 4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    - 5.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    - [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - We are pleased to welcome
+    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - as an AIS Serenade Emerald customer
+    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
+    ...    - This privilege is offered when you apply for Serenade Package.
+    [Tags]    onhold
+    [Setup]    Set Library Search Order    AISAppiumEx
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_New_TypeC=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_New_TypeC
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    10s
+    AISAppiumEx.Capture Page Screenshot
+    RedefineKeywords.Wait Web Until Page Contains Element    Xpath=//h2[contains(.,'Welcome')]    20s
+    Scroll Web To Element    Xpath=//span[contains(.,'ENG')]
+    sleep    2s
+    RedefineKeywords.Click Web Element    Xpath=//span[contains(.,'ENG')]
+    sleep    2s
+    RedefineKeywords.Capture ScreenShot
+    Scroll Web To Element    Xpath=//h2[contains(.,'Welcome')]
+    DigitalSerenadeVerifyWelcomePageEmeralENLine1    We are pleased to welcome
+    DigitalSerenadeVerifyWelcomePageEmeralENLine2    ${Number}    Mobile No.
+    DigitalSerenadeVerifyWelcomePageEmeralENLine3    as an AIS Serenade Emerald customer
+    DigitalSerenadeVerifyWelcomePageEmeralENLine4    from
+    DigitalSerenadeVerifyWelcomePageEmeralENLine5    This privilege is offered when you apply for Serenade Package.
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_EmeraldWebMobile_1_2_Y_2_10]Verify emerald sustain type C
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 13-Dec-17 **
+    ...
+    ...    *F1_EmeraldWebMobile_1_2_Y_2_10*
+    ...    - โปรไฟล์ Serenade Emerald \ - Sustain ได้รับสิทธิ์เซเรเนดจากการซื้อ Mass promotion ที่กำหนด ที่มีค่าบริการสูงเทียบเท่าเซเรเนด
+    ...
+    ...    *Pre-Requisite *
+    ...    - Serenade Emerald Customer - Sustain
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Steps *
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
+    ...    - 2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    - 3.Login เข้าสู่ระบบ
+    ...    - 4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    - 5.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    - [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - It is our pleasure to take care of
+    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - as an AIS Serenade Emerald customer
+    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
+    ...    - This privilege is offered when you apply for Serenade Package.
+    [Tags]    onhold
+    [Setup]    Set Library Search Order    AISAppiumEx
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeC=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeC
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    10s
+    AISAppiumEx.Capture Page Screenshot
+    RedefineKeywords.Wait Web Until Page Contains Element    Xpath=//h2[contains(.,'Welcome')]    20s
+    Scroll Web To Element    Xpath=//span[contains(.,'ENG')]
+    sleep    2s
+    RedefineKeywords.Click Web Element    Xpath=//span[contains(.,'ENG')]
+    sleep    2s
+    RedefineKeywords.Capture ScreenShot
+    Scroll Web To Element    Xpath=//h2[contains(.,'Welcome')]
+    DigitalSerenadeVerifyWelcomePageEmeralENLine1    It is our pleasure to take care of
+    DigitalSerenadeVerifyWelcomePageEmeralENLine2    ${Number}    Mobile No.
+    DigitalSerenadeVerifyWelcomePageEmeralENLine3    as an AIS Serenade Emerald customer
+    DigitalSerenadeVerifyWelcomePageEmeralENLine4    from
+    DigitalSerenadeVerifyWelcomePageEmeralENLine5    This privilege is offered when you apply for Serenade Package.
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}    # Keywords For Teardown | ${#dict_device_name}
+
+[F1_EmeraldWebMobile_1_2_Y_2_11]Verify emerald downgrade type C
+    [Documentation]    **Created by : WanpenK ***
+    ...    ** Create date : 13-Dec-17 ***
+    ...
+    ...    *F1_EmeraldWebMobile_1_2_Y_2_11*
+    ...    - โปรไฟล์ Serenade Emerald - Downgrade ได้รับสิทธิ์เซเรเนดจากการซื้อ Mass promotion ที่กำหนด ที่มีค่าบริการสูงเทียบเท่าเซเรเนด
+    ...
+    ...    *Pre-Requisite***
+    ...    - Serenade Emerald Customer - Downgrade
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...
+    ...
+    ...    *Test Steps *
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    - 2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    - 3.Login เข้าสู่ระบบ
+    ...    - 4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
+    ...    - 5.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    - [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
+    ...    - We are pleased to take care of
+    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    ...    - as an AIS Serenade Emerald customer
+    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
+    ...    - This privilege is offered when you apply for Serenade Package.
+    [Tags]    onhold
+    [Setup]    Set Library Search Order    AISAppiumEx
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_New_TypeC=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_New_TypeC
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    10s
+    AISAppiumEx.Capture Page Screenshot
+    RedefineKeywords.Wait Web Until Page Contains Element    Xpath=//h2[contains(.,'Welcome')]    20s
+    Scroll Web To Element    Xpath=//span[contains(.,'ENG')]
+    sleep    2s
+    RedefineKeywords.Click Web Element    Xpath=//span[contains(.,'ENG')]
+    sleep    2s
+    RedefineKeywords.Capture ScreenShot
+    Scroll Web To Element    Xpath=//h2[contains(.,'Welcome')]
+    DigitalSerenadeVerifyWelcomePageEmeralENLine1    We are pleased to take care of
+    DigitalSerenadeVerifyWelcomePageEmeralENLine2    ${Number}    Mobile No.
+    DigitalSerenadeVerifyWelcomePageEmeralENLine3    as an AIS Serenade Emerald customer
+    DigitalSerenadeVerifyWelcomePageEmeralENLine4    from
+    DigitalSerenadeVerifyWelcomePageEmeralENLine5    This privilege is offered when you apply for Serenade Package.
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
