@@ -105,7 +105,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Select Sub Menu    SpecialCampaignAndPrivileges
     Verify Special Campaign And Privileges
     Select Topic    SerenadePrivileges
-    Verify Topic Serenade Privileges
+    # Verify Topic Serenade Privileges
     Select Serenade Privileges Question    1
     Verify Answer Serenade Privileges    1
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
@@ -165,7 +165,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Select Sub Menu    SpecialCampaignAndPrivileges
     Verify Special Campaign And Privileges
     Select Topic    SerenadePrivileges
-    Verify Topic Serenade Privileges
+    # Verify Topic Serenade Privileges
     Select Serenade Privileges Question    2
     Verify Answer Serenade Privileges    2
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
@@ -226,7 +226,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Select Sub Menu    SpecialCampaignAndPrivileges
     Verify Special Campaign And Privileges
     Select Topic    SenadeCardAndSticker
-    Verify Topic Serenade Card And Sticker
+    # Verify Topic Serenade Card And Sticker
     Select Serenade Card And Sticker Question    1
     Verify Answer Serenade Card And Sticker    1
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
@@ -286,7 +286,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Select Sub Menu    SpecialCampaignAndPrivileges
     Verify Special Campaign And Privileges
     Select Topic    SenadeCardAndSticker
-    Verify Topic Serenade Card And Sticker
+    # Verify Topic Serenade Card And Sticker
     Select Serenade Card And Sticker Question    2
     Verify Answer Serenade Card And Sticker    2
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
