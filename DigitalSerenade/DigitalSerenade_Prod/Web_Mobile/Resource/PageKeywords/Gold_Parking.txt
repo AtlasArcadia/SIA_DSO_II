@@ -11,7 +11,7 @@ Verify Parking
     Scroll Web To Element    ${imgParking}
     sleep    5s
     Click Web Element    ${btn}
-    Wait Web Until Page Contains Element    xpath=//*[@id="carPark"]/div/div/div/div/img
+    Wait Web Until Page Contains Element    ${PopupListParking}
     Web Capture Screen At Verify Point    List Parking
 
 Verify Date Match Wih Profile Page
@@ -34,7 +34,7 @@ Verify Date Match Wih Profile Page
 Verify Parking Date
     Scroll Web To Element    ${lblPlatinumNumberProfile}
     Web Capture Screen At Verify Point    Date1
-    ${tempTimePeriodProfile}    Get Web Text    ${lblPlatinumTimePeriodProfile}
+    ${tempTimePeriodProfile}    Get Web Text    ${lblGoldTimePeriodProfile}
     @{tempTimePeriodProfile}    Get Regexp Matches    ${tempTimePeriodProfile}    \\d{2}/\\d{2}/\\d{4}
     log    @{tempTimePeriodProfile}[1]
     ${string}    Convert To String    @{tempTimePeriodProfile}[1]
@@ -43,5 +43,5 @@ Verify Parking Date
     ${Year}=    Set Variable    @{MonthYear}[2]
     Scroll Web To Element    ${imgParking}
     ${temp}    Selenium2Library.Get Element Attribute    ${SmallImginImgParking}@src
-    Should Be Equal    ${temp}    https://10.104.249.46/template/pages/SDWP/assets/images/car-park/gold_${Year}${Month}.png
+    Should Be Equal    ${temp}    https://privilege.ais.co.th/template/pages/SDWP/assets/images/car-park/gold_${Year}${Month}.png
     Web Capture Screen At Verify Point    Date2
