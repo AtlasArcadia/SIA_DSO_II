@@ -241,7 +241,9 @@ Verify Promotion And Package AIS 12Call Answer iOS
     Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
     Mobile element name should be    ${lblHeadTopic}    ${AIS12Call}
     ${FAQText}=    Get mobile text    ${lblAnswerAIS12Call_FAQ${QuestionNumber}}
-    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
+    ${FAQText1}=    String.Remove String    ${FAQText}    ${SPACE}
+    ${FAQText2}=    String.Remove String    ${FAQ_Name}    ${SPACE}
+    Should Match Regexp    ${FAQText2}    ${FAQText1}.*
     Mobile Capture Screen At Verify Point    Verify Promotion And Package AIS 12Call Answer iOS ${QuestionNumber}
 
 Verify FAQ Promotion And Package AIS Fibre Page
