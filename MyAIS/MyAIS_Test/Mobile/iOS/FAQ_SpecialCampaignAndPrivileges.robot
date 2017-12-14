@@ -103,7 +103,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
     Select Sub Menu    SpecialCampaignAndPrivileges
-    Verify Special Campaign And Privileges
+    # Verify Special Campaign And Privileges
     Select Topic    SerenadePrivileges
     # Verify Topic Serenade Privileges
     Select Serenade Privileges Question    1
@@ -163,7 +163,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
     Select Sub Menu    SpecialCampaignAndPrivileges
-    Verify Special Campaign And Privileges
+    # Verify Special Campaign And Privileges
     Select Topic    SerenadePrivileges
     # Verify Topic Serenade Privileges
     Select Serenade Privileges Question    2
@@ -224,7 +224,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
     Select Sub Menu    SpecialCampaignAndPrivileges
-    Verify Special Campaign And Privileges
+    # Verify Special Campaign And Privileges
     Select Topic    SenadeCardAndSticker
     # Verify Topic Serenade Card And Sticker
     Select Serenade Card And Sticker Question    1
@@ -284,7 +284,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
     Select Sub Menu    SpecialCampaignAndPrivileges
-    Verify Special Campaign And Privileges
+    # Verify Special Campaign And Privileges
     Select Topic    SenadeCardAndSticker
     # Verify Topic Serenade Card And Sticker
     Select Serenade Card And Sticker Question    2
