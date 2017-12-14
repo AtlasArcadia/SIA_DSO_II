@@ -1,7 +1,9 @@
 *** Settings ***
-Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Platinum_Parking.txt
 Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
+Resource          Resource/PageKeywords/Platinum_TypeN.txt
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocalized.txt
 
 *** Test Cases ***
 [F3_Platinum_4_1_Y_2_1] Verify Parking Page
@@ -72,3 +74,85 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Verify Parking
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F3_PlatinumWebMobile_1_2_Y_2_1] Verify Parking Page
+    [Documentation]    ** Owner:Kate **
+    ...
+    ...    ** Source Requisite **
+    ...    - Serenade Platinum Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...    - Segment End Date \ ดูจากหน้า โปรไฟล์ Serenade ตรง ""ระหว่าง xx/xx/xxxx - xx/xx/xxxx"" เช่น ระหว่าง 05/16/2017 - 11/30/2017
+    ...    Segment End Date : พ.ย. 2560
+    ...
+    ...
+    ...    ** Test Step **
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    5. เลื่อนมาที่หน้าบัตรจอดรถ
+    ...    6.ตรวจสอบหน้าบัตรจอดรถ [1]
+    ...    7.จับภาพหน้าจอ
+    ...
+    ...
+    ...    ** Expect Result**
+    ...    [1]ตรวจสอบหน้าบัตรจอดรถ
+    ...    - แสดงรูป Serenade Parking
+    ...    - ส่วนของกรอบสีแดง แสดงเดือนและปีที่หมดอายุและSegment ของบัตรที่แสดงตรงกับโปรไฟล์
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Sustain_TypeN=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Sustain_TypeN
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Sleep    10s
+    Wait Web Until Page Contains Element    xpath=//h2[contains(.,'Welcome')]
+    Scroll Web To Element    xpath=//div[@class='lang']
+    Wait Web Until Page Contains Element    xpath=//span[contains(.,'ENG')]
+    Click Web Element    xpath=//span[contains(.,'ENG')]
+    sleep    5s
+    Verify Date Match Wih Profile Page Eng
+
+[F3_PlatinumWebMobile_1_2_Y_2_2] Verify Popup Show Parking Name
+    [Documentation]    ** Owner:Kate **
+    ...    Verify ปุ่ม รายชื่อที่จอดรถพิเศษทั้งหมด
+    ...
+    ...
+    ...    ** Source Requisite **
+    ...    - Serenade Platinum Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...
+    ...    ** Test Step **
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    5.เลื่อนมาที่หน้าบัตรจอดรถ
+    ...    6.กดปุ่ม รายชื่อที่จอดรถพิเศษทั้งหมด
+    ...    7.ตรวจสอบ Popup [1]
+    ...    8.จับภาพหน้าจอ
+    ...
+    ...
+    ...    ** Expect Result**
+    ...    [1]ตรวจสอบ Popup
+    ...    แสดง Popup รายชื่อที่จอดรถ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Sustain_TypeN=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Sustain_TypeN
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Sleep    10s
+    Capture ScreenShot
+    Wait Web Until Page Contains Element    xpath=//h2[contains(.,'Welcome')]
+    Scroll Web To Element    xpath=//div[@class='lang']
+    Wait Web Until Page Contains Element    xpath=//span[contains(.,'ENG')]
+    Click Web Element    xpath=//span[contains(.,'ENG')]
+    sleep    5s
+    Scroll Web To Element    xpath=//a[@class='call-btn']
+    Wait Web Until Page Contains Element    xpath=//img[contains(@src,'/template/pages/SDWP/assets/images/banner-special-platinum-en.jpg')]
+    Wait Web Until Page Contains Element    xpath=//p[contains(@class,'date')]
+    Wait Web Until Page Contains Element    xpath=//img[contains(@src,'/template/pages/SDWP/assets/images/car-park/platinum_201809.png')]
+    Wait Web Until Page Contains Element    xpath=//a[contains(.,'THE LIST OF PARKING SPACES')]
+    Click Web Element    xpath=//a[contains(.,'THE LIST OF PARKING SPACES')]
+    Wait Web Until Page Contains Element    xpath=//img[contains(@src,'/template/pages/SDWP/assets/images/park-platinum.jpg')]
+    Capture ScreenShot
