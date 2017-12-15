@@ -26,6 +26,10 @@ Select Your Balance And Statement Submenu iOS
     Select Sub Menu    YourBalanceAndStatement
 
 Select AIS Monthly Statement Question
+    Run Keyword If    "${ar_OS}"=="Android"    Select AIS Monthly Statement Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    SSelect AIS Monthly Statement Question iOS
+
+Select AIS Monthly Statement Question Android
     [Arguments]    ${noQuestion}
     Run Keyword If    "${ar_OS}"=="Android"    Select AIS Monthly Statement Question Android    ${noQuestion}
     ...    ELSE IF    "${ar_OS}"=="iOS"    Select AIS Monthly Statement Question iOS    ${noQuestion}
@@ -38,10 +42,10 @@ Select AIS Monthly Statement Question Android
     Click Mobile Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
 
 Select AIS Monthly Statement Question iOS
-    [Arguments]    ${Argument}
-    sleep    10s
-    ${FAQ_Name}    Get mobile text    ${lblAISMonthlyStatementQuestion${Argument}}
-    Click Mobile Element    ${lblAISMonthlyStatementQuestion${Argument}}
+    [Arguments]    ${noQuestion}
+    ${FAQ_Name}    Get mobile text   ${lblAISMonthlyStatementQuestion${noQuestion}}
+    Click Mobile Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
+    Sleep    5
     [Return]    ${FAQ_Name}
 
 Verify AIS Monthly Statement Question
@@ -56,23 +60,47 @@ Verify AIS Monthly Statement Question Android
     Mobile Capture Screen At Verify Point    AIS Monthly Statement Question
 
 Verify AIS Monthly Statement Question iOS
-    sleep    20s
+    Wait Mobile Until Element Visible    ${lblYourBalance&Statement}    30
     Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
-    Mobile element name should be    ${lblSubAISMonthlyStatement}    ${AISMonthlyStatementTopic}
-    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion1}
-    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion2}
-    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion3}
-    Mobile Capture Screen At Verify Point    AIS Monthly Statement Question iOS
+    Mobile element name should be    ${lblHeadTopic}    ${AISMonthlyStatementTopic}
+    Check YourBalance&Statement Text In Question   1
+    Check YourBalance&Statement Text In Question   2
+    Check YourBalance&Statement Text In Question   3
+    Mobile Capture Screen At Verify Point    AIS Monthly Statement Question
+
+Check YourBalance&Statement Text In Question
+    [Arguments]    ${Argument}
+    Run Keyword If    "${ar_OS}"=="Android"    Check YourBalance&Statement Text In Question Android    ${Argument}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Check YourBalance&Statement Text In Question iOS    ${Argument}
+
+Check YourBalance&Statement Text In Question Android
+    [Arguments]    ${Argument}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion${Argument}}
+
+Check YourBalance&Statement Text In Question iOS
+    [Arguments]    ${Argument}
+    ${FAQ_Name}    Get mobile text   ${lblAISMonthlyStatementQuestion${Argument}}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion${Argument}}
 
 Select AIS Monthly Statement
+    Run Keyword If    "${ar_OS}"=="Android"    Select AIS Monthly Statement Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select AIS Monthly Statement iOS
+
+Select AIS Monthly Statement Android
     Comment    Sleep    5
     Wait Mobile Until Page Contains Element    ${lblAISMonthlyStatement}
     Comment    Click Mobile Element At Position    ${lblAISMonthlyStatement}    top    0.05
     Click Mobile Element    ${lblAISMonthlyStatement}
 
+Select AIS Monthly Statement iOS
+    Click Mobile Element    ${lblAISMonthlyStatement}
+    Sleep    5
+
+
 Verify AIS Monthly Statement Answer
-    Run Keyword If    "${ar_OS}"=="Android"    Verify FAQ Your Balance And Statement Page Android
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify FAQ Your Balance And Statement Page iOS
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Monthly Statement Answer Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Monthly Statement Answer iOS    ${noQuestion}    ${FAQ_Name}
 
 Verify AIS Monthly Statement Answer Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
@@ -81,12 +109,13 @@ Verify AIS Monthly Statement Answer Android
     Mobile Capture Screen At Verify Point    AIS Monthly Statement Answer
 
 Verify AIS Monthly Statement Answer iOS
-    [Arguments]    ${FAQ_Name}
-    sleep    10s
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
+    Wait Mobile Until Element Visible    ${lblYourBalance&Statement}    30
     Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
-    Mobile element name should be    ${lblSubAISMonthlyStatement}    ${AISMonthlyStatementTopic}
-    Mobile check existing text in name    ${lblAISMonthlyStatementQuestionAndAnswer}    ${FAQ_Name}
-    Mobile Capture Screen At Verify Point    AIS Monthly Statement Answer iOS
+    Mobile element name should be    ${lblHeadTopic}    ${AISMonthlyStatementTopic}
+    ${FAQText}=    Get mobile text    ${lblHeadAnswerTopic}
+    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
+    Mobile Capture Screen At Verify Point    Verify AIS Monthly Statement Answer iOS${noQuestion}
 
 Keywords For Teardown
     [Arguments]    ${#dict_device_name}

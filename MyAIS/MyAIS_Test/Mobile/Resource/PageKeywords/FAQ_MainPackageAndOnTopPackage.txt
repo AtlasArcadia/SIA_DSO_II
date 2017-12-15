@@ -100,8 +100,9 @@ Verify AIS Postpaid Answer iOS
     [Arguments]    ${QuestionNumber}    ${FAQ_Name}
     Sleep    5
     Wait Mobile Until Element Visible     ${lblPromotionsAndPackages}
-    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
-    Mobile element name should be    ${lblAISPostpaidHead}    ${AISPostpaidTopic}
+    ${Checktext}=    Get mobile text    ${lblPromotionsAndPackages}
+    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package") or ("${Checktext}"=="2")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
+    Mobile element name should be    ${lblHeadTopic}    ${AISPostpaidTopic}
     ${FAQText}=    Get mobile text    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}
     Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
     Mobile Capture Screen At Verify Point    Verify AIS Postpaid Answer iOS ${QuestionNumber}
@@ -121,7 +122,8 @@ Verify AIS Postpaid FAQ Page Android
 
 Verify AIS Postpaid FAQ Page iOS
     Wait Mobile Until Element Visible    ${lblPromotionsAndPackages}    30
-    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
+    ${Checktext}=    Get mobile text    ${lblPromotionsAndPackages}
+    Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package") or ("${Checktext}"=="2")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
     Mobile element name should be    ${lblHeadTopic}    ${AISPostpaidTopic}
     Check Promotion&Package Text In Question    1
     Check Promotion&Package Text In Question    2
