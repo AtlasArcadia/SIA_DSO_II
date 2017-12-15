@@ -157,8 +157,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify FAQ Your Balance And Statement Page
     Select AIS One-2-Call Credit Balance
     Verify AIS 1-2-Call Credit Balance Question
-    Select AIS 1-2-Call Credit Balance Question    1    #Select Second Question
-    Verify AIS 1-2-Call Credit Balance Answer
+    ${FAQ_Name}    Select AIS 1-2-Call Credit Balance Question iOS    1    #Select Second Question
+    Verify AIS 1-2-Call Credit Balance Answer    1    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_20_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Second question

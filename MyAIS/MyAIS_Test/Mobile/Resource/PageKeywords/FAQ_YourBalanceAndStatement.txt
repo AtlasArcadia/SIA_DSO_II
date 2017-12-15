@@ -178,13 +178,26 @@ Verify AIS 1-2-Call Credit Balance Question iOS
 
 Select AIS 1-2-Call Credit Balance Question
     [Arguments]    ${noQuestion}
+    Run Keyword If    "${ar_OS}"=="Android"    Select AIS 1-2-Call Credit Balance Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select AIS 1-2-Call Credit Balance Question iOS    ${noQuestion}
+
+Select AIS 1-2-Call Credit Balance Question Android
+    [Arguments]    ${noQuestion}
     Click Mobile Element    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}
     Sleep    5
     Comment    Click Mobile Element At Position    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}    top    0.05    #Select First Question
 
+Select AIS 1-2-Call Credit Balance Question iOS
+    [Arguments]    ${noQuestion}
+    ${FAQ_Name}    Get mobile text    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}
+    Click Mobile Element    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}
+    Sleep    5
+    [Return]    ${FAQ_Name}
+
 Verify AIS 1-2-Call Credit Balance Answer
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
     Run Keyword If    "${ar_OS}"=="Android"    Verify AIS 1-2-Call Credit Balance Answer Android
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS 1-2-Call Credit Balance Answer iOS
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS 1-2-Call Credit Balance Answer iOS    ${noQuestion}    ${FAQ_Name}
 
 Verify AIS 1-2-Call Credit Balance Answer Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
@@ -193,10 +206,13 @@ Verify AIS 1-2-Call Credit Balance Answer Android
     Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Answer
 
 Verify AIS 1-2-Call Credit Balance Answer iOS
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
+     Wait Mobile Until Element Visible    ${lblYourBalance&Statement}    30
     Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
-    Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${AISOne-2-CallCreditBalanceTopic}
-    Wait Mobile Until Page Contains Element    ${txtAnswerYourbalanceAndStatement}
-    Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Answer
+    Mobile element name should be    ${lblHeadTopic}    ${AISOne-2-CallCreditBalanceTopic}
+    ${FAQText}=    Get mobile text    ${lblHeadAnswerTopic}
+    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
+    Mobile Capture Screen At Verify Point    Verify AIS 1-2-Call Credit Balance Answer iOS${noQuestion}
 
 Verify Answer Text
     [Arguments]    ${locator}
