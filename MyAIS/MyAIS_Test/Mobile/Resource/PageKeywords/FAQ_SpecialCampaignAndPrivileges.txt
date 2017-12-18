@@ -40,6 +40,7 @@ Verify Help and Support
     Mobile element name should be    ${lblSpecialCampaignAndPrivileges}    ${SpecialCampaignAndPrivileges}
     Mobile element name should be    ${lblTitleHowToUseApp}    ${TitleHowToUseApp}
     Mobile element name should be    ${lblHowToUse}    ${HowToUse}
+    Mobile Capture Screen At Verify Point    Verify Help and Support
 
 Verify Special Campaign And Privileges
     Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
@@ -86,6 +87,7 @@ Verify Answer Serenade Privileges iOS
     Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
     Mobile element name should be    ${lblSerenadePrivileges}    ${topicNameSerenadePrivileges}
     Wait Mobile Until Page Contains Element    ${lblAnswerSerenadePrivileges}
+    Verify Answer Text    ${lblAnswerSerenadePrivileges}
     Mobile Capture Screen At Verify Point    Answer Serenade Privileges ${Question}
 
 Verify Topic Serenade Card And Sticker
@@ -128,5 +130,13 @@ Verify Answer Serenade Card And Sticker iOS
     Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
     Mobile element name should be    ${lblHeaderSenadeCardAndSticker}    ${topicNameSerenadeCardSticker}
     Wait Mobile Until Page Contains Element    ${lblAnswerSerenadePrivileges}
+    Verify Answer Text    ${lblAnswerSerenadePrivileges}
     Mobile Capture Screen At Verify Point    Answer Serenade Privileges ${Question}
 
+Verify Answer Text
+    [Arguments]    ${locator}
+    ${ans}=    Get mobile attribute    ${locator}    name
+    log    ${ans}
+    ${verifyText}    Should Match Regexp    ${ans}    .+
+    log    ${verifyText}
+    Comment    Mobile Capture Screen At Verify Point    Answer Text

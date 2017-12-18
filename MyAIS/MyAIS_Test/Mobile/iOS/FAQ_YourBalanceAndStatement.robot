@@ -56,7 +56,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...          "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...          "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE    demo
+    [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -99,7 +99,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...          "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...          "ใบแจ้งค่าใช้บริการรายเดือน" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE    demo
+    [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -144,7 +144,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...          "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...          "เช็กยอดเงินวัน-ทู-คอล!" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE    demo
+    [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -202,8 +202,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify FAQ Your Balance And Statement Page
     Select AIS One-2-Call Credit Balance
     Verify AIS 1-2-Call Credit Balance Question
-    Select AIS 1-2-Call Credit Balance Question    2    #Select Second Question
-    Verify AIS 1-2-Call Credit Balance Answer
+    ${FAQ_Name}    Select AIS 1-2-Call Credit Balance Question iOS    2    #Select Second Question
+    Verify AIS 1-2-Call Credit Balance Answer    2    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_21_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Third question
@@ -247,8 +247,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Comment    Verify FAQ Your Balance And Statement Page
     Select AIS One-2-Call Credit Balance
     Verify AIS 1-2-Call Credit Balance Question
-    Select AIS 1-2-Call Credit Balance Question    3    #Select Thrid Question
-    Verify AIS 1-2-Call Credit Balance Answer
+    ${FAQ_Name}    Select AIS 1-2-Call Credit Balance Question iOS    3    #Select Thrid Question
+    Verify AIS 1-2-Call Credit Balance Answer    3    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_22_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Fourth question
@@ -292,8 +292,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Comment    Verify FAQ Your Balance And Statement Page
     Select AIS One-2-Call Credit Balance
     Verify AIS 1-2-Call Credit Balance Question
-    Select AIS 1-2-Call Credit Balance Question    4    #Select Fourth Question
-    Verify AIS 1-2-Call Credit Balance Answer
+    ${FAQ_Name}    Select AIS 1-2-Call Credit Balance Question iOS    4    #Select Fourth Question
+    Verify AIS 1-2-Call Credit Balance Answer    4    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_23_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Fifth question
@@ -324,7 +324,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...      "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...      "เช็กยอดเงินวัน-ทู-คอล!" (Text)
     ...      - Other text (Use Regular expression = ".*")none
-    [Tags]    success    3PE
+    [Tags]    success    3PE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -337,8 +337,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Comment    Verify FAQ Your Balance And Statement Page
     Select AIS One-2-Call Credit Balance
     Verify AIS 1-2-Call Credit Balance Question
-    Select AIS 1-2-Call Credit Balance Question    5    #Select Fifth Question
-    Verify AIS 1-2-Call Credit Balance Answer
+    ${FAQ_Name}    Select AIS 1-2-Call Credit Balance Question iOS    5    #Select Fifth Question
+    Verify AIS 1-2-Call Credit Balance Answer    5    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_24_2] Go to Your Balance & Statement Verify Invoice/Bill AIS Fiber Fist question
@@ -366,7 +366,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...     "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...     "ใบแจ้งค่าใช้บริการไฟเบอร์" (Text)
     ...     - Other text (Use Regular expression = ".*")none
-    [Tags]    success    3PE    demo
+    [Tags]    success    3PE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

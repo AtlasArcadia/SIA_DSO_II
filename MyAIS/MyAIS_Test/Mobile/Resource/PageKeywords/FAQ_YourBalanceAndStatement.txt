@@ -31,11 +31,6 @@ Select AIS Monthly Statement Question
 
 Select AIS Monthly Statement Question Android
     [Arguments]    ${noQuestion}
-    Run Keyword If    "${ar_OS}"=="Android"    Select AIS Monthly Statement Question Android    ${noQuestion}
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Select AIS Monthly Statement Question iOS    ${noQuestion}
-
-Select AIS Monthly Statement Question Android
-    [Arguments]    ${noQuestion}
     Comment    Sleep    5
     Wait Mobile Until Page Contains Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
     Comment    Click Mobile Element At Position    ${lblAISMonthlyStatementQuestion${noQuestion}}    top    0.05
@@ -207,7 +202,7 @@ Verify AIS 1-2-Call Credit Balance Answer Android
 
 Verify AIS 1-2-Call Credit Balance Answer iOS
     [Arguments]    ${noQuestion}    ${FAQ_Name}
-     Wait Mobile Until Element Visible    ${lblYourBalance&Statement}    30
+    Wait Mobile Until Element Visible    ${lblYourBalance&Statement}    30
     Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
     Mobile element name should be    ${lblHeadTopic}    ${AISOne-2-CallCreditBalanceTopic}
     ${FAQText}=    Get mobile text    ${lblHeadAnswerTopic}
@@ -245,7 +240,7 @@ Verify Invoice/Bill AIS Fiber Question iOS
     Mobile element name should be    ${txtInvoice/BillAISFiber}    ${Invoice/BillAISFiberTopic}
     Mobile check existing text in name    ${lblInvoice/BillAISFiberQuestion1}
     Mobile check existing text in name    ${lblInvoice/BillAISFiberQuestion2}
-    Mobile Capture Screen At Verify Point    Invoice or Bill AIS Fiber Question
+    Mobile Capture Screen At Verify Point    Verify Answer
 
 Select Invoice/Bill AIS Fiber Question
     [Arguments]    ${noQuestion}
@@ -270,4 +265,5 @@ Verify Invoice/Bill AIS Fiber Answer iOS
     Mobile element name should be    ${txtYourBalanceAndStatement}    ${Yourbalancestatement}
     Mobile element name should be    ${txtInvoice/BillAISFiber}    ${Invoice/BillAISFiberTopic}
     Wait Mobile Until Page Contains Element    ${txtAnswerYourbalanceAndStatement}
-    Mobile Capture Screen At Verify Point    Verify Invoice/Bill AIS Fiber Answer
+    Verify Answer Text    ${txtAnswerYourbalanceAndStatement}
+    Mobile Capture Screen At Verify Point    Verify Answer

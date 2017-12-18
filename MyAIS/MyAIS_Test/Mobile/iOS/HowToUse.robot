@@ -426,7 +426,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...    - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่? ( คำถามข้อที่7)
     ...    5.เลือก " คำถามข้อที่7 "
     ...    6.ตรวจสอบ "คำตอบ"none
-    [Tags]    inactive    # success
+    [Tags]    success    active
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
