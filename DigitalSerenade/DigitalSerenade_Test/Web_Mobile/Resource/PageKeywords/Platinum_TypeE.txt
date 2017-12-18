@@ -6,7 +6,7 @@ Resource          DigitalSerenadeProfileCommon.txt
 
 *** Keywords ***
 Verify Profile Page Serenade Platinum New TypeE
-    [Arguments]    ${Number}    ${Segment}
+    [Arguments]    ${Number}    ${Segment}    ${Type}
     #Verify โปรไฟล์
     ${VerNumber}    Get Web Text    xpath=(//p[@class='content'])[1]    #We are pleased to welcome \ 0935850537
     Page Should Contain    ${PlatinumGreetingEng_New}    #We are pleased to welcome
@@ -20,11 +20,11 @@ Verify Profile Page Serenade Platinum New TypeE
     ${Period}    Get Web Text    xpath=(//p[@class='content'])[position()=4]    #from 08/15/2017 to 09/30/2018
     log    ${Period}
     Comment    Get Web Text    xpath=//p[contains(.,'The privilege is offered to selected customers.')]
-    Page Should Contain Text    ${PlatinumSegmentProfileEngTypeE}    #The privilege is offered to selected customers.
+    Page Should Contain Text    ${PlatinumSegmentProfileEngType${Type}}    #The privilege is offered to selected customers.
     Capture ScreenShot
 
 Verify Profile Page Serenade Platinum Sustain TypeE
-    [Arguments]    ${Number}    ${Segment}
+    [Arguments]    ${Number}    ${Segment}    ${Type}
     #Verify โปรไฟล์
     ${VerNumber}    Get Web Text    xpath=(//p[@class='content'])[1]    #It is our pleasure to take care of \ 0935850537
     Page Should Contain    ${PlatinumGreetingEng_Sustain}    #It is our pleasure to take care of
@@ -37,11 +37,11 @@ Verify Profile Page Serenade Platinum Sustain TypeE
     Page Should Contain Text    ${${Segment}SegmentProfileEng}    #as an AIS Serenade Platinum customer
     ${Period}    Get Web Text    xpath=(//p[@class='content'])[position()=4]    #from 08/15/2017 to 09/30/2018
     log    ${Period}
-    Page Should Contain Text    ${PlatinumSegmentProfileEngTypeE}    #The privilege is offered to selected customers.
+    Page Should Contain Text    ${PlatinumSegmentProfileEngType${Type}}    #The privilege is offered to selected customers.
     Capture ScreenShot
 
 Verify Profile Page Serenade Platinum Upgrade TypeE
-    [Arguments]    ${Number}    ${Segment}
+    [Arguments]    ${Number}    ${Segment}    ${Type}
     #Verify โปรไฟล์
     ${VerNumber}    Get Web Text    xpath=(//p[@class='content'])[1]    #We are pleased to welcome \ 0935850537
     Page Should Contain    ${PlatinumGreetingEng_Upgrade}    #We are pleased to welcome
@@ -54,5 +54,5 @@ Verify Profile Page Serenade Platinum Upgrade TypeE
     Page Should Contain Text    ${${Segment}SegmentProfileEng}    #as an AIS Serenade Platinum customer
     ${Period}    Get Web Text    xpath=(//p[@class='content'])[position()=4]    #from 08/15/2017 to 09/30/2018
     log    ${Period}
-    Page Should Contain Text    ${PlatinumSegmentProfileEngTypeE}    #The privilege is offered to selected customers.
+    Page Should Contain Text    ${PlatinumSegmentProfileEngType${Type}}    #The privilege is offered to selected customers.
     Capture ScreenShot
