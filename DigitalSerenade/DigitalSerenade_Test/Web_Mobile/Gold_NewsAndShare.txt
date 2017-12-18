@@ -302,3 +302,121 @@ Resource          Resource/PageKeywords/Gold_NewsAndShare.txt
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Verify Image Share Segment
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F13_GoldWebMobile_1_2_Y_2_1] Share Facebook EN
+    [Documentation]    *** Owner:Now ***
+    ...
+    ...    *** Source Requisite ***
+    ...    "- Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    "
+    ...
+    ...
+    ...    *** Step ***
+    ...    "1. เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3. Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า Share ความประทับใจ
+    ...    5. คลิกปุ่มไอค่อน
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบหน้าเว็บ [2]
+    ...    8. จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    "[1]ตรวจสอบ URL
+    ...    https://m.facebook.com/login.php?skip_api_login=1&api_key=966242223397117&signed_next=1&next=https%3A%2F%2Fm.facebook.com%2Fsharer%2Fsharer.php%3Fu%3Dhttps%253A%252F%252Fprivilege.ais.co.th%252FWelcomeToSerenade%26title%3DSerenade%2527s%2Bimpression%26description%3D%2523AISSERENADE%2B%2523GOLD%26picture%3Dhttps%253A%252F%252Fprivilege.ais.co.th%252Ftemplate%252Fpages%252FSDWP%252Fassets%252Fimages%252Fbanner%252Fshare-gold.png&cancel_url=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Freturn%2Fclose%3Ferror_code%3D4201%26error_message%3DUser%2Bcanceled%2Bthe%2BDialog%2Bflow%23_%3D_&display=touch&locale=th_TH&_rdr
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - โลโก้ Facebook
+    ...    - เข้าสู่บัญชีผู้ใช้ Facebook ของคุณเพื่อแชร์"
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Comment    Verify Share To Facebook No Login
+    Scroll Web To Element    ${btnShareToFacebook}
+    Click Web Element    ${btnShareToFacebook}
+    Sleep    10
+    ${Url}=    Selenium2Library.Get Location
+    Selenium2Library.Select Window    title=www.facebook.com
+    ${UrFl}=    Selenium2Library.Get Location
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F13_GoldWebMobile_1_2_Y_2_3] Verify segment color EN
+    [Documentation]    *** Owner:Now ***
+    ...
+    ...    *** Source Requisite ***
+    ...    "- Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    "
+    ...
+    ...
+    ...    *** Step ***
+    ...    "1. เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3. Login เข้าสู่ระบบ
+    ...    4.เลื่อนลงมาด้านล่างของเว็บ
+    ...    5. ตรวจสอบรูปภาพของ Segment [1]
+    ...    6. จับภาพหน้าจอ"
+    ...
+    ...
+    ...    *** Expect ***
+    ...
+    ...    แสดงรูปภาพตรงตาม Segment
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Verify Image Share Segment
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F12_GoldWebMobile_1_2_Y_2_1] News Line EN
+    [Documentation]    *** Owner:Now ***
+    ...
+    ...    *** Source Requisite ***
+    ...    "- Serenade Gold Customer
+    ...    - Ntype 3BE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    "
+    ...
+    ...
+    ...    *** Step ***
+    ...    "1. เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3. Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า ช่องทางอัพเดทข่าวสารและบริการออนไลน์
+    ...    5. คลิกที่ปุ่มไอคอน Line
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบหน้าเว็บ [2]
+    ...    8.จับภาพหน้าจอ
+    ...    "
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "[1]ตรวจสอบ URL
+    ...    http://line.me/ti/p/@aisprivilege
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - Open LINE to continue.
+    ...    - โลโก้ LINE
+    ...    - Open INE (ปุ่ม) "
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Social Button    Line
+    Verify Line Web
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
