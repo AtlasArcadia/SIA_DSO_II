@@ -31,11 +31,42 @@ Resource          Resource/PageKeywords/Platinum_SurpriseCampaign.txt
     ...    [2]ตรวจสอบหน้าเว็บ
     ...    - \ ประกาศรายชื่อผู้ได้รับรางวัล
     ...    - Serenade Ultimate Surprizes
-    [TAGS]    demo
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Verify Surprise Campaign
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F11_PlatinumWebMobile_2_2_Y_2_1] Verify Surprise Campaign EN
+    [Documentation]    *Source Requisite*
+    ...    - Serenade Platinum Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Surprise campaign \
+    ...    5.ตรวจสอบรูปภาพ Surprise campaign [1]
+    ...    6.จับภาพหน้าจอ
+    ...
+    ...    *Expect Result*
+    ...    '[1]ตรวจสอบรูปภาพ
+    ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
+    [Tags]    demo
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    2
+    Scroll Web To Element    xpath=//span[@class="active"]
+    ${ChkLang}=    Selenium2Library.Get Text    xpath=//span[@class="active"]
+    Run Keyword If    '${ChkLang}' == 'THAI'    Selenium2Library.Click Element    xpath=//span[contains(.,"ENG")]
+    Run Keyword If    '${ChkLang}' == 'ENG'    Exit For Loop
+    Verify Picture Surprice Campaign
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
