@@ -61,6 +61,7 @@ Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocali
     ...    ** Expect Result**
     ...    [1]ตรวจสอบ หน้า PA ผู้ช่วยส่วนตัว
     ...    แสดงรูปภาพตามด้านล่าง
+    [Setup]
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Sustain_TypeN=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Sustain_TypeN
@@ -74,3 +75,4 @@ Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocali
     Click Web Element    xpath=//span[contains(.,'ENG')]
     sleep    10s
     Verify Img PA Eng
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
