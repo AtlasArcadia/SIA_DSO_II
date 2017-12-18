@@ -37,6 +37,9 @@ Verify Parking Date
     Scroll Web To Element    ${lblPlatinumNumberProfile}
     Web Capture Screen At Verify Point    Date1
     ${tempTimePeriodProfile}    Get Web Text    ${lblGoldTimePeriodProfile}
+    Scroll Web To Element    ${lblPlatinumNumberProfile}
+    Web Capture Screen At Verify Point    Date1
+    ${tempTimePeriodProfile}    Get Web Text    ${lblPlatinumTimePeriodProfile}
     @{tempTimePeriodProfile}    Get Regexp Matches    ${tempTimePeriodProfile}    \\d{2}/\\d{2}/\\d{4}
     log    @{tempTimePeriodProfile}[1]
     ${string}    Convert To String    @{tempTimePeriodProfile}[1]
@@ -46,4 +49,5 @@ Verify Parking Date
     Scroll Web To Element    ${imgParking}
     ${temp}    Selenium2Library.Get Element Attribute    ${SmallImginImgParking}@src
     Should Be Equal    ${temp}    https://privilege.ais.co.th/template/pages/SDWP/assets/images/car-park/gold_${Year}${Month}.png
+    Should Be Equal    ${temp}    https://10.104.249.46/template/pages/SDWP/assets/images/car-park/gold_${Year}${Month}.png
     Web Capture Screen At Verify Point    Date2
