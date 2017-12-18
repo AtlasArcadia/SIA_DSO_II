@@ -2,5 +2,56 @@
 Resource          DigitalSerenadeCommon.txt
 Resource          ../PageVariable/Platinum_TypeCVariable.txt
 Resource          ../PageRepository/Platinum_TypeCRepository.txt
-Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_TypeCLocalized.txt
 Resource          DigitalSerenadeProfileCommon.txt
+
+*** Keywords ***
+Verify Profile Page Serenade Platinum New TypeC
+    [Arguments]    ${Number}    ${Segment}    ${Type}
+    #Verify โปรไฟล์
+    ${VerNumber}    Get Web Text    xpath=(//p[@class='content'])[1]    #We are pleased to welcome \ 0935850537
+    Page Should Contain    ${PlatinumGreetingEng_New}    #We are pleased to welcome
+    ${VerNumber2}    Get Web Text    xpath=(//p[@class='content'])[2]    #Mobile No. 0935850537
+    ${VerNumber3}    Fetch From Right    ${VerNumber2}    ${SPACE}
+    log    ${VerNumber3}
+    Page Should Contain Text    ${PlatinumMobileno}    #Mobile No.
+    Should Be Equal    ${Number}    ${VerNumber3}
+    ${Segment}    Get Web Text    xpath=//p[contains(.,'as an AIS Serenade Platinum customer')]    #as an AIS Serenade Platinum customer
+    Page Should Contain Text    ${${Segment}SegmentProfileEng}    #as an AIS Serenade Platinum customer
+    ${Period}    Get Web Text    xpath=(//p[@class='content'])[position()=4]    #from 08/15/2017 to 09/30/2018
+    log    ${Period}
+    Page Should Contain Text    ${PlatinumSegmentProfileEngType${Type}}    #This privilege is offered when you apply for Serenade Package.
+    Capture ScreenShot
+
+Verify Profile Page Serenade Platinum Sustain TypeC
+    [Arguments]    ${Number}    ${Segment}    ${Type}
+    #Verify โปรไฟล์
+    ${VerNumber}    Get Web Text    xpath=(//p[@class='content'])[1]    #It is our pleasure to take care of \ 0935850537
+    Page Should Contain    ${PlatinumGreetingEng_Sustain}    #It is our pleasure to take care of
+    ${VerNumber2}    Get Web Text    xpath=(//p[@class='content'])[2]    #Mobile No. 0935850537
+    ${VerNumber3}    Fetch From Right    ${VerNumber2}    ${SPACE}
+    log    ${VerNumber3}
+    Page Should Contain Text    ${PlatinumMobileno}    #Mobile No.
+    Should Be Equal    ${Number}    ${VerNumber3}
+    ${Segment}    Get Web Text    xpath=//p[contains(.,'as an AIS Serenade Platinum customer')]    #as an AIS Serenade Platinum customer
+    Page Should Contain Text    ${${Segment}SegmentProfileEng}    #as an AIS Serenade Platinum customer
+    ${Period}    Get Web Text    xpath=(//p[@class='content'])[position()=4]    #from 08/15/2017 to 09/30/2018
+    log    ${Period}
+    Page Should Contain Text    ${PlatinumSegmentProfileEngType${Type}}    #This privilege is offered when you apply for Serenade Package.
+    Capture ScreenShot
+
+Verify Profile Page Serenade Platinum Upgrade TypeC
+    [Arguments]    ${Number}    ${Segment}    ${Type}
+    #Verify โปรไฟล์
+    ${VerNumber}    Get Web Text    xpath=(//p[@class='content'])[1]    #We are pleased to welcome \ 0935850537
+    Page Should Contain    ${PlatinumGreetingEng_Upgrade}    #We are pleased to welcome
+    ${VerNumber2}    Get Web Text    xpath=(//p[@class='content'])[2]    #Mobile No. 0935850537
+    ${VerNumber3}    Fetch From Right    ${VerNumber2}    ${SPACE}
+    log    ${VerNumber3}
+    Page Should Contain Text    ${PlatinumMobileno}    #Mobile No.
+    Should Be Equal    ${Number}    ${VerNumber3}
+    ${Segment}    Get Web Text    xpath=//p[contains(.,'as an AIS Serenade Platinum customer')]    #as an AIS Serenade Platinum customer
+    Page Should Contain Text    ${${Segment}SegmentProfileEng}    #as an AIS Serenade Platinum customer
+    ${Period}    Get Web Text    xpath=(//p[@class='content'])[position()=4]    #from 08/15/2017 to 09/30/2018
+    log    ${Period}
+    Page Should Contain Text    ${PlatinumSegmentProfileEngType${Type}}    #This privilege is offered when you apply for Serenade Package.
+    Capture ScreenShot

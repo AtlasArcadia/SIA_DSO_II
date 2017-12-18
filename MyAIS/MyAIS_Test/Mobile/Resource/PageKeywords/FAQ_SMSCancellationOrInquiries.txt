@@ -12,7 +12,23 @@ Select SMS Cancellation Inquiries Submenu
     Select Sub Menu    SMSCancellation/Inquiries
 
 Verify SMS Cancellation/Inquiries Question Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify SMS Cancellation/Inquiries Question Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify SMS Cancellation/Inquiries Question Page iOS
+
+Verify SMS Cancellation/Inquiries Question Page Android
     Mobile element name should be    ${SMSCancellation/Inquiries_Back}    ${txtSMSCancellation/Inquiries}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ1}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ2}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ3}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ4}
+    Mobile check existing text in name    ${lblSMSCancellation_FAQ5}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries Question Page
+
+Verify SMS Cancellation/Inquiries Question Page iOS
+    sleep    30s
+    Wait Mobile Until Page Contains Element    ${lblSMSCancellation/InquiriesTitle}
+    Mobile element name should be    ${lblHeaderFAQ}    ${HeaderFAQ}
+    Mobile element name should be    ${lblSMSCancellation/InquiriesTitle}    ${SMSCancellation/Inquiries}
     Mobile check existing text in name    ${lblSMSCancellation_FAQ1}
     Mobile check existing text in name    ${lblSMSCancellation_FAQ2}
     Mobile check existing text in name    ${lblSMSCancellation_FAQ3}
@@ -22,6 +38,11 @@ Verify SMS Cancellation/Inquiries Question Page
 
 Select SMS Cancellation/Inquiries Question
     [Arguments]    ${Question_Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Select SMS Cancellation/Inquiries Question Android    ${Question_Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select SMS Cancellation/Inquiries Question iOS    ${Question_Number}
+
+Select SMS Cancellation/Inquiries Question Android
+    [Arguments]    ${Question_Number}
     Wait Mobile Until Page Contains Element    ${lblSMSCancellation_FAQ${Question_Number}}
     Comment    Click Mobile Element    ${lblSMSCancellation_FAQ${Question_Number}}
     ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblSMSCancellation_FAQ${Question_Number}}    name
@@ -29,12 +50,105 @@ Select SMS Cancellation/Inquiries Question
     Sleep    5
     Click Mobile Element    ${lblSMSCancellation_FAQ${Question_Number}}
 
+Select SMS Cancellation/Inquiries Question iOS
+    [Arguments]    ${Question_Number}
+    sleep    15s
+    Wait Mobile Until Page Contains Element    ${lblSMSCancellation_FAQ${Question_Number}}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblSMSCancellation_FAQ${Question_Number}}    name
+    Click Mobile Element    ${lblSMSCancellation_FAQ${Question_Number}}
+    [Return]    ${QuestionText}
+
 Verify SMS Cancellation/Inquiries Answer
+    [Arguments]    ${Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Select SMS Cancellation/Inquiries Question Android    ${Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select SMS Cancellation/Inquiries Question iOS    ${Number}
+
+Verify SMS Cancellation/Inquiries Answer Android
     [Arguments]    ${Number}
     Mobile element name should be    ${SMSCancellation/Inquiries_Back}    ${txtSMSCancellation/Inquiries}
     Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${txtSMSCancellation/Inquiries}
     Verify Answer Text    ${lblSMSCancellation_Ans${Number}}
     Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries First Answer
+
+Verify SMS Cancellation/Inquiries Answer iOS
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Wait Mobile Until Page Contains Element    ${lblHeaderFAQ}
+    Mobile element name should be    ${lblSMSCancellation/InquiriesTitle}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation_Question}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries
+
+Verify SMS Cancellation/Inquiries First Answer iOS
+    [Arguments]    ${QuestionText}
+    Run Keyword If    "${ar_LANG}"=="TH"    Verify SMS Cancellation/Inquiries First Answer iOS TH   ${QuestionText}
+    ...    ELSE IF    "${ar_LANG}"=="EN"    Verify SMS Cancellation/Inquiries First Answer iOS EN    ${QuestionText}
+
+Verify SMS Cancellation/Inquiries First Answer iOS TH
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Wait Mobile Until Page Contains Element    ${lblHeaderFAQ}
+    Mobile element name should be    ${lblSMSCancellation/InquiriesTitle}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation_Question}    ${Question1}
+    Comment    Mobile element name should be    ${lblSMSCancellation_Question}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries
+
+Verify SMS Cancellation/Inquiries First Answer iOS EN
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Wait Mobile Until Page Contains Element    ${lblHeaderFAQ}
+    Mobile element name should be    ${lblSMSCancellation/InquiriesTitle}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation_Question}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries
+
+Verify SMS Cancellation/Inquiries Second Answer iOS
+    [Arguments]    ${QuestionText}
+    Run Keyword If    "${ar_LANG}"=="TH"    Verify SMS Cancellation/Inquiries Second Answer iOS TH   ${QuestionText}
+    ...    ELSE IF    "${ar_LANG}"=="EN"    Verify SMS Cancellation/Inquiries Second Answer iOS EN    ${QuestionText}
+
+Verify SMS Cancellation/Inquiries Second Answer iOS TH
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Wait Mobile Until Page Contains Element    ${lblHeaderFAQ}
+    Mobile element name should be    ${lblSMSCancellation/InquiriesTitle}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation_Question}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries
+
+Verify SMS Cancellation/Inquiries Second Answer iOS EN
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Wait Mobile Until Page Contains Element    ${lblHeaderFAQ}
+    Mobile element name should be    ${lblSMSCancellation/InquiriesTitle}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation_Question2_EN}    ${QuestionText}
+    Comment    Mobile element name should be    ${lblSMSCancellation_Question}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries
+
+Verify SMS Cancellation/Inquiries Fourth Answer iOS
+    [Arguments]    ${QuestionText}
+    Run Keyword If    "${ar_LANG}"=="TH"    Verify SMS Cancellation/Inquiries Fourth Answer iOS TH   ${QuestionText}
+    ...    ELSE IF    "${ar_LANG}"=="EN"    Verify SMS Cancellation/Inquiries Fourth Answer iOS EN    ${QuestionText}
+
+Verify SMS Cancellation/Inquiries Fourth Answer iOS TH
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Wait Mobile Until Page Contains Element    ${lblHeaderFAQ}
+    Mobile element name should be    ${lblSMSCancellation/InquiriesTitle}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation_Question}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries
+
+Verify SMS Cancellation/Inquiries Fourth Answer iOS EN
+    [Arguments]    ${QuestionText}
+    sleep    25s
+    Wait Mobile Until Page Contains Element    ${lblHeaderFAQ}
+    Mobile element name should be    ${lblSMSCancellation/InquiriesTitle}    ${SMSCancellation/Inquiries}
+    Mobile element name should be    ${lblSMSCancellation/Inquiries}    ${CancellingSMSAdvertisment}
+    Mobile element name should be    ${lblSMSCancellation_Question}    ${QuestionText}
+    Mobile Capture Screen At Verify Point    Verify SMS Cancellation Inquiries
 
 Verify Answer Text
     [Arguments]    ${locator}
@@ -43,6 +157,7 @@ Verify Answer Text
     ${verifyText}    Should Match Regexp    ${ans}    .+
     log    ${verifyText}
     Comment    Mobile Capture Screen At Verify Point    Answer Text
+
 
 Verify SMS Cancellation/Inquiries First Answer
     Mobile element name should be    ${SMSCancellation/Inquiries_Back}    ${txtSMSCancellation/Inquiries}

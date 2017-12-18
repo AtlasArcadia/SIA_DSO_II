@@ -19,9 +19,31 @@ Verify Main Icon
     Web Capture Screen At Verify Point    page
 
 Verify All Main Icon
-    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconPrivilege}
-    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconService}
-    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconActivities}
-    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconCenter}    5s
-    Scroll Web To Element    ${HeaderIconPrivilege}
+    Selenium2Library.Wait Until Element Is Visible    ${imgHeaderPrivilege}    #${HeaderIconPrivilege}
+    Selenium2Library.Wait Until Element Is Visible    ${imgHeaderService}    #${HeaderIconService}
+    Selenium2Library.Wait Until Element Is Visible    ${imgHeaderActivities}    #${HeaderIconActivities}
+    Selenium2Library.Wait Until Element Is Visible    ${imgHeaderCenter}    5s    #${HeaderIconCenter}
     Web Capture Screen At Verify Point    Verify All Main Icon
+
+Verify Profile TH
+    [Arguments]    ${Number}
+    ${welcome}=    Get Web Text    xpath=(//p[@class='content'])[1]
+    Comment    Page Should Contain Text    เอไอเอส เซเรเนด มีความยินดีอย่างยิ่งที่มีโอกาสต้อนรับ
+    ${GetNumber}=    Get Web Text    xpath=(//p[@class='content'])[3]    #Mobile No. 0935850537
+    ${VerNumber}    Fetch From Right    ${GetNumber}    ${SPACE}
+    Should Be Equal    ${Number}    ${VerNumber}
+    Get Web Text    xpath=(//p[@class='content'])[position()=4]
+    Get Web Text    xpath=(//p[@class='content'])[position()=5]    #from 08/15/2017 to 09/30/2018
+    Capture ScreenShot
+
+Verify Profile EN
+    [Arguments]    ${Number}
+    Scroll Web To Element    xpath=(//p[@class='content'])[1]
+    ${Welcome}=    Get Web Text    xpath=(//p[@class='content'])[1]
+    ${GetNumber}=    Get Web Text    xpath=(//p[@class='content'])[2]    #Mobile No. 0935850537
+    ${VerNumber}    Fetch From Right    ${GetNumber}    ${SPACE}
+    Should Be Equal    ${Number}    ${VerNumber}
+    ${Segment}=    Get Web Text    xpath=(//p[@class='content'])[3]    #as an AIS Serenade Platinum customer
+    ${Date}=    Get Web Text    xpath=(//p[@class='content'])[position()=4]    #from 08/15/2017 to 09/30/2018
+    ${Offered}=    Get Web Text    xpath=(//p[@class='content'])[position()=5]    #This privilege is offered as our appreciation for your support in the past year.
+    Capture ScreenShot

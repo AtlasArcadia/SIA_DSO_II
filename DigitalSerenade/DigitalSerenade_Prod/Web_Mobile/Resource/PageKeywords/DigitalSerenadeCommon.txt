@@ -1,0 +1,63 @@
+*** Settings ***
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/ParallelLocalConfigKeyWord.txt
+Resource          ../../../../../AisRobotBuffet/Common/Keywords/RunOnFailKeyword.txt
+Resource          ../../../../../AisRobotBuffet/Web/Generic/Keywords/WebGenericKeyword.txt
+Resource          ../../../../../AisRobotBuffet/Mobile/Andriod/Keywords/SmsMoodKeywords.txt
+Resource          ../PageVariable/DegitalSerenadeCommonVariable.txt
+Resource          ../PageRepository/LoginRepository.txt
+Resource          ../PageRepository/DigitalSerenadeCommonRepository.txt
+
+*** Keywords ***
+Verify Link
+    [Arguments]    ${url}
+    Sleep    2
+    Location Should Be    ${url}
+    Web Capture Screen At Verify Point    Verify url
+
+Login Serenade
+    [Arguments]    ${IPAppium}    ${SN}    ${PlatfromName}    ${PlatfromVersion}    ${MobileNumber}    ${Close}=true
+    Sleep    2
+    Input Web Text    ${txtMobileNo}    ${MobileNumber}
+    Click Web Element    ${btnRequestOTP}
+    Open SMS App    ${IPAppium}    ${PlatfromName}    ${PlatfromVersion}    ${SN}
+    ${status}=    Run Keyword And Return Status    Wait SMS    ${PlatfromName}    1    ${lo_sms_timeout}    AIS
+    ${time}=    Evaluate    str(time.time())    time
+    Run Keyword If    '${status}'=='False'    Fail
+    ${messages}=    Read SMS    ${PlatfromName}    AIS    1
+    Log    @{messages}[0]
+    @{OTP}=    Get Regexp Matches    @{messages}[0]    \\d\\d\\d\\d
+    Run Keyword If    "${Close}" =="true"    Close SMS App    ${PlatfromName}    ${SN}
+    sleep    2
+    AISAppiumEx.Press Keycode    187
+    sleep    2
+    Click Mobile Element    xpath=(//*[(@class='android.widget.FrameLayout' and @content-desc='Chrome')or (@class='android.widget.TextView' and @text='Chrome' and @index="2")])
+    Input Web Text    ${txtInputOTP}    @{OTP}[0]
+    Click Web Element    ${btnSubmit}
+
+Open Browser Serenade
+    [Arguments]    ${url}    ${SN}    ${IPChrome}    ${Lang}=TH
+    Comment    Open Web Browser    ${URLSerenade}    ${ar_BROWSER}    http://${IPSelenium}/wd/hub
+    Comment    Maximize Browser Window
+    ${options}=    Create Dictionary    androidPackage=com.android.chrome    androidDeviceSerial=${SN}
+    ${caps}=    Create Dictionary    chromeOptions=${options}    noReset=false
+    Create Webdriver    Remote    command_executor=http://${IPChrome}    desired_capabilities=${caps}
+    Go To    ${url}
+
+Keywords For Teardown
+    [Arguments]    ${#dict_device_name}
+    Run Keyword If Test Failed    Capture Screen with Specific name
+    Close Browser
+    Release Virtual Local Configurations    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    ${#dict_device_name}
+
+Verify URL New Window
+    [Arguments]    ${URL}    ${imgCaptureName}
+    sleep    15s
+    Select Window    url=${URL}
+    Location Should Be    ${URL}
+    Web Capture Screen At Verify Point    ${imgCaptureName}
+
+Click Allow Location
+    Wait Mobile Until Element Visible    ${PopupLocation}
+    Click Mobile Element    ${ALLOWlocation}
+

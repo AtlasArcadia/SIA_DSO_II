@@ -1,6 +1,24 @@
 *** Settings ***
 Resource          DigitalSerenadeCommon.txt
 Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../PageRepository/Platinum_ClickMainIconRepository.txt
+Resource          C:\Users\promporn.s\Desktop\RobotFramework\AIS\DigitalSerenade\DigitalSerenade_Test\Web_Mobile\Resource\Localized\${ar_LANG}\${ar_NType}\Platinum_ClickMainIconLocalized.txt
 
 *** Keywords ***
 Verify Activity
+    Wait Web Until Page Contains Element    ${HeaderIconActivities}
+    Scroll Web To Element    ${lblPlatinumActivity}
+    Web Element Text Should Be    ${lblPlatinumActivity}    ${PlatinumActivity}
+    Comment    Wait Web Until Page Contains Element    ${BannerSurpriseCampaign}
+    Comment    Scroll Web To Element    ${SurpriseCampaign}
+    Comment    sleep    10s
+    Comment    Web Capture Screen At Verify Point    SurpriseCampaign
+    Comment    Click Web Element    ${BannerSurpriseCampaign}
+    Comment    sleep    5s
+    Comment    Select Window    url=${URL_SurpriseCampaign}
+    Comment    ${location}    Get Location
+    Comment    Run Keyword If    "${location}" == "${URL_SurpriseCampaign}"    Web Capture Screen At Verify Point    Serenade Ultimate Surprizes link
+    ...    ELSE    Fail
+    Comment    ${text}=    Get Web Text    xpath=//*[@id="end_head_img"]
+    Comment    ${textMatch}=    Should Match Regexp    ${text}    ${SerenadeUltimateSurprizes}\\s.*\\s\\d{4}
+    Web Capture Screen At Verify Point    Serenade Ultimate Surprizes Page

@@ -1,0 +1,27 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../PageRepository/Platinum_ClickMainIconRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ClickMainIconLocalized.txt
+
+*** Keywords ***
+Verify Main Icon
+    [Arguments]    ${txt}    ${Icon}    ${VerifyPoint}
+    Scroll Web To Element    ${Icon}
+    Selenium2Library.Wait Until Element Is Visible    ${Icon}
+    sleep    5s
+    Click Web Element    ${Icon}
+    sleep    15s
+    Run Keyword If    "${txt}" == "privilage"    Web Element Text Should Be    ${VerifyPoint}    ${PlatinumPrivilage}
+    Run Keyword If    "${txt}" == "service"    Web Element Text Should Be    ${VerifyPoint}    ${PlatinumService}
+    Run Keyword If    "${txt}" == "activity"    Web Element Text Should Be    ${VerifyPoint}    ${PlatinumActivity}
+    Run Keyword If    "${txt}" == "servicecenter"    Web Element Text Should Be    ${VerifyPoint}    ${PlatinumServiceCenter}
+    Web Capture Screen At Verify Point    page
+
+Verify All Main Icon
+    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconPrivilege}
+    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconService}
+    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconActivities}
+    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconCenter}    5s
+    Scroll Web To Element    ${HeaderIconPrivilege}
+    Web Capture Screen At Verify Point    Verify All Main Icon

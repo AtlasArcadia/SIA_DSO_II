@@ -1,0 +1,30 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../PageVariable/Emerald_BirthdayVariable.txt
+Resource          ../PageRepository/Emerald_BirthdayRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_BirthdayLocalized.txt
+
+*** Keywords ***
+Verify BirthDay Page Match With Birthday Date
+    Scroll Web To Element    ${EmeraldBirthdayLine2}
+    ${HappyBirthday}=    Get Web Text    ${EmeraldBirthdayLine2}    #“ สุขสันต์วันเกิด \ คุณ.+
+    Should Match Regexp    "${HappyBirthday}"    .*
+    Web Element Text Should Be    ${EmeraldBirthdayLine1}    ${HappyBirthday_Line1}    #เอไอเอส เซเรเนด ขออวยพรให้ทุกวันของคุณ
+    Web Element Text Should Be    ${EmeraldBirthdayLine3}    ${HappyBirthday_Line3}    #เต็มไปด้วยความสุข และความสำเร็จ ”
+    Web Element Text Should Be    ${EmeraldBirthdayLine4}    ${HappyBirthday_Line4}    #และเจริญรุ่งเรืองตลอดไป
+    Web Element Text Should Be    ${EmeraldBirthdayLine5}    ${HappyBirthday_Line5}    #เราขอมอบของขัวญวันเกิดสุดพิเศษ
+    Web Element Should Be Visible    ${imgEmeraldBirthday}
+    Web Capture Screen At Verify Point    Happy Birthday
+
+Verify BirthDay Page Not Match With Birthday Date
+    Scroll Web To Element    ${HeaderCenter}
+    Comment    Selenium2Library.Page Should Not Contain Element    xpath=//*[@id="special"]/div[1]/div/img[2]
+    Element Should Not Be Visible    ${imgEmeraldBirthday}
+    Web Capture Screen At Verify Point    No Birthday
+    Element Should Not Be Visible    ${EmeraldBirthdayLine2}
+    Element Should Not Be Visible    ${EmeraldBirthdayLine3}
+    Element Should Not Be Visible    ${EmeraldBirthdayLine4}
+    Element Should Not Be Visible    ${EmeraldBirthdayLine5}
+    comment    Element Should Not Be Visible    ${EmeraldBirthdayLine6}
+    Element Should Not Be Visible    ${EmeraldBirthdayLine6}
+

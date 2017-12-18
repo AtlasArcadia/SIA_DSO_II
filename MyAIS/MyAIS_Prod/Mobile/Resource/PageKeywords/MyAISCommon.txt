@@ -41,7 +41,7 @@ Swipe to element
     Comment    Sleep    3
     Log    In swipe to element
     ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${target}
-    Run Keyword If    ${ratio}>0.5 or ${ratio}<=0    fail    ratio are <0 or >0.5
+    Run Keyword If    ${ratio}>0.5 or ${ratio}<=0    fail    ratio are < 0 or > 0.5
     Comment    Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe in screen to element    ${target}    ${Direction}    ${ratio}
     ...    ${Round}    ${duration}    ${appium_info}
     Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe to element android test    ${target}    ${swipe_range}    ${Direction}    ${ratio}
@@ -268,7 +268,7 @@ Login mPay
 
 Logout
     Run Keyword And Ignore Error    Aisappium Click Element    ${btnCloseDialog}
-    ${statusLoginContainer}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${frmLoginContainer}    5
+    ${statusLoginContainer}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblLogin}    5
     Log    ${statusLoginContainer}
     Return From Keyword If    ${statusLoginContainer}    On Login page. Logout isn't necessary.
     : FOR    ${index}    IN RANGE    1    10
@@ -346,7 +346,9 @@ Swipe Element To Screen
     ${CheckTarget}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}    5
     ${status}    Run keyword if    "${CheckTarget}"=="False"    Run Keyword And Return Status    Swipe to element    ${target}    ${Container}
     ...    ${Direction}    0.25    ${Round}
-    ${status}    Run keyword if    "${CheckTarget}"=="True"    Set Variable    True
+    ${status}    Run Keyword If    "${CheckTarget}"=="True"    Set Variable    True
+    ...    ELSE    Set Variable    ${status}
+    Log    ${status}
     ${start_x}    ${start_y}=    Run Keyword If    "${status}"=="True"    set start point of element to area    ${target}    ${Direction}
     @{listEndPosition}    Create List
     Run Keyword If    "${Direction}" == "up"    Append To List    ${listEndPosition}    ${start_x}    ${less_y}
@@ -354,6 +356,7 @@ Swipe Element To Screen
     Run Keyword If    "${Direction}" == "left"    Append To List    ${listEndPosition}    ${less_x}    ${start_y}
     Run Keyword If    "${Direction}" == "right"    Append To List    ${listEndPosition}    ${more_x}    ${start_y}
     Run Keyword If    "${status}"=="True"    Swipe    ${start_x}    ${start_y}    @{listEndPosition}[0]    @{listEndPosition}[1]
+    Log    ${status}
     Wait Mobile Until Element Visible    ${target}    5
 
 set start point of element to area
@@ -488,7 +491,7 @@ Swipe element to specific area
     Run Keyword If    "${Direction}" == "left"    Append To List    ${listEndPosition}    ${less_x}    ${start_y}
     Run Keyword If    "${Direction}" == "right"    Append To List    ${listEndPosition}    ${more_x}    ${start_y}
     : FOR    ${index}    IN RANGE    1    ${Round}
-    \    ${elementIsContain}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${target}
+    \    ${elementIsContain}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${target}    1s
     \    Run Keyword If    "${elementIsContain}"=="False"    fail    Cannot found Element
     \    ${location}=    Get Element Location    ${target}
     \    ${sizeTarget}=    AISAppiumEx.Get Element Size    ${target}
@@ -571,12 +574,12 @@ swipe to element android test
     : FOR    ${index}    IN RANGE    1    ${Round}
     \    Run Keyword If    '${Direction}'=='up'    Swipe    ${screen_center_x}    ${below_screen}    ${screen_center_x}
     \    ...    ${swipe_to_top}    ${duration}
-    \    ...    ELSE IF    '${Direction}'=='up'    Swipe    ${screen_center_x}    ${below_screen}
-    \    ...    ${screen_center_x}    ${swipe_to_top}    ${duration}
-    \    ...    ELSE IF    '${Direction}'=='up'    Swipe    ${screen_center_x}    ${below_screen}
-    \    ...    ${screen_center_x}    ${swipe_to_top}    ${duration}
-    \    ...    ELSE IF    '${Direction}'=='up'    Swipe    ${screen_center_x}    ${below_screen}
-    \    ...    ${screen_center_x}    ${swipe_to_top}    ${duration}
+    \    ...    ELSE IF    '${Direction}'=='below'    Swipe    ${screen_center_x}    ${top_screen}
+    \    ...    ${screen_center_x}    ${swipe_to_below}    ${duration}
+    \    ...    ELSE IF    '${Direction}'=='left'    Swipe    ${right_screen}    ${screen_center_y}
+    \    ...    ${swipe_to_left}    ${screen_center_y}    ${duration}
+    \    ...    ELSE IF    '${Direction}'=='right'    Swipe    ${left_screen}    ${screen_center_y}
+    \    ...    ${swipe_to_right}    ${screen_center_y}    ${duration}
     \    ${foundTarget}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${target}    1
     \    Exit For Loop If    '${foundTarget}'=='True'
     Run Keyword If    '${foundTarget}'=='False'    FAIL    This element is not found.
