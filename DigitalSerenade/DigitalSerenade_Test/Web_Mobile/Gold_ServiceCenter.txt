@@ -86,8 +86,10 @@ Resource          Resource/PageKeywords/Gold_ServiceCenter.txt
     Sleep    20s
     Wait Web Until Page Contains Element    //a[@href="http://www.ais.co.th/servicecenter/"]
     Click Web Element    //a[@href="http://www.ais.co.th/servicecenter/"]
-    sleep    60s
-    ${Cur_url}=    Get Location
+    Comment    sleep    60s
+    ${URL}=    Get Locations
+    Log Many    ${URL[0]}    ${URL[1]}
+    Should Be Equal    ${URL[1]}    ${URL[1]}
     Comment    Run Keyword If    '${Cur_url}'=='https://10.104.249.46/WelcomeToSerenade/'    Close Window
     Capture ScreenShot
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
