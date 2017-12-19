@@ -12,6 +12,16 @@ Select Social Button
     Mouse Over    ${icn${button}}
     Click Web Element    ${icn${button}}
 
+Verify Facebook Web
+    Sleep    5s
+    Select Window    url=${urlFacebookNewsServices}
+    Verify Link    ${urlFacebookNewsServices}
+    Scroll Web To Element    ${lblFacebookSecurity}
+    Web Element Text Should Be    ${lblFacebookSecurity}    ${FacebookSecurity}
+    Scroll Web To Element    ${imgFacebookLogo}
+    Web Element Should Be Visible    ${imgFacebookLogo}
+    Web Capture Screen At Verify Point    Verify Web Face
+
 Verify Line Web
     Sleep    10
     Select Window    url=${urlLineNewsServices}
@@ -23,16 +33,6 @@ Verify Line Web
     Comment    Comment    Scroll Web To Element    ${lblLine}
     Comment    Web Element Should Be Visible    ${lblLine}
     Web Capture Screen At Verify Point    Verify Web Line
-
-Verify Facebook Web
-    Sleep    5s
-    Select Window    url=${urlFacebookNewsServices}
-    Verify Link    ${urlFacebookNewsServices}
-    Scroll Web To Element    ${lblFacebookSecurity}
-    Web Element Text Should Be    ${lblFacebookSecurity}    ${FacebookSecurity}
-    Scroll Web To Element    ${imgFacebookLogo}
-    Web Element Should Be Visible    ${imgFacebookLogo}
-    Web Capture Screen At Verify Point    Verify Web Face
 
 Verify Contact Us
     Sleep    5s
@@ -90,5 +90,62 @@ Verify MyAIS Installed
     Wait Mobile Until Element Visible    ${imgHeaderPlayStore}
     Wait Mobile Until Element Visible    ${imgMyAISLogoPlayStore}
     Wait Mobile Until Element Visible    ${btnOpenPlayStore}
+    Mobile Capture Screen At Verify Point    Verify in myAIS
+    Mobile Switch App    Chrome
+
+Verify Share To Facebook Not Login_EN
+    sleep    15
+    Scroll Web To Element    ${btnShareToFacebook}
+    Web Capture Screen At Verify Point    Button Share Facebook
+    Click Web Element    ${btnShareToFacebook}
+    Sleep    5
+    Select Window    url=${urlShareToFacebook}
+    Verify Link    ${urlShareToFacebook}
+    Web Element Should Be Visible    xpath = //div[@id = "viewport"]//i[.="facebook"]    #${lblFacebookLogoLoginPage}
+    Web Element Should Be Visible    xpath = //div[@data-sigil="login_password_step_element one_step_login_element"]    #${btnFacebookNextLoginPage}
+    Web Element Should Be Visible    ${btnFacebookRegisterLoginPage}
+    Web Capture Screen At Verify Point    Facebook page
+
+Verify Popup Condition_EN
+    Click Web Element    ${btnToConditionSerenade}
+    Mouse Over    xpath = //div[@class = "modal-content"]    #${lblConditionPopupHeaderDetail}
+    Web Element Should Be Visible    xpath = //div[@class = "col-md-6 col-sm-6"]//h2[@class="title"]    #${ConditionPopupHeaderDetail}
+    Web Element Should Be Visible    xpath=//div[@class = "col-md-6 col-sm-6"]//img[@src="/template/pages/SDWP/assets/images/img-1_en.jpg"]    #${ConditionPopupHeaderRequest}
+    Comment    Web Element Text Should Be    ${lblConditionPopupHeaderCondition}    ${ConditionPopupHeaderCondition}
+    Web Capture Screen At Verify Point    Verify Condition Popup
+
+Verify Image Share Segment_EN
+    Scroll Web To Element    xpath = //div[@class="container"]//img[@src="/template/pages/SDWP/assets/images/banner/share-emerald.png"]    #${imgSerenadeShare}
+    Web Element Should Be Visible    xpath = //div[@class="container"]//img[@src="/template/pages/SDWP/assets/images/banner/share-emerald.png"]    #${imgSerenadeShare}
+    Web Capture Screen At Verify Point    Verify Img Serenade share
+
+Verify Facebook Web_EN
+    Sleep    5s
+    Select Window    url=${urlFacebookNewsServices}
+    Comment    Verify Link    ${urlFacebookNewsServices}
+    Comment    Scroll Web To Element    ${lblFacebookSecurity}
+    Comment    Web Element Text Should Be    ${lblFacebookSecurity}    ${FacebookSecurity}
+    Scroll Web To Element    ${imgFacebookLogo}
+    Web Element Should Be Visible    ${imgFacebookLogo}
+    Web Capture Screen At Verify Point    Verify Web Face
+
+Verify Contact Us_EN
+    Sleep    5s
+    Select Window    url=${urlContactNewsServices}
+    Verify Link    ${urlContactNewsServices}
+    Scroll Web To Element    ${imgContactBanner}
+    Web Element Should Be Visible    ${imgContactBanner}
+    Scroll Web To Element    ${lblContactUsHeader}
+    Comment    Web Element Text Should Be    ${lblContactUsHeader}    ${ContactUsHeader}
+    Verify Link    ${urlContactNewsServices}
+    Web Capture Screen At Verify Point    Verify Web Contact Us
+
+Verify MyAIS Installed_EN
+    Sleep    5s
+    Mobile Switch App    Play Store
+    Sleep    3s
+    Wait Mobile Until Element Visible    xpath = //*[@resource-id = "com.android.vending:id/action_bar"]    #${imgHeaderPlayStore}
+    Wait Mobile Until Element Visible    xpath = //*[@resource-id = com.android.vending:id/title_thumbnail]    #${imgMyAISLogoPlayStore}
+    Wait Mobile Until Element Visible    xpath = //*[@class='android.widget.Button'][@text="ติดตั้ง"]
     Mobile Capture Screen At Verify Point    Verify in myAIS
     Mobile Switch App    Chrome

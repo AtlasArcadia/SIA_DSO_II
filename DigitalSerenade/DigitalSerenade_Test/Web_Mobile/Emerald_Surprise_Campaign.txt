@@ -1,6 +1,7 @@
 *** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Emerald_SurpriseCampaign.txt
+Resource          Resource/PageKeywords/Emerald_MainIcon.txt
 
 *** Test Cases ***
 [F9_EmeraldWebMobile_1_1_Y_2_1] Verify Surprise Campaign
@@ -38,4 +39,46 @@ Resource          Resource/PageKeywords/Emerald_SurpriseCampaign.txt
     Verify Surprise Campaign Banner
     Verify Surprise Ultimate Surprize Link
     Verify Serenade Ultimate Surprize Page
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F9_EmeraldWebMobile_1_2_Y_2_1] Verify Surprise Campaign_En
+    [Documentation]    *Owner* : TUES
+    ...    แสดงข้อมูลของโครงการ Surprise campaign ของ Segment: Emeraldd
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Surprise campaign
+    ...    5.จับภาพหน้าจอ
+    ...    6.คลิก เพิ่มเติม ที่ campaign
+    ...    7.ตรวจสอบ URL [1]
+    ...    8.ตรวจสอบหน้าเว็บ [2]
+    ...    9.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    '[1]ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/activity/
+    ...
+    ...    [2]ตรวจสอบหน้าเว็บ
+    ...    - ประกาศรายชื่อผู้ได้รับรางวัล
+    ...    - Serenade Ultimate Surprizes
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    3s
+    Select Lang En    #เลือกภาษาอังกฤษ
+    Select Main Icon    Activities
+    sleep    5s
+    Scroll Web To Element    //div[@class="bg"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-a9b94ce4aba68685f9a26390ed895a91.1506481875193.jpeg?bannerId=400&campaignId=265&channelId=11&height&keywords=Surp01Eng&positionId=11&tokenId&width"]
+    Web Element Should Be Visible    //div[@class="bg"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-a9b94ce4aba68685f9a26390ed895a91.1506481875193.jpeg?bannerId=400&campaignId=265&channelId=11&height&keywords=Surp01Eng&positionId=11&tokenId&width"]
+    sleep    10s
+    Capture Screen with Specific name
     [Teardown]    Keywords For Teardown    ${#dict_device_name}

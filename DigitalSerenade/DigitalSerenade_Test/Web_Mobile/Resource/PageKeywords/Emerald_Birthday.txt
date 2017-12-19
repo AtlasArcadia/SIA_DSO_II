@@ -26,3 +26,20 @@ Verify BirthDay Page Not Match With Birthday Date
     Element Should Not Be Visible    ${EmeraldBirthdayLine4}
     Element Should Not Be Visible    ${EmeraldBirthdayLine5}
     Element Should Not Be Visible    ${EmeraldBirthdayLine6}
+
+Verify BirthDay Page Match With Birthday Date_EN
+    Scroll Web To Element    //div[@class="content"]
+    ${TxtBd}=    Get Web Text    //div[@class="content"]
+    @{SplitTxt}=    Split String    ${TxtBd}    \n
+    Log list    ${SplitTxt}
+    ${Line1}=    String.Get Line    ${TxtBd}    0
+    ${Line2}=    String.Get Line    ${TxtBd}    1
+    ${Line3}=    String.Get Line    ${TxtBd}    2
+    ${Line4}=    String.Get Line    ${TxtBd}    3
+    ${Line5}=    String.Get Line    ${TxtBd}    4
+    ${Line1}=    Fetch From Left    ${Line1}    ${SPACE}
+    ${Line1}=    Remove String    ${Line1}    ${SPACE}
+    Should Be Equal    ${HappyBirthday_Line1}    ${Line1}
+    Should Be Equal    ${HappyBirthday_Line2}    ${Line2}
+    Should Be Equal    ${HappyBirthday_Line3}    ${Line3}
+    Should Be Equal    ${HappyBirthday_Line4}    ${Line4}

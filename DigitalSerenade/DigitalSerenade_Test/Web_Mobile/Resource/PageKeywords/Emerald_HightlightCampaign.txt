@@ -232,3 +232,11 @@ Find banner
     \    Run Keyword If    "${banner}" == "${ActiveBanner}"    Exit For Loop
     \    ...    ELSE    Click Web Element    ${btnNextBanner}
     [Return]    ${index}
+
+Verify Hilight Campaign_EN
+    Web Element Text Should Be    ${lblHilightCampaignTitle}    ${lblHCTitle}
+    sleep    5s
+    :FOR    ${index}    IN RANGE    1    10
+    \    Web Element Should Be Visible    ${btnHCPage${index}}
+    Selenium2Library.Page Should Not Contain Element    ${btnHCPage10}
+    Web Capture Screen At Verify Point    HilightCampaign
