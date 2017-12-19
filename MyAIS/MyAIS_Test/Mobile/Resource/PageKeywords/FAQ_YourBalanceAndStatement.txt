@@ -245,13 +245,16 @@ Verify Invoice/Bill AIS Fiber Question iOS
 Select Invoice/Bill AIS Fiber Question
     [Arguments]    ${noQuestion}
     Sleep    5
+    ${FAQ_Name}    Get mobile text    ${lblInvoice/BillAISFiberQuestion${noQuestion}}
     Comment    Click Mobile Element At Position    ${lblInvoice/BillAISFiberQuestion${noQuestion}}    top    0.05    #Select First Question
     Click Mobile Element    ${lblInvoice/BillAISFiberQuestion${noQuestion}}
     Sleep    5
+    [Return]    ${FAQ_Name}
 
 Verify Invoice/Bill AIS Fiber Answer
+    [Arguments]    ${noQuestion}=1    ${FAQ_Name}=1
     Run Keyword If    "${ar_OS}"=="Android"    Verify Invoice/Bill AIS Fiber Answer Android
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Invoice/Bill AIS Fiber Answer iOS
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Invoice/Bill AIS Fiber Answer iOS    ${noQuestion}    ${FAQ_Name}
 
 Verify Invoice/Bill AIS Fiber Answer Android
     Wait Mobile Until Page Contains Element    ${txtInvoice/BillAISFiber}
@@ -261,9 +264,11 @@ Verify Invoice/Bill AIS Fiber Answer Android
     Mobile Capture Screen At Verify Point    Verify Invoice/Bill AIS Fiber Answer
 
 Verify Invoice/Bill AIS Fiber Answer iOS
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
     Wait Mobile Until Page Contains Element    ${txtInvoice/BillAISFiber}
     Mobile element name should be    ${txtYourBalanceAndStatement}    ${Yourbalancestatement}
     Mobile element name should be    ${txtInvoice/BillAISFiber}    ${Invoice/BillAISFiberTopic}
     Wait Mobile Until Page Contains Element    ${txtAnswerYourbalanceAndStatement}
-    Verify Answer Text    ${txtAnswerYourbalanceAndStatement}
+    ${FAQText}=    Get mobile text    ${txtAnswerYourbalanceAndStatement}
+    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
     Mobile Capture Screen At Verify Point    Verify Answer

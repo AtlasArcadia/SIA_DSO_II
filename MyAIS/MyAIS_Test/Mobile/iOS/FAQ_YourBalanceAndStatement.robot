@@ -379,8 +379,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Comment    Verify FAQ Your Balance And Statement Page
     Select Invoice Or Bill AIS Fiber
     Verify Invoice/Bill AIS Fiber Question
-    Select Invoice/Bill AIS Fiber Question    1    #Select First Question
-    Verify Invoice/Bill AIS Fiber Answer
+    ${FAQ_Name}    Select Invoice/Bill AIS Fiber Question    1    #Select First Question
+    Verify Invoice/Bill AIS Fiber Answer    1    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2__Help_IOS_1-4_1-2_Y_25_2] Go to Your Balance & Statement Verify Invoice/Bill AIS Fiber Second question
@@ -421,8 +421,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Comment    Verify FAQ Your Balance And Statement Page
     Select Invoice Or Bill AIS Fiber
     Verify Invoice/Bill AIS Fiber Question
-    Select Invoice/Bill AIS Fiber Question    2    #Select Second Question
-    Verify Invoice/Bill AIS Fiber Answer
+    ${FAQ_Name}    Select Invoice/Bill AIS Fiber Question    2    #Select Second Question
+    Verify Invoice/Bill AIS Fiber Answer    2     ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2__Help_IOS_1-4_1-2_Y_50_2] Go to Your Balance & Statement Verify AIS Monthly Statement Third question
