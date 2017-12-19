@@ -3,11 +3,11 @@ Resource          ../../../../Config/LocalConfig.txt
 Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
 
 *** Test Cases ***
-[F2_Help_IOS_1,3_1-2_Y_30_2] Go to SMS Cancellation/Inquiries
+[F2_Help_IOS_1-4_1-2_Y_30_2] Go to SMS Cancellation/Inquiries
     [Documentation]    **Owner: Lek**
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE
+    ...    Source Number : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    TH
@@ -21,7 +21,7 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     ...       - คำถามข้อที่3
     ...       - คำถามข้อที่ 4
     ...       - คำถามข้อที่ 5
-    [Tags]    TH    EN    active    success    3PE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -34,11 +34,11 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Verify SMS Cancellation/Inquiries Question Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_31_2] Go to SMS Cancellation/Inquiries Verify First question
+[F2_Help_IOS_1-4_1-2_Y_31_2] Go to SMS Cancellation/Inquiries Verify First question
     [Documentation]    **Owner: Lek**
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE
+    ...    Source Number : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    TH
@@ -57,7 +57,7 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    active    success    3PE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -72,11 +72,11 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Verify SMS Cancellation/Inquiries First Answer iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_32_2] Go to SMS Cancellation/Inquiries Verify Second question
+[F2_Help_IOS_1-4_1-2_Y_32_2] Go to SMS Cancellation/Inquiries Verify Second question
     [Documentation]    **Owner: Lek**
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE
+    ...    Source Number : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    TH
@@ -95,7 +95,7 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    active    success    3PE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -110,11 +110,11 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Verify SMS Cancellation/Inquiries Second Answer iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_33_2] Go to SMS Cancellation/Inquiries Verify Third question
+[F2_Help_IOS_1-4_1-2_Y_33_2] Go to SMS Cancellation/Inquiries Verify Third question
     [Documentation]    **Owner: Lek**
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE
+    ...    Source Number : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    TH
@@ -133,7 +133,7 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    active    success    3PE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -148,11 +148,11 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Verify SMS Cancellation/Inquiries Answer iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_34_2] Go to SMS Cancellation/Inquiries Verify Fourth question
+[F2_Help_IOS_1-4_1-2_Y_34_2] Go to SMS Cancellation/Inquiries Verify Fourth question
     [Documentation]    **Owner: Lek**
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE
+    ...    Source Number : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    TH
@@ -171,7 +171,7 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    active    success    3PE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -186,11 +186,11 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     Verify SMS Cancellation/Inquiries Fourth Answer iOS    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_35_2] Go to SMS Cancellation/Inquiries Verify Fifth question
+[F2_Help_IOS_1-4_1-2_Y_35_2] Go to SMS Cancellation/Inquiries Verify Fifth question
     [Documentation]    **Owner: Lek**
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE
+    ...    Source Number : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    TH
@@ -209,7 +209,7 @@ Resource          ../Resource/PageKeywords/FAQ_SMSCancellationOrInquiries.txt
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...         "การยกเลิก SMS โฆษณา" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    active    success    3PE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
