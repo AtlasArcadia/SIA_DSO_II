@@ -17,7 +17,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...        - สำหรับลูกค้ารายเดือน
     ...        - สำหรับลูกค้าวัน-ทู-คอล!
     ...        - สำหรับลูกค้าไฟเบอร์
-    [Tags]    success    3PE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -56,7 +56,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...          "สำหรับลูกค้ารายเดือน" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -99,7 +99,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...          "สำหรับลูกค้ารายเดือน" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -142,7 +142,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...          "สำหรับลูกค้ารายเดือน" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -191,7 +191,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         "แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...          "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -242,7 +242,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         "แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...          "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -287,7 +287,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         "แพ็กเกจหลัก/แพ็กเกจเสริม" (Text)
     ...          "- สำหรับลูกค้าไฟเบอร์" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -330,7 +330,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...         "แพ็กเกจหลัก/แพ็กเกจเสริม" (Text)
     ...          "- สำหรับลูกค้าไฟเบอร์" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    3PE    demo
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -379,7 +379,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...       - " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...       - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    success    3PE    demo
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -430,7 +430,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...       - " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...       - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    success    3PE    demo
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -481,7 +481,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...       - " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...       - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    success    3PE    demo
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -532,7 +532,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...       - " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...       - "สำหรับลูกค้าวัน-ทู-คอล!" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    success    3PE    demo
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -577,7 +577,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...        " แพ็กเกจหลัก/แพ็กเกจเสริม " (Text)
     ...         "- สำหรับลูกค้าไฟเบอร์" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    TH    EN    success    3PE    demo
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
