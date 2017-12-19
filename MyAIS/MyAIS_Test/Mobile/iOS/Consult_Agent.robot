@@ -3,7 +3,7 @@ Resource          ../Resource/PageKeywords/ConsultAgent.txt
 Resource          ../../../../Config/LocalConfig.txt
 
 *** Test Cases ***
-[F1_Help_IOS_1,3_1-2_Y_1_2] Go to Ask Aunjai menu
+[F1__Help_IOS_1-4_1-2_Y_1_2] Go to Ask Aunjai menu
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -40,7 +40,7 @@ Resource          ../../../../Config/LocalConfig.txt
     Verify AskAunjai Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Help_IOS_1,3_1-2_Y_2_2] Verify Help&Support page
+[F1__Help_IOS_1-4_1-2_Y_2_2] Verify Help&Support page
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
