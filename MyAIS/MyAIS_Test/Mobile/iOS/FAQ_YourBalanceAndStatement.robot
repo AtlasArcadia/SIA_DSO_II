@@ -3,7 +3,7 @@ Resource          ../../../../Config/LocalConfig.txt
 Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
 
 *** Test Cases ***
-[F2_Help_IOS_1,3_1-2_Y_16_2] Go to Your Balance & Statement
+[F2__Help_IOS_1-4_1-2_Y_16_2] Go to Your Balance & Statement
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -30,7 +30,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify FAQ Your Balance And Statement Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_17_2] Go to Your Balance & Statement Verify AIS Monthly Statement first question
+[F2__Help_IOS_1-4_1-2_Y_17_2] Go to Your Balance & Statement Verify AIS Monthly Statement first question
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -73,7 +73,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify AIS Monthly Statement Answer    1    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_18_2] Go to Your Balance & Statement Verify AIS Monthly Statement Second question
+[F2__Help_IOS_1-4_1-2_Y_18_2] Go to Your Balance & Statement Verify AIS Monthly Statement Second question
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -116,7 +116,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify AIS Monthly Statement Answer    2    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_19_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance first question
+[F2__Help_IOS_1-4_1-2_Y_19_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance first question
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -161,7 +161,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify AIS 1-2-Call Credit Balance Answer    1    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_20_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Second question
+[F2__Help_IOS_1-4_1-2_Y_20_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Second question
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -206,7 +206,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify AIS 1-2-Call Credit Balance Answer    2    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_21_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Third question
+[F2__Help_IOS_1-4_1-2_Y_21_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Third question
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -251,7 +251,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify AIS 1-2-Call Credit Balance Answer    3    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_22_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Fourth question
+[F2__Help_IOS_1-4_1-2_Y_22_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Fourth question
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -296,7 +296,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify AIS 1-2-Call Credit Balance Answer    4    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_23_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Fifth question
+[F2__Help_IOS_1-4_1-2_Y_23_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Fifth question
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -341,7 +341,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify AIS 1-2-Call Credit Balance Answer    5    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_24_2] Go to Your Balance & Statement Verify Invoice/Bill AIS Fiber Fist question
+[F2__Help_IOS_1-4_1-2_Y_24_2] Go to Your Balance & Statement Verify Invoice/Bill AIS Fiber Fist question
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -383,7 +383,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify Invoice/Bill AIS Fiber Answer
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_25_2] Go to Your Balance & Statement Verify Invoice/Bill AIS Fiber Second question
+[F2__Help_IOS_1-4_1-2_Y_25_2] Go to Your Balance & Statement Verify Invoice/Bill AIS Fiber Second question
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
@@ -425,7 +425,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify Invoice/Bill AIS Fiber Answer
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_Help_IOS_1,3_1-2_Y_50_2] Go to Your Balance & Statement Verify AIS Monthly Statement Third question
+[F2__Help_IOS_1-4_1-2_Y_50_2] Go to Your Balance & Statement Verify AIS Monthly Statement Third question
     [Documentation]    ***Owner : Lek***
     ...    Ntype : 3PE
     ...    Status : Active
