@@ -103,9 +103,9 @@ Verify AIS Postpaid Answer iOS
     ${Checktext}=    Get mobile text    ${lblPromotionsAndPackages}
     Run Keyword If    ("${ar_LANG}"=="TH") or ("${Checktext}"=="Main Package & On Top Package") or ("${Checktext}"=="2")    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages}    ELSE    Mobile element name should be    ${lblPromotionsAndPackages}    ${PromotionsAndPackages2}
     Mobile element name should be    ${lblHeadTopic}    ${AISPostpaidTopic}
-    ${FAQRepo}    Run Keyword And Return Status    Wait Mobile Until Element Visible    	${lblPromotion&Package_FAQ${QuestionNumber}}
-    ${FAQText}=    Run Keyword If    '${FAQRepo}'=='True'    Get mobile text    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}
-    ${FAQText}=    Run Keyword If    '${FAQRepo}'=='False'    Get mobile text    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}2}
+    ${FAQRepo}    Run Keyword And Return Status    Wait Mobile Until Element Visible    	${lblAnswerAISPostpaid_FAQ${QuestionNumber}}    #${lblPromotion&Package_FAQ${QuestionNumber}}
+    ${FAQText}=    Run Keyword If    '${FAQRepo}'=='True'    Get mobile text    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}    ELSE    Get mobile text    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}2}
+    #${FAQText}=    Run Keyword If    '${FAQRepo}'=='False'    Get mobile text    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}2}
     #${FAQText}=    Get mobile text    ${lblAnswerAISPostpaid_FAQ${QuestionNumber}}
     Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
     Mobile Capture Screen At Verify Point    Verify AIS Postpaid Answer iOS ${QuestionNumber}
