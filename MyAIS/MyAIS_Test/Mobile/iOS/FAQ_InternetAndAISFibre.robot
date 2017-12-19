@@ -5,7 +5,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 *** Test Cases ***
 [F2__Help_IOS_1-4_1-2_Y_9_2] Go to Internet & AIS FIBRE
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -32,7 +32,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_10_2] Go to Internet & AIS FIBRE Verify Internet Problem first question
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -75,7 +75,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_11_2] Go to Internet & AIS FIBRE Verify Internet Problem Second question
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -118,7 +118,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_12_2] Go to Internet & AIS FIBRE Verify Internet Problem Third question
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -161,7 +161,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_13_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue(AIS Fibre issue) First question
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -213,7 +213,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_14_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (AIS Fibre issue) Second question
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -265,7 +265,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_15_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (AIS Fibre issue) Third question
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -317,7 +317,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_36_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue(AIS Playbox Issue) First question
     [Documentation]    ***Owner : Lek***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -368,7 +368,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_37_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (AIS Playbox Issue) Second question
     [Documentation]    ***Owner : Lek***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -419,7 +419,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_38_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (AIS Playbox Issue) Third question
     [Documentation]    ***Owner : Lek***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -471,7 +471,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_39_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (AIS Playbox Issue) Fourth question
     [Documentation]    ***Owner : Lek***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -522,7 +522,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_40_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (Wi-Fi Issue) First question
     [Documentation]    ***Owner : Lek***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -573,7 +573,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_41_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (Wi-Fi Issue) Second question
     [Documentation]    ***Owner : Lek***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -624,7 +624,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_47_2] Go to Internet & AIS FIBRE Verify AIS Fibre Usage First question
     [Documentation]    ***Owner : Lek***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -666,7 +666,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_48_2] Go to Internet & AIS FIBRE Verify AIS Fibre Usage Second question
     [Documentation]    ***Owner : Lek***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -708,7 +708,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
 
 [F2__Help_IOS_1-4_1-2_Y_49_2] Go to Internet & AIS FIBRE Verify AIS Fibre/AIS Playbox/WiFi Issue (Wi-Fi Issue) Third question
     [Documentation]    ***Owner : Lek***
-    ...    Ntype : 3PE
+    ...    Ntype : 3BE ,3PO ,3BO
     ...    Status : Active
     ...
     ...    Test Step
