@@ -41,7 +41,7 @@ Resource          ../../../../Config/LocalConfig.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1__Help_IOS_1-4_1-2_Y_2_2] Verify Help&Support page
-    [Documentation]    ***Owner : Tong***
+   [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
