@@ -1,0 +1,32 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_MainIconLocalized.txt
+Resource          ../PageRepository/Emerald_MainIconRepository.txt
+Resource          ../PageVariable/Emerald_MainIconVariable.txt
+
+*** Keywords ***
+Select Main Icon
+    [Arguments]    ${IconName}
+    Selenium2Library.Wait Until Element Is Visible    ${Header${IconName}}    10
+    Scroll Web To Element    ${Header${IconName}}
+    Click Web Element    ${Header${IconName}}
+
+Verify Main Icon Page
+    [Arguments]    ${IconName}    ${IconNameLocator}    ${IconText}
+    sleep    5
+    Web Element Text Should Be    ${IconNameLocator}    ${IconText}    #Check text header
+    Web Capture Screen At Verify Point    ${IconName}
+
+Verify Icon Colour
+    Scroll Web To Element    ${HeaderService}
+    Selenium2Library.Wait Until Element Is Visible    ${HeaderService}
+    Selenium2Library.Wait Until Element Is Visible    ${HeaderPrivilege}
+    Selenium2Library.Wait Until Element Is Visible    ${HeaderActivities}
+    Selenium2Library.Wait Until Element Is Visible    ${HeaderCenter}
+    Web Capture Screen At Verify Point    Verify All Main Icon
+
+Verify Main Icon Page_EN
+    [Arguments]    ${IconName}    ${IconNameLocator}    ${IconText}
+    sleep    5
+    Web Element Text Should Be    ${IconNameLocator}    ${IconText}    #Check text header
+    Web Capture Screen At Verify Point    ${IconName}

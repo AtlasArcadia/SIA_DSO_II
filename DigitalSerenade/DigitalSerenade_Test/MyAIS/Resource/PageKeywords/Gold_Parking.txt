@@ -1,0 +1,46 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../PageVariable/Gold_ParkingVariable.txt
+Resource          ../PageRepository/Gold_ParkingRepository.txt
+Resource          ../PageRepository/DigitalSerenadeCommonRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_ParkingLocalized.txt
+
+*** Keywords ***
+Verify Parking
+    sleep    10s
+    Scroll Web To Element    ${imgParking}
+    sleep    5s
+    Click Web Element    ${btn}
+    Web Capture Screen At Verify Point    List Parking
+
+Verify Date Match Wih Profile Page
+    Scroll Web To Element    ${lblPlatinumNumberProfile}
+    ${tempTimePeriodProfile}    Get Web Text    ${lblPlatinumTimePeriodProfile}
+    ${tempTimePeriodProfile}    Should Match Regexp    ${tempTimePeriodProfile}    \\d.*
+    Comment    ${TimePeriodProfile}    Replace String    ${TimePeriodProfile}    x    ${tempTimePeriodProfile}
+    ${tempmonth}    Get Substring    ${tempTimePeriodProfile}    13    15
+    ${tempyear}    Get Substring    ${tempTimePeriodProfile}    19
+    log    ${tempmonth}
+    log    ${tempyear}
+    Web Capture Screen At Verify Point    profile
+    Scroll Web To Element    ${imgParking}
+    sleep    5s
+    ${temp}    Selenium2Library.Get Element Attribute    ${SmallImginImgParking}@src
+    ${temp}    Get Substring    ${temp}    50    56
+    Web Capture Screen At Verify Point    parking
+    Should Be Equal    ${tempyear}${tempmonth}    ${temp}
+
+Verify Parking Date
+    Scroll Web To Element    ${lblPlatinumNumberProfile}
+    Web Capture Screen At Verify Point    Date1
+    ${tempTimePeriodProfile}    Get Web Text    //div[@class="greating-text"]/p[4]
+    @{tempTimePeriodProfile}    Get Regexp Matches    ${tempTimePeriodProfile}    \\d{2}/\\d{2}/\\d{4}
+    log    @{tempTimePeriodProfile}[1]
+    ${string}    Convert To String    @{tempTimePeriodProfile}[1]
+    @{MonthYear}    Split String    ${string}    /
+    ${Month}=    Set Variable    @{MonthYear}[0]
+    ${Year}=    Set Variable    @{MonthYear}[2]
+    Scroll Web To Element    ${imgParking}
+    ${temp}    Selenium2Library.Get Element Attribute    ${SmallImginImgParking}@src
+    Should Be Equal    ${temp}    https://10.104.249.46/template/pages/SDWP/assets/images/car-park/gold_${Year}${Month}.png
+    Web Capture Screen At Verify Point    Date2

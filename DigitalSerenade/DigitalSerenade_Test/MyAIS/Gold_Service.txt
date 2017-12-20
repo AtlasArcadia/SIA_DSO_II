@@ -1,0 +1,322 @@
+*** Settings ***
+Resource          ../../../Config/LocalConfig.txt
+Resource          Resource/PageKeywords/Gold_Service.txt
+
+*** Test Cases ***
+[F6_GoldWebMobile_1-4_1_Y_2_1] Verify AIS Mobile Care
+    [Documentation]    *Owner* : Now
+    ...    AIS Mobile care
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Gold Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
+    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign AIS Mobile care
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบ campaign AIS Mobile care [2]
+    ...    8. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
+    ...
+    ...    [2] ตรวจสอบ campaign AIS Mobile care
+    ...    - Moblie care
+    ...    - รับส่วนลด แพกเกจรายปี
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Click Service Campaign    ${imgMobileCare}    Mobile Care Campaign
+    Verify URL New Window    ${URLMobileCare${ar_LANG}}    Mobile Care Page
+    Verify Mobile Care
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_1-4_1_Y_2_2] Verify Call Free To AIS Call Center
+    [Documentation]    *Owner* : Now
+    ...    AIS Call Center
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Gold Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
+    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign Call Free to Call Center
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบ campaign Call Free to Call Center [2]
+    ...    8. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ URL
+    ...    - \ http://www.ais.co.th/serenade/th/service-1148.aspx
+    ...
+    ...    [2] ตรวจสอบ campaign Call Free to Call Center
+    ...    - 1148 เบอร์พิเศษเฉพาะคุณ
+    ...    - การติดต่อสื่อสารที่สะดวกสบาย ภายใต้เครือข่ายคุณภาพที่คุณอุ่นใจได้
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Click Service Campaign    ${imgCallCenter}    Call Center
+    Verify URL New Window    ${URLCallCenterTH}    Call Center Page
+    Verify Call Center
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_1-4_1_Y_2_3] Verify mPay Page
+    [Documentation]    *Owner* : Now
+    ...    mPay Page
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Gold Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
+    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign mPAY
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบ campaign mPAY [2]
+    ...    8. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ URL
+    ...    - http://www.ais.co.th/eservice.html
+    ...
+    ...    [2] ตรวจสอบ campaign mPAY
+    ...    - eService บริการออนไลน์ที่ให้คุณจัดการทุกเรื่องได้ง่ายๆ ได้ด้วยตัวคุณเองตลอด 24 ชม
+    ...    - ล็อคอิน
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Click Service Campaign    ${imgmPAY}    mPay
+    Verify URL New Window    ${URLMPay}    MPay Page
+    Verify mPay
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_1-4_1_Y_2_4] Verify Data Roaming
+    [Documentation]    *Owner* : Now
+    ...    Data Roaming
+    ...
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Gold Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
+    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign Data \ Roaming
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบ campaign Data \ Roaming [2]
+    ...    8. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...
+    ...    [1] ตรวจสอบ URL
+    ...    - http://www.ais.co.th/serenadetravel
+    ...
+    ...    [2] ตรวจสอบ campaign \ Data \ Roaming
+    ...    - Big Pack Non-Stop Data Roaming
+    ...    - แพ็กเกจโรมมิ่ง ให้คุณเล่นเน็ตได้ต่อเนื่องด้วยเน็ตเต็มสปีด 10 GB นาน 10 วัน
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Click Service Campaign    ${imgDataRoaming}    Data Roaming
+    Verify URL New Window    ${URLRoaming}    Data Roaming Page
+    Verify Data Roaming
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_GoldWebMobile_1_2_Y_2_1] Verify AIS Mobile Care EN
+    [Documentation]    *Owner* : Now
+    ...    AIS Mobile care
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Gold Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
+    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign AIS Mobile care
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบ campaign AIS Mobile care [2]
+    ...    8. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
+    ...
+    ...    [2] ตรวจสอบ campaign AIS Mobile care
+    ...    - Moblie care
+    ...    - รับส่วนลด แพกเกจรายปี
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Selenium2Library.Capture Page Screenshot
+    Scroll Web To Element    Xpath=//*[@id="service"]
+    Sleep    20s
+    Wait Until Keyword Succeeds    10x    3s    Click Web Element    Xpath=//img[@src="http://10.104.249.35/impression/banners/2017/9/27/banner-b3310739b5e5e4bc297372a61bf28f2e.1506481627028.jpeg?bannerId=380&campaignId=263&channelId=9&height&keywords=ServiceGoldEng&positionId=9&tokenId&width"]
+    Selenium2Library.Capture Page Screenshot
+    ${URL}=    Get Locations
+    Log Many    ${URL[0]}    ${URL[1]}
+    Should Be Equal    ${URL[1]}    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_GoldWebMobile_1_2_Y_2_2] Verify Call Free To AIS Call Center EN
+    [Documentation]    *Owner* : Now
+    ...    AIS Mobile care
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Gold Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
+    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign AIS Mobile care
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบ campaign AIS Mobile care [2]
+    ...    8. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
+    ...
+    ...    [2] ตรวจสอบ campaign AIS Mobile care
+    ...    - Moblie care
+    ...    - รับส่วนลด แพกเกจรายปี
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Scroll Web To Element    //*[@id="service"]
+    Wait Until Keyword Succeeds    10x    3s    Click Web Element    Xpath=//img[@src="http://10.104.249.35/impression/banners/2017/9/27/banner-0f21f490c41e2505b7e4e9862b6df218.1506481639537.jpeg?bannerId=381&campaignId=263&channelId=9&height&keywords=ServiceGoldEng&positionId=9&tokenId&width"]
+    Selenium2Library.Capture Page Screenshot
+    ${URL}=    Get Locations
+    Log Many    ${URL[0]}    ${URL[1]}
+    Should Be Equal    ${URL[1]}    http://www.ais.co.th/serenade/th/service-1148.aspx
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_GoldWebMobile_1_2_Y_2_3] Verify mPay Page EN
+    [Documentation]    *Owner* : Now
+    ...    AIS Mobile care
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Gold Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
+    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign AIS Mobile care
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบ campaign AIS Mobile care [2]
+    ...    8. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
+    ...
+    ...    [2] ตรวจสอบ campaign AIS Mobile care
+    ...    - Moblie care
+    ...    - รับส่วนลด แพกเกจรายปี
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Scroll Web To Element    //*[@id="service"]
+    Wait Until Keyword Succeeds    10x    3s    Click Web Element    Xpath=//img[@src="http://10.104.249.35/impression/banners/2017/9/27/banner-926d54f32a199d67d50b6799d190b48c.1506481780622.jpeg?bannerId=386&campaignId=263&channelId=9&height&keywords=ServiceGoldEng&positionId=9&tokenId&width"]
+    Selenium2Library.Capture Page Screenshot
+    ${URL}=    Get Locations
+    Log Many    ${URL[0]}    ${URL[1]}
+    Should Be Equal    ${URL[1]}    http://www.ais.co.th/index.html
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_GoldWebMobile_1_2_Y_2_4] Verify Data Roaming EN
+    [Documentation]    *Owner* : Now
+    ...    AIS Mobile care
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Gold Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
+    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign AIS Mobile care
+    ...    6. ตรวจสอบ URL [1]
+    ...    7. ตรวจสอบ campaign AIS Mobile care [2]
+    ...    8. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1] ตรวจสอบ URL
+    ...    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
+    ...
+    ...    [2] ตรวจสอบ campaign AIS Mobile care
+    ...    - Moblie care
+    ...    - รับส่วนลด แพกเกจรายปี
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Scroll Web To Element    //*[@id="service"]
+    Wait Until Keyword Succeeds    10x    3s    Click Web Element    Xpath=//img[@src="http://10.104.249.35/impression/banners/2017/9/27/banner-def9cb57615359a6d4580569598c9be8.1506481765123.jpeg?bannerId=385&campaignId=263&channelId=9&height&keywords=ServiceGoldEng&positionId=9&tokenId&width"]
+    Selenium2Library.Capture Page Screenshot
+    ${URL}=    Get Locations
+    Log Many    ${URL[0]}    ${URL[1]}
+    Should Be Equal    ${URL[1]}    ${URL[1]}
+    comment    http://10.104.249.35/impression/banners/2017/9/27/banner-def9cb57615359a6d4580569598c9be8.1506481765123.jpeg?bannerId=385&campaignId=263&channelId=9&height&keywords=ServiceGoldEng&positionId=9&tokenId&width
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}

@@ -1,0 +1,310 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../PageVariable/Gold_PrivilegeVariable.txt
+Resource          ../PageRepository/Gold_PrivilegeRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_PrivilegeLocalized.txt
+
+*** Keywords ***
+verify active first banner
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][1]//img@src
+    Log    ${srcBanner}
+    ${count}    Get Length    ${imgBannerList}
+    Log    ${count}
+    : FOR    ${index}    IN RANGE    0    ${count}+1
+    \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
+    \    Log    @{imgBannerList}[${index}]
+    \    Log    ${srcBannerList}
+    \    Run Keyword If    "${srcBannerList}" != "[]"    Exit For Loop
+    ${Banner}    Set Variable    @{txtBannerName}[${index}]
+    [Return]    ${Banner}
+
+verify active second banner
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][2]//img@src
+    Log    ${srcBanner}
+    ${count}    Get Length    ${imgBannerList}
+    Log    ${count}
+    : FOR    ${index}    IN RANGE    0    ${count}+1
+    \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
+    \    Log    @{imgBannerList}[${index}]
+    \    Log    ${srcBannerList}
+    \    Run Keyword If    "${srcBannerList}" != "[]"    Exit For Loop
+    ${Banner}    Set Variable    @{txtBannerName}[${index}]
+    [Return]    ${Banner}
+
+Find banner
+    [Arguments]    ${banner}
+    ${dot}    Selenium2Library.Get Matching Xpath Count    ${btnPrivilegeDot}
+    ${dot}    Convert To Integer    ${dot}
+    : FOR    ${index}    IN RANGE    1    ${dot}+1
+    \    ${Activebanner1}    verify active first banner
+    \    ${Activebanner2}    verify active second banner
+    \    Run Keyword If    "${Activebanner1}" == "${banner}"    Exit For Loop
+    \    Run Keyword If    "${Activebanner2}" == "${banner}"    Exit For Loop
+    \    ...    ELSE    Click Web Element    ${btnNext}
+
+Choose banner
+    [Arguments]    ${banner}
+    ${Activebanner1}    verify active first banner
+    ${Activebanner2}    verify active second banner
+    Run Keyword If    "${Activebanner1}" == "${banner}"    Click Web Element    ${btnBanner1}
+    Run Keyword If    "${Activebanner2}" == "${banner}"    Click Web Element    ${btnBanner2}
+
+Verify Privilege Page
+    Web Element Should Be Visible    ${imgActiveBanner}
+    Scroll Web To Element    ${imgActiveBanner}
+    Web Element Text Should Be    ${lblPrivilegeTitle}    ${txtPrivilege}
+    ${noDot}=    Selenium2Library.Get Matching Xpath Count    ${Owldot}
+    log    ${noDot}
+    ${noCampaign}=    Selenium2Library.Get Matching Xpath Count    ${imgActiveBanner}
+    log    ${noCampaign}
+    Should Be Equal    ${noDot}    6    #Number of Dot
+    Should Be Equal    ${noCampaign}    2    #Number of Campaign
+    Web Capture Screen At Verify Point    Privilege page
+
+Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    Scroll Web To Element    ${imgActiveBanner}
+
+Verify Slide Banner Button
+    sleep    30
+    ${active1}    verify active first banner
+    ${active2}    verify active second banner
+    Web Capture Screen At Verify Point    Verify First And Second Campaign
+    Click Web Element    ${btnNext}
+    ${active3}    verify active first banner
+    ${active4}    verify active second banner
+    Web Capture Screen At Verify Point    Verify Third and Fourth Campaign
+    Run Keyword If    "${active1}" == "${active3}"    Fail
+    Run Keyword If    "${active2}" == "${active4}"    Fail
+    Click Web Element    ${btnPrev}
+    ${active3}    verify active first banner
+    ${active4}    verify active second banner
+    Run Keyword If    "${active1}" != "${active3}"    Fail
+    Run Keyword If    "${active2}" != "${active4}"    Fail
+    Web Capture Screen At Verify Point    SlideButton
+
+Verify Page Button
+    sleep    30
+    Click Web Element    ${btnPrivilegeDot1}
+    verify active first banner
+    verify active second banner
+    Web Capture Screen At Verify Point    First dot
+    Click Web Element    ${btnPrivilegeDot2}
+    verify active first banner
+    verify active second banner
+    Web Capture Screen At Verify Point    Second dot
+    Click Web Element    ${btnPrivilegeDot3}
+    verify active first banner
+    verify active second banner
+    Web Capture Screen At Verify Point    Third dot
+    Click Web Element    ${btnPrivilegeDot4}
+    verify active first banner
+    verify active second banner
+    Web Capture Screen At Verify Point    Fouth dot
+    Click Web Element    ${btnPrivilegeDot5}
+    verify active first banner
+    verify active second banner
+    Web Capture Screen At Verify Point    Fifth dot
+    Click Web Element    ${btnPrivilegeDot6}
+    verify active first banner
+    verify active second banner
+    Web Capture Screen At Verify Point    Six dot
+
+Verify More Button
+    sleep    10
+    Click Web Element    ${btnOther}
+    Select Window    url=${urlOther}
+    ${location}    Get Location
+    Run Keyword If    "${location}" == "${urlOther}"    Web Capture Screen At Verify Point    All Campaign Link
+    ...    ELSE    Fail
+    Scroll Web To Element    ${imgPrivilege}
+    Web Element Should Be Visible    ${imgPrivilege}
+    Web Element Should Be Visible    ${imgPrivilege2}
+    Web Capture Screen At Verify Point    OtherPrivilege
+
+Verify Coffee Bean Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find Banner    CoffeeBean
+    Web Capture Screen At Verify Point    CoffeeBean
+    Choose banner    CoffeeBean
+    Select Window    url=${URL_CoffeeBean}
+    ${location}    Get Location
+    Run Keyword If    "${location}" == "${URL_CoffeeBean}"    Web Capture Screen At Verify Point    All Campaign Link
+    ...    ELSE    Fail
+    Scroll Web To Element    ${lblCoffeeBean1}
+    Web Element Text Should Be    ${lblCoffeeBean1}    ${txtCoffeeBean1}
+    Web Element Text Should Be    ${lblCoffeeBean2}    ${txtCoffeeBean2}
+    Web Capture Screen At Verify Point    PrivilegeCoffeeBean
+
+Verify Black Canyon Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    BlackCanyon
+    Web Capture Screen At Verify Point    BlackCanyonBanner
+    Choose banner    BlackCanyon
+    Select Window    url=${URL_BlackCanyon}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${URL_BlackCanyon}"    Fail
+    Scroll Web To Element    ${lblBlackCanyon1}
+    Web Element Text Should Be    ${lblBlackCanyon1}    ${txtBlackCanyon1}
+    Web Element Text Should Be    ${lblBlackCanyon2}    ${txtBlackCanyon2}
+    Web Capture Screen At Verify Point    PrivilegeBlackCanyon
+
+Verify Cinnabon Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    Cinnabon
+    Web Capture Screen At Verify Point    CinnabonBanner
+    Choose banner    Cinnabon
+    Sleep    15s
+    Select Window    url=${URL_Cinnabon}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${URL_Cinnabon}"    Fail
+    Scroll Web To Element    ${lblCinnabon1}
+    Web Element Text Should Be    ${lblCinnabon1}    ${txtCinnabon1}
+    Web Element Text Should Be    ${lblCinnabon2}    ${txtCinnabon2}
+    Web Capture Screen At Verify Point    PrivilegeCinnabon
+
+Verify SF Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    SF
+    Web Capture Screen At Verify Point    SFBanner
+    Choose banner    SF
+    Sleep    15s
+    Select Window    url=${URL_Sf}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${URL_Sf}"    Fail
+    Scroll Web To Element    ${lblSF1}
+    Web Element Text Should Be    ${lblSF1}    ${txtSF1}
+    Web Element Text Should Be    ${lblSF2}    ${txtSF2}
+    Web Capture Screen At Verify Point    PrivilegeSF
+
+Verify Mezzo Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    Mezzo
+    Web Capture Screen At Verify Point    MezzoBanner
+    Choose banner    Mezzo
+    Select Window    url=${URL_Mezzo}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${URL_Mezzo}"    Fail
+    Scroll Web To Element    ${lblMezzo1}
+    Web Element Text Should Be    ${lblMezzo1}    ${txtMezzo1}
+    Web Element Text Should Be    ${lblMezzo2}    ${txtMezzo2}
+    Web Capture Screen At Verify Point    PrivilegeMezzo
+
+Verify Cold Stone Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    ColdStone
+    Web Capture Screen At Verify Point    ColdStoneBanner
+    Choose banner    ColdStone
+    Sleep    15s
+    Select Window    url=${URL_ColdStone}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${URL_ColdStone}"    Fail
+    Scroll Web To Element    ${lblColdStone1}
+    Web Element Text Should Be    ${lblColdStone1}    ${txtColdStone1}
+    Web Element Text Should Be    ${lblColdStone2}    ${txtColdStone2}
+    Web Capture Screen At Verify Point    PrivilegeColdStone
+
+Verify Sukishi Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    Sukishi
+    Web Capture Screen At Verify Point    SukishiBanner
+    Choose banner    Sukishi
+    Sleep    15s
+    Select Window    url=${URL_Sukishi}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${URL_Sukishi}"    Fail
+    Web Capture Screen At Verify Point    PrivilegeSukishi
+
+Verify OrganikaHouse
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    Organika
+    Web Capture Screen At Verify Point    OrganikaBanner
+    Choose banner    Organika
+    Sleep    15s
+    Select Window    url=${urlOrganika}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${urlOrganika}"    Fail
+    Scroll Web To Element    ${lblOrganikaHouse1}
+    Web Element Text Should Be    ${lblOrganikaHouse1}    ${txtOrganikaHouse1}
+    Web Element Text Should Be    ${lblOrganikaHouse2}    ${txtOrganikaHouse2}
+    Web Capture Screen At Verify Point    PrivilegeOrganikaHouse
+
+Verify Major Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    Major
+    Web Capture Screen At Verify Point    MajorBanner
+    Choose banner    Major
+    Sleep    15s
+    Select Window    url=${URL_Major}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${URL_Major}"    Fail
+    Scroll Web To Element    ${lblMajor1}
+    Web Element Text Should Be    ${lblMajor1}    ${txtMajor1}
+    Web Element Text Should Be    ${lblMajor2}    ${txtMajor2}
+    Web Capture Screen At Verify Point    PrivilegeMajor
+
+Verify Tops Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    Tops
+    Web Capture Screen At Verify Point    TopsBanner
+    Choose banner    Tops
+    Sleep    15s
+    Select Window    url=${URL_Tops}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${URL_Tops}"    Fail
+    Scroll Web To Element    ${lblTops1}
+    Web Element Text Should Be    ${lblTops1}    ${txtTops1}
+    Web Element Text Should Be    ${lblTops2}    ${txtTops2}
+    Web Capture Screen At Verify Point    PrivilegeTops
+
+Verify October Flower Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    October
+    Web Capture Screen At Verify Point    OctoberBanner
+    Choose banner    October
+    Sleep    15s
+    Select Window    url=${URL_October}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${URL_October}"    Fail
+    Scroll Web To Element    ${lblOctober1}
+    Web Element Text Should Be    ${lblOctober1}    ${txtOctober1}
+    Web Element Text Should Be    ${lblOctober2}    ${txtOctober2}
+    Web Capture Screen At Verify Point    PrivilegeOctober
+
+Verify S&P Page
+    Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    sleep    30
+    Find banner    SandP
+    Web Capture Screen At Verify Point    SandPBanner
+    Choose banner    SandP
+    Sleep    15s
+    Select Window    url=${urlSandP}
+    ${lo}    Get Location
+    Run Keyword If    "${lo}" != "${urlSandP}"    Fail
+    Scroll Web To Element    ${lblSandP1}
+    Web Element Text Should Be    ${lblSandP1}    ${txtSandP1}
+    Web Element Text Should Be    ${lblSandP2}    ${txtSandP2}
+    Web Capture Screen At Verify Point    PrivilegeSandP

@@ -1,0 +1,45 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../PageVariable/Emerald_BirthdayVariable.txt
+Resource          ../PageRepository/Emerald_BirthdayRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_BirthdayLocalized.txt
+
+*** Keywords ***
+Verify BirthDay Page Match With Birthday Date
+    Scroll Web To Element    ${EmeraldBirthdayLine2}
+    ${HappyBirthday}=    Get Web Text    ${EmeraldBirthdayLine1}    #“ สุขสันต์วันเกิด \ คุณ.+
+    Should Match Regexp    "${HappyBirthday}"    .*
+    Web Element Text Should Be    ${EmeraldBirthdayLine2}    ${HappyBirthday_Line2}    #เอไอเอส เซเรเนด ขออวยพรให้ทุกวันของคุณ
+    Web Element Text Should Be    ${EmeraldBirthdayLine3}    ${HappyBirthday_Line3}    #เต็มไปด้วยความสุข และความสำเร็จตลอดไป ”
+    Web Element Text Should Be    ${EmeraldBirthdayLine4}    ${HappyBirthday_Line4}    #ขอมอบของขวัญพิเศษ
+    Web Element Text Should Be    ${EmeraldBirthdayLine5}    ${HappyBirthday_Line5}    #สำหรับวันเกิดของคุณ
+    Web Element Text Should Be    ${EmeraldBirthdayLine6}    ${HappyBirthday_Line6}    #เน็ตฟรี โทรฟรี ตลอดวัน
+    Web Capture Screen At Verify Point    Happy Birthday
+
+Verify BirthDay Page Not Match With Birthday Date
+    Scroll Web To Element    ${HeaderCenter}
+    Comment    Selenium2Library.Page Should Not Contain Element    xpath=//*[@id="special"]/div[1]/div/img[2]
+    Element Should Not Be Visible    ${imgEmeraldBirthday}
+    Web Capture Screen At Verify Point    No Birthday
+    Element Should Not Be Visible    ${EmeraldBirthdayLine2}
+    Element Should Not Be Visible    ${EmeraldBirthdayLine3}
+    Element Should Not Be Visible    ${EmeraldBirthdayLine4}
+    Element Should Not Be Visible    ${EmeraldBirthdayLine5}
+    Element Should Not Be Visible    ${EmeraldBirthdayLine6}
+
+Verify BirthDay Page Match With Birthday Date_EN
+    Scroll Web To Element    //div[@class="content"]
+    ${TxtBd}=    Get Web Text    //div[@class="content"]
+    @{SplitTxt}=    Split String    ${TxtBd}    \n
+    Log list    ${SplitTxt}
+    ${Line1}=    String.Get Line    ${TxtBd}    0
+    ${Line2}=    String.Get Line    ${TxtBd}    1
+    ${Line3}=    String.Get Line    ${TxtBd}    2
+    ${Line4}=    String.Get Line    ${TxtBd}    3
+    ${Line5}=    String.Get Line    ${TxtBd}    4
+    ${Line1}=    Fetch From Left    ${Line1}    ${SPACE}
+    ${Line1}=    Remove String    ${Line1}    ${SPACE}
+    Should Be Equal    ${HappyBirthday_Line1}    ${Line1}
+    Should Be Equal    ${HappyBirthday_Line2}    ${Line2}
+    Should Be Equal    ${HappyBirthday_Line3}    ${Line3}
+    Should Be Equal    ${HappyBirthday_Line4}    ${Line4}

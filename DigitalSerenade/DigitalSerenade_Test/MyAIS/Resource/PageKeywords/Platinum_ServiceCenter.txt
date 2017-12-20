@@ -1,0 +1,28 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../PageRepository/Platinum_ServiceCenterRepository.txt
+Resource          ../PageVariable/Platinum_ServiceCenterVariable.txt
+Resource          ../PageRepository/Platinum_ClickMainIconRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ClickMainIconLocalized.txt
+
+*** Keywords ***
+Verify Service Center
+    Wait Web Until Page Contains Element    ${lblPlatinumTitleProfile1}
+    Scroll Web To Element    ${AISTouchPointClickEN}    #${AISTouchPointClick}
+    sleep    10s
+    Web Capture Screen At Verify Point    AISTouchPointClick
+    Click Web Element    ${AISTouchPointClickEN}
+    sleep    10s
+    Select Window    url=${ServiceCenterLink}
+    Location Should Be    ${ServiceCenterLink}
+    Web Element Should Be Visible    ${AISLogo}
+    Comment    Web Element Should Be Visible    ${AISBannerLink}
+    Web Element Should Be Visible    ${AISShop}
+    Web Capture Screen At Verify Point    Service Center
+
+Verify Service Center Near You
+    Wait Web Until Page Contains Element    ${lblPlatinumTitleProfile1}
+    Web Element Text Should Be    ${lblPlatinumServiceCenter}    ${PlatinumServiceCenter}
+    Web Element Text Should Be    xpath=//div[@class="col-md-12 col-sm-12 col-xs-4"]//h3[@class="title"]    Serenade Touchpoint near you
+    Web Capture Screen At Verify Point    Service Center Near You

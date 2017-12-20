@@ -1,0 +1,43 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../PageVariable/Platinum_ParkingVariable.txt
+Resource          ../PageRepository/Platinum_ParkingRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ParkingLocalized.txt
+
+*** Keywords ***
+Verify Parking
+    Scroll Web To Element    ${imgParking}
+    sleep    5s
+    Click Web Element    ${btn}
+    Web Capture Screen At Verify Point    List Parking
+
+Verify Date Match Wih Profile Page
+    Scroll Web To Element    ${lblPlatinumNumberProfile}
+    ${tempTimePeriodProfile}    Get Web Text    ${lblPlatinumTimePeriodProfile}
+    ${tempTimePeriodProfile}    Should Match Regexp    ${tempTimePeriodProfile}    \\d.*
+    Comment    ${TimePeriodProfile}    Replace String    ${TimePeriodProfile}    x    ${tempTimePeriodProfile}
+    ${tempmonth}    Get Substring    ${tempTimePeriodProfile}    13    15
+    ${tempyear}    Get Substring    ${tempTimePeriodProfile}    19
+    Scroll Web To Element    ${imgParking}
+    sleep    5s
+    ${temp}    Selenium2Library.Get Element Attribute    ${SmallImginImgParking}@src
+    ${temp}    Get Substring    ${temp}    74    80
+    Web Capture Screen At Verify Point    parking
+    Should Be Equal    ${tempyear}${tempmonth}    ${temp}
+
+Verify Date Match Wih Profile Page Eng
+    Scroll Web To Element    xpath=//a[@class='call-btn']    #${lblPlatinumNumberProfile}
+    ${tempTimePeriodProfile}    Get Web Text    ${lblPlatinumTimePeriodProfile}
+    ${tempTimePeriodProfile}    Should Match Regexp    ${tempTimePeriodProfile}    \\d.*
+    Comment    ${TimePeriodProfile}    Replace String    ${TimePeriodProfile}    x    ${tempTimePeriodProfile}
+    ${tempmonth}    Get Substring    ${tempTimePeriodProfile}    14    16
+    ${tempyear}    Get Substring    ${tempTimePeriodProfile}    20
+    log    ${tempyear}
+    Comment    ${tempyear}    Remove String    /
+    Scroll Web To Element    ${imgParking}
+    sleep    5s
+    ${temp}    Selenium2Library.Get Element Attribute    ${SmallImginImgParking}@src
+    ${temp}    Get Substring    ${temp}    74    80
+    Web Capture Screen At Verify Point    parking
+    Should Be Equal    ${tempyear}${tempmonth}    ${temp}
+    Capture ScreenShot

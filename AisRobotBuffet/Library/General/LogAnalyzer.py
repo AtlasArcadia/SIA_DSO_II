@@ -13,15 +13,15 @@ LEN_TESTCASE_NAME = 85
 LEN_LANGUAGE_NAME = 12
 LEN_ERROR_MSG = 100
 LEN_NTYPE_NAME = 20
-LEN_KEYWORD_FAIL = 50
-LEN_IMAGE_FAIL = 30
-LEN_DATETIME_FAIL = 30
+LEN_KEYWORD_PASS = 50
+LEN_IMAGE_PASS = 30
+LEN_DATETIME_PASS = 30
 LEN_MOBILE_NUMBER = 20
 INDEX_START = 2
 WORKSHEET_NAME = 'Log analyzer'
 
 
-class errorAnalyzer:
+class Analyzer:
     def __init__(self):
         pass
 
@@ -36,11 +36,11 @@ class errorAnalyzer:
         index_menu_start = INDEX_START
         index_ntype_start = INDEX_START
 
-        worksheet = errorAnalyzer._init_worksheet_error_myais_multiexecutors(workbook)
-        data_format = errorAnalyzer._data_format(workbook)
-        general_error_format = errorAnalyzer._error_msg_format(workbook)
-        script_error_format = errorAnalyzer._error_script_msg_format(workbook)
-        system_error_format = errorAnalyzer._error_system_msg_format(workbook)
+        worksheet = Analyzer._init_worksheet_success_myais_multiexecutors(workbook)
+        data_format = Analyzer._data_format(workbook)
+        general_error_format = Analyzer._error_msg_format(workbook)
+        script_error_format = Analyzer._error_script_msg_format(workbook)
+        system_error_format = Analyzer._error_system_msg_format(workbook)
 
         context = etree.iterparse(xml_file, tag='suite')
         for action, executor in context:
@@ -110,7 +110,7 @@ class errorAnalyzer:
                                     break
 
                             # print "message = " + message
-                            error_msg, error_type = errorAnalyzer._analyze_error_msg_for_myaisapp(message)
+                            error_msg, error_type = Analyzer._analyze_error_msg_for_myaisapp(message)
                             if error_type is "Script":
                                 worksheet.write('F' + str(index), error_msg, script_error_format)
                                 # worksheet.insert_image('F'+str(index), 'python.png')
@@ -159,7 +159,7 @@ class errorAnalyzer:
                                 # worksheet.set_column('G:K', 50)
                                 # worksheet.set_row(90)
                                 for i in range(len_ListimageName):
-                                    colum_header = errorAnalyzer.get_column_index_header(start_index_column + i)
+                                    colum_header = Analyzer.get_column_index_header(start_index_column + i)
                                     worksheet.set_column(colum_header + ':' + colum_header, 50)
                                     # worksheet.insert_image(colums[i] + str(index), xml_file + '\\..\\' + ListimageName[i] , {'x_scale': 0.4, 'y_scale': 0.4})
                                     worksheet.insert_image(colum_header + str(index),
@@ -206,8 +206,8 @@ class errorAnalyzer:
 
     @staticmethod
     def _analyze_error_msg_for_myaisapp_multiexecutors(msg):
-        # options = {0: errorAnalyzer.zero(),
-        #            1: errorAnalyzer.sqr(),
+        # options = {0: Analyzer.zero(),
+        #            1: Analyzer.sqr(),
         #            }
 
         if msg is None:
@@ -248,12 +248,12 @@ class errorAnalyzer:
         return error_msg, error_type
 
     @staticmethod
-    def _init_worksheet_error_myais_multiexecutors(workbook):
+    def _init_worksheet_success_myais_multiexecutors(workbook):
         worksheet = workbook.add_worksheet(WORKSHEET_NAME)
         worksheet.set_column('J:J', LEN_MOBILE_NUMBER)
-        worksheet.set_column('I:I', LEN_DATETIME_FAIL)
-        worksheet.set_column('H:H', LEN_IMAGE_FAIL)
-        worksheet.set_column('G:G', LEN_KEYWORD_FAIL)
+        worksheet.set_column('I:I', LEN_DATETIME_PASS)
+        worksheet.set_column('H:H', LEN_IMAGE_PASS)
+        worksheet.set_column('G:G', LEN_KEYWORD_PASS)
         worksheet.set_column('F:F', LEN_ERROR_MSG)
         worksheet.set_column('E:E', LEN_TESTCASE_NAME)
         worksheet.set_column('D:D', LEN_NTYPE_NAME)
@@ -261,8 +261,8 @@ class errorAnalyzer:
         worksheet.set_column('B:B', LEN_MENU_NAME)
         worksheet.set_column('A:A', LEN_EXECUTOR)
         # set hearder
-        header_format = errorAnalyzer._header_format(workbook)
-        errorAnalyzer._write_header_myais_multiexecutors(worksheet, header_format)
+        header_format = Analyzer._header_format(workbook)
+        Analyzer._write_header_myais_multiexecutors(worksheet, header_format)
         return worksheet
 
     @staticmethod
@@ -284,7 +284,7 @@ class errorAnalyzer:
     @staticmethod
     def get_column_index_header(index):
         # type: (object) -> object
-        return errorAnalyzer._sub_get_column_header(index, index)
+        return Analyzer._sub_get_column_header(index, index)
 
     @staticmethod
     def _sub_get_column_header(original, index):
@@ -293,9 +293,9 @@ class errorAnalyzer:
 
         result_div_by_max = index / maxLen
         if (result_div_by_max > maxLen):
-            return charArray[result_div_by_max % maxLen - 1] + errorAnalyzer.sub_get_column_header(original, result_div_by_max)
+            return charArray[result_div_by_max % maxLen - 1] + Analyzer.sub_get_column_header(original, result_div_by_max)
         elif (result_div_by_max >= 1):
-            return charArray[result_div_by_max - 1] + errorAnalyzer.sub_get_column_header(original, result_div_by_max % maxLen)
+            return charArray[result_div_by_max - 1] + Analyzer.sub_get_column_header(original, result_div_by_max % maxLen)
         else:
             indexChar = original % maxLen
             return charArray[indexChar]
@@ -303,9 +303,9 @@ class errorAnalyzer:
 
 # For Test and Debug.
 # workbook1 = xlsxwriter.Workbook("D:\\For Report Login Fail\\allReport22062017\\workbook22062017.xlsx")
-# errorAnalyzer.error_analyze_for_myaisapp("D:\\For Report Login Fail\\allReport22062017\\output.xml", workbook1)
+# Analyzer.error_analyze_for_myaisapp("D:\\For Report Login Fail\\allReport22062017\\output.xml", workbook1)
 # workbook1.close()
 #
 # workbook1 = xlsxwriter.Workbook("D:\\For Report Login Fail\\allReport23062017\\workbook23062017.xlsx")
-# errorAnalyzer.error_analyze_for_myaisapp("D:\\For Report Login Fail\\allReport23062017\\output.xml", workbook1)
+# Analyzer.error_analyze_for_myaisapp("D:\\For Report Login Fail\\allReport23062017\\output.xml", workbook1)
 # workbook1.close()

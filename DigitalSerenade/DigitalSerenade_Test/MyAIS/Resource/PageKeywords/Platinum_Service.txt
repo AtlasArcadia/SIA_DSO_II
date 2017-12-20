@@ -1,0 +1,63 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../PageRepository/Platinum_ServiceRepository.txt
+Resource          ../PageVariable/Platinum_ServiceVariable.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ServiceLocalized.txt
+
+*** Keywords ***
+Click Service Campaign
+    [Arguments]    ${location}    ${imgName}
+    Wait Web Until Page Contains Element    ${location}    25
+    Scroll Web To Element    ${location}
+    Sleep    10s
+    Web Capture Screen At Verify Point    ${imgName}
+    Click Web Element    ${location}
+
+Verify Mobile Care
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    ${lblMobileCare}
+    Web Element Text Should Be    ${lblMobileCare}    ${txtMobileCare}
+    Web Element Text Should Be    ${lblPackage}    ${SubContentMobileCare}
+    Web Capture Screen At Verify Point    Mobile Care
+
+Verify Call Center
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    ${lblSpecialService}
+    Web Element Should Be Visible    ${lblSpecialService}
+    Web Element Should Be Visible    ${lblSpecialNumber1148}
+    Web Capture Screen At Verify Point    Call Center
+
+Verify mPay
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    ${lbleServiceTitle}
+    Web Element Text Should Be    ${lbleServiceTitle}    ${eServiceTitle}
+    Web Element Text Should Be    ${lbleServiceSubtitle1}    ${eServiceSubtitle1}
+    Web Element Text Should Be    ${lbleServiceSubtitle2}    ${eServiceSubtitle2}
+    Web Capture Screen At Verify Point    mPay
+
+Verify Data Roaming
+    Selenium2Library.Wait Until Element Is Visible    ${AISLogo}
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    ${lblDataRoamingRow1}
+    Web Element Text Should Be    ${lblDataRoamingRow1}    ${DataRoamingRow1}
+    Web Element Text Should Be    ${lblDataRoamingRow2}    ${DataRoamingRow2}
+    Web Element Text Should Be    ${lblDataRoamingRow3}    ${DataRoamingRow3}
+    Web Capture Screen At Verify Point    Data Roaming Page
+
+Verify Data Roaming EN
+    Selenium2Library.Wait Until Element Is Visible    ${AISLogo}
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    xpath=//div[@class="data-txt1 akrobatextrabold"]
+    Web Element Text Should Be    xpath=//div[@class="data-txt1 akrobatextrabold"]    ${DataRoamingRow1}
+    Web Element Text Should Be    xpath=//div[@id="data-txt2"]    ${DataRoamingRow2}
+    Web Element Text Should Be    xpath=//div[@id="data-txt3"]    ${DataRoamingRow3}
+    Web Capture Screen At Verify Point    Data Roaming Page
+
+Verify Unlimited Data Roaming EN
+    Selenium2Library.Wait Until Element Is Visible    ${AISLogo}
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    xpath=//div[@class="head_section iconcontent"]
+    Web Element Text Should Be    xpath=//div[@class="head_section iconcontent"]    ${UnlimitedDataRoamingContent}
+    Web Element Text Should Be    xpath=//div[@class="head_section icondevice"]    ${UnlimitedDataRoamingDevices}
+    Web Capture Screen At Verify Point    Unlimited Data Roaming Page EN
