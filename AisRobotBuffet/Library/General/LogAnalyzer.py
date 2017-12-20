@@ -18,6 +18,7 @@ LEN_IMAGE_PASS = 30
 LEN_DATETIME_PASS = 30
 LEN_MOBILE_NUMBER = 20
 INDEX_START = 2
+LEN_TESTSTEP = 5000
 WORKSHEET_NAME = 'Log analyzer'
 
 
@@ -79,7 +80,7 @@ class Analyzer:
                                         testcase.find('status').get('status') == 'PASS') == True:
                                 continue
 
-                            worksheet.write('E' + str(index), testcase.get("name"), data_format)
+                            worksheet.write('B' + str(index), testcase.get("name"), data_format)
                             dialogMessage = testcase.find(
                                 './/kw[@type="teardown"]//kw[@name="Log Dialog Msg From MyAIS"]/kw[@name="Log"]/msg')
                             loadingMessage = testcase.find(
@@ -109,15 +110,6 @@ class Analyzer:
                                         message = list_msg_fail[size - 1].text
                                     break
 
-                            # print "message = " + message
-                            error_msg, error_type = Analyzer._analyze_error_msg_for_myaisapp(message)
-                            if error_type is "Script":
-                                worksheet.write('F' + str(index), error_msg, script_error_format)
-                                # worksheet.insert_image('F'+str(index), 'python.png')
-                            elif error_type is "System":
-                                worksheet.write('F' + str(index), error_msg, system_error_format)
-                            else:
-                                worksheet.write('F' + str(index), error_msg, general_error_format)
                             # Add Keyword Fail in TestCase
                             # KeywordFail = testcase.find('./kw/status[@status="PASS"]/..').get('name')
                             # default msg
@@ -142,9 +134,9 @@ class Analyzer:
                                 date_time_fail = keyword.find('status').get('endtime')
                                 break
 
-                            worksheet.write('G' + str(index), keyword_fail, general_error_format)
-                            worksheet.write('I' + str(index), date_time_fail, general_error_format)
-                            worksheet.write('J' + str(index), mobile_number, general_error_format)
+                            #worksheet.write('G' + str(index), keyword_fail, general_error_format)
+                            worksheet.write('G' + str(index), date_time_fail, general_error_format)
+                            worksheet.write('E' + str(index), mobile_number, general_error_format)
                             # Add image to Excel
                             imageAtFail = testcase.find(
                                 './/kw[@type="teardown"]/kw[@name="Run Keyword If Test Failed"]/kw[@name="Capture Screen with Specific name"]/kw[@name="Log"]/msg')
@@ -155,7 +147,7 @@ class Analyzer:
                                 len_ListimageName = len(ListimageName)
                                 # colums = ["F","G","H","I","J","K"]
                                 # "F" column start with index 5
-                                start_index_column = 7
+                                start_index_column = 8
                                 # worksheet.set_column('G:K', 50)
                                 # worksheet.set_row(90)
                                 for i in range(len_ListimageName):
@@ -168,36 +160,28 @@ class Analyzer:
                                 index += 1
 
                         if index_ntype_start == index - 1:
-                            worksheet.write('D' + str(index_ntype_start), ntype.get("name"), data_format)
+                            worksheet.write('F' + str(index_ntype_start), ntype.get("name"), data_format)
                         else:
-                            worksheet.merge_range('D' + str(index_ntype_start) + ':D' + str(index - 1),
+                            worksheet.merge_range('F' + str(index_ntype_start) + ':F' + str(index - 1),
                                                   ntype.get("name"),
                                                   data_format)
 
                         index_ntype_start = index
 
                     if index_lang_start == index - 1:
-                        worksheet.write('C' + str(index_lang_start), lang.get("name"), data_format)
+                        worksheet.write('D' + str(index_lang_start), lang.get("name"), data_format)
                     else:
-                        worksheet.merge_range('C' + str(index_lang_start) + ':C' + str(index - 1), lang.get("name"),
+                        worksheet.merge_range('D' + str(index_lang_start) + ':D' + str(index - 1), lang.get("name"),
                                               data_format)
                     index_lang_start = index
 
                 if index_menu_start == index - 1:
-                    worksheet.write('B' + str(index_menu_start), menu.get("name"), data_format)
+                    worksheet.write('A' + str(index_menu_start), menu.get("name"), data_format)
                 else:
-                    worksheet.merge_range('B' + str(index_menu_start) + ':B' + str(index - 1), menu.get("name"),
+                    worksheet.merge_range('A' + str(index_menu_start) + ':A' + str(index - 1), menu.get("name"),
                                           data_format)
 
                 index_menu_start = index
-
-            if index_executor_start == index - 1:
-                worksheet.write('A' + str(index_executor_start), executor.get("name"), data_format)
-            else:
-                worksheet.merge_range('A' + str(index_executor_start) + ':A' + str(index - 1), executor.get("name"),
-                                      data_format)
-
-            index_executor_start = index
 
             for i in range(1, index):
                 worksheet.set_row(i, 385)
@@ -250,16 +234,15 @@ class Analyzer:
     @staticmethod
     def _init_worksheet_success_myais_multiexecutors(workbook):
         worksheet = workbook.add_worksheet(WORKSHEET_NAME)
-        worksheet.set_column('J:J', LEN_MOBILE_NUMBER)
-        worksheet.set_column('I:I', LEN_DATETIME_PASS)
-        worksheet.set_column('H:H', LEN_IMAGE_PASS)
-        worksheet.set_column('G:G', LEN_KEYWORD_PASS)
-        worksheet.set_column('F:F', LEN_ERROR_MSG)
-        worksheet.set_column('E:E', LEN_TESTCASE_NAME)
-        worksheet.set_column('D:D', LEN_NTYPE_NAME)
-        worksheet.set_column('C:C', LEN_LANGUAGE_NAME)
-        worksheet.set_column('B:B', LEN_MENU_NAME)
-        worksheet.set_column('A:A', LEN_EXECUTOR)
+        worksheet.set_column('I:I', LEN_IMAGE_PASS)
+        worksheet.set_column('H:H', LEN_KEYWORD_PASS)
+        worksheet.set_column('G:G', LEN_DATETIME_PASS)
+        worksheet.set_column('F:F', LEN_NTYPE_NAME)
+        worksheet.set_column('E:E', LEN_MOBILE_NUMBER)
+        worksheet.set_column('D:D', LEN_LANGUAGE_NAME)
+        worksheet.set_column('C:C', LEN_TESTSTEP)
+        worksheet.set_column('B:B', LEN_TESTCASE_NAME)
+        worksheet.set_column('A:A', LEN_MENU_NAME)
         # set hearder
         header_format = Analyzer._header_format(workbook)
         Analyzer._write_header_myais_multiexecutors(worksheet, header_format)
@@ -268,16 +251,15 @@ class Analyzer:
     @staticmethod
     def _write_header_myais_multiexecutors(worksheet, header_format):
         worksheet.set_row(0, 25)
-        worksheet.write('A1', "Executor", header_format)
-        worksheet.write('B1', "Menu", header_format)
-        worksheet.write('C1', "Language", header_format)
-        worksheet.write('D1', "Ntype", header_format)
-        worksheet.write('E1', "Testcase", header_format)
-        worksheet.write('F1', "Error message", header_format)
-        worksheet.write('G1', "Keyword Fail", header_format)
-        worksheet.write('H1', "Image At Fail", header_format)
-        worksheet.write('I1', "DateTime At Fail", header_format)
-        worksheet.write('J1', "Mobile", header_format)
+        worksheet.write('A1', "Menu", header_format)
+        worksheet.write('B1', "Testcase", header_format)
+        worksheet.write('C1', "Test Step", header_format)
+        worksheet.write('D1', "Language", header_format)
+        worksheet.write('E1', "Mobile", header_format)
+        worksheet.write('F1', "Ntype", header_format)
+        worksheet.write('G1', "DateTime", header_format)
+        worksheet.write('H1', "Verify Keyword", header_format)
+        worksheet.write('I1', "Image", header_format)
 
     # ===============================================================================================================
     # index start with 0
