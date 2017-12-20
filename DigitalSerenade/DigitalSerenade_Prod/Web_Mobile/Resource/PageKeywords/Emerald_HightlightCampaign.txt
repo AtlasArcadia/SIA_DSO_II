@@ -19,7 +19,9 @@ Verify HC MyAIS
     Run Keyword If    "${lo}" == "${BannermyAISLink}"    Web Capture Screen At Verify Point    WebmyAIS
     ...    ELSE    Fail
 
-Verify HC Eat with AIS
+Verify second banner
+    Sleep    20
+    Scroll Web To Element    ${btnNextBanner}
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    Embassy
     Click Web Element    ${btnHCPage2}
@@ -53,7 +55,9 @@ Verify HC Embassy
     ...    ELSE    Fail
     Mobile Capture Screen At Verify Point    Banner2Redirect
 
-Verify HC Top 10 Cafe
+Verify first banner
+    Sleep    20
+    Scroll Web To Element    ${imgBanner}
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    TravelinStyle
     Click Web Element    ${btnHCPage1}
@@ -152,6 +156,7 @@ Verify HC My Kitchen
     Web Element Should Be Visible    ${txtmyKitchenConditionList}
 
 Verify Hilight Campaign
+    Scroll Web To Element    ${imgBanner}
     Web Element Text Should Be    ${lblHilightCampaignTitle}    ${lblHCTitle}
     : FOR    ${index}    IN RANGE    1    7
     \    Web Element Should Be Visible    ${btnHCPage${index}}
@@ -160,6 +165,8 @@ Verify Hilight Campaign
     Web Capture Screen At Verify Point    HilightCampaign
 
 Verify Slide Banner
+    Scroll Web To Element    ${imgBanner}
+    Mobile Capture Screen At Verify Point    hilightcampaign
     ${banner1}    verify active banner
     Click Web Element    ${btnNextBanner}
     ${banner2}    verify active banner
@@ -171,6 +178,7 @@ Verify Slide Banner
     ...    ELSE    Fail
 
 Verify HC Page Button
+    Scroll Web To Element    ${imgBanner}
     Set Selenium Speed    0.1
     Sleep    3s
     Click Web Element    ${btnHCPage1}
