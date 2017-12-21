@@ -3,7 +3,7 @@ Resource          DigitalSerenadeCommon.txt
 Resource          DigitalSerenadeProfileCommon.txt
 Resource          ../PageRepository/Platinum_ServiceRepository.txt
 Resource          ../PageVariable/Platinum_ServiceVariable.txt
-Resource          ../Localized/TH/3BE/Platinum_ServiceLocalized.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ServiceLocalized.txt
 
 *** Keywords ***
 Click Service Campaign
@@ -44,3 +44,20 @@ Verify Data Roaming
     Web Element Text Should Be    ${lblDataRoamingRow2}    ${DataRoamingRow2}
     Web Element Text Should Be    ${lblDataRoamingRow3}    ${DataRoamingRow3}
     Web Capture Screen At Verify Point    Data Roaming Page
+
+Verify Data Roaming EN
+    Selenium2Library.Wait Until Element Is Visible    ${AISLogo}
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    xpath=//div[@class="data-txt1 akrobatextrabold"]
+    Web Element Text Should Be    xpath=//div[@class="data-txt1 akrobatextrabold"]    ${DataRoamingRow1}
+    Web Element Text Should Be    xpath=//div[@id="data-txt2"]    ${DataRoamingRow2}
+    Web Element Text Should Be    xpath=//div[@id="data-txt3"]    ${DataRoamingRow3}
+    Web Capture Screen At Verify Point    Data Roaming Page
+
+Verify Unlimited Data Roaming EN
+    Selenium2Library.Wait Until Element Is Visible    ${AISLogo}
+    Wait Web Until Page Contains Element    ${AISLogo}
+    Scroll Web To Element    xpath=//div[@class="head_section iconcontent"]
+    Web Element Text Should Be    xpath=//div[@class="head_section iconcontent"]    ${UnlimitedDataRoamingContent}
+    Web Element Text Should Be    xpath=//div[@class="head_section icondevice"]    ${UnlimitedDataRoamingDevices}
+    Web Capture Screen At Verify Point    Unlimited Data Roaming Page EN

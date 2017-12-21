@@ -15,7 +15,7 @@ Resource          ../Resource/PageKeywords/RegisterAISFibreAndCoverageChecking.t
     ...    3. เลือกsub เมนู "สมัคร AIS Fibre / เช็กพื้นที่ให้บริการ"
     ...    4. ตรวจสอบหน้า "AIS Fibre" (Logo AIS)
     ...    5. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

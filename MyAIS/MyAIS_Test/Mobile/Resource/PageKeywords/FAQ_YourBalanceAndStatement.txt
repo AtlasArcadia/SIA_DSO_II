@@ -6,36 +6,111 @@ Resource          ../PageRepository/${ar_OS}/FAQ_YourBalance&StatementRepository
 
 *** Keywords ***
 Select Help And Support Menu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Help And Support Menu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Help And Support Menu iOS
+
+Select Help And Support Menu Android
+    Select Menu    HelpAndSupport
+
+Select Help And Support Menu iOS
     Select Menu    HelpAndSupport
 
 Select Your Balance And Statement Submenu
+    Run Keyword If    "${ar_OS}"=="Android"    Select Your Balance And Statement Submenu Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Your Balance And Statement Submenu iOS
+
+Select Your Balance And Statement Submenu Android
+    Select Sub Menu    YourBalanceAndStatement
+
+Select Your Balance And Statement Submenu iOS
     Select Sub Menu    YourBalanceAndStatement
 
 Select AIS Monthly Statement Question
+    Run Keyword If    "${ar_OS}"=="Android"    Select AIS Monthly Statement Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    SSelect AIS Monthly Statement Question iOS
+
+Select AIS Monthly Statement Question Android
     [Arguments]    ${noQuestion}
     Comment    Sleep    5
     Wait Mobile Until Page Contains Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
     Comment    Click Mobile Element At Position    ${lblAISMonthlyStatementQuestion${noQuestion}}    top    0.05
     Click Mobile Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
 
+Select AIS Monthly Statement Question iOS
+    [Arguments]    ${noQuestion}
+    ${FAQ_Name}    Get mobile text   ${lblAISMonthlyStatementQuestion${noQuestion}}
+    Click Mobile Element    ${lblAISMonthlyStatementQuestion${noQuestion}}
+    Sleep    5
+    [Return]    ${FAQ_Name}
+
 Verify AIS Monthly Statement Question
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Monthly Statement Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Monthly Statement Question iOS
+
+Verify AIS Monthly Statement Question Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${txtSubAISMonthlyStatement}    ${txtAISMonthlyStatementTopic}
     Mobile check existing text in name    ${lblAISMonthlyStatementQuestion1}
     Mobile check existing text in name    ${lblAISMonthlyStatementQuestion2}
     Mobile Capture Screen At Verify Point    AIS Monthly Statement Question
 
+Verify AIS Monthly Statement Question iOS
+    Wait Mobile Until Element Visible    ${lblYourBalance&Statement}    30
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
+    Mobile element name should be    ${lblHeadTopic}    ${AISMonthlyStatementTopic}
+    Check YourBalance&Statement Text In Question   1
+    Check YourBalance&Statement Text In Question   2
+    Check YourBalance&Statement Text In Question   3
+    Mobile Capture Screen At Verify Point    AIS Monthly Statement Question
+
+Check YourBalance&Statement Text In Question
+    [Arguments]    ${Argument}
+    Run Keyword If    "${ar_OS}"=="Android"    Check YourBalance&Statement Text In Question Android    ${Argument}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Check YourBalance&Statement Text In Question iOS    ${Argument}
+
+Check YourBalance&Statement Text In Question Android
+    [Arguments]    ${Argument}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion${Argument}}
+
+Check YourBalance&Statement Text In Question iOS
+    [Arguments]    ${Argument}
+    ${FAQ_Name}    Get mobile text   ${lblAISMonthlyStatementQuestion${Argument}}
+    Mobile check existing text in name    ${lblAISMonthlyStatementQuestion${Argument}}
+
 Select AIS Monthly Statement
+    Run Keyword If    "${ar_OS}"=="Android"    Select AIS Monthly Statement Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select AIS Monthly Statement iOS
+
+Select AIS Monthly Statement Android
     Comment    Sleep    5
     Wait Mobile Until Page Contains Element    ${lblAISMonthlyStatement}
     Comment    Click Mobile Element At Position    ${lblAISMonthlyStatement}    top    0.05
     Click Mobile Element    ${lblAISMonthlyStatement}
 
+Select AIS Monthly Statement iOS
+    Click Mobile Element    ${lblAISMonthlyStatement}
+    Sleep    5
+
+
 Verify AIS Monthly Statement Answer
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS Monthly Statement Answer Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS Monthly Statement Answer iOS    ${noQuestion}    ${FAQ_Name}
+
+Verify AIS Monthly Statement Answer Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${txtSubAISMonthlyStatement}    ${txtAISMonthlyStatementTopic}
     Mobile check existing text in name    ${txtAnswerYourbalanceAndStatement}
     Mobile Capture Screen At Verify Point    AIS Monthly Statement Answer
+
+Verify AIS Monthly Statement Answer iOS
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
+    Wait Mobile Until Element Visible    ${lblYourBalance&Statement}    30
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
+    Mobile element name should be    ${lblHeadTopic}    ${AISMonthlyStatementTopic}
+    ${FAQText}=    Get mobile text    ${lblHeadAnswerTopic}
+    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
+    Mobile Capture Screen At Verify Point    Verify AIS Monthly Statement Answer iOS${noQuestion}
 
 Keywords For Teardown
     [Arguments]    ${#dict_device_name}
@@ -46,18 +121,35 @@ Keywords For Teardown
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
 Verify FAQ Your Balance And Statement Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify FAQ Your Balance And Statement Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify FAQ Your Balance And Statement Page iOS
+
+Verify FAQ Your Balance And Statement Page Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${lblAISMonthlyStatement}    ${txtFAQAISMonthlyStatement}
     Mobile element name should be    ${lblAISOne-2-CallCreditBalance}    ${txtFAQAISOne-2-CallCreditBalance}
     Mobile element name should be    ${lblInvoice/BillAISFiber}    ${txtFAQInvoice/BillAISFiber}
     Mobile Capture Screen At Verify Point    FAQ Your Balance And Statement Page
 
+Verify FAQ Your Balance And Statement Page iOS
+    Wait Mobile Until Element Visible    ${lblAISMonthlyStatement}    30
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
+    Mobile element name should be    ${lblAISMonthlyStatement}    ${FAQAISMonthlyStatement}
+    Mobile element name should be    ${lblAISOne-2-CallCreditBalance}    ${FAQAISOne-2-CallCreditBalance}
+    Mobile element name should be    ${lblInvoice/BillAISFiber}    ${FAQInvoice/BillAISFiber}
+    Mobile Capture Screen At Verify Point    FAQ Your Balance And Statement Page
+
 Select AIS One-2-Call Credit Balance
     Wait Mobile Until Page Contains Element    ${lblAISOne-2-CallCreditBalance}
     Comment    Click Mobile Element At Position    ${lblAISOne-2-CallCreditBalance}    top    0.05
     Click Mobile Element    ${lblAISOne-2-CallCreditBalance}
+    Sleep    5
 
 Verify AIS 1-2-Call Credit Balance Question
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS 1-2-Call Credit Balance Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS 1-2-Call Credit Balance Question iOS
+
+Verify AIS 1-2-Call Credit Balance Question Android
     Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${txtAISOne-2-CallCreditBalanceTopic}
@@ -68,16 +160,54 @@ Verify AIS 1-2-Call Credit Balance Question
     Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion5}
     Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Question
 
+Verify AIS 1-2-Call Credit Balance Question iOS
+    Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
+    Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${AISOne-2-CallCreditBalanceTopic}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion1}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion2}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion3}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion4}
+    Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion5}
+    Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Question
+
 Select AIS 1-2-Call Credit Balance Question
     [Arguments]    ${noQuestion}
+    Run Keyword If    "${ar_OS}"=="Android"    Select AIS 1-2-Call Credit Balance Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select AIS 1-2-Call Credit Balance Question iOS    ${noQuestion}
+
+Select AIS 1-2-Call Credit Balance Question Android
+    [Arguments]    ${noQuestion}
     Click Mobile Element    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}
+    Sleep    5
     Comment    Click Mobile Element At Position    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}    top    0.05    #Select First Question
 
+Select AIS 1-2-Call Credit Balance Question iOS
+    [Arguments]    ${noQuestion}
+    ${FAQ_Name}    Get mobile text    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}
+    Click Mobile Element    ${lblAISOne-2-CallCreditBalanceQuestion${noQuestion}}
+    Sleep    5
+    [Return]    ${FAQ_Name}
+
 Verify AIS 1-2-Call Credit Balance Answer
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify AIS 1-2-Call Credit Balance Answer Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify AIS 1-2-Call Credit Balance Answer iOS    ${noQuestion}    ${FAQ_Name}
+
+Verify AIS 1-2-Call Credit Balance Answer Android
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtFAQYourBalance&Statement}
     Mobile element name should be    ${txtAISOne-2-CallCreditBalance}    ${txtAISOne-2-CallCreditBalanceTopic}
     Verify Answer Text    ${txtAnswerYourbalanceAndStatement}
     Mobile Capture Screen At Verify Point    AIS 1-2-Call Credit Balance Answer
+
+Verify AIS 1-2-Call Credit Balance Answer iOS
+    [Arguments]    ${noQuestion}    ${FAQ_Name}
+    Wait Mobile Until Element Visible    ${lblYourBalance&Statement}    30
+    Mobile element name should be    ${lblYourBalance&Statement}    ${FAQYourBalance&Statement}
+    Mobile element name should be    ${lblHeadTopic}    ${AISOne-2-CallCreditBalanceTopic}
+    ${FAQText}=    Get mobile text    ${lblHeadAnswerTopic}
+    Should Match Regexp    ${FAQ_Name}    ${FAQText}.*
+    Mobile Capture Screen At Verify Point    Verify AIS 1-2-Call Credit Balance Answer iOS${noQuestion}
 
 Verify Answer Text
     [Arguments]    ${locator}
@@ -91,8 +221,13 @@ Select Invoice Or Bill AIS Fiber
     Wait Mobile Until Page Contains Element    ${lblInvoice/BillAISFiber}
     Comment    Click Mobile Element At Position    ${lblInvoice/BillAISFiber}    top    0.05
     Click Mobile Element    ${lblInvoice/BillAISFiber}
+    Sleep    5
 
 Verify Invoice/Bill AIS Fiber Question
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Invoice/Bill AIS Fiber Question Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Invoice/Bill AIS Fiber Question iOS
+
+Verify Invoice/Bill AIS Fiber Question Android
     Wait Mobile Until Page Contains Element    ${lblYourBalance&Statement}
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtYourBalance&statementOfInvoice/BillAISFiber}
     Mobile element name should be    ${txtInvoice/BillAISFiber}    ${txtInvoice/BillAISFiberTopic}
@@ -100,15 +235,35 @@ Verify Invoice/Bill AIS Fiber Question
     Mobile check existing text in name    ${lblAISOne-2-CallCreditBalanceQuestion2}
     Mobile Capture Screen At Verify Point    Invoice or Bill AIS Fiber Question
 
+Verify Invoice/Bill AIS Fiber Question iOS
+    Mobile element name should be    ${txtYourBalanceAndStatement}    ${YourBalance&statementOfInvoice/BillAISFiber}
+    Mobile element name should be    ${txtInvoice/BillAISFiber}    ${Invoice/BillAISFiberTopic}
+    Mobile check existing text in name    ${lblInvoice/BillAISFiberQuestion1}
+    Mobile check existing text in name    ${lblInvoice/BillAISFiberQuestion2}
+    Mobile Capture Screen At Verify Point    Verify Answer
+
 Select Invoice/Bill AIS Fiber Question
     [Arguments]    ${noQuestion}
     Sleep    5
     Comment    Click Mobile Element At Position    ${lblInvoice/BillAISFiberQuestion${noQuestion}}    top    0.05    #Select First Question
     Click Mobile Element    ${lblInvoice/BillAISFiberQuestion${noQuestion}}
+    Sleep    5
 
 Verify Invoice/Bill AIS Fiber Answer
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Invoice/Bill AIS Fiber Answer Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Invoice/Bill AIS Fiber Answer iOS
+
+Verify Invoice/Bill AIS Fiber Answer Android
     Wait Mobile Until Page Contains Element    ${txtInvoice/BillAISFiber}
     Mobile element name should be    ${lblYourBalance&Statement}    ${txtYourbalancestatement}
     Mobile element name should be    ${txtInvoice/BillAISFiber}    ${txtInvoice/BillAISFiberTopic}
     Mobile check existing text in name    ${txtAnswerYourbalanceAndStatement}
-    Mobile Capture Screen At Verify Point    Invoice or Bill AIS Fiber Answer
+    Mobile Capture Screen At Verify Point    Verify Invoice/Bill AIS Fiber Answer
+
+Verify Invoice/Bill AIS Fiber Answer iOS
+    Wait Mobile Until Page Contains Element    ${txtInvoice/BillAISFiber}
+    Mobile element name should be    ${txtYourBalanceAndStatement}    ${Yourbalancestatement}
+    Mobile element name should be    ${txtInvoice/BillAISFiber}    ${Invoice/BillAISFiberTopic}
+    Wait Mobile Until Page Contains Element    ${txtAnswerYourbalanceAndStatement}
+    Verify Answer Text    ${txtAnswerYourbalanceAndStatement}
+    Mobile Capture Screen At Verify Point    Verify Answer

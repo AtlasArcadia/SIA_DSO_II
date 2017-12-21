@@ -41,7 +41,7 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     ...     - ปุ่ม"ยกเลิก"
     ...     - เงื่อนไขบริการ
     ...    5. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -75,7 +75,7 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     ...    5. กด "ตกลง"
     ...    6. ตรวจสอบ popup msg: ดำเนินการเปลี่ยนภาษา IVR เรียบร้อยแล้ว กรุณารอรับ SMS ยืนยันการทำรายการขอบคุณที่ใช้บริการ
     ...    7. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -111,7 +111,7 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     ...    5. กด "ตกลง"
     ...    6. ตรวจสอบ popup msg: ดำเนินการเปลี่ยนภาษา IVR เรียบร้อยแล้ว กรุณารอรับ SMS ยืนยันการทำรายการขอบคุณที่ใช้บริการ
     ...    7. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -147,7 +147,7 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     ...    5. กด "ตกลง"
     ...    6. ตรวจสอบ popup msg: ดำเนินการเปลี่ยนภาษา SMS เรียบร้อยแล้ว กรุณารอรับ SMS ยืนยันการทำรายการขอบคุณที่ใช้บริการ
     ...    7. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -183,7 +183,7 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     ...    5. กด "ตกลง"
     ...    6. ตรวจสอบ popup msg: ดำเนินการเปลี่ยนภาษา SMS เรียบร้อยแล้ว กรุณารอรับ SMS ยืนยันการทำรายการขอบคุณที่ใช้บริการ
     ...    7. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -219,7 +219,7 @@ Resource          ../Resource/PageKeywords/ChangingIVRAndSMSLanguage.txt
     ...    5. กด "ตกลง"
     ...    6. ตรวจสแบ popup msg: กรุณาระบุภาษาที่คุณต้องการเปลี่ยนแปลง
     ...    7. Capture screen
-    [Tags]    TH    EN    active    fail    3PE    3BE
+    [Tags]    success    3be    3pe
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

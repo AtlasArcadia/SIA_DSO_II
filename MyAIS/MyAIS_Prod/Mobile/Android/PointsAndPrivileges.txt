@@ -1622,7 +1622,7 @@ Verify Point And Privileges Page
     Wait Mobile Until Element Visible    ${btnMyList}
     Wait Mobile Until Element Visible    ${btnRecent}
     Mobile Capture Screen At Verify Point    Point And Privileges Page 1
-    Swipe Element To Screen    ${lblSeemoreNearby}    ratio=0.5   Direction=down
+    Swipe Element To Screen    ${lblSeemoreNearby}    ratio=0.5    Direction=down
     Wait Mobile Until Element Visible    ${lblSeemoreNearby}
     Swipe to element    ${lblSeemorePoint}    duration=2000
     Wait Mobile Until Element Visible    ${lblSeemorePoint}
@@ -1641,6 +1641,8 @@ Select Menu Points And Privileges
     sleep    10    # wait AIS Point loaded maybe it hidden cannot use any keyword
     Comment    AISAppiumEx.Wait Until Element Is Visible    xpath=//*[@text="AIS Point"]
     Select Menu    PointsAndPrivileges
+    ${elementIsContain}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${DialogMessageRegister}    10
+    Run Keyword If    "${elementIsContain}"=="True"    Click Mobile Element    ${DialogMsgBtnNo}
     AISAppiumEx.Wait Until Element Is Visible    ${objCampaignPointFrist}
 
 Select First Privileges Campaign And Verify Campaign Name

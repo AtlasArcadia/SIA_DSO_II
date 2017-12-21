@@ -32,6 +32,7 @@ Login Serenade
     AISAppiumEx.Press Keycode    187
     sleep    2
     Click Mobile Element    xpath=(//*[(@class='android.widget.FrameLayout' and @content-desc='Chrome')or (@class='android.widget.TextView' and @text='Chrome' and @index="2")])
+    sleep    2
     Input Web Text    ${txtInputOTP}    @{OTP}[0]
     Click Web Element    ${btnSubmit}
 
@@ -56,3 +57,9 @@ Verify URL New Window
     Select Window    url=${URL}
     Location Should Be    ${URL}
     Web Capture Screen At Verify Point    ${imgCaptureName}
+
+Select Lang En
+    ${SS}=    Run Keyword And Return Status    Selenium2Library.Wait Until Element Is Visible    //div[@class="lang"]//span[.="ENG"]
+    Run Keyword If    '${SS}'=='False'    Reload Page
+    Scroll Web To Element    //div[@class="lang"]//span[.="ENG"]
+    Click Web Element    //div[@class="lang"]//span[.="ENG"]

@@ -35,14 +35,13 @@ class Runner implements Serializable{
 	boolean PaymentTopUp = false
 	boolean CopyLogFromExecutorA = true
 	boolean CopyLogFromExecutorB = true
-    boolean AllReport = false
-    boolean AllReportMultiExecutors = true
-    boolean ExportToReportExcel = false
-    boolean ExportToReportExcelMultiExecutors = true
-    boolean All = true
-    boolean IsSmoke = false
-    boolean IsSanity = false
-    boolean activeFalse = false
+	boolean AllReportMultiExecutors = true
+	boolean ExportToReportExcel = false
+	boolean ExportToReportExcelMultiExecutors = true
+	boolean All = true
+	boolean IsSmoke = false
+	boolean IsSanity = false
+	boolean activeFalse = false
     
     def get_tag() {                                 
         if(IsSmoke){
@@ -126,12 +125,15 @@ parallel firstBranch: {
 
 				stage ('MyAIS_Quickmenu_Search_Prepaid_Prod_Parallel'){
 				    run_Quickmenu_Search_Prepaid(runner)
-			    }
+			   	 }
 				
 				stage('MyAIS_TopUpAndPayment_Prod_Parallel'){
 					run_MyAIS_TopUpAndPayment_Production(runner)
 				}
 
+				stage ('MyAIS_PointsAndPrivileges_Prod_Parallel'){
+					run_PointsAndPrivileges(runner)
+				}
 
 				// ================ Copy File ======================
 		
@@ -157,10 +159,6 @@ parallel firstBranch: {
 
 				stage ('MyAIS_FAQ_SpecialCampaignAndPrivileges_Prod_Parallel'){
 					run_FAQ_SpecialCampaignAndPrivileges(runner)
-				}
-
-				stage ('MyAIS_PointsAndPrivileges_Prod_Parallel'){
-					run_PointsAndPrivileges(runner)
 				}
 
 				stage ('MyAIS_DomesticPackage_ChangePricePlan_Prod_Parallel'){
@@ -197,15 +195,15 @@ parallel firstBranch: {
 					run_MyAIS_Quickmenu_VerifyMenu_Production(runner)
 				}
 
+				stage('MyAIS_PaymentTopUp_Prod_Parallel'){
+					run_MyAIS_PaymentTopUp_Production(runner)
+				}
 
 				stage ('MyAIS_TouchID_Prod_Parallel'){
 					run_TouchID(runner)
 				}
-						
-						
-				stage('MyAIS_PaymentTopUp_Prod_Parallel'){
-					run_MyAIS_PaymentTopUp_Production(runner)
-				}
+							
+				
 
 				// ================ Copy File ======================
 

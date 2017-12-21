@@ -20,17 +20,42 @@ Select International Roaming Submenu
     Select Sub Menu    InternationalRoaming
 
 Verify International Roaming Menu Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify International Roaming Menu Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify International Roaming Menu Page iOS
+
+Verify International Roaming Menu Page Android
     Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
     Mobile element name should be    ${lblInternationalRoaming}    ${txtInternationalRoaming}
     Mobile element name should be    ${lblRoamingPackageAndServiceRate}    ${txtRoamingPackageAndServiceRates}
     Mobile Capture Screen At Verify Point    Verify International Roaming Menu
 
+Verify International Roaming Menu Page iOS
+    Wait Mobile Until Page Contains Element    ${lblInternationalRoamingTiltle}
+    Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile element name should be    ${lblInternationalRoaming}    ${InternationalRoaming}
+    Mobile element name should be    ${lblRoamingPackageAndServiceRate}    ${RoamingPackageAndServiceRates}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Menu
+
 Select into International Roaming
     Click Mobile Element    ${lblInternationalRoaming}
+    Sleep    5
 
 Verify International Roaming Question Page
-    Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
+    Run Keyword If    "${ar_OS}"=="Android"    Verify International Roaming Question Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify International Roaming Question Page iOS
+
+Verify International Roaming Question Page Android
     Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question1}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question2}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question3}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question4}
+    Mobile check existing text in name    ${lblInternationalRoaming_Question5}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Question
+
+Verify International Roaming Question Page iOS
+    Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile element name should be    ${lblInternationalRoaming_Back}    ${InternationalRoaming}
     Mobile check existing text in name    ${lblInternationalRoaming_Question1}
     Mobile check existing text in name    ${lblInternationalRoaming_Question2}
     Mobile check existing text in name    ${lblInternationalRoaming_Question3}
@@ -42,17 +67,34 @@ Select International Roaming Question
     [Arguments]    ${Q_Number}
     Wait Mobile Until Page Contains Element    ${lblInternationalRoaming_Question${Q_Number}}
     Click Mobile Element    ${lblInternationalRoaming_Question${Q_Number}}
+    sleep    5
 
 Verify International Roaming Asnwer Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify International Roaming Asnwer Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify International Roaming Asnwer Page iOS
+
+Verify International Roaming Asnwer Page Android
     Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
     Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
     Mobile check existing text in name    ${lblInternationalRoaming_Answer}
     Mobile Capture Screen At Verify Point    Verify International Roaming Asnwer
 
+Verify International Roaming Asnwer Page iOS
+    Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile element name should be    ${lblInternationalRoaming_Back}    ${InternationalRoaming}
+    Verify Answer Text    ${lblInternationalRoaming_Answer}
+    Mobile Capture Screen At Verify Point    Verify International Roaming Asnwer
+
 Select Roaming Package & Roaming Services Rate
+    sleep    30s
+    Wait Mobile Until Page Contains Element    ${lblRoamingPackageAndServiceRate}
     Click Mobile Element    ${lblRoamingPackageAndServiceRate}
 
 Verify Roaming Package & Roaming Service Rates Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Roaming Package & Roaming Service Rates Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Roaming Package & Roaming Service Rates Page iOS
+
+Verify Roaming Package & Roaming Service Rates Page Android
     Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
     Mobile element name should be    ${lblRoamingPackageAndServiceRatesTiltle}    ${txtRoamingPackageAndServiceRatesTitle}
     Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question1}
@@ -60,7 +102,22 @@ Verify Roaming Package & Roaming Service Rates Page
     Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question3}
     Mobile Capture Screen At Verify Point    Verify Roaming Package And Roaming Service Rates Page
 
+Verify Roaming Package & Roaming Service Rates Page iOS
+    sleep    30s
+    Wait Mobile Until Page Contains Element    ${lblRoamingPackageAndServiceRatesTiltle}
+    Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile element name should be    ${lblRoamingPackageAndServiceRatesTiltle}    ${RoamingPackageAndServiceRatesTitle}
+    Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question1}
+    Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question2}
+    Mobile check existing text in name    ${lblRoamingPackageAndServiceRate_Question3}
+    Mobile Capture Screen At Verify Point    Verify Roaming Package And Roaming Service Rates Page
+
 Select Roaming Package & Roaming Service Rates Question
+    [Arguments]    ${Q_Number}
+    Run Keyword If    "${ar_OS}"=="Android"    Select Roaming Package & Roaming Service Rates Question Android    ${Q_Number}
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Roaming Package & Roaming Service Rates Question iOS    ${Q_Number}
+
+Select Roaming Package & Roaming Service Rates Question Android
     [Arguments]    ${Q_Number}
     Comment    Log To Console    ${lblInternationalRoaming_FAQ${FAQ_Number}}
     Wait Mobile Until Page Contains Element    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}
@@ -69,10 +126,31 @@ Select Roaming Package & Roaming Service Rates Question
     Click Mobile Element    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}
     Comment    Click Mobile Element    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}
 
+Select Roaming Package & Roaming Service Rates Question iOS
+    [Arguments]    ${Q_Number}
+    sleep    30s
+    Wait Mobile Until Page Contains Element    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}    name
+    Click Mobile Element    ${lblRoamingPackageAndServiceRate_Question${Q_Number}}
+    [Return]    ${QuestionText}
+
 Verify Roaming Package & Roaming Service Rates Answer Page
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Roaming Package & Roaming Service Rates Answer Page Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Roaming Package & Roaming Service Rates Answer Page iOS
+
+Verify Roaming Package & Roaming Service Rates Answer Page Android
     Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
     Mobile element name should be    ${lblRoamingPackageAndServiceRatesTiltle}    ${txtRoamingPackageAndServiceRatesTitle}
     Verify Answer Text    ${lblRoamingPackageAndServiceRate_Answer1}
+    Mobile Capture Screen At Verify Point    Verify Roaming Package And Roaming Service Rates Answer Page
+
+Verify Roaming Package & Roaming Service Rates Answer Page iOS
+    [Arguments]    ${QuestionText}
+    sleep    30s
+    Wait Mobile Until Page Contains Element    ${lblRoamingPackageAndServiceRate_QuestionAndAnswer}
+    Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
+    Mobile element name should be    ${lblRoamingPackageAndServiceRatesTiltle}    ${RoamingPackageAndServiceRatesTitle}
+    Mobile element name should be    ${lblRoamingPackageAndServiceRate_QuestionAndAnswer}    ${QuestionText}
     Mobile Capture Screen At Verify Point    Verify Roaming Package And Roaming Service Rates Answer Page
 
 Verify Answer Text
@@ -82,3 +160,4 @@ Verify Answer Text
     ${verifyText}    Should Match Regexp    ${ans}    .+
     log    ${verifyText}
     Comment    Mobile Capture Screen At Verify Point    Answer Text
+

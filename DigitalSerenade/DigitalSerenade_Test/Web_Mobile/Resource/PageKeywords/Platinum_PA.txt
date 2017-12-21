@@ -2,7 +2,6 @@
 Resource          DigitalSerenadeCommon.txt
 Resource          ../PageRepository/Platinum_PARepository.txt
 Resource          ../PageVariable/Platinum_PAVariable.txt
-Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_PALocalized.txt
 
 *** Keywords ***
 Verify Img PA
@@ -15,3 +14,14 @@ Verify Img PA
     Web Element Text Should Be    ${lblPALine5}    ${PALine5}
     Web Element Text Should Be    ${lblPALine6}    ${PALine6}
     Web Capture Screen At Verify Point    imgPA
+
+Verify Img PA Eng
+    Scroll Web To Element    xpath=//span[contains(.,'ENG')]
+    Wait Web Until Page Contains Element    xpath=//h2[contains(.,'Personal Assistant')]
+    Wait Web Until Page Contains Element    ${PALine1Eng}
+    Wait Web Until Page Contains Element    ${PALine2Eng}
+    Wait Web Until Page Contains Element    ${PALine3Eng}
+    Wait Web Until Page Contains Element    ${PALine4Eng}
+    Wait Web Until Page Contains Element    ${PALine5Eng}
+    Wait Web Until Page Contains Element    ${PALine6Eng}
+    Capture ScreenShot
