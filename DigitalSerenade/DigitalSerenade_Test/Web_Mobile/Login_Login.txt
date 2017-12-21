@@ -199,3 +199,459 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Verify Login Success
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_1_1_Y_2_1]Verify URL and login page EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 12-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_1_1_Y_2_1*
+    ...    - Verify URL and Login Page
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PE :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade"
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.ตรวจสอบ URL [1]
+    ...    - 3.ตรวจสอบ หน้า Login [2]
+    ...    - 4.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1] ตรวจสอบ URL https://10.104.249.46/WelcomeToSerenade
+    ...    - [2] ตรวจสอบ หน้า Login \ - ล็อกอิน
+    ...    - หมายเลขโทรศัพท์
+    [Tags]    3PE    TestSite    Success    Sprint23    WebMobileApplication    EN
+    [Setup]    Set Library Search Order    Selenium2Library
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Verify Login Page EN
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_1_1_N_2_2]Login in case wrong mobile number EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 13-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_1_1_N_2_2*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีกรอกหมายเลขไม่ครบ 10 หลัก
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PE :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ ไม่ครบ 10 หลัก
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.ตรวจสอบ error message [1]
+    ...    - 5.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1]error message \ กรุณากรอกข้อมูลหมายเลขโทรศัพท์ให้ถูกต้อง
+    [Tags]    3PE    TestSite    Fail    Sprint23    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Wrong Number
+    Verify Login ErrorMsg EN    ${ErrMsgWrongNo}
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_1_1_N_2_3]Login in case not input mobile number EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 13-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_1_1_N_2_3*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีไม่กรอกหมายเลขโทรศัพท์แล้วกดรับรหัสผ่าน
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PE :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade
+    ...
+    ...    *Test Step Description*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.ไม่กรอกหมายเลขโทรศัพท์
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.ตรวจสอบ error message [1]
+    ...    - 5.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1]error message \ กรุณากรอกข้อมูลหมายเลขโทรศัพท์ให้ถูกต้อง
+    [Tags]    3PE    TestSite    Fail    Sprint23    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login No Mobile Number
+    Verify Login ErrorMsg EN    ${ErrMsgWrongNo}
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_1_1_N_2_4]Login in case mobile number of other network EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 13-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_1_1_N_2_4*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีหมายเลขโทรศัพท์ต่างเครือข่าย
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PE :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ต่างเครือข่าย
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.ตรวจสอบ error message [1]
+    ...    - 5.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    - [1]error message \ ระบบไม่สามารถทำรายการได้ในขณะนี้
+    [Tags]    3PE    TestSite    Fail    Sprint23    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login With Other Network Mobile Number
+    Verify Login ErrorMsg EN    ${ErrMsgOtherNetworkNumber}
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_1_1_N_2_5]Login in case wrong OTP EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 13-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_1_1_N_2_5*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีกรอกรหัส OTP ไม่ถูกต้อง
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PE :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade"
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ถูกต้อง
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.กรอกรหัส OTP ไม่ถูกต้อง
+    ...    - 5.กดปุ่ม ตกลง
+    ...    - 6.ตรวจสอบ error message [1]
+    ...    - 7.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1]error message \ รหัสผ่านไม่ถูกต้อง กรุณาระบุใหม่อีกครั้ง
+    [Tags]    3PE    TestSite    Fail    Sprint23    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Wrong OTP    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Login Wrong OTP
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_1_1_N_2_6]Login in case not input OTP EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 13-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_1_1_N_2_6*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีไม่กรอกรหัส OTP และกดปุ่ม ตกลง
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PE :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade"
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ถูกต้อง
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.ไม่กรอกรหัส OTP
+    ...    - 5.ตรวจสอบปุ่ม ตกลง [1]
+    ...    - 6.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1]ตรวจสอบปุ่ม ตกลง
+    ...    - ไม่สามารถกดปุ่มตกลงได้
+    [Tags]    3PE    TestSite    Fail    Sprint23    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Not Input OTP    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Login Not Input OTP
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_1_1_Y_2_7]Login Success EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 12-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_1_1_Y_2_7*
+    ...    - Login Success
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PE :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade"
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ถูกต้อง
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.กรอกรหัสผ่านถูกต้อง
+    ...    - 5.กดปุ่ม ตกลง
+    ...    - 6.ตรวจสอบ Login สำเร็จ เข้าสู่หน้า Digital Serenade [1]
+    ...    - 7.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    - [1] ตรวจสอบ หน้า Digital Serenade
+    ...    - Welcome to AIS Serenade
+    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    [Tags]    3PE    TestSite    Success    Sprint23    WebMobileApplication    EN
+    [Setup]    Set Library Search Order    AISAppiumEx
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Login Success
+    Scroll Web To Element    Xpath=//h2[contains(.,'Welcome')]
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_2_1_Y_2_1]Verify URL and login page EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 21-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_1_1_Y_2_1*
+    ...    - Verify URL and Login Page
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PO :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade"
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.ตรวจสอบ URL [1]
+    ...    - 3.ตรวจสอบ หน้า Login [2]
+    ...    - 4.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1] ตรวจสอบ URL https://10.104.249.46/WelcomeToSerenade
+    ...    - [2] ตรวจสอบ หน้า Login \ - ล็อกอิน
+    ...    - หมายเลขโทรศัพท์
+    [Tags]    3PO    TestSite    Success    Sprint24    WebMobileApplication    EN
+    [Setup]    Set Library Search Order    Selenium2Library
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Verify Login Page EN
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_2_1_N_2_2]Login in case wrong mobile number EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 21-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_2_1_N_2_2*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีกรอกหมายเลขไม่ครบ 10 หลัก
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PO :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ ไม่ครบ 10 หลัก
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.ตรวจสอบ error message [1]
+    ...    - 5.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1]error message \ กรุณากรอกข้อมูลหมายเลขโทรศัพท์ให้ถูกต้อง
+    [Tags]    3PO    TestSite    Fail    Sprint24    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Wrong Number
+    Verify Login ErrorMsg EN    ${ErrMsgWrongNo}
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_2_1_N_2_3]Login in case not input mobile number EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 21-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_2_1_N_2_3*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีไม่กรอกหมายเลขโทรศัพท์แล้วกดรับรหัสผ่าน
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PO :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade
+    ...
+    ...    *Test Step Description*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.ไม่กรอกหมายเลขโทรศัพท์
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.ตรวจสอบ error message [1]
+    ...    - 5.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1]error message \ กรุณากรอกข้อมูลหมายเลขโทรศัพท์ให้ถูกต้อง
+    [Tags]    3PO    TestSite    Fail    Sprint24    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login No Mobile Number
+    Verify Login ErrorMsg EN    ${ErrMsgWrongNo}
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_2_1_N_2_4]Login in case mobile number of other network EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 21-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_2_1_N_2_4*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีหมายเลขโทรศัพท์ต่างเครือข่าย
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PO :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ต่างเครือข่าย
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.ตรวจสอบ error message [1]
+    ...    - 5.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    - [1]error message \ ระบบไม่สามารถทำรายการได้ในขณะนี้
+    [Tags]    3PO    TestSite    Fail    Sprint24    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login With Other Network Mobile Number
+    Verify Login ErrorMsg EN    ${ErrMsgOtherNetworkNumber}
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_2_1_N_2_5]Login in case wrong OTP EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 21-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_2_1_N_2_5*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีกรอกรหัส OTP ไม่ถูกต้อง
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PO :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade"
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ถูกต้อง
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.กรอกรหัส OTP ไม่ถูกต้อง
+    ...    - 5.กดปุ่ม ตกลง
+    ...    - 6.ตรวจสอบ error message [1]
+    ...    - 7.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1]error message \ รหัสผ่านไม่ถูกต้อง กรุณาระบุใหม่อีกครั้ง
+    [Tags]    3PO    TestSite    Fail    Sprint24    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Wrong OTP    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Login Wrong OTP
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_2_1_N_2_6]Login in case not input OTP EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 21-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_1_1_N_2_6*
+    ...    - เข้าสู่ระบบ โดยใช้ Wifi กรณีไม่กรอกรหัส OTP และกดปุ่ม ตกลง
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PO :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade"
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ถูกต้อง
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.ไม่กรอกรหัส OTP
+    ...    - 5.ตรวจสอบปุ่ม ตกลง [1]
+    ...    - 6.จับภาพหน้าจอ"
+    ...
+    ...    *Expected Result*
+    ...    - [1]ตรวจสอบปุ่ม ตกลง
+    ...    - ไม่สามารถกดปุ่มตกลงได้
+    [Tags]    3PO    TestSite    Fail    Sprint24    WebMobileApplication    EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Not Input OTP    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Login Not Input OTP
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_LoginWebMobile_2_1_Y_2_7]Login Success EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 21-Dec-17 **
+    ...
+    ...    *F1_LoginWebMobile_2_1_Y_2_7*
+    ...    - Login Success
+    ...
+    ...    *Pre-Requisite*
+    ...    - Ntype 3PO :
+    ...    - Serenade Customer
+    ...    - URL : https://10.104.240.46/WelcomeToSerenade"
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.46/WelcomeToSerenade
+    ...    - 2.กรอกหมายเลขโทรศัพท์ถูกต้อง
+    ...    - 3.กดปุ่ม ""รับรหัสผ่าน""
+    ...    - 4.กรอกรหัสผ่านถูกต้อง
+    ...    - 5.กดปุ่ม ตกลง
+    ...    - 6.ตรวจสอบ Login สำเร็จ เข้าสู่หน้า Digital Serenade [1]
+    ...    - 7.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    - [1] ตรวจสอบ หน้า Digital Serenade
+    ...    - Welcome to AIS Serenade
+    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
+    [Tags]    3PO    TestSite    Success    Sprint24    WebMobileApplication    EN
+    [Setup]    Set Library Search Order    AISAppiumEx
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Verify Login Success
+    Scroll Web To Element    Xpath=//h2[contains(.,'Welcome')]
+    ScreenCapture
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
