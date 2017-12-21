@@ -384,7 +384,7 @@ Get web attribute
     [Return]    ${attValue}
 
 create google disire capabilities
-    [Arguments]    ${lang}=en    ${block_location}=${False}
+    [Arguments]    ${lang}=en    ${block_location}=${False}    ${androidPackage}=None    ${androidDeviceSerial}=None
     ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     Call Method    ${options}    add_argument    --lang\=${lang}
     ${json_string}=    catenate    {
@@ -393,6 +393,8 @@ create google disire capabilities
     ${json_string}=    catenate    ${json_string}    }
     ${json}=    Evaluate    ${json_string}
     Call Method    ${options}    add_experimental_option    prefs    ${json}
+    Run Keyword If    '${androidPackage}' != 'None'    Call Method    ${options}    add_experimental_option    androidPackage    ${androidPackage}
+    Run Keyword If    '${androidDeviceSerial}' != 'None'    Call Method    ${options}    add_experimental_option    androidDeviceSerial    ${androidDeviceSerial}
     ${dc}=    Call Method    ${options}    to_capabilities
     [Return]    ${dc}
 
