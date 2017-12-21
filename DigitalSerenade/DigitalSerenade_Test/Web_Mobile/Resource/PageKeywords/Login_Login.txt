@@ -96,6 +96,7 @@ Verify Login Page EN
     ${CurrenURL}    Get Location
     Should Be Equal    ${CurrenURL}    https://10.104.249.46/WelcomeToSerenade/
     Page Should Contain Element    Xpath=//*[@id="mobileNo"]
+    sleep    5s
 
 ScreenCapture
     [Documentation]    ** Created by : WanpenK **
@@ -105,3 +106,11 @@ ScreenCapture
     ${File}=    Catenate    SEPARATOR=-    ${TEST NAME}    ${convert-date}
     ${FileName}=    Catenate    ${File}    .png
     Selenium2Library.Capture Page Screenshot    ${FileName}
+
+Verify Login ErrorMsg EN
+    [Arguments]    ${ErrMsgWrongNo}
+    [Documentation]    ** Created by : WanpenK **
+    ...    ** Create date : 12-Dec-17 **
+    Sleep    2s
+    Wait Web Until Page Contains Element    ${lblMessageError}    60s
+    Web Element Text Should Be    ${lblMessageError}    ${ErrMsgWrongNo}
