@@ -3,6 +3,8 @@ Resource          DigitalSerenadeCommon.txt
 Resource          ../PageRepository/LoginRepository.txt
 Resource          ../PageVariable/Login_LoginVariable.txt
 Resource          ../Localized/${ar_LANG}/${ar_NType}/Login_LoginLocalized.txt
+Library           String
+Library           DateTime
 
 *** Keywords ***
 Verify Login Page
@@ -86,3 +88,20 @@ Verify Login Success
     ${Number}=    Should Match Regexp    ${NumberInProfilePage}    \\d{10}
     Run Keyword If    "${txtWelcome}" == "${welcome}"    Web Capture Screen At Verify Point    LoginSuccess
     ...    ELSE    Fail
+
+Verify Login Page EN
+    [Documentation]    ** Created by : WanpenK **
+    ...    ** Create date : 12-Dec-17 **
+    Selenium2Library.Wait Until Page Contains Element    Xpath=//*[@id="mobileNo"]    10s
+    ${CurrenURL}    Get Location
+    Should Be Equal    ${CurrenURL}    https://10.104.249.46/WelcomeToSerenade/
+    Page Should Contain Element    Xpath=//*[@id="mobileNo"]
+
+ScreenCapture
+    [Documentation]    ** Created by : WanpenK **
+    ...    ** Create date : 12-Dec-17 **
+    ${date}    Get Current Date
+    ${convert-date}    Convert Date    ${date}    %Y%m%d_%H%M%S
+    ${File}=    Catenate    SEPARATOR=-    ${TEST NAME}    ${convert-date}
+    ${FileName}=    Catenate    ${File}    .png
+    Selenium2Library.Capture Page Screenshot    ${FileName}
