@@ -3,6 +3,7 @@ Resource          DigitalSerenadeCommon.txt
 Resource          DigitalSerenadeProfileCommon.txt
 Resource          ../PageRepository/Platinum_HighlightCampaignRepository.txt
 Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_HighlightCampaignLocalized.txt
+Resource          ../PageVariable/Platinum_HighlightCampaignVariable.txt
 
 *** Keywords ***
 Verify hilight Campaign
@@ -31,7 +32,6 @@ Verify Slide Banner
 
 verify active banner
     ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
-    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
     ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirport}
     ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
     ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
@@ -63,7 +63,7 @@ match active banner from name
 
 Find banner
     [Arguments]    ${banner}
-    Click Web Element    ${btnHCPage1}
+    Click Web Element    ${btnHCPage10}
     ${count}=    Selenium2Library.Get Matching Xpath Count    ${btnHCAllPage}
     : FOR    ${index}    IN RANGE    1    ${count}+1
     \    ${ActiveBanner}    match active banner from name    ${banner}
@@ -210,3 +210,80 @@ Verify S8
     Web Element Should Be Visible    ${AISLogo}
     Web Element Text Should Be    ${lblS8}    ${S8}
     Verify Link    ${BannerS8Link}
+
+Verify Slide Banner EN
+    sleep    15s
+    Scroll Web To Element    ${imgBanner}
+    ${srcBanner1}=    verify active banner EN    ExclusiveAirport    #ExclusiveAirport
+    Click Web Element    ${btnNextBanner}
+    ${srcBanner2}=    verify active banner EN    AISFibre
+    Run Keyword If    "${srcBanner1}" == "${srcBanner2}"    Fail
+    ...    ELSE    Web Capture Screen At Verify Point    NextCampaign
+    Click Web Element    ${btnPrevBanner}
+    Run Keyword If    "${srcBanner1}" != "${srcBanner2}"    Web Capture Screen At Verify Point    PrevCampaign
+    ...    ELSE    Fail
+
+verify active banner EN
+    [Arguments]    ${Banner}
+    ${srcBanner}=    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner1}=    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirport}
+    ${srcBanner2}=    Get Regexp Matches    ${srcBanner}    ${srcBannerAISFibre}
+    : FOR    ${index}    IN RANGE    1    2
+    \    Log    ${srcBanner${index}}
+    \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
+    \    ...    ELSE    Continue For Loop
+    \    ${Banner1}=    Set Variable If    "${index}" == "1"    ExclusiveAirport    ${Banner}
+    \    ${Banner2}=    Set Variable If    "${index}" == "2"    AISFibre    ${Banner}
+    [Return]    ${Banner}
+
+Verify HC Page Button EN
+    sleep    15s
+    Set Selenium Speed    0.1
+    Scroll Web To Element    ${imgBanner}
+    Click Web Element    ${btnHCPage1}
+    Web Capture Screen At Verify Point    CampaignPage1
+    Click Web Element    ${btnHCPage2}
+    Web Capture Screen At Verify Point    CampaignPage2
+
+Verify First Banner EN
+    sleep    20s
+    Scroll Web To Element    ${imgBanner}
+    ${CurrentIndex}    ${Banner}    verify current banner EN    ExclusiveAirport
+    Web Capture Screen At Verify Point    ExclusiveAirport
+    Run Keyword If    '${Banner}' == 'ExclusiveAirport'    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Run Keyword If    '${Banner}' != 'ExclusiveAirport'    Click Web Element    ${btnHCPage${CurrentIndex}}
+    ...    AND    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Comment    Click Web Element    ${btnHCPage${CurrentIndex}}
+    Comment    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Sleep    15s
+    Select Window    url=${BannerExclusiveAirportLink}
+    Web Element Should Be Visible    ${AISLogo}
+    Verify Link    ${BannerExclusiveAirportLink}
+
+Verify Second Banner EN
+    sleep    20s
+    Scroll Web To Element    ${imgBanner}
+    ${Banner}    verify current banner EN    AISFibre
+    Web Capture Screen At Verify Point    AISFibre
+    Run Keyword If    '${Banner}' == 'AISFibre'    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Run Keyword If    '${Banner}' != 'AISFibre'    Click Web Element    ${btnHCPage2}
+    ...    AND    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Comment    Click Web Element    ${btnHCPage${CurrentIndex}}
+    Comment    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Sleep    15s
+    Select Window    url=http://www.ais.co.th/index.html
+    Web Element Should Be Visible    ${AISLogo}
+    Verify Link    http://www.ais.co.th/index.html
+
+verify current banner EN
+    [Arguments]    ${Banner}
+    ${srcBanner}=    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner1}=    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirport}
+    ${srcBanner2}=    Get Regexp Matches    ${srcBanner}    ${srcBannerAISFibre}
+    : FOR    ${index}    IN RANGE    1    2
+    \    Log    ${srcBanner${index}}
+    \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
+    \    ...    ELSE    Continue For Loop
+    \    ${Banner1}=    Set Variable If    "${index}" == "1"    ExclusiveAirport    ${Banner}
+    \    ${Banner2}=    Set Variable If    "${index}" == "2"    AISFibre    ${Banner}
+    [Return]    ${Banner}
