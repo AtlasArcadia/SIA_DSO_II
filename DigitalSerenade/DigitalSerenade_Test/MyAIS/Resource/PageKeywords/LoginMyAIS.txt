@@ -1,6 +1,7 @@
 *** Settings ***
 Resource          MyAISCommon.txt
-Resource          ../PageRepository/${ar_OS}/LoginRepository.txt
+Resource          ../PageRepository/LoginRepository.txt
+Resource          ../PageRepository/MyAISRepository.txt
 
 *** Keywords ***
 Login
@@ -62,16 +63,15 @@ verify dialog AIS promotions
 
 Login Wifi
     [Arguments]    ${IPAppium}    ${Platfrom_Name}    ${Platfrom_Version}    ${SN}    ${Number}
-    Input mobile text    ${txtMoibleNumber}    ${Number}
+    Input mobile text    ${txtMobileNumber}    ${Number}
     Run Keyword And Ignore Error    Hide keyboard
     Click mobile element    ${btnGetPassword}
     ${timeout_input_otp_invisible}=    Set Variable    5
     : FOR    ${INDEX}    IN RANGE    1    3
     \    ${statusBtnInputOTP}=    Run Keyword And Return Status    Wait Mobile Until Page Does Not Contain Element    ${txtInputOTP}    ${timeout_input_otp_invisible}
     \    ${StatRequestOTP}    ${statusPrimary}    Run Keyword If    ${statusBtnInputOTP}    chosen primary button
-    Run Keyword If    "${ar_NType}"=="FBB"    Input mobile text    ${txtInputOTP}    Test@2017
-    ...    ELSE    Input mobile text    ${txtInputOTP}    1111    60
     Run Keyword And Ignore Error    Hide keyboard
+    Input Mobile Text    ${txtInputOTP}    1111
     Log    ${StatRequestOTP}
     Run Keyword If    ${StatRequestOTP} or ${statusPrimary} and "${ar_OS}"=="iOS"    Click Mobile Element    ${btnOKGetOTPForRegisted}    60
     ...    ELSE    Click Mobile Element    ${btnOKGetOTP}    60

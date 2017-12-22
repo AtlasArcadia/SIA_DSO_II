@@ -7,6 +7,7 @@ Resource          ../../../../../AisRobotBuffet/Mobile/Andriod/Keywords/SmsMoodK
 Resource          ../PageVariable/DegitalSerenadeCommonVariable.txt
 Resource          ../PageRepository/LoginRepository.txt
 Resource          ../PageRepository/DigitalSerenadeCommonRepository.txt
+Resource          ../../../../../AisRobotBuffet/Mobile/Andriod/Keywords/GeneralFunctionKeywords.txt
 
 *** Keywords ***
 Verify Link
@@ -48,7 +49,9 @@ Open Browser Serenade
 Keywords For Teardown
     [Arguments]    ${#dict_device_name}
     Run Keyword If Test Failed    Capture Screen with Specific name
-    Close Browser
+    Run Keyword If Test Failed    Log Dialog Msg From MyAIS
+    Wait Until Keyword Succeeds    300    10    Run Keyword And Ignore Error    Logout
+    Run Keyword And Ignore Error    Close All Applications
     Release Virtual Local Configurations    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    ${#dict_device_name}
 
 Verify URL New Window
@@ -63,3 +66,7 @@ Select Lang En
     Run Keyword If    '${SS}'=='False'    Reload Page
     Scroll Web To Element    //div[@class="lang"]//span[.="ENG"]
     Click Web Element    //div[@class="lang"]//span[.="ENG"]
+
+Select PointsAndPrivileges
+    swipe in container to element    ${mnuPointsAndPrivileges}    ${mnuContainer}
+    Click Mobile Element    ${mnuPointsAndPrivileges}
