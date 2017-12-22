@@ -12,13 +12,17 @@ Select Topic
 
 Select Serenade Privileges Question
     [Arguments]    ${Question}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblSerenadePrivileges_Q${Question}}    name
     Click Mobile Element    ${lblSerenadePrivileges_Q${Question}}
     sleep    5
+    [Return]    ${QuestionText}
 
 Select Serenade Card And Sticker Question
     [Arguments]    ${Question}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblSerenadeCardAndSticker_Q${Question}}    name
     Click Mobile Element    ${lblSerenadeCardAndSticker_Q${Question}}
     sleep    5
+    [Return]    ${QuestionText}
 
 Keywords For Teardown
     [Arguments]    ${#dict_device_name}
@@ -87,8 +91,8 @@ Verify Answer Serenade Privileges iOS
     Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
     Mobile element name should be    ${lblSerenadePrivileges}    ${topicNameSerenadePrivileges}
     Wait Mobile Until Page Contains Element    ${lblAnswerSerenadePrivileges}
-    Verify Answer Text    ${lblAnswerSerenadePrivileges}
-    Mobile Capture Screen At Verify Point    Answer Serenade Privileges ${Question}
+    Mobile element name should be    ${lblAnswerSerenadePrivileges}    ${Question}
+    Mobile Capture Screen At Verify Point    Answer Serenade Privileges
 
 Verify Topic Serenade Card And Sticker
     Run Keyword If    "${ar_OS}"=="Android"    Verify Topic Serenade Card And Sticker Android
@@ -130,8 +134,8 @@ Verify Answer Serenade Card And Sticker iOS
     Mobile element name should be    ${lblTitleSpecialCampaignAndPrivileges}    ${nameSpecialCampaignAndPrivileges}
     Mobile element name should be    ${lblHeaderSenadeCardAndSticker}    ${topicNameSerenadeCardSticker}
     Wait Mobile Until Page Contains Element    ${lblAnswerSerenadePrivileges}
-    Verify Answer Text    ${lblAnswerSerenadePrivileges}
-    Mobile Capture Screen At Verify Point    Answer Serenade Privileges ${Question}
+    Mobile element name should be    ${lblAnswerSerenadePrivileges}    ${Question}
+    Mobile Capture Screen At Verify Point    Answer Serenade Privileges
 
 Verify Answer Text
     [Arguments]    ${locator}

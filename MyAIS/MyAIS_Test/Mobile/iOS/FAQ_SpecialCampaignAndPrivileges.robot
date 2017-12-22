@@ -106,8 +106,8 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     # Verify Special Campaign And Privileges
     Select Topic    SerenadePrivileges
     # Verify Topic Serenade Privileges
-    Select Serenade Privileges Question    1
-    Verify Answer Serenade Privileges    1
+    ${QuestionText}    Select Serenade Privileges Question    1
+    Verify Answer Serenade Privileges    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_58_2] Go to Special campaign & Privileges - Serenade privileges Verify Second question
@@ -153,7 +153,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    success    active    regression    demo
+    [Tags]    success    active    regression
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -166,8 +166,8 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     # Verify Special Campaign And Privileges
     Select Topic    SerenadePrivileges
     # Verify Topic Serenade Privileges
-    Select Serenade Privileges Question    2
-    Verify Answer Serenade Privileges    2
+    ${QuestionText}    Select Serenade Privileges Question    2
+    Verify Answer Serenade Privileges    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_59_2] Go to Special campaign & Privileges - Serenade Card & Stricker Verify First question
@@ -227,8 +227,8 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     # Verify Special Campaign And Privileges
     Select Topic    SenadeCardAndSticker
     # Verify Topic Serenade Card And Sticker
-    Select Serenade Card And Sticker Question    1
-    Verify Answer Serenade Card And Sticker    1
+    ${QuestionText}    Select Serenade Card And Sticker Question    1
+    Verify Answer Serenade Card And Sticker    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_Help_IOS_1,3_1-2_Y_60_2] Go to Special campaign & Privileges - Serenade Card & Stricker Verify Second question
@@ -274,7 +274,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    success    active    regression
+    [Tags]    success    active    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -287,6 +287,6 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     # Verify Special Campaign And Privileges
     Select Topic    SenadeCardAndSticker
     # Verify Topic Serenade Card And Sticker
-    Select Serenade Card And Sticker Question    2
-    Verify Answer Serenade Card And Sticker    2
+    ${QuestionText}    Select Serenade Card And Sticker Question    2
+    Verify Answer Serenade Card And Sticker    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}

@@ -17,6 +17,8 @@ Select Help And Support Menu
     Select Menu    HelpAndSupport
 
 Select International Roaming Submenu
+    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCancel}    10
+    Run Keyword If    ${statusBtnCloseDialogShow}    Click Mobile Element    ${btnCancel}
     Select Sub Menu    InternationalRoaming
 
 Verify International Roaming Menu Page
@@ -66,12 +68,15 @@ Verify International Roaming Question Page iOS
 Select International Roaming Question
     [Arguments]    ${Q_Number}
     Wait Mobile Until Page Contains Element    ${lblInternationalRoaming_Question${Q_Number}}
+    ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblInternationalRoaming_Question${Q_Number}}    name
     Click Mobile Element    ${lblInternationalRoaming_Question${Q_Number}}
     sleep    5
+    [Return]    ${QuestionText}
 
 Verify International Roaming Asnwer Page
+    [Arguments]    ${QuestionText}=1
     Run Keyword If    "${ar_OS}"=="Android"    Verify International Roaming Asnwer Page Android
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify International Roaming Asnwer Page iOS
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify International Roaming Asnwer Page iOS    ${QuestionText}
 
 Verify International Roaming Asnwer Page Android
     Mobile element name should be    ${lblInternationalRoamingTopic}    ${InternationalRoamingTiltle}
@@ -80,9 +85,11 @@ Verify International Roaming Asnwer Page Android
     Mobile Capture Screen At Verify Point    Verify International Roaming Asnwer
 
 Verify International Roaming Asnwer Page iOS
+    [Arguments]    ${QuestionText}
     Mobile element name should be    ${lblInternationalRoamingTiltle}    ${InternationalRoamingTiltle}
     Mobile element name should be    ${lblInternationalRoaming_Back}    ${InternationalRoaming}
-    Verify Answer Text    ${lblInternationalRoaming_Answer}
+    ${QuestionText}    Remove String    ${QuestionText}    ${SPACE}NEW
+    Mobile element name should be    ${lblInternationalRoaming_Answer}    ${QuestionText}
     Mobile Capture Screen At Verify Point    Verify International Roaming Asnwer
 
 Select Roaming Package & Roaming Services Rate
