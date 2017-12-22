@@ -1,0 +1,40 @@
+*** Settings ***
+Resource          DigitalSerenadeCommon.txt
+Resource          ../PageVariable/Emerald_TypeWSVariable.txt
+Resource          ../PageRepository/Emerald_TypeWSRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_TypeWSLocalized.txt
+Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../PageRepository/Emerald_CommonRepository.txt
+
+*** Keywords ***
+Verify Greeting and Name and Number Profile Page-EN
+    [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${LifeCycle}
+    Scroll Web To Element    ${lbl${Segment}GreetingProfileEN}
+    Mouse Over    ${lbl${Segment}GreetingProfileEN}
+    Web Element Text Should Contain    ${lbl${Segment}GreetingProfileEN}    ${${Segment}GreetingProfileType${Type}_${LifeCycle}}
+    Scroll Web To Element    ${lbl${Segment}NumberProfileEN}
+    Mouse Over    ${lbl${Segment}NumberProfileEN}
+    ${newMobile}=    Replace String    ${${Segment}NumberProfileType${Type}}    XXXXXXXX    ${Mobile}
+    Web Element Text Should Contain    ${lbl${Segment}NumberProfileEN}    ${newMobile}
+    Web Capture Screen At Verify Point    Verify Name and Number in Profile Page
+
+Web Element Text Should Contain
+    [Arguments]    ${locator}    ${text}    ${timeout}=${lo_general_timeout}
+    Selenium2Library.Wait Until Element Is Visible    ${locator}    ${timeout}
+    Selenium2Library.Wait Until Element Contains    ${locator}    ${text}    ${timeout}
+    Selenium2Library.Element Should Contain    ${locator}    ${text}
+
+Verify Profile Page-EN
+    [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${MobileNumberStatus}
+    Verify Title Profile Page    ${Segment}    ${Type}
+    Verify Greeting and Name and Number Profile Page-EN    ${Mobile}    ${Segment}    ${Type}    ${MobileNumberStatus}
+    Verify Segment And Expire Date-EN    ${Segment}    ${Type}    ${MobileNumberStatus}
+
+Verify Segment And Expire Date-EN
+    [Arguments]    ${Segment}    ${Type}    ${LifeCycle}
+    Scroll Web To Element    ${lbl${Segment}SegmentProfileEN}
+    Mouse Over    ${lbl${Segment}SegmentProfileEN}
+    ${ExpireDate}    Get Web Text    ${lbl${Segment}TimePeriodProfileEN}
+    log    ${${Segment}TimePeriodProfileType${Type}}
+    Should Match Regexp    ${ExpireDate}    ${${Segment}TimePeriodProfileType${Type}}
+    Web Capture Screen At Verify Point    Verify Expire Date
