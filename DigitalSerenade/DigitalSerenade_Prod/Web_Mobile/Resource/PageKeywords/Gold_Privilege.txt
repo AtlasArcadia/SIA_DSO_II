@@ -10,7 +10,7 @@ verify active first banner
     Log    ${srcBanner}
     ${count}    Get Length    ${imgBannerList}
     Log    ${count}
-    : FOR    ${index}    IN RANGE    0    ${count}+1
+    : FOR    ${index}    IN RANGE    0    21
     \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
     \    Log    @{imgBannerList}[${index}]
     \    Log    ${srcBannerList}
@@ -23,7 +23,7 @@ verify active second banner
     Log    ${srcBanner}
     ${count}    Get Length    ${imgBannerList}
     Log    ${count}
-    : FOR    ${index}    IN RANGE    0    ${count}+1
+    : FOR    ${index}    IN RANGE    0    21
     \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
     \    Log    @{imgBannerList}[${index}]
     \    Log    ${srcBannerList}
@@ -57,7 +57,7 @@ Verify Privilege Page
     log    ${noDot}
     ${noCampaign}=    Selenium2Library.Get Matching Xpath Count    ${imgActiveBanner}
     log    ${noCampaign}
-    Should Be Equal    ${noDot}    6    #Number of Dot
+    Should Be Equal    ${noDot}    14    #Number of Dot
     Should Be Equal    ${noCampaign}    2    #Number of Campaign
     Web Capture Screen At Verify Point    Privilege page
 
@@ -93,22 +93,6 @@ Verify Page Button
     verify active first banner
     verify active second banner
     Web Capture Screen At Verify Point    Second dot
-    Click Web Element    ${btnPrivilegeDot3}
-    verify active first banner
-    verify active second banner
-    Web Capture Screen At Verify Point    Third dot
-    Click Web Element    ${btnPrivilegeDot4}
-    verify active first banner
-    verify active second banner
-    Web Capture Screen At Verify Point    Fouth dot
-    Click Web Element    ${btnPrivilegeDot5}
-    verify active first banner
-    verify active second banner
-    Web Capture Screen At Verify Point    Fifth dot
-    Click Web Element    ${btnPrivilegeDot6}
-    verify active first banner
-    verify active second banner
-    Web Capture Screen At Verify Point    Six dot
 
 Verify More Button
     sleep    10
@@ -308,3 +292,21 @@ Verify S&P Page
     Web Element Text Should Be    ${lblSandP1}    ${txtSandP1}
     Web Element Text Should Be    ${lblSandP2}    ${txtSandP2}
     Web Capture Screen At Verify Point    PrivilegeSandP
+
+Verify click first and select first banner
+    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
+    sleep    30
+    Click Web Element    ${btnPrivilegeDot1}
+    Mobile Capture Screen At Verify Point    Dot1
+    Click Web Element    ${btnBanner1}
+    Sleep    5s
+    Mobile Capture Screen At Verify Point    BannerDot1
+
+Verify click second dot and select first banner
+    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
+    sleep    30
+    Click Web Element    ${btnPrivilegeDot2}
+    Mobile Capture Screen At Verify Point    Dot2
+    Click Web Element    ${btnBanner1}
+    Sleep    5s
+    Mobile Capture Screen At Verify Point    BannerDot2
