@@ -71,4 +71,6 @@ Select Lang En
 Select PointsAndPrivileges
     swipe in container to element    ${mnuPointsAndPrivileges}    ${mnuContainer}    left
     Click Mobile Element    ${mnuPointsAndPrivileges}
-    Run Keyword If    AISAppiumEx.Element Should Be Visible    ${PopupSSLCert}    Click Mobile Element    ${btnOKSSLCert}
+    ${statusPopupSSLCert}=    Run Keyword And Return Status    AISAppiumEx.Wait Until Element Is Visible    ${PopupSSLCert}    timeout=5s
+    Log    ${statusPopupSSLCert}
+    Run Keyword If    "${statusPopupSSLCert}"=="True"    Click Mobile Element    ${btnOKSSLCert}
