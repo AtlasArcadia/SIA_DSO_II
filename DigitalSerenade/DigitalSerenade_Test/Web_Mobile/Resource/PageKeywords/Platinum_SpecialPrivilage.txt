@@ -5,7 +5,6 @@ Resource          ../PageRepository/Platinum_SpecialPrivilageRepository.txt
 Resource          ../PageVariable/Platinum_SpecialPrivilageVariable.txt
 Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_SpecialPrivilageLocalized.txt
 
-
 *** Keywords ***
 Verify Privilege Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
@@ -94,7 +93,6 @@ Verify Slide Banner Button
     Run Keyword If    "${active2}" != "${active4}"    Fail
     Web Capture Screen At Verify Point    SlideButton
 
-
 Verify Page Button
     sleep    15s
     Click Web Element    ${btnPrivilegeDot1}
@@ -126,7 +124,6 @@ Verify Page Button
     verify active banner    2
     Web Capture Screen At Verify Point    Seven dot
 
-
 Verify More Button
     sleep    10
     Click Web Element    ${btnOther}
@@ -153,7 +150,6 @@ Verify Coffee Bean Page
     Web Element Text Should Be    ${lblCoffeeBean1}    ${txtCoffeeBean1}
     Web Element Text Should Be    ${lblCoffeeBean2}    ${txtCoffeeBean2}
     Web Capture Screen At Verify Point    PrivilegeCoffeeBean
-
 
 Verify Black Canyon Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
@@ -184,7 +180,6 @@ Verify Cinnabon Page
     Web Element Text Should Be    ${lblCinnabon2}    ${txtCinnabon2}
     Web Capture Screen At Verify Point    PrivilegeCinnabon
 
-
 Verify SF Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
     sleep    30
@@ -213,7 +208,6 @@ Verify Mezzo Page
     Web Element Text Should Be    ${lblMezzo1}    ${txtMezzo1}
     Web Element Text Should Be    ${lblMezzo2}    ${txtMezzo2}
     Web Capture Screen At Verify Point    PrivilegeMezzo
-
 
 Verify Cold Stone Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
@@ -317,7 +311,6 @@ Verify Organika Page
     Web Element Text Should Be    ${lblDiscountOrganika}    ${txtDiscountOrganika}
     Web Capture Screen At Verify Point    PrivilegeOrganika
 
-
 Verify S&P Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
     sleep    30
@@ -332,3 +325,20 @@ Verify S&P Page
     Web Element Text Should Be    ${lblSandP1}    ${txtSandP1}
     Web Element Text Should Be    ${lblSandP2}    ${txtSandP2}
     Web Capture Screen At Verify Point    PrivilegeSandP
+
+Verify Privilege Page EN
+    Scroll Web To Element    xpath=//div[@id="privilege"]
+    Wait Web Until Page Contains Element    xpath=//div[@class="owl-dots"]
+    ${Dot}=    Selenium2Library.Get Matching Xpath Count    xpath=//div[@class="owl-dot"]
+    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
+    Scroll Web To Element    ${imgActiveBanner}
+    Web Element Text Should Be    ${txtPrivilegeTitleEN}    ${txtPrivilege}    #Special privileges are carefully selected
+    log    ${txtPrivilegeTitle}
+    ${noDot}=    Selenium2Library.Get Matching Xpath Count    ${Owldot}
+    log    ${noDot}
+    ${noCampaign}=    Selenium2Library.Get Matching Xpath Count    ${imgActiveBanner}
+    log    ${noCampaign}
+    Should Be Equal    ${noDot}    2    #Number of Dot
+    Should Be Equal    ${noCampaign}    4    #Number of Campaign
+    sleep    30s
+    Web Capture Screen At Verify Point    Privilege page
