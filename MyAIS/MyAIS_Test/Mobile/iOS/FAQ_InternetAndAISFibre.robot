@@ -17,7 +17,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...        - ปัญหาอินเทอร์เน็ต
     ...        - การใช้ เอไอเอสไฟเบอร์
     ...        - ปัญหา Fibre / Playbox / WiFi
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -56,7 +56,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...          "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...          "ปัญหาอินเทอร์เน็ต" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -99,7 +99,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...          "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...          "ปัญหาอินเทอร์เน็ต" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -142,7 +142,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...          "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...          "ปัญหาอินเทอร์เน็ต" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -192,7 +192,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...          "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...          "ปัญหากล่อง AIS Fibre" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -244,7 +244,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...          "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...          "ปัญหากล่อง AIS Fibre" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -296,7 +296,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...          "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...          "ปัญหากล่อง AIS Fibre" (Text)
     ...        - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -347,7 +347,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...         "ปัญหาดูรายการ AIS Playbox" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -398,7 +398,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...         "ปัญหาดูรายการ AIS Playbox" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -449,7 +449,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...         "ปัญหาดูรายการ AIS Playbox" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -501,7 +501,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...         "ปัญหาดูรายการ AIS Playbox" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -552,7 +552,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...         "ปัญหาสัญญาณ WI-FI" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -603,7 +603,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...         "ปัญหาสัญญาณ WI-FI" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -647,7 +647,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...         "การใช้งาน เอไอเอสไฟเบอร์" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -689,7 +689,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...         "การใช้งาน เอไอเอสไฟเบอร์" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -733,7 +733,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternetAndAisFibre.txt
     ...         "อินเทอร์เน็ต/ไฟเบอร์" (Text)
     ...         "ปัญหาสัญญาน WI-FI" (Text)
     ...       - Other text (Use Regular expression = ".*")
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
