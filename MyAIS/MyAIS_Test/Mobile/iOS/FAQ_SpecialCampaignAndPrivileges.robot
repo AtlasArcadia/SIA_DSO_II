@@ -36,7 +36,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     ...    "แคมเปญและสิทธิพิเศษ" (Text)
     ...    - สิทธิพิเศษในการเป็นเซเรเนด
     ...    - บัตรเซเรเนดและสติ๊กเกอร์จอดรถnone
-    [Tags]    success    active    regression
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -46,7 +46,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
     Verify Help and Support
-    Select Sub Menu    SpecialCampaignAndPrivileges
+    Select Sub Menu SpecialCampaignAndPrivileges
     Verify Special Campaign And Privileges
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
@@ -93,7 +93,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    success    active    regression
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -102,7 +102,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
-    Select Sub Menu    SpecialCampaignAndPrivileges
+    Select Sub Menu SpecialCampaignAndPrivileges
     # Verify Special Campaign And Privileges
     Select Topic    SerenadePrivileges
     # Verify Topic Serenade Privileges
@@ -153,7 +153,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    success    active    regression
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -162,7 +162,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
-    Select Sub Menu    SpecialCampaignAndPrivileges
+    Select Sub Menu SpecialCampaignAndPrivileges
     # Verify Special Campaign And Privileges
     Select Topic    SerenadePrivileges
     # Verify Topic Serenade Privileges
@@ -214,7 +214,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    success    active    regression
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -223,7 +223,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
-    Select Sub Menu    SpecialCampaignAndPrivileges
+    Select Sub Menu SpecialCampaignAndPrivileges
     # Verify Special Campaign And Privileges
     Select Topic    SenadeCardAndSticker
     # Verify Topic Serenade Card And Sticker
@@ -274,7 +274,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     ...    "สิทธิพิเศษลูกค้าเซเรเนด" (Text)
     ...    "บัตรเซเรเนดและสติ๊กเกอร์จอดรถ" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    success    active    regression    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -283,7 +283,7 @@ Resource          ../Resource/PageKeywords/FAQ_SpecialCampaignAndPrivileges.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    HelpAndSupport
-    Select Sub Menu    SpecialCampaignAndPrivileges
+    Select Sub Menu SpecialCampaignAndPrivileges
     # Verify Special Campaign And Privileges
     Select Topic    SenadeCardAndSticker
     # Verify Topic Serenade Card And Sticker

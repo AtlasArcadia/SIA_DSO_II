@@ -10,6 +10,11 @@ Select Topic
     Click Mobile Element    ${lblTopic${Topic}}
     sleep    5
 
+Select Sub Menu SpecialCampaignAndPrivileges
+    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCancel}    10
+    Run Keyword If    ${statusBtnCloseDialogShow}    Click Mobile Element    ${btnCancel}
+    Select Sub Menu    SpecialCampaignAndPrivileges
+
 Select Serenade Privileges Question
     [Arguments]    ${Question}
     ${QuestionText}=    AISAppiumEx.Get Element Attribute    ${lblSerenadePrivileges_Q${Question}}    name
@@ -33,6 +38,8 @@ Keywords For Teardown
     Release Virtual Local Configurations    ${lo_MyAIS_local_config_file_path}    ${#dict_device_name}
 
 Verify Help and Support
+    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCancel}    10
+    Run Keyword If    ${statusBtnCloseDialogShow}    Click Mobile Element    ${btnCancel}
     Mobile element name should be    ${lblConsultAgent}    ${ConsultAgent}
     Mobile element name should be    ${lblAskAunjai}    ${AskAunjai}
     Mobile element name should be    ${lblFAQHeader}    ${FAQHeader}
