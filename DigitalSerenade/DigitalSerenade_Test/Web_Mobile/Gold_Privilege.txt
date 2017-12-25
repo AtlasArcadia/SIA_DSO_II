@@ -683,6 +683,11 @@ Resource          Resource/PageKeywords/Gold_Privilege.txt
     Scroll Web To Element    //div[@id="privilege"]
     Wait Web Until Page Contains Element    //div[@class="owl-dots"]
     ${Dot}=    Selenium2Library.Get Matching Xpath Count    //div[@class="owl-dot"]
+    Scroll Web To Element    //ais-privilege//div[@class="special_for-section"]//*[@id="owl-special"]//div[@class="owl-dots"]
+    Sleep    30s
+    Selenium2Library.Capture Page Screenshot
+    Click Web Element    (//ais-privilege//div[@class="owl-dots"]//div[@class="owl-dot"])[1]
+    Selenium2Library.Capture Page Screenshot
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F6_GoldWebMobile_1_2_Y_2_2] Verify Slide Banner Button EN
@@ -722,8 +727,18 @@ Resource          Resource/PageKeywords/Gold_Privilege.txt
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Select Lang En
-    Scroll To Slide Banner Button
-    Verify Slide Banner Button
+    Comment    Scroll To Slide Banner Button
+    Comment    Verify Slide Banner Button
+    Scroll Web To Element    //div[@id="privilege"]
+    Wait Web Until Page Contains Element    //div[@class="owl-next"]
+    Wait Web Until Page Contains Element    //div[@class="owl-prev"]
+    Sleep    20s
+    Click Web Element    //div[@class="owl-next"]
+    Sleep    1s
+    Selenium2Library.Capture Page Screenshot
+    Click Web Element    //div[@class="owl-prev"]
+    Sleep    1s
+    Selenium2Library.Capture Page Screenshot
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F6_GoldWebMobile_1_2_Y_2_4] Verify Click More To Show All Campaign EN
@@ -759,4 +774,284 @@ Resource          Resource/PageKeywords/Gold_Privilege.txt
     Select Lang En
     Scroll To Slide Banner Button
     Verify More Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_2_2_Y_2_1] Verify Privileges Page EN
+    [Documentation]    *** Owner:Now ***
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- Serenade Emerald Customer
+    ...    - Ntype 3BE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    "
+    ...
+    ...
+    ...    *** Step ***
+    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.ตรวจสอบหน้า Privileges [1]
+    ...    6.จับภาพหน้าจอ"
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "[1] ตรวจสอบหน้า Privileges
+    ...    - สัมผัสได้ถึงความพิเศษทุกวัน
+    ...    - Campaign = 3 Page
+    ...    - แต่ละ Page แสดง 4 Campaign
+    ...
+    ...    "
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Comment    Verify Privilege Page
+    Scroll Web To Element    //div[@id="privilege"]
+    Wait Web Until Page Contains Element    //div[@class="owl-dots"]
+    ${Dot}=    Selenium2Library.Get Matching Xpath Count    //div[@class="owl-dot"]
+    Scroll Web To Element    //ais-privilege//div[@class="special_for-section"]//*[@id="owl-special"]//div[@class="owl-dots"]
+    Sleep    30s
+    Selenium2Library.Capture Page Screenshot
+    Click Web Element    (//ais-privilege//div[@class="owl-dots"]//div[@class="owl-dot"])[1]
+    Selenium2Library.Capture Page Screenshot
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_2_2_Y_2_2] Verify Slide Banner Button EN
+    [Documentation]    *** Owner:Now ***
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- Serenade Emerald Customer
+    ...    - Ntype 3BE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    "
+    ...
+    ...
+    ...    *** Step ***
+    ...    "1. คลิกลิ้งค์ที่ได้รับจาก ข้อความ URL:
+    ...    2. เปิดลิ้งค์ไปที่เบราซ์เซอร์
+    ...    3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    4. เข้าสู่ระบบ
+    ...    5. เลื่อนมาที่ส่วน \ สัมผัสได้ถึงความพิเศษทุกวัน
+    ...    6. เลื่อนแบนเนอร์ซ้ายขวา
+    ...    7. คลิกแบนเนอร์
+    ...    8. ตรวจสอบว่าสามารถ redirect ไปยังหน้ารายละเอียดสิทธิพิเศษอื่นๆ
+    ...    "
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "[1]ตรวจสอบแบนเนอร์
+    ...    - ตรวจสอบ รูปแบนเนอร์ที่แสดง เปลี่ยน จากก่อนกดปุ่ม >
+    ...
+    ...    '[2]ตรวจสอบแบนเนอร์
+    ...    - ตรวจสอบ รูปแบนเนอร์ที่แสดง เปลี่ยน จากก่อนกดปุ่ม <
+    ...
+    ...    "
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Comment    Scroll To Slide Banner Button
+    Comment    Verify Slide Banner Button
+    Scroll Web To Element    //div[@id="privilege"]
+    Wait Web Until Page Contains Element    //div[@class="owl-next"]
+    Wait Web Until Page Contains Element    //div[@class="owl-prev"]
+    Sleep    20s
+    Click Web Element    //div[@class="owl-next"]
+    Sleep    1s
+    Selenium2Library.Capture Page Screenshot
+    Click Web Element    //div[@class="owl-prev"]
+    Sleep    1s
+    Selenium2Library.Capture Page Screenshot
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_2_2_Y_2_3] Verify Page Button EN
+    [Documentation]    *** Owner:Now ***
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- Serenade Emerald Customer
+    ...    - Ntype 3BE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    "
+    ...
+    ...
+    ...    *** Step ***
+    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Hilight Campaign
+    ...    5.กดปุ่ม page ที่ 1
+    ...    6.ตรวจสอบแบนเนอร์ [1]
+    ...    7.จับภาพหน้าจอ
+    ...    8.กดปุ่ม page ที่ 2
+    ...    9.ตรวจสอบแบนเนอร์ [2]
+    ...    10.จับภาพหน้าจอ
+    ...    11.กดปุ่ม page ที่ 3
+    ...    12.ตรวจสอบแบนเนอร์ [3]
+    ...    13.จับภาพหน้าจอ
+    ...
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    ...
+    ...
+    ...    *** Expect ***
+    ...    "[1]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ TheCoffeeBeanTeaLeaf
+    ...    - แสดงแบนเนอร์ Blackcanyon
+    ...    - แสดงแบนเนอร์ Cinnabon
+    ...    - แสดงแบนเนอร์ Mezzo
+    ...
+    ...    '[2]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ SF
+    ...    - แสดงแบนเนอร์ Sukishi
+    ...    - แสดงแบนเนอร์ Miracle
+    ...    - แสดงแบนเนอร์ Major
+    ...
+    ...    '[3]ตรวจสอบแบนเนอร์
+    ...    - แสดงแบนเนอร์ S&P
+    ...    - แสดงแบนเนอร์ ColdStone
+    ...    - แสดงแบนเนอร์ Tops
+    ...    - แสดงแบนเนอร์ Octoberflowers
+    ...
+    ...
+    ...
+    ...
+    ...    "
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Scroll To Slide Banner Button
+    Verify Page Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_2_2_Y_2_4] Verify Click More To Show All Campaign EN
+    [Documentation]    *** Owner:Now ***
+    ...
+    ...    *** Source - Requisite ***
+    ...    "- Serenade Emerald Customer
+    ...    - Ntype 3BE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
+    ...    "
+    ...
+    ...
+    ...    *** Step ***
+    ...    "1. คลิกลิ้งค์ที่ได้รับจาก ข้อความ URL:
+    ...    2. เปิดลิ้งค์ไปที่เบราซ์เซอร์
+    ...    3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    4. เข้าสู่ระบบ
+    ...    5. เลื่อนมาที่ส่วน สัมผัสได้ถึงความพิเศษทุกวัน
+    ...    6.เลื่อนแบนเนอร์ซ้ายขวา
+    ...    7. คลิกปุ่มเพิ่มเติม
+    ...    8. ตรวจสอบว่าสามารถ redirect ไปยังหน้าแสดง Campaign ทั้งหมด [1]
+    ...    "
+    ...
+    ...
+    ...    *** Expect ***
+    ...    [1]สามารถคลิกปุ่มเพิ่มเติม และ redirect ไปยังหน้าแสดง Campaign ทั้งหมด
+    [Tags]    active    success
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Scroll To Slide Banner Button
+    Verify More Button
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_1_2_Y_2_5] Verify Privilege Banner 1 In City EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Sleep    20s
+    Comment    Verify HC Free Coffee
+    Scroll Web To Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Click Web Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Sleep    10s
+    Set Selenium Speed    0.1
+    Web Capture Screen At Verify Point    CampaignPage1
+    Execute Javascript    $("[src='http://10.104.249.35/impression/banners/2017/9/26/banner-5ebd69eda943b5ad4fbd85615e19c5eb.1506414994725.jpeg?bannerId=387&campaignId=254&channelId=8&height&keywords=HighlightGoldEng&positionId=8&tokenId&width']").click();
+    ${URL}=    Get Locations
+    Should Be Equal    ${URL[1]}    http://www.ais.co.th/serenade/th/privileges/335/Miracle-co-working-space
+    Comment    Click Web Element    //ais-hilight-campaign//div[@id="privilege"]
+    Web Capture Screen At Verify Point    CampaignPage1Link
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_1_2_Y_2_6] Verify Privilege Banner 2 In City EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Sleep    20
+    Comment    Verify HC Free Coffee
+    Scroll Web To Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Click Web Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Sleep    10s
+    Set Selenium Speed    0.1
+    Web Capture Screen At Verify Point    CampaignPage1
+    Execute Javascript    $("[src='http://10.104.249.35/impression/banners/2017/9/26/banner-e296d346f542d3e8d0b3733cf6155fbc.1506414524309.jpeg?bannerId=389&campaignId=254&channelId=8&height&keywords=HighlightGoldEng&positionId=8&tokenId&width']").click();
+    ${URL}=    Get Locations
+    Should Be Equal    ${URL[1]}    http://www.ais.co.th/index.html
+    Comment    Click Web Element    //ais-hilight-campaign//div[@id="privilege"]
+    Web Capture Screen At Verify Point    CampaignPage1Link
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_2_2_Y_2_5] Verify Privilege Banner 1 In City EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Sleep    20s
+    Comment    Verify HC Free Coffee
+    Scroll Web To Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Click Web Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Sleep    10s
+    Set Selenium Speed    0.1
+    Web Capture Screen At Verify Point    CampaignPage1
+    Execute Javascript    $("[src='http://10.104.249.35/impression/banners/2017/9/26/banner-5ebd69eda943b5ad4fbd85615e19c5eb.1506414994725.jpeg?bannerId=387&campaignId=254&channelId=8&height&keywords=HighlightGoldEng&positionId=8&tokenId&width']").click();
+    ${URL}=    Get Locations
+    Should Be Equal    ${URL[1]}    http://www.ais.co.th/serenade/th/privileges/335/Miracle-co-working-space
+    Comment    Click Web Element    //ais-hilight-campaign//div[@id="privilege"]
+    Web Capture Screen At Verify Point    CampaignPage1Link
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F6_GoldWebMobile_2_2_Y_2_6] Verify Privilege Banner 2 In City EN
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Sleep    20
+    Comment    Verify HC Free Coffee
+    Scroll Web To Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Click Web Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Sleep    10s
+    Set Selenium Speed    0.1
+    Web Capture Screen At Verify Point    CampaignPage1
+    Execute Javascript    $("[src='http://10.104.249.35/impression/banners/2017/9/26/banner-e296d346f542d3e8d0b3733cf6155fbc.1506414524309.jpeg?bannerId=389&campaignId=254&channelId=8&height&keywords=HighlightGoldEng&positionId=8&tokenId&width']").click();
+    ${URL}=    Get Locations
+    Should Be Equal    ${URL[1]}    http://www.ais.co.th/index.html
+    Comment    Click Web Element    //ais-hilight-campaign//div[@id="privilege"]
+    Web Capture Screen At Verify Point    CampaignPage1Link
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
