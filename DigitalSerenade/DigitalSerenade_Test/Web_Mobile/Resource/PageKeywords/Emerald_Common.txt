@@ -25,16 +25,25 @@ Web Element Text Should Contain
     Selenium2Library.Element Should Contain    ${locator}    ${text}
 
 Verify Profile Page-EN
-    [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${MobileNumberStatus}
+    [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${LifeCycle}
     Verify Title Profile Page    ${Segment}    ${Type}
-    Verify Greeting and Name and Number Profile Page-EN    ${Mobile}    ${Segment}    ${Type}    ${MobileNumberStatus}
-    Verify Segment And Expire Date-EN    ${Segment}    ${Type}    ${MobileNumberStatus}
+    Verify Greeting and Name and Number Profile Page-EN    ${Mobile}    ${Segment}    ${Type}    ${LifeCycle}
+    Verify Segment And Expire Date-EN    ${Segment}    ${Type}    ${LifeCycle}
+    Verify Amendment-EN    ${Segment}    ${Type}    ${LifeCycle}
 
 Verify Segment And Expire Date-EN
     [Arguments]    ${Segment}    ${Type}    ${LifeCycle}
     Scroll Web To Element    ${lbl${Segment}SegmentProfileEN}
     Mouse Over    ${lbl${Segment}SegmentProfileEN}
+    Web Element Text Should Be    ${lbl${Segment}SegmentProfileEN}    ${${Segment}SegmentProfileType${Type}_${LifeCycle}}
     ${ExpireDate}    Get Web Text    ${lbl${Segment}TimePeriodProfileEN}
     log    ${${Segment}TimePeriodProfileType${Type}}
     Should Match Regexp    ${ExpireDate}    ${${Segment}TimePeriodProfileType${Type}}
-    Web Capture Screen At Verify Point    Verify Expire Date
+    Web Capture Screen At Verify Point    Verify Segment and Expired Date
+
+Verify Amendment-EN
+    [Arguments]    ${Segment}    ${Type}    ${LifeCycle}
+    Scroll Web To Element    ${lbl${Segment}AmendmentTypeProfile1EN}
+    Mouse Over    ${lbl${Segment}AmendmentTypeProfile1EN}
+    Web Element Text Should Be    ${lbl${Segment}AmendmentTypeProfile1EN}    ${${Segment}AmendmentTypeProfile1Type${Type}}
+    Web Capture Screen At Verify Point    Verify Amendment
