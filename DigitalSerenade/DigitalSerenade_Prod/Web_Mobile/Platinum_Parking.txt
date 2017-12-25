@@ -4,28 +4,27 @@ Resource          Resource/PageKeywords/Platinum_Parking.txt
 Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
 
 *** Test Cases ***
-[F3_Platinum_4_1_Y_2_1] Verify Parking Page
-    [Documentation]    ** Owner:Bee **
-    ...    F3_PlatinumWebMobile_4_1_Y_2_1 "Verify หน้าบัตรจอดรถ
+[F3_Platinum_2_1_Y_1_1] Verify Parking Page
+    [Documentation]    ** Owner:Noon **
+    ...    F3_PlatinumWebMobile_2_1_Y_1_1 "Verify หน้าบัตรจอดรถ
     ...    "
     ...
     ...
     ...    ** Source Requisite **
     ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.240.249/WelcomeToSerenade
-    ...    - Segment End Date \ ดูจากหน้า โปรไฟล์ Serenade ตรง ""ระหว่าง xx/xx/xxxx - xx/xx/xxxx"" เช่น ระหว่าง 05/16/2017 - 11/30/2017
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade
+    ...    - Segment End Date \ ดูจากหน้า โปรไฟล์ Serenade ตรง "ระหว่าง xx/xx/xxxx - xx/xx/xxxx" เช่น ระหว่าง 05/16/2017 - 11/30/2017
     ...    Segment End Date : พ.ย. 2560
     ...
     ...
     ...    ** Test Step **
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    5. เลื่อนมาที่หน้าบัตรจอดรถ
     ...    6.ตรวจสอบหน้าบัตรจอดรถ [1]
     ...    7.จับภาพหน้าจอ
-    ...
     ...
     ...    ** Expect Result**
     ...    [1]ตรวจสอบหน้าบัตรจอดรถ
@@ -33,26 +32,24 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    - ส่วนของกรอบสีแดง แสดงเดือนและปีที่หมดอายุและSegment ของบัตรที่แสดงตรงกับโปรไฟล์
     [Tags]    active    success
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Verify Date Match Wih Profile Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F3_Platinum_4_1_Y_2_2] Verify Popup Show Parking Name
-    [Documentation]    ** Owner:Bee **
-    ...    F3_PlatinumWebMobile_4_1_Y_2_2 Verify ปุ่ม รายชื่อที่จอดรถพิเศษทั้งหมด
-    ...
+[F3_Platinum_2_1_Y_1_2] Verify Popup Show Parking Name
+    [Documentation]    ** Owner:Noon **
+    ...    F3_PlatinumWebMobile_2_1_Y_1_2 Verify ปุ่ม รายชื่อที่จอดรถพิเศษทั้งหมด
     ...
     ...    ** Source Requisite **
     ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.240.249/WelcomeToSerenade
-    ...
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade
     ...
     ...    ** Test Step **
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    5.เลื่อนมาที่หน้าบัตรจอดรถ
@@ -66,7 +63,7 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    แสดง Popup รายชื่อที่จอดรถ
     [Tags]    active    success
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
