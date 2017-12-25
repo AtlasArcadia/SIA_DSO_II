@@ -465,5 +465,5 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Select AIS Monthly Statement
     Verify AIS Monthly Statement Question
     ${FAQ_Name}    Select AIS Monthly Statement Question iOS    3
-    Verify AIS Monthly Statement Answer iOS    ${FAQ_Name}
+    Verify AIS Monthly Statement Answer iOS    3    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
