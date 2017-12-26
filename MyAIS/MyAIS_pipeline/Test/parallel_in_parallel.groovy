@@ -12,14 +12,10 @@ secondBranch: {
 		dir ('D:\\AtlasBuffet'){
 			echo 'Hello Worldd'
 			parallel thirdBranch: {
-				node('atlas_Oum'){
-					echo 'Hello third thirdBranch'
-				}
+				echo 'Hello third thirdBranch'
 			},
 			fourthBranch: {
-				node('atlas_Oum'){
-					echo 'Hello third fourthBranch'
-				}
+				echo 'Hello third fourthBranch'
 			}
 		}
 	}
