@@ -175,20 +175,28 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
     Select Lang En    #เลือกภาษาอังกฤษ
-    Select Main Icon    Privilege
-    Web Element Should Be Visible    xpath = //div[@class = 'header-title']//h3[@class= "subtitle"][.="selected for AIS Customers"]
+    Scroll Web To Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
     sleep    3s
-    Capture Screen with Specific name
-    ${HeaderTitle}    Get Web Text    xpath = //div[@class = "header-title"]//h2[@class = "title"]
-    log    ${HeaderTitle}
-    Capture Screen with Specific name
-    Comment    Verify Main Icon Page_EN    Privilege    ${HighLightCampaign}    xpath = //div[@class = "header-title"]//h2[@class = "title"]    #${lblHeaderPrivilege}
+    Scroll Web To Element    //div[@class="link-section"]
+    Page Should Contain    Privilege
+    Page Should Contain    Service
+    Page Should Contain    Activity
+    Page Should Contain    Touchpoint
+    Web Capture Screen At Verify Point    Icon
+    Click Web Element    xpath = //div[@class = "item page-scroll"]//p[.="Privilege"]
+    sleep    3s
+    Wait Web Until Page Contains Element    //div[@class="title"]//img[@src = "/template/pages/SDWP/assets/images/ico-1-emerald.png"]
+    Wait Web Until Page Contains Element    //div[@class = "item"]//img[@src = " http://10.104.249.35/impression/banners/2017/9/26/banner-e296d346f542d3e8d0b3733cf6155fbc.1506414524309.jpeg?bannerId=389&campaignId=252&channelId=8&height&keywords=HL02Eng&positionId=8&tokenId&width"]
+    Sleep    10s
+    Web Capture Screen At Verify Point    Privilage
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F8_EmeraldWebMobile_1_2_Y_2_2] Click Service Icon_EN
     [Documentation]    *Owner* : Oum
-    ...    ไอคอน "บริการ"
+    ...    ไอคอน "สิทธิพิเศษ"
     ...
     ...    *Pre-requisite*
     ...    -Serenade Emerald Customer
@@ -196,30 +204,41 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
-    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
-    ...    4. คลิก ไอคอน "บริการ"
-    ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน บริการ ได้ \ [1]
+    ...    4. คลิก ไอคอน "สิทธิพิเศษ"
+    ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน สิทธิพิเศษ ได้ \ [1]
     ...    6. จับภาพหน้าจอ
     ...
     ...    *Expected Result*
-    ...    '[1]ตรวจสอบหน้าเว็บ ส่วน บริการ
-    ...    - \ บริการที่ใส่ใจทุกความต้องการ
+    ...    [1]ตรวจสอบหน้าเว็บ ส่วน สิทธิพิเศษ
+    ...    - \ พลาดไม่ได้! กับสิทธิพิเศษโดนใจ
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Select Lang En    #เลือกภาษาอังกฤษ
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    #เลือกภาษาอังกฤษ
+    Select Lang En
     Scroll Web To Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
     sleep    3s
-    Capture Screen with Specific name
-    Select Main Icon    Service
-    ${HeadTitleService}    Get Web Text    xpath = //h2[@class = "title"][.="Prompt and attentive services"]
-    log    ${HeadTitleService}
-    Capture Screen with Specific name
-    Comment    Verify Main Icon Page    Service    ${Service}    ${lblHeaderService}
+    Scroll Web To Element    //div[@class="link-section"]
+    Page Should Contain    Privilege
+    Page Should Contain    Service
+    Page Should Contain    Activity
+    Page Should Contain    Touchpoint
+    Web Capture Screen At Verify Point    Icon
+    Click Web Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
+    sleep    3s
+    Wait Web Until Page Contains Element    //div[@class = "banner-item"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-0f21f490c41e2505b7e4e9862b6df218.1506481639537.jpeg?bannerId=381&campaignId=262&channelId=9&height&keywords=Service01Eng&positionId=9&tokenId&width"]    #Banner Item 1
+    Wait Web Until Page Contains Element    //div[@class = "banner-item"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-def9cb57615359a6d4580569598c9be8.1506481765123.jpeg?bannerId=385&campaignId=262&channelId=9&height&keywords=Service01Eng&positionId=9&tokenId&width"]    #Banner Item 2
+    Wait Web Until Page Contains Element    //div[@class = "banner-item"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-b3310739b5e5e4bc297372a61bf28f2e.1506481627028.jpeg?bannerId=380&campaignId=262&channelId=9&height&keywords=Service01Eng&positionId=9&tokenId&width"]    #Banner Item 3
+    Wait Web Until Page Contains Element    //div[@class = "banner-item"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-926d54f32a199d67d50b6799d190b48c.1506481780622.jpeg?bannerId=386&campaignId=262&channelId=9&height&keywords=Service01Eng&positionId=9&tokenId&width"]    #Banner Item 4
+    Sleep    10s
+    Web Capture Screen At Verify Point    Service
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F8_EmeraldWebMobile_1_2_Y_2_3] Click Activities Icon_EN
@@ -248,13 +267,23 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    sleep    3s
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    #เลือกภาษาอังกฤษ
     Select Lang En    #เลือกภาษาอังกฤษ
-    Scroll Web To Element    xpath = //div[@class = "item page-scroll"]//p[.="Activity"]
-    Select Main Icon    Activities
-    sleep    10s
-    Web Element Should Be Visible    xpath = //div[@class = "header-title"]//h2[@class = "title"]
-    Comment    Verify Main Icon Page    Activities    ${Activities}    ${lblHeaderActivities}
+    Scroll Web To Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
+    sleep    3s
+    Scroll Web To Element    //div[@class="link-section"]
+    Page Should Contain    Privilege
+    Page Should Contain    Service
+    Page Should Contain    Activity
+    Page Should Contain    Touchpoint
+    Web Capture Screen At Verify Point    Icon
+    Click Web Element    xpath = //div[@class = "item page-scroll"]//p[.="Activity"]
+    sleep    3s
+    Wait Web Until Page Contains Element    //h2[@class="title"][contains(.,"Enrich the experience with exclusive activities")]
+    Sleep    10s
+    Web Capture Screen At Verify Point    Activity
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F8_EmeraldWebMobile_1_2_Y_2_4] Click Service Center Icon_EN
@@ -282,12 +311,22 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    sleep    3s
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
     Select Lang En    #เลือกภาษาอังกฤษ
+    Scroll Web To Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
     sleep    3s
+    Scroll Web To Element    //div[@class="link-section"]
+    Page Should Contain    Privilege
+    Page Should Contain    Service
+    Page Should Contain    Activity
+    Page Should Contain    Touchpoint
+    Web Capture Screen At Verify Point    Icon
     Click Web Element    xpath = //div[@class = "item page-scroll"]//p[.="Touchpoint"]
-    Capture Screen with Specific name
-    Comment    Verify Main Icon Page    Center    ${ServiceCenter}    ${lblHeaderServiceCenter}
+    sleep    3s
+    Wait Web Until Page Contains Element    //h2[@class="title"][contains(.,"Serenade Touchpoint ")]
+    Sleep    10s
+    Web Capture Screen At Verify Point    Touchpoint
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F8_EmeraldWebMobile_1_2_Y_2_5] Language Change_EN
@@ -315,13 +354,15 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
     Select Lang En    #เลือกภาษาอังกฤษ
     sleep    5s
     Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Privilege"]    #Privilege
     Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Service"]    #Service
     Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Activity"]    #Activity
     Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Touchpoint"]    #Touchpoint
-    Capture Screen with Specific name
+    Web Capture Screen At Verify Point    ChangeToEng
     Comment    Verify Main Icon Page    Privilege    ${HighLightCampaign}    ${lblHeaderPrivilege}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
@@ -352,6 +393,8 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
     sleep    5s
     Select Lang En    #เลือกภาษาอังกฤษ
     sleep    5s
@@ -359,7 +402,263 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Service"]    #Service
     Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Activity"]    #Activity
     Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Touchpoint"]    #Touchpoint
-    Capture Screen with Specific name
+    Web Capture Screen At Verify Point    IconEng
+    Comment    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Comment    Verify Icon Colour
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_EmeraldWebMobile_2_2_Y_2_1] Click Privilege Icon_EN
+    [Documentation]    *Owner* : Oum
+    ...    ไอคอน "สิทธิพิเศษ"
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. คลิก ไอคอน "สิทธิพิเศษ"
+    ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน สิทธิพิเศษ ได้ \ [1]
+    ...    6. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบหน้าเว็บ ส่วน สิทธิพิเศษ
+    ...    - \ พลาดไม่ได้! กับสิทธิพิเศษโดนใจ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    Select Lang En    #เลือกภาษาอังกฤษ
+    Scroll Web To Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
+    sleep    3s
+    Scroll Web To Element    //div[@class="link-section"]
+    Page Should Contain    Privilege
+    Page Should Contain    Service
+    Page Should Contain    Activity
+    Page Should Contain    Touchpoint
+    Web Capture Screen At Verify Point    Icon
+    Click Web Element    xpath = //div[@class = "item page-scroll"]//p[.="Privilege"]
+    sleep    3s
+    Wait Web Until Page Contains Element    //div[@class="title"]//img[@src = "/template/pages/SDWP/assets/images/ico-1-emerald.png"]
+    Wait Web Until Page Contains Element    //div[@class = "item"]//img[@src = " http://10.104.249.35/impression/banners/2017/9/26/banner-e296d346f542d3e8d0b3733cf6155fbc.1506414524309.jpeg?bannerId=389&campaignId=252&channelId=8&height&keywords=HL02Eng&positionId=8&tokenId&width"]
+    Sleep    10s
+    Web Capture Screen At Verify Point    Privilage
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_EmeraldWebMobile_2_2_Y_2_2] Click Service Icon_EN
+    [Documentation]    *Owner* : Oum
+    ...    ไอคอน "สิทธิพิเศษ"
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. คลิก ไอคอน "สิทธิพิเศษ"
+    ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน สิทธิพิเศษ ได้ \ [1]
+    ...    6. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบหน้าเว็บ ส่วน สิทธิพิเศษ
+    ...    - \ พลาดไม่ได้! กับสิทธิพิเศษโดนใจ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    Select Lang En    #เลือกภาษาอังกฤษ
+    Scroll Web To Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
+    sleep    3s
+    Scroll Web To Element    //div[@class="link-section"]
+    Page Should Contain    Privilege
+    Page Should Contain    Service
+    Page Should Contain    Activity
+    Page Should Contain    Touchpoint
+    Web Capture Screen At Verify Point    Icon
+    Click Web Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
+    sleep    3s
+    Wait Web Until Page Contains Element    //div[@class = "banner-item"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-0f21f490c41e2505b7e4e9862b6df218.1506481639537.jpeg?bannerId=381&campaignId=262&channelId=9&height&keywords=Service01Eng&positionId=9&tokenId&width"]    #Banner Item 1
+    Wait Web Until Page Contains Element    //div[@class = "banner-item"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-def9cb57615359a6d4580569598c9be8.1506481765123.jpeg?bannerId=385&campaignId=262&channelId=9&height&keywords=Service01Eng&positionId=9&tokenId&width"]    #Banner Item 2
+    Wait Web Until Page Contains Element    //div[@class = "banner-item"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-b3310739b5e5e4bc297372a61bf28f2e.1506481627028.jpeg?bannerId=380&campaignId=262&channelId=9&height&keywords=Service01Eng&positionId=9&tokenId&width"]    #Banner Item 3
+    Wait Web Until Page Contains Element    //div[@class = "banner-item"]//img[@src = "http://10.104.249.35/impression/banners/2017/9/27/banner-926d54f32a199d67d50b6799d190b48c.1506481780622.jpeg?bannerId=386&campaignId=262&channelId=9&height&keywords=Service01Eng&positionId=9&tokenId&width"]    #Banner Item 4
+    Sleep    10s
+    Web Capture Screen At Verify Point    Service
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_EmeraldWebMobile_2_2_Y_2_3] Click Activities Icon_EN
+    [Documentation]    *Owner* : Oum
+    ...    ไอคอน "กิจกรรม"
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. คลิก ไอคอน "กิจกรรม"
+    ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน กิจกรรม ได้ \ [1]
+    ...    6. จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    '[1]ตรวจสอบหน้าเว็บ ส่วน กิจกรรม
+    ...    - \ เปิดประสบการณ์ประทับใจกับกิจกรรมสุดพิเศษ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    Select Lang En    #เลือกภาษาอังกฤษ
+    Scroll Web To Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
+    sleep    3s
+    Scroll Web To Element    //div[@class="link-section"]
+    Page Should Contain    Privilege
+    Page Should Contain    Service
+    Page Should Contain    Activity
+    Page Should Contain    Touchpoint
+    Web Capture Screen At Verify Point    Icon
+    Click Web Element    xpath = //div[@class = "item page-scroll"]//p[.="Activity"]
+    sleep    3s
+    Wait Web Until Page Contains Element    //h2[@class="title"][contains(.,"Enrich the experience with exclusive activities")]
+    Sleep    10s
+    Web Capture Screen At Verify Point    Activity
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_EmeraldWebMobile_2_2_Y_2_4] Click Service Center Icon_EN
+    [Documentation]    *Owner* : Oum
+    ...    ไอคอน "ศูนย์บริการ"
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. คลิก ไอคอน "ศูนย์บริการ"
+    ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน ศูนย์บริการ ได้ \ [1]
+    ...    6. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    '[1]ตรวจสอบหน้าเว็บ ส่วน ศูนย์บริการ
+    ...    - \ ช่องทางติดต่อพิเศษ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    Select Lang En    #เลือกภาษาอังกฤษ
+    Scroll Web To Element    xpath = //div[@class = "item page-scroll"]//p[.="Service"]
+    sleep    3s
+    Scroll Web To Element    //div[@class="link-section"]
+    Page Should Contain    Privilege
+    Page Should Contain    Service
+    Page Should Contain    Activity
+    Page Should Contain    Touchpoint
+    Web Capture Screen At Verify Point    Icon
+    Click Web Element    xpath = //div[@class = "item page-scroll"]//p[.="Touchpoint"]
+    sleep    3s
+    Wait Web Until Page Contains Element    //h2[@class="title"][contains(.,"Serenade Touchpoint ")]
+    Sleep    10s
+    Web Capture Screen At Verify Point    Touchpoint
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_EmeraldWebMobile_2_2_Y_2_5] Language Change_EN
+    [Documentation]    *Owner* : Oum
+    ...    ไอคอน "สิทธิพิเศษ"
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4. คลิก ไอคอน "สิทธิพิเศษ"
+    ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน สิทธิพิเศษ ได้ \ [1]
+    ...    6. จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    [1]ตรวจสอบหน้าเว็บ ส่วน สิทธิพิเศษ
+    ...    - \ พลาดไม่ได้! กับสิทธิพิเศษโดนใจ
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    Select Lang En    #เลือกภาษาอังกฤษ
+    sleep    5s
+    Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Privilege"]    #Privilege
+    Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Service"]    #Service
+    Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Activity"]    #Activity
+    Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Touchpoint"]    #Touchpoint
+    Web Capture Screen At Verify Point    ChangeToEng
+    Comment    Verify Main Icon Page    Privilege    ${HighLightCampaign}    ${lblHeaderPrivilege}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_EmeraldWebMobile_2_2_Y_2_6] Verify Icon Colour_EN
+    [Documentation]    *Owner* : Oum
+    ...    สีไอคอน (Emeraldd)
+    ...
+    ...    *Pre-requisite*
+    ...    -Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Step*
+    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่ ไอคอน "ศูนย์บริการ"
+    ...    5.ตรวจสอบไอคอน[1]
+    ...    6. จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    [1]
+    ...    - หน้าเว็บแสดงไอคอนสีน้ำตาล
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    sleep    5s
+    Select Lang En    #เลือกภาษาอังกฤษ
+    sleep    5s
+    Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Privilege"]    #Privilege
+    Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Service"]    #Service
+    Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Activity"]    #Activity
+    Web Element Should Be Visible    xpath = //div[@class = "item page-scroll"]//p[.="Touchpoint"]    #Touchpoint
+    Web Capture Screen At Verify Point    IconEng
     Comment    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
     ...    false
     Comment    Verify Icon Colour

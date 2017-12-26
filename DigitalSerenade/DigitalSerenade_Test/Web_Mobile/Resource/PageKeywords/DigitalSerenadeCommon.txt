@@ -63,3 +63,10 @@ Select Lang En
     Run Keyword If    '${SS}'=='False'    Reload Page
     Scroll Web To Element    //div[@class="lang"]//span[.="ENG"]
     Click Web Element    //div[@class="lang"]//span[.="ENG"]
+
+WebReloadPage_EN
+    [Documentation]    Created By : TUES
+    ...    Login successfully, But didn't appear "Welcome" word.
+    sleep    3s
+    ${CheckPage}    Run Keyword And Return Status    Wait Web Until Page Contains Element    xpath = //div[@class = "greating-text"]//h2[@class = "title"][contains(.,"Welcome")]
+    Run Keyword If    ${CheckPage} == "False"    Reload Page    #ให้ Reload page ถ้าหน้าจอไม่แสดงหน้า Welcome
