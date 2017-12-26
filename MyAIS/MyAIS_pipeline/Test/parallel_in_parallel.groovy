@@ -1,6 +1,4 @@
 @groovy.transform.TupleConstructor
-Runner runner = new Runner()
-node ('atlas_B') 
 
 parallel firstBranch: {
 	node ('atlas_B') {
