@@ -74,3 +74,12 @@ Select PointsAndPrivileges
     ${statusPopupSSLCert}=    Run Keyword And Return Status    AISAppiumEx.Wait Until Element Is Visible    ${PopupSSLCert}    timeout=5s
     Log    ${statusPopupSSLCert}
     Run Keyword If    "${statusPopupSSLCert}"=="True"    Click Mobile Element    ${btnOKSSLCert}
+
+Select Serenade Button
+    Wait Mobile Until Element Visible    ${btnSerenade}
+    Click Mobile Element    ${btnSerenade}
+    :FOR    ${INDEX}    IN RANGE    1    7
+    \    ${statusPopupSSLCert}=    Run Keyword And Return Status    AISAppiumEx.Wait Until Element Is Visible    ${PopupSSLCert}    timeout=5s
+    \    Log    ${statusPopupSSLCert}
+    \    Run Keyword If    "${statusPopupSSLCert}"=="True"    Click Mobile Element    ${btnOKSSLCert}
+    \    Exit For Loop If    "${statusPopupSSLCert}"=="false"

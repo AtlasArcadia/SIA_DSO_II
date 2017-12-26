@@ -4,6 +4,7 @@ Resource          DigitalSerenadeCommon.txt
 *** Keywords ***
 Verify Title Profile Page
     [Arguments]    ${Segment}    ${Type}
+    Comment    Wait Mobile Until Element Visible    ${lbl${Segment}TitleProfile1}    timeout=30s
     Scroll Web To Element    ${lbl${Segment}TitleProfile1}
     Mouse Over    ${lbl${Segment}TitleProfile1}
     Web Element Text Should Be    ${lbl${Segment}TitleProfile1}    ${${Segment}TitleProfile1Type${Type}}
@@ -14,8 +15,8 @@ Verify Title Profile Page
 
 Verify Greeting and Name and Number Profile Page
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${LifeCycle}
-    Scroll Web To Element    ${lbl${Segment}GreetingProfile}
-    Mouse Over    ${lbl${Segment}GreetingProfile}
+    Scroll Web To Element    ${lbl${Segment}GreetingProfile${LifeCycle}}
+    Mouse Over    ${lbl${Segment}GreetingProfile${LifeCycle}}
     Web Element Text Should Be    ${lbl${Segment}GreetingProfile}    ${${Segment}GreetingProfileType${Type}_${LifeCycle}}
     Scroll Web To Element    ${lbl${Segment}NameProfile}
     Mouse Over    ${lbl${Segment}NameProfile}
@@ -63,12 +64,12 @@ Verify Profile Page Sustain
     Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
 
 Verify Profile Page Downgrade
-    [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${AmendmentLine}=1
+    [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${LifeCycle}    ${AmendmentLine}=1
     Verify Title Profile Page    ${Segment}    ${Type}
-    Verify Greeting and Name and Number Profile Page    ${Mobile}    ${Segment}    ${Type}    Downgrade
-    Verify Segment And Expire Date    ${Segment}    ${Type}    Downgrade
-    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
-    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
+    Comment    Verify Greeting and Name and Number Profile Page    ${Mobile}    ${Segment}    ${Type}    Downgrade
+    Comment    Verify Segment And Expire Date    ${Segment}    ${Type}    Downgrade
+    Comment    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
+    Comment    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
 
 Verify Profile Page Upgrade
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${AmendmentLine}=1
