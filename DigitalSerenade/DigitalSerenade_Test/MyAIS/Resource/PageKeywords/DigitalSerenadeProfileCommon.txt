@@ -4,14 +4,14 @@ Resource          DigitalSerenadeCommon.txt
 *** Keywords ***
 Verify Title Profile Page
     [Arguments]    ${Segment}    ${Type}
-    Comment    Wait Mobile Until Element Visible    ${lbl${Segment}TitleProfile1}    timeout=30s
-    Scroll Web To Element    ${lbl${Segment}TitleProfile1}
-    Mouse Over    ${lbl${Segment}TitleProfile1}
-    Web Element Text Should Be    ${lbl${Segment}TitleProfile1}    ${${Segment}TitleProfile1Type${Type}}
-    Scroll Web To Element    ${lbl${Segment}TitleProfile2}
-    Mouse Over    ${lbl${Segment}TitleProfile2}
-    Web Element Text Should Be    ${lbl${Segment}TitleProfile2}    ${${Segment}TitleProfile2Type${Type}}
-    Web Capture Screen At Verify Point    Verify in Title Profile page line 1 and 2
+    Wait Mobile Until Element Visible    ${lbl${Segment}TitleProfile1}    timeout=30s
+    Swipe Element To Screen    ${lbl${Segment}TitleProfile1}
+    Comment    Mouse Over    ${lbl${Segment}TitleProfile1}
+    AISAppiumEx.Element Text Should Be    ${lbl${Segment}TitleProfile1}    ${${Segment}TitleProfile1Type${Type}}
+    Swipe Element To Screen    ${lbl${Segment}TitleProfile2}
+    Comment    Mouse Over    ${lbl${Segment}TitleProfile2}
+    AISAppiumEx.Element Text Should Be    ${lbl${Segment}TitleProfile2}    ${${Segment}TitleProfile2Type${Type}}
+    Aisappium Capture Page Screenshot At Verify Point    Verify in Title Profile page line 1 and 2
 
 Verify Greeting and Name and Number Profile Page
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${LifeCycle}
@@ -66,10 +66,10 @@ Verify Profile Page Sustain
 Verify Profile Page Downgrade
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${LifeCycle}    ${AmendmentLine}=1
     Verify Title Profile Page    ${Segment}    ${Type}
-    Comment    Verify Greeting and Name and Number Profile Page    ${Mobile}    ${Segment}    ${Type}    Downgrade
-    Comment    Verify Segment And Expire Date    ${Segment}    ${Type}    Downgrade
-    Comment    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
-    Comment    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
+    Verify Greeting and Name and Number Profile Page    ${Mobile}    ${Segment}    ${Type}    Downgrade
+    Verify Segment And Expire Date    ${Segment}    ${Type}    Downgrade
+    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
+    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
 
 Verify Profile Page Upgrade
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${AmendmentLine}=1
