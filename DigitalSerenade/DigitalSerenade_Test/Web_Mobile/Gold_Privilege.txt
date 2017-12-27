@@ -934,7 +934,12 @@ Resource          Resource/PageKeywords/Gold_Privilege.txt
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Select Lang En
     Scroll To Slide Banner Button
-    Verify Page Button
+    Comment    Verify Page Button
+    ${dot}=    Selenium2Library.Get Matching Xpath Count    //ais-privilege//div[@class='owl-dot']
+    ${dot_Active}=    Selenium2Library.Get Matching Xpath Count    //ais-privilege//div[@class='owl-dot active']
+    ${All_Dot_Privilege}=    Evaluate    ${dot} + ${dot_Active}
+    ${pic_band}=    Selenium2Library.Get Matching Xpath Count    //ais-privilege//*[@id='owl-special']//div[@class="owl-item active"]
+    Should Be Equal    ${pic_band}    4
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F6_GoldWebMobile_2_2_Y_2_4] Verify Click More To Show All Campaign EN
