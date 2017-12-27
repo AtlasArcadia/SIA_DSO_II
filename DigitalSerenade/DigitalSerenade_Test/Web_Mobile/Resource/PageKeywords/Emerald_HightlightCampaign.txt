@@ -234,9 +234,68 @@ Find banner
     [Return]    ${index}
 
 Verify Hilight Campaign_EN
+    Scroll Web To Element    //div[@id="privilege"]
     Web Element Text Should Be    ${lblHilightCampaignTitle}    ${lblHCTitle}
-    sleep    5s
-    :FOR    ${index}    IN RANGE    1    10
-    \    Web Element Should Be Visible    ${btnHCPage${index}}
-    Selenium2Library.Page Should Not Contain Element    ${btnHCPage10}
-    Web Capture Screen At Verify Point    HilightCampaign
+    sleep    10s
+    Web Element Should Be Visible    xpath=//div[@id="privilege"]//div[@class="owl-item active"]
+    : FOR    ${index}    IN RANGE    1    10
+    \    ${status}    ${value}    Run Keyword And Ignore Error    Web Element Should Be Visible    ${btnHCPage${index}}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    ${ActDotNo}=    Evaluate    ${index}-1
+    ${ExpDotNo}=    Convert To Integer    2
+    Should Be Equal    ${ActDotNo}    ${ExpDotNo}
+    Capture ScreenShot
+    sleep    10s
+
+verify active banner_EN
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerTravelinStyle}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
+    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerHBO}
+    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
+    ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcBannerEatWithAIS}
+    ${srcBanner9}    Get Regexp Matches    ${srcBanner}    ${srcBannerAISFibre}
+    ${srcBanner10}    Get Regexp Matches    ${srcBanner}    ${srcBannerBangkokAirways}
+    : FOR    ${index}    IN RANGE    1    11
+    \    Log    ${srcBanner${index}}
+    \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
+    \    ...    ELSE    Continue For Loop
+    ${Banner}    Set Variable If    "${index}" == "1"    myAIS
+    ${Banner}    Set Variable If    "${index}" == "2"    FreeCoffee    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    TravelinStyle    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    Embassy    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "5"    myKitchen    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "6"    HBO    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "7"    Netflix    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "8"    EatWithAIS    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "9"    AISFibre    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "10"    BangkokAirways    ${Banner}
+    [Return]    ${Banner}
+
+Verify Slide Banner_EN
+    ${banner1}    verify active banner_EN
+    Click Web Element    ${btnNextBanner}
+    ${banner2}    verify active banner_EN
+    Run Keyword If    "${banner1}" == "${banner2}"    Fail
+    ...    ELSE    Selenium2Library.Capture Page Screenshot
+    Click Web Element    ${btnPrevBanner}
+    ${banner3}    verify active banner_EN
+    Run Keyword If    "${banner1}" == "${banner3}"    Selenium2Library.Capture Page Screenshot
+    ...    ELSE    Fail
+
+Verify HC Page Button_EN
+    Scroll Web To Element    //div[@id="privilege"]
+    sleep    10s
+    : FOR    ${index}    IN RANGE    1    99
+    \    ${status}    ${value}    Run Keyword And Ignore Error    Verify Highlight Click Banner and Snapshot EN    ${index}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+
+Verify Highlight Click Banner and Snapshot EN
+    [Arguments]    ${index}
+    Set Selenium Speed    0.1
+    Click Web Element    ${btnHCPage${index}}
+    sleep    3s
+    Selenium2Library.Capture Page Screenshot

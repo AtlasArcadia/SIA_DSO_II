@@ -345,3 +345,48 @@ Verify October Flower Page
     Web Element Text Should Be    ${lblOctober1}    ${txtOctober1}
     Web Element Text Should Be    ${lblOctober2}    ${txtOctober2}
     Web Capture Screen At Verify Point    PrivilegeOctober
+
+Verify Privilege Page_EN
+    Scroll Web To Element    //div[@id="privilege"]
+    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
+    Scroll Web To Element    ${imgActiveBanner}
+    Web Element Text Should Be    ${txtPrivilegeTitle}    ${txtPrivilege}
+    ${noDot}=    Selenium2Library.Get Matching Xpath Count    ${Owldot}
+    log    ${noDot}
+    ${noCampaign}=    Selenium2Library.Get Matching Xpath Count    ${imgActiveBanner}
+    log    ${noCampaign}
+    Should Be Equal    ${noDot}    2    #Number of Dot
+    Should Be Equal    ${noCampaign}    4    #Number of Campaign
+    sleep    10s
+    Web Capture Screen At Verify Point    Privilege page
+
+Verify Slide Banner Button_EN
+    sleep    30
+    ${active1}    verify active first banner
+    ${active2}    verify active second banner
+    Web Capture Screen At Verify Point    Verify First And Second Campaign
+    Click Web Element    ${btnNext}
+    ${active3}    verify active first banner
+    ${active4}    verify active second banner
+    Web Capture Screen At Verify Point    Verify Third and Fourth Campaign
+    Run Keyword If    "${active1}" == "${active3}"    Fail
+    Run Keyword If    "${active2}" == "${active4}"    Fail
+    Click Web Element    ${btnPrev}
+    ${active3}    verify active first banner
+    ${active4}    verify active second banner
+    Run Keyword If    "${active1}" != "${active3}"    Fail
+    Run Keyword If    "${active2}" != "${active4}"    Fail
+    Web Capture Screen At Verify Point    SlideButton
+
+Verify Privilege Page Button_EN
+    sleep    10s
+    :FOR    ${index}    IN RANGE    1    99
+    \    ${status}    ${value}    Run Keyword And Ignore Error    Verify Priviledge Click Page_EN    ${index}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+
+Verify Priviledge Click Page_EN
+    [Arguments]    ${index}
+    Set Selenium Speed    0.1
+    Click Web Element    ${btnPrivilegeDot${index}}
+    sleep    10s
+    Selenium2Library.Capture Page Screenshot
