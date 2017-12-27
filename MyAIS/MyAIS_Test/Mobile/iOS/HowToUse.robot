@@ -5,7 +5,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
 *** Test Cases ***
 [F3_Help_IOS_1,3_1-2_Y_1_2] Go to How to use
     [Documentation]    **Pre-requisite**
-    ...    Source Number : 3PE,3BE, FBB
+    ...    Source Number :     3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Owner : Asma
@@ -40,7 +40,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...    - ลืมรหัสผ่านสำหรับเข้าใช้ my AIS?
     ...    - เปลี่ยนหมายเลขหลักของ my AIS ได้หรือไม้?
     ...    - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่?none
-    [Tags]    success    debug    active
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -55,7 +55,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
 
 [F3_Help_IOS_1,3_1-2_Y_2_2] Go to How to use Verify First question
     [Documentation]    **Pre-requisite**
-    ...    Source Number : 3PE,3BE,FBB
+    ...    Source Number :    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Owner : Asma
@@ -93,7 +93,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...    - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่? ( คำถามข้อที่7)
     ...    5.เลือก " คำถามข้อที่1 "
     ...    6.ตรวจสอบ "คำตอบ"none
-    [Tags]    success    debug    active    demo
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -110,7 +110,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
 
 [F3_Help_IOS_1,3_1-2_Y_3_2] Go to How to use Verify Second question
     [Documentation]    **Pre-requisite**
-    ...    Source Number : 3PE,3BE,FBB
+    ...    Source Number :    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Owner : Asma
@@ -147,7 +147,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...     - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่? ( คำถามข้อที่7)
     ...    5.เลือก " คำถามข้อที่2 "
     ...    6.ตรวจสอบ "คำตอบ"none
-    [Tags]    success    debug    active
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -164,7 +164,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
 
 [F3_Help_IOS_1,3_1-2_Y_4_2] Go to How to use Verify Third question
     [Documentation]    **Pre-requisite**
-    ...    Source Number : 3PE,3BE,FBB
+    ...    Source Number :    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Owner : Asma
@@ -212,7 +212,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...    - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่? ( คำถามข้อที่7)
     ...    6.เลือก " คำถามข้อที่3 "
     ...    7.ตรวจสอบ "คำตอบ"none
-    [Tags]    success    active
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -229,7 +229,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
 
 [F3_Help_IOS_1,3_1-2_Y_5_2] Go to How to use Verify Fourth question
     [Documentation]    **Pre-requisite**
-    ...    Source Number : 3PE,3BE
+    ...    Source Number :    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Owner : Asma
@@ -266,7 +266,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...    - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่? ( คำถามข้อที่7)
     ...    5.เลือก " คำถามข้อที่4 "
     ...    6.ตรวจสอบ "คำตอบ"non
-    [Tags]    success    active
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -283,7 +283,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
 
 [F3_Help_IOS_1,3_1-2_Y_6_2] Go to How to use Verify Fifth question
     [Documentation]    **Pre-requisite**
-    ...    Source Number : 3PE,3BE
+    ...    Source Number :    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Owner : Asma
@@ -320,7 +320,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...    - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่? ( คำถามข้อที่7)
     ...    5.เลือก " คำถามข้อที่5 "
     ...    6.ตรวจสอบ "คำตอบ"none
-    [Tags]    success    active
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -337,7 +337,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
 
 [F3_Help_IOS_1,3_1-2_Y_7_2] Go to How to use Verify Sixth question
     [Documentation]    **Pre-requisite**
-    ...    Source Number : 3PE,3BE
+    ...    Source Number :    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Owner : Asma
@@ -374,7 +374,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...    - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่? ( คำถามข้อที่7)
     ...    5.เลือก " คำถามข้อที่6 "
     ...    6.ตรวจสอบ "คำตอบ"none
-    [Tags]    success    active
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -391,7 +391,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
 
 [F3_Help_IOS_1,3_1-2_Y_8_2] Go to How to use Verify Seventh question
     [Documentation]    **Pre-requisite**
-    ...    Source Number : 3PE,3BE
+    ...    Source Number :    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Owner : Asma
@@ -426,7 +426,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     ...    - สามารถใช้งาน my AIS ในต่างประเทศได้หรือไม่? ( คำถามข้อที่7)
     ...    5.เลือก " คำถามข้อที่7 "
     ...    6.ตรวจสอบ "คำตอบ"none
-    [Tags]    success    active
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

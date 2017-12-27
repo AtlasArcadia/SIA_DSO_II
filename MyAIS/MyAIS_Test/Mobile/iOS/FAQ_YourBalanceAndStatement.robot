@@ -69,7 +69,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify FAQ Your Balance And Statement Page
     Select AIS Monthly Statement
     Verify AIS Monthly Statement Question
-    ${FAQ_Name}    Select AIS Monthly Statement Question iOS	1
+    ${FAQ_Name}    Select AIS Monthly Statement Question iOS    1
     Verify AIS Monthly Statement Answer    1    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
@@ -112,7 +112,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     Verify FAQ Your Balance And Statement Page
     Select AIS Monthly Statement
     Verify AIS Monthly Statement Question
-    ${FAQ_Name}    Select AIS Monthly Statement Question iOS	2
+    ${FAQ_Name}    Select AIS Monthly Statement Question iOS    2
     Verify AIS Monthly Statement Answer    2    ${FAQ_Name}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
@@ -189,7 +189,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...      "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...      "เช็กยอดเงินวัน-ทู-คอล!" (Text)
     ...      - Other text (Use Regular expression = ".*")none
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -234,7 +234,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...      "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...      "เช็กยอดเงินวัน-ทู-คอล!" (Text)
     ...      - Other text (Use Regular expression = ".*")none
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -279,7 +279,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...      "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...      "เช็กยอดเงินวัน-ทู-คอล!" (Text)
     ...      - Other text (Use Regular expression = ".*")none
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -324,7 +324,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...      "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...      "เช็กยอดเงินวัน-ทู-คอล!" (Text)
     ...      - Other text (Use Regular expression = ".*")none
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -366,7 +366,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     ...     "ตรวจสอบใบแจ้งและยอดเงิน" (Text)
     ...     "ใบแจ้งค่าใช้บริการไฟเบอร์" (Text)
     ...     - Other text (Use Regular expression = ".*")none
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
