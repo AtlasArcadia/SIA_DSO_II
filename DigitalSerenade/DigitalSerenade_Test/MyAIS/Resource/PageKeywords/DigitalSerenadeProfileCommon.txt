@@ -13,17 +13,17 @@ Verify Title Profile Page
 
 Verify Greeting and Name and Number Profile Page
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${LifeCycle}
-    Scroll Web To Element    ${lbl${Segment}GreetingProfile${LifeCycle}}
-    Mouse Over    ${lbl${Segment}GreetingProfile${LifeCycle}}
-    Web Element Text Should Be    ${lbl${Segment}GreetingProfile}    ${${Segment}GreetingProfileType${Type}_${LifeCycle}}
-    Scroll Web To Element    ${lbl${Segment}NameProfile}
-    Mouse Over    ${lbl${Segment}NameProfile}
-    Web check existing text    ${lbl${Segment}NameProfile}
-    Scroll Web To Element    ${lbl${Segment}NumberProfile}
-    Mouse Over    ${lbl${Segment}NumberProfile}
+    Swipe Element To Screen    ${lbl${Segment}GreetingProfile${LifeCycle}}
+    Element Name Should Be    ${lbl${Segment}GreetingProfile${LifeCycle}}    ${${Segment}GreetingProfileType${Type}_${LifeCycle}}
+    Comment    ${SegmentGreetingEncode}=    Encode String To Bytes    ${${Segment}GreetingProfileType${Type}_${LifeCycle}}    UTF-8
+    Comment    Element Name Should Be    ${lbl${Segment}GreetingProfile${LifeCycle}}    ${SegmentGreetingEncode}
+    Swipe Element To Screen    ${lbl${Segment}NameProfile}
+    AISAppiumEx.Get Element Attribute    ${lbl${Segment}NameProfile}    .*
+    Comment    Web check existing text    ${lbl${Segment}NameProfile}
+    Swipe Element To Screen    ${lbl${Segment}NumberProfile}
     ${newMobile}=    Replace String    ${${Segment}NumberProfileType${Type}}    XXXXXXXX    ${Mobile}
-    Web Element Text Should Be    ${lbl${Segment}NumberProfile}    ${newMobile}
-    Web Capture Screen At Verify Point    Verify Name and Number in Profile Page
+    Element Name Should Be    ${lbl${Segment}NumberProfile}    ${newMobile}
+    Aisappium Capture Page Screenshot At Verify Point    Verify Name and Number in Profile Page
 
 Verify Segment And Expire Date
     [Arguments]    ${Segment}    ${Type}    ${LifeCycle}
@@ -65,9 +65,9 @@ Verify Profile Page Downgrade
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${LifeCycle}    ${AmendmentLine}=1
     Verify Title Profile Page    ${Segment}    ${Type}
     Verify Greeting and Name and Number Profile Page    ${Mobile}    ${Segment}    ${Type}    Downgrade
-    Verify Segment And Expire Date    ${Segment}    ${Type}    Downgrade
-    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
-    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
+    Comment    Verify Segment And Expire Date    ${Segment}    ${Type}    Downgrade
+    Comment    Run Keyword If    "${AmendmentLine}"=="1" or "${AmendmentLine}"=="2"    Verify Amendment Line x    1    ${Segment}    ${Type}
+    Comment    Run Keyword If    "${AmendmentLine}"=="2"    Verify Amendment Line x    2    ${Segment}    ${Type}
 
 Verify Profile Page Upgrade
     [Arguments]    ${Mobile}    ${Segment}    ${Type}    ${AmendmentLine}=1
