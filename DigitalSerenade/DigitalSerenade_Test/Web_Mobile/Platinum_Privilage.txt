@@ -953,7 +953,7 @@ Resource          Resource/Localized/EN/3PO/Platinum_SpecialPrivilegeLocalized.t
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F7_PlatinumWebMobile_2_2_Y_2_1] Verify Privilege Page
+[F7_PlatinumWebMobile_1_2_Y_2_1] Verify Privilege Page
     [Documentation]    *Owner: TiNn*
     ...
     ...
@@ -1105,7 +1105,13 @@ Resource          Resource/Localized/EN/3PO/Platinum_SpecialPrivilegeLocalized.t
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Select Lang En
-    Verify Page Button
+    Scroll To Slide Banner Button
+    Comment    Verify Page Button
+    ${dot}=    Selenium2Library.Get Matching Xpath Count    //ais-privilege//div[@class='owl-dot']
+    ${dot_Active}=    Selenium2Library.Get Matching Xpath Count    //ais-privilege//div[@class='owl-dot active']
+    ${All_Dot_Privilege}=    Evaluate    ${dot} + ${dot_Active}
+    ${pic_band}=    Selenium2Library.Get Matching Xpath Count    //ais-privilege//*[@id='owl-special']//div[@class="owl-item active"]
+    Should Be Equal    ${pic_band}    4
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F7_PlatinumWebMobile_2_2_Y_2_4] Verify More Button EN
@@ -1139,8 +1145,6 @@ Resource          Resource/Localized/EN/3PO/Platinum_SpecialPrivilegeLocalized.t
     Select Lang En
     Scroll To Slide Banner Button
     Verify More Button
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
     Select Lang En
     Verify Privilege Page EN
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}    Keywords For Teardown    ${#dict_device_name}
