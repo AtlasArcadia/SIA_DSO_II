@@ -885,3 +885,152 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     Verify Privilege Page Button_EN
     Selenium2Library.Capture Page Screenshot
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_EmeraldWebMobile_2_2_Y_2_4]Verify More Campaign_EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 28-Dec-17 **
+    ...
+    ...    *F5_EmeraldWebMobile_2_2_Y_2_4*
+    ...    -คลิกเพิ่มเติม เพื่อแสดง Campaign ทั้งหมด
+    ...
+    ...    *Pre-Requisite *
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Steps *
+    ...    - 1. คลิกลิ้งค์ที่ได้รับจาก ข้อความ URL:
+    ...    - 2. เปิดลิ้งค์ไปที่เบราซ์เซอร์
+    ...    - 3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    - 4. เข้าสู่ระบบ
+    ...    - 5. เลื่อนมาที่ส่วน สัมผัสได้ถึงความพิเศษทุกวัน
+    ...    - 6. คลิกปุ่ม "คลิก" หลังคำว่า ดูสิทธิพิเศษอื่นๆเพิ่มเติม
+    ...    - 7. ตรวจสอบว่าสามารถ redirect ไปยังหน้าแสดง Campaign ทั้งหมด [1]
+    ...
+    ...
+    ...    *Expected Result*
+    ...    - [1]ตรวจสอบ : สามารถ link ไปเว็บอื่นได้
+    ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
+    [Tags]    Success    3PO
+    [Setup]    Set Library Search Order    AISAppiumEx
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Scroll To Slide Banner Button
+    Selenium2Library.Capture Page Screenshot
+    Verify More Button
+    sleep    30s
+    Selenium2Library.Capture Page Screenshot
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_EmeraldWebMobile_2_2_Y_2_5]Verify Privilege Banner 1 In City EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 28-Dec-17 **
+    ...
+    ...    *F5_EmeraldWebMobile_2_2_Y_2_5*
+    ...    - หน้า สิทธิพิเศษ
+    ...    - ลูกค้าอยู่ในเขตกรุงเทพฯและปริมณฑล
+    ...    - Verify Banner ลำดับที่ 1
+    ...
+    ...    *Pre-Requisite *
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Steps *
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
+    ...    - 2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    - 3.Login เข้าสู่ระบบ
+    ...    - 4.เลื่อนมาที่หน้า Privileges
+    ...    - 5.กดปุ่ม page ที่ 1
+    ...    - 6.จับภาพหน้าจอ
+    ...    - 7.คลิกแบนเนอร์ ลำดับที่ 1
+    ...    - 8.ตรวจสอบแบนเนอร์ ลำดับที่ 1 [1]
+    ...    - 9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    - [1]ตรวจสอบ : สามารถ link ไปเว็บอื่นได้
+    ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
+    [Tags]    Success    3PO
+    [Setup]    Set Library Search Order    AISAppiumEx
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Sleep    20s
+    Scroll Web To Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Click Web Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Sleep    10s
+    Set Selenium Speed    0.1
+    Web Capture Screen At Verify Point    CampaignPage1
+    Verify Priviledge Click Page_EN    1
+    Execute Javascript    $("[src='http://10.104.249.35/impression/banners/2017/9/27/banner-69486fc4634540bf06c9362179d42cc3.1506481596015.jpeg?bannerId=399&campaignId=259&channelId=20&height&keywords=PrivBkkEmeraldEng&positionId=20&tokenId&width']").click();
+    Select Window    title=AIS ให้คุณใช้ชีวิตได้มากกว่า ผู้นำเครือข่ายโทรศัพท์เคลื่อนที่ของประเทศไทย
+    Selenium2Library.Wait Until Page Contains Element    xpath=//img[@src='http://www.ais.co.th/base_interface/images/ais_menu_logo.png']    30s
+    ${URL}=    Selenium2Library.Get Location
+    Should Be Equal    ${URL}    http://www.ais.co.th/index.html
+    Web Capture Screen At Verify Point    Privilege Banner 1 In City EN
+    Selenium2Library.Capture Page Screenshot
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_EmeraldWebMobile_2_2_Y_2_6]Verify Privilege Banner 2 In City EN
+    [Documentation]    **Created by : WanpenK **
+    ...    **Create date : 28-Dec-17 **
+    ...
+    ...    *F5_EmeraldWebMobile_2_2_Y_2_6*
+    ...    - หน้า สิทธิพิเศษ
+    ...    - ลูกค้าอยู่ในเขตกรุงเทพฯและปริมณฑล
+    ...    - Verify Banner ลำดับที่ 2
+    ...
+    ...    *Pre-Requisite *
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...
+    ...    *Test Steps *
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
+    ...    - 2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    - 3.Login เข้าสู่ระบบ
+    ...    - 4.เลื่อนมาที่หน้า Privileges
+    ...    - 5.กดปุ่ม page ที่ 2
+    ...    - 6.จับภาพหน้าจอ
+    ...    - 7.คลิกแบนเนอร์ ลำดับที่ 1
+    ...    - 8.ตรวจสอบแบนเนอร์ ลำดับที่ 1 [1]
+    ...    - 9.จับภาพหน้าจอ
+    ...
+    ...
+    ...    *Expected Result*
+    ...    - [1]ตรวจสอบ : สามารถ link ไปเว็บอื่นได้
+    ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
+    [Tags]    Success    3PO
+    [Setup]    Set Library Search Order    AISAppiumEx
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Select Lang En
+    Sleep    20s
+    Scroll Web To Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Click Web Element    //div[@id="privilege"]//div[@class="owl-dots"]
+    Sleep    10s
+    Set Selenium Speed    0.1
+    Web Capture Screen At Verify Point    CampaignPage2
+    Verify Priviledge Click Page_EN    2
+    Execute Javascript    $("[src='http://10.104.249.35/impression/banners/2017/9/27/banner-6aaf0d06609cf658db61242d473b1c5c.1506481518733.jpeg?bannerId=395&campaignId=259&channelId=20&height&keywords=PrivBkkEmeraldEng&positionId=20&tokenId&width']").click();
+    Select Window    title=สิทธิพิเศษของชีวิตอีกระดับ | Serenade
+    Selenium2Library.Wait Until Page Contains Element    xpath=//img[@src='http://www.ais.co.th/serenade/images/privileges/text-privileges.png']    30s
+    ${URL}=    Selenium2Library.Get Location
+    Should Be Equal    ${URL}    http://www.ais.co.th/serenade/th/privileges/335/Miracle-co-working-space
+    Web Capture Screen At Verify Point    Privilege Banner 2 In City EN
+    Selenium2Library.Capture Page Screenshot
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
