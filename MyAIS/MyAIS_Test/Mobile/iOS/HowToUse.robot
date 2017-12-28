@@ -159,7 +159,7 @@ Resource          ../Resource/PageKeywords/HowToUse.txt
     Select How To Use Submenu
     Verify How To Use Page
     Select Question    SecondQuestion
-    Verify Answer How To Use Application Page     2
+    Verify Answer How To Use Application Page    2
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F3_Help_IOS_1,3_1-2_Y_4_2] Go to How to use Verify Third question
