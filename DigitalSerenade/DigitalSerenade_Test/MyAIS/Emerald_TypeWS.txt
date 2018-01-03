@@ -1,9 +1,10 @@
 *** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Emerald_TypeWS.txt
+Resource          Resource/PageKeywords/LoginMyAIS.txt
 
 *** Test Cases ***
-[F1_Emerald_3_1_Y_2_25] Verify emerald new type WS
+[F1_EmeraldMyais_1-4_1_Y_2_25] Verify emerald new type WS
     [Documentation]    *** Owner: Now ***
     ...
     ...
@@ -34,14 +35,17 @@ Resource          Resource/PageKeywords/Emerald_TypeWS.txt
     ...    - "
     [Tags]    onhold
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page New    ${Number}    Emerald    WS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_New_TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_New_TypeWS
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify Profile Page New    ${Number}    Emerald    WS    New
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Emerald_3_1_Y_2_26] Verify emerald sustain type WS
+[F1_EmeraldMyais_1-4_1_Y_2_26] Verify emerald sustain type WS
     [Documentation]    *** Owner: Now ***
     ...
     ...
@@ -71,14 +75,17 @@ Resource          Resource/PageKeywords/Emerald_TypeWS.txt
     ...    - "
     [Tags]    onhold
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page Sustain    ${Number}    Emerald    WS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain _TypeWS=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain _TypeWS
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify Profile Page Sustain    ${Number}    Emerald    WS    Sustain
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Emerald_3_1_Y_2_27] Verify emerald downgrade type WS
+[F1_EmeraldMyais_1-4_1_Y_2_27] Verify emerald downgrade type WS
     [Documentation]    *** Owner: Now ***
     ...
     ...
@@ -112,46 +119,10 @@ Resource          Resource/PageKeywords/Emerald_TypeWS.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Downgrade_TypeWS=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Downgrade_TypeWS
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page Downgrade    ${Number}    Emerald    WS
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_Emerald_3_1_Y_2_28] Verify emerald upgrade type WS Reject
-    [Documentation]    *** Owner: Now ***
-    ...
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Emerald Customer - Upgrade
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.240.249/WelcomeToSerenade
-    ...    "
-    ...
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...
-    ...    "
-    ...
-    ...
-    ...    *** Expect Result***
-    ...    "[1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - เอไอเอส เซเรเนด มีความยินดีที่มีโอกาสดูแล
-    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ เอ็มเมอรัลด์
-    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
-    ...    - ความพิเศษนี้มอบให้คุณจากการเป็นพนักงานคนสำคัญ ในเครือเอไอเอส
-    ...    - "
-    [Tags]    onhold
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page Upgrade    ${Number}    Emerald    WS
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify Profile Page Downgrade    ${Number}    Emerald    WS    Downgrade
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
