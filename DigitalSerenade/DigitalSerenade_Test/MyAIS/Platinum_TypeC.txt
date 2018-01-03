@@ -2,123 +2,10 @@
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Platinum_TypeC.txt
 Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocalized.txt
+Resource          Resource/PageKeywords/LoginMyAIS.txt
 
 *** Test Cases ***
-[F1_Platinum_2_1_Y_2_4] Verify platinum new type C Reject
-    [Documentation]    *** Owner: Now ***
-    ...
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Platinum Customer - New
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.240.249/WelcomeToSerenade
-    ...    "
-    ...
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...    "
-    ...
-    ...
-    ...    *** Expect Result***
-    ...    "[1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - เอไอเอส เซเรเนด มีความยินดีอย่างยิ่งที่มีโอกาสต้อนรับ
-    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ แพลทินัม
-    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
-    ...    - ความพิเศษนี้มอบให้คุณจากการสมัคร เซเรเนด แพ็กเกจ"
-    [Tags]    Reject
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page New    ${Number}    Platinum    C
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_Platinum_2_1_Y_2_5] Verify platinum sustain type C Reject
-    [Documentation]    *** Owner: Now ***
-    ...
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Platinum Customer - Sustain
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.240.249/WelcomeToSerenade
-    ...    "
-    ...
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...    "
-    ...
-    ...
-    ...    *** Expect Result***
-    ...    "[1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - เอไอเอส เซเรเนด มีความยินดีที่มีโอกาสดูแล
-    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ แพลทินัมอีกครั้ง
-    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
-    ...    - ความพิเศษนี้มอบให้คุณจากการสมัคร เซเรเนด แพ็กเกจ"
-    [Tags]    Reject
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page Sustain    ${Number}    Platinum    C
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_Platinum_2_1_Y_2_6] Verify platinum upgrade type C Reject
-    [Documentation]    *** Owner: Now ***
-    ...
-    ...    **remark**
-    ...    No downgrade then change to upgrade
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Platinum Customer - Downgrade
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.240.249/WelcomeToSerenade
-    ...    "
-    ...
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...    "
-    ...
-    ...
-    ...    *** Expect Result***
-    ...    "[1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - เอไอเอส เซเรเนด มีความยินดีที่มีโอกาสดูแล
-    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ แพลทินัม
-    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
-    ...    - ความพิเศษนี้มอบให้คุณจากการสมัคร เซเรเนด แพ็กเกจ
-    ...    "
-    [Tags]    Reject    changename
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page Upgrade    ${Number}    Platinum    C
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_Platinum_2_1_Y_2_7] Verify platinum new type C
+[F1_PlatinumMyais_1-4_1_Y_2_7] Verify platinum new type C
     [Documentation]    *** Owner: Now ***
     ...
     ...
@@ -149,14 +36,17 @@ Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocali
     ...    "
     [Tags]    onhold
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page New    ${Number}    Platinum    C
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold_Downgrade_TypeF=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold_Downgrade_TypeF
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify Profile Page New    ${Number}    Platinum    C    New
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Platinum_2_1_Y_2_8] Verify platinum sustain type C
+[F1_PlatinumMyais_1-4_1_Y_2_8] Verify platinum sustain type C
     [Documentation]    *** Owner: Now ***
     ...
     ...
@@ -187,14 +77,17 @@ Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocali
     ...    "
     [Tags]    onhold
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page Sustain    ${Number}    Platinum    C
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold_Downgrade_TypeF=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold_Downgrade_TypeF
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify Profile Page Sustain    ${Number}    Platinum    C    Sustain
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Platinum_2_1_Y_2_9] Verify platinum upgrade type C
+[F1_PlatinumMyais_1-4_1_Y_2_9] Verify platinum upgrade type C
     [Documentation]    *** Owner: Now ***
     ...
     ...    **remark**
@@ -228,250 +121,12 @@ Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocali
     ...    "
     [Tags]    success    active
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeC=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeC
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold_Downgrade_TypeF=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold_Downgrade_TypeF
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Profile Page Upgrade    ${Number}    Platinum    C
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_Platinum_2_1_Y_2_10] Verify platinum new type C Reject
-    [Documentation]    *** Owner: Now ***
-    ...
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Platinum Customer - New
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.240.249/WelcomeToSerenade
-    ...    "
-    ...
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...    "
-    ...
-    ...
-    ...    *** Expect Result***
-    ...    "[1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - เอไอเอส เซเรเนด มีความยินดีอย่างยิ่งที่มีโอกาสต้อนรับ
-    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ แพลทินัม
-    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
-    ...    - ความพิเศษนี้มอบให้คุณจากการเปิดใช้บริการเอไอเอส ไฟเบอร์ พร้อมการเปิดใช้บริการหมายเลขโทรศัพท์ในระบบเอไอเอส"
-    [Tags]    Reject
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page New    ${Number}    Platinum    C
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_Platinum_2_1_Y_2_11] Verify platinum sustain type C Reject
-    [Documentation]    *** Owner: Now ***
-    ...
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Platinum Customer - Sustain
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.240.249/WelcomeToSerenade
-    ...    "
-    ...
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...    "
-    ...
-    ...
-    ...    *** Expect Result***
-    ...    "[1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - เอไอเอส เซเรเนด มีความยินดีที่มีโอกาสดูแล
-    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ แพลทินัมอีกครั้ง
-    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx
-    ...    - ความพิเศษนี้มอบให้คุณจากการเปิดใช้บริการเอไอเอส ไฟเบอร์ พร้อมการเปิดใช้บริการหมายเลขโทรศัพท์ในระบบเอไอเอส"
-    [Tags]    Reject
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page Sustain    ${Number}    Platinum    C
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_Platinum_2_1_Y_2_12] Verify platinum upgrade type C Reject
-    [Documentation]    *** Owner: Now ***
-    ...
-    ...    **remark**
-    ...    No downgrade then change to upgrade
-    ...
-    ...
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Platinum Customer - Downgrade
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.240.249/WelcomeToSerenade
-    ...    "
-    ...
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...    "
-    ...
-    ...
-    ...    *** Expect Result***
-    ...    "[1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - เอไอเอส เซเรเนด มีความยินดีที่มีโอกาสดูแล
-    ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - ในฐานะ \ ลูกค้าเอไอเอส เซเรเนด ระดับ แพลทินัม
-    ...    - ระหว่าง xx/xx/xxxx - xx/xx/xxxx- ความพิเศษนี้มอบให้คุณจากการเปิดใช้บริการเอไอเอส ไฟเบอร์ พร้อมการเปิดใช้บริการหมายเลขโทรศัพท์ในระบบเอไอเอส- ความพิเศษนี้มอบให้คุณจากการสมัคร เซเรเนด แพ็กเกจ
-    ...    "
-    [Tags]    Reject    changename
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page Upgrade    ${Number}    Platinum    C
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_PlatinumWebMobile_1_2_Y_2_7] Verify platinum new type C
-    [Documentation]    *** Owner: Kate ***
-    ...
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Platinum Customer - New
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade \ "
-    ...
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...    "
-    ...
-    ...
-    ...    *** Expect Result***
-    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - We are pleased to welcome
-    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - as an AIS Serenade Platinum customer
-    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
-    ...    - This privilege is offered when you apply for Serenade Package.
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_New_TypeC=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_New_TypeC
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Sleep    10s
-    Capture ScreenShot
-    Wait Web Until Page Contains Element    xpath=//h2[contains(.,'Welcome')]
-    Scroll Web To Element    xpath=//h3[contains(.,'to AIS Serenade')]
-    Wait Web Until Page Contains Element    xpath=//span[contains(.,'ENG')]
-    Click Web Element    xpath=//span[contains(.,'ENG')]
-    sleep    5s
-    Verify Profile Page Serenade Platinum New TypeC    ${Number}    Platinum    C
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_PlatinumWebMobile_1_2_Y_2_8] Verify platinum sustain type C
-    [Documentation]    *** Owner: Kate ***
-    ...
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Platinum Customer - Sustain
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade \ "
-    ...
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...    "
-    ...
-    ...
-    ...    *** Expect Result***
-    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - It is our pleasure to take care of
-    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - as an AIS Serenade Platinum customer
-    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
-    ...    - This privilege is offered when you apply for Serenade Package.
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Sustain_TypeC=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Sustain_TypeC
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Sleep    10s
-    Capture ScreenShot
-    Wait Web Until Page Contains Element    xpath=//h2[contains(.,'Welcome')]
-    Scroll Web To Element    xpath=//h3[contains(.,'to AIS Serenade')]
-    Wait Web Until Page Contains Element    xpath=//span[contains(.,'ENG')]
-    Click Web Element    xpath=//span[contains(.,'ENG')]
-    sleep    5s
-    Verify Profile Page Serenade Platinum Sustain TypeC    ${Number}    Platinum    C
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F1_PlatinumWebMobile_1_2_Y_2_9] Verify platinum upgrade type C
-    [Documentation]    *** Owner: Kate ***
-    ...
-    ...    **remark**
-    ...    No downgrade then change to upgrade
-    ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Platinum Customer - Downgrade
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade \ "
-    ...
-    ...    *** Test Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
-    ...    4.ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number ที่ถูกต้อง [1]
-    ...    5.จับภาพหน้าจอ
-    ...
-    ...    "
-    ...
-    ...    *** Expect Result***
-    ...    [1] ตรวจสอบ หน้าเว็บแสดงโปรไฟล์ Segment Number
-    ...    - We are pleased to welcome
-    ...    - Mobile no. 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
-    ...    - as an AIS Serenade Platinum customer
-    ...    - from xx/xx/xxxx to \ xx/xx/xxxx
-    ...    - This privilege is offered when you apply for Serenade Package.
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeC=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeC
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Sleep    10s
-    Capture ScreenShot
-    Wait Web Until Page Contains Element    xpath=//h2[contains(.,'Welcome')]
-    Scroll Web To Element    xpath=//h3[contains(.,'to AIS Serenade')]
-    Wait Web Until Page Contains Element    xpath=//span[contains(.,'ENG')]
-    Click Web Element    xpath=//span[contains(.,'ENG')]
-    sleep    5s
-    Verify Profile Page Serenade Platinum Upgrade TypeC    ${Number}    Platinum    C
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
