@@ -31,26 +31,26 @@ Verify Slide Banner
 
 verify active banner
     ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
-    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
-    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirport}
-    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
-    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
-    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
-    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
-    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerHBO}
-    ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcBannerS8}
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerTraveloka}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerTravelInstyle}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerUltimateDinning}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirport}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
+    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerTCDC}
+    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcMyAIS}
+    ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcEmbassy}
     : FOR    ${index}    IN RANGE    1    9
     \    Log    ${srcBanner${index}}
     \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
     \    ...    ELSE    Continue For Loop
-    ${Banner}    Set Variable If    "${index}" == "1"    FreeCoffee
-    ${Banner}    Set Variable If    "${index}" == "2"    ExclusiveAirport    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "3"    MyAIS    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "4"    myKitchen    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "5"    Netflix    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "6"    Embassy    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "7"    HBO    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "8"    S8    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "1"    Traveloka
+    ${Banner}    Set Variable If    "${index}" == "2"    TravelInstyle    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    UltimateDinning    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    ExclusiveAirport    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "5"    FreeCoffee    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "6"    TCDC    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "7"    MyAIS    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "8"    Embassy    ${Banner}
     [Return]    ${Banner}
 
 match active banner from name
@@ -202,8 +202,7 @@ Verify S8
 Verify first banner
     Sleep    20
     Scroll Web To Element    ${imgBanner}
-    Scroll Web To Element    ${imgBanner}
-    ${CurrentIndex}=    Find banner    MyAIS
+    ${CurrentIndex}=    Find banner    FreeCoffee
     Click Web Element    ${btnHCPage1}
     Web Capture Screen At Verify Point    BannerTravelinStyle
     Click Web Element    ${imgHilightCampaignActiveBanner}
@@ -212,9 +211,8 @@ Verify first banner
 
 Verify second banner
     Sleep    20
-    Scroll Web To Element    ${btnNextBanner}
     Scroll Web To Element    ${imgBanner}
-    ${CurrentIndex}=    Find banner    Embassy
+    ${CurrentIndex}=    Find banner    FreeCoffee
     Click Web Element    ${btnHCPage2}
     Web Capture Screen At Verify Point    Banner2
     Click Web Element    ${imgHilightCampaignActiveBanner}
