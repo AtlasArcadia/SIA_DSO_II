@@ -2,6 +2,7 @@
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Platinum_TypeE.txt
 Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocalized.txt
+Resource          Resource/PageKeywords/LoginMyAIS.txt
 
 *** Test Cases ***
 [F1_Platinum_2_1_Y_2_16] Verify platinum new type E
@@ -72,12 +73,24 @@ Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocali
     ...    - ความพิเศษนี้มอบให้คุณจากการพิจารณาเป็นกรณีพิเศษ
     ...    "
     [Tags]    onhold
+    Comment    &{#dict_device_name}=    Create Dictionary
+    Comment    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}
+    ...    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_NTYPE}
+    Comment    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Comment    Verify Profile Page Sustain    ${Number}    Platinum    E
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_NTYPE}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Profile Page Sustain    ${Number}    Platinum    E
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Sustain_TypeE=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Sustain_TypeE
+    Comment    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify Profile Page Sustain    ${Number}    Platinum    E    Sustain
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Platinum_2_1_Y_2_18] Verify platinum upgrade type E
@@ -190,19 +203,31 @@ Resource          Resource/Localized/${ar_LANG}/${ar_NType}/Platinum_TypeNLocali
     ...    - as an AIS Serenade Platinum customer
     ...    - from xx/xx/xxxx to \ xx/xx/xxxx
     ...    - The privilege is offered to selected customers.
+    Comment    &{#dict_device_name}=    Create Dictionary
+    Comment    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}
+    ...    ${ar_NType}_Platinum_Sustain_TypeE=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Sustain_TypeE
+    Comment    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Comment    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Comment    Sleep    10s
+    Comment    Capture ScreenShot
+    Comment    Wait Web Until Page Contains Element    xpath=//h2[contains(.,'Welcome')]
+    Comment    Scroll Web To Element    xpath=//h3[contains(.,'to AIS Serenade')]
+    Comment    Wait Web Until Page Contains Element    xpath=//span[contains(.,'ENG')]
+    Comment    Click Web Element    xpath=//span[contains(.,'ENG')]
+    Comment    sleep    5s
+    Comment    Verify Profile Page Serenade Platinum Sustain TypeE    ${Number}    Platinum    E
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Sustain_TypeE=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Sustain_TypeE
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Sleep    10s
-    Capture ScreenShot
-    Wait Web Until Page Contains Element    xpath=//h2[contains(.,'Welcome')]
-    Scroll Web To Element    xpath=//h3[contains(.,'to AIS Serenade')]
-    Wait Web Until Page Contains Element    xpath=//span[contains(.,'ENG')]
-    Click Web Element    xpath=//span[contains(.,'ENG')]
-    sleep    5s
-    Verify Profile Page Serenade Platinum Sustain TypeE    ${Number}    Platinum    E
+    Comment    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify Profile Page Sustain    ${Number}    Platinum    E    Sustain
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_PlatinumWebMobile_1_2_Y_2_18] Verify platinum upgrade type E
