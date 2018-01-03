@@ -148,11 +148,11 @@ start chrome browser
     Selenium2Library.Go To    ${url}
 
 start firefox browser
-    [Arguments]    ${url}    ${Browser}    ${ipSelenium}    ${ff_profile}
+    [Arguments]    ${url}    ${Browser}    ${ipSelenium}    ${lo_ff_profile}
     Comment    ${userprofile}=    Evaluate    sys.modules['os'].environ['userprofile']    sys, os
     Comment    ${ff_profile}=    Set Variable    ${userprofile}\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles
     Comment    ${capabilities}    Evaluate    sys.modules['selenium.webdriver'].common.desired_capabilities.DesiredCapabilities.FIREFOX    sys,selenium.webdriver
-    Selenium2Library.Open Browser    ${url}    ${Browser}    remote_url=${ipSelenium}    ff_profile_dir=${ff_profile}
+    Selenium2Library.Open Browser    ${url}    ${Browser}    remote_url=${ipSelenium}    ff_profile_dir=${lo_ff_profile}
 
 start ie browser
     [Arguments]    ${url}    ${Browser}    ${ipSelenium}
@@ -238,11 +238,16 @@ Mobile Capture Screen At Verify Point
     [Documentation]    Name of verify point cannot input / to name
     ...    ex. Payment/Topup cannot input \ but can input Payment and Topup
     Sleep    2
+    ${screenshot_index}=    Get Variable Value    ${screenshot_index}    ${0}
+    Set Global Variable    ${screenshot_index}    ${screenshot_index.__add__(1)}
     @{SplitCodeTestCase}    Split String    ${TEST_NAME}    ]
     Log    @{SplitCodeTestCase}[0]
     ${CodeTestCase}    Set Variable    @{SplitCodeTestCase}[0]
     ${result} =    Wait Until Keyword Succeeds    3x    1s    AISAppiumEx.Capture Page Screenshot    screenshot-${NameOfVerifyPoint}-${CodeTestCase}]-${SUITE_NAME}-${Lang}-${ar_NType}.png
     Log    ${result}
+    @{imageName}    Create List
+    Append To List    ${imageName}    screenshot-Selenium-${CodeTestCase}]-${SUITE_NAME}-${screenshot_index}-${Lang}-${ar_NType}.png
+    Log    ${imageName}
     [Teardown]
 
 Mobile check existing text in name
