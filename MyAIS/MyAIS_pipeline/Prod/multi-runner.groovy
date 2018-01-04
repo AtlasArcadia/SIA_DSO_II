@@ -27,18 +27,18 @@ class Runner implements Serializable{
 	boolean Validity_Transfer = false
 	boolean TopUp = false
 	boolean TouchID = false
-	boolean Quickmenu_Search_Prepaid = false
+	boolean Quickmenu_Search_Prepaid = true
 	boolean Quickmenu_VerifyButton = false
 	boolean Quickmenu_VerifyMenu = false
-	boolean Quickmenu_Search_Postpaid = false
+	boolean Quickmenu_Search_Postpaid = true
 	boolean TopUpAndPayment = false
 	boolean PaymentTopUp = false
-	boolean CopyLogFromExecutorA = true
-	boolean CopyLogFromExecutorB = true
-	boolean AllReportMultiExecutors = true
+	boolean CopyLogFromExecutorA = false
+	boolean CopyLogFromExecutorB = false
+	boolean AllReportMultiExecutors = false
 	boolean ExportToReportExcel = false
-	boolean ExportToReportExcelMultiExecutors = true
-	boolean All = true
+	boolean ExportToReportExcelMultiExecutors = false
+	boolean All = false
 	boolean IsSmoke = false
 	boolean IsSanity = false
 	boolean activeFalse = false
@@ -123,13 +123,14 @@ parallel firstBranch: {
 					run_Calling_Production(runner)
 				}
 
-				stage ('MyAIS_Quickmenu_Search_Prepaid_Prod_Parallel'){
-				    run_Quickmenu_Search_Prepaid(runner)
-			   	 }
 				
-				stage('MyAIS_TopUpAndPayment_Prod_Parallel'){
-					run_MyAIS_TopUpAndPayment_Production(runner)
-				}
+				// stage ('MyAIS_Quickmenu_Search_Prepaid_Prod_Parallel'){
+				//     run_Quickmenu_Search_Prepaid(runner)
+			 //   	 }
+				
+				// stage('MyAIS_TopUpAndPayment_Prod_Parallel'){
+				// 	run_MyAIS_TopUpAndPayment_Production(runner)
+				// }
 
 				stage ('MyAIS_PointsAndPrivileges_Prod_Parallel'){
 					run_PointsAndPrivileges(runner)
@@ -182,9 +183,18 @@ parallel firstBranch: {
 				}
 
 
-				stage ('MyAIS_Quickmenu_Search_Postpaid_Prod_Parallel'){
-				    run_Quickmenu_Search_Postpaid(runner)
-			    }
+				// stage ('MyAIS_Quickmenu_Search_Postpaid_Prod_Parallel'){
+				//     run_Quickmenu_Search_Postpaid(runner)
+			 //    }
+
+			 	stage ('MyAIS_Quickmenu_Search_Prepaid_Prod_Postpaid_Prod_Parallel'){
+			 		parallel thirdBranch: {
+				    	run_Quickmenu_Search_Prepaid(runner)
+				    },
+				   	fourthBranch: {
+						run_Quickmenu_Search_Postpaid(runner)
+					}
+			 	}
 
 
 				stage ('MyAIS_Quickmenu_VerifyButton_Prod_Parallel'){
@@ -195,9 +205,20 @@ parallel firstBranch: {
 					run_MyAIS_Quickmenu_VerifyMenu_Production(runner)
 				}
 
-				stage('MyAIS_PaymentTopUp_Prod_Parallel'){
-					run_MyAIS_PaymentTopUp_Production(runner)
-				}
+				// stage('MyAIS_PaymentTopUp_Prod_Parallel'){
+				// 	run_MyAIS_PaymentTopUp_Production(runner)
+				// }
+
+
+				stage ('MyAIS_PaymentTopup_Prod_TopupPayment_Prod_Parallel'){
+			 		parallel fifthBranch: {
+				    	run_MyAIS_PaymentTopUp_Production(runner)
+				    },
+				   	sixthBranch: {
+						run_MyAIS_TopUpAndPayment_Production(runner)
+					}
+			 	}
+
 
 				stage ('MyAIS_TouchID_Prod_Parallel'){
 					run_TouchID(runner)
