@@ -189,10 +189,10 @@ parallel firstBranch: {
 
 			 	stage ('MyAIS_Quickmenu_Search_Prepaid_Prod_Postpaid_Prod_Parallel'){
 			 		parallel thirdBranch: {
-				    	run_Quickmenu_Search_Prepaid(runner)
+				    	run_Quickmenu_Search_Prepaid(runner)				    	
 				    },
 				   	fourthBranch: {
-						run_Quickmenu_Search_Postpaid(runner)
+						run_Quickmenu_Search_Postpaid(runner)						
 					}
 			 	}
 
@@ -1300,7 +1300,7 @@ def run_Quickmenu_Search_Prepaid(runner){
 	if(runner.Quickmenu_Search_Prepaid || runner.All){
 		dir(env.WORKSPACE) {
 			//Check out
-			checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: 'Tinpan', depthOption: 'infinity', ignoreExternalsOption: true, local: 'AisRobotBuffet', remote: 'https://matador.toro.ais/svn/ProjectDocument/OSD/E2E/Automate/RobotFramework/AisRobotBuffet'], [credentialsId: 'Tinpan', depthOption: 'infinity', ignoreExternalsOption: true, local: 'MyAIS', remote: 'https://matador.toro.ais/svn/ProjectDocument/OSD/E2E/Automate/RobotFramework/MyAIS']], workspaceUpdater: [$class: 'UpdateUpdater']])
+			// checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: 'Tinpan', depthOption: 'infinity', ignoreExternalsOption: true, local: 'AisRobotBuffet', remote: 'https://matador.toro.ais/svn/ProjectDocument/OSD/E2E/Automate/RobotFramework/AisRobotBuffet'], [credentialsId: 'Tinpan', depthOption: 'infinity', ignoreExternalsOption: true, local: 'MyAIS', remote: 'https://matador.toro.ais/svn/ProjectDocument/OSD/E2E/Automate/RobotFramework/MyAIS']], workspaceUpdater: [$class: 'UpdateUpdater']])
 			//RUN
 			bat "if exist " + env.outputPath + "\\Quickmenu_Search_Prepaid\\ (del /q " + env.outputPath + "\\Quickmenu_Search_Prepaid\\*)"
 			def START_TIME_EN = getTime()
@@ -1336,7 +1336,7 @@ def run_Quickmenu_Search_Postpaid(runner){
 	if(runner.Quickmenu_Search_Postpaid || runner.All){
 		dir(env.WORKSPACE) {
 			//Check out
-			checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: 'Tinpan', depthOption: 'infinity', ignoreExternalsOption: true, local: 'AisRobotBuffet', remote: 'https://matador.toro.ais/svn/ProjectDocument/OSD/E2E/Automate/RobotFramework/AisRobotBuffet'], [credentialsId: 'Tinpan', depthOption: 'infinity', ignoreExternalsOption: true, local: 'MyAIS', remote: 'https://matador.toro.ais/svn/ProjectDocument/OSD/E2E/Automate/RobotFramework/MyAIS']], workspaceUpdater: [$class: 'UpdateUpdater']])
+			// checkout([$class: 'SubversionSCM', additionalCredentials: [], excludedCommitMessages: '', excludedRegions: '', excludedRevprop: '', excludedUsers: '', filterChangelog: false, ignoreDirPropChanges: false, includedRegions: '', locations: [[credentialsId: 'Tinpan', depthOption: 'infinity', ignoreExternalsOption: true, local: 'AisRobotBuffet', remote: 'https://matador.toro.ais/svn/ProjectDocument/OSD/E2E/Automate/RobotFramework/AisRobotBuffet'], [credentialsId: 'Tinpan', depthOption: 'infinity', ignoreExternalsOption: true, local: 'MyAIS', remote: 'https://matador.toro.ais/svn/ProjectDocument/OSD/E2E/Automate/RobotFramework/MyAIS']], workspaceUpdater: [$class: 'UpdateUpdater']])
 			//RUN
 			bat "if exist " + env.outputPath + "\\Quickmenu_Search_Postpaid\\ (del /q " + env.outputPath + "\\Quickmenu_Search_Postpaid\\*)"
 			def START_TIME_EN = getTime()
