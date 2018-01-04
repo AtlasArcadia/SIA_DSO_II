@@ -133,24 +133,26 @@ Verify HC Page Button
 
 verify active banner
     ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
-    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
-    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
-    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirportLounge}
-    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
-    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerHBO}
-    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
-    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
-    : FOR    ${index}    IN RANGE    1    8
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerTraveloka}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerTravelInstyle}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerUltimateDinning}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirport}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
+    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerTCDC}
+    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerMyAIS}
+    ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
+    :FOR    ${index}    IN RANGE    1    9
     \    Log    ${srcBanner${index}}
     \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
     \    ...    ELSE    Continue For Loop
-    ${Banner}    Set Variable If    "${index}" == "1"    FreeCoffee
-    ${Banner}    Set Variable If    "${index}" == "2"    myAIS    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "3"    ExclusiveAirportLounge    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "4"    Embassy    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "5"    HBO    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "6"    NetFlix    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "7"    myKitchen    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "1"    Traveloka
+    ${Banner}    Set Variable If    "${index}" == "2"    TravelInstyle    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    UltimateDinning    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    ExclusiveAirport    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "5"    FreeCoffee    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "6"    TCDC    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "7"    MyAIS    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "8"    Embassy    ${Banner}
     [Return]    ${Banner}
 
 match active banner from name

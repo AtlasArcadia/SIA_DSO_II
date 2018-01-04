@@ -227,3 +227,39 @@ Find banner
     \    Run Keyword If    "${banner}" == "${ActiveBanner}"    Exit For Loop
     \    ...    ELSE    Click Web Element    ${btnNextBanner}
     [Return]    ${index}
+
+Verify active banner PO
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerTraveloka}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerTravelInstyle}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerUltimateDinning}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerTCDC}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerMyAIS}
+    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
+    Comment    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirport}
+    Comment    ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
+    : FOR    ${index}    IN RANGE    1    7
+    \    Log    ${srcBanner${index}}
+    \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
+    \    ...    ELSE    Continue For Loop
+    ${Banner}    Set Variable If    "${index}" == "1"    Traveloka
+    ${Banner}    Set Variable If    "${index}" == "2"    TravelInstyle    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    UltimateDinning    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    TCDC    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "5"    MyAIS    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "6"    Embassy    ${Banner}
+    Comment    ${Banner}    Set Variable If    "${index}" == "7"    ExclusiveAirport    ${Banner}
+    Comment    ${Banner}    Set Variable If    "${index}" == "8"    FreeCoffee    ${Banner}
+
+Verify slide BannerPO
+    Scroll Web To Element    ${imgBanner}
+    Mobile Capture Screen At Verify Point    hilightcampaign
+    ${banner1}    Verify active banner PO
+    Click Web Element    ${btnNextBanner}
+    ${banner2}    Verify active banner PO
+    Run Keyword If    "${banner1}" == "${banner2}"    Fail
+    ...    ELSE    Web Capture Screen At Verify Point    NextCampaign
+    Click Web Element    ${btnPrevBanner}
+    ${banner3}    Verify active banner PO
+    Run Keyword If    "${banner1}" == "${banner3}"    Web Capture Screen At Verify Point    PrevCampaign
+    ...    ELSE    Fail
