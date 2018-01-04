@@ -27,10 +27,10 @@ class Runner implements Serializable{
 	boolean Validity_Transfer = false
 	boolean TopUp = false
 	boolean TouchID = false
-	boolean Quickmenu_Search_Prepaid = true
+	boolean Quickmenu_Search_Prepaid = false
 	boolean Quickmenu_VerifyButton = false
 	boolean Quickmenu_VerifyMenu = false
-	boolean Quickmenu_Search_Postpaid = true
+	boolean Quickmenu_Search_Postpaid = false
 	boolean TopUpAndPayment = false
 	boolean PaymentTopUp = false
 	boolean CopyLogFromExecutorA = false
@@ -39,7 +39,7 @@ class Runner implements Serializable{
 	boolean ExportToReportExcel = false
 	boolean ExportToReportExcelMultiExecutors = false
 	boolean All = true
-	boolean IsSmoke = true
+	boolean IsSmoke = false
 	boolean IsSanity = false
 	boolean activeFalse = false
     
