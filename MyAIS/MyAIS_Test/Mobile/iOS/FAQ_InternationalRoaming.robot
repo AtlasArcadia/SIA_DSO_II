@@ -264,7 +264,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ...    7.Click "Second question"
     ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -326,7 +326,7 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ...    7.Click "Third question"
     ...    8.Verify "Answer" Page "International Roaming" (Text) "International Roaming" (Text)
     ...    - Other text (Use Regular expression = ".*")none
-    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -469,3 +469,4 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ${QuestionText}    Select International Roaming Question    5
     Verify International Roaming Asnwer Page    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
