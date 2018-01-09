@@ -590,16 +590,21 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    '[2]ตรวจสอบแบนเนอร์
     ...    - ตรวจสอบ รูปแบนเนอร์ที่แสดง เปลี่ยน จากก่อนกดปุ่ม <
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    #ตรวจสอบหน้าจอหลัง Login
-    WebReloadPage_EN
-    #เลื่อกภาษา
     Select Lang En
-    sleep    3s
-    Verify Slide Banner Button_EN
+    Scroll Web To Element    //h2[contains(.,'${txtPrivilege}')]
+    Wait Web Until Page Contains Element    //ais-privilege//div[@class="owl-next"]
+    Wait Web Until Page Contains Element    //ais-privilege//div[@class="owl-prev"]
+    Sleep    20s
+    Click Web Element    //ais-privilege//div[@class="owl-next"]
+    Sleep    1s
+    Selenium2Library.Capture Page Screenshot
+    Click Web Element    //ais-privilege//div[@class="owl-prev"]
+    Sleep    1s
+    Selenium2Library.Capture Page Screenshot
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F5_EmeraldWebMobile_1_2_Y_2_3] Verify Page Button_EN
