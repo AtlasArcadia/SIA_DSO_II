@@ -8,10 +8,10 @@ Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_ParkingLocalized.txt
 *** Keywords ***
 Verify Parking
     sleep    10s
-    Scroll Web To Element    ${imgParking}
+    Swipe Element To Screen    ${imgParking}
     sleep    5s
-    Click Web Element    ${btn}
-    Web Capture Screen At Verify Point    List Parking
+    Click Mobile Element    ${btnParkingList}
+    Aisappium Capture Page Screenshot At Verify Point    List Parking
 
 Verify Date Match Wih Profile Page
     Scroll Web To Element    ${lblPlatinumNumberProfile}
@@ -31,16 +31,20 @@ Verify Date Match Wih Profile Page
     Should Be Equal    ${tempyear}${tempmonth}    ${temp}
 
 Verify Parking Date
-    Scroll Web To Element    ${lblPlatinumNumberProfile}
-    Web Capture Screen At Verify Point    Date1
-    ${tempTimePeriodProfile}    Get Web Text    //div[@class="greating-text"]/p[4]
+    Swipe Element To Screen    ${lblGoldNumberProfile}
+    Aisappium Capture Page Screenshot At Verify Point    Date1
+    ${tempTimePeriodProfile}    Get Web Text    ${lblGoldTimePeriodProfile}
     @{tempTimePeriodProfile}    Get Regexp Matches    ${tempTimePeriodProfile}    \\d{2}/\\d{2}/\\d{4}
+    log    @{tempTimePeriodProfile}[0]
     log    @{tempTimePeriodProfile}[1]
     ${string}    Convert To String    @{tempTimePeriodProfile}[1]
     @{MonthYear}    Split String    ${string}    /
+    log    @{MonthYear}[0]
+    log    @{MonthYear}[1]
+    log    @{MonthYear}[2]
     ${Month}=    Set Variable    @{MonthYear}[0]
     ${Year}=    Set Variable    @{MonthYear}[2]
-    Scroll Web To Element    ${imgParking}
-    ${temp}    Selenium2Library.Get Element Attribute    ${SmallImginImgParking}@src
-    Should Be Equal    ${temp}    https://10.104.249.46/template/pages/SDWP/assets/images/car-park/gold_${Year}${Month}.png
-    Web Capture Screen At Verify Point    Date2
+    Swipe Element To Screen    ${imgParking}
+    AISAppiumEx.Page Should Contain Element    ${imgParking}
+    AISAppiumEx.Element Text Should Be    ${SmallImginImgParking}    gold_${Year}${Month}
+    Aisappium Capture Page Screenshot At Verify Point    Date2
