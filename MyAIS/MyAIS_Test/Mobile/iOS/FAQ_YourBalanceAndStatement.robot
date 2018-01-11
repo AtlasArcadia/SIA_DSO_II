@@ -162,8 +162,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2__Help_IOS_1-4_1-2_Y_20_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Second question
-    [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    [Documentation]    ***Owner : Tong, Asma***
+    ...    Ntype : 3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Test Step
@@ -207,8 +207,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2__Help_IOS_1-4_1-2_Y_21_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Third question
-    [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    [Documentation]    ***Owner : Tong, Asma***
+    ...    Ntype : 3PE    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Test Step
@@ -252,8 +252,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2__Help_IOS_1-4_1-2_Y_22_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Fourth question
-    [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    [Documentation]    ***Owner : Tong, Asma***
+    ...    Ntype : 3PE    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Test Step
@@ -297,8 +297,8 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2__Help_IOS_1-4_1-2_Y_23_2] Go to Your Balance & Statement Verify AIS 1-2-Call Credit Balance Fifth question
-    [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    [Documentation]    ***Owner : Tong, Asma***
+    ...    Ntype : 3PE    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Test Step
@@ -343,7 +343,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
 
 [F2__Help_IOS_1-4_1-2_Y_24_2] Go to Your Balance & Statement Verify Invoice/Bill AIS Fiber Fist question
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    ...    Ntype : 3PE    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Test Step
@@ -385,7 +385,7 @@ Resource          ../Resource/PageKeywords/FAQ_YourBalanceAndStatement.txt
 
 [F2__Help_IOS_1-4_1-2_Y_25_2] Go to Your Balance & Statement Verify Invoice/Bill AIS Fiber Second question
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PE
+    ...    Ntype : 3PE    3PE    3BE    3PO    3BE
     ...    Status : Active
     ...
     ...    Test Step

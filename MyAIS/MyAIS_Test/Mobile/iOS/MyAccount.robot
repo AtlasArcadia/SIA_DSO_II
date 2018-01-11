@@ -5,7 +5,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
 *** Test Cases ***
 [F1_MyAccount_IOS_1,3_1-2_Y_1_2] เมนู แฮมเบอร์เกอร์แสดงเมนูย่อย
     [Documentation]    *Owner : Asma
-    ...    Ntype : 3PE
+    ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -23,7 +23,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - ตั้งค่า
     ...    - ออกจากระบบ
     ...    4.จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    EN    active    success    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -37,7 +37,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
 
 [F1_MyAccount_IOS_1,3_1-2_Y_2_2] Go To Create my AIS Verify Page สมัครmy AIS
     [Documentation]    *Owner : Asma
-    ...    Ntype : 3PE
+    ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -53,7 +53,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - 3. ยืนยันและเริ่มใช้งานได้ทันที
     ...    - ปุ่ม "สมัคร my AIS"
     ...    4.จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -68,7 +68,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
 
 [F1_MyAccount_IOS_1,3_1-2_Y_3_2] Go To ข้อมูลของคุณ Verify Page ข้อมูลของคุณ
     [Documentation]    *Owner : Asma
-    ...    Ntype : 3PE
+    ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -78,7 +78,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    4. ตรวจสอบหน้า ข้อมูลของคุณ
     ...    - ข้อมูลของคุณ
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -93,7 +93,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
 
 [F1_MyAccount_IOS_1,3_1-2_Y_4_2] Go To AIS Online Store Verify Page AIS Online Store
     [Documentation]    *Owner : Asma
-    ...    Ntype : 3PE
+    ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -102,7 +102,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. คลิก AIS Online Store
     ...    4. ตรวจสอบหน้า AIS Online Store
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -117,7 +117,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
 
 [F1_MyAccount_IOS_1,3_1-2_Y_5_2] Go To AIS WebsiteVerify Page AIS Website
     [Documentation]    *Owner : Asma
-    ...    Ntype : 3PE
+    ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -126,7 +126,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. Click AIS Website
     ...    4. Verify AIS Website Page
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -140,8 +140,8 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_MyAccount_IOS_1,3_1-2_Y_6_2] Go To AIS Facebook Verify Page AIS Facebook
-    [Documentation]    *Owner : Tong
-    ...    Ntype : 3PE
+    [Documentation]    *Owner : Tong,Asma
+    ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -150,7 +150,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. คลิก AIS Facebook
     ...    4. ตรวจสอบหน้า AIS Facebook
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -164,8 +164,8 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_MyAccount_IOS_1,3_1-2_Y_7_2] Go To AIS Twitter Verify Page AIS Twitter
-    [Documentation]    *Owner : Tong
-    ...    Ntype : 3PE
+    [Documentation]    *Owner : Tong,Asma
+    ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -174,7 +174,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. คลิก AIS Twitter
     ...    4. ตรวจสอบหน้า AIS Twitter
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -188,8 +188,8 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_MyAccount_IOS_1,3_1-2_Y_8_2] Go To AIS Line Verify Page AIS Line
-    [Documentation]    *Owner : Tong
-    ...    Ntype : 3PE
+    [Documentation]    *Owner : Tong,Asma
+    ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -198,7 +198,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. คลิก AIS Line
     ...    4. ตรวจสอบหน้า AIS Line
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -212,8 +212,8 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_MyAccount_IOS_1,3_1-2_Y_9_2] Go To Setting Verify Page Setting
-    [Documentation]    *Owner : Tong
-    ...    Ntype : 3PE
+    [Documentation]    *Owner : Tong,Asma
+    ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
     ...
     ...    Test Step
@@ -226,7 +226,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - การล็อกรหัส
     ...    - เงื่อนไขบริการ
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    active    success
+    [Tags]    TH    active    success    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
