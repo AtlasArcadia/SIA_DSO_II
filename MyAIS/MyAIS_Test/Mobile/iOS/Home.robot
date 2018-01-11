@@ -153,8 +153,8 @@ Resource          ../Resource/PageKeywords/Home.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Home_IOS_1,3_1-2_Y_7_2] Verify Page Menu HomeIn Case: Go to Your Current Package page (From Current Package Home page)
-    [Documentation]    *Owner : Asma
+[F1_Home_IOS_1-4_1-2_Y_7_2] Verify Page Menu HomeIn Case: Go to Your Current Package page (From Current Package Home page)
+    [Documentation]    *Owner : Asma, Tong
     ...    Ntype : 3PE,3BE
     ...    Status : Active
     ...
@@ -178,11 +178,11 @@ Resource          ../Resource/PageKeywords/Home.txt
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
-    Verify Your Current Package Page From Current Package Page
+    Verify Your Current Package Page From Current Package Page    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Home_IOS_1,3_1-2_Y_8_2] Verify Page Menu HomeIn Case: Go to Your Current Package page (From Remaining Package Home page)
-    [Documentation]    *Owner : Asma
+[F1_Home_IOS_1-4_1-2_Y_8_2] Verify Page Menu HomeIn Case: Go to Your Current Package page (From Remaining Package Home page)
+    [Documentation]    *Owner : Asma, Tong
     ...    Ntype : 3PE,3BE
     ...    Status : Active
     ...
@@ -208,8 +208,8 @@ Resource          ../Resource/PageKeywords/Home.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Home_IOS_1,3_1-2_Y_9_2] Verify Page Menu HomeIn Case: Go to AIS Cloud+ storage (No Register) From Home Page
-    [Documentation]    *Owner : Asma
+[F1_Home_IOS_1-4_1-2_Y_9_2] Verify Page Menu HomeIn Case: Go to AIS Cloud+ storage (No Register) From Home Page
+    [Documentation]    *Owner : Asma, Tong
     ...    Ntype : 3PE,3BE
     ...    Status : Active
     ...
@@ -237,8 +237,8 @@ Resource          ../Resource/PageKeywords/Home.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Home_IOS_1,3_1-2_Y_10_2] Verify Page Menu HomeIn Case: Go to AIS Cloud+ storage (Register) From Home Page
-    [Documentation]    *Owner : Tong
+[F1_Home_IOS_1-4_1-2_Y_10_2] Verify Page Menu HomeIn Case: Go to AIS Cloud+ storage (Register) From Home Page
+    [Documentation]    *Owner : Tong, Tong
     ...    Ntype : 3PE,3BE
     ...    Status : Active
     ...
@@ -257,7 +257,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...    - "ลืมรหัสผ่าน?"
     ...    - "คุณมีบัญชีหรือยัง? สร้างบัญชี"
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    active    success    onhold
+    [Tags]    TH    EN    3PE    3BE    3PO    3BO    active    success    onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -269,8 +269,8 @@ Resource          ../Resource/PageKeywords/Home.txt
     Comment    Verify Register Free
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Home_IOS_1,3_1-2_Y_11_2] Verify Page Menu HomeIn Case: Go to Apply Roaming Package(No Package) From Home Page
-    [Documentation]    *Owner : Tong
+[F1_Home_IOS_1-4_1-2_Y_11_2] Verify Page Menu HomeIn Case: Go to Apply Roaming Package(No Package) From Home Page
+    [Documentation]    *Owner : Tong, Tong
     ...    Ntype : 3PE,3BE
     ...    Status : Active
     ...
@@ -286,7 +286,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...    - ปุ่ม "ดำเนินการต่อ"
     ...    - เงื่อนไขบริการ
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    active    success    onhold
+    [Tags]    TH    EN    3PE    3BE    3PO    3BO    active    success    onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -300,7 +300,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     Verify Apply Roaming Package No Package From Home Page    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_Home_IOS_1,3_1-2_Y_12_2] Verify Page Menu HomeIn Case: Go to Current Package & Remaining(Have Package) From Home Page
+[F1_Home_IOS_1-4_1-2_Y_12_2] Verify Page Menu HomeIn Case: Go to Current Package & Remaining(Have Package) From Home Page
     [Documentation]    *Owner : Tong
     ...    Ntype : 3PE,3BE
     ...    Status : Active
@@ -313,7 +313,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...    - Header "แพ็กเกจปัจจุบัน/ยอดคงเหลือ" \ - "เบอร์โทรศัพท์"
     ...    - "รายการแพ็กเกจ"
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    active    success    onhold
+    [Tags]    TH    EN    3PE    3BE    3PO    3BO    active    success    onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -328,7 +328,7 @@ Resource          ../Resource/PageKeywords/Home.txt
 
 [F1_Home_IOS_1,3_1-2_Y_13_2] Verify Page Menu HomeIn Case: Go to Top Up page (From Remaining Balance Home Page)
     [Documentation]    *Owner : Tong
-    ...    Ntype : 3PE,3BE
+    ...    Ntype : 3PE,3BE 3BP,3PO
     ...    Status : Active
     ...
     ...    Test Step
@@ -365,6 +365,36 @@ Resource          ../Resource/PageKeywords/Home.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Remaining Balance
     Verify Top Up page From Remaining Balance Home Page    ${Number}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_Home_IOS_2,4_1-2_Y_13_2] Verify Page Menu HomeIn Case: Go to Payment page (From Balance Home Page)
+    [Documentation]    *Owner : Tong
+    ...    Ntype : 3PE,3BE 3BP,3PO
+    ...    Status : Active
+    ...
+    ...    Test Step
+    ...        1. เข้าสู่ระบบ My AIS
+    ...    2. คลิก "ยอดค้างชำระ"
+    ...    3. ตรวจสอบหน้า "ยอดค้างชำระ"
+    ...      - Header "ชำระค่าบริการ"
+    ...      -หมายเลขโทรศัพท์
+    ...      -ชำระค่าบริการให้หมายเลขอื่น
+    ...      -รายละเอียดค่าใช้บริการ
+    ...      -ช่องทางการชำระ
+    ...      -ปุ่ม "ต่อไป"
+    ...      -ปุ่ม "กลับ"
+    ...      -เงื่อนไขบริการ
+    ...    4.จับภาพหน้าจอ
+    [Tags]    TH    EN    3PE    3BE    active    success    demo
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Balance
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Balance
+    Verify Payment page From Balance Home Page    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Home_IOS_1,3_1-2_Y_14_2] Verify Page Menu HomeIn Case: Go to Top Up page (From Valid Until Home Page)
@@ -407,7 +437,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...    2. คลิก "กล้อง"
     ...    3. คลิก "อณุญาต"
     ...    4. จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    active    success    demo
+    [Tags]    TH    EN    3PE    3BE    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

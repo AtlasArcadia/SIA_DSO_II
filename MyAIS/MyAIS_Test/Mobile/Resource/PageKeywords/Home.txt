@@ -541,19 +541,23 @@ Verify Your Current Package Page From Current Package Page Android
 
 Verify Your Current Package Page From Current Package Page iOS
     [Arguments]    ${Number}
-    Wait Mobile Until Element Visible    ${lblCurrentPackage}    30
+    Wait Mobile Until Element Visible    ${lblMore}    30
     Click Mobile Element    ${lblMore}
-    Mobile element text should be    ${lblCurrentPackage}    ${CurrentPackage}    #แพ็กเกจปัจจุบันของคุณ
+    Mobile element name should be    ${lblCurrentPackage}    ${CurrentPackage}    #แพ็กเกจปัจจุบันของคุณ
+    Wait Mobile Until Element Visible    ${lblHeaderCurrentPackage}    60
     ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
     Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
-    Mobile element text should be    ${lblHeaderCurrentPackage}    ${HeaderCurrentPackage}    #แพ็กเกจหลัก
+    Mobile element name should be    ${lblHeaderCurrentPackage}    ${HeaderCurrentPackage}    #แพ็กเกจหลัก
+    Swipe Element From Location    ${lblChangePackage}
     Wait Mobile Until Element Visible    ${lblChangePackage}    #ปุ่ม "เปลี่ยนแพ็กหลัก"
-    Swipe to element    ${lblMsgConditions}
-    Mobile element text should be    ${lblHeaderPackageInternet}    ${HeaderPackageInternet}    #Internet Package
+    Swipe Element From Location    ${lblMsgConditions}
+    Run Keyword If    "${ar_NType}"=="3PE or 3BE"    Mobile element name should be    ${lblHeaderPackageInternet}    ${HeaderPackageInternet}
+    Run Keyword If    "${ar_NType}"=="3PO"    Wait Mobile Until Element Visible    ${lblHeaderOtherPackage}    30
+    ...    ELSE IF    "${ar_NType}"=="3BO"    Wait Mobile Until Element Visible    ${lblHeaderOnTopPackage}    30
     Wait Mobile Until Element Visible    ${btnApplyPackage}    #ปุ่ม "สมัครแพ็กเสริม"
-    Mobile element text should be    ${lblMsgConditions}    ${MsgConditions}    #เงื่อนไขบริการ
+    Mobile element name should be    ${lblMsgConditions}    ${MsgConditions}    #เงื่อนไขบริการ
     Mobile Capture Screen At Verify Point    Verify Your Current Package Page (From Current Package Page)
 
 Verify Your Current Package Page From Remaining Package Page
@@ -755,6 +759,25 @@ Verify Page Your Current Package In Case: Go to "Your Current Package" page FBB
     comment
     Mobile Capture Screen At Verify Point    Verify Your Current Package Page (From Current Package Page)
 
+Verify Payment page From Balance Home Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element   ${TitlePayment}
+    Wait Mobile Until Element Visible    ${lblMobileNumber}    30
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Wait Mobile Until Element Visible    ${btnPaytoAnotherNumber}
+    Mobile element name should be    ${lblYourUsageCharges}    ${YourUsageCharges}
+    Swipe Element From Location    ${lblPaymentChannels}
+    Mobile element name should be    ${lblPaymentChannels}    ${PaymentChannels}
+    Swipe Element From Location    ${lblMsgConditions}
+    Wait Mobile Until Element Visible    ${btnNextPayment}
+    Wait Mobile Until Element Visible    ${btnBackPayment}
+    Wait Mobile Until Element Visible    ${lblMsgConditions}
+    Mobile Capture Screen At Verify Point    Verify Payment page From Balance Home Page
+
+
 Select Hamberger
     Wait Mobile Until Page Contains Element    ${btnHamburger}
     Click Mobile Element    ${btnHamburger}
@@ -770,6 +793,10 @@ Select Valid Until
 Select Camera
     Wait Mobile Until Page Contains Element    ${btnCamera}
     Click Mobile Element    ${btnCamera}
+
+Select Balance
+    Wait Mobile Until Page Contains Element    ${btnBalance}
+    Click Mobile Element    ${btnBalance}
 
 
 
