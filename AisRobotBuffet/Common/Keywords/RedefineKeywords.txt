@@ -205,11 +205,12 @@ Open Firefox Browser
     Open Browser    ${url}    ff_profile_dir=${ff_profile}
 
 Mobile element name should be
-    [Arguments]    ${locator}    ${text}    ${timeout}=${lo_general_timeout}
+    [Arguments]    ${locator}    ${text}    ${timeout}=${lo_general_timeout}    ${is_regex}=${False}
     Wait Mobile Until Element Visible    ${locator}    ${timeout}
     ${Actual}=    Get mobile attribute    ${locator}    name
     Log    ${text}
-    Should Be Equal    ${Actual}    ${text}
+    Run Keyword If    ${is_regex}==${False}    Should Be Equal    ${Actual}    ${text}
+    Run Keyword If    ${is_regex}==${True}    Should Match Regexp    ${Actual}    ${text}
 
 Click Mobile Element At Position
     [Arguments]    ${locator}    ${marginSide}=right    ${ratio}=0.1
