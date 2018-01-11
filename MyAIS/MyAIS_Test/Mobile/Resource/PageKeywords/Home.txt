@@ -423,6 +423,35 @@ Verify Top Up page From Valid Until Home Page iOS
     Wait Mobile Until Element Visible    ${TermsAndConditions}
     Mobile Capture Screen At Verify Point    Verify Top Up page (From Valid Until Home Page) 2
 
+Verify Your Current Charge Unbilled
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${TitleYourCurrentCharge}
+    ${rawMobileNumber}=    Get mobile text    ${fldNumberYourCurrentCharge}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblYourCurrentBalanceDetail}    ${YourCurrentBalanceDetail}
+    Mobile element text should be    ${lblFromDate}    ${FromDate}
+    Mobile check existing text in name    ${lblDateStart}
+    Mobile element text should be    ${lblToDate}    ${ToDate}
+    Mobile check existing text in name    ${lblDateEnd}
+    Mobile element text should be    ${lblYourCurrentBalance}    ${YourCurrentBalance}
+    Mobile check existing text in name    ${lblPrice}
+    Mobile element text should be    ${lblVat}    ${Vat}
+    Mobile element text should be    ${lblUsageDetail}    ${UsageDetail}
+    Mobile element text should be    ${lblUnit}    ${Unit}
+    Mobile element text should be    ${lblCharge}    ${Charge}
+    ${ChecktextYouCurrent}=    Get mobile text    ${lblDomesticCharges}
+    Run Keyword If    ("${ChecktextYouCurrent}"=="ค่าใช้บริการภายในประเทศ") or ("${ChecktextYouCurrent}"=="Domestic Charges")    Mobile element text should be    ${lblDomesticCharges}    ${DomesticCharges}    ELSE    Mobile element text should be    ${lblDomesticCharges}    ${GPRSServiceBase}
+    Comment    Mobile element text should be    ${lblVoiceCharges}    ${VoiceCharges}
+    Mobile element text should be    ${lblNationwide}    ${Nationwide}
+    Mobile check existing text in name    ${lblMinuteUnit}
+    Mobile check existing text in name    ${lblYourVoiceCharges}
+    Mobile Capture Screen At Verify Point    Verify Your Current Charge page (From Your Current Charge Home Page) 1
+    Swipe to    ${lblTermAndCondition}
+    Mobile element text should be    ${lblTermAndCondition}    ${TermAndCondition}
+    Mobile Capture Screen At Verify Point    Verify Your Current Charge page (From Your Current Charge Home Page) 2
+
 Verify Camera First time
     Run Keyword If    "${ar_OS}"=="Android"    Verify Camera First time Android
     ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Camera First time iOS
@@ -491,8 +520,9 @@ Verify Hamburger Menu Android
 
 Verify Hamburger Menu iOS
     [Arguments]    ${Number}
-    ${NumberMatch}    Get Mobile Text    ${lblNumberHamburger}
-    Should Match Regexp    ${NumberMatch}    ${UserMobileNumber}
+    ${rawMobileNumber}=    Get mobile text    ${lblNumberHamburger}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
     Mobile element text should be    ${lblmnuRegister}    ${mnuRegister}
     Mobile element text should be    ${lblmnuMyProfile}    ${mnuMyProfile}
     Mobile element text should be    ${lblCreditAndDebitCard}    ${CreditAndDebitCard}
@@ -686,13 +716,17 @@ Verify Home Of Boss And Non-Boss Postpaid Number iOS
     Mobile element text should be    ${lblHomePage}    ${MainPage}
     ${UserName}    Get mobile text    ${lblUserName}
     Should Not Be Empty    ${UserName}
-    ${UserNumber}=    Get mobile text    ${lblUserNumberHome}
-    Should Match Regexp    ${UserNumber}    ${UserMobileNumber}
+    ${rawMobileNumber}=    Get mobile text    ${lblUserNumberHome}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
     Mobile element text should be    ${lblMainPage}    ${MainPage}
-    Mobile element text should be    ${btnRemaining}    ${CurrentBalance}
-    Mobile element text should be    ${btnValidUntil}    ${CurrentValidDate}
+    ${Checktext}=    Get mobile text    ${lblBalance}
+    Run Keyword If    ("${Checktext}"=="ยอดเงินคงเหลือ") or ("${Checktext}"=="Remaining Balance")    Mobile element text should be    ${btnRemaining}    ${CurrentBalance}    ELSE    Mobile element text should be    ${lblBalance}    ${Balance}
+    ${Checktext2}=    Get mobile text    ${lblCurrentCharges}
+    Run Keyword If    ("${Checktext2}"=="ใช้งานได้ถึงวันที่") or ("${Checktext2}"=="Valid Until")    Mobile element text should be    ${btnValidUntil}    ${CurrentValidDate}    ELSE    Mobile element text should be    ${lblCurrentCharges}    ${CurrentCharges}
     Mobile element text should be    ${btnPointHome}    ${PointHome}
-    Wait Mobile Until Element Visible    ${btnMoreHome}
+    Comment    Wait Mobile Until Element Visible    ${btnMoreHome}
     Wait Mobile Until Element Visible    ${btnQuickMenuList}
     Comment    swipe in screen to element    ${btnHamburger}    up
     Mobile Capture Screen At Verify Point    Verify At Home Page
@@ -777,7 +811,6 @@ Verify Payment page From Balance Home Page
     Wait Mobile Until Element Visible    ${lblMsgConditions}
     Mobile Capture Screen At Verify Point    Verify Payment page From Balance Home Page
 
-
 Select Hamberger
     Wait Mobile Until Page Contains Element    ${btnHamburger}
     Click Mobile Element    ${btnHamburger}
@@ -787,18 +820,44 @@ Select Remaining Balance
     Click Mobile Element    ${btnRemaining}
 
 Select Valid Until
+    Run Keyword If    "${ar_NType}"=="3PE"    Select Valid Until Prepaid
+    Run Keyword If    "${ar_NType}"=="3BE"    Select Valid Until Prepaid
+    Run Keyword If    "${ar_NType}"=="3PO"    Select Current Charges
+    Run Keyword If    "${ar_NType}"=="3BO"    Select Current Charges
+
+Select Valid Until Prepaid
     Wait Mobile Until Page Contains Element    ${btnValidUntil}
     Click Mobile Element    ${btnValidUntil}
+
+Select Current Charges
+    Wait Mobile Until Page Contains Element    ${btnCurrentCharges}
+    Click Mobile Element    ${btnCurrentCharges}
 
 Select Camera
     Wait Mobile Until Page Contains Element    ${btnCamera}
     Click Mobile Element    ${btnCamera}
 
+Select AIS Point
+    Wait Mobile Until Page Contains Element    ${btnPointHome}
+    Click Mobile Element    ${btnPointHome}
+
 Select Balance
     Wait Mobile Until Page Contains Element    ${btnBalance}
     Click Mobile Element    ${btnBalance}
 
-
-
-
-
+Verify Point And Privilege
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${imgAISbannerHome}
+    Mobile element text should be    ${lblHomePage}    ${MainPage}
+    ${UserName}    Get mobile text    ${lblUserName}
+    Should Not Be Empty    ${UserName}
+    ${rawMobileNumber}=    Get mobile text    ${lblUserNumberHome}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile element text should be    ${lblCustomerAIS}    ${CustomerAIS}
+    Mobile check existing text in name    ${lblPoints}
+    Mobile element text should be    ${lblMylists}    ${Mylist}
+    Mobile element text should be    ${lblRecents}    ${Recent}
+    Wait Mobile Until Element Visible    ${btnQuickMenuList}
+    Mobile Capture Screen At Verify Point    Verify At Point And Privilege Page
