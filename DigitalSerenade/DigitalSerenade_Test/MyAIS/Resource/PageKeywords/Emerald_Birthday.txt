@@ -5,19 +5,6 @@ Resource          ../PageRepository/Emerald_BirthdayRepository.txt
 Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_BirthdayLocalized.txt
 
 *** Keywords ***
-Verify BirthDay Page Match With Birthday Date
-    Swipe Element To Screen    ${imgEmeraldBirthday}
-    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine1}    ${HappyBirthday_Line1}    #เอไอเอส เซเรเนด ขออวยพรให้ทุกวัน
-    Aisappium Capture Page Screenshot At Verify Point    Line 1
-    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine2}    ${HappyBirthday_Line2}    #ของคุณ 0935850535
-    Aisappium Capture Page Screenshot At Verify Point    Line 2
-    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine3}    ${HappyBirthday_Line3}    #เต็มไปด้วยความสุข ความสำเร็จ
-    Aisappium Capture Page Screenshot At Verify Point    Line 3
-    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine4}    ${HappyBirthday_Line4}    #และเจริญรุ่งเรืองตลอดไป
-    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine5}    ${HappyBirthday_Line5}    #เราขอมอบของขวัญวันเกิดสุดพิเศษ...
-    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine6}    ${HappyBirthday_Line6}    # เสริมสิริมงคลในวันเกิดรับสิทธิ์ล่องเรือ ไหว้พระ 9 วัด ในเดือนเกิด ราคาพิเศษ รับเน็ตฟรี 2GB* และโทรฟรี ในเครือข่ายตลอดวัน
-    Comment    Aisappium Capture Page Screenshot At Verify Point    Happy Birthday
-
 Verify BirthDay Page Not Match With Birthday Date
     Scroll Web To Element    ${HeaderCenter}
     Comment    Selenium2Library.Page Should Not Contain Element    xpath=//*[@id="special"]/div[1]/div/img[2]
@@ -45,3 +32,16 @@ Verify BirthDay Page Match With Birthday Date_EN
     Should Be Equal    ${HappyBirthday_Line2}    ${Line2}
     Should Be Equal    ${HappyBirthday_Line3}    ${Line3}
     Should Be Equal    ${HappyBirthday_Line4}    ${Line4}
+
+Verify BirthDay Page Match With Birthday Date
+    Swipe Element To Screen    ${lblIconPriv}
+    Aisappium Capture Page Screenshot At Verify Point    HBD1
+    Swipe Element To Screen    ${EmeraldBirthdayLine1}
+    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine1}    ${HappyBirthday_Line1}    #เอไอเอส เซเรเนด ขออวยพรให้ทุกวัน
+    ${Name}=    Get mobile text    ${EmeraldBirthdayLine2}    #ของคุณ 0935850535
+    Should Match Regexp    ${Name}    ${HappyBirthday_Line2}
+    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine3}    ${HappyBirthday_Line3}    #เต็มไปด้วยความสุข ความสำเร็จ
+    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine4}    ${HappyBirthday_Line4}    #และเจริญรุ่งเรืองตลอดไป
+    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine5}    ${HappyBirthday_Line5}    #เราขอมอบของขวัญวันเกิดสุดพิเศษ...
+    AISAppiumEx.Element Text Should Be    ${EmeraldBirthdayLine6}    ${HappyBirthday_Line6}    # เสริมสิริมงคลในวันเกิดรับสิทธิ์ล่องเรือ ไหว้พระ 9 วัด ในเดือนเกิด ราคาพิเศษ รับเน็ตฟรี 2GB* และโทรฟรี ในเครือข่ายตลอดวัน
+    Aisappium Capture Page Screenshot At Verify Point    Happy Birthday
