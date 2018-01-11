@@ -1,6 +1,7 @@
 *** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Emerald_HightlightCampaign.txt
+Library           AutoItLibrary
 
 *** Test Cases ***
 [F4_Emerald_3_1_Y_2_1]Verify Hilight Campaign Page
@@ -688,9 +689,8 @@ Resource          Resource/PageKeywords/Emerald_HightlightCampaign.txt
     ...    - แสดงแบนเนอร์ My Kitchen
     [Tags]    3PE    TestSite    Success    TH    Sprint1    WebMobileApplication
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
-    ...    #Emerald=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     #ตรวจสอบหน้าจอหลัง Login
@@ -702,15 +702,19 @@ Resource          Resource/PageKeywords/Emerald_HightlightCampaign.txt
     #Click ปุ่ม "." (1) เพื่อเลื่อน Campaign ถัดไป
     Web Capture Screen At Verify Point    CampaignFist
     sleep    3s
-    Click Web Element    //div[@class = "container"]//owl-carousel-child[@class="owl-carousel owl-theme sliding owl-loaded owl-drag"]
-    #ตรวจสอบ Link URL
-    sleep    5s
-    ${WebSerenade}    Set Variable    http://www.ais.co.th/serenade/th/privileges/335/Miracle-co-working-space
-    ${WebAIS}    Set Variable    http://www.ais.co.th/index.html
-    Verify URL New Window    ${WebSerenade}    HighlightCampaignFirst
-    Comment    Select Window    ${WebSerenade}
-    Web Capture Screen At Verify Point    HilightCampaignSecond
-    Comment    Verify HC Page Button
+    #Select Banner1
+    Click Web Element    Xpath=//ais-hilight-campaign//div[@class='owl-dot active']
+    Click Web Element    Xpath=//div[@class='box-item hilight']
+    sleep     10s
+    #Verify Banner1
+    @{WebTitle}    Get Window Titles
+    Select Window    title= @{WebTitle}[0]
+    ${WebMainURL}=    Selenium2Library.Get Location
+    Select Window    title= @{WebTitle}[1]
+    ${WebBannerURL1}=    Selenium2Library.Get Location
+    Should Not Be Equal As Strings    ${WebMainURL}    ${WebBannerURL1}
+    log    ${WebMainURL}
+    log    ${WebBannerURL1}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F4_EmeraldWebMobile_1_2_Y_2_5]Verify Banner ลำดับที่2
@@ -780,27 +784,32 @@ Resource          Resource/PageKeywords/Emerald_HightlightCampaign.txt
     ...    - แสดงแบนเนอร์ My Kitchen
     [Tags]    3PE    TestSite    Success    TH    Sprint1    WebMobileApplication
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald_Sustain_TypeWS=include
-    ...    #Emerald=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald_Sustain_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     #ตรวจสอบหน้าจอหลัง Login
     WebReloadPage_EN
+    #เลือกภาษา
     Select Lang En
-    Sleep    20
-    Comment    Verify HC Free Coffee
-    Scroll Web To Element    //div[@id="privilege"]//div[@class="owl-dots"]
-    Click Web Element    //div[@id="privilege"]//div[@class="owl-dots"]
-    Sleep    10s
-    Set Selenium Speed    0.1
-    Web Capture Screen At Verify Point    CampaignPage1
-    Execute Javascript    $("[src='http://10.104.249.35/impression/banners/2017/9/26/banner-e296d346f542d3e8d0b3733cf6155fbc.1506414524309.jpeg?bannerId=389&campaignId=254&channelId=8&height&keywords=HighlightGoldEng&positionId=8&tokenId&width']").click();
-    ${URL}=    Get Locations
-    Page Should Contain    http://www.ais.co.th/index.html
-    Comment    Should Be Equal    ${URL[1]}    http://www.ais.co.th/index.html
-    Comment    Click Web Element    //ais-hilight-campaign//div[@id="privilege"]
-    Web Capture Screen At Verify Point    CampaignPage1Link
+    sleep    3s
+    Scroll Web To Element    ${imgBanner}
+    #Click ปุ่ม "." (1) เพื่อเลื่อน Campaign ถัดไป
+    Web Capture Screen At Verify Point    CampaignSecond
+    sleep    3s
+    #Select Banner2
+    Click Web Element    Xpath=//ais-hilight-campaign//div[@class='owl-dot']
+    Click Web Element    Xpath=//div[@class='box-item hilight']
+    sleep     10s
+    #Verify Banner2
+    @{WebTitle}    Get Window Titles
+    Select Window    title= @{WebTitle}[0]
+    ${WebMainURL}=    Selenium2Library.Get Location
+    Select Window    title= @{WebTitle}[1]
+    ${WebBannerURL1}=    Selenium2Library.Get Location
+    Should Not Be Equal As Strings    ${WebMainURL}    ${WebBannerURL1}
+    log    ${WebMainURL}
+    log    ${WebBannerURL1}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F4_EmeraldWebMobile_2_2_Y_2_1]Verify Hilight Campaign Page_EN
@@ -927,4 +936,102 @@ Resource          Resource/PageKeywords/Emerald_HightlightCampaign.txt
     Scroll Web To Element    ${imgBanner}
     sleep    20s
     Verify HC Page Button_EN
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_EmeraldWebMobile_2_2_Y_2_4]Verify Banner ลำดับที่1
+    [Documentation]    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...    *Test Step*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
+    ...    - 2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    - 3.Login เข้าสู่ระบบ
+    ...    - 4.เลื่อนมาที่หน้า Hilight Campaign
+    ...    - 5.กดปุ่ม page ที่ 1
+    ...    - 6.จับภาพหน้าจอ
+    ...    - 7.คลิกแบนเนอร์ ลำดับที่ 1
+    ...    - 8.ตรวจสอบแบนเนอร์ ลำดับที่ 1 [1]
+    ...    - 9.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    '[1]ตรวจสอบแบนเนอร์ : สามารถ link ไปเว็บอื่นได้
+    ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
+    [Tags]    3PE    TestSite    Success    TH    Sprint1    WebMobileApplication
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    #เลือกภาษา
+    Select Lang En
+    sleep    3s
+    Scroll Web To Element    ${imgBanner}
+    #Click ปุ่ม "." (1) เพื่อเลื่อน Campaign ถัดไป
+    Web Capture Screen At Verify Point    CampaignFist
+    sleep    3s
+    #Select Banner1
+    Click Web Element    Xpath=//ais-hilight-campaign//div[@class='owl-dot active']
+    Click Web Element    Xpath=//div[@class='box-item hilight']
+    sleep     10s
+    #Verify Banner1
+    @{WebTitle}    Get Window Titles
+    Select Window    title= @{WebTitle}[0]
+    ${WebMainURL}=    Selenium2Library.Get Location
+    Select Window    title= @{WebTitle}[1]
+    ${WebBannerURL1}=    Selenium2Library.Get Location
+    Should Not Be Equal As Strings    ${WebMainURL}    ${WebBannerURL1}
+    log    ${WebMainURL}
+    log    ${WebBannerURL1}
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F4_EmeraldWebMobile_2_2_Y_2_5]Verify Banner ลำดับที่2
+    [Documentation]    - Serenade Emerald Customer
+    ...    - Ntype 3PE :
+    ...    - URL : https://10.104.240.249/WelcomeToSerenade
+    ...
+    ...    *Test Steps*
+    ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
+    ...    - 2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    - 3.Login เข้าสู่ระบบ
+    ...    - 4.เลื่อนมาที่หน้า Hilight Campaign
+    ...    - 5.กดปุ่ม page ที่ 2
+    ...    - 6.จับภาพหน้าจอ
+    ...    - 7.คลิกแบนเนอร์ ลำดับที่ 2
+    ...    - 8.ตรวจสอบแบนเนอร์ ลำดับที่ 2 [1]
+    ...    - 9.จับภาพหน้าจอ
+    ...
+    ...    *Expected Result*
+    ...    - [1]ตรวจสอบแบนเนอร์ : สามารถ link ไปเว็บอื่นได้
+    ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
+    [Tags]    3PE    TestSite    Success    TH    Sprint1    WebMobileApplication
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    #ตรวจสอบหน้าจอหลัง Login
+    WebReloadPage_EN
+    #เลือกภาษา
+    Select Lang En
+    sleep    3s
+    Scroll Web To Element    ${imgBanner}
+    #Click ปุ่ม "." (1) เพื่อเลื่อน Campaign ถัดไป
+    Web Capture Screen At Verify Point    CampaignSecond
+    sleep    3s
+    #Select Banner2
+    Click Web Element    Xpath=//ais-hilight-campaign//div[@class='owl-dot']
+    Click Web Element    Xpath=//div[@class='box-item hilight']
+    sleep     10s
+    #Verify Banner2
+    @{WebTitle}    Get Window Titles
+    Select Window    title= @{WebTitle}[0]
+    ${WebMainURL}=    Selenium2Library.Get Location
+    Select Window    title= @{WebTitle}[1]
+    ${WebBannerURL1}=    Selenium2Library.Get Location
+    Should Not Be Equal As Strings    ${WebMainURL}    ${WebBannerURL1}
+    log    ${WebMainURL}
+    log    ${WebBannerURL1}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
