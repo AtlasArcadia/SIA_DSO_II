@@ -91,7 +91,26 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify My Profile    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_4_2] Go To AIS Online Store Verify Page AIS Online Store
+[F1_MyAccount_IOS_1,3_1-2_Y_4_2] Verify Your Credit And Debit Card page
+    [Documentation]    **Owner:Asma**
+    ...    Source Number : 3PE
+    ...    Status : Active1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. คลิก ข้อมูลบัตรเครดิต/เดบิต
+    ...    4. ตรวจสอบหน้า ข้อมูลบัตรเครดิต/เดบิต
+    ...    5. บันทึกภาพ
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Hamburger
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F1_MyAccount_IOS_1,3_1-2_Y_5_2] Go To AIS Online Store Verify Page AIS Online Store
     [Documentation]    *Owner : Asma
     ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
@@ -115,7 +134,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify AIS Online Store
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_5_2] Go To AIS WebsiteVerify Page AIS Website
+[F1_MyAccount_IOS_1,3_1-2_Y_6_2] Go To AIS WebsiteVerify Page AIS Website
     [Documentation]    *Owner : Asma
     ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
@@ -139,7 +158,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify AIS Web Site
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_6_2] Go To AIS Facebook Verify Page AIS Facebook
+[F1_MyAccount_IOS_1,3_1-2_Y_7_2] Go To AIS Facebook Verify Page AIS Facebook
     [Documentation]    *Owner : Tong,Asma
     ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
@@ -163,7 +182,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Facebook Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_7_2] Go To AIS Twitter Verify Page AIS Twitter
+[F1_MyAccount_IOS_1,3_1-2_Y_8_2] Go To AIS Twitter Verify Page AIS Twitter
     [Documentation]    *Owner : Tong,Asma
     ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
@@ -187,7 +206,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Twitter Page For iOS
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_8_2] Go To AIS Line Verify Page AIS Line
+[F1_MyAccount_IOS_1,3_1-2_Y_9_2] Go To AIS Line Verify Page AIS Line
     [Documentation]    *Owner : Tong,Asma
     ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
@@ -211,7 +230,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Line Page For iOS
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_9_2] Go To Setting Verify Page Setting
+[F1_MyAccount_IOS_1,3_1-2_Y_10_2] Go To Setting Verify Page Setting
     [Documentation]    *Owner : Tong,Asma
     ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
@@ -239,7 +258,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Setting Page For iOS
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_10_2] Logout Verify Page Login
+[F1_MyAccount_IOS_1,3_1-2_Y_11_2] Logout Verify Page Login
     [Documentation]    *Owner : Tong
     ...    Ntype : 3PE
     ...    Status : Active
@@ -352,7 +371,26 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify My Profile    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_4_2] Verify AIS online store page
+[F2_MyAccount_IOS_1,3_1-2_Y_4_2] Verify Your Credit And Debit Card page
+    [Documentation]    **Owner:Lek**
+    ...    Source Number : 3PE
+    ...    Status : Active1. เข้าสู่ระบบ my AIS
+    ...    2. คลิก เมนู แฮมเบอร์เกอร์
+    ...    3. คลิก ข้อมูลบัตรเครดิต/เดบิต
+    ...    4. ตรวจสอบหน้า ข้อมูลบัตรเครดิต/เดบิต
+    ...    5. บันทึกภาพ
+    [Tags]    active    success    regression
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Hamburger
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F2_MyAccount_IOS_1,3_1-2_Y_5_2] Verify AIS online store page
 
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
@@ -374,7 +412,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify AIS Online Store
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_5_2] Verify AIS website page
+[F2_MyAccount_IOS_1,3_1-2_Y_6_2] Verify AIS website page
 
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
@@ -396,7 +434,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify AIS Web Site
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_6_2] Verify AIS Facebook page
+[F2_MyAccount_IOS_1,3_1-2_Y_7_2] Verify AIS Facebook page
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
     ...    Status : Active1. Login my AIS
@@ -417,7 +455,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Facebook Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_7_2] Verify AIS Twitter page
+[F2_MyAccount_IOS_1,3_1-2_Y_8_2] Verify AIS Twitter page
 
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
@@ -439,7 +477,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Twitter Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_8_2] Verify AIS Line page
+[F2_MyAccount_IOS_1,3_1-2_Y_9_2] Verify AIS Line page
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
     ...    Status : Active1. Login my AIS
@@ -460,7 +498,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Line Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_9_2] Verify settings display
+[F2_MyAccount_IOS_1,3_1-2_Y_10_2] Verify settings display
 
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
@@ -486,7 +524,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Setting Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_10_2] Verify Login display
+[F2_MyAccount_IOS_1,3_1-2_Y_11_2] Verify Login display
 
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
@@ -533,7 +571,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Not Have Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_12_2] Verify page Your Credit/Debit Card in case have credit/debit card
+[F2_MyAccount_IOS_1,3_1-2_Y_11_2] Verify page Your Credit/Debit Card in case have credit/debit card
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
     ...    Status : Active1. Login my AIS
@@ -648,4 +686,3 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Select Sub Menu Hamburger    MyAccount
     Verify MyAccount Page have My List
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
