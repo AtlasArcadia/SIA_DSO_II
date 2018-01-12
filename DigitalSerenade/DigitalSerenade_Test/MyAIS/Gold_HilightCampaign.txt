@@ -5,50 +5,36 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
 Resource          Resource/PageKeywords/LoginMyAIS.txt
 
 *** Test Cases ***
-[F4_GoldWebMobile_1-4_1_Y_2_1] Verify hilight campaign page
-    [Documentation]    *** Owner: Now ***
+[F5_GoldMyais_1-4_1_Y_2_1] Verify hilight campaign page
+    [Documentation]    *** Owner: Pu ***
     ...
-    ...    *** Source - Requisite***
-    ...    "- Serenade Gold Customer
-    ...    - Ntype 3BE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade/
-    ...    "
     ...
     ...
     ...    *** Step ***
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
+    ...    1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด โกลด์
     ...    5.เลื่อนมาที่หน้า Hilight Campaign
     ...    6.ตรวจสอบหน้า Hilight Campaign [1]
     ...    7.จับภาพหน้าจอ
     ...
     ...
-    ...
-    ...    "
-    ...
-    ...
     ...    *** Expect ***
-    ...    "[1]ตรวจสอบ Hilight Campaign
-    ...    - พลาดไม่ได้! กับสิทธิพิเศษโดนใจ
-    ...    - Campaign = 7
-    ...    >> Free Coffee
-    ...    >> myAIS app
-    ...    >> Exclusive Airport Lounge
-    ...    >> Embassy
-    ...    >> HBO
-    ...    >> Netflix
-    ...    >> My Kitchen
-    ...
+    ...    [1]ตรวจสอบ Hilight Campaign
+    ...    - คัดสรรความพิเศษยิ่งกว่า
+    ...    - Campaign
+    ...    - ปุ่ม
     ...    "
     [Tags]    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Sleep    20
-    Verify Hilight Campaign    7
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify Hilight Campaign
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F4_GoldWebMobile_1-4_1_Y_2_2] Verify slide banner button

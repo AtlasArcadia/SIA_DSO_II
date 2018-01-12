@@ -102,15 +102,13 @@ Verify HC My Kitchen
     Verify Link    ${BannermyKitchenLink}
 
 Verify Hilight Campaign
-    [Arguments]    ${CampaignAmount}
-    Scroll Web To Element    ${imgBanner}
-    Web Element Text Should Be    ${lblHilightCampaignTitle}    ${HCTitle}
-    ${CampaignAmount}=    Evaluate    ${CampaignAmount}+1
-    : FOR    ${index}    IN RANGE    1    ${CampaignAmount}
-    \    Scroll Web To Element    ${btnHCPage${index}}
-    \    Web Element Should Be Visible    ${btnHCPage${index}}
-    Selenium2Library.Page Should Not Contain Element    ${btnHCPage${CampaignAmount}}
-    Web Capture Screen At Verify Point    HilightCampaign
+    Swipe element to specific area    ${imgHightlightCampaign}
+    AISAppiumEx.Element Text Should Be    ${lblHilightCampaignTitle}    ${HCTitle}
+    Mobile Capture Screen At Verify Point    GoldHC_1
+    AISAppiumEx.Page Should Contain Element    ${imgBanner}
+    Swipe element to specific area    ${btnDot}
+    AISAppiumEx.Page Should Contain Element    ${btnDot}
+    Mobile Capture Screen At Verify Point    GoldHC_2
 
 Verify Slide Banner
     Scroll Web To Element    ${imgBanner}
@@ -148,7 +146,7 @@ verify active banner
     ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
     ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirportLounge}
     ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
-    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerHBO}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerUber}
     ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
     ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
     : FOR    ${index}    IN RANGE    1    8
