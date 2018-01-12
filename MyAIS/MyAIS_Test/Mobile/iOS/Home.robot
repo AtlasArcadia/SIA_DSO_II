@@ -170,7 +170,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...    - ปุ่ม "สมัครแพ็กเสริม"
     ...    - เงื่อนไขบริการ
     ...    4. จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    3PO    3BO    active    success
+    [Tags]    TH    EN    3PE    3BE    3PO    3BO    active    success    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -238,7 +238,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Home_IOS_1-4_1-2_Y_10_2] Verify Page Menu HomeIn Case: Go to AIS Cloud+ storage (Register) From Home Page
-    [Documentation]    *Owner : Tong, Tong
+    [Documentation]    *Owner : Tong
     ...    Ntype : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...
@@ -257,7 +257,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...    - "ลืมรหัสผ่าน?"
     ...    - "คุณมีบัญชีหรือยัง? สร้างบัญชี"
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    3PO    3BO    active    success    onhold
+    [Tags]    TH    EN    3PE    3BE    3PO    3BO    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -270,7 +270,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_Home_IOS_1-4_1-2_Y_11_2] Verify Page Menu HomeIn Case: Go to Apply Roaming Package(No Package) From Home Page
-    [Documentation]    *Owner : Tong, Tong
+    [Documentation]    *Owner : Tong
     ...    Ntype : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...
@@ -385,7 +385,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...      -ปุ่ม "กลับ"
     ...      -เงื่อนไขบริการ
     ...    4.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    active    success    demo
+    [Tags]    TH    EN    3PE    3BE    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Balance

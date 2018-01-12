@@ -434,7 +434,8 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify AIS Web Site
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_7_2] Verify AIS Facebook page
+
+[F2_MyAccount_IOS_1-4_1-2_Y_7_2] Verify AIS Facebook page
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
     ...    Status : Active1. Login my AIS
@@ -445,7 +446,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
@@ -455,8 +456,8 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Facebook Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_8_2] Verify AIS Twitter page
 
+[F2_MyAccount_IOS_1-4_1-2_Y_8_2] Verify AIS Twitter page
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
     ...    Status : Active1. Login my AIS
@@ -464,10 +465,10 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. Click AIS Twitter
     ...    4. Verify AIS Twitter Page
     ...    5. Capture Screen -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
@@ -477,7 +478,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Twitter Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_9_2] Verify AIS Line page
+[F2_MyAccount_IOS_1-4_1-2_Y_9_2] Verify AIS Line page
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
     ...    Status : Active1. Login my AIS
@@ -488,7 +489,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
@@ -498,8 +499,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Line Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_10_2] Verify settings display
-
+[F2_MyAccount_IOS_1-4_1-2_Y_10_2] Verify settings display
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
     ...    Status : Active1. Login my AIS
@@ -514,7 +514,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
@@ -524,8 +524,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Setting Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_11_2] Verify Login display
-
+[F2_MyAccount_IOS_1-4_1-2_Y_11_2] Verify Login display
     [Documentation]    **Owner:Nat**
     ...    Source Number : 3PE
     ...    Status : Active1. Login my AIS
@@ -536,7 +535,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
@@ -674,7 +673,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - "จัดการหมายเลขในบัญชี my AIS ของคุณ"
     ...    - ปุ่ม "เพิ่ม+"
     ...    5. จับภาพหน้าจอ
-    [Tags]    active    success    regression    demo
+    [Tags]    active    success    regression
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MyAccount=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MyAccount

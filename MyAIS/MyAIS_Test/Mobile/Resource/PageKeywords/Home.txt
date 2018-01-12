@@ -584,8 +584,8 @@ Verify Your Current Package Page From Current Package Page iOS
     Wait Mobile Until Element Visible    ${lblChangePackage}    #ปุ่ม "เปลี่ยนแพ็กหลัก"
     Swipe Element From Location    ${lblMsgConditions}
     Run Keyword If    "${ar_NType}"=="3PE or 3BE"    Mobile element name should be    ${lblHeaderPackageInternet}    ${HeaderPackageInternet}
-    Run Keyword If    "${ar_NType}"=="3PO"    Wait Mobile Until Element Visible    ${lblHeaderOtherPackage}    30
-    ...    ELSE IF    "${ar_NType}"=="3BO"    Wait Mobile Until Element Visible    ${lblHeaderOnTopPackage}    30
+    Run Keyword If    "${ar_NType}"=="3PO"    Mobile element name should be    ${lblHeaderOtherPackage}    ${HeaderOtherPackage}
+    ...    ELSE IF    "${ar_NType}"=="3BO"    Mobile element name should be    ${lblHeaderOnTopPackage}    ${HeaderOnTopPackage}
     Wait Mobile Until Element Visible    ${btnApplyPackage}    #ปุ่ม "สมัครแพ็กเสริม"
     Mobile element name should be    ${lblMsgConditions}    ${MsgConditions}    #เงื่อนไขบริการ
     Mobile Capture Screen At Verify Point    Verify Your Current Package Page (From Current Package Page)
@@ -630,14 +630,12 @@ Go to AIS Cloud iOS
     Mobile Capture Screen At Verify Point    AIS Cloud
 
 AIS Cloud Not Visible
-    : FOR    ${SwipeAisCloud}    IN RANGE    0    3
-    \    Comment    Click Mobile Element    ${mnuPackage}
-    \    Comment    Click Mobile Element    ${mnuHome}
-    \    Swipe By Percent    50   40    50    99    #Up
-    \    Comment    ${AISCloud}    Wait Mobile Until Page Does Not Contain Element    ${lblAISCloud}
-    \    Comment    Run Keyword if    "${AISCloud}"=="None"    Swipe By Percent    90    50    1    50
+    : FOR    ${SwipeAisCloud}    IN RANGE    0    5
+    \    Comment    Swipe By Percent    50   40    50    99    #Up
+    \    ${AISCloud}    Wait Mobile Until Page Does Not Contain Element    ${lblAISCloud}
+    \    Run Keyword if    "${AISCloud}"=="None"    Swipe By Percent    90    50    1    50
     \    ${AisCloudVisible}    Run Keyword And Return Status    Wait Mobile Until Element Visible    id=พื้นที่ใช้งาน AIS Cloud+    #${lblAISCloud}
-    \    Run Keyword If    '${AisCloudVisible}'=='True'    Exit For Loop
+    \    Run Keyword If    "${AisCloudVisible}"=="True"    Exit For Loop
     \    ${SwipeAisCloud}    Set Variable    ${SwipeAisCloud}+1
 
 Verify Register Free
