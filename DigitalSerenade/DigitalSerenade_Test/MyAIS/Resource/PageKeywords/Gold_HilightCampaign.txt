@@ -111,15 +111,28 @@ Verify Hilight Campaign
     Mobile Capture Screen At Verify Point    GoldHC_2
 
 Verify Slide Banner
-    Scroll Web To Element    ${imgBanner}
-    ${banner1}    verify active banner
-    Click Web Element    ${btnNextBanner}
-    ${banner2}    verify active banner
-    Run Keyword If    "${banner1}" == "${banner2}"    Fail
+    Comment    Scroll Web To Element    ${imgBanner}
+    Comment    ${banner1}    verify active banner
+    Comment    Click Web Element    ${btnNextBanner}
+    Comment    ${banner2}    verify active banner
+    Comment    Run Keyword If    "${banner1}" == "${banner2}"    Fail
     ...    ELSE    Web Capture Screen At Verify Point    NextCampaign
-    Click Web Element    ${btnPrevBanner}
-    ${banner3}    verify active banner
-    Run Keyword If    "${banner1}" == "${banner3}"    Web Capture Screen At Verify Point    PrevCampaign
+    Comment    Click Web Element    ${btnPrevBanner}
+    Comment    ${banner3}    verify active banner
+    Comment    Run Keyword If    "${banner1}" == "${banner3}"    Web Capture Screen At Verify Point    PrevCampaign
+    ...    ELSE    Fail
+    Swipe element to specific area    ${imgBanner}
+    ${HC1}=    Get mobile text    ${imgBanner}
+    Log    ${HC1}
+    AISAppiumEx.Click Element    ${btnNextBanner}
+    ${HC2}=    Get mobile text    ${imgBanner}
+    Log    ${HC2}
+    Run Keyword If    "${HC1}" != "${HC2}"    Web Capture Screen At Verify Point    NextCampaign
+    ...    ELSE    Fail
+    AISAppiumEx.Click Element    ${btnPrevBanner}
+    ${HC3}=    Get mobile text    ${imgBanner}
+    Log    ${HC3}
+    Run Keyword If    "${HC1}" == "${HC3}"    Web Capture Screen At Verify Point    PrevCampaign
     ...    ELSE    Fail
 
 Verify HC Page Button
