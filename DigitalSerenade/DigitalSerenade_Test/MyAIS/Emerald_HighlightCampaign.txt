@@ -30,17 +30,27 @@ Resource          Resource/PageKeywords/LoginMyAIS.txt
     ...    >> HBO
     ...    >> My Kitchen
     [Tags]    3PE    TestSite    Success    TH    Sprint1    WebMobileApplication
+    Comment    &{#dict_device_name}=    Create Dictionary
+    Comment    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}
+    ...    ${ar_NType}=include    Emerald=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Comment    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Comment    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Comment    Scroll Web To Element    ${imgBanner}
+    Comment    Verify Hilight Campaign
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ...    Emerald=include
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Scroll Web To Element    ${imgBanner}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Hilight Campaign
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F4_Emerald_3_1_Y_2_2]Verify slide banner button
+[F4_EmeraldMyais_1-4_1_Y_2_2]Verify slide banner button
     [Documentation]    - Serenade Emerald Customer
     ...    - Ntype 3PE :
     ...    - URL : https://10.104.240.249/WelcomeToSerenade
