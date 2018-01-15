@@ -181,10 +181,9 @@ Verify Facebook Page For Android
 
 Verify Facebook Page For iOS
     Wait Mobile Until Element Visible    ${btnRegisterFacebook}
-    AISAppiumEx.Element Should Be Visible    ${btnRegisterFacebook}
-    Mobile check existing text    ${btnRegisterFacebook}
+    Wait Mobile Until Element Visible    ${lblLogofacebook}
     Mobile Capture Screen At Verify Point    Facebook Page
-    Click Mobile Element    ${btnBackToMyAISPage}
+    Click Mobile Element    ${btnBackToMyAIS_Facebook}
 
 Verify Twitter Page
     Run Keyword If    "${ar_OS}"=="Android"    Verify Twitter Page For Android
@@ -200,7 +199,7 @@ Verify Twitter Page For Android
 Verify Twitter Page For iOS
     Wait Mobile Until Element Visible    ${LogoTwitter}
     Mobile Capture Screen At Verify Point    Twitter Page
-    Click Mobile Element    ${btnBackToMyAISPage}
+    Click Mobile Element    ${btnBackToMyAIS_Twitter}
 
 Verify Line Page
     Run Keyword If    "${ar_OS}"=="Android"    Verify Line Page For Android
@@ -214,12 +213,14 @@ Verify Line Page For Android
     Mobile Capture Screen At Verify Point    Line Page
 
 Verify Line Page For iOS
+    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCancelPopUpLine}    5
+    Run Keyword If    ${statusBtnCloseDialogShow}    Click Mobile Element    ${btnCancelPopUpLine}
     Wait Mobile Until Element Visible    ${UrlLine}    60
     ${urlLine}=    Get mobile text    ${UrlLine}
     Log    ${urlLine}
     Should Match Regexp    ${urlLine}    ${urlLineBrowser}
     Mobile Capture Screen At Verify Point    Line Page
-    Click Mobile Element    ${btnBackToMyAISPage}
+    Click Mobile Element    ${btnBackToMyAIS_Line}
     Wait Mobile Until Element Visible    ${mnuHome}
 
 Verify Setting Page

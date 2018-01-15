@@ -227,7 +227,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Hamburger
     Select Sub Menu Hamburger    AISLine
-    Verify Line Page For iOS
+    Verify Line Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_MyAccount_IOS_1,3_1-2_Y_10_2] Go To Setting Verify Page Setting
