@@ -158,30 +158,18 @@ Verify Hilight Campaign
     Web Capture Screen At Verify Point    HilightCampaign
 
 Verify Slide Banner
-    Comment    ${banner1}    verify active banner
-    Comment    Click Web Element    ${btnNextBanner}
-    Comment    ${banner2}    verify active banner
-    Comment    Run Keyword If    "${banner1}" == "${banner2}"    Fail
-    ...    ELSE    Web Capture Screen At Verify Point    NextCampaign
-    Comment    Click Web Element    ${btnPrevBanner}
-    Comment    ${banner3}    verify active banner
-    Comment    Run Keyword If    "${banner1}" == "${banner3}"    Web Capture Screen At Verify Point    PrevCampaign
-    ...    ELSE    Fail
-    Swipe Element To Screen    ${lblHilightCampaignTitle}
-    Wait Web Until Page Contains Element    xpath=//android.view.View[@resoruse-id="privilege" and @index="13"]//android.view.View[@index="3"]/android.view.View[@index="0"]/android.view.View[@index="0"]/android.view.View/android.view.View[@index="0"]/android.view.View[@index="0"]
-    Mouse Over    xpath=//android.view.View[@resoruse-id="privilege" and @index="13"]//android.view.View[@index="3"]/android.view.View[@index="0"]/android.view.View[@index="0"]/android.view.View/android.view.View[@index="0"]/android.view.View[@index="0"]
-    ${Pic1}=    Get mobile text    xpath=//android.view.View[@resoruse-id="privilege" and @index="13"]//android.view.View[@index="3"]/android.view.View[@index="0"]/android.view.View[@index="0"]/android.view.View/android.view.View[@index="0"]/android.view.View[@index="0"]
+    Swipe element to specific area    ${btnPrevBanner}
+    Comment    ${Pic1}=    Get mobile text    xpath=//android.view.View[@resoruse-id="privilege" and @index="13"]//android.view.View[@index="3"]/android.view.View[@index="0"]/android.view.View[@index="0"]/android.view.View/android.view.View[@index="0"]/android.view.View[@index="0"]
     Mobile Capture Screen At Verify Point    Pic1
     Click Mobile Element    ${btnNextBanner}
-    sleep    1
-    ${Pic2}=    Get mobile text    xpath=//android.view.View[@resoruse-id="privilege" and @index="13"]//android.view.View[@index="3"]/android.view.View[@index="0"]/android.view.View[@index="0"]/android.view.View/android.view.View[@index="0"]/android.view.View[@index="0"]
+    Comment    ${Pic2}=    Get mobile text    xpath=//android.view.View[@resoruse-id="privilege" and @index="13"]//android.view.View[@index="3"]/android.view.View[@index="0"]/android.view.View[@index="0"]
     Mobile Capture Screen At Verify Point    Pic2
-    Should Not Be Equal    ${Pic1}    ${Pic2}
+    Comment    Should Not Be Equal    ${Pic1}    ${Pic2}
     Click Mobile Element    ${btnPrevBanner}
-    sleep    1
-    ${Pic3}=    Get mobile text    xpath=//android.view.View[@resoruse-id="privilege" and @index="13"]//android.view.View[@index="3"]/android.view.View[@index="0"]/android.view.View[@index="0"]/android.view.View/android.view.View[@index="0"]/android.view.View[@index="0"]
+    Comment    sleep    1
+    Comment    ${Pic3}=    Get mobile text    xpath=//android.view.View[@resoruse-id="privilege" and @index="13"]//android.view.View[@index="3"]/android.view.View[@index="0"]/android.view.View[@index="0"]/android.view.View/android.view.View[@index="0"]/android.view.View[@index="0"]
     Mobile Capture Screen At Verify Point    Pic3
-    Should \ Be Equal    ${Pic1}    ${Pic3}
+    Comment    Should \ Be Equal    ${Pic1}    ${Pic3}
 
 Verify HC Page Button
     Set Selenium Speed    0.1
