@@ -1,9 +1,10 @@
 *** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Emerald_Privilege.txt
+Resource          Resource/PageKeywords/LoginMyAIS.txt
 
 *** Test Cases ***
-[F5_EmeraldWebMobile_1_1_Y_2_1] Verify Privileges Page
+[F5_EmeraldMyais_1-4_1_Y_2_1] Verify Privileges Page
     [Documentation]    *Owner* : Oum
     ...    Verify Privileges page
     ...
@@ -25,15 +26,26 @@ Resource          Resource/PageKeywords/Emerald_Privilege.txt
     ...    - สัมผัสได้ถึงความพิเศษทุกวัน
     ...    - Campaign = 6 Page
     ...    - แต่ละ Page แสดง 2 Campaign
+    Comment    &{#dict_device_name}=    Create Dictionary
+    Comment    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}
+    ...    ${ar_NType}=include
+    Comment    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Comment    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Comment    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}
+    ...    false
+    Comment    Verify Privilege Page
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Privilege Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F5_EmeraldWebMobile_1_1_Y_2_2] Verify Slide Banner Button
+[F5_EmeraldMyais_1-4_1_Y_2_2] Verify Slide Banner Button
     [Documentation]    *Owner* : Oum
     ...
     ...    *Pre-requisite*
@@ -59,15 +71,17 @@ Resource          Resource/PageKeywords/Emerald_Privilege.txt
     ...    '[2]ตรวจสอบแบนเนอร์
     ...    - ตรวจสอบ รูปแบนเนอร์ที่แสดง เปลี่ยน จากก่อนกดปุ่ม <
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Scroll To Slide Banner Button
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Slide Banner Button
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F5_EmeraldWebMobile_1_1_Y_2_3] Verify Page Button
+[F5_EmeraldMyais_1-4_1_Y_2_3] Verify Page Button -On Hold
     [Documentation]    *Owner* : Oum
     ...
     ...    *Pre-requisite*
@@ -118,7 +132,7 @@ Resource          Resource/PageKeywords/Emerald_Privilege.txt
     Verify Page Button
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F5_EmeraldWebMobile_1_1_Y_2_4] Verify Click More To Show All Campaign
+[F5_EmeraldMyais_1-4_1_Y_2_4] Verify Click More To Show All Campaign
     [Documentation]    *Owner* : Oum
     ...    คลิกเพิ่มเติม เพื่อแสดง Campaign ทั้งหมด
     ...
@@ -148,7 +162,7 @@ Resource          Resource/PageKeywords/Emerald_Privilege.txt
     Verify More Button
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F5_EmeraldWebMobile_1_1_Y_2_5] Verify Coffee Bean Page For Bangkok Metropolitan Customer
+[F5_EmeraldMyais_1-4_1_Y_2_5] Verify First Banner
     [Documentation]    *Owner* : Oum
     ...
     ...    หน้า สิทธิพิเศษ
@@ -188,7 +202,7 @@ Resource          Resource/PageKeywords/Emerald_Privilege.txt
     Verify Coffee Bean Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F5_EmeraldWebMobile_1_1_Y_2_6] Verify Black Canyon For Bangkok Metropolitan Customer
+[F5_EmeraldMyais_1-4_1_Y_2_6] Verify Second Banner
     [Documentation]    *Owner* : Oum
     ...
     ...    *Pre-requisite*

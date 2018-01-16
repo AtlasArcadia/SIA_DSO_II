@@ -114,38 +114,42 @@ Choose banner
     Run Keyword If    "${Activebanner2}" == "${banner}"    Click Web Element    ${btnBanner2}
 
 Verify Privilege Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    Scroll Web To Element    ${imgActiveBanner}
-    Web Element Text Should Be    ${txtPrivilegeTitle}    ${txtPrivilege}
-    ${noDot}=    Selenium2Library.Get Matching Xpath Count    ${Owldot}
-    log    ${noDot}
-    ${noCampaign}=    Selenium2Library.Get Matching Xpath Count    ${imgActiveBanner}
-    log    ${noCampaign}
-    Should Be Equal    ${noDot}    6    #Number of Dot
-    Should Be Equal    ${noCampaign}    2    #Number of Campaign
-    Web Capture Screen At Verify Point    Privilege page
+    Swipe element to specific area    ${ImgPriv}
+    Mobile element text should be    ${txtPrivilegeTitle}    \ สัมผัสได้ถึงความพิเศษทุกวัน
+    Mobile Capture Screen At Verify Point    Privilege1
+    Swipe element to specific area    ${btnNextBanner}
+    Wait Mobile Until Element Visible    ${imgPrivilege}
+    Wait Mobile Until Element Visible    ${imgPrivilege2}
+    Mobile Capture Screen At Verify Point    Privilege2
 
 Scroll To Slide Banner Button
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
     Scroll Web To Element    ${imgActiveBanner}
 
 Verify Slide Banner Button
-    sleep    30
-    ${active1}    verify active first banner
-    ${active2}    verify active second banner
-    Web Capture Screen At Verify Point    Verify First And Second Campaign
-    Click Web Element    ${btnNext}
-    ${active3}    verify active first banner
-    ${active4}    verify active second banner
-    Web Capture Screen At Verify Point    Verify Third and Fourth Campaign
-    Run Keyword If    "${active1}" == "${active3}"    Fail
-    Run Keyword If    "${active2}" == "${active4}"    Fail
-    Click Web Element    ${btnPrev}
-    ${active3}    verify active first banner
-    ${active4}    verify active second banner
-    Run Keyword If    "${active1}" != "${active3}"    Fail
-    Run Keyword If    "${active2}" != "${active4}"    Fail
-    Web Capture Screen At Verify Point    SlideButton
+    Comment    sleep    30
+    Comment    ${active1}    verify active first banner
+    Comment    ${active2}    verify active second banner
+    Comment    Web Capture Screen At Verify Point    Verify First And Second Campaign
+    Comment    Click Web Element    ${btnNext}
+    Comment    ${active3}    verify active first banner
+    Comment    ${active4}    verify active second banner
+    Comment    Web Capture Screen At Verify Point    Verify Third and Fourth Campaign
+    Comment    Run Keyword If    "${active1}" == "${active3}"    Fail
+    Comment    Run Keyword If    "${active2}" == "${active4}"    Fail
+    Comment    Click Web Element    ${btnPrev}
+    Comment    ${active3}    verify active first banner
+    Comment    ${active4}    verify active second banner
+    Comment    Run Keyword If    "${active1}" != "${active3}"    Fail
+    Comment    Run Keyword If    "${active2}" != "${active4}"    Fail
+    Comment    Web Capture Screen At Verify Point    SlideButton
+    Swipe element to specific area    ${btnPrevBanner}
+    Mobile Capture Screen At Verify Point    Priv1
+    Click Mobile Element    ${btnNextBanner}
+    Wait Mobile Until Element Visible    ${imgBanner}
+    Mobile Capture Screen At Verify Point    NextCampaign
+    Click Mobile Element    ${btnPrevBanner}
+    Mobile Capture Screen At Verify Point    PrevCampaign
 
 Verify Page Button
     sleep    30
