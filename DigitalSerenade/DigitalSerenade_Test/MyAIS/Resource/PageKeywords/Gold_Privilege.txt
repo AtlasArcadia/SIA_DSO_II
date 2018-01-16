@@ -6,29 +6,24 @@ Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_PrivilegeLocalized.tx
 
 *** Keywords ***
 verify first banner
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][1]//img@src
-    Log    ${srcBanner}
-    ${count}    Get Length    ${imgBannerList}
-    Log    ${count}
-    : FOR    ${index}    IN RANGE    0    ${count}+1
-    \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
-    \    Log    @{imgBannerList}[${index}]
-    \    Log    ${srcBannerList}
-    \    Run Keyword If    "${srcBannerList}" != "[]"    Exit For Loop
-    ${Banner}    Set Variable    @{txtBannerName}[${index}]
+    Sleep    3s
+    Swipe element to specific area    ${btnNext}
+    Mobile Capture Screen At Verify Point    Banner Privileges
+    Click Mobile Element    ${imgPrivilegeBanner1}
+    Sleep    5s
+    AISAppiumEx.Wait Until Element Is Visible    ${lblLogoAIS}
+    Mobile Capture Screen At Verify Point    First Banner Privileges redirect page
 
 verify second banner
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][2]//img@src
-    Log    ${srcBanner}
-    ${count}    Get Length    ${imgBannerList}
-    Log    ${count}
-    : FOR    ${index}    IN RANGE    0    ${count}+1
-    \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
-    \    Log    @{imgBannerList}[${index}]
-    \    Log    ${srcBannerList}
-    \    Run Keyword If    "${srcBannerList}" != "[]"    Exit For Loop
-    ${Banner}    Set Variable    @{txtBannerName}[${index}]
-    [Return]    ${Banner}
+    Sleep    3s
+    Swipe element to specific area    ${btnNext}
+    Click Mobile Element    ${btnNext}
+    Mobile Capture Screen At Verify Point    Banner Privileges
+    Sleep    3s
+    Click Mobile Element    ${imgPrivilegeBanner1}
+    Sleep    5s
+    AISAppiumEx.Wait Until Element Is Visible    ${lblLogoAIS}
+    Mobile Capture Screen At Verify Point    First Banner Privileges redirect page
 
 Find banner
     [Arguments]    ${banner}
