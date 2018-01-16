@@ -436,14 +436,14 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
 
 
 [F2_MyAccount_IOS_1-4_1-2_Y_7_2] Verify AIS Facebook page
-    [Documentation]    **Owner:Nat**
-    ...    Source Number : 3PE
+    [Documentation]    **Owner:Tong**
+    ...    Source Number : 3PE, 3PO, 3BO
     ...    Status : Active1. Login my AIS
     ...    2. Click Hamberger menu
     ...    3. Click AIS Facebook
     ...    4. Verify AIS Facebook Page
     ...    5. Capture Screen -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -458,14 +458,14 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
 
 
 [F2_MyAccount_IOS_1-4_1-2_Y_8_2] Verify AIS Twitter page
-    [Documentation]    **Owner:Nat**
-    ...    Source Number : 3PE
+    [Documentation]    **Owner:Tong**
+    ...    Source Number : 3PE, 3PO, 3BO
     ...    Status : Active1. Login my AIS
     ...    2. Click Hamberger menu
     ...    3. Click AIS Twitter
     ...    4. Verify AIS Twitter Page
     ...    5. Capture Screen -
-    [Tags]    active    success    regression    demo
+    [Tags]    active    success    regression    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -479,14 +479,14 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_MyAccount_IOS_1-4_1-2_Y_9_2] Verify AIS Line page
-    [Documentation]    **Owner:Nat**
-    ...    Source Number : 3PE
+    [Documentation]    **Owner:Tong**
+    ...    Source Number : 3PE, 3PO, 3BO
     ...    Status : Active1. Login my AIS
     ...    2. Click Hamberger menu
     ...    3. Click AIS Line
     ...    4. Verify AIS Line Page
     ...    5. Capture Screen -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -500,8 +500,8 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_MyAccount_IOS_1-4_1-2_Y_10_2] Verify settings display
-    [Documentation]    **Owner:Nat**
-    ...    Source Number : 3PE
+    [Documentation]    **Owner:Tong**
+    ...    Source Number : 3PE, 3PO, 3BO
     ...    Status : Active1. Login my AIS
     ...    2. Click Hamberger menu
     ...    3. Click Settings
@@ -511,7 +511,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - Passcode Lock
     ...    - Terms & Conditions
     ...    5. Capture Screen -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -525,14 +525,14 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_MyAccount_IOS_1-4_1-2_Y_11_2] Verify Login display
-    [Documentation]    **Owner:Nat**
-    ...    Source Number : 3PE
+    [Documentation]    **Owner:Tong**
+    ...    Source Number : 3PE, 3PO, 3BO
     ...    Status : Active1. Login my AIS
     ...    2. Click Hamberger menu
     ...    3. Click Log Out
     ...    4. Verify Login display
     ...    5. Capture Screen -
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -596,9 +596,9 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Have Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F3_MyAccount_IOS_1,3_1-2_Y_1_1] Verify MyAIS Account : not have my List
+[F3_MyAccount_IOS_1-4_1-2_Y_1_1] Verify MyAIS Account : not have my List
     [Documentation]    **Owner:Tong**
-    ...    Source Number : 3PE
+    ...    Source Number : 3PE, 3PO, 3BO
     ...    Status : Active
     ...    1. เข้าสู่ระบบ My AIS
     ...    2. คลิกเมนู "Hamburger"
@@ -611,7 +611,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - "รหัสผ่าน"
     ...    - ปุ่ม "เพิ่ม+"
     ...    5. จับภาพหน้าจอ
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MyAccount=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MyAccount
@@ -624,9 +624,9 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify MyAccount Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F3_MyAccount_IOS_1,3_1-2_Y_2_1] VeriFy Add Member : not have my List
-    [Documentation]    **Owner**
-    ...    Source Number : 3PE
+[F3_MyAccount_IOS_1-4_1-2_Y_2_1] VeriFy Add Member : not have my List
+    [Documentation]    **Owner:Tong**
+    ...    Source Number : 3PE, 3PO, 3BO
     ...    Status : Active
     ...    1. เข้าสู่ระบบ My AIS
     ...    2. คลิกเมนู "Hamburger"
@@ -640,7 +640,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    7.กรอก OTP ที่ได้รับและตกลง (เมื่อตรวจสอบจะพบเครื่องหมายติ๊กถูกข้างหน้าเบอร์ที่แอด Member"
     ...    8.กดปุ่ม  "ตกลง"
     ...    **แสดงเบอร์ที่อยู่ใน my AIS ของคุณ
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MyAccount=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MyAccount
@@ -655,9 +655,9 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify MyList
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F3_MyAccount_IOS_1,3_1-2_Y_3_1] Verify MyAIS Account : have my List
-    [Documentation]    **Owner:Nat**
-    ...    Source Number : 3PE
+[F3_MyAccount_IOS_1-4_1-2_Y_3_1] Verify MyAIS Account : have my List
+    [Documentation]    **Owner:Tong**
+    ...    Source Number : 3PE, 3PO, 3BO
     ...    Status : Active
     ...    1. เข้าสู่ระบบ My AIS
     ...    2. คลิกเมนู "Hamburger"
@@ -673,7 +673,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - "จัดการหมายเลขในบัญชี my AIS ของคุณ"
     ...    - ปุ่ม "เพิ่ม+"
     ...    5. จับภาพหน้าจอ
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    3PE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MyAccount=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MyAccount
