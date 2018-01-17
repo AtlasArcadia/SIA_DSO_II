@@ -1,21 +1,18 @@
 *** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Gold_MainIcon.txt
+Resource          Resource/PageKeywords/LoginMyAIS.txt
 
 *** Test Cases ***
-[F8_GoldWebMobile_1-4_1_Y_2_1] Click privilege icon
-    [Documentation]    *Owner* : Now
+[F9_GoldMyais_1-4_1_Y_2_1] Click privilege icon
+    [Documentation]    *Owner* : Pu
     ...    ไอคอน "สิทธิพิเศษ"
     ...
-    ...    *Pre-requisite*
-    ...    -Serenade Gold Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
+    ...    1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด โกลด์
     ...    4. คลิก ไอคอน "สิทธิพิเศษ"
     ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน สิทธิพิเศษ ได้ \ [1]
     ...    6. จับภาพหน้าจอ
@@ -27,25 +24,25 @@ Resource          Resource/PageKeywords/Gold_MainIcon.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Main Icon    Privilege
-    Verify Main Icon Page    Privilege    ${HighLightCampaign}    ${HeaderPrivilege}
+    Verify Main Icon Page    Privilege    ${Privilege}    ${HeaderPrivilege}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_GoldWebMobile_1-4_1_Y_2_2] Click service icon
-    [Documentation]    *Owner* : Now
+[F9_GoldMyais_1-4_1_Y_2_2] Click service icon
+    [Documentation]    *Owner* : Pu
     ...    ไอคอน "สิทธิพิเศษ"
     ...
-    ...    *Pre-requisite*
-    ...    -Serenade Gold Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
     ...
     ...    *Test Step*
-    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
+    ...    1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด โกลด์
     ...    4. คลิก ไอคอน "บริการ"
     ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน บริการ ได้ \ [1]
     ...    6. จับภาพหน้าจอ
@@ -57,14 +54,17 @@ Resource          Resource/PageKeywords/Gold_MainIcon.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Main Icon    Service
     Verify Main Icon Page    Service    ${Service}    ${HeaderService}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_GoldWebMobile_1-4_1_Y_2_3] Click activities icon
-    [Documentation]    *Owner* : Now
+[F9_GoldMyais_1-4_1_Y_2_3] Click activities icon
+    [Documentation]    *Owner* : Pu
     ...    ไอคอน "กิจกรรม"
     ...
     ...    *Pre-requisite*
@@ -73,9 +73,9 @@ Resource          Resource/PageKeywords/Gold_MainIcon.txt
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
+    ...    '1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด โกลด์
     ...    4. คลิก ไอคอน "กิจกรรม"
     ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน กิจกรรม ได้ \ [1]
     ...    6. จับภาพหน้าจอ
@@ -88,29 +88,27 @@ Resource          Resource/PageKeywords/Gold_MainIcon.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Main Icon    Activities
     Verify Main Icon Page    Activities    ${Activities}    ${HeaderActivities}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_GoldWebMobile_1-4_1_Y_2_4] Click service center icon
-    [Documentation]    *Owner* : Now
+[F9_GoldMyais_1-4_1_Y_2_4] Click service center icon
+    [Documentation]    *Owner* : Pu
     ...    ไอคอน "ศูนย์บริการ"
     ...
-    ...    *Pre-requisite*
-    ...    -Serenade Gold Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
-    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
+    ...    1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด โกลด์
     ...    4. คลิก ไอคอน "ศูนย์บริการ"
     ...    5. ตรวจสอบว่าสามารถเลื่อนไปยังส่วน ศูนย์บริการ ได้ \ [1]
     ...    6. จับภาพหน้าจอ
-    ...
     ...    *Expected Result*
     ...    '[1]ตรวจสอบหน้าเว็บ ส่วน ศูนย์บริการ
     ...    - \ ช่องทางติดต่อพิเศษ
@@ -118,13 +116,16 @@ Resource          Resource/PageKeywords/Gold_MainIcon.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Main Icon    Center
     Verify Main Icon Page    Center    ${ServiceCenter}    ${HeaderServiceCenter}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_GoldWebMobile_1-4_1_Y_2_6] Verify icon colour
+[F9_GoldMyais_1-4_1_Y_2_6] Verify icon colour
     [Documentation]    *Owner* : Now
     ...    สีไอคอน Gold
     ...
@@ -150,8 +151,11 @@ Resource          Resource/PageKeywords/Gold_MainIcon.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify All Main Icon
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
