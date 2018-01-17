@@ -127,29 +127,17 @@ Scroll To Slide Banner Button
     Scroll Web To Element    ${imgActiveBanner}
 
 Verify Slide Banner Button
-    Comment    sleep    30
-    Comment    ${active1}    verify active first banner
-    Comment    ${active2}    verify active second banner
-    Comment    Web Capture Screen At Verify Point    Verify First And Second Campaign
-    Comment    Click Web Element    ${btnNext}
-    Comment    ${active3}    verify active first banner
-    Comment    ${active4}    verify active second banner
-    Comment    Web Capture Screen At Verify Point    Verify Third and Fourth Campaign
-    Comment    Run Keyword If    "${active1}" == "${active3}"    Fail
-    Comment    Run Keyword If    "${active2}" == "${active4}"    Fail
-    Comment    Click Web Element    ${btnPrev}
-    Comment    ${active3}    verify active first banner
-    Comment    ${active4}    verify active second banner
-    Comment    Run Keyword If    "${active1}" != "${active3}"    Fail
-    Comment    Run Keyword If    "${active2}" != "${active4}"    Fail
-    Comment    Web Capture Screen At Verify Point    SlideButton
-    Swipe element to specific area    ${btnPrevBanner}
-    Mobile Capture Screen At Verify Point    Priv1
-    Click Mobile Element    ${btnNextBanner}
-    Wait Mobile Until Element Visible    ${imgBanner}
+    Sleep    3s
+    Swipe element to specific area    ${btnNextBanner}
+    Sleep    2s
+    Mobile Capture Screen At Verify Point    Slide Privileges 1
+    AISAppiumEx.Click Element    ${btnNextBanner}
+    Wait Mobile Until Element Visible    ${imgActiveBanner}
     Mobile Capture Screen At Verify Point    NextCampaign
-    Click Mobile Element    ${btnPrevBanner}
-    Mobile Capture Screen At Verify Point    PrevCampaign
+    Sleep    2s
+    AISAppiumEx.Click Element    ${btnPrevBanner}
+    Wait Mobile Until Element Visible    ${imgActiveBanner}
+    Mobile Capture Screen At Verify Point    Slide Privileges 2
 
 Verify Page Button
     sleep    30
