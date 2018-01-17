@@ -1,8 +1,11 @@
+import java.time.Duration;
+import java.time.Instant;
+
 @groovy.transform.TupleConstructor
 class Runner implements Serializable{
 	boolean AISeStatement = false
 	boolean RegisterAISFibreAndCoverageChecking = false
-	boolean RequestAndChangeWifiPassword = false
+	boolean RequestAndChangeWifiPassword = true
 	boolean FAQ_YourBalanceAndStatement = false
 	boolean FAQ_InternationalRoaming = false
 	boolean MyAccount = false
@@ -38,7 +41,7 @@ class Runner implements Serializable{
 	boolean AllReportMultiExecutors = true
 	boolean ExportToReportExcel = false
 	boolean ExportToReportExcelMultiExecutors = true
-	boolean All = true
+	boolean All = false
 	boolean IsSmoke = false
 	boolean IsSanity = false
 	boolean activeFalse = false
@@ -63,7 +66,7 @@ parallel firstBranch: {
 			env.WORKSPACE='D:\\AtlasBuffet'
 			env.outputPath='D:\\Output\\Prod'
 			dir (env.WORKSPACE){
-
+				def start_time_first = getTime()
 				stage ('MyAIS_RequestAndChangeWifiPassword_Production_Sequential')
 				{
 					run_MyAIS_RequestAndChangeWifiPassword_Production(runner)
@@ -148,7 +151,8 @@ parallel firstBranch: {
 				// {
 				// 	run_MyAIS_MyAccount_Production(runner)
 				// }
-				
+				def end_time_first = getTime()
+				//Duration timeElapsed = Duration.between(start, end);
 			}
 		}
 	}, 
