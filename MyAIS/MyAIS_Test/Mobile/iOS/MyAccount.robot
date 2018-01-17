@@ -206,7 +206,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Twitter Page For iOS
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_9_2] Go To AIS Line Verify Page AIS Line
+[F1_MyAccount_IOS_1-4_1-2_Y_9_2] Go To AIS Line Verify Page AIS Line
     [Documentation]    *Owner : Lek
     ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
@@ -230,7 +230,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Line Page
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_10_2] Go To Setting Verify Page Setting
+[F1_MyAccount_IOS_1-4_1-2_Y_10_2] Go To Setting Verify Page Setting
     [Documentation]    *Owner : Lek
     ...    Ntype :    3PE    3PO    3BO
     ...    Status : Active
@@ -258,7 +258,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Setting Page For iOS
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F1_MyAccount_IOS_1,3_1-2_Y_11_2] Logout Verify Page Login
+[F1_MyAccount_IOS_1-4_1-2_Y_11_2] Logout Verify Page Login
     [Documentation]    **Owner:Lek**
     ...    Source Number : 3PE ,3PO ,3BO
     ...    Status : Active
@@ -286,7 +286,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Tags]    smoke    TH
     log    test smoke
 
-[F2_MyAccount_IOS_1,3_1-2_Y_1_2] Hamburger show sub menu
+[F2_MyAccount_IOS_1-4_1-2_Y_1_2] Hamburger show sub menu
 
     [Documentation]    **Owner:Lek**
     ...    Source Number : 3PE ,3BE ,3PO ,3BO
@@ -315,7 +315,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify Sub Menu in Hamberger in case registered    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_2_2] Verify my AIS account page
+[F2_MyAccount_IOS_1-4_1-2_Y_2_2] Verify my AIS account page
     [Documentation]    **Owner:Lek**
     ...    Source Number : 3PE ,3PO ,3BO
     ...    Status : Active1. Login my AIS
@@ -343,7 +343,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify My AIS Account
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_3_2] Verify my profile page
+[F2_MyAccount_IOS_1-4_1-2_Y_3_2] Verify my profile page
 
     [Documentation]    **Owner:Lek**
     ...    Source Number : 3PE ,3PO ,3BO
@@ -357,6 +357,15 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - Segment
     ...    - Service year
     ...    - Message
+    ...    - รอบบิล
+    ...     • รอบบิลของคุณตั้งแต่ :
+    ...     • วันครบกำหนดชำระวันที่ :
+    ...    - Your Bill Media
+    ...     • Bill Media Preference :
+    ...     • Preferred bill language :
+    ...    - ที่อยู่ในการจัดส่งเอกสาร
+    ...     • ชื่อ - นามสกุล :
+    ...     • ที่อยู่ :
     ...    5. Capture Screen -
     [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
@@ -371,7 +380,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify My Profile    ${Number}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_4_2] Verify Your Credit And Debit Card page
+[F2_MyAccount_IOS_1-4_1-2_Y_4_2] Verify Your Credit And Debit Card page
     [Documentation]    **Owner:Lek**
     ...    Source Number : 3PE ,3PO ,3BO
     ...    Status : Active1. เข้าสู่ระบบ my AIS
@@ -382,15 +391,17 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_CreateMyais
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Hamburger
+    Select Sub Menu Hamburger    CreditDebit
+    Verify Not Have Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_5_2] Verify AIS online store page
+[F2_MyAccount_IOS_1-4_1-2_Y_5_2] Verify AIS online store page
 
     [Documentation]    **Owner:Lek**
     ...    Source Number : 3PE ,3PO ,3BO
@@ -412,7 +423,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     Verify AIS Online Store
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F2_MyAccount_IOS_1,3_1-2_Y_6_2] Verify AIS website page
+[F2_MyAccount_IOS_1-4_1-2_Y_6_2] Verify AIS website page
 
     [Documentation]    **Owner:Lek**
     ...    Source Number : 3PE ,3PO ,3BO
@@ -673,7 +684,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - "จัดการหมายเลขในบัญชี my AIS ของคุณ"
     ...    - ปุ่ม "เพิ่ม+"
     ...    5. จับภาพหน้าจอ
-    [Tags]    active    success    regression    3PE    3PO    3BO    demo
+    [Tags]    active    success    regression    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_MyAccount=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_MyAccount
