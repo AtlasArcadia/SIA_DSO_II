@@ -159,6 +159,7 @@ Verify AIS Web Site Android
     Mobile Capture Screen At Verify Point    AIS Web Site
 
 Verify AIS Web Site iOS
+    sleep    10
     Mobile element text should be    ${lblAISWebsite}    ${AISWebsite}
     sleep    10
     Mobile Capture Screen At Verify Point    AIS Web Site
@@ -220,6 +221,7 @@ Verify Line Page For iOS
     Log    ${urlLine}
     Should Match Regexp    ${urlLine}    ${urlLineBrowser}
     Mobile Capture Screen At Verify Point    Line Page
+    Comment    Click Mobile Element    ${btnBackMyAIS}
     Click Mobile Element    ${btnBackToMyAIS_Line}
     Wait Mobile Until Element Visible    ${mnuHome}
 
@@ -259,7 +261,7 @@ Verify Log Out MyAIS For Android
 Verify Log Out MyAIS For iOS
     Comment    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${lblQuestionPage_Back}
     Comment    Run Keyword If    "${status}"=="True"    Click Mobile Element    ${lblQuestionPage_Back}
-    Wait Mobile Until Element Visible    ${lblLogin}    90
+    Wait Mobile Until Element Visible    ${lblLogin}    50
     Mobile Capture Screen At Verify Point    Log In Page
 
 Teardown For Data Mobile
@@ -330,7 +332,7 @@ Verify Create My AIS Account Each NType
 Verify My Profile
     [Arguments]    ${Number}
     Run Keyword If    "${ar_NType}"=="IPE"    Verify My Profile Page IPE    ${Number}
-    Run Keyword If    "${ar_OS}"=="iOS"    Verify My Profile iOS
+    Run Keyword If    "${ar_OS}"=="iOS"    Verify My Profile iOS    ${Number}
     ...    ELSE    Verify MyProfile Page    ${Number}
 
 Verify My Profile Page IPE
@@ -344,6 +346,35 @@ Verify My Profile Page IPE
     Mobile Capture Screen At Verify Point    MyProfile Page Top
 
 Verify My Profile iOS
+    [Arguments]    ${Number}
+    Wait Mobile Until Page Contains Element    ${lblMyProfile}
+    Mobile element text should be    ${lblMyProfile}    ${MyProfile}
+    Mobile check existing text in name    ${lblMyProfile_UserName}
+    ${rawMobileNumber}=    Get mobile text    ${lblMyProfile_MobileNumber}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile check existing text in name    ${lblMyProfile_Birthday}
+    Mobile check existing text in name    ${lblMyProfile_Privilege}
+    Mobile check existing text in name    ${lblMyProfile_Service_Year}
+    Mobile check existing text in name    ${lblMyProfile_Email}
+    Mobile Capture Screen At Verify Point    MyProfile Page Top
+    Swipe Element To Screen    ${lblMyProfile_YourBillCycle}
+    Mobile element text should be    ${lblMyProfile_YourBillCycle}    ${YourBillCycle}
+    Mobile element text should be    ${lblMyProfile_BillCycle_Start-End}    ${BillCycle_Start-End}
+    Mobile check existing text in name    ${lblMyProfile_BillCycle_Start-End_Ans}
+    Mobile element text should be    ${lblMyProfile_BillMedia}    ${MyProfile_BillMedia}
+    Mobile element text should be    ${lblMyProfile_BillMediaPreference}    ${MyProfile_BillMediaPreference}
+    Mobile check existing text in name    ${lblMyProfile_BillMediaPreferenceDetail}
+    Mobile element text should be    ${lblMyProfile_BillMediaPreferredBillLanguage}    ${MyProfile_BillMediaPreferredBillLanguage}
+    Mobile check existing text in name    ${lblMyProfile_BillMediaLanguage}
+    Mobile element text should be    ${lblMyProfile_BillingAddress}    ${BillingAddress}
+    Mobile element text should be    ${lblMyProfile_FirstLastName}    ${FirstLastName}
+    Mobile check existing text in name    ${lblMyProfile_FirstLastName_Ans}
+    Mobile element text should be    ${lblMyProfile_Address}    ${Address}
+    Mobile check existing text in name    ${lblMyProfile_Address_Ans}
+    Mobile Capture Screen At Verify Point    MyProfile Page Below
+
     Mobile element text should be    ${lblMyProfile}    ${MyProfile}
     Mobile Capture Screen At Verify Point    MyProfile Page
 
@@ -382,9 +413,15 @@ Verify My AIS Account
     Mobile element text should match regexp ignore case sensitive    ${lblTitleMyAISAccount}    ${AISAccount}
     Mobile element text should match regexp ignore case sensitive    ${lblHeaderMyAISAccount}    ${YourAccount}
     Mobile Element Is Exist    ${lblMyAccountMainNumber}
+    Mobile check existing text in name    ${lblMyAccountMainNumberDetail}
     Mobile Element Is Exist    ${lblMyAccountEmail}
+    Mobile check existing text in name    ${lblMyAccountEmailDetail}
     Mobile Element Is Exist    ${lblMyAccountPass}
-    Mobile Element Is Exist    ${txtMyAccountDetail}
+    Mobile check existing text in name    ${lblMyAccountPassDetail}
+    Mobile element name should be    ${lblMyAccountNumberInMylist}    ${MyAccountNumberInMylist}
+    ${StatusMyAccountNumber}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lblMyAccountNumberPostpaid1}
+    Run Keyword If    '${StatusMyAccountNumber}'=='True'    Mobile check existing text in name    ${lblMyAccountNumberPostpaid1}
+    Mobile Element Is Exist    ${lblMyAccountDetail}
     Mobile Element Is Exist    ${btnMyAccountAdd}
     Mobile Capture Screen At Verify Point    MyAISAccount
 
@@ -446,8 +483,3 @@ Verify MyAccount Page have My List
     Mobile element name should be    ${lblManageMyAISAccount}    ${ManageMyAISAccount}
     Wait Mobile Until Element Visible    ${btnMyAISAccountAdd}
     Mobile Capture Screen At Verify Point    Verify MyAccount Page have My List
-
-
-
-
-
