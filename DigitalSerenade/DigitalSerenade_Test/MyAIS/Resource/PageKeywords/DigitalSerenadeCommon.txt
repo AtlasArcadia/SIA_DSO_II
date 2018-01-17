@@ -71,6 +71,8 @@ Select Lang En
 Select PointsAndPrivileges
     swipe in container to element    ${mnuPointsAndPrivileges}    ${mnuContainer}    left
     Click Mobile Element    ${mnuPointsAndPrivileges}
+    ${registerAISPoint}=    Run Keyword And Return Status    AISAppiumEx.Wait Until Element Is Visible    ${PopupRegisterPoints}    timeout=10s
+    Run Keyword If    "${registerAISPoint}"=="True"    Click Mobile Element    ${btnCancelRegisterPoints}
     ${statusPopupSSLCert}=    Run Keyword And Return Status    AISAppiumEx.Wait Until Element Is Visible    ${PopupSSLCert}    timeout=5s
     Log    ${statusPopupSSLCert}
     Run Keyword If    "${statusPopupSSLCert}"=="True"    Click Mobile Element    ${btnOKSSLCert}
@@ -79,7 +81,7 @@ Select Serenade Button
     Wait Mobile Until Element Visible    ${btnSerenade}
     Click Mobile Element    ${btnSerenade}
     : FOR    ${INDEX}    IN RANGE    1    10
-    \    ${statusPopupSSLCert}=    Run Keyword And Return Status    AISAppiumEx.Wait Until Element Is Visible    ${PopupSSLCert}    timeout=20s
+    \    ${statusPopupSSLCert}=    Run Keyword And Return Status    AISAppiumEx.Wait Until Element Is Visible    ${PopupSSLCert}    timeout=10s
     \    Log    ${statusPopupSSLCert}
     \    Run Keyword If    "${statusPopupSSLCert}"=="True"    Click Mobile Element    ${btnOKSSLCert}
     \    Exit For Loop If    "${statusPopupSSLCert}"=="false"

@@ -1,46 +1,40 @@
 *** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Gold_Service.txt
+Resource          Resource/PageKeywords/LoginMyAIS.txt
 
 *** Test Cases ***
-[F6_GoldWebMobile_1-4_1_Y_2_1] Verify AIS Mobile Care
-    [Documentation]    *Owner* : Now
-    ...    AIS Mobile care
+[F7_GoldMyais_1-4_1_Y_2_1] Verify first banner service
+    [Documentation]    *Owner* : Pu
     ...
-    ...    *Pre-requisite*
-    ...    -Serenade Gold Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...
+    ...    Verify first banner
     ...
     ...    *Test Step*
-    ...    '1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
-    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3.Login เข้าสู่ระบบ
+    ...    1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด แพลทินั่ม
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
-    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign AIS Mobile care
+    ...    5. คลิกแบนเนอร์ที่ 1 (บนซ้าย)
     ...    6. ตรวจสอบ URL [1]
-    ...    7. ตรวจสอบ campaign AIS Mobile care [2]
-    ...    8. จับภาพหน้าจอ
+    ...    7. จับภาพหน้าจอ
     ...
     ...    *Expected Result*
-    ...    [1] ตรวจสอบ URL
-    ...    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
-    ...
-    ...    [2] ตรวจสอบ campaign AIS Mobile care
-    ...    - Moblie care
-    ...    - รับส่วนลด แพกเกจรายปี
+    ...    - สัมผัสความพิเศษเฉพาะคุณ
+    ...    - Logo AIS
     [Tags]    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Click Service Campaign    ${imgMobileCare}    Mobile Care Campaign
-    Verify URL New Window    ${URLMobileCare${ar_LANG}}    Mobile Care Page
-    Verify Mobile Care
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify first banner Gold Service
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F6_GoldWebMobile_1-4_1_Y_2_2] Verify Call Free To AIS Call Center
+[F7_GoldMyais_1-4_1_Y_2_2] Verify second banner service
     [Documentation]    *Owner* : Now
     ...    AIS Call Center
     ...
@@ -70,14 +64,15 @@ Resource          Resource/PageKeywords/Gold_Service.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Click Service Campaign    ${imgCallCenter}    Call Center
-    Verify URL New Window    ${URLCallCenterTH}    Call Center Page
-    Verify Call Center
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
+    Verify second banner Gold Service
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F6_GoldWebMobile_1-4_1_Y_2_3] Verify mPay Page
+[F7_GoldMyais_1-4_1_Y_2_3] Verify third banner service
     [Documentation]    *Owner* : Now
     ...    mPay Page
     ...
@@ -108,14 +103,14 @@ Resource          Resource/PageKeywords/Gold_Service.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Click Service Campaign    ${imgmPAY}    mPay
-    Verify URL New Window    ${URLMPay}    MPay Page
-    Verify mPay
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F6_GoldWebMobile_1-4_1_Y_2_4] Verify Data Roaming
+[F7_GoldMyais_1-4_1_Y_2_4] Verify fourth banner service
     [Documentation]    *Owner* : Now
     ...    Data Roaming
     ...
@@ -147,11 +142,11 @@ Resource          Resource/PageKeywords/Gold_Service.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Click Service Campaign    ${imgDataRoaming}    Data Roaming
-    Verify URL New Window    ${URLRoaming}    Data Roaming Page
-    Verify Data Roaming
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F7_GoldWebMobile_1_2_Y_2_1] Verify AIS Mobile Care EN
