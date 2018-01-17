@@ -12,7 +12,7 @@ class Runner implements Serializable{
 	boolean FAQ_InternetAndAISFibre = false
 	boolean ConsultAgent = false
 	boolean HowToUse = false
-	boolean FAQ_SpecialCampaignAndPrivileges = false
+	boolean FAQ_SpecialCampaignAndPrivileges = true
 	boolean DomesticPackage_YourCurrentPackage = false
 	boolean PointsAndPrivileges = false
 	boolean RoamingPackage_ApplyRoamingPackage = false
@@ -36,11 +36,11 @@ class Runner implements Serializable{
 	boolean Quickmenu_Search_Postpaid = false
 	boolean TopUpAndPayment = false
 	boolean PaymentTopUp = false
-	boolean CopyLogFromExecutorA = true
-	boolean CopyLogFromExecutorB = true
+	boolean CopyLogFromExecutorA = false
+	boolean CopyLogFromExecutorB = false
 	boolean AllReportMultiExecutors = true
 	boolean ExportToReportExcel = false
-	boolean ExportToReportExcelMultiExecutors = true
+	boolean ExportToReportExcelMultiExecutors = false
 	boolean All = false
 	boolean IsSmoke = false
 	boolean IsSanity = false
@@ -153,6 +153,7 @@ parallel firstBranch: {
 				// }
 				def end_time_first = getTime()
 				//Duration timeElapsed = Duration.between(start, end);
+
 			}
 		}
 	}, 
