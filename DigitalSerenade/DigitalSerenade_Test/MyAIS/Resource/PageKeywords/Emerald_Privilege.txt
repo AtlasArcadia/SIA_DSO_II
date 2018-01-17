@@ -5,31 +5,23 @@ Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_PrivilegeLocalized
 Resource          ../PageVariable/Emerald_PrivilegeVariable.txt
 
 *** Keywords ***
-verify active first banner
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][1]//img@src
-    Log    ${srcBanner}
-    ${count}    Get Length    ${imgBannerList}
-    Log    ${count}
-    : FOR    ${index}    IN RANGE    0    ${count}+1
-    \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
-    \    Log    @{imgBannerList}[${index}]
-    \    Log    ${srcBannerList}
-    \    Run Keyword If    "${srcBannerList}" != "[]"    Exit For Loop
-    ${Banner}    Set Variable    @{txtBannerName}[${index}]
-    [Return]    ${Banner}
+verify First Banner
+    Sleep    3s
+    Swipe element to specific area    ${btnNextBanner}
+    Mobile Capture Screen At Verify Point    Banner Privileges
+    Click Mobile Element    ${imgPrivilege}
+    Sleep    5s
+    AISAppiumEx.Wait Until Element Is Visible    ${lblLogoAIS}
+    Mobile Capture Screen At Verify Point    First Banner Privileges redirect page
 
-verify active second banner
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][2]//img@src
-    Log    ${srcBanner}
-    ${count}    Get Length    ${imgBannerList}
-    Log    ${count}
-    : FOR    ${index}    IN RANGE    0    ${count}+1
-    \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
-    \    Log    @{imgBannerList}[${index}]
-    \    Log    ${srcBannerList}
-    \    Run Keyword If    "${srcBannerList}" != "[]"    Exit For Loop
-    ${Banner}    Set Variable    @{txtBannerName}[${index}]
-    [Return]    ${Banner}
+verify Second Banner
+    Sleep    3s
+    Swipe element to specific area    ${btnNextBanner}
+    Mobile Capture Screen At Verify Point    Banner Privileges
+    Click Mobile Element    ${imgPrivilege2}
+    Sleep    5s
+    AISAppiumEx.Wait Until Element Is Visible    ${lblLogoAIS}
+    Mobile Capture Screen At Verify Point    Second Banner Privileges redirect page
 
 verify active third banner
     ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][3]//img@src
@@ -167,16 +159,12 @@ Verify Page Button
     Web Capture Screen At Verify Point    Six dot
 
 Verify More Button
-    sleep    10
-    Click Web Element    ${btnOther}
-    Select Window    url=${URL_AllCampaign}
-    ${location}    Get Location
-    Run Keyword If    "${location}" == "${URL_AllCampaign}"    Web Capture Screen At Verify Point    All Campaign Link
-    ...    ELSE    Fail
-    Scroll Web To Element    ${imgPrivilege}
-    Web Element Should Be Visible    ${imgPrivilege}
-    Web Element Should Be Visible    ${imgPrivilege2}
-    Web Capture Screen At Verify Point    OtherPrivilege
+    Sleep    3s
+    Swipe element to specific area    ${btnNextBanner}
+    Click Mobile Element    ${btnOther}
+    Sleep    10s
+    Mobile element text should be    ${lblPrivilegeMorePage}    Serenade Privileges
+    Mobile Capture Screen At Verify Point    OtherPrivilege
 
 Verify Coffee Bean Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
