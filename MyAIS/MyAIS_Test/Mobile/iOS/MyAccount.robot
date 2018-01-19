@@ -456,7 +456,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. Click AIS Facebook
     ...    4. Verify AIS Facebook Page
     ...    5. Capture Screen -
-    [Tags]    active    success    regression    3PE    3PO    3BO
+    [Tags]    active    success    regression    3PE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -478,7 +478,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. Click AIS Twitter
     ...    4. Verify AIS Twitter Page
     ...    5. Capture Screen -
-    [Tags]    active    success    regression    3PE    3PO    3BO
+    [Tags]    active    success    regression    3PE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -499,7 +499,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. Click AIS Line
     ...    4. Verify AIS Line Page
     ...    5. Capture Screen -
-    [Tags]    active    success    regression    3PE    3PO    3BO
+    [Tags]    active    success    regression    3PE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -524,7 +524,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - Passcode Lock
     ...    - Terms & Conditions
     ...    5. Capture Screen -
-    [Tags]    active    success    regression    3PE    3PO    3BO
+    [Tags]    active    success    regression    3PE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -545,7 +545,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. Click Log Out
     ...    4. Verify Login display
     ...    5. Capture Screen -
-    [Tags]    active    success    regression    3PE    3PO    3BO
+    [Tags]    active    success    regression    3PE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

@@ -328,7 +328,7 @@ Resource          ../Resource/PageKeywords/Home.txt
 
 [F1_Home_IOS_1-4_1-2_Y_13_2] Verify Page Menu HomeIn Case: Go to Top Up page (From Remaining Balance Home Page)
     [Documentation]    *Owner : Tong
-    ...    Ntype : 3PE,3BE 3BP,3PO
+    ...    Ntype : 3PE,3BE 3BO,3PO
     ...    Status : Active
     ...
     ...    Test Step
@@ -369,7 +369,7 @@ Resource          ../Resource/PageKeywords/Home.txt
 
 [F1_Home_IOS_2,4_1-2_Y_13_2] Verify Page Menu HomeIn Case: Go to Payment page (From Balance Home Page)
     [Documentation]    *Owner : Tong
-    ...    Ntype : 3PE,3BE 3BP,3PO
+    ...    Ntype : 3PE,3BE 3BO,3PO
     ...    Status : Active
     ...
     ...    Test Step
@@ -385,7 +385,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...      -ปุ่ม "กลับ"
     ...      -เงื่อนไขบริการ
     ...    4.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    active    success
+    [Tags]    TH    EN    3PE    3BE    active    success    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Balance
