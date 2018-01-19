@@ -5,6 +5,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__ + "/../")))
 from errorAnalyzer import errorAnalyzer
+from LogAnalyzer import LogAnalyzer
 
 
 class ExcelStyle:
@@ -325,7 +326,9 @@ def convert_html_to_excel(input_path_report, output_path_xml, output_path_report
         errorAnalyzer.error_analyze_for_myaisapp(output_path_xml, workbook)
     elif project_name == "MyAISAppMultiExecutors":
         errorAnalyzer.error_analyze_for_myaisapp_multiexecutors(output_path_xml, workbook)
+        LogAnalyzer.analyze_for_myaisapp_multiexecutors(output_path_xml, workbook)
     workbook.close()
+
 
 
 # convert_html_to_excel("D:\\outputAllReport\\report.html",
