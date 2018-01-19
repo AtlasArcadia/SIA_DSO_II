@@ -188,31 +188,25 @@ Resource          Resource/PageKeywords/LoginMyAIS.txt
     Verify Line Gold
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F13_GoldWebMobile_1-4_1_Y_2_1] Share Facebook
-    [Documentation]    *** Owner:Now ***
+[F13_GoldMyais_1-4_1_Y_2_1] Share Facebook
+    [Documentation]    *** Owner:Pu ***
     ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Gold Customer
-    ...    - Ntype 3BE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
-    ...    "
-    ...
+    ...    กดแชร์บน Facebook
     ...
     ...    *** Step ***
-    ...    "1. เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
-    ...    2. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3. Login เข้าสู่ระบบ
+    ...    1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด โกลด์
     ...    4. เลื่อนมาที่หน้า Share ความประทับใจ
     ...    5. คลิกปุ่มไอค่อน
     ...    6. ตรวจสอบ URL [1]
     ...    7. ตรวจสอบหน้าเว็บ [2]
     ...    8. จับภาพหน้าจอ
-    ...    "
     ...
     ...
     ...    *** Expect ***
     ...
-    ...    "[1]ตรวจสอบ URL
+    ...    "[1]ตรวจสอบ URL (ไม่สามารถตรวจสอบ url ได้เนื่องจาก ไม่ redirect to browser)
     ...    https://m.facebook.com/login.php?skip_api_login=1&api_key=966242223397117&signed_next=1&next=https%3A%2F%2Fm.facebook.com%2Fsharer%2Fsharer.php%3Fu%3Dhttps%253A%252F%252Fprivilege.ais.co.th%252FWelcomeToSerenade%26title%3DSerenade%2527s%2Bimpression%26description%3D%2523AISSERENADE%2B%2523GOLD%26picture%3Dhttps%253A%252F%252Fprivilege.ais.co.th%252Ftemplate%252Fpages%252FSDWP%252Fassets%252Fimages%252Fbanner%252Fshare-gold.png&cancel_url=https%3A%2F%2Fwww.facebook.com%2Fdialog%2Freturn%2Fclose%3Ferror_code%3D4201%26error_message%3DUser%2Bcanceled%2Bthe%2BDialog%2Bflow%23_%3D_&display=touch&locale=th_TH&_rdr
     ...
     ...    [2]ตรวจสอบหน้าเว็บ
@@ -222,30 +216,29 @@ Resource          Resource/PageKeywords/LoginMyAIS.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Share To Facebook No Login
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F13_GoldWebMobile_1-4_1_Y_2_2] How to be Serenade condition
-    [Documentation]    *** Owner:Now ***
+[F13_GoldMyais_1-4_1_Y_2_2] How to be Serenade condition
+    [Documentation]    *** Owner:Pu ***
     ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Gold Customer
-    ...    - Ntype 3BE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    หน้า popup เงื่อนไข
     ...    "
     ...
     ...
     ...    *** Step ***
-    ...    "1. เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
-    ...    2. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3. Login เข้าสู่ระบบ
+    ...    '1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด โกลด์
     ...    4. เลื่อนมาที่หน้า เอไอเอส เซเรเนด หวังเป็นอย่างยิ่งว่าคุณจะสัมผัสได้ถึงความพิเศษ ที่เราคัดสรรไว้เพื่อคุณ...ในทุกวันและตลอดไป
     ...    5. คลิกปุ่มไอค่อน
     ...    6. ตรวจสอบ Popup [1]
-    ...    7. จับภาพหน้าจอ"
-    ...
+    ...    7. จับภาพหน้าจอ
     ...
     ...    *** Expect ***
     ...
@@ -257,28 +250,28 @@ Resource          Resource/PageKeywords/LoginMyAIS.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Popup Condition
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F13_GoldWebMobile_1-4_1_Y_2_3] Verify segment color
-    [Documentation]    *** Owner:Now ***
+[F13_GoldMyais_1-4_1_Y_2_3] Verify segment color
+    [Documentation]    *** Owner:Pu ***
     ...
-    ...    *** Source Requisite ***
-    ...    "- Serenade Gold Customer
-    ...    - Ntype 3BE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    แสดงรูปภาพตรงตาม Segment
     ...    "
     ...
     ...
     ...    *** Step ***
-    ...    "1. เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
-    ...    2. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3. Login เข้าสู่ระบบ
+    ...    '1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด โกลด์
     ...    4.เลื่อนลงมาด้านล่างของเว็บ
     ...    5. ตรวจสอบรูปภาพของ Segment [1]
-    ...    6. จับภาพหน้าจอ"
+    ...    6. จับภาพหน้าจอ
     ...
     ...
     ...    *** Expect ***
@@ -288,7 +281,10 @@ Resource          Resource/PageKeywords/LoginMyAIS.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Image Share Segment
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
