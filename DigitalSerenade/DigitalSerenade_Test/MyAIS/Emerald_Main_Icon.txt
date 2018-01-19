@@ -1,9 +1,10 @@
 *** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Emerald_MainIcon.txt
+Resource          Resource/PageKeywords/LoginMyAIS.txt
 
 *** Test Cases ***
-[F8_EmeraldWebMobile_1_1_Y_2_1] Click Privilege Icon
+[F8_EmeraldMyais_1-4_1_Y_2_1] Click Privilege Icon
     [Documentation]    *Owner* : Oum
     ...    ไอคอน "สิทธิพิเศษ"
     ...
@@ -24,15 +25,18 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ...    [1]ตรวจสอบหน้าเว็บ ส่วน สิทธิพิเศษ
     ...    - \ พลาดไม่ได้! กับสิทธิพิเศษโดนใจ
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Main Icon    Privilege
-    Verify Main Icon Page    Privilege    ${HighLightCampaign}    ${lblHeaderPrivilege}
+    Verify Main Icon Page    Privilege    ${Privilege}    ${HeaderPrivilege}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_EmeraldWebMobile_1_1_Y_2_2] Click Service Icon
+[F8_EmeraldMyais_1-4_1_Y_2_2] Click Service Icon
     [Documentation]    *Owner* : Oum
     ...    ไอคอน "บริการ"
     ...
@@ -53,15 +57,18 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ...    '[1]ตรวจสอบหน้าเว็บ ส่วน บริการ
     ...    - \ บริการที่ใส่ใจทุกความต้องการ
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Main Icon    Service
-    Verify Main Icon Page    Service    ${Service}    ${lblHeaderService}
+    Verify Main Icon Page    Service    ${Service}    ${HeaderService}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_EmeraldWebMobile_1_1_Y_2_3] Click Activities Icon
+[F8_EmeraldMyais_1-4_1_Y_2_3] Click Activities Icon
     [Documentation]    *Owner* : Oum
     ...    ไอคอน "กิจกรรม"
     ...
@@ -83,15 +90,18 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ...    '[1]ตรวจสอบหน้าเว็บ ส่วน กิจกรรม
     ...    - \ เปิดประสบการณ์ประทับใจกับกิจกรรมสุดพิเศษ
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Main Icon    Activities
-    Verify Main Icon Page    Activities    ${Activities}    ${lblHeaderActivities}
+    Verify Main Icon Page    Activities    ${Activities}    ${HeaderActivities}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_EmeraldWebMobile_1_1_Y_2_4] Click Service Center Icon
+[F8_EmeraldMyais_1-4_1_Y_2_4] Click Service Center Icon
     [Documentation]    *Owner* : Oum
     ...    ไอคอน "ศูนย์บริการ"
     ...
@@ -112,15 +122,18 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ...    '[1]ตรวจสอบหน้าเว็บ ส่วน ศูนย์บริการ
     ...    - \ ช่องทางติดต่อพิเศษ
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Main Icon    Center
-    Verify Main Icon Page    Center    ${ServiceCenter}    ${lblHeaderServiceCenter}
+    Verify Main Icon Page    Center    ${ServiceCenter}    ${HeaderCenter}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_EmeraldWebMobile_1_1_Y_2_6] Verify Icon Colour
+[F8_EmeraldMyais_1-4_1_Y_2_6] Verify Icon Colour
     [Documentation]    *Owner* : Oum
     ...    สีไอคอน (Emeraldd)
     ...
@@ -143,10 +156,13 @@ Resource          Resource/PageKeywords/Emerald_MainIcon.txt
     ...    [1]
     ...    - หน้าเว็บแสดงไอคอนสีน้ำตาล
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Icon Colour
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 

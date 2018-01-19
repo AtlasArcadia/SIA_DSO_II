@@ -6,10 +6,9 @@ Resource          ../PageVariable/Emerald_SurpriseCampaignVariable.txt
 
 *** Keywords ***
 Verify Surprise Campaign Banner
-    Selenium2Library.Wait Until Element Is Visible    ${SurpriseCampaign}
-    Selenium2Library.Wait Until Element Is Visible    ${BannerSurpriseCampaign}
-    Scroll Web To Element    ${SurpriseCampaign}
-    Web Capture Screen At Verify Point    SurpriseCampaign
+    Swipe element to specific area    ${BannerSurpriseCampaign}
+    Wait Mobile Until Element Visible    ${BannerSurpriseCampaign}
+    Mobile Capture Screen At Verify Point    SurpriseCampaign
 
 Verify Surprise Ultimate Surprize Link
     Click Web Element    ${BannerSurpriseCampaign}
@@ -19,8 +18,11 @@ Verify Surprise Ultimate Surprize Link
     ...    ELSE    Fail
 
 Verify Serenade Ultimate Surprize Page
-    ${text}=    Get Web Text    ${lblNameListWhoGotReward}
+    Click Mobile Element    ${BannerSurpriseCampaign}
+    Sleep    5s
+    AISAppiumEx.Wait Until Element Is Visible    ${lblNameListWhoGotReward}
+    ${text}=    Get mobile text    ${lblNameListWhoGotReward}
     log    ${text}
-    ${textMatch}=    Should Match Regexp    ${text}    ${SerenadeUltimateSurprizes}\\s.*\\s\\d{4}
+    ${textMatch}=    Should Match Regexp    ${text}    ${SerenadeUltimateSurprizes}.*\\s\\d{4}
     log    ${textMatch}
-    Web Capture Screen At Verify Point    Serenade Ultimate Surprizes Page
+    Mobile Capture Screen At Verify Point    Serenade Ultimate Surprizes Page

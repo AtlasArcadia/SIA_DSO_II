@@ -6,20 +6,19 @@ Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_ServiceCenterLocal
 
 *** Keywords ***
 Verify Service Center
-    Wait Web Until Page Contains Element    ${lblPlatinumTitleProfile1}
-    Scroll Web To Element    ${AISTouchPointClick}
-    sleep    10s
-    Web Capture Screen At Verify Point    AISTouchPointClick
-    Click Web Element    ${AISTouchPointClick}
-    sleep    10s
-    Select Window    url=${ServiceCenterLink}
-    Location Should Be    ${ServiceCenterLink}
-    Web Element Should Be Visible    ${AISLogo}
-    Web Element Should Be Visible    ${AISBanner}
-    Comment    ${tempBanner}    Selenium2Library.Get Element Attribute    ${AISBanner}@src
-    Comment    Should Be Equal    ${AISBannerLink}    ${tempBanner}
-    Web Element Should Be Visible    ${AISShop}
-    Web Capture Screen At Verify Point    Service Center
+    Sleep    3s
+    Swipe element to specific area    ${AISTouchPoint}
+    Sleep    3s
+    Mobile Capture Screen At Verify Point    AISTouchPoint
+    Click Mobile Element    ${AISTouchPointClick}
+    Sleep    3s
+    Mobile Capture Screen At Verify Point    AISTouchPointClick
+    Mobile element text should be    ${txtHeaderSerenadePage}    ${HeaderSerenadePage}
+    AISAppiumEx.Wait Until Element Is Visible    ${lblLogoAIS}
+    Swipe element to specific area    ${txtAISShop}
+    Mobile element text should be    ${txtAISShop}    ${AISShop}
+    Mobile element text should be    ${txtProvBangok}    ${ProvBangkok}
+    Mobile Capture Screen At Verify Point    Service Center
 
 Verify Service Center_EN
     [Documentation]    Created By :: Jirayut.K
