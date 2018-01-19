@@ -17,7 +17,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...    - ปุ่ม "เมนูลัด"
     ...    - "รายละเอียด"
     ...    3. จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    3PO    3BO    active    success    demo
+    [Tags]    TH    EN    3PE    3BE    3PO    3BO    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -385,7 +385,7 @@ Resource          ../Resource/PageKeywords/Home.txt
     ...      -ปุ่ม "กลับ"
     ...      -เงื่อนไขบริการ
     ...    4.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    3BE    active    success    demo
+    [Tags]    TH    EN    3PE    3BE    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Balance
