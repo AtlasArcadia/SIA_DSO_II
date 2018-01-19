@@ -1,16 +1,17 @@
 *** Settings ***
 Resource          DigitalSerenadeCommon.txt
 Resource          ../PageRepository/Emerald_NewsAndShareRepository.txt
-Resource          ../Localized/${ar_LANG}/${ar_nType}/Emerald_NewsAndShare.txt
 Resource          ../PageVariable/Emerald_NewsAndShareVariable.txt
+Resource          ../Localized/${ar_LANG}/${ar_nType}/Emerald_NewsAndShareLocalized.txt
 
 *** Keywords ***
 Select Social Button
     [Arguments]    ${button}
     Sleep    3s
-    Scroll Web To Element    ${icn${button}}
-    Mouse Over    ${icn${button}}
-    Click Web Element    ${icn${button}}
+    Swipe element to specific area    ${icn${button}}
+    Sleep    3s
+    Click Mobile Element    ${icn${button}}
+    Mobile Capture Screen At Verify Point    Icon
 
 Verify Facebook Web
     Sleep    5s
@@ -23,16 +24,11 @@ Verify Facebook Web
     Web Capture Screen At Verify Point    Verify Web Face
 
 Verify Line Web
-    Sleep    10
-    Select Window    url=${urlLineNewsServices}
-    Verify Link    ${urlLineNewsServices}
-    Comment    Comment    Scroll Web To Element    ${imgLineLogo}
-    Comment    Web Element Should Be Visible    ${imgLineLogo}
-    Comment    Comment    Scroll Web To Element    ${imgLineQR}
-    Comment    Web Element Should Be Visible    ${imgLineQR}
-    Comment    Comment    Scroll Web To Element    ${lblLine}
-    Comment    Web Element Should Be Visible    ${lblLine}
-    Web Capture Screen At Verify Point    Verify Web Line
+    Sleep    3s
+    Comment    Mobile element text should be    ${TitleLine}    ${txtTitleLine}
+    Wait Mobile Until Element Visible    ${imgLineLogo}
+    Wait Mobile Until Element Visible    ${lblLine}
+    Mobile Capture Screen At Verify Point    Line
 
 Verify Contact Us
     Sleep    5s

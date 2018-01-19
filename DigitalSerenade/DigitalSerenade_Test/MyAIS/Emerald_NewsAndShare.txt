@@ -1,55 +1,52 @@
 *** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
+Resource          Resource/PageKeywords/LoginMyAIS.txt
 
 *** Test Cases ***
-[F11_EmeraldWebMobile_1_1_Y_2_1] Verify Update News Via Line
-    [Documentation]    *Owner* : Oum
-    ...    ช่องทางอัพเดทข่าวสารและบริการออนไลน์
-    ...    - Line
+[F11_EmeraldMyais_1-4_1_Y_2_1] Verify Update News Via Line
+    [Documentation]    ***Owner*** : ICE
     ...
-    ...    *Pre-requisite*
+    ...
+    ...    ***Pre-requisite***
     ...    -Serenade Emerald Customer
-    ...    - Ntype 3PE :
+    ...    - Ntype \ :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
-    ...    *Test Step*
-    ...    1. เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade/
-    ...    2. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    3. Login เข้าสู่ระบบ
+    ...
+    ...    *** Test Step ***
+    ...    '1.Open myAIS App
+    ...    2.เลื่อนมาที่ เมนู"พอยท์ & สิทธิพิเศษ"
+    ...    3.คลิก ">" หลัง เซเรนด เอ็มเมอรัลด์
     ...    4. เลื่อนมาที่หน้า ช่องทางอัพเดทข่าวสารและบริการออนไลน์
     ...    5. คลิกที่ปุ่มไอคอน Line
-    ...    6. ตรวจสอบ URL [1]
-    ...    7. ตรวจสอบหน้าเว็บ [2]
-    ...    8.จับภาพหน้าจอ
+    ...    6. ตรวจสอบหน้า Line [1]
+    ...    7.จับภาพหน้าจอ
     ...
     ...
-    ...    *Expected Result*
-    ...    '[1]ตรวจสอบ URL
-    ...    http://line.me/ti/p/@aisprivilege
-    ...
-    ...    [2]ตรวจสอบหน้าเว็บ
-    ...    - Open LINE to continue.
-    ...    - โลโก้ LINE
-    ...    - Open INE (ปุ่ม)
+    ...    *** Expect Result***
+    ...    '[1]ตรวจสอบหน้า Line
+    ...    - AIS Privilege
     [Tags]    active    TH    success
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Social Button    Line
     Verify Line Web
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F11_EmeraldWebMobile_1_1_Y_2_2] Verify Update News Via Facebook
-    [Documentation]    *Owner* : Oum
-    ...    ช่องทางอัพเดทข่าวสารและบริการออนไลน์
-    ...    - Facebook
+[F11_EmeraldMyais_1-4_1_Y_2_2] Verify Update News Via Facebook
+    [Documentation]    ****Owner*** : ICE
     ...
-    ...    *Pre-requisite*
+    ...
+    ...    ***Pre-requisite***
     ...    -Serenade Emerald Customer
-    ...    - Ntype 3PE :
+    ...    - Ntype \ :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
@@ -71,22 +68,24 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ...    - โลโก้ Facebook
     ...    - การตรวจสอบสถานะความปลอดภัย (กรณีที่ไม่ได้ login facebook ไว้)
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Social Button    Facebook
     Verify Facebook Web
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F11_EmeraldWebMobile_1_1_Y_2_3] Verify Update News Via Contact
-    [Documentation]    *Owner* : Oum
-    ...    ช่องทางอัพเดทข่าวสารและบริการออนไลน์
-    ...    - Contact
+[F11_EmeraldMyais_1-4_1_Y_2_3] Verify Update News Via Contact
+    [Documentation]    ***Owner*** : ICE
     ...
-    ...    *Pre-requisite*
+    ...
+    ...    ***Pre-requisite***
     ...    -Serenade Emerald Customer
-    ...    - Ntype 3PE :
+    ...    - Ntype \ :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
@@ -108,22 +107,24 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ...    - Banner (contact us แจ้งเรื่องที่ต้องการติดต่อ ช่องทางใหม่ ที่ดูแล สะดวกและรวดเร็วยิ่งขึ้น)
     ...    - แจ้งความต้องการของคุณที่นี่ค่ะ
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Social Button    ContactUs
     Verify Contact Us
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F11_EmeraldWebMobile_1_1_Y_2_4] Verify Update News Via myAIS App
-    [Documentation]    *Owner* : Oum
-    ...    ช่องทางอัพเดทข่าวสารและบริการออนไลน์
-    ...    - myAIS กรณีมี App myAIS
+[F11_EmeraldMyais_1-4_1_Y_2_4] Verify Update News Via myAIS App
+    [Documentation]    ***Owner*** : ICE
     ...
-    ...    *Pre-requisite*
+    ...
+    ...    ***Pre-requisite***
     ...    -Serenade Emerald Customer
-    ...    - Ntype 3PE :
+    ...    - Ntype \ :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
@@ -142,21 +143,24 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ...    - โลโก้ my AIS
     ...    - Open (ปุ่ม)
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Select Social Button    MyAIS
     Verify MyAIS Installed
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F11_EmeraldWebMobile_1_1_Y_2_6] Verify Update News Page
-    [Documentation]    *Owner* : Oum
-    ...    ช่องทางอัพเดทข่าวสารและบริการออนไลน์ (Emerald)
+[F11_EmeraldMyais_1-4_1_Y_2_6] Verify Update News Page
+    [Documentation]    ***Owner*** : ICE
     ...
-    ...    *Pre-requisite*
+    ...
+    ...    ***Pre-requisite***
     ...    -Serenade Emerald Customer
-    ...    - Ntype 3PE :
+    ...    - Ntype \ :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
@@ -178,20 +182,23 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ...    - โลโก้ LINE
     ...    - Open INE (ปุ่ม)
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Line Emerald
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F12_EmeraldWebMobile_1_1_Y_2_1] Share On Facebook
-    [Documentation]    *Owner* : Oum
-    ...    กดแชร์บน Facebook
+[F12_EmeraldMyais_1-4_1_Y_2_1] Share On Facebook
+    [Documentation]    ***Owner*** : ICE
     ...
-    ...    *Pre-requisite*
+    ...
+    ...    ***Pre-requisite***
     ...    -Serenade Emerald Customer
-    ...    - Ntype 3PE :
+    ...    - Ntype \ :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
@@ -213,20 +220,23 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ...    - โลโก้ Facebook
     ...    - เข้าสู่บัญชีผู้ใช้ Facebook ของคุณเพื่อแชร์
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Share To Facebook Not Login
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F12_EmeraldWebMobile_1_1_Y_2_2] Condition Popup
-    [Documentation]    *Owner* : Oum
-    ...    หน้า popup เงื่อนไข
+[F12_EmeraldMyais_1-4_1_Y_2_2] Condition Popup
+    [Documentation]    ***Owner*** : ICE
     ...
-    ...    *Pre-requisite*
+    ...
+    ...    ***Pre-requisite***
     ...    -Serenade Emerald Customer
-    ...    - Ntype 3PE :
+    ...    - Ntype \ :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
@@ -244,20 +254,23 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ...    - การรับสิทธิ์เซเรเนด
     ...    - เงื่อนไขบริการ
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Popup Condition
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F12_EmeraldWebMobile_1_1_Y_2_3] Verify Emerald Segment
-    [Documentation]    *Owner* : Oum
-    ...    Login ด้วยเบอร์ที่มีโปรไฟล์เป็น Emerald
+[F12_EmeraldMyais_1-4_1_Y_2_3] Verify Emerald Segment
+    [Documentation]    ***Owner*** : ICE
     ...
-    ...    *Pre-requisite*
+    ...
+    ...    ***Pre-requisite***
     ...    -Serenade Emerald Customer
-    ...    - Ntype 3PE :
+    ...    - Ntype \ :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
     ...    *Test Step*
@@ -271,10 +284,13 @@ Resource          Resource/PageKeywords/Emerald_NewsAndShare.txt
     ...    *Expected Result*
     ...    [1] แสดงรูปภาพตรงตาม Segment
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold_Downgrade_TypeF=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select PointsAndPrivileges
+    Select Serenade Button
     Verify Image Share Segment
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
