@@ -99,15 +99,17 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. คลิก ข้อมูลบัตรเครดิต/เดบิต
     ...    4. ตรวจสอบหน้า ข้อมูลบัตรเครดิต/เดบิต
     ...    5. บันทึกภาพ
-    [Tags]    active    success    regression
+    [Tags]    active    success    regression    3PE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Registered
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Hamburger
+    Select Sub Menu Hamburger    CreditDebit
+    Verify Not Have Credit Card
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_MyAccount_IOS_1,3_1-2_Y_5_2] Go To AIS Online Store Verify Page AIS Online Store

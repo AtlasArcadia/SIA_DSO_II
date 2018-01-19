@@ -14,7 +14,7 @@ Login
 
 chosen primary button
     [Arguments]    ${timeout}=${lo_general_timeout}
-    ${rounds}    Evaluate    int(${timeout}/2)
+    ${rounds}    Evaluate    int(${timeout}/4)
     : FOR    ${INDEX}    IN RANGE    1    ${rounds}
     \    ${statusPrimary}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnPrimary}    1
     \    ${statusInputOTP}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${txtInputOTP}    1
@@ -32,18 +32,19 @@ Choose Language
     Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' ) or ('${title}'=='HOME' and '${Language}'=='TH' )    change language    ${Language}
 
 verify login
-    ${rounds}    Evaluate    int(${lo_general_timeout}/3)
+    [Arguments]    ${timeout}=${lo_general_timeout}
+    ${rounds}    Evaluate    int(${timeout}/6)
     : FOR    ${INDEX}    IN RANGE    1    ${rounds}
-    \    ${statusConfirmTerm}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnConfirmTerm}    3
+    \    ${statusConfirmTerm}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnConfirmTerm}    1
     \    Run Keyword If    ${statusConfirmTerm}    Click Mobile Element    ${btnConfirmTerm}
-    \    ${statusDialogCancelAISpoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCancelDialog}    3
+    \    ${statusDialogCancelAISpoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCancelDialog}    1
     \    Run Keyword If    ${statusDialogCancelAISpoint}    Click Mobile Element    ${btnCancelDialog}
-    \    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseAdvert}    3
+    \    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseAdvert}    1
     \    Run Keyword If    ${statusBtnCloseDialogShow}    Click Mobile Element    ${btnCloseAdvert}
-    \    ${statusBtnOKAISpoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnGetPassword}    3
+    \    ${statusBtnOKAISpoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnGetPassword}    1
     \    Run Keyword If    ${statusBtnOKAISpoint}    Click Mobile Element    ${btnGetPassword}
-    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnDialogOk}    3
-    \    ${statusUserAccount}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lbUserAccount}    3
+    \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${iabtnDlogOk}    1
+    \    ${statusUserAccount}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lbUserAccount}    1
     \    Exit For Loop If    ${statusUserAccount} or ${statusButtonDialogOk}
     Log    ${statusButtonDialogOk}
     Run Keyword If    ${statusButtonDialogOk}    Fail    Found some dialog pop up.
