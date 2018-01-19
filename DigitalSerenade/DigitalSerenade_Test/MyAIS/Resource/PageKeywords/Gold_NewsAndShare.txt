@@ -8,60 +8,36 @@ Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_NewsAndShareLocalized
 Select Social Button
     [Arguments]    ${button}
     Sleep    3s
-    Scroll Web To Element    ${icn${button}}
-    Mouse Over    ${icn${button}}
-    Click Web Element    ${icn${button}}
+    Swipe element to specific area    ${BannerSurpriseCampaign}
+    Sleep    3s
+    Swipe element to specific area    ${txtTitleNews}
+    Sleep    3s
+    Mobile Capture Screen At Verify Point    Icon ${button}
+    Click Mobile Element    ${icn${button}}
 
-Verify Line Web
-    Sleep    5s
-    Select Window    url=${urlLineNewsServices}
-    Verify Link    ${urlLineNewsServices}
-    Comment    Scroll Web To Element    ${imgLineLogo}
-    Comment    Web Element Should Be Visible    ${imgLineLogo}
-    Comment    Scroll Web To Element    ${imgLineQR}
-    Comment    Web Element Should Be Visible    ${imgLineQR}
-    Comment    Scroll Web To Element    ${lblLine}
-    Comment    Web Element Should Be Visible    ${lblLine}
-    Web Capture Screen At Verify Point    Verify Web Line
+Verify Line Page
+    Sleep    10s
+    Mobile element text should be    ${txtOpenLineContinues}    ${OpenLineContinues}
+    AISAppiumEx.Wait Until Element Is Visible    ${imgLineLogo}
+    AISAppiumEx.Wait Until Element Is Visible    ${btnOpenLine}
+    Mobile Capture Screen At Verify Point    Verify line page
 
-Verify Facebook Web
-    Sleep    10
-    Select Window    url=${urlFacebookNewsServices}
-    Verify Link    ${urlFacebookNewsServices}
-    Scroll Web To Element    ${lblFacebookSecurity}
-    Web Element Text Should Be    ${lblFacebookSecurity}    ${FacebookSecurity}
-    Scroll Web To Element    ${imgFacebookLogo}
-    Web Element Should Be Visible    ${imgFacebookLogo}
-    Web Capture Screen At Verify Point    Verify Web Face
+Verify Facebook Page
+    Sleep    10s
+    AISAppiumEx.Wait Until Element Is Visible    ${imgFacebookLogo}
+    AISAppiumEx.Wait Until Element Is Visible    ${imgAISLogo}
+    Mobile Capture Screen At Verify Point    Facebook page
 
-Verify Contact Us
-    Sleep    10
-    Select Window    url=${urlContactNewsServices}
-    Verify Link    ${urlContactNewsServices}
-    Scroll Web To Element    ${imgContactBanner}
-    Web Element Should Be Visible    ${imgContactBanner}
-    Scroll Web To Element    ${lblContactUsHeader}
-    Web Element Text Should Be    ${lblContactUsHeader}    ${ContactUsHeader}
-    Verify Link    ${urlContactNewsServices}
-    Web Capture Screen At Verify Point    Verify Web Contact Us
+Verify Contact Us Page
+    Sleep    10s
+    AISAppiumEx.Wait Until Element Is Visible    ${imgContactUsBanner}
+    Mobile element text should be    ${txtContactUsHeader}    ${ContactUsHeader}
+    Mobile Capture Screen At Verify Point    Contact us page
 
 Verify Line Gold
-    Sleep    10
-    Scroll Web To Element    ${icnLineGold}
-    Mouse Over    ${icnLineGold}
-    Web Element Should Be Visible    ${icnLineGold}
-    Web Capture Screen At Verify Point    Verify Line Gold Icon
-    Select Social Button    LineGold
-    Sleep    5s
-    Select Window    url=${urlLineNewsServices}
-    Verify Link    ${urlLineNewsServices}
-    Comment    Scroll Web To Element    ${imgLineLogo}
-    Comment    Web Element Should Be Visible    ${imgLineLogo}
-    Comment    Scroll Web To Element    ${imgLineQR}
-    Comment    Web Element Should Be Visible    ${imgLineQR}
-    Comment    Scroll Web To Element    ${lblLine}
-    Comment    Web Element Should Be Visible    ${lblLine}
-    Web Capture Screen At Verify Point    Verify Web Line
+    Swipe element to specific area    ${icnLine}
+    AISAppiumEx.Wait Until Element Is Visible    ${icnLine}
+    Mobile Capture Screen At Verify Point    verify icon colour
 
 Verify Share To Facebook No Login
     Scroll Web To Element    ${btnShareToFacebook}
@@ -88,12 +64,9 @@ Verify Image Share Segment
     Web Element Should Be Visible    ${imgSerenadeShare}
     Web Capture Screen At Verify Point    Verify Img Serenade share
 
-Verify MyAIS Installed
-    Sleep    5s
-    Mobile Switch App    Google Play Store
-    Sleep    3s
-    Wait Mobile Until Element Visible    ${imgHeaderPlayStore}
-    Wait Mobile Until Element Visible    ${imgMyAISLogoPlayStore}
-    Wait Mobile Until Element Visible    ${btnOpenPlayStore}
-    Mobile Capture Screen At Verify Point    Verify in myAIS
-    Mobile Switch App    Chrome
+Verify MyAIS Installed Page
+    Sleep    10s
+    AISAppiumEx.Wait Until Element Is Visible    ${imgHeaderPlayStore}
+    AISAppiumEx.Wait Until Element Is Visible    ${imgMyAISLogoPlayStore}
+    AISAppiumEx.Wait Until Element Is Visible    ${btnInstallPlayStore}
+    Mobile Capture Screen At Verify Point    Playstore page

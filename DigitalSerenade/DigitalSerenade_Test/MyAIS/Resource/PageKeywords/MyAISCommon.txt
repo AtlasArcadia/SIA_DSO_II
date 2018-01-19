@@ -1,7 +1,7 @@
 *** Settings ***
 Resource          ../../../../../AisRobotBuffet/Common/Keywords/ParallelLocalConfigKeyWord.txt
 Resource          ../../../../../AisRobotBuffet/Common/Keywords/RedefineKeywords.txt
-Resource          ../PageRepository/${ar_OS}/MyAISRepository.txt
+Resource          ../PageRepository/MyAISRepository.txt
 Resource          ../../../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctionKeywords.txt
 Resource          ../../../../../AisRobotBuffet/Mobile/Generic/Keywords/SmsGenericKeywords.txt
 Resource          ../PageVariable/MyAISCommonVariable.txt
@@ -38,7 +38,7 @@ ios open my ais app
 
 Swipe to element
     [Arguments]    ${target}    ${Container}=screen    ${Direction}=up    ${ratio}=0.2    ${Round}=10    ${duration}=1000
-    ...    ${swipe_range}=500     ${appium_info}="noinfo"
+    ...    ${swipe_range}=500    ${appium_info}="noinfo"
     Comment    Sleep    3
     Log    In swipe to element
     Log    ${ar_OS}
@@ -49,8 +49,8 @@ Swipe to element
     ...    0
     Comment    ${elementIsContain}    Run Keyword And Return Status    AISAppiumEx.Page Should Contain Element    ${target}
     Run Keyword If    ${ratio}>0.5 or ${ratio}<=0    fail    ratio are <0 or >0.5
-    Comment    Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe in screen to element    ${target}    ${Direction}    ${ratio}    ${Round}
-    ...    ${duration}    ${appium_info}
+    Comment    Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe in screen to element    ${target}    ${Direction}    ${ratio}
+    ...    ${Round}    ${duration}    ${appium_info}
     Run Keyword If    '${Container}' == 'screen' and '${elementIsContain}' == 'False'    swipe to element android test    ${target}    ${swipe_range}    ${Direction}    ${ratio}
     ...    ${Round}    ${duration}    ${appium_info}
     Run Keyword If    '${Container}' != 'screen' and '${elementIsContain}'== 'False'    swipe in container to element    ${target}    ${Container}    ${Direction}    ${ratio}
