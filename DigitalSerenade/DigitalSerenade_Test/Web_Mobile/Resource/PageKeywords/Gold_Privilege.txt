@@ -61,10 +61,6 @@ Verify Privilege Page
     Should Be Equal    ${noCampaign}    2    #Number of Campaign
     Web Capture Screen At Verify Point    Privilege page
 
-Scroll To Slide Banner Button
-    Web Element Should Be Visible    ${imgActiveBanner}
-    Scroll Web To Element    ${imgActiveBanner}
-
 Verify Slide Banner Button
     sleep    30
     ${active1}    verify active first banner
@@ -129,14 +125,14 @@ Verify Coffee Bean Page
     Find Banner    CoffeeBean
     Web Capture Screen At Verify Point    CoffeeBean
     Choose banner    CoffeeBean
-    Select Window    url=${URL_CoffeeBean}
-    ${location}    Get Location
-    Run Keyword If    "${location}" == "${URL_CoffeeBean}"    Web Capture Screen At Verify Point    All Campaign Link
+    Comment    Select Window    url=${URL_CoffeeBean}
+    Comment    ${location}    Get Location
+    Comment    Run Keyword If    "${location}" == "${URL_CoffeeBean}"    Web Capture Screen At Verify Point    All Campaign Link
     ...    ELSE    Fail
-    Scroll Web To Element    ${lblCoffeeBean1}
-    Web Element Text Should Be    ${lblCoffeeBean1}    ${txtCoffeeBean1}
-    Web Element Text Should Be    ${lblCoffeeBean2}    ${txtCoffeeBean2}
-    Web Capture Screen At Verify Point    PrivilegeCoffeeBean
+    Comment    Scroll Web To Element    ${lblCoffeeBean1}
+    Comment    Web Element Text Should Be    ${lblCoffeeBean1}    ${txtCoffeeBean1}
+    Comment    Web Element Text Should Be    ${lblCoffeeBean2}    ${txtCoffeeBean2}
+    Web Capture Screen At Verify Point    BannerRedirectToWeb
 
 Verify Black Canyon Page
     Scroll To Slide Banner Button
@@ -308,3 +304,25 @@ Verify S&P Page
     Web Element Text Should Be    ${lblSandP1}    ${txtSandP1}
     Web Element Text Should Be    ${lblSandP2}    ${txtSandP2}
     Web Capture Screen At Verify Point    PrivilegeSandP
+
+Verify click first and select first banner
+    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
+    sleep    30
+    Click Web Element    ${btnPrivilegeDot1}
+    Mobile Capture Screen At Verify Point    Dot1
+    Click Web Element    ${btnBanner1}
+    Sleep    5s
+    Mobile Capture Screen At Verify Point    BannerDot1
+
+Verify click second dot and select first banner
+    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
+    sleep    30
+    Click Web Element    ${btnPrivilegeDot2}
+    Mobile Capture Screen At Verify Point    Dot2
+    Click Web Element    ${btnBanner1}
+    Sleep    5s
+    Mobile Capture Screen At Verify Point    BannerDot2
+
+Scroll To Slide Banner Button
+    Web Element Should Be Visible    ${imgActiveBanner}
+    Scroll Web To Element    ${imgActiveBanner}

@@ -5,12 +5,6 @@ Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_SurpriseCampaignLocal
 Resource          ../PageVariable/Gold_SurpriseCampaignVariable.txt
 
 *** Keywords ***
-Verify Surprise Campaign Banner
-    Selenium2Library.Wait Until Element Is Visible    ${SurpriseCampaign}
-    Selenium2Library.Wait Until Element Is Visible    ${BannerSurpriseCampaign}
-    Scroll Web To Element    ${SurpriseCampaign}
-    Web Capture Screen At Verify Point    SurpriseCampaign
-
 Verify Surprise Ultimate Surprize Link
     Click Web Element    ${BannerSurpriseCampaign}
     Select Window    url=${URL_SurpriseCampaign}
@@ -24,3 +18,10 @@ Verify Serenade Ultimate Surprize Page
     ${textMatch}=    Should Match Regexp    ${text}    ${SerenadeUltimateSurprizes}\\s.*\\s\\d{4}
     log    ${textMatch}
     Web Capture Screen At Verify Point    Serenade Ultimate Surprizes Page
+
+Verify Surprise Campaign Banner
+    Scroll Web To Element    ${SurpriseCampaign}
+    Selenium2Library.Wait Until Element Is Visible    ${SurpriseCampaign}
+    Selenium2Library.Wait Until Element Is Visible    ${BannerSurpriseCampaign}
+    Sleep    5s
+    Web Capture Screen At Verify Point    SurpriseCampaign
