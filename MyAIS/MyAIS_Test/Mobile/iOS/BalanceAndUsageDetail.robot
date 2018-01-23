@@ -220,7 +220,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
     Click SubMenu    TopUpUsageDetails
-    TopUp Transaction is not Found        ${ID_Citizen}
+    TopUp Transaction is not Found    ${ID_Citizen}
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F1_UsageDetail_IOS_1_1-2_Y_8_2] Verify page ข้อมูลการเติมเงินIn case: มีรายการ ข้อมูลการเติมเงิน
@@ -278,7 +278,8 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    -ผ่านบริการ Give2Gang
     ...    -ไม่พบรายการที่ต้องการค้นหา
     ...    6.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    ID_Citizen    Not_found_Balance_Transfer    active    success    demo
+    [Tags]    TH    EN    3PE    ID_Citizen    Not_found_Balance_Transfer    active
+    ...    success    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -312,7 +313,8 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    -ค่าบริการ (฿)
     ...    -รายการ (Ver ว่ามีมั้ย)
     ...    6.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    ID_Citizen    Not_found_Balance_Transfer    active    success    onhold
+    [Tags]    TH    EN    3PE    ID_Citizen    Not_found_Balance_Transfer    active
+    ...    success    onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -349,7 +351,8 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    -ผ่านบริการ Give2Gang
     ...    -ไม่พบรายการที่ต้องการค้นหา
     ...    6.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    ID_Citizen    Not_found_Validity_Transfer    active    success
+    [Tags]    TH    EN    3PE    ID_Citizen    Not_found_Validity_Transfer    active
+    ...    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -386,7 +389,8 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    -ผ่านบริการ Give2Gang
     ...    -รายการ (Ver ว่ามีมั้ย)
     ...    6.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    active    ID_Citizen    Not_found_Validity_Transfer    success    onhold
+    [Tags]    TH    EN    3PE    active    ID_Citizen    Not_found_Validity_Transfer
+    ...    success    onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -422,7 +426,8 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    -การใช้บริการเช็กยอดเงินผ่านบริการ Give2Gang
     ...    -รายการ (Ver ว่ามีมั้ย)
     ...    6.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    active    ID_Citizen    Not_found_Fee    success
+    [Tags]    TH    EN    3PE    active    ID_Citizen    Not_found_Fee
+    ...    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -458,7 +463,8 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    -การใช้บริการเช็กยอดเงินผ่านบริการ Give2Gang
     ...    -รายการ (Ver ว่ามีมั้ย)
     ...    6.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    active    ID_Citizen    Not_found_Fee    success    onhold
+    [Tags]    TH    EN    3PE    active    ID_Citizen    Not_found_Fee
+    ...    success    onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -476,3 +482,65 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F0_0_0_Y_0_Test] Smoke test
     [Tags]    smoke    TH    EN
     log    test smoke
+
+[F1_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
+
+[F1_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
+
+[F2_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
+
+[F2_YourBalanceHistory_IOS_2,4_1-2_Y_2_2]
+
+[F2_YourBalanceHistory_IOS_2,4_1-2_N_3_2]
+
+[F2_YourBalanceHistory_IOS_2,4_1-2_N_4_2]
+
+[F2_YourBalanceHistory_IOS_2,4_1-2_N_5_2]
+
+[F2_YourBalanceHistory_IOS_2,4_1-2_Y_6_2]
+
+[F2_YourBalanceHistory_IOS_2,4_1-2_Y_7_2]
+
+[F2_YourBalanceHistory_IOS_2,4_1-2_Y_8_2]
+
+[F2_YourBalanceHistory_IOS_2,4_1-2_N_9_2]
+
+[F3_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+
+[F3_YourBalanceHistory_IOS_2,4_1-2_Y_2_2]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+
+[F3_YourBalanceHistory_IOS_2,4_1-2_Y_3_2]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
+
+[F3_YourBalanceHistory_IOS_2,4_1-2_Y_4_2]
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    BalanceAndUsageDetail
