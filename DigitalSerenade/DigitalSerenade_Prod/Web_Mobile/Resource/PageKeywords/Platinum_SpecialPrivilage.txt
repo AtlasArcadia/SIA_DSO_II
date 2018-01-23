@@ -5,7 +5,6 @@ Resource          ../PageRepository/Platinum_SpecialPrivilageRepository.txt
 Resource          ../PageVariable/Platinum_SpecialPrivilageVariable.txt
 Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_SpecialPrivilageLocalized.txt
 
-
 *** Keywords ***
 Verify Privilege Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
@@ -15,7 +14,7 @@ Verify Privilege Page
     log    ${noDot}
     ${noCampaign}=    Selenium2Library.Get Matching Xpath Count    ${imgActiveBanner}
     log    ${noCampaign}
-    Should Be Equal    ${noDot}    7    #Number of Dot
+    Should Be Equal    ${noDot}    9    #Number of Dot
     Should Be Equal    ${noCampaign}    2    #Number of Campaign
     Web Capture Screen At Verify Point    Privilege page
 
@@ -75,57 +74,16 @@ Scroll To Slide Banner Button
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
     Scroll Web To Element    ${imgActiveBanner}
 
-Verify Slide Banner Button
-    sleep    15s
-    Scroll Web To Element    ${imgActiveBanner}
-    ${active1}    verify active banner    1
-    ${active2}    verify active banner    2
-    Web Capture Screen At Verify Point    Verify First And Second Campaign
-    Click Web Element    ${btnNext}
-    ${active3}    verify active banner    1
-    ${active4}    verify active banner    2
-    Web Capture Screen At Verify Point    Verify Third and Fourth Campaign
-    Run Keyword If    "${active1}" == "${active3}"    Fail
-    Run Keyword If    "${active2}" == "${active4}"    Fail
-    Click Web Element    ${btnPrev}
-    ${active3}    verify active banner    1
-    ${active4}    verify active banner    2
-    Run Keyword If    "${active1}" != "${active3}"    Fail
-    Run Keyword If    "${active2}" != "${active4}"    Fail
-    Web Capture Screen At Verify Point    SlideButton
-
-
 Verify Page Button
-    sleep    15s
+    sleep    30
     Click Web Element    ${btnPrivilegeDot1}
-    verify active banner    1
-    verify active banner    2
+    verify active first banner
+    verify active second banner
     Web Capture Screen At Verify Point    First dot
     Click Web Element    ${btnPrivilegeDot2}
-    verify active banner    1
-    verify active banner    2
+    verify active first banner
+    verify active second banner
     Web Capture Screen At Verify Point    Second dot
-    Click Web Element    ${btnPrivilegeDot3}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Third dot
-    Click Web Element    ${btnPrivilegeDot4}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Fouth dot
-    Click Web Element    ${btnPrivilegeDot5}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Fifth dot
-    Click Web Element    ${btnPrivilegeDot6}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Six dot
-    Click Web Element    ${btnPrivilegeDot7}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Seven dot
-
 
 Verify More Button
     sleep    10
@@ -153,7 +111,6 @@ Verify Coffee Bean Page
     Web Element Text Should Be    ${lblCoffeeBean1}    ${txtCoffeeBean1}
     Web Element Text Should Be    ${lblCoffeeBean2}    ${txtCoffeeBean2}
     Web Capture Screen At Verify Point    PrivilegeCoffeeBean
-
 
 Verify Black Canyon Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
@@ -184,7 +141,6 @@ Verify Cinnabon Page
     Web Element Text Should Be    ${lblCinnabon2}    ${txtCinnabon2}
     Web Capture Screen At Verify Point    PrivilegeCinnabon
 
-
 Verify SF Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
     sleep    30
@@ -213,7 +169,6 @@ Verify Mezzo Page
     Web Element Text Should Be    ${lblMezzo1}    ${txtMezzo1}
     Web Element Text Should Be    ${lblMezzo2}    ${txtMezzo2}
     Web Capture Screen At Verify Point    PrivilegeMezzo
-
 
 Verify Cold Stone Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
@@ -317,7 +272,6 @@ Verify Organika Page
     Web Element Text Should Be    ${lblDiscountOrganika}    ${txtDiscountOrganika}
     Web Capture Screen At Verify Point    PrivilegeOrganika
 
-
 Verify S&P Page
     Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
     sleep    30
@@ -332,3 +286,65 @@ Verify S&P Page
     Web Element Text Should Be    ${lblSandP1}    ${txtSandP1}
     Web Element Text Should Be    ${lblSandP2}    ${txtSandP2}
     Web Capture Screen At Verify Point    PrivilegeSandP
+
+Verify Slide Banner Button
+    sleep    30
+    ${active1}    verify active first banner
+    ${active2}    verify active second banner
+    Web Capture Screen At Verify Point    Verify First And Second Campaign
+    Click Web Element    ${btnNext}
+    ${active3}    verify active first banner
+    ${active4}    verify active second banner
+    Web Capture Screen At Verify Point    Verify Third and Fourth Campaign
+    Run Keyword If    "${active1}" == "${active3}"    Fail
+    Run Keyword If    "${active2}" == "${active4}"    Fail
+    Click Web Element    ${btnPrev}
+    ${active3}    verify active first banner
+    ${active4}    verify active second banner
+    Run Keyword If    "${active1}" != "${active3}"    Fail
+    Run Keyword If    "${active2}" != "${active4}"    Fail
+    Web Capture Screen At Verify Point    SlideButton
+
+verify active first banner
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][1]//img@src
+    Log    ${srcBanner}
+    ${count}    Get Length    ${imgBannerList}
+    Log    ${count}
+    : FOR    ${index}    IN RANGE    0    18
+    \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
+    \    Log    @{imgBannerList}[${index}]
+    \    Log    ${srcBannerList}
+    \    Run Keyword If    "${srcBannerList}" != "[]"    Exit For Loop
+    ${Banner}    Set Variable    @{txtBannerName}[${index}]
+    [Return]    ${Banner}
+
+verify active second banner
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][2]//img@src
+    Log    ${srcBanner}
+    ${count}    Get Length    ${imgBannerList}
+    Log    ${count}
+    : FOR    ${index}    IN RANGE    0    18
+    \    ${srcBannerList}    Get Regexp Matches    ${srcBanner}    @{imgBannerList}[${index}]
+    \    Log    @{imgBannerList}[${index}]
+    \    Log    ${srcBannerList}
+    \    Run Keyword If    "${srcBannerList}" != "[]"    Exit For Loop
+    ${Banner}    Set Variable    @{txtBannerName}[${index}]
+    [Return]    ${Banner}
+
+Verify click first and select first banner
+    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
+    sleep    30
+    Click Web Element    ${btnPrivilegeDot1}
+    Mobile Capture Screen At Verify Point    Dot1
+    Click Web Element    ${btnBanner1}
+    Sleep    5s
+    Mobile Capture Screen At Verify Point    BannerDot1
+
+Verify click second dot and select first banner
+    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
+    sleep    30
+    Click Web Element    ${btnPrivilegeDot2}
+    Mobile Capture Screen At Verify Point    Dot2
+    Click Web Element    ${btnBanner1}
+    Sleep    5s
+    Mobile Capture Screen At Verify Point    BannerDot2

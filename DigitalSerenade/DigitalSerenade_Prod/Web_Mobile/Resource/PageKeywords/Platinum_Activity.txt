@@ -1,6 +1,31 @@
 *** Settings ***
 Resource          DigitalSerenadeCommon.txt
 Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ActivitiesLocalized.txt
+Resource          ../PageRepository/Platinum_ActivityRepository.txt
 
 *** Keywords ***
-Verify Activity
+Verify Activity VDO
+    Click Mobile Element    ${btnCloseTranslate}
+    Scroll Web To Element    ${PlatinumActivity}
+    Select Frame    ${YoutubeFrame}    #Select Frame
+    Mobile Capture Screen At Verify Point    Verify in Web
+    Click Web Element    ${btnPlayYoutube}    #Click youtube
+    Sleep    5s
+    Mobile Switch App    YouTube
+    Sleep    3s
+    Mobile element text should be    ${lblYoutubeTitle}    ${YoutubeTitle}
+    Mobile Capture Screen At Verify Point    Verify in youtube
+    Mobile Switch App    Chrome
+
+Verify Activities
+    Click Mobile Element    ${btnCloseTranslate}
+    Scroll Web To Element    ${PlatinumActivity}
+    Select Frame    ${YoutubeFrame}    #Select Frame
+    Mobile Capture Screen At Verify Point    Verify in Web
+    Click Web Element    ${btnPlayYoutube}    #Click youtube
+    Sleep    5s
+    Mobile Switch App    YouTube
+    Sleep    3s
+    Mobile Capture Screen At Verify Point    Verify in YouTube app
+    Mobile Switch App    Chrome

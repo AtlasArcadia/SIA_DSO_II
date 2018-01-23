@@ -105,11 +105,10 @@ Verify Hilight Campaign
     [Arguments]    ${CampaignAmount}
     Scroll Web To Element    ${imgBanner}
     Web Element Text Should Be    ${lblHilightCampaignTitle}    ${HCTitle}
-    ${CampaignAmount}=    Evaluate    ${CampaignAmount}+1
     : FOR    ${index}    IN RANGE    1    ${CampaignAmount}
-    \    Scroll Web To Element    ${btnHCPage${index}}
     \    Web Element Should Be Visible    ${btnHCPage${index}}
-    Selenium2Library.Page Should Not Contain Element    ${btnHCPage${CampaignAmount}}
+    Selenium2Library.Page Should Not Contain Element    ${btnHCPage10}
+    Selenium2Library.Page Should Contain Element    ${imgBanner}
     Web Capture Screen At Verify Point    HilightCampaign
 
 Verify Slide Banner
@@ -131,37 +130,29 @@ Verify HC Page Button
     Web Capture Screen At Verify Point    CampaignPage1
     Click Web Element    ${btnHCPage2}
     Web Capture Screen At Verify Point    CampaignPage2
-    Click Web Element    ${btnHCPage3}
-    Web Capture Screen At Verify Point    CampaignPage3
-    Click Web Element    ${btnHCPage4}
-    Web Capture Screen At Verify Point    CampaignPage4
-    Click Web Element    ${btnHCPage5}
-    Web Capture Screen At Verify Point    CampaignPage5
-    Click Web Element    ${btnHCPage6}
-    Web Capture Screen At Verify Point    CampaignPage6
-    Click Web Element    ${btnHCPage7}
-    Web Capture Screen At Verify Point    CampaignPage7
 
 verify active banner
     ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
-    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
-    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
-    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirportLounge}
-    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
-    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerHBO}
-    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
-    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
-    : FOR    ${index}    IN RANGE    1    8
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerTraveloka}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerTravelInstyle}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerUltimateDinning}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirport}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
+    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerTCDC}
+    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerMyAIS}
+    ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
+    : FOR    ${index}    IN RANGE    1    9
     \    Log    ${srcBanner${index}}
     \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
     \    ...    ELSE    Continue For Loop
-    ${Banner}    Set Variable If    "${index}" == "1"    FreeCoffee
-    ${Banner}    Set Variable If    "${index}" == "2"    myAIS    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "3"    ExclusiveAirportLounge    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "4"    Embassy    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "5"    HBO    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "6"    NetFlix    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "7"    myKitchen    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "1"    Traveloka
+    ${Banner}    Set Variable If    "${index}" == "2"    TravelInstyle    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    UltimateDinning    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    ExclusiveAirport    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "5"    FreeCoffee    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "6"    TCDC    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "7"    MyAIS    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "8"    Embassy    ${Banner}
     [Return]    ${Banner}
 
 match active banner from name
@@ -181,3 +172,35 @@ Find banner
     \    Run Keyword If    "${banner}" == "${ActiveBanner}"    Exit For Loop
     \    ...    ELSE    Click Web Element    ${btnNextBanner}
     [Return]    ${index}
+
+Verify Hilight CampaignEm
+    Scroll Web To Element    ${imgBanner}
+    Web Element Text Should Be    ${lblHilightCampaignTitle}    ${lblHCTitle}
+    : FOR    ${index}    IN RANGE    1    7
+    \    Web Element Should Be Visible    ${btnHCPage${index}}
+    Selenium2Library.Page Should Not Contain Element    ${btnHCPage10}
+    Selenium2Library.Page Should Contain Element    ${imgBanner}
+    Web Capture Screen At Verify Point    HilightCampaign
+
+Verify first banner
+    Sleep    20
+    Scroll Web To Element    ${imgBanner}
+    Scroll Web To Element    ${imgBanner}
+    ${CurrentIndex}=    Find banner    MyAIS
+    Click Web Element    ${btnHCPage1}
+    Web Capture Screen At Verify Point    BannerTravelinStyle
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Sleep    10s
+    Mobile Capture Screen At Verify Point    Banner1Redirect
+
+Verify second banner
+    Sleep    20
+    Scroll Web To Element    ${btnNextBanner}
+    Scroll Web To Element    ${imgBanner}
+    ${CurrentIndex}=    Find banner    Embassy
+    Click Web Element    ${btnHCPage2}
+    Web Capture Screen At Verify Point    Banner2
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Sleep    10s
+    Mobile Capture Screen At Verify Point    Banner2Redirect
+    Mobile Capture Screen At Verify Point    Banner2RedirectR

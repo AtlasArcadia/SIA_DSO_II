@@ -326,38 +326,3 @@ Verify S&P Page
     Web Element Text Should Be    ${lblSandP2}    ${txtSandP2}
     Web Capture Screen At Verify Point    PrivilegeSandP
 
-Verify Privilege Page EN
-    Scroll Web To Element    xpath=//div[@id="privilege"]
-    Wait Web Until Page Contains Element    xpath=//div[@class="owl-dots"]
-    ${Dot}=    Selenium2Library.Get Matching Xpath Count    xpath=//div[@class="owl-dot"]
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    Scroll Web To Element    ${imgActiveBanner}
-    Web Element Text Should Be    ${txtPrivilegeTitleEN}    ${txtPrivilege}    #Special privileges are carefully selected
-    log    ${txtPrivilegeTitle}
-    ${noDot}=    Selenium2Library.Get Matching Xpath Count    ${Owldot}
-    log    ${noDot}
-    ${noCampaign}=    Selenium2Library.Get Matching Xpath Count    ${imgActiveBanner}
-    log    ${noCampaign}
-    Should Be Equal    ${noDot}    2    #Number of Dot
-    Should Be Equal    ${noCampaign}    4    #Number of Campaign
-    sleep    30s
-    Web Capture Screen At Verify Point    Privilege page
-
-Verify click first and select first banner
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
-    Click Web Element    ${btnPrivilegeDot1}
-    Mobile Capture Screen At Verify Point    Dot1
-    Click Web Element    ${btnBanner1}
-    Sleep    5s
-    Mobile Capture Screen At Verify Point    BannerDot1
-
-Verify click second dot and select first banner
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
-    Click Web Element    ${btnPrivilegeDot2}
-    Mobile Capture Screen At Verify Point    Dot2
-    Click Web Element    ${btnBanner1}
-    Sleep    5s
-    Mobile Capture Screen At Verify Point    BannerDot2
-

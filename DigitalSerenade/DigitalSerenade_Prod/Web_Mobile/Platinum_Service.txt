@@ -6,59 +6,52 @@ Resource          Resource/PageVariable/Platinum_ServiceVariable.txt
 Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
 
 *** Test Cases ***
-[F8_PlatinumWebMobile_1_1_Y_2_1] Verify Mobile Care
-    [Documentation]    *Owner: TiNn*
+[F8_PlatinumWebMobile_2_1_Y_1_1] Verify NetFlix
+    [Documentation]    *Owner: Noon*
     ...
     ...
     ...    *Source Requisite*
-    ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade/
+    ...
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
-    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign AIS Mobile care
+    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign Netflix
     ...    6. ตรวจสอบ URL [1]
-    ...    7. ตรวจสอบ campaign AIS Mobile care [2]
+    ...    7. ตรวจสอบ campaign NetFlix [2]
     ...    8. จับภาพหน้าจอ
     ...
     ...    *Expect Result*
     ...    [1] ตรวจสอบ URL
-    ...    - http://www.ais.co.th/
-    ...    - http://www.ais.co.th/index.html?intcid=coverpage12082017-th-autoload-entersite
+    ...    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
     ...
-    ...    [2] ตรวจสอบ campaign AIS Mobile care
-    ...    - โลโก้ AIS
-    ...    - มือถือและอุปกรณ์
-    ...    - เลือกแพ็กเกจตรงใจ
-    ...    - เครือข่าย
-    ...    - แอปพลิเคชั่น
-    ...    - Live More
-    [TAGS]    demo
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Click Service Campaign    ${MobileCare}    Mobile Care Campaign
-    Verify URL New Window    ${URLMobileCare${ar_LANG}}    Mobile Care Page
-    Verify Mobile Care
+    Click Service Campaign    ${NetFlix}    NetFlix Campaign
+    Verify URL New Window    ${URLNetFlix${ar_LANG}}    NetFlix page
+    Verify NetFlix
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_PlatinumWebMobile_1_1_Y_2_2] Verify Call Center
-    [Documentation]    *Owner: TiNn*
-    ...
+[F8_PlatinumWebMobile_2_1_Y_1_2] Verify Call Center
+    [Documentation]    *Owner: Noon*
+    ...    Call Free to Call Center
     ...
     ...    *Source Requisite*
-    ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade/
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
@@ -69,20 +62,16 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...
     ...    *Expect Result*
     ...    [1] ตรวจสอบ URL
-    ...    - http://www.ais.co.th/
-    ...    - http://www.ais.co.th/index.html?intcid=coverpage12082017-th-autoload-entersite
+    ...    - \ http://www.ais.co.th/serenade/th/service-1148.aspx
     ...
     ...    [2] ตรวจสอบ campaign Call Free to Call Center
-    ...    - โลโก้ AIS
-    ...    - มือถือและอุปกรณ์
-    ...    - เลือกแพ็กเกจตรงใจ
-    ...    - เครือข่าย
-    ...    - แอปพลิเคชั่น
-    ...    - Live More
-    [TAGS]    demo
+    ...    - บริการพิเศษ
+    ...    - 1148 เบอร์พิเศษเฉพาะคุณ
+    ...    - การติดต่อสื่อสารที่สะดวกสบาย ภายใต้เครือข่ายคุณภาพที่คุณอุ่นใจได้
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Click Service Campaign    ${CallCenter}    Call Center
@@ -90,41 +79,38 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     Verify Call Center
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_PlatinumWebMobile_1_1_Y_2_3] Verify mPay
-    [Documentation]    *Owner: TiNn*
-    ...
+[F8_PlatinumWebMobile_2_1_Y_1_3] Verify mPay
+    [Documentation]    *Owner: Noon*
+    ...    mPAY
     ...
     ...    *Source Requisite*
-    ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade/
+    ...
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
     ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign mPAY
     ...    6. ตรวจสอบ URL [1]
-    ...    7. ตรวจสอบ campaign mPAY [2]
-    ...    8. จับภาพหน้าจอ
+    ...    7. คลิก "เงื่อนไข"
+    ...    8. ตรวจสอบ campaign mPAY [2]
+    ...    9. จับภาพหน้าจอ
     ...
     ...    *Expect Result*
     ...    [1] ตรวจสอบ URL
-    ...    - http://www.ais.co.th/
-    ...    - http://www.ais.co.th/index.html?intcid=coverpage12082017-th-autoload-entersite
+    ...    - http://www.ais.co.th/mpay/Service.html
     ...
     ...    [2] ตรวจสอบ campaign mPAY
-    ...    - โลโก้ AIS
-    ...    - มือถือและอุปกรณ์
-    ...    - เลือกแพ็กเกจตรงใจ
-    ...    - เครือข่าย
-    ...    - แอปพลิเคชั่น
-    ...    - Live More
-    [TAGS]    demo
+    ...    - เงื่อนไขโปรโมชั่น เอไอเอส รายเดือน
+    ...    - เงื่อนไขโปรโมชั่น เอไอเอส ไฟเบอร์
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Click Service Campaign    ${mPAY}    mPay
@@ -132,17 +118,17 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     Verify mPay
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_PlatinumWebMobile_1_1_Y_2_4] Verify Data Roaming
-    [Documentation]    *Owner: TiNn*
-    ...
+[F8_PlatinumWebMobile_2_1_Y_1_4] Verify Data Roaming
+    [Documentation]    *Owner: Noon*
+    ...    Data \ Roaming
     ...
     ...    *Source Requisite*
-    ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade/
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
@@ -153,20 +139,15 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...
     ...    *Expect Result*
     ...    [1] ตรวจสอบ URL
-    ...    - http://www.ais.co.th/
-    ...    - http://www.ais.co.th/index.html?intcid=coverpage12082017-th-autoload-entersite
+    ...    - http://www.ais.co.th/serenade/th/service-roaming.aspx
     ...
     ...    [2] ตรวจสอบ campaign \ Data \ Roaming
-    ...    - โลโก้ AIS
-    ...    - มือถือและอุปกรณ์
-    ...    - เลือกแพ็กเกจตรงใจ
-    ...    - เครือข่าย
-    ...    - แอปพลิเคชั่น
-    ...    - Live More
-    [TAGS]    demo
+    ...    - บริการพิเศษ Roaming
+    ...    - Big Pack Non-Stop Data Roaming!
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Click Service Campaign    ${DataRoaming}    Data Roaming

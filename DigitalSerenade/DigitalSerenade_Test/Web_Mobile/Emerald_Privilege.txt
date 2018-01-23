@@ -137,7 +137,6 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    6. คลิกปุ่ม "คลิก" หลังคำว่า ดูสิทธิพิเศษอื่นๆเพิ่มเติม
     ...    7. ตรวจสอบว่าสามารถ redirect ไปยังหน้าแสดง Campaign ทั้งหมด [1]
     ...
-    ...
     ...    *Expected Result*
     ...    [1]ตรวจสอบ : สามารถ link ไปเว็บอื่นได้
     ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
@@ -374,9 +373,11 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    6.เลื่อนแบนเนอร์ซ้ายขวา
     ...    7. คลิกปุ่มเพิ่มเติม
     ...    8. ตรวจสอบว่าสามารถ redirect ไปยังหน้าแสดง Campaign ทั้งหมด [1]
-    ...
+
     ...    *Expected Result*
-    ...    [1]สามารถคลิกปุ่มเพิ่มเติม และ redirect ไปยังหน้าแสดง Campaign ทั้งหมด
+    ...    [1]ตรวจสอบ : สามารถ link ไปเว็บอื่นได้
+    ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
+
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
@@ -579,6 +580,14 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
 [F5_EmeraldWebMobile_2_2_Y_2_4]Verify More Campaign_EN
     [Documentation]    **Created by : WanpenK **
     ...    **Create date : 28-Dec-17 **
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_EmeraldWebMobile_1_1_Y_2_5] Verify select first dot and first banner
+    [Documentation]    *Owner* : Oum,Noon
+    ...
+    ...    หน้า สิทธิพิเศษ
+    ...    - ลูกค้าอยู่ในเขตกรุงเทพฯและปริมณฑล
+    ...
     ...
     ...    *F5_EmeraldWebMobile_2_2_Y_2_4*
     ...    -คลิกเพิ่มเติม เพื่อแสดง Campaign ทั้งหมด
@@ -587,23 +596,23 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    - Serenade Emerald Customer
     ...    - Ntype 3PO :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    
+    ...    *Test Step*
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    4.เลื่อนมาที่หน้า Privileges
+    ...    5.กดปุ่ม page ที่ 1
+    ...    6.จับภาพหน้าจอ
+    ...    7.คลิกแบนเนอร์ ลำดับที่ 1
+    ...    8.ตรวจสอบแบนเนอร์ ลำดับที่ 1 [1]
+    ...    9.จับภาพหน้าจอ
     ...
     ...
-    ...    *Test Steps *
-    ...    - 1. คลิกลิ้งค์ที่ได้รับจาก ข้อความ URL:
-    ...    - 2. เปิดลิ้งค์ไปที่เบราซ์เซอร์
-    ...    - 3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    - 4. เข้าสู่ระบบ
-    ...    - 5. เลื่อนมาที่ส่วน สัมผัสได้ถึงความพิเศษทุกวัน
-    ...    - 6. คลิกปุ่ม "คลิก" หลังคำว่า ดูสิทธิพิเศษอื่นๆเพิ่มเติม
-    ...    - 7. ตรวจสอบว่าสามารถ redirect ไปยังหน้าแสดง Campaign ทั้งหมด [1]
-    ...
-    ...
-    ...    *Expected Result*
-    ...    - [1]ตรวจสอบ : สามารถ link ไปเว็บอื่นได้
+  *Expected Result*
+    ...    [1]ตรวจสอบ : สามารถ link ไปเว็บอื่นได้
     ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
-    [Tags]    Success    3PO
-    [Setup]    Set Library Search Order    AISAppiumEx
+
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
@@ -621,6 +630,12 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
 [F5_EmeraldWebMobile_2_2_Y_2_5]Verify Privilege Banner 1 In City EN
     [Documentation]    **Created by : WanpenK **
     ...    **Create date : 28-Dec-17 **
+
+    Verify click first and select first banner
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F5_EmeraldWebMobile_1_1_Y_2_6] Verify select second dot and select first banner
+    [Documentation]    *Owner* : Oum,Noon
     ...
     ...    *F5_EmeraldWebMobile_2_2_Y_2_5*
     ...    - หน้า สิทธิพิเศษ
@@ -631,7 +646,6 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    - Serenade Emerald Customer
     ...    - Ntype 3PO :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
-    ...
     ...
     ...    *Test Steps *
     ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
@@ -686,7 +700,6 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    - Ntype 3PO :
     ...    - URL : https://10.104.249.46/WelcomeToSerenade
     ...
-    ...
     ...    *Test Steps *
     ...    - 1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.249.46/WelcomeToSerenade
     ...    - 2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
@@ -698,12 +711,12 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    - 8.ตรวจสอบแบนเนอร์ ลำดับที่ 1 [1]
     ...    - 9.จับภาพหน้าจอ
     ...
-    ...
     ...    *Expected Result*
     ...    - [1]ตรวจสอบ : สามารถ link ไปเว็บอื่นได้
     ...    - จับภาพหน้าจอ (รูปภาพอาจมีการเปลี่ยนแปลง)
     [Tags]    Success    3PO
     [Setup]    Set Library Search Order    AISAppiumEx
+
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
@@ -724,4 +737,6 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     Comment    Should Be Equal    ${URL}    http://www.ais.co.th/serenade/th/privileges/335/Miracle-co-working-space
     Web Capture Screen At Verify Point    Privilege Banner 2 In City EN
     Selenium2Library.Capture Page Screenshot
+    Scroll To Slide Banner Button
+    Verify click second dot and select first banner
     [Teardown]    Keywords For Teardown    ${#dict_device_name}

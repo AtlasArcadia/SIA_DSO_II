@@ -61,3 +61,26 @@ Click Allow Location
     Wait Mobile Until Element Visible    ${PopupLocation}
     Click Mobile Element    ${ALLOWlocation}
 
+Cap
+    ${caps}=    DigitalSerenadeCommon .create google disire capabilities
+    Collections.Convert To Dictionary    ${caps}
+    Log Dictionary    ${caps}
+    Collections.Set To Dictionary    ${caps}    noReset    false
+    Log Dictionary    ${caps}
+
+create google disire capabilities
+    [Arguments]    ${lang}=en \ \ \ ${block_location}=${False} \ \ \ ${androidPackage}=None \ \ \ ${androidDeviceSerial}=None
+    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${options}    add_argument    --lang\=${lang}
+    Call Method    ${options}    add_argument    --disable-translate
+    Call Method    ${options}    add_argument    --disable-infobars
+    ${json_string}=    catenate    {
+    ${json_string}=    Run Keyword If    ${block_location}    catenate    ${json_string}    "profile.default_content_setting_values.geolocation": 1,    "profile.default_content_settings.popups": 0
+    ${json_string}=    catenate    ${json_string}    }
+    ${json}=    Evaluate    ${json_string}
+    Comment    Call Method    ${options}    add_experimental_option    prefs    ${json}
+    Run Keyword If    '${androidPackage}' != 'None'    Call Method    ${options}    add_experimental_option    androidPackage    ${androidPackage}
+    Run Keyword If    '${androidDeviceSerial}' != 'None'    Call Method    ${options}    add_experimental_option    androidDeviceSerial    ${androidDeviceSerial}
+    ${dc}=    Call Method    ${options}    to_capabilities
+    Convert To Dictionary    ${dc}
+    Set To Dictionary    ${dc}    prefs    ${json}

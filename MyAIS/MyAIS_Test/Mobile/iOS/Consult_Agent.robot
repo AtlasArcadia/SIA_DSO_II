@@ -26,7 +26,7 @@ Resource          ../../../../Config/LocalConfig.txt
     ...    5.ตรวจสอบหน้าผู้ช่วย "ถาม อุ่นใจ"
     ...    "ถามอุ่นใจ"
     ...    6. จับภาพหน้าจอ
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -41,7 +41,7 @@ Resource          ../../../../Config/LocalConfig.txt
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1__Help_IOS_1-4_1-2_Y_2_2] Verify Help&Support page
-   [Documentation]    ***Owner : Tong***
+    [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PE
     ...    Status : Active
     ...
@@ -61,7 +61,7 @@ Resource          ../../../../Config/LocalConfig.txt
    ...    - วิธีใช้งาน application
    ...        • วิธีใช้งาน
    ...    4. จับภาพหน้าจอ
-    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE    demo
+    [Tags]    success    TH    EN    3PE    3BE    3PO    3BE
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

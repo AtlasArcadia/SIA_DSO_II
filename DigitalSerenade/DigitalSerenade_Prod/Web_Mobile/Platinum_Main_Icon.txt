@@ -3,17 +3,18 @@ Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Platinum_ClickMainIcon.txt
 
 *** Test Cases ***
-[F10_PlatinumWebMobile_1_1_Y_2_1] Verify Privilage Icon
-    [Documentation]    *Owner: TiNn*
-    ...
+[F10_PlatinumWebMobile_2_1_Y_1_1] Verify Privilage Icon
+    [Documentation]    *Owner: Noon*
+    ...    ไอคอน "สิทธิพิเศษ"
     ...
     ...    *Source Requisite*
-    ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade/
+    ...
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. คลิก ไอคอน "สิทธิพิเศษ"
@@ -23,27 +24,30 @@ Resource          Resource/PageKeywords/Platinum_ClickMainIcon.txt
     ...
     ...    *Expect Result*
     ...    [1]ตรวจสอบหน้าเว็บ ส่วน สิทธิพิเศษ
-    ...    - ที่สุดของสิทธิพิเศษที่เราคัดสรรอย่างตั้งใจ
-    [TAGS]    demo
+    ...    - \ พลาดไม่ได้! กับสิทธิพิเศษโดนใจ
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Main Icon    privilage    ${HeaderIconPrivilege}    ${lblPlatinumPrivilage}
+    Select Main Icon    Privilege
+    Verify Main Icon Page    Privilege    ${HighLightCampaign}    ${HeaderPrivilege}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F10_PlatinumWebMobile_1_1_Y_2_2] Verify Service Icon
-    [Documentation]    *Owner: TiNn*
+[F10_PlatinumWebMobile_2_1_Y_1_2] Verify Service Icon
+    [Documentation]    *Owner: Noon*
+    ...    ไอคอน "บริการ"
     ...
     ...
     ...    *Source Requisite*
-    ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade/
+    ...
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. คลิก ไอคอน "บริการ"
@@ -54,26 +58,29 @@ Resource          Resource/PageKeywords/Platinum_ClickMainIcon.txt
     ...    *Expect Result*
     ...    [1]ตรวจสอบหน้าเว็บ ส่วน บริการ
     ...    - \ บริการที่ใส่ใจทุกความต้องการ
-    [TAGS]    demo
+    ...
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Main Icon    service    ${imgHeaderService}    ${lblPlatinumService}
+    Select Main Icon    Service
+    Verify Main Icon Page    Service    ${Service}    ${HeaderService}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F10_PlatinumWebMobile_1_1_Y_2_3] Verify Activity Icon
-    [Documentation]    *Owner: TiNn*
-    ...
+[F10_PlatinumWebMobile_2_1_Y_1_3] Verify Activity Icon
+    [Documentation]    *Owner: Noon*
+    ...    ไอคอน "กิจกรรม"
     ...
     ...    *Source Requisite*
-    ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade/
+    ...
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. คลิก ไอคอน "กิจกรรม"
@@ -84,26 +91,28 @@ Resource          Resource/PageKeywords/Platinum_ClickMainIcon.txt
     ...    *Expect Result*
     ...    [1]ตรวจสอบหน้าเว็บ ส่วน กิจกรรม
     ...    - \ เปิดประสบการณ์ประทับใจกับกิจกรรมสุดพิเศษ
-    [TAGS]    demo
+    ...
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Main Icon    activity    ${HeaderIconActivities}    ${lblPlatinumActivity}
+    Select Main Icon    Activities
+    Verify Main Icon Page    Activities    ${Activities}    ${HeaderActivities}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F10_PlatinumWebMobile_1_1_Y_2_4] Verify Service Center Icon
-    [Documentation]    *Owner: TiNn*
-    ...
+[F10_PlatinumWebMobile_2_1_Y_1_4] Verify Service Center Icon
+    [Documentation]    *Owner: Noon*
+    ...    ไอคอน "ศูนย์บริการ"
     ...
     ...    *Source Requisite*
-    ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    - Serenade Gold Customer
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade/
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. คลิก ไอคอน "ศูนย์บริการ"
@@ -111,29 +120,33 @@ Resource          Resource/PageKeywords/Platinum_ClickMainIcon.txt
     ...    6. จับภาพหน้าจอ
     ...
     ...
+    ...
     ...    *Expect Result*
     ...    [1]ตรวจสอบหน้าเว็บ ส่วน ศูนย์บริการ
     ...    - \ ช่องทางติดต่อพิเศษ
-    [TAGS]    demo
+    ...
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify Main Icon    servicecenter    ${imgHeaderCenter}    ${lblPlatinumServiceCenter}
+    Select Main Icon    Center
+    Verify Main Icon Page    Center    ${ServiceCenter}    ${HeaderServiceCenter}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F10_PlatinumWebMobile_1_1_Y_2_6] Verify Color Icon
-    [Documentation]    *Owner: TiNn*
+[F10_PlatinumWebMobile_2_1_Y_1_6] Verify Color Icon
+    [Documentation]    *Owner: Noon*
+    ...    สีไอคอน (Platinum)
     ...
     ...
     ...    *Source Requisite*
     ...    - Serenade Platinum Customer
-    ...    - Ntype 3PE :
-    ...    - URL : https://10.104.249.46/WelcomeToSerenade
+    ...    - Ntype 3PO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade
     ...
     ...    *Test Step*
-    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://10.104.240.249/WelcomeToSerenade
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4.เลื่อนมาที่ ไอคอน "ศูนย์บริการ"
@@ -144,10 +157,10 @@ Resource          Resource/PageKeywords/Platinum_ClickMainIcon.txt
     ...    *Expect Result*
     ...    [1]
     ...    - หน้าเว็บแสดงไอคอนสีม่วง
-    [TAGS]    demo
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Verify All Main Icon

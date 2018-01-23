@@ -5,18 +5,19 @@ Resource          ../PageRepository/Gold_HilightCampaignRepository.txt
 Resource          ../Localized/${ar_LANG}/${ar_NType}/Gold_HilightCampaignLocalized.txt
 
 *** Keywords ***
-Verify HC MyAIS
+Verify HC Second banner
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    myAIS
-    Web Capture Screen At Verify Point    BannermyAIS
+    Web Capture Screen At Verify Point    BannerNetFlix
     Click Web Element    ${btnHCPage${CurrentIndex}}
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
-    Select Window    url=${BannermyAISLink}
-    Scroll Web To Element    ${imgmyAISLogo}
-    Web Element Should Be Visible    ${imgmyAISLogo}
-    Web Element Text Should Be    ${txtmyAIS1}    ${myAIS1}
-    Verify Link    ${BannermyAISLink}
+    Select Window    url=${BannerNetflixLink}
+    Comment    Scroll Web To Element    ${imgmyAISLogo}
+    Comment    Web Element Should Be Visible    ${imgmyAISLogo}
+    Comment    Web Element Text Should Be    ${txtmyAIS1}    ${myAIS1}
+    Verify Link    ${BannerNetflixLink}
+    Web Capture Screen At Verify Point    BannerNetFlixII
 
 Verify HC Embassy
     Scroll Web To Element    ${imgBanner}
@@ -26,10 +27,10 @@ Verify HC Embassy
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
     Select Window    url=${BannerEmbassyLink}
-    Scroll Web To Element    ${imgEmbassy}
-    Web Element Should Be Visible    ${imgEmbassy}
-    Web Element Text Should Be    ${txtEmbassy1}    ${FreeEmbassy1}
-    Web Element Text Should Be    ${txtEmbassy2}    ${FreeEmbassy2}
+    Comment    Scroll Web To Element    ${imgEmbassy}
+    Comment    Web Element Should Be Visible    ${imgEmbassy}
+    Comment    Web Element Text Should Be    ${txtEmbassy1}    ${FreeEmbassy1}
+    Comment    Web Element Text Should Be    ${txtEmbassy2}    ${FreeEmbassy2}
     Verify Link    ${BannerEmbassyLink}
 
 Verify HC Exclusive Airport Lounge
@@ -40,23 +41,24 @@ Verify HC Exclusive Airport Lounge
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
     Select Window    url=${BannerExclusiveAirportLoungeLink}
-    Scroll Web To Element    ${txtExclusive1}
-    Web Element Text Should Be    ${txtExclusive1}    ${ExclusiveAirportLounge1}
-    Web Element Text Should Be    ${txtExclusive2}    ${ExclusiveAirportLounge2}
+    Comment    Scroll Web To Element    ${txtExclusive1}
+    Comment    Web Element Text Should Be    ${txtExclusive1}    ${ExclusiveAirportLounge1}
+    Comment    Web Element Text Should Be    ${txtExclusive2}    ${ExclusiveAirportLounge2}
     Verify Link    ${BannerExclusiveAirportLoungeLink}
 
-Verify HC Free Coffee
+Verify HC First Banner
     Scroll Web To Element    ${imgBanner}
-    ${CurrentIndex}=    Find banner    FreeCoffee
-    Web Capture Screen At Verify Point    BannerFreeCoffee
+    ${CurrentIndex}=    Find banner    myAIS
+    Web Capture Screen At Verify Point    myAIS
     Click Web Element    ${btnHCPage${CurrentIndex}}
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
-    Select Window    url=${BannerFreeCoffeeLink}
-    Scroll Web To Element    ${txtCoffee1}
-    Web Element Text Should Be    ${txtCoffee1}    ${Coffee1}
-    Web Element Text Should Be    ${txtCoffee2}    ${Coffee2}
-    Verify Link    ${BannerFreeCoffeeLink}
+    Select Window    url=${BannermyAISLink}
+    Comment    Scroll Web To Element    ${txtCoffee1}
+    Comment    Web Element Text Should Be    ${txtCoffee1}    ${Coffee1}
+    Comment    Web Element Text Should Be    ${txtCoffee2}    ${Coffee2}
+    Verify Link    ${BannermyAISLink}
+    Web Capture Screen At Verify Point    myAISII
 
 Verify HC Netflix
     Scroll Web To Element    ${imgBanner}
@@ -70,11 +72,11 @@ Verify HC Netflix
     Web Element Text Should Be    ${txtNetflix1}    ${Netflix1}
     Web Element Text Should Be    ${txtNetflix2}    ${Netflix2}
     Select Frame    //div[@class="hilight_mobile_2016_frame"]/iframe
-    Scroll Web To Element    ${imgNetflixLogo}
-    Web Element Should Be Visible    ${imgNetflixLogo}
+    Comment    Scroll Web To Element    ${imgNetflixLogo}
+    Comment    Web Element Should Be Visible    ${imgNetflixLogo}
     Verify Link    ${BannerNetflixLink}
 
-Verify HC HBO
+Verify HC UBER
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    HBO
     Web Capture Screen At Verify Point    BannerHBO
@@ -82,9 +84,9 @@ Verify HC HBO
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
     Select Window    url=${BannerHBOLink}
-    Scroll Web To Element    ${imgHBOBanner}
-    Web Element Should Be Visible    ${imgHBOBanner}
-    Web Element Text Should Be    ${txtHBO}    ${HBO}
+    Comment    Scroll Web To Element    ${imgHBOBanner}
+    Comment    Web Element Should Be Visible    ${imgHBOBanner}
+    Comment    Web Element Text Should Be    ${txtHBO}    ${HBO}
     Verify Link    ${BannerHBOLink}
 
 Verify HC My Kitchen
@@ -144,24 +146,24 @@ Verify HC Page Button
 
 verify active banner
     ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
-    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
-    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
-    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirportLounge}
-    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
-    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerHBO}
-    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
-    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
+    ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerUBER}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirportLounge}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
+    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
+    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
     : FOR    ${index}    IN RANGE    1    8
     \    Log    ${srcBanner${index}}
     \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
     \    ...    ELSE    Continue For Loop
-    ${Banner}    Set Variable If    "${index}" == "1"    FreeCoffee
-    ${Banner}    Set Variable If    "${index}" == "2"    myAIS    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "3"    ExclusiveAirportLounge    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "4"    Embassy    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "5"    HBO    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "6"    NetFlix    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "7"    myKitchen    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "1"    myAIS
+    ${Banner}    Set Variable If    "${index}" == "2"    NetFlix    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "3"    UBER    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    ExclusiveAirportLounge    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "5"    Embassy    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "6"    myKitchen    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "7"    FreeCoffee    ${Banner}
     [Return]    ${Banner}
 
 match active banner from name
@@ -181,3 +183,26 @@ Find banner
     \    Run Keyword If    "${banner}" == "${ActiveBanner}"    Exit For Loop
     \    ...    ELSE    Click Web Element    ${btnNextBanner}
     [Return]    ${index}
+
+Verify first banner
+    Scroll Web To Element    ${imgBanner}
+    Scroll Web To Element    ${imgBanner}
+    ${CurrentIndex}=    Find banner    myAIS
+    Click Web Element    ${btnHCPage1}
+    Web Capture Screen At Verify Point    BannermyAIS
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Sleep    10s
+    Mobile Capture Screen At Verify Point    Banner1Redirect
+
+Verify second banner
+    Sleep    20
+    Scroll Web To Element    ${btnNextBanner}
+    Scroll Web To Element    ${imgBanner}
+    ${CurrentIndex}=    Find banner    Embassy
+    Click Web Element    ${btnHCPage2}
+    Web Capture Screen At Verify Point    Banner2
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Sleep    10s
+    Mobile Capture Screen At Verify Point    Banner2Redirect

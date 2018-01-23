@@ -5,23 +5,25 @@ Resource          ../PageRepository/Platinum_ClickMainIconRepository.txt
 Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ClickMainIconLocalized.txt
 
 *** Keywords ***
-Verify Main Icon
-    [Arguments]    ${txt}    ${Icon}    ${VerifyPoint}
-    Scroll Web To Element    ${Icon}
-    Selenium2Library.Wait Until Element Is Visible    ${Icon}
-    sleep    5s
-    Click Web Element    ${Icon}
-    sleep    15s
-    Run Keyword If    "${txt}" == "privilage"    Web Element Text Should Be    ${VerifyPoint}    ${PlatinumPrivilage}
-    Run Keyword If    "${txt}" == "service"    Web Element Text Should Be    ${VerifyPoint}    ${PlatinumService}
-    Run Keyword If    "${txt}" == "activity"    Web Element Text Should Be    ${VerifyPoint}    ${PlatinumActivity}
-    Run Keyword If    "${txt}" == "servicecenter"    Web Element Text Should Be    ${VerifyPoint}    ${PlatinumServiceCenter}
-    Web Capture Screen At Verify Point    page
+Select Main Icon
+    [Arguments]    ${IconName}
+    Click Mobile Element    ${btnCloseTranslate}
+    Scroll Web To Element    ${HeaderIcon${IconName}}
+    Web Element Should Be Visible    ${HeaderIcon${IconName}}
+    Click Web Element    ${HeaderIcon${IconName}}
+
+Verify Main Icon Page
+    [Arguments]    ${IconName}    ${IconNameLocator}    ${IconText}
+    Scroll Web To Element    ${IconNameLocator}
+    sleep    2s
+    Web Element Text Should Be    ${IconNameLocator}    ${IconText}    #Check text header
+    Web Capture Screen At Verify Point    ${IconName}
 
 Verify All Main Icon
-    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconPrivilege}
-    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconService}
-    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconActivities}
-    Selenium2Library.Wait Until Element Is Visible    ${HeaderIconCenter}    5s
+    Click Mobile Element    ${btnCloseTranslate}
     Scroll Web To Element    ${HeaderIconPrivilege}
+    Web Element Should Be Visible    ${HeaderIconPrivilege}
+    Web Element Should Be Visible    ${HeaderIconService}
+    Web Element Should Be Visible    ${HeaderIconActivities}
+    Web Element Should Be Visible    ${HeaderIconCenter}
     Web Capture Screen At Verify Point    Verify All Main Icon
