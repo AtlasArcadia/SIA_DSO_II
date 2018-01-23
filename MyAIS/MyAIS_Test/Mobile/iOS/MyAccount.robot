@@ -23,7 +23,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - ตั้งค่า
     ...    - ออกจากระบบ
     ...    4.จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3PO    3BO
+    [Tags]    TH    EN    active    success    3PE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -53,7 +53,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    - 3. ยืนยันและเริ่มใช้งานได้ทันที
     ...    - ปุ่ม "สมัคร my AIS"
     ...    4.จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3PO    3BO
+    [Tags]    TH    EN    active    success    3PE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -99,7 +99,7 @@ Resource          ../Resource/PageKeywords/MyAccount.txt
     ...    3. คลิก ข้อมูลบัตรเครดิต/เดบิต
     ...    4. ตรวจสอบหน้า ข้อมูลบัตรเครดิต/เดบิต
     ...    5. บันทึกภาพ
-    [Tags]    active    success    regression    3PE    3PO    3BO
+    [Tags]    active    success    regression    3PE    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
