@@ -84,3 +84,17 @@ create google disire capabilities
     ${dc}=    Call Method    ${options}    to_capabilities
     Convert To Dictionary    ${dc}
     Set To Dictionary    ${dc}    prefs    ${json}
+
+Change Language
+    [Arguments]    ${Language}
+    ${SS}=    Run Keyword And Return Status    Selenium2Library.Wait Until Element Is Visible    //div[@class="lang"]
+    Run Keyword If    '${Language}' == 'EN'    Lang EN
+    ...    ELSE    Lang TH
+
+Lang EN
+    Scroll Web To Element    //div[@class="lang"]//span[.="ENG"]
+    Click Web Element    //div[@class="lang"]//span[.="ENG"]
+
+Lang TH
+    Scroll Web To Element    //div[@class="lang"]//span[.="THAI"]
+    Click Web Element    //div[@class="lang"]//span[.="THAI"]
