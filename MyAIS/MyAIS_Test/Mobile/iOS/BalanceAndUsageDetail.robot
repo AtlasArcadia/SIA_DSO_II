@@ -482,7 +482,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F0_0_0_Y_0_Test] Smoke test
     [Tags]    smoke    TH    EN
     log    test smoke
-
 [F1_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
 
 [F1_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
@@ -544,3 +543,4 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+
