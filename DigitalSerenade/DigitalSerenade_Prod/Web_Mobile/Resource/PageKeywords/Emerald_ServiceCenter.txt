@@ -46,6 +46,7 @@ Verify Serenade Touchpoint close GPS
     sleep    5
     Select Window    url=${SearchServiceCenterLink}
     Location Should Be    ${SearchServiceCenterLink}
+    Web Element Should Be Visible    ${LogoAISS}
     Scroll Web To Element    ${Bangkok}
     Web Element Text Should Be    ${AISShop}    ${lblAISShop}
     Web Element Text Should Be    ${Bangkok}    ${lblBangkok}
@@ -58,3 +59,25 @@ Verify Serenade Touchpoint
     Web Element Should Be Visible    ${PicSerenadeTouchpoint}
     Web Element Should Be Visible    ${MapSerenadeTouchpoint}
     Web Capture Screen At Verify Point    SerenadeTouchpointIII
+
+Verify Serenade Touchpoint around location
+    Scroll Web To Element    ${PicSerenadeTouchpoint}
+    sleep    5
+    Web Element Text Should Be    ${SerenadeTouchpoint}    ${lblSerenadeTouchpoint}
+    Web Element Text Should Be    ${SerenadeTouchpointNearYou}    ${lblSerenadeTouchpointNearYou}
+    Web Capture Screen At Verify Point    SerenadeTouchpointAroundYou
+
+Verify Serenade Touchpoint Servicecenter
+    Scroll Web To Element    ${PicSerenadeTouchpoint}
+    sleep    5
+    Web Element Should Be Visible    ${PicSerenadeTouchpoint}
+    Web Capture Screen At Verify Point    SerenadeTouchpointII
+    Click Web Element    ${AISTouchPointClick}
+    sleep    5
+    Select Window    url=${SearchServiceCenterLink}
+    Location Should Be    ${SearchServiceCenterLink}
+    Web Element Should Be Visible    ${LogoAISS}
+    Web Element Should Be Visible    ${BannerServicecenter}
+    Scroll Web To Element    ${AISShop}
+    Web Element Text Should Be    ${AISShop}    ${lblAISShop}
+    Web Capture Screen At Verify Point    SerenadeTouchpointII in other tab
