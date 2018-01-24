@@ -469,4 +469,3 @@ Resource          ../Resource/PageKeywords/FAQ_InternationalRoaming.txt
     ${QuestionText}    Select International Roaming Question    5
     Verify International Roaming Asnwer Page    ${QuestionText}
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
