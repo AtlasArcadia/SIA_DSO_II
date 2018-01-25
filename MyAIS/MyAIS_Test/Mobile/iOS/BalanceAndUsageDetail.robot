@@ -526,7 +526,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    - รวมค่าใช้บริการ
     ...    - รวมค่าใช้บริการทั้งสิ้น (รวม vat 7%)
     ...    - รวมค่าใช้บริการทั้งสิ้น"
-    #[Tags]    demo
+    #[Tags]
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -556,7 +556,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ (฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
-    [Tags]    demo
+    [Tags]
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -834,7 +834,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
-    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen    demo
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_1Month
@@ -852,7 +852,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_2_2]
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
-    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen    demo
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_3Month
@@ -887,7 +887,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_4_2]
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
-    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen        demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
