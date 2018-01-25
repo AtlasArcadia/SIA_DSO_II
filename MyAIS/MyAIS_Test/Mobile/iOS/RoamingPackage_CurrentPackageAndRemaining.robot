@@ -56,3 +56,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemai
     Select Sub Menu    CurrentPackageAndRemaining
     Verify Current Package And Remaining Have No Data Roaming Package    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F7_Package_IOS_2, 4_1-2_Y_1_2] Check current package In case : Have Remaining usage
+
+
+[F7_Package_IOS_2, 4_1-2_Y_1_2] Check current package In case : Don’t have Remaining usage

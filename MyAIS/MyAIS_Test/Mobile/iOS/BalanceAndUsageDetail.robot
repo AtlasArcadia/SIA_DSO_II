@@ -496,11 +496,15 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Input ID Citizen    ${ID_Citizen}
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
 
 [F1_YourBalanceHistory_IOS_2,4_1-2_Y_2_2] Your Current Charge(Unbilled) : Have current charge
     [Documentation]    *Owner : TiNn*
@@ -522,14 +526,19 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    - รวมค่าใช้บริการ
     ...    - รวมค่าใช้บริการทั้งสิ้น (รวม vat 7%)
     ...    - รวมค่าใช้บริการทั้งสิ้น"
+    #[Tags]    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Your Current Charge
+    Input ID Citizen    ${ID_Citizen}
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_Y_1_2] Voice Call : No transaction
     [Documentation]    *Owner : TiNn*
@@ -547,14 +556,19 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ (฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
+    [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Usage Detail History
+    Input ID Citizen    ${ID_Citizen}
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_Y_2_2] Internet/Value Added Service : No transaction
     [Documentation]    *Owner : TiNn*
@@ -575,11 +589,13 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_3_2]Invalid ID number กรณีใส่มั่ว
     [Documentation]    *Owner : Asma
@@ -819,7 +835,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
     [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
-    ...    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_1Month
