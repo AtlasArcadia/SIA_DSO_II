@@ -3,7 +3,7 @@ Resource          ../../../../Config/LocalConfig.txt
 Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Prepaid.txt
 
 *** Test Cases ***
-[F8_Package_IOS_1,3_1-2_Y_1_2] Subscribe Data Package : Immediate In case : countries with states
+[F8_Package_IOS_1-4_1-2_Y_1_2] Subscribe Data Package : Immediate In case : countries with states
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -33,7 +33,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    13. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -54,7 +54,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Summary Immediate Page Australia
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_2_2] Subscribe Data Package : Immediate In case : Have only countries
+[F8_Package_IOS_1-4_1-2_Y_2_2] Subscribe Data Package : Immediate In case : Have only countries
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -84,7 +84,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    13. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -105,7 +105,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Summary Immediate Page China
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_3_2] Subscribe Voice Package : Immediate In case : countries with states
+[F8_Package_IOS_1-4_1-2_Y_3_2] Subscribe Voice Package : Immediate In case : countries with states
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -135,7 +135,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    13. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -156,7 +156,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Comment    Verify Summary Immediate Page Australia
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_4_2] Subscribe Voice Package : Immediate In case : Have only countries
+[F8_Package_IOS_1-4_1-2_Y_4_2] Subscribe Voice Package : Immediate In case : Have only countries
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -186,7 +186,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    13. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -207,7 +207,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Comment    Verify Summary Immediate Page China
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_5_2] Subscribe Data Package : FutureIn case : countries with states
+[F8_Package_IOS_1-4_1-2_Y_5_2] Subscribe Data Package : FutureIn case : countries with states
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -240,7 +240,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    16. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -263,7 +263,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Summary Specify Page Australia    ${StartDate}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_6_2] Subscribe Data Package : FutureIn case : Have only countries
+[F8_Package_IOS_1-4_1-2_Y_6_2] Subscribe Data Package : FutureIn case : Have only countries
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -295,7 +295,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    15. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -317,7 +317,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Summary Specify Page China    ${StartDate}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_7_2] Subscribe Voice Package : FutureIn case : countries with states
+[F8_Package_IOS_1-4_1-2_Y_7_2] Subscribe Voice Package : FutureIn case : countries with states
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -350,7 +350,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    16.จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -360,7 +360,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_8_2] Subscribe Voice Package : FutureIn case : Have only countries
+[F8_Package_IOS_1-4_1-2_Y_8_2] Subscribe Voice Package : FutureIn case : Have only countries
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -392,7 +392,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - แพ็กเกจเริ่มต้นวันที่
     ...    - แพ็กเกจสิ้นสุดวันที่
     ...    15. \ จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -402,7 +402,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_9_2] Apply Roaming Packages Verify page :Apply Roaming Package
+[F8_Package_IOS_1-4_1-2_Y_9_2] Apply Roaming Packages Verify page :Apply Roaming Package
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -420,7 +420,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - ปุ่ม "ดำเนินการต่อ"
     ...    - เงื่อนไขบริการ
     ...    5. Capture screen
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -433,7 +433,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Apply Roaming Package Page    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_10_2] Apply Roaming Packages Verify page :Package list
+[F8_Package_IOS_1-4_1-2_Y_10_2] Apply Roaming Packages Verify page :Package list
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -455,7 +455,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - ประเภทแพ็กเกจ
     ...    - รายการแพ็กเกจ (Check object visible)
     ...    10. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -472,7 +472,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_11_2] Apply Roaming Packages Verify page : Package Detail
+[F8_Package_IOS_1-4_1-2_Y_11_2] Apply Roaming Packages Verify page : Package Detail
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
@@ -496,7 +496,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - ระยะเวลาใช้งาน
     ...    - ประเทศที่ต้องการสมัคร (label)
     ...    11. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -515,7 +515,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Detail First Package Page    ${Number}    ${Country}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_12_2] Apply Roaming Packages Verify page : Specify Effective Date (From Package list page)
+[F8_Package_IOS_1-4_1-2_Y_12_2] Apply Roaming Packages Verify page : Specify Effective Date (From Package list page)
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -537,7 +537,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    - วันที่
     ...    - เวลา
     ...    11. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -554,7 +554,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Specify Effective Date    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_13_2] Apply Roaming Packages Verify page : Specify Effective Date (From Package Detail page)
+[F8_Package_IOS_1-4_1-2_Y_13_2] Apply Roaming Packages Verify page : Specify Effective Date (From Package Detail page)
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -577,7 +577,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...        - วันที่
     ...        - เวลา
     ...    12. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -595,7 +595,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Specify Effective Date    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_14_2] Apply Roaming Packages Verify page : Package summary
+[F8_Package_IOS_1-4_1-2_Y_14_2] Apply Roaming Packages Verify page : Package summary
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -625,7 +625,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...        - ปุ่ม "แก้ไข"
     ...        - ปุ่ม "ยกเลิก"
     ...    13. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -644,7 +644,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Australia Bridge DataRoam Unlimited 1 Day Summary Page Immediate    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_Y_15_2] Check Convert time (China only)
+[F8_Package_IOS_1-4_1-2_Y_15_2] Check Convert time (China only)
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -676,7 +676,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...           eg. แพ็กเกจสิ้นสุด 09 มี.ค. 23:00
     ...           หรือ  แพ็กเกจสิ้นสุด 10 มี.ค. 22:59
     ...    15. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -696,7 +696,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify End And Start Time
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_N_16_2] Error : Apply Roaming Packages page (Not select roaming country)
+[F8_Package_IOS_1-4_1-2_N_16_2] Error : Apply Roaming Packages page (Not select roaming country)
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -716,7 +716,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    7. กดปุ่ม "ดำเนินการต่อ"
     ...    8. ตรวจสอบ dialog message "กรุณาเลือกประเทศที่ต้องการสมัคร"
     ...    9. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    fail    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -732,7 +732,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Dialog Message No Country Select
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_N_17_2] Error : Apply Roaming Packages page (Not select customer type)
+[F8_Package_IOS_1-4_1-2_N_17_2] Error : Apply Roaming Packages page (Not select customer type)
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -753,7 +753,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    8. กดปุ่ม "ดำเนินการต่อ"
     ...    9. ตรวจสอบ dialog message "กรุณาเลือกระบบของหมายเลขที่ต้องการสมัคร"
     ...    10. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -763,7 +763,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_N_18_2] Error : Apply Roaming Packages page (Not select package type)
+[F8_Package_IOS_1-4_1-2_N_18_2] Error : Apply Roaming Packages page (Not select package type)
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -783,7 +783,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    7. กดปุ่ม "ดำเนินการต่อ"
     ...    8. ตรวจสอบ dialog message "กรุณาเลือกประเภทแพ็กเกจที่ต้องการสมัคร"
     ...    9. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    fail    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -799,7 +799,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Dialog Message No Package Type
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_N_19_2] Error : Select Effective Date ( Not select effective date )
+[F8_Package_IOS_1-4_1-2_N_19_2] Error : Select Effective Date ( Not select effective date )
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -818,7 +818,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    10. กดปุ่ม "สมัครแพ็ก"
     ...    11. ตรวจสอบ dialog message "กรุณาเลือกวันและเวลาเริ่มใช้งานแพ็กเกจ"
     ...    12. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    fail    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -837,7 +837,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Dialog Message No Set Start Time
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_N_22_2] Error : Select Effective Date In case : countries with states
+[F8_Package_IOS_1-4_1-2_N_22_2] Error : Select Effective Date In case : countries with states
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -858,7 +858,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    12. กดปุ่ม "สมัครแพ็ก"
     ...    13. ตรวจสอบ dialog message "โปรดเลือกรัฐ/เมือง"
     ...    14. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE
+    [Tags]    TH    EN    active    fail    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -878,7 +878,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Verify Dialog Message No Select State
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F8_Package_IOS_1,3_1-2_N_23_2] Error : Subscribe Package
+[F8_Package_IOS_1-4_1-2_N_23_2] Error : Subscribe Package
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
@@ -899,7 +899,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    12. กดปุ่ม "ยืนยัน"
     ...    13. ตรวจสอบ dialog message "แพ็กเกจที่คุณสมัครเป็นแพ็กเกจสำหรับระบบ เอไอเอส รายเดือน ปัจจุบันคุณใช้งานในระบบ เอไอเอส วันทูคอล! กรุณาเลือกระบบของหมายเลขที่ต้องการสมัครเป็น เอไอเอส วันทูคอล! และทำการสมัครแพ็กเกจใหม่อีกครั้ง"
     ...    14. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    Onhold
+    [Tags]    TH    EN    active    fail   3PE    3BE    3PO    3BO    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

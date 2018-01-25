@@ -50,6 +50,60 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     Verify Page Roming Service Rate Not Select Country    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
+[F9_Package_IOS_2,4_1-2_Y_1_2] Check Roaming Service RatesIn case : Not select country
+    [Documentation]    Owner :****Lek****
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...    EN
+    ...    Test Step
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Roaming Service Rates" menu
+    ...    4. Verify "Roaming Service Rates" page
+    ...        - Mobile number.
+    ...        - Voice Call Roaming
+    ...          • Please select country and customer type
+    ...        - SMS Roaming (Baht/SMS)
+    ...          • Please select country and customer type
+    ...        - "Great Saving Roaming Packages" botton
+    ...    5. Click "Great Saving Roaming Packages" botton
+    ...    6. Click "Continue" botton
+    ...    7. Verify dialog msg "Please select a country"
+    ...    8. Capture screen
+    ...
+    ...    Source Number : 3PO,3BO
+    ...    TH
+    ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือกเมนู "อัตราค่าบริการโรมมิ่ง"
+    ...    4. ตรวจสอบหน้า "อัตราค่าบริการโรมมิ่ง"
+    ...    - หมายเลขโทรศัพท์
+    ...    - อัตราค่าโทร
+    ...     • โปรดเลือกประเทศและระบบ
+    ...    - ส่งข้อความ & ดาต้าโรมมิ่ง
+    ...     • โปรดเลือกประเทศและระบบ
+    ...    - ปุ่ม "แพ็กเกจโรมมิ่งราคาประหยัด"
+    ...    - เงื่อนไขบริการ
+    ...    5. เลือก "แพ็กเกจโรมมิ่งราคาประหยัด"
+    ...    6. เลือก "ดำเนินการต่อ"
+    ...    7. ตรวจสอบ dialog msg "กรุณาเลือกประเทศที่ต้องการสมัคร"
+    ...    8. จับภาพหน้าจอ
+    [Tags]    TH    EN    active    success    3PO    3BO
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Roaming Service Rate Submenu
+    Verify Page Roming Service Rate Not Select Country    ${Number}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
 [F9_Package_IOS_1,3_1-2_Y_2_2] Check Roaming Service RatesIn case : Select country
     [Documentation]    Owner :****Lek****
     ...
@@ -102,11 +156,70 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ${ChooseCountry}    Verify Roaming Service Rate With Select Country iOS    Cameroon    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F9_Package_IOS_1,3_1-2_Y_3_2] Go to Apply Roaming Packages page
+[F9_Package_IOS_2,4_1-2_Y_2_2] Check Roaming Service RatesIn case : Select country
     [Documentation]    Owner :****Lek****
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE
+    ...    Source Number : 3PO,3BO
+    ...    Status : Active
+    ...    EN
+    ...    Test Step
+    ...    1. Login MyAIS.
+    ...    2. Click "Package" menu
+    ...    3. Click "Roaming Service Rates" menu
+    ...    4. Select "country" (eg. Australia)
+    ...    5. Select "customer type" (auto detect)
+    ...    6. Verify "Roaming Service Rates" page
+    ...        - Mobile number
+    ...        - Voice call roaming
+    ...          • xx  (will show rate each country eg. 23)
+    ...        - SMS Roaming (Baht/SMS)
+    ...          • xx (will show rate each country eg. 14)
+    ...        - "Great Saving Roaming Packages" botton
+    ...    7. Click "Great Saving Roaming Packages" botton
+    ...    8. Click "Continue" botton
+    ...    9. Verify dialog msg "Please select a package type"
+    ...    10. Capture screen
+    ...
+    ...    Source Number : 3PO,3BO
+    ...    TH
+    ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. กดเมนู "อัตราค่าบริการโรมมิ่ง"
+    ...    4. เลือกประเทศ (eg. Australia)
+    ...    5. เลือกระบบ (auto detect)
+    ...    6. ตรวจสอบหน้า "อัตราค่าบริการโรมมิ่ง"
+    ...    - หมายเลขโทรศัพท์
+    ...    - อัตราค่าโทร
+    ...     • xx (จะแสดงเรทของแต่ละประเทศ)
+    ...    - ส่งข้อความ & ดาต้าโรมมิ่ง
+    ...     • xx (จะแสดงเรทของแต่ละประเทศ)
+    ...    - ปุ่ม "แพ็กเกจโรมมิ่งราคาประหยัด"
+    ...    - เงื่อนไขบริการ
+    ...    7. เลือก "แพ็กเกจโรมมิ่งราคาประหยัด"
+    ...    8. เลือก "ดำเนินการต่อ
+    ...    9. ตรวจสอบ dialog msg "กรุณาเลือกประเภทแพ็กเกจที่ต้องการสมัคร"
+    ...    10. จับภาพหน้าจอ
+    [Tags]    TH    EN    active    success    3PO    3BO
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Package Menu
+    Select Roaming Service Rate Submenu
+    Select Country To Cameroon
+    ${ChooseCountry}    Verify Roaming Service Rate With Select Country iOS    Cameroon    ${Number}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F9_Package_IOS_1-4_1-2_Y_3_2] Go to Apply Roaming Packages page
+    [Documentation]    Owner :****Lek****
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3PO,3BO
     ...    Status : Active
     ...    EN
     ...    Test Step
@@ -130,7 +243,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...         - Package type (Please Select)
     ...    10. Capture screen
     ...
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PO,3BO
     ...    TH
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -153,7 +266,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...         - ระบบของหมายเลขที่ต้องการสมัคร (จะเหมือนกับที่ทำการเลือกจากหน้าอัตราค่าบริการโรมมิ่ง)
     ...         - ประเภทแพ็กเกจที่ต้องการ (โปรดเลือก)
     ...    10. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -213,7 +326,6 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...    13. กดปุ่ม "สมัครแพ็ก"
     ...    14. ตรวจสอบ dialog message "กรุณาระบุวันเริ่มใช้งานมากกว่าวันที่ปัจจุบัน"
     ...    15. จับภาพหน้าจอ
-    ...    16. จับภาพหน้าจอ
     [Tags]    TH    EN    active    success    3PE    3BE    Onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
