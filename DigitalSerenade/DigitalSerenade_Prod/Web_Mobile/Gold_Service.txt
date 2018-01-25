@@ -3,46 +3,34 @@ Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Gold_Service.txt
 
 *** Test Cases ***
-[F7_GoldWebMobile_2_1_Y_1_1] Verify Banner1
+[F7_GoldWebMobile_4,2_1_Y_1_1] Verify Banner1
     [Documentation]    *Owner* : Noon
-    ...    AIS Mobile care
+    ...    แบนเนอร์ที่ 1 (บนซ้าย)
     ...
     ...    *Pre-requisite*
     ...    "- Serenade Gold Customer
     ...
-    ...    - Ntype 3PO :
+    ...    - Ntype 3PO,3BO :
     ...
     ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
     ...    "
     ...
     ...
     ...    *Test Step*
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade
-    ...
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...
     ...    3.Login เข้าสู่ระบบ
-    ...
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
-    ...
-    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign AIS Mobile care
-    ...
+    ...    5. คลิกแบนเนอร์ที่ 1 (บนซ้าย)
     ...    6. ตรวจสอบ URL [1]
-    ...
-    ...    7. ตรวจสอบ campaign AIS Mobile care [2]
-    ...
-    ...    8. จับภาพหน้าจอ"
+    ...    7. จับภาพหน้าจอ
     ...
     ...
     ...    *Expected Result*
     ...    "[1] ตรวจสอบ URL
-    ...    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
+    ...    Get URL หน้าเว็บ
     ...
-    ...
-    ...    [2] ตรวจสอบ campaign AIS Mobile care
-    ...    - Moblie care
-    ...
-    ...    - รับส่วนลด แพกเกจรายปี "
+    ...    "
     [Tags]    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
@@ -53,54 +41,40 @@ Resource          Resource/PageKeywords/Gold_Service.txt
     Comment    Click Service Campaign    ${imgMobileCare}    Mobile Care Campaign
     Comment    Verify URL New Window    ${URLMobileCare${ar_LANG}}    Mobile Care Page
     Comment    Verify Netflix
-    Scroll Web To Element    ${lblPlatinumService}
+    Scroll Web To Element    ${HeaderService}
     Wait Web Until Page Contains Element    ${BannerService}
     Verify click banner one
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F7_GoldWebMobile_2_1_Y_1_2] Verify Banner2
+[F7_GoldWebMobile_4,2_1_Y_1_2] Verify Banner2
     [Documentation]    *Owner* : Noon
-    ...    AIS Call Center
+    ...    แบนเนอร์ที่ 2 (บนขวา)
+    ...
     ...
     ...    *Pre-requisite*
     ...    "- Serenade Gold Customer
     ...
-    ...    - Ntype 3PO :
+    ...    - Ntype 3PO,3BO :
     ...
     ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
     ...    "
     ...
     ...
     ...    *Test Step*
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade
-    ...
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...
     ...    3.Login เข้าสู่ระบบ
-    ...
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
-    ...
-    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign Call Free to Call Center
-    ...
+    ...    5. คลิกแบนเนอร์ที่ 2 (บนขวา)
     ...    6. ตรวจสอบ URL [1]
-    ...
-    ...    7. ตรวจสอบ campaign Call Free to Call Center [2]
-    ...
-    ...    8. จับภาพหน้าจอ"
+    ...    7. จับภาพหน้าจอ
     ...
     ...
     ...    *Expected Result*
     ...    "[1] ตรวจสอบ URL
-    ...    - \ http://www.ais.co.th/serenade/th/service-1148.aspx
+    ...    Get URL หน้าเว็บ
     ...
-    ...
-    ...    [2] ตรวจสอบ campaign Call Free to Call Center
-    ...
-    ...    - บริการพิเศษ
-    ...
-    ...    - 1148 เบอร์พิเศษเฉพาะคุณ
-    ...
-    ...    - การติดต่อสื่อสารที่สะดวกสบาย ภายใต้เครือข่ายคุณภาพที่คุณอุ่นใจได้"
+    ...    "
     [Tags]    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
@@ -111,19 +85,20 @@ Resource          Resource/PageKeywords/Gold_Service.txt
     Comment    Click Service Campaign    ${imgCallCenter}    Call Center
     Comment    Verify URL New Window    ${URLCallCenterTH}    Call Center Page
     Comment    Verify Call Center
-    Scroll Web To Element    ${lblPlatinumService}
+    Scroll Web To Element    ${HeaderService}
     Wait Web Until Page Contains Element    ${BannerService}
     Verify click banner two
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F7_GoldWebMobile_2_1_Y_1_3] Verify Banner3
+[F7_GoldWebMobile_4,2_1_Y_1_3] Verify Banner3
     [Documentation]    *Owner* : Noon
-    ...    mPay Page
+    ...    แบนเนอร์ที่ 3 (ล่างซ้าย)
+    ...
     ...
     ...    *Pre-requisite*
     ...    "- Serenade Gold Customer
     ...
-    ...    - Ntype 3PO :
+    ...    - Ntype 3PO,3BO :
     ...
     ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
     ...    "
@@ -131,33 +106,18 @@ Resource          Resource/PageKeywords/Gold_Service.txt
     ...
     ...    *Test Step*
     ...
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade
-    ...
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
-    ...
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
-    ...
-    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign mPAY
-    ...
+    ...    5. คลิกแบนเนอร์ที่ 3 (ล่างซ้าย)
     ...    6. ตรวจสอบ URL [1]
-    ...
-    ...    7. คลิก ""เงื่อนไข""
-    ...
-    ...    8. ตรวจสอบ campaign mPAY [2]
-    ...    9. จับภาพหน้าจอ"
+    ...    7. จับภาพหน้าจอ
     ...
     ...
     ...    *Expected Result*
-    ...    "[1] ตรวจสอบ URL
-    ...    - http://www.ais.co.th/mpay/Service.html
-    ...
-    ...
-    ...    [2] ตรวจสอบ campaign mPAY
-    ...
-    ...    - เงื่อนไขโปรโมชั่น เอไอเอส รายเดือน
-    ...
-    ...    - เงื่อนไขโปรโมชั่น เอไอเอส ไฟเบอร์"
+    ...    [1] ตรวจสอบ URL
+    ...    Get URL หน้าเว็บ
     [Tags]    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
@@ -168,53 +128,38 @@ Resource          Resource/PageKeywords/Gold_Service.txt
     Comment    Click Service Campaign    ${imgmPAY}    mPay
     Comment    Verify URL New Window    ${URLMPay}    MPay Page
     Comment    Verify mPay
-    Scroll Web To Element    ${lblPlatinumService}
+    Scroll Web To Element    ${HeaderService}
     Wait Web Until Page Contains Element    ${BannerService}
     Verify click banner three
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F7_GoldWebMobile_2_1_Y_1_4] Verify Banner4
+[F7_GoldWebMobile_4,2_1_Y_1_4] Verify Banner4
     [Documentation]    *Owner* : Noon
-    ...    Data Roaming
+    ...    แบนเนอร์ที่ 4 (ล่างขวา)
     ...
     ...
     ...    *Pre-requisite*
     ...    "- Serenade Gold Customer
     ...
-    ...    - Ntype 3PO :
+    ...    - Ntype 3PO,3BO :
     ...
     ...    - URL : http://www.ais.co.th/WelcomeToSerenade/
     ...    "
     ...
     ...    *Test Step*
-    ...    "1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ http://www.ais.co.th/WelcomeToSerenade
-    ...
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...
     ...    3.Login เข้าสู่ระบบ
-    ...
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
-    ...
-    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign Data \ Roaming
-    ...
+    ...    5. คลิกแบนเนอร์ที่ 4 (ล่างขวา)
     ...    6. ตรวจสอบ URL [1]
-    ...
-    ...    7. ตรวจสอบ campaign Data \ Roaming [2]
-    ...
-    ...    8. จับภาพหน้าจอ"
-    ...
+    ...    7. จับภาพหน้าจอ
     ...
     ...    *Expected Result*
     ...    "[1] ตรวจสอบ URL
-    ...    - http://www.ais.co.th/serenade/th/service-roaming.aspx
+    ...    Get URL หน้าเว็บ
     ...
-    ...
-    ...
-    ...    [2] ตรวจสอบ campaign \ Data \ Roaming
-    ...
-    ...    - บริการพิเศษ Roaming
-    ...
-    ...    - Big Pack Non-Stop Data Roaming!"
+    ...    "
     [Tags]    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
@@ -225,7 +170,7 @@ Resource          Resource/PageKeywords/Gold_Service.txt
     Comment    Click Service Campaign    ${imgDataRoaming}    Data Roaming
     Comment    Verify URL New Window    ${URLRoaming}    Data Roaming Page
     Comment    Verify Data Roaming
-    Scroll Web To Element    ${lblPlatinumService}
+    Scroll Web To Element    ${HeaderService}
     Wait Web Until Page Contains Element    ${BannerService}
     Verify click banner four
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
