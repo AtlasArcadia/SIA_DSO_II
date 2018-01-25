@@ -78,7 +78,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    -ค่าบริการ (฿)
     ...    -ไม่พบรายการที่ต้องการค้นหา
     ...    6.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    active    success    demo
+    [Tags]    TH    EN    3PE    active    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -279,7 +279,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    -ไม่พบรายการที่ต้องการค้นหา
     ...    6.จับภาพหน้าจอ
     [Tags]    TH    EN    3PE    ID_Citizen    Not_found_Balance_Transfer    active
-    ...    success    demo
+    ...    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -629,26 +629,47 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_9_2]
 
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
+    [Documentation]    ***Owner : Tong***
+    ...    Ntype : 3PO, 3BO
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_1Month
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}_1Month
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Your Balance History
+    Input ID Citizen    ${ID_Citizen}
+    Verify Balance History 1Month
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
 
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_2_2]
+    [Documentation]    ***Owner : Tong***
+    ...    Ntype : 3PO, 3BO
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_3Month
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}_3Month
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Your Balance History
+    Input ID Citizen    ${ID_Citizen}
+    Verify Balance History 3Month
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
 
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_3_2]
+    [Documentation]    ***Owner : Tong***
+    ...    Ntype : 3PO, 3BO
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -657,8 +678,13 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
+
 
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_4_2]
+    [Documentation]    ***Owner : Tong***
+    ...    Ntype : 3PO, 3BO
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -667,4 +693,5 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
