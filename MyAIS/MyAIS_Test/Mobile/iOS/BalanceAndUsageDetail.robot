@@ -482,7 +482,17 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F0_0_0_Y_0_Test] Smoke test
     [Tags]    smoke    TH    EN
     log    test smoke
-[F1_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
+
+[F1_YourBalanceHistory_IOS_2,4_1-2_Y_1_2] Your Current Charge(Unbilled) : No current charge
+    [Documentation]    *Owner : TiNn*
+    ...
+    ...    *Test Step*
+    ...
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "ค่าใช้บริการระหว่างรอบบิล"
+    ...    4. ตรวจสอบหัวข้อ "ค่าใช้บริการระหว่างรอบบิล"
+    ...    5. ตรวจสอบ "ขออภัย ระบบไม่สามารถให้บริการได้ในขณะนี้ กรุณาเข้าใช้บริการใหม่อีกครั้ง"
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -492,7 +502,26 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
 
-[F1_YourBalanceHistory_IOS_2,4_1-2_Y_2_2]
+[F1_YourBalanceHistory_IOS_2,4_1-2_Y_2_2] Your Current Charge(Unbilled) : Have current charge
+    [Documentation]    *Owner : TiNn*
+    ...
+    ...    *Test Step*
+    ...
+    ...    "1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู ""เช็กยอดค่าโทร""
+    ...    3. เลือก ""ค่าใช้บริการระหว่างรอบบิล""
+    ...    4. ตรวจสอบหัวข้อ ""ค่าใช้บริการระหว่างรอบบิล""
+    ...    5. ตรวจสอบ
+    ...    - รายละเอียดค่าใช้บริการรอบบิลปัจจุบัน
+    ...    - จากวันที่
+    ...    - ถึงวันที่
+    ...    - รายละเอียดการใช้งาน
+    ...    - หน่วยที่ใช้
+    ...    - ค่าบริการ (฿)
+    ...    - รวมค่าใช้บริการภายในประเทศ
+    ...    - รวมค่าใช้บริการ
+    ...    - รวมค่าใช้บริการทั้งสิ้น (รวม vat 7%)
+    ...    - รวมค่าใช้บริการทั้งสิ้น"
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -502,7 +531,22 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
 
-[F2_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
+[F2_YourBalanceHistory_IOS_2,4_1-2_Y_1_2] Voice Call : No transaction
+    [Documentation]    *Owner : TiNn*
+    ...
+    ...    *Test Step*
+    ...
+    ...    "1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู ""เช็กยอดค่าโทร""
+    ...    3. เลือก ""รายละเอียดค่าใช้บริการ""
+    ...    4. ใส่หมายเลขบัตรประชาชน
+    ...    5. ตรวจสอบหัวข้อ ""รายละเอียดค่าใช้บริการ""
+    ...    6. เลือก ""การโทร""
+    ...    7. ตรวจสอบ ""วันที่/เวลา""
+    ...    8. ตรวจสอบ ""ปลายทาง""
+    ...    9. ตรวจสอบ ""หน่วย""
+    ...    10. ตรวจสอบ ""ค่าบริการ (฿)""
+    ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -512,7 +556,22 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
 
-[F2_YourBalanceHistory_IOS_2,4_1-2_Y_2_2]
+[F2_YourBalanceHistory_IOS_2,4_1-2_Y_2_2] Internet/Value Added Service : No transaction
+    [Documentation]    *Owner : TiNn*
+    ...
+    ...    *Test Step*
+    ...
+    ...    "1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู ""เช็กยอดค่าโทร""
+    ...    3. เลือก ""รายละเอียดค่าใช้บริการ""
+    ...    4. ใส่หมายเลขบัตรประชาชน
+    ...    5. ตรวจสอบหัวข้อ ""รายละเอียดค่าใช้บริการ""
+    ...    6. เลือก ""Internet/บริการเสริม""
+    ...    7. ตรวจสอบ ""วันที่/เวลา""
+    ...    8. ตรวจสอบ ""ปลายทาง""
+    ...    9. ตรวจสอบ ""หน่วย""
+    ...    10. ตรวจสอบ ""ค่าบริการ(฿)""
+    ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -524,25 +583,25 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_3_2]Invalid ID number กรณีใส่มั่ว
     [Documentation]    *Owner : Asma
-     ....    Source Number : 3PO, 3BO
-     ....     Status : Active
-     ....
-     ....     TH
-     ....     ID No.38012612478681. เข้าสู่ระบบ My AIS
-     ....     2. เลือกเมนู "เช็กยอดค่าโทร"
-     ....     3. เลือก "รายละเอียดค่าใช้บริการ"
-     ....     4. ใส่หมายเลขบัตรประชาชนไม่ถูกต้อง "3801261247868"
-     ....     5. เลือก "ตกลง"
-     ....     6. ตรวจสอบข้อความ "กรุณาระบุหมายเลขประจำตัวให้ถูกต้อง"none
-     ....
-     ....     EN
-     ....     ID No.38012612478681. Login My AIS
-     ....     2. Click menu "Balance & Usage Detail"
-     ....     3. Click "Usage Detail History"
-     ....     4. Enter Invalid ID number "3801261247868"
-     ....     5. Click "OK"
-     ....     6. Verify message "Please enter Crad Number."none
     [Tags]    TH    EN    3PO    3BO    fail
+    ....    Source Number : 3PO, 3BO
+    ....    Status : Active
+    ....
+    ....    TH
+    ....    ID No.38012612478681. เข้าสู่ระบบ My AIS
+    ....    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ....    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ....    4. ใส่หมายเลขบัตรประชาชนไม่ถูกต้อง "3801261247868"
+    ....    5. เลือก "ตกลง"
+    ....    6. ตรวจสอบข้อความ "กรุณาระบุหมายเลขประจำตัวให้ถูกต้อง"none
+    ....
+    ....    EN
+    ....    ID No.38012612478681. Login My AIS
+    ....    2. Click menu "Balance & Usage Detail"
+    ....    3. Click "Usage Detail History"
+    ....    4. Enter Invalid ID number "3801261247868"
+    ....    5. Click "OK"
+    ....    6. Verify message "Please enter Crad Number."none
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -554,6 +613,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_4_2]Incomplete 13 digits
     [Documentation]    *Owner : Asma
+    [Tags]    TH    EN    3PO    3BO    fail
     ....Source Number : 3PO, 3BO
     .... Status : Active
     ....
@@ -567,12 +627,11 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ....
     .... EN
     .... ID No.17209001. Login My AIS
-    ....  2. Click menu "Balance & Usage Detail"
-    ....  3. Click "Usage Detail History"
-    ....  4. Enter Incomplete 13 digits "1720900"
-    ....  5. Click "OK"
-    ....  6. Verify message "The national ID Card number you have entered is not the same as the one you previously provided. Please enter again."none
-    [Tags]    TH    EN    3PO    3BO    fail
+    ....    2. Click menu "Balance & Usage Detail"
+    ....    3. Click "Usage Detail History"
+    ....    4. Enter Incomplete 13 digits "1720900"
+    ....    5. Click "OK"
+    ....    6. Verify message "The national ID Card number you have entered is not the same as the one you previously provided. Please enter again."none
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -584,6 +643,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_5_2]Enter invalid ID number over 3 times
     [Documentation]    *Owner : Asma
+    [Tags]    TH    EN    3PO    3BO    fail
     ....Source Number : 3PO, 3BO
     .... Status : Active
     ....
@@ -602,7 +662,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     .... 4. Enter ID Number "1212121212121" over 3 times
     .... 5. Click "OK"
     .... 6. Verify message "You have entered incorrect national ID card number three times.Please sign out and try again later."none
-    [Tags]    TH    EN    3PO    3BO    fail
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -614,6 +673,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_Y_6_2]Internet/Value Added Service: Have transaction
     [Documentation]    *Owner : Asma
+    [Tags]    TH    EN    3PO    3BO    success
     ....Source Number : 3PO, 3BO
     .... Status : Active
     ....
@@ -644,7 +704,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     .... 10. Verify "Fee (฿)"
     .... 11. Verify tab ex. Internet
     .... 12. Verify data first rownone
-    [Tags]    TH    EN    3PO    3BO    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -656,6 +715,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_Y_7_2]Voice Call Have transaction
     [Documentation]    *Owner : Lek
+    [Tags]    TH    EN    3PO    3BO    success
     ....Source Number : 3PO, 3BO
     .... Status : Active
     .... No. 0937019815
@@ -687,7 +747,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     .... 10. Verify "Fee (฿)"
     .... 11. Verify tab ex. Local call
     .... 12. Verify data first row
-    [Tags]    TH    EN    3PO    3BO    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -699,6 +758,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_8_2]No enter ID number
     [Documentation]    *Owner : Lek
+    [Tags]    TH    EN    3PO    3BO    fail
     ....Source Number : 3PO, 3BO
     .... Status : Active
     .... TH
@@ -716,7 +776,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     .... 4. Verify title "Usage Detail History"
     .... 5. Click "OK"
     .... 6. Verify message "Please enter Crad Number."
-    [Tags]    TH    EN    3PO    3BO    fail
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -728,6 +787,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_9_2]Invalid ID number In case card of other people
     [Documentation]    *Owner : Lek
+    [Tags]    TH    EN    3PO    3BO    fail
     ....Source Number : 3PO, 3BO
     .... Status : Active
     .... ID No.1212121212121
@@ -746,7 +806,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     .... 4. Enter Invalid ID number "1212121212121"
     .... 5. Click "OK"
     .... 6. Verify message "The national ID Card number you have entered is not the same as the one you previously provided. Please enter again."
-    [Tags]    TH    EN    3PO    3BO    fail
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -759,7 +818,8 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
-    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen    demo
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
+    ...    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_1Month
@@ -773,7 +833,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Input ID Citizen    ${ID_Citizen}
     Verify Balance History 1Month
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
-
 
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_2_2]
     [Documentation]    ***Owner : Tong***
@@ -793,7 +852,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Verify Balance History 3Month
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
-
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_3_2]
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
@@ -807,7 +865,6 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
-
 
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_4_2]
     [Documentation]    ***Owner : Tong***
