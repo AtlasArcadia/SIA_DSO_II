@@ -1,35 +1,32 @@
-*** Settings ***
+﻿*** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Emerald_Service.txt
 
 *** Test Cases ***
-[F6_EmeraldWebMobile_1_1_Y_2_1] Verify Banner1
-    [Documentation]    * Owner:Chompoo **
-    ...    "เข้าสู่ระบบ โดยใช้ Wifi
-    ...    โปรไฟล์ Classic
-    ...    กรณีไม่ใช่ลูกค้า Serenade"
+[F6_EmeraldWebMobile_1_1_Y_2_1] Verify AIS Netflix
+    [Documentation]    * Owner:Chompoo,Noon **
+    ...    แบนเนอร์ที่ 1 (บนซ้าย)
     ...
     ...
-    ...    ** Source Requisite **
-    ...    - Ntype 3PO
-    ...    - https://privilege.ais.co.th/WelcomeToSerenade
+    ...
+    ...    - Serenade Emerald Customer
+    ...    - Ntype 3PO,3BO :
+    ...    - URL : https://privilege.ais.co.th/WelcomeToSerenade
     ...
     ...    ** Test Step **
     ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
-    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign AIS Mobile care
+    ...    5. คลิกแบนเนอร์ที่ 1 (บนซ้าย)
     ...    6. ตรวจสอบ URL [1]
-    ...    7. ตรวจสอบ campaign AIS Mobile care [2]
-    ...    8. จับภาพหน้าจอ
-    ...    ** Expect Result**
-    ...    [1] ตรวจสอบ URL
-    ...    http://www.ais.co.th/serenade/th/privileges/184/Mobile-care
+    ...    7. จับภาพหน้าจอ
     ...
-    ...    [2] ตรวจสอบ campaign AIS Mobile care
-    ...    - Moblie care
-    ...    - รับส่วนลด แพกเกจรายปี
+    ...    ** Expect Result**
+    ...    "[1] ตรวจสอบ URL
+    ...    Get URL หน้าเว็บ
+    ...
+    ...    "
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
@@ -44,15 +41,13 @@ Resource          Resource/PageKeywords/Emerald_Service.txt
     Verify click banner one
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F6_EmeraldWebMobile_1_1_Y_2_2] Verify Banner2
-    [Documentation]    * Owner:Chompoo **
-    ...    "เข้าสู่ระบบ โดยใช้ Wifi
-    ...    โปรไฟล์ Classic
-    ...    กรณีไม่ใช่ลูกค้า Serenade"
+[F6_EmeraldWebMobile_1_1_Y_2_2] Verify Call Free To AIS Call Center
+    [Documentation]    * Owner:Chompoo,Noon **
+    ...    แบนเนอร์ที่ 2 (บนขวา)
     ...
     ...
     ...    ** Source Requisite **
-    ...    - Ntype 3PO
+    ...    - Ntype 3PO,3BO
     ...    - https://privilege.ais.co.th/WelcomeToSerenade
     ...
     ...    ** Test Step **
@@ -60,19 +55,14 @@ Resource          Resource/PageKeywords/Emerald_Service.txt
     ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
     ...    3.Login เข้าสู่ระบบ
     ...    4. เลื่อนมาที่หน้า บริการที่ใส่ใจทุกความต้องการ
-    ...    5. คลิกเพิ่มเติมหรือแบนเนอร์ที่ campaign Call Free to Call Center
+    ...    5. คลิกแบนเนอร์ที่ 2 (บนขวา)
     ...    6. ตรวจสอบ URL [1]
-    ...    7. ตรวจสอบ campaign Call Free to Call Center [2]
-    ...    8. จับภาพหน้าจอ
+    ...    7. จับภาพหน้าจอ
     ...
     ...    ** Expect Result**
     ...    [1] ตรวจสอบ URL
-    ...    - \ http://www.ais.co.th/serenade/th/service-1148.aspx
+    ...    Get URL หน้าเว็บ
     ...
-    ...    [2] ตรวจสอบ campaign Call Free to Call Center
-    ...    - บริการพิเศษ
-    ...    - 1148 เบอร์พิเศษเฉพาะคุณ
-    ...    - การติดต่อสื่อสารที่สะดวกสบาย ภายใต้เครือข่ายคุณภาพที่คุณอุ่นใจได้
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
@@ -87,8 +77,8 @@ Resource          Resource/PageKeywords/Emerald_Service.txt
     Verify click banner two
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
-[F6_EmeraldWebMobile_1_1_Y_2_3] Verify Banner3
-    [Documentation]    * Owner:Chompoo **
+[F6_EmeraldWebMobile_1_1_Y_2_3] Verify mPay Page
+    [Documentation]    * Owner:Chompoo,Noon **
     ...    "เข้าสู่ระบบ โดยใช้ Wifi
     ...    โปรไฟล์ Classic
     ...    กรณีไม่ใช่ลูกค้า Serenade"
