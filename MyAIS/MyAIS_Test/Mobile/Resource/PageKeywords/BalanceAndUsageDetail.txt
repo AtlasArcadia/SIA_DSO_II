@@ -371,8 +371,36 @@ Select Your Balance History
     Click Mobile Element    ${btnYourBalanceHistory}
 
 Verify Balance History 1Month
+    Wait Mobile Until Element Visible    ${lblBillingCycle}    30
+    Mobile Element Name Should Be    ${lblHeadYourBalanceHistory}    ${YourBalanceHistory}
+    Mobile Element Name Should Be    ${lblBillingCycle}    ${BillingCycle}
+    Mobile Element Name Should Be    ${lblTotal}    ${Total}
+    Mobile Element Name Should Be    ${lblViewStatement}    ${ViewStatement}
+    Wait Mobile Until Element Visible    ${BoxBillingCycle1}
+    Mobile Element Name Should Be    ${lblClick}    ${Click}
+    Mobile Element Name Should Be    ${lblViewDetails}    ${ViewDetails}
+    Mobile Element Name Should Be    ${lblStatementWillBe}    ${StatementWillBe}
+    Wait Mobile Until Element Visible    ${btnPayment}
+    Mobile Capture Screen At Verify Point    Verify Balance History 1Month
 
 Verify Balance History 3Month
+    Wait Mobile Until Element Visible    ${lblBillingCycle}    30
+    Mobile Element Name Should Be    ${lblHeadYourBalanceHistory}    ${YourBalanceHistory}
+    Mobile Element Name Should Be    ${lblBillingCycle}    ${BillingCycle}
+    Mobile Element Name Should Be    ${lblTotal}    ${Total}
+    Mobile Element Name Should Be    ${lblViewStatement}    ${ViewStatement}
+    : FOR    ${count}    IN RANGE    1    4    1
+    \    Wait Mobile Until Element Visible    ${BoxBillingCycle${count}}
+    Mobile Element Name Should Be    ${lblClick}    ${Click}
+    Mobile Element Name Should Be    ${lblViewDetails}    ${ViewDetails}
+    Mobile Element Name Should Be    ${lblStatementWillBe}    ${StatementWillBe}
+    Wait Mobile Until Element Visible    ${btnPayment}
+    Mobile Capture Screen At Verify Point    Verify Balance History 3Month
+
+
+View Detail BillingCycle
+    Mobile Element Name Should Be    ${lblHeadYourBalanceHistory}    ${YourBalanceHistory}
+    Mobile Capture Screen At Verify Point    View Detail BillingCycle
 
 Verify Title And Billing Cycle Usage Detail History
     [Arguments]    ${Number}
@@ -388,6 +416,12 @@ Verify Title And Billing Cycle Usage Detail History
     Mobile Element Text Should Be    ${lblViewDetail}    ${ViewDetail}   #รายละเอียด
     Mobile Capture Screen At Verify Point    Verify Title Usage Detail History Page
 
+Verify Balance and Usage Detail Page
+    Mobile Element Name Should Be
+    Mobile Element Name Should Be
+    Mobile Element Name Should Be
+    Mobile Element Name Should Be
+
 Verify Dialog Message Please enter Card Number
     Wait Mobile Until Element Visible     ${lblDialogMessage}    30
     Mobile Element Text Should Be    ${lblDialogMessage}    ${MessagePleaseEnterCardNumber}
@@ -395,3 +429,4 @@ Verify Dialog Message Please enter Card Number
 Verify Dialog Message Invalid Id Number
     Wait Mobile Until Element Visible     ${lblDialogMessage}    30
     Mobile Element Text Should Be    ${lblDialogMessage}    ${messageInvalidIdNumber}
+

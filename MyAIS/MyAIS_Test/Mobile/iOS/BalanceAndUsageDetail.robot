@@ -834,7 +834,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
-    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_1Month
@@ -852,7 +852,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_2_2]
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
-    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_3Month
@@ -879,6 +879,9 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Your Balance History
+    Input ID Citizen    ${ID_Citizen}
+    View Detail BillingCycle
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_4_2]
@@ -893,4 +896,5 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Verify Balance and Usage Detail Page
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
