@@ -34,7 +34,6 @@ Verify Usage Detail History
     Run Keyword If    "${ar_OS}"=="Android"    Verify Usage Detail History Android
     ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Usage Detail History iOS
 
-
 Verify Usage Detail History Android
     [Arguments]    ${UsageDetailType}
     Mobile Element Text Should Be    ${lblDateTime}    ${DateTime}
@@ -131,12 +130,19 @@ Voice Call Transaction is not Found iOS
     Mobile Capture Screen At Verify Point    Voice Call Transaction is not Found
 
 Select Usage Detail History
+    Run Keyword If    "${ar_OS}"=="Android"    Select Usage Detail History Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Usage Detail History iOS
+
+Select Usage Detail History Android
     Swipe to element    ${mnuBalanceAndUsageDetail}    ${mnuContainer}    left
     Click Mobile Element    ${mnuBalanceAndUsageDetail}
 
+Select Usage Detail History iOS
+    Wait Mobile Until Element Visible     ${btnUsageDetailHistory}    30
+    Click Mobile Element    ${btnUsageDetailHistory}
+
 Select Your Current Charge
     Click Mobile Element    ${lblYourCurrentCharge}
-
 
 Verify Top Up Usage Details
 #มีรายการ ข้อมูลการเติมเงิน
@@ -368,7 +374,24 @@ Verify Balance History 1Month
 
 Verify Balance History 3Month
 
+Verify Title And Billing Cycle Usage Detail History
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblHeaderUsageDetailHistory}
+    ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberUsageDetailHistory}
+    ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
+    Log    ${MobileNumber}
+    Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
+    Mobile Element Text Should Be    ${lblBillingCycle}    ${BillingCycle}    #รอบบิล
+    Mobile check existing text in name    ${lblBillingCycleDetail}
+    Mobile Element Text Should Be    ${lblBillingCycleTotal}    ${BillingCycleTotal}    #ค่าบริการ ฿
+    Mobile check existing text in name    ${lblBillingCycleTotalDetail}
+    Mobile Element Text Should Be    ${lblViewDetail}    ${ViewDetail}   #รายละเอียด
+    Mobile Capture Screen At Verify Point    Verify Title Usage Detail History Page
 
+Verify Dialog Message Please enter Card Number
+    Wait Mobile Until Element Visible     ${lblDialogMessage}    30
+    Mobile Element Text Should Be    ${lblDialogMessage}    ${MessagePleaseEnterCardNumber}
 
-
-
+Verify Dialog Message Invalid Id Number
+    Wait Mobile Until Element Visible     ${lblDialogMessage}    30
+    Mobile Element Text Should Be    ${lblDialogMessage}    ${messageInvalidIdNumber}
