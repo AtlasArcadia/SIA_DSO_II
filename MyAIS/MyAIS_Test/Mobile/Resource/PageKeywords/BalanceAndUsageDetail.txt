@@ -23,6 +23,13 @@ Input ID Citizen
     Input Mobile Text    ${txtID_Number}    ${ID}
     ConfirmID_Citizen
 
+Input Invalid ID Citizen N Round
+    [Arguments]    ${ID}    ${round}
+    : FOR    ${INDEX}    IN RANGE    0    ${round}
+    \    Input ID Citizen    ${ID}
+    \    Exit For Loop If    ${INDEX}==${round}-1
+    \    Click Mobile Element    ${btnOKPopup}
+
 ConfirmID_Citizen
     Click Mobile Element    ${btnConfirmID}
 
@@ -431,3 +438,21 @@ Verify Dialog Message Please enter Card Number
 Verify Dialog Message Invalid Id Number
     Wait Mobile Until Element Visible     ${lblDialogMessage}    30
     Mobile Element Text Should Be    ${lblDialogMessage}    ${messageInvalidIdNumber}
+
+Verify PopUp Invalid ID number
+    Wait Mobile Until Element Visible    ${lblPopUp}
+    Mobile Element Text Should Be    ${lblPopUp}    ${messageInvalidIdCard}
+    Mobile Capture Screen At Verify Point    Invalid ID number
+    Click Mobile Element    ${btnOKPopup}
+
+Verify PopUp Incomplete 13 digits
+    Wait Mobile Until Element Visible    ${lblPopUp}
+    Mobile Element Text Should Be    ${lblPopUp}    ${messageIncomplete13Digits}
+    Mobile Capture Screen At Verify Point    Incomplete 13 digits
+    Click Mobile Element    ${btnOKPopup}
+
+Verify PopUp Invalid ID number over 3 times
+    Wait Mobile Until Element Visible    ${lblPopUp}
+    Mobile Element Text Should Be    ${lblPopUp}    ${messageInvalidIdCitizenMore3Times}
+    Mobile Capture Screen At Verify Point    Invalid ID number over 3 times
+    Click Mobile Element    ${btnOKPopup}
