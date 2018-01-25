@@ -404,12 +404,12 @@ View Detail BillingCycle
 
 Verify Title And Billing Cycle Usage Detail History
     [Arguments]    ${Number}
-    Wait Mobile Until Element Visible    ${lblHeaderUsageDetailHistory}
+    Wait Mobile Until Element Visible    ${lblHeaderUsageDetailHistory}    30
     ${rawMobileNumber}=    Get mobile text    ${lblMobileNumberUsageDetailHistory}
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
     Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
-    Mobile Element Text Should Be    ${lblBillingCycle}    ${BillingCycle}    #รอบบิล
+    Mobile Element Text Should Be    ${lblBillingCycles}    ${BillingCycle}    #รอบบิล
     Mobile check existing text in name    ${lblBillingCycleDetail}
     Mobile Element Text Should Be    ${lblBillingCycleTotal}    ${BillingCycleTotal}    #ค่าบริการ ฿
     Mobile check existing text in name    ${lblBillingCycleTotalDetail}
@@ -429,4 +429,3 @@ Verify Dialog Message Please enter Card Number
 Verify Dialog Message Invalid Id Number
     Wait Mobile Until Element Visible     ${lblDialogMessage}    30
     Mobile Element Text Should Be    ${lblDialogMessage}    ${messageInvalidIdNumber}
-
