@@ -196,6 +196,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...    - ปุ่ม ""ตกลง""
     ...    16. จับภาพหน้าจอ"
     ...
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -205,6 +206,8 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ApplyOtherOnTopPackages
+    Verify Apply Other On Top Package Page
+    Select First Package
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F4_Package_IOS_2, 4_1-2_Y_9_2] Apply Other On-Top Package In Case : Monthly On-Top Package \ (Immediately)
