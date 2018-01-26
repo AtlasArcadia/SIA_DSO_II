@@ -864,7 +864,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Verify Dialog Message Invalid Id Number
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
-[F3_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
+[F3_YourBalanceHistory_IOS_2,4_1-2_Y_1_2] Activate phone number for 1 month.
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
     [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
@@ -882,7 +882,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Verify Balance History 1Month
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
-[F3_YourBalanceHistory_IOS_2,4_1-2_Y_2_2]
+[F3_YourBalanceHistory_IOS_2,4_1-2_Y_2_2] Activate phone number for 3 month.
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
     [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
@@ -900,7 +900,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Verify Balance History 3Month
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
-[F3_YourBalanceHistory_IOS_2,4_1-2_Y_3_2]
+[F3_YourBalanceHistory_IOS_2,4_1-2_Y_3_2] Show Detail BillingCycle
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
     [Tags]    TH    EN    3PO    3BO    active    ID_Citizen    demo
@@ -918,7 +918,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     View Detail BillingCycle
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
-[F3_YourBalanceHistory_IOS_2,4_1-2_Y_4_2]
+[F3_YourBalanceHistory_IOS_2,4_1-2_Y_4_2] Verify Balance & Usage Detail Page
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
     [Tags]    TH    EN    3PO    3BO    active    ID_Citizen

@@ -206,8 +206,9 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ApplyOtherOnTopPackages
-    Verify Apply Other On Top Package Page
+    ${packname}    Verify Apply Other On Top Package Page
     Select First Package
+    Verify Apply Other On Top Package First Step    ${Number}    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F4_Package_IOS_2, 4_1-2_Y_9_2] Apply Other On-Top Package In Case : Monthly On-Top Package \ (Immediately)

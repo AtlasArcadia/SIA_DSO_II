@@ -332,14 +332,26 @@ Confirm First Package
 
 Verify Apply Other On Top Package Page
     Sleep     15s
-    Swipe to element    ${lblTermAndConditions}    ratio=0.1
+    Swipe to element    ${lblTermAndConditions}
     Mobile check existing text    ${lblPackage1}
     Mobile check existing text    ${lblPackage2}
     Mobile check existing text    ${lblPackage3}
     Mobile check existing text    ${lblPackage4}
     Wait Mobile Until Element Visible    ${lblTermAndConditions}
+    ${packname}    Get mobile attribute    ${lblPackage1}    name
+    log    ${packname}
+    [Return]    ${packname}
 
 Select First Package
     Click mobile element    ${lblPackage1}
 
-#Verify First Package
+Verify Apply Other On Top Package First Step
+    [Arguments]    ${Number}    ${packname}
+    Mobile element number should be    ${lblMobileNymberApplyOtherOnTopPackage}    ${Number}
+    Mobile check existing text    ${lblBillingCycleApplyOtherOnTopPackage}
+    Mobile element name should be    ${lblTalkAndNetOnTopPackage}    ${TalkAndNetOnTopPackages}
+    Mobile check existing text    ${lblPackageDetail}
+    Element Text Should Be    ${lblSelectedPackage}    ${packname}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${lblTermAndConditions}

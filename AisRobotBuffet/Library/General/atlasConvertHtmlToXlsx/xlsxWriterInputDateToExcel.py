@@ -308,7 +308,7 @@ class WriterReportExcel:
 
 
 def convert_html_to_excel(input_path_report, output_path_xml, output_path_report="D:\\reportExcel.xlsx",
-                          project_name="MyAISApp"):
+                          project_name="MyAISApp", is_full_anaylze="false"):
     """
         ConvertHTMLtoExcel on RobotFramework\n
         Default PathOutputReport D:\ReportExcel.xlsx
@@ -325,8 +325,11 @@ def convert_html_to_excel(input_path_report, output_path_xml, output_path_report
     elif project_name == "MyAISApp":
         errorAnalyzer.error_analyze_for_myaisapp(output_path_xml, workbook)
     elif project_name == "MyAISAppMultiExecutors":
-        errorAnalyzer.error_analyze_for_myaisapp_multiexecutors(output_path_xml, workbook)
-        LogAnalyzer.analyze_for_myaisapp_multiexecutors(output_path_xml, workbook)
+        if is_full_anaylze == "true":
+            LogAnalyzer.analyze_for_myaisapp_multiexecutors(output_path_xml, workbook)
+        else:
+            errorAnalyzer.error_analyze_for_myaisapp_multiexecutors(output_path_xml, workbook)
+        
     workbook.close()
 
 
