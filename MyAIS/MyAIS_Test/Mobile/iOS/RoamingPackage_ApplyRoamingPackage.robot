@@ -7,7 +7,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -58,7 +58,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -109,7 +109,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -160,7 +160,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -211,7 +211,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -267,7 +267,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -321,7 +321,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -364,7 +364,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -406,7 +406,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -437,7 +437,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -476,7 +476,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    Owner : Tong
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -519,7 +519,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -558,7 +558,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -599,7 +599,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -648,7 +648,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -700,7 +700,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -736,7 +736,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -767,7 +767,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -803,7 +803,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -841,7 +841,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
@@ -882,7 +882,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Documentation]    ***Owner : Lek***
     ...
     ...    *Pre-requisite*
-    ...    Source Number : 3PE,3BE
+    ...    Source Number : 3PE,3BE,3PO,3BO
     ...    Status : Active
     ...    Test Step
     ...    1. เข้าสู่ระบบ My AIS
