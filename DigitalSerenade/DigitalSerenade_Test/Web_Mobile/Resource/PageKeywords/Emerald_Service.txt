@@ -1,8 +1,8 @@
 *** Settings ***
 Resource          DigitalSerenadeCommon.txt
-Resource          ../PageRepository/Emerald_PrivilegeRepository.txt
-Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_PrivilegeLocalized.txt
-Resource          ../PageVariable/Emerald_PrivilegeVariable.txt
+Resource          ../PageRepository/Emerald_ServiceRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_ServiceLocalized.txt
+Resource          ../PageVariable/Emerald_ServiceVariable.txt
 
 *** Keywords ***
 verify active first banner
@@ -440,3 +440,9 @@ Verify click second dot and select first banner
     Click Web Element    ${btnBanner1}
     Sleep    5s
     Mobile Capture Screen At Verify Point    BannerDot2
+
+Verify service banner
+    [Arguments]    ${direction}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
+    ${actualUrl}=    Get Location
+    Web Capture Screen At Verify Point    Verify Banner ${direction}

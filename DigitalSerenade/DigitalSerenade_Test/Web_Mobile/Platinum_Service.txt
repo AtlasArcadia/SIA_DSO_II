@@ -1,4 +1,4 @@
-﻿*** Settings ***
+*** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Platinum_Service.txt
 Resource          Resource/PageRepository/Platinum_ServiceRepository.txt
@@ -27,7 +27,6 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    *Expect Result*
     ...    [1] ตรวจสอบ URL
     ...    Get URL หน้าเว็บ
-    ...
     [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
@@ -61,7 +60,6 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    *Expect Result*
     ...    [1] ตรวจสอบ URL
     ...    Get URL หน้าเว็บ
-    ...
     [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
@@ -95,7 +93,6 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    *Expect Result*
     ...    [1] ตรวจสอบ URL
     ...    Get URL หน้าเว็บ
-    ...
     [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
@@ -129,7 +126,6 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ...    *Expect Result*
     ...    [1] ตรวจสอบ URL
     ...    Get URL หน้าเว็บ
-    ...
     [Tags]    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
@@ -318,3 +314,63 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     Verify URL New Window    ${URLRoaming${ar_LANG}}    Big Pack Non-Stop Data Roaming EN Page
     Verify Data Roaming EN
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_PlatinumWebMobile_1-4_1_Y_2_1] Veriify first banner up left
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    20s
+    Comment    Change Language
+    Web Mouse Over    &{lblServiceBanner}[upLeft]
+    Click Web Element    &{lblServiceBanner}[upLeft]    #up left
+    Verify service banner    Up Left
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_PlatinumWebMobile_1-4_1_Y_2_2] Veriify second banner up right
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    20s
+    Comment    Change Language
+    Web Mouse Over    &{lblServiceBanner}[upRight]
+    Click Web Element    &{lblServiceBanner}[upRight]
+    Verify service banner    Up Right
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_PlatinumWebMobile_1-4_1_Y_2_3] Veriify third banner down left
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    20s
+    Comment    Change Language
+    Web Mouse Over    &{lblServiceBanner}[downLeft]
+    Click Web Element    &{lblServiceBanner}[downLeft]
+    Verify service banner    Down Left
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F8_PlatinumWebMobile_1-4_1_Y_2_4] Veriify forth banner down right
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    20s
+    Comment    Change Language
+    Web Mouse Over    &{lblServiceBanner}[downRight]
+    Click Web Element    &{lblServiceBanner}[downRight]
+    Verify service banner    Down Right
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+Test
+    : FOR    ${index}    IN RANGE    1    10
+    \    log    ${index}
+    \    Exit For Loop If    ${index} > 5
+    log    ${index}
+
+*** Keywords ***

@@ -1,5 +1,25 @@
 *** Settings ***
 Resource          DigitalSerenadeCommon.txt
-Resource          ../PageRepository/Emerald_ActivitiesRepository.txt
-Resource          ../Localized/${ar_LANG}/${ar_NType}/Emerald_ActivitiesLocalized.txt
-Resource          ../PageVariable/Emerald_ActivitiesVariable.txt
+Resource          DigitalSerenadeProfileCommon.txt
+Resource          ../PageRepository/Platinum_ClickMainIconRepository.txt
+Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_ClickMainIconLocalized.txt
+
+*** Keywords ***
+Verify Activity
+    Wait Web Until Page Contains Element    ${HeaderIconActivities}
+    sleep    10s
+    Scroll Web To Element    ${lblPlatinumActivity}
+    Web Element Text Should Be    ${lblPlatinumActivity}    ${Activity}
+    Wait Web Until Page Contains Element    ${BannerSurpriseCampaign}
+    Scroll Web To Element    ${SurpriseCampaign}
+    sleep    10s
+    Web Capture Screen At Verify Point    SurpriseCampaign
+    Click Web Element    ${BannerSurpriseCampaign}
+    sleep    5s
+    Select Window    url=${URL_SurpriseCampaign}
+    ${location}    Get Location
+    Run Keyword If    "${location}" == "${URL_SurpriseCampaign}"    Web Capture Screen At Verify Point    Serenade Ultimate Surprizes link
+    ...    ELSE    Fail
+    ${text}=    Get Web Text    xpath=//*[@id="end_head_img"]
+    ${textMatch}=    Should Match Regexp    ${text}    ${SerenadeUltimateSurprizes}\\s.*\\s\\d{4}
+    Web Capture Screen At Verify Point    Serenade Ultimate Surprizes Page

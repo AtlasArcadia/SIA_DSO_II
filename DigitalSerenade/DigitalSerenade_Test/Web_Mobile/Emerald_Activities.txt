@@ -1,4 +1,4 @@
-﻿*** Settings ***
+*** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Emerald_Activities.txt
 
@@ -33,94 +33,9 @@ Resource          Resource/PageKeywords/Emerald_Activities.txt
     ...    - AIS Serenade Exclusive Trip India 2016
     [Tags]
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Verify Activity
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F10_EmeraldWebMobile_1_2_Y_2_1]_EN
-    [Documentation]    *Owner* : TUES
-    ...    Campaign กิจกรรมที่ผ่านมาแล้ว
-    ...    '- รูป + บรรยาย + Click link ไป web site
-    ...
-    ...    *Pre-requisite*
-    ...    - Campaign \ \ \ *Test Step*
-    ...    1. คลิกลิ้งค์ที่ได้รับจาก ข้อความ URL:
-    ...    2. เปิดลิ้งค์ไปที่เบราซ์เซอร์
-    ...    3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    4. เข้าสู่ระบบ
-    ...    5. เลื่อนมาที่หน้า เปิดประสบการณ์ประทับใจกับกิจกรรมสุดพิเศษ
-    ...    6. แสดงรูปและรายละเอียด campaign ได้ถูกต้อง
-    ...    7. คลิก เพิ่มเติม ที่ campaign
-    ...    8. ตรวจสอบว่าสามารถ redirect ไปยังเว็บไซต์ได้
-    ...
-    ...    *Expected Result*
-    ...    - แสดงรายละเอียด Campaign
-    ...    - สามารถคลิกลิงค์ และ redirect ได้ไปยังเว็บไซต์ได้
-    ...
-    ...    [2] ตรวจสอบหน้าเว็บ
-    ...    - โลโก้ Youtube
-    ...    - AIS Serenade Exclusive Trip India 2016
-    [Tags]    on hold
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    #ตรวจสอบหน้าจอหลัง Login
-    WebReloadPage_EN
-    #เลื่อกภาษา
-    Select Lang En
-    Scroll Web To Element    xpath = //div[@class = "service-section"]//div[@class = "container"]
-    sleep    3s
-    Scroll Web To Element    xpath = //div[@class="container"]//div[@class ="line01"]//h2[@class = "title"]
-    Page Should Contain    xpath = //div[@class="container"]//div[@class ="line01"]//h2[@class = "title"]
-    Web Capture Screen At Verify Point    Activities
-    Comment    Run Keyword And Return If    Web Element Should Be Visible    xpath
-    [Teardown]    Keywords For Teardown    ${#dict_device_name}
-
-[F10_EmeraldWebMobile_2_2_Y_2_1]_EN
-    [Documentation]    *Owner* : TUES
-    ...    - *Updated by : PEN (28-Dec-17) because the old script is fail and error.
-    ...    Campaign กิจกรรมที่ผ่านมาแล้ว
-    ...    '- รูป + บรรยาย + Click link ไป web site
-    ...
-    ...    *Pre-requisite*
-    ...    - Campaign \ \ \ *Test Step*
-    ...    1. คลิกลิ้งค์ที่ได้รับจาก ข้อความ URL:
-    ...    2. เปิดลิ้งค์ไปที่เบราซ์เซอร์
-    ...    3. ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
-    ...    4. เข้าสู่ระบบ
-    ...    5. เลื่อนมาที่หน้า เปิดประสบการณ์ประทับใจกับกิจกรรมสุดพิเศษ
-    ...    6. แสดงรูปและรายละเอียด campaign ได้ถูกต้อง
-    ...    7. คลิก เพิ่มเติม ที่ campaign
-    ...    8. ตรวจสอบว่าสามารถ redirect ไปยังเว็บไซต์ได้
-    ...
-    ...    *Expected Result*
-    ...    - แสดงรายละเอียด Campaign
-    ...    - สามารถคลิกลิงค์ และ redirect ได้ไปยังเว็บไซต์ได้
-    ...
-    ...    [2] ตรวจสอบหน้าเว็บ
-    ...    - โลโก้ Youtube
-    ...    - AIS Serenade Exclusive Trip India 2016
-    [Tags]    on hold
-    &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
-    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
-    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    #ตรวจสอบหน้าจอหลัง Login
-    WebReloadPage_EN
-    #เลื่อกภาษา
-    Select Lang En
-    Scroll Web To Element    xpath = //div[@class = "service-section"]//div[@class = "container"]
-    sleep    3s
-    Scroll Web To Element    xpath = //div[@id='activities']
-    sleep    5s
-    Selenium2Library.Page Should Contain Element    xpath =//h2[contains(.,'${EmeraldActivitiesTitleEN}')]
-    Selenium2Library.Page Should Contain Element    xpath = //h3[contains(.,'${EmeraldActivitiesSubTitleEN}')]
-    Selenium2Library.Capture Page Screenshot
-    Web Capture Screen At Verify Point    Activities
     [Teardown]    Keywords For Teardown    ${#dict_device_name}

@@ -1,4 +1,4 @@
-﻿*** Settings ***
+*** Settings ***
 Resource          ../../../Config/LocalConfig.txt
 Resource          Resource/PageKeywords/Gold_Service.txt
 
@@ -152,4 +152,56 @@ Resource          Resource/PageKeywords/Gold_Service.txt
     Click Service Campaign    ${imgDataRoaming}    Data Roaming
     Verify URL New Window    ${URLRoaming}    Data Roaming Page
     Verify Data Roaming
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_GoldWebMobile_1-4_1_Y_2_1] Veriify first banner up left
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    20s
+    Comment    Change Language
+    Web Mouse Over    &{lblServiceBanner}[upLeft]
+    Click Web Element    &{lblServiceBanner}[upLeft]    #up left
+    Verify service banner    Up Left
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_GoldWebMobile_2_1_Y_2_2] Veriify second banner up right
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    20s
+    Comment    Change Language
+    Web Mouse Over    &{lblServiceBanner}[upRight]
+    Click Web Element    &{lblServiceBanner}[upRight]
+    Verify service banner    Up Right
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_GoldWebMobile_2_1_Y_2_3] Veriify third banner down left
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    20s
+    Comment    Change Language
+    Web Mouse Over    &{lblServiceBanner}[downLeft]
+    Click Web Element    &{lblServiceBanner}[downLeft]
+    Verify service banner    Down Left
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_GoldWebMobile_2_1_Y_2_4] Veriify forth banner down right
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Gold=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Gold
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    sleep    20s
+    Comment    Change Language
+    Web Mouse Over    &{lblServiceBanner}[downRight]
+    Click Web Element    &{lblServiceBanner}[downRight]
+    Verify service banner    Down Right
     [Teardown]    Keywords For Teardown    ${#dict_device_name}

@@ -48,7 +48,7 @@ Open Browser Serenade
 Keywords For Teardown
     [Arguments]    ${#dict_device_name}
     Run Keyword If Test Failed    Capture Screen with Specific name
-    Close Browser
+    Run Keyword And Ignore Error    Close Browser
     Release Virtual Local Configurations    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    ${#dict_device_name}
 
 Verify URL New Window
@@ -70,3 +70,17 @@ WebReloadPage_EN
     sleep    3s
     ${CheckPage}    Run Keyword And Return Status    Wait Web Until Page Contains Element    xpath = //div[@class = "greating-text"]//h2[@class = "title"][contains(.,"Welcome")]
     Run Keyword If    ${CheckPage} == "False"    Reload Page    #ให้ Reload page ถ้าหน้าจอไม่แสดงหน้า Welcome
+
+Select Lang TH
+
+Lang Thai
+    ${status}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    //span[.="THAI"]
+    Run Keyword If    "${status}"=="True"    Click Web Element    //span[.="THAI"]
+
+Lang Eng
+    ${status}=    Run Keyword And Return Status    Wait Mobile Until Element Visible    //span[.="Eng"]
+    Run Keyword If    "${status}"=="True"    Click Web Element    //span[.="Eng"]
+
+Change Language
+    Run Keyword If    "${ar_LANG}"=="TH"    Lang Thai
+    Run Keyword If    "${ar_LANG}"=="EN"    Lang Eng

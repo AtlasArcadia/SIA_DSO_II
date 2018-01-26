@@ -32,8 +32,8 @@ Resource          Resource/PageKeywords/Platinum_ClickMainIcon.txt
     ...    - โลโก้ Youtube
     ...    - AIS Serenade Exclusive Trip India 2016
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum_Upgrade_TypeWS=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum_Upgrade_TypeWS
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Test_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Platinum=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Verify Activity
@@ -65,6 +65,9 @@ Resource          Resource/PageKeywords/Platinum_ClickMainIcon.txt
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     sleep    2
     Scroll Web To Element    xpath=//span[@class="active"]
-    Select Lang En
+    ${ChkLang}=    Selenium2Library.Get Text    xpath=//span[@class="active"]
+    Run Keyword If    '${ChkLang}' == 'THAI'    Selenium2Library.Click Element    xpath=//span[contains(.,"ENG")]
+    Run Keyword If    '${ChkLang}' == 'ENG'    Exit For Loop
+    sleep    4
     Verify Activity
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
