@@ -749,7 +749,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
 
-[F2_YourBalanceHistory_IOS_2,4_1-2_Y_7_2]Voice Call Have transaction
+[F2_YourBalanceHistory_IOS_2,4_1-2_Y_7_2] Voice Call Have transaction
     [Documentation]    *Owner : Lek
     ...    Source Number : 3PO, 3BO
     ...    Status : Active
@@ -782,7 +782,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    10. Verify "Fee (฿)"
     ...    11. Verify tab ex. Local call
     ...    12. Verify data first row
-    [Tags]    TH    EN    3PO    3BO    success    ID_Citizen    demo
+    [Tags]    active     TH    EN    3PO    3BO    success    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveTransaction
@@ -797,7 +797,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Verify Title And Billing Cycle Usage Detail History   ${Number}
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
-[F2_YourBalanceHistory_IOS_2,4_1-2_N_8_2]No enter ID number
+[F2_YourBalanceHistory_IOS_2,4_1-2_N_8_2] No enter ID number
     [Documentation]    *Owner : Lek
     ...    Source Number : 3PO, 3BO
     ...    Status : Active
@@ -816,7 +816,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    4. Verify title "Usage Detail History"
     ...    5. Click "OK"
     ...    6. Verify message "Please enter Card Number."
-    [Tags]    TH    EN    3PO    3BO    fail    demo
+    [Tags]    active     TH    EN    3PO    3BO    fail
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveTransaction
@@ -830,7 +830,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Verify Dialog Message Please enter Card Number
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
-[F2_YourBalanceHistory_IOS_2,4_1-2_N_9_2]Invalid ID number In case card of other people
+[F2_YourBalanceHistory_IOS_2,4_1-2_N_9_2] Invalid ID number In case card of other people
     [Documentation]    *Owner : Lek
     ...    Source Number : 3PO, 3BO
     ...    Status : Active
@@ -850,7 +850,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    4. Enter Invalid ID number "1212121212121"
     ...    5. Click "OK"
     ...    6. Verify message "The national ID Card number you have entered is not the same as the one you previously provided. Please enter again."
-    [Tags]    TH    EN    3PO    3BO    fail    demo
+    [Tags]    active     TH    EN    3PO    3BO    fail
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveTransaction
