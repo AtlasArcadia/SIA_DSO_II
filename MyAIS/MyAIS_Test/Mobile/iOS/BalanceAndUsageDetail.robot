@@ -559,7 +559,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ (฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
-    [Tags]    demotin
+    #[Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -590,7 +590,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ(฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
-    [Tags]    demotin
+    #[Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

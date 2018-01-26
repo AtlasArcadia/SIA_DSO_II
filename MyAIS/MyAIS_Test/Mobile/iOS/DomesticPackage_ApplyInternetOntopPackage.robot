@@ -196,6 +196,16 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...    - ปุ่ม ""ตกลง""
     ...    16. จับภาพหน้าจอ"
     ...
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F4_Package_IOS_2, 4_1-2_Y_9_2] Apply Other On-Top Package In Case : Monthly On-Top Package \ (Immediately)
     [Documentation]    *Owner : TiNn*
@@ -266,3 +276,13 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...    20. ตรวจสอบ SMS ""แพ็กเสริมคุยฟรีกลางคืน ใช้ได้ตั้งแต่ xx/xx/xxxx xx:xx ขอบคุณค่ะ""
     ...    21. จับภาพหน้าจอ"
     ...
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    YourCurrentPackage
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
