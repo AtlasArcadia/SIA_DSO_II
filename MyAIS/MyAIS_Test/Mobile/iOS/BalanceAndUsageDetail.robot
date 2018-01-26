@@ -493,6 +493,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    3. เลือก "ค่าใช้บริการระหว่างรอบบิล"
     ...    4. ตรวจสอบหัวข้อ "ค่าใช้บริการระหว่างรอบบิล"
     ...    5. ตรวจสอบ "ขออภัย ระบบไม่สามารถให้บริการได้ในขณะนี้ กรุณาเข้าใช้บริการใหม่อีกครั้ง"
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -502,7 +503,9 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Your Current Charge
     Input ID Citizen    ${ID_Citizen}
+    Verify Dialog Message You have no unbilled charges currently
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 
@@ -556,7 +559,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ (฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
-    [Tags]
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -568,6 +571,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Select Menu    BalanceAndUsageDetail
     Select Usage Detail History
     Input ID Citizen    ${ID_Citizen}
+    Verify Title And Billing Cycle Usage Detail History    ${Number}
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_Y_2_2] Internet/Value Added Service : No transaction
@@ -586,6 +590,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ(฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -595,6 +600,9 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Usage Detail History
+    Input ID Citizen    ${ID_Citizen}
+    Verify Title And Billing Cycle Usage Detail History    ${Number}
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_3_2]Invalid ID number
@@ -685,7 +693,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...     4. Enter ID Number "1212121212121" over 3 times
     ...     5. Click "OK"
     ...     6. Verify message "You have entered incorrect national ID card number three times.Please sign out and try again later."none
-    [Tags]    TH    EN    3PO    3BO    fail    demo
+    [Tags]    TH    EN    3PO    3BO    fail
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -912,7 +920,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_4_2]
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
-    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen        demo
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
