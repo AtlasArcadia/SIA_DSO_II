@@ -599,22 +599,24 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_3_2]Invalid ID number
     [Documentation]    *Owner : Asma
-    ...    Source Number : 3PO, 3BO
-    ...     Status : Active
-    ...     TH
-    ...     ID No.38012612478681. เข้าสู่ระบบ My AIS
-    ...     2. เลือกเมนู "เช็กยอดค่าโทร"
-    ...     3. เลือก "รายละเอียดค่าใช้บริการ"
-    ...     4. ใส่หมายเลขบัตรประชาชนไม่ถูกต้อง "3801261247868"
-    ...     5. เลือก "ตกลง"
-    ...     6. ตรวจสอบข้อความ "กรุณาระบุหมายเลขประจำตัวให้ถูกต้อง"none
-    ...     EN
-    ...     ID No.38012612478681. Login My AIS
-    ...     2. Click menu "Balance & Usage Detail"
-    ...     3. Click "Usage Detail History"
-    ...     4. Enter Invalid ID number "3801261247868"
-    ...     5. Click "OK"
-    ...     6. Verify message "Please enter Crad Number."none
+     ...    Source Number : 3PO, 3BO
+     ...    Status : Active
+     ...
+     ...    TH
+     ...    ID No.38012612478681. เข้าสู่ระบบ My AIS
+     ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+     ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+     ...    4. ใส่หมายเลขบัตรประชาชนไม่ถูกต้อง "3801261247868"
+     ...    5. เลือก "ตกลง"
+     ...    6. ตรวจสอบข้อความ "กรุณาระบุหมายเลขประจำตัวให้ถูกต้อง"none
+     ...
+     ...    EN
+     ...    ID No.38012612478681. Login My AIS
+     ...    2. Click menu "Balance & Usage Detail"
+     ...    3. Click "Usage Detail History"
+     ...    4. Enter Invalid ID number "3801261247868"
+     ...    5. Click "OK"
+     ...    6. Verify message "Please enter Crad Number."none
     [Tags]    TH    EN    3PO    3BO    fail
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -699,36 +701,36 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_Y_6_2]Internet/Value Added Service: Have transaction
     [Documentation]    *Owner : Asma
-    ...Source Number : 3PO, 3BO
-    ... Status : Active
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
     ...
-    ... TH
-    ... 1. เข้าสู่ระบบ My AIS
-    ... 2. เลือกเมนู "เช็กยอดค่าโทร"
-    ... 3. เลือก "รายละเอียดค่าใช้บริการ"
-    ... 4. ใส่หมายเลขบัตรประชาชน
-    ... 5. ตรวจสอบหัวข้อ "รายละเอียดค่าใช้บริการ"
-    ... 6. เลือก "Internet/บริการเสริม"
-    ... 7. ตรวจสอบ "วันที่/เวลา"
-    ... 8. ตรวจสอบ "ปลายทาง"
-    ... 9. ตรวจสอบ "หน่วย"
-    ... 10. ตรวจสอบ "ค่าบริการ (฿)"
-    ... 11. ตรวจสอบแถบการโทร เช่น บริการรับส่งข้อความ SMS (ครั้ง)
-    ... 12. ตรวจสอบข้อมูลการโทรแถบแรก โดยไม่สนใจข้อมูลด้านในnone
+    ...    TH
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ...    4. ใส่หมายเลขบัตรประชาชน
+    ...    5. ตรวจสอบหัวข้อ "รายละเอียดค่าใช้บริการ"
+    ...    6. เลือก "Internet/บริการเสริม"
+    ...    7. ตรวจสอบ "วันที่/เวลา"
+    ...    8. ตรวจสอบ "ปลายทาง"
+    ...    9. ตรวจสอบ "หน่วย"
+    ...    10. ตรวจสอบ "ค่าบริการ (฿)"
+    ...    11. ตรวจสอบแถบการโทร เช่น บริการรับส่งข้อความ SMS (ครั้ง)
+    ...    12. ตรวจสอบข้อมูลการโทรแถบแรก โดยไม่สนใจข้อมูลด้านในnone
     ...
-    ... EN
-    ... 1. Login My AIS
-    ... 2. Click menu "Balance & Usage Detail"
-    ... 3. Click "Usage Detail History"
-    ... 4. Enter ID number
-    ... 5. Verify title "Usage Detail History"
-    ... 6. Click "Voice Call"
-    ... 7. Verify "Date/Time"
-    ... 8. Verify "Destination"
-    ... 9. Verify "Unit"
-    ... 10. Verify "Fee (฿)"
-    ... 11. Verify tab ex. Internet
-    ... 12. Verify data first rownone
+    ...    EN
+    ...    1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Usage Detail History"
+    ...    4. Enter ID number
+    ...    5. Verify title "Usage Detail History"
+    ...    6. Click "Voice Call"
+    ...    7. Verify "Date/Time"
+    ...    8. Verify "Destination"
+    ...    9. Verify "Unit"
+    ...    10. Verify "Fee (฿)"
+    ...    11. Verify tab ex. Internet
+    ...    12. Verify data first rownone
     [Tags]    TH    EN    3PO    3BO    success
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -741,105 +743,118 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_Y_7_2]Voice Call Have transaction
     [Documentation]    *Owner : Lek
-    [Tags]    TH    EN    3PO    3BO    success
-    ....Source Number : 3PO, 3BO
-    .... Status : Active
-    .... No. 0937019815
-    .... ID No.3801262532458
-    .... TH
-    .... 1. เข้าสู่ระบบ My AIS
-    .... 2. เลือกเมนู "เช็กยอดค่าโทร"
-    .... 3. เลือก "รายละเอียดค่าใช้บริการ"
-    .... 4. ใส่หมายเลขบัตรประชาชน
-    .... 5. ตรวจสอบหัวข้อ "รายละเอียดค่าใช้บริการ"
-    .... 6. เลือก "การโทร"
-    .... 7. ตรวจสอบ "วันที่/เวลา"
-    .... 8. ตรวจสอบ "ปลายทาง"
-    .... 9. ตรวจสอบ "หน่วย"
-    .... 10. ตรวจสอบ "ค่าบริการ (฿)"
-    .... 11. ตรวจสอบแถบการโทร เช่น โทรพื้นที่เดียวกัน
-    .... 12. ตรวจสอบข้อมูลการโทรแถบแรก โดยไม่สนใจข้อมูลด้านใน
-    ....
-    .... EN
-    .... 1. Login My AIS
-    .... 2. Click menu "Balance & Usage Detail"
-    .... 3. Click "Usage Detail History"
-    .... 4. Enter ID number
-    .... 5. Verify title "Usage Detail History"
-    .... 6. Click "Voice Call"
-    .... 7. Verify "Date/Time"
-    .... 8. Verify "Destination"
-    .... 9. Verify "Unit"
-    .... 10. Verify "Fee (฿)"
-    .... 11. Verify tab ex. Local call
-    .... 12. Verify data first row
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    No. 0937019815
+    ...    ID No.3801262532458
+    ...    TH
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ...    4. ใส่หมายเลขบัตรประชาชน
+    ...    5. ตรวจสอบหัวข้อ "รายละเอียดค่าใช้บริการ"
+    ...    6. เลือก "การโทร"
+    ...    7. ตรวจสอบ "วันที่/เวลา"
+    ...    8. ตรวจสอบ "ปลายทาง"
+    ...    9. ตรวจสอบ "หน่วย"
+    ...    10. ตรวจสอบ "ค่าบริการ (฿)"
+    ...    11. ตรวจสอบแถบการโทร เช่น โทรพื้นที่เดียวกัน
+    ...    12. ตรวจสอบข้อมูลการโทรแถบแรก โดยไม่สนใจข้อมูลด้านใน
+    ...
+    ...    EN
+    ...    1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Usage Detail History"
+    ...    4. Enter ID number
+    ...    5. Verify title "Usage Detail History"
+    ...    6. Click "Voice Call"
+    ...    7. Verify "Date/Time"
+    ...    8. Verify "Destination"
+    ...    9. Verify "Unit"
+    ...    10. Verify "Fee (฿)"
+    ...    11. Verify tab ex. Local call
+    ...    12. Verify data first row
+    [Tags]    TH    EN    3PO    3BO    success    ID_Citizen    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveTransaction
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}_HaveTransaction
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Usage Detail History
+    Input ID Citizen    ${ID_Citizen}
+    Verify Title And Billing Cycle Usage Detail History   ${Number}
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_8_2]No enter ID number
     [Documentation]    *Owner : Lek
-    [Tags]    TH    EN    3PO    3BO    fail
-    ....Source Number : 3PO, 3BO
-    .... Status : Active
-    .... TH
-    .... 1. เข้าสู่ระบบ My AIS
-    .... 2. เลือกเมนู "เช็กยอดค่าโทร"
-    .... 3. เลือก "รายละเอียดค่าใช้บริการ"
-    .... 4. ตรวจสอบหัวข้อ "รายละเอียดค่าใช้บริการ"
-    .... 5. เลือก "ตกลง"
-    .... 6. ตรวจสอบข้อความ "กรุณาระบุหมายเลขประจำตัวให้ถูกต้อง"
-    ....
-    .... EN
-    .... 1. Login My AIS
-    .... 2. Click menu "Balance & Usage Detail"
-    .... 3. Click "Usage Detail History"
-    .... 4. Verify title "Usage Detail History"
-    .... 5. Click "OK"
-    .... 6. Verify message "Please enter Crad Number."
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    TH
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ...    4. ตรวจสอบหัวข้อ "รายละเอียดค่าใช้บริการ"
+    ...    5. เลือก "ตกลง"
+    ...    6. ตรวจสอบข้อความ "กรุณาระบุหมายเลขประจำตัวให้ถูกต้อง"
+    ...
+    ...    EN
+    ...    1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Usage Detail History"
+    ...    4. Verify title "Usage Detail History"
+    ...    5. Click "OK"
+    ...    6. Verify message "Please enter Card Number."
+    [Tags]    TH    EN    3PO    3BO    fail    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveTransaction
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Usage Detail History
+    ConfirmID_Citizen
+    Verify Dialog Message Please enter Card Number
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_N_9_2]Invalid ID number In case card of other people
     [Documentation]    *Owner : Lek
-    [Tags]    TH    EN    3PO    3BO    fail
-    ....Source Number : 3PO, 3BO
-    .... Status : Active
-    .... ID No.1212121212121
-    .... TH
-    .... 1. เข้าสู่ระบบ My AIS
-    .... 2. เลือกเมนู "เช็กยอดค่าโทร"
-    .... 3. เลือก "รายละเอียดค่าใช้บริการ"
-    .... 4. ใส่หมายเลขบัตรประชาชนไม่ถูกต้อง "1212121212121"
-    .... 5. เลือก "ตกลง"
-    .... 6. ตรวจสอบข้อความ "หมายเลขบัตรประจำตัวที่คุณระบุ ไม่ตรงกับข้อมูลที่เคยให้ไว้กับบริษัท กรุณาระบบใหม่อีกครั้ง"
-    ....
-    .... EN
-    .... 1. Login My AIS
-    .... 2. Click menu "Balance & Usage Detail"
-    .... 3. Click "Usage Detail History"
-    .... 4. Enter Invalid ID number "1212121212121"
-    .... 5. Click "OK"
-    .... 6. Verify message "The national ID Card number you have entered is not the same as the one you previously provided. Please enter again."
+    ...    Source Number : 3PO, 3BO
+    ...    Status : Active
+    ...    ID No.1212121212121
+    ...    TH
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "รายละเอียดค่าใช้บริการ"
+    ...    4. ใส่หมายเลขบัตรประชาชนไม่ถูกต้อง "1212121212121"
+    ...    5. เลือก "ตกลง"
+    ...    6. ตรวจสอบข้อความ "หมายเลขบัตรประจำตัวที่คุณระบุ ไม่ตรงกับข้อมูลที่เคยให้ไว้กับบริษัท กรุณาระบบใหม่อีกครั้ง"
+    ...
+    ...    EN
+    ...    1. Login My AIS
+    ...    2. Click menu "Balance & Usage Detail"
+    ...    3. Click "Usage Detail History"
+    ...    4. Enter Invalid ID number "1212121212121"
+    ...    5. Click "OK"
+    ...    6. Verify message "The national ID Card number you have entered is not the same as the one you previously provided. Please enter again."
+    [Tags]    TH    EN    3PO    3BO    fail    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveTransaction
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Usage Detail History
+    Input ID Citizen    1212121212121
+    Verify Dialog Message Invalid Id Number
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_1_2]
     [Documentation]    ***Owner : Tong***
