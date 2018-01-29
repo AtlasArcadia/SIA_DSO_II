@@ -5,7 +5,7 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
 
 *** Test Cases ***
 [F1_LoginWebMobile_2_1_Y_1_1]Verify URL and login page
-    [Documentation]    ** Owner:Chompoo ** Pre-Requisite
+    [Documentation]    ** Owner:Chompoo,Noon ** Pre-Requisite
     ...    "- Ntype 3PE :
     ...
     ...    - \ Serenade \ Custome
@@ -20,6 +20,15 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     ...    3.ตรวจสอบ หน้า Login [2]
     ...
     ...    4.จับภาพหน้าจอ"
+    ...
+    ...    Expected Result
+    ...
+    ...    [1] ตรวจสอบ URL
+    ...    https://privilege.ais.co.th/WelcomeToSerenade
+    ...
+    ...    [2] ตรวจสอบ หน้า Login
+    ...    - ล็อกอิน
+    ...    - หมายเลขโทรศัพท์
     [Tags]    3PE    TestSite    Success    TH    Sprint1    WebMobileApplication
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -29,14 +38,14 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_LoginWebMobile_2_1_N_1_2]Login in case wrong mobile number
-    [Documentation]    * Owner:Chompoo **
+    [Documentation]    * Owner:Chompoo,Noon **
     ...    "เข้าสู่ระบบ โดยใช้ Wifi
-    ...    โปรไฟล์ Classic
-    ...    กรณีไม่ใช่ลูกค้า Serenade"
+    ...    กรณีกรอกหมายเลขไม่ครบ 10 หลัก"
+    ...
     ...
     ...
     ...    ** Source Requisite **
-    ...    - Ntype 3BE :
+    ...    - Ntype 3BE m,3PE:
     ...    - \ Serenade \ Custome
     ...
     ...    ** Test Step **
@@ -47,7 +56,7 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     ...    5.จับภาพหน้าจอ
     ...
     ...    ** Expect Result**
-    ...    '[1]error message
+    ...    [1]error message
     ...    กรุณากรอกข้อมูลหมายเลขโทรศัพท์ให้ถูกต้อง
     [Tags]    3PE    TestSite    TH    Sprint1    WebMobileApplication    Fail
     &{#dict_device_name}=    Create Dictionary
@@ -59,14 +68,13 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_LoginWebMobile_2_1_N_1_3]Login in case not input mobile number
-    [Documentation]    * Owner:Chompoo **
-    ...    "เข้าสู่ระบบ โดยใช้ Wifi
-    ...    โปรไฟล์ Classic
-    ...    กรณีไม่ใช่ลูกค้า Serenade"
+    [Documentation]    * Owner:Chompoo,Noon **
+    ...    เข้าสู่ระบบ โดยใช้ Wifi
+    ...    กรณีไม่กรอกหมายเลขโทรศัพท์แล้วกดรับรหัสผ่าน
     ...
     ...
     ...    ** Source Requisite **
-    ...    - Ntype 3BE :
+    ...    - Ntype 3BE,3PE :
     ...    - \ Serenade \ Custome
     ...
     ...    ** Test Step **
@@ -77,7 +85,7 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     ...    5.จับภาพหน้าจอ
     ...
     ...    ** Expect Result**
-    ...    '[1]error message
+    ...    [1]error message
     ...    กรุณากรอกข้อมูลหมายเลขโทรศัพท์ให้ถูกต้อง
     [Tags]    3PE    TestSite    TH    Sprint1    WebMobileApplication    Fail
     &{#dict_device_name}=    Create Dictionary
@@ -90,13 +98,12 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
 
 [F1_LoginWebMobile_2_1_N_1_4]Login in case mobile number of other network
     [Documentation]    * Owner:Chompoo **
-    ...    "เข้าสู่ระบบ โดยใช้ Wifi
-    ...    โปรไฟล์ Classic
-    ...    กรณีไม่ใช่ลูกค้า Serenade"
+    ...    เข้าสู่ระบบ โดยใช้ Wifi
+    ...    กรณีหมายเลขโทรศัพท์ต่างเครือข่าย
     ...
     ...
     ...    ** Source Requisite **
-    ...    - Ntype 3BE :
+    ...    - Ntype 3BE,3PE :
     ...    - \ Serenade \ Custome
     ...
     ...    ** Test Step **
@@ -107,8 +114,8 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     ...    5.จับภาพหน้าจอ
     ...
     ...    ** Expect Result**
-    ...    '[1]error message
-    ...    ระบบไม่สามารถทำรายการได้ในขณะนี้
+    ...    [1]error message
+    ...    บริการนี้สำหรับลูกค้า AIS เท่านั้น กรุณาระบุหมายเลขใหม่อีกครั้ง
     [Tags]    3PE    TestSite    TH    Sprint1    WebMobileApplication    Fail
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -119,14 +126,14 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_LoginWebMobile_2_1_N_1_5]Login in case wrong OTP
-    [Documentation]    * Owner:Chompoo **
+    [Documentation]    * Owner:Chompoo ,Noon**
     ...    "เข้าสู่ระบบ โดยใช้ Wifi
-    ...    โปรไฟล์ Classic
-    ...    กรณีไม่ใช่ลูกค้า Serenade"
+    ...    กรณีกรอกรหัส OTP ไม่ถูกต้อง"
+    ...
     ...
     ...
     ...    ** Source Requisite **
-    ...    - Ntype 3BE :
+    ...    - Ntype 3BE ,3PE:
     ...    - \ Serenade \ Custome
     ...
     ...    ** Test Step **
@@ -139,7 +146,7 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     ...    7.จับภาพหน้าจอ
     ...
     ...    ** Expect Result**
-    ...    '[1]error message
+    ...    [1]error message
     ...    รหัสผ่านไม่ถูกต้อง
     [Tags]    3PE    TestSite    TH    Sprint1    WebMobileApplication    Fail
     &{#dict_device_name}=    Create Dictionary
@@ -151,10 +158,10 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_LoginWebMobile_2_1_N_1_6]Login in case not input OTP
-    [Documentation]    * Owner:Chompoo **
+    [Documentation]    * Owner:Chompoo,Noon**
     ...    "เข้าสู่ระบบ โดยใช้ Wifi
-    ...    โปรไฟล์ Classic
-    ...    กรณีไม่ใช่ลูกค้า Serenade"
+    ...    กรณีไม่กรอกรหัส OTP และกดปุ่ม ตกลง"
+    ...
     ...
     ...
     ...    ** Source Requisite **
@@ -170,7 +177,7 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     ...    6.จับภาพหน้าจอ
     ...
     ...    ** Expect Result**
-    ...    '[1]ตรวจสอบปุ่ม ตกลง
+    ...    [1]ตรวจสอบปุ่ม ตกลง
     ...    ไม่สามารถกดปุ่มตกลงได้
     [Tags]    3PE    TestSite    TH    Sprint1    WebMobileApplication    Fail
     &{#dict_device_name}=    Create Dictionary
@@ -182,14 +189,12 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F1_LoginWebMobile_2_1_N_1_7]Login Success
-    [Documentation]    * Owner:Chompoo **
-    ...    "เข้าสู่ระบบ โดยใช้ Wifi
-    ...    โปรไฟล์ Classic
-    ...    กรณีไม่ใช่ลูกค้า Serenade"
+    [Documentation]    * Owner:Chompoo,Noon **
+    ...    Login Success
     ...
     ...
     ...    ** Source Requisite **
-    ...    - Ntype 3BE :
+    ...    - Ntype 3BE,3PE :
     ...    - \ Serenade \ Custome
     ...
     ...    ** Test Step **
@@ -202,7 +207,7 @@ Resource          ../../../AisRobotBuffet/Mobile/Generic/Keywords/GeneralFunctio
     ...    7.จับภาพหน้าจอ
     ...
     ...    ** Expect Result**
-    ...    '[1] ตรวจสอบ หน้า Digital Serenade
+    ...    [1] ตรวจสอบ หน้า Digital Serenade
     ...    - Welcome to \ AIS Serenade
     ...    - หมายเลข 0xxxxxxxxx (หมายเลขโทรศัพท์ 10 หลัก ต้องเป็นหมายเลขเดียวกันกับที่ใช้ login)
     [Tags]    3PE    TestSite    Success    TH    Sprint1    WebMobileApplication
