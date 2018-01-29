@@ -365,11 +365,12 @@ Verify Apply Other On Top Package First Step And Click Next
 Verify Apply Other On Top Package Second Step And Select Immediate Effect Button Then Click Next
     [Arguments]    ${Number}
     Sleep    10s
+    Wait Mobile Until Element Visible    ${btnBackOnTopPage}
     Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
     Mobile element number should be    ${lblMobileNymberApplyOtherOnTopPackage}    ${Number}
     Mobile check existing text    ${lblBillingCycleApplyOtherOnTopPackage}
     Mobile element name should be    ${lblChooseDay}    ${ApplyOnTopSelectPackageEffective}
-    AISAppiumEx.Wait Until Page Contains Element    ${lblNextCycleBill}
+    #AISAppiumEx.Wait Until Page Contains Element    ${lblNextCycleBill}
     AISAppiumEx.Wait Until Page Contains Element    ${lblNextDay}
     AISAppiumEx.Wait Until Page Contains Element    ${lblImmediateEffect}
     Swipe to element    ${lblTermAndConditions}
@@ -387,10 +388,25 @@ Verify Apply Other On Top Package Third Step And Dialog Nessage
     Swipe to element    ${lblTermAndConditions}
     AISAppiumEx.Element Text Should Be    ${lblSelectedPackageByUser}    ${packname}
     Mobile element name should be    ${lblDayEffective}    ${DayEffective}
-    Wait Mobile Until Element Visible    ${btnNext}
+    Wait Mobile Until Element Visible    ${btnConfirm}
     Wait Mobile Until Element Visible    ${btnBack}
     Wait Mobile Until Element Visible    ${lblTermAndConditions}
     Click mobile element    ${btnConfirm}
-    Mobile element name should be    ${lblDialogMSG}    ${txtApplyOnTopConfirmDialogSuccess}
+    Mobile check existing text    ${lblDialogMSG}
     Mobile Capture Screen At Verify Point    Apply Other On Top Package Third Step
     Click mobile element    ${btnOK}
+
+Verify Current Package Page And Click Register
+    [Arguments]    ${Number}
+    Sleep    10s
+    Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
+    Mobile element number should be    ${lblMobileNymberApplyOtherOnTopPackage}    ${Number}
+    Wait Mobile Until Element Visible    ${lblMainPackageName}
+    Swipe to element    ${lblOtherPackage}
+    Wait Mobile Until Element Visible    ${btnChangeMainPackage}
+    Wait Mobile Until Element Visible    ${lblOtherPackage}
+    Wait Mobile Until Element Visible    ${lblOtherPackageName}
+    Swipe to element    ${btnRegisterOtherPackage}
+    Wait Mobile Until Element Visible    ${btnRegisterOtherPackage}
+    Wait Mobile Until Element Visible    ${btnCancelOtherPackage}
+    Click mobile element    ${btnRegisterOtherPackage}
