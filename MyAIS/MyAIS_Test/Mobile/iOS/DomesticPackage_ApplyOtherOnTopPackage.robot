@@ -490,6 +490,18 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    - แพ็กเกจอินเทอร์เน็ต
     ...    - แพ็กเกจสำหรับโทร
     ...    5. จับภาพหน้าจอ"
+    #[Tags]    demotin
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    Verify page Change Price Plan    ${Number}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_2_2] Change Main package Talk & Net Plan In case : iEntertain Non-Stop (Next billing cycle)"
     [Documentation]    *Owner : TiNn*
@@ -514,6 +526,16 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_3_2] Change Main package Talk & Net Plan In case : 4G Max Speed (Next billing cycle)
     [Documentation]    *Owner : TiNn*
@@ -538,6 +560,16 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_4_2] Change Main package Talk & Net Plan In case : Buffet X3 (Next day)
     [Documentation]    *Owner : TiNn*
@@ -563,6 +595,16 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_5_2] Change Main package Talk & Net Plan In case : Serenade Pack (Immediately)
     [Documentation]    *Owner : TiNn*
@@ -588,6 +630,16 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_6_2] Change Main package Internet Plan In case : Net SIM   (Immediately)
     [Documentation]    *Owner : TiNn*
@@ -612,6 +664,16 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    11. เลือก ""ยืนยัน""
     ...    12. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    13. จับภาพหน้าจอ"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_7_2] Change Main package Talk Plan In case : Basic Package(Immediately)
     [Documentation]    *Owner : TiNn*
@@ -636,6 +698,16 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    11. เลือก ""ยืนยัน""
     ...    12. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    13. จับภาพหน้าจอ"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_8_2] Change Main package Package And Internet from Current Package And Additional Services Page
     [Documentation]    *Owner : TiNn*
@@ -701,3 +773,13 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    ""Your AIS SUPER WiFi Username:09xxxxxxxx. Password:xxxx.""
     ...    ""ชื่อแพ็กเกจ รายละเอียดแพ็กเกจ เริ่มxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx""
     ...    22. จับภาพหน้าจอ"
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ChangePricePlan
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
