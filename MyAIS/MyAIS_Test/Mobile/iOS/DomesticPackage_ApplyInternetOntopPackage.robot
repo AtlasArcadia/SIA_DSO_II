@@ -208,7 +208,9 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Select Sub Menu    ApplyOtherOnTopPackages
     ${packname}    Verify Apply Other On Top Package Page
     Select First Package
-    Verify Apply Other On Top Package First Step    ${Number}    ${packname}
+    Verify Apply Other On Top Package First Step And Click Next    ${Number}    ${packname}
+    Verify Apply Other On Top Package Second Step And Select Immediate Effect Button Then Click Next    ${Number}
+    Verify Apply Other On Top Package Third Step And Dialog Nessage    ${Number}    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F4_Package_IOS_2, 4_1-2_Y_9_2] Apply Other On-Top Package In Case : Monthly On-Top Package \ (Immediately)
