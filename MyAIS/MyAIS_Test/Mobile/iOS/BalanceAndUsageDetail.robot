@@ -712,6 +712,8 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    Source Number : 3PO, 3BO
     ...    Status : Active
     ...
+    ...    No. 0937019815
+    ...    ID No.3801262532458
     ...    TH
     ...    1. เข้าสู่ระบบ My AIS
     ...    2. เลือกเมนู "เช็กยอดค่าโทร"
@@ -743,11 +745,16 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    BalanceAndUsageDetail
+    Select Service Usage Type    UsageDetailHistory_Postpaid
+    Input ID Citizen    ${ID_Citizen}
+    Verify Title And Billing Cycle Usage Detail History    ${Number}
+    [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_Y_7_2] Voice Call Have transaction
     [Documentation]    *Owner : Lek

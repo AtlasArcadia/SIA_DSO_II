@@ -331,10 +331,12 @@ Verify Page Current Package Main Package Only iOS
     Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
     comment    Verify ว่ามี Main pack
     Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
-    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
+    ...    ELSE IF    "${ar_NType}"=="3BE" and "${ar_NType}"=="3BO"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
     comment    ปุ่ม "เปลียนแพ็กหลัก"
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
+    Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     comment    บริการเสริม
+    Wait Mobile Until Page Contains Element    ${lblHeadValueAddService}
     Mobile element text should be    ${lblHeadValueAddService}    ${ValueAddService}
     comment    เงื่อนไขบริการ
     Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
@@ -354,13 +356,14 @@ Verify Page Current Package Main One On Top package iOS
     Mobile element text should be    ${lblHeadMainPackage}    ${HeadMainPackage}
     comment    Verify ว่ามี Main pack
     Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
-    ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
+    ...    ELSE IF    "${ar_NType}"=="3BE" and "${ar_NType}"=="3BO"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
     comment    ปุ่ม "เปลียนแพ็กหลัก"
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
     Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     comment    แถบ "แพ็กเกจ Internet" แถบ "แพ็กเกจอื่นๆ"
     Run Keyword If    "${ar_NType}"=="3PE"    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
     ...    ELSE IF    "${ar_NType}"=="3BE"    Mobile element text should be    ${lblHeadOnTopPackage}    ${HeadOnTopInternetPackage}
+    ...    ELSE IF    "${ar_NType}"=="3BO" and "${ar_NType}"=="3PO"    Mobile element text should be    ${lblHeadOnTopPackage}    ${HeadOnTopInternetPackage}
     comment    Verify ว่ามี On-Top Pack
     Find And Check Package    1
     comment    ปุ่ม "สมัครแพ็กเสริม"
@@ -385,11 +388,11 @@ Verify Page Current Package Main Two On Top package iOS
     Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
     ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
     comment    ปุ่ม "เปลียนแพ็กหลัก"
+    Swipe Element To Screen From Location    ${btnChangePricePlan}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
     comment    แถบ "แพ็กเกจ Internet"
     Run Keyword If    "${ar_NType}"=="3PE"    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
     ...    ELSE IF    "${ar_NType}"=="3BE"    Mobile element text should be    ${lblHeadOnTopPackage}    ${HeadOnTopInternetPackage}
-    Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     comment    Verify ว่ามี On-Top Pack
     Find And Check Package    2
     Swipe Element To Screen From Location    ${locatorOtherButtom}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
@@ -406,10 +409,12 @@ Find And Check Package
     : FOR    ${index}    IN RANGE    3    6
     \    ${StatusPackage}    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}]/*[1]
     \    ${text}    Run Keyword If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}+1]/*[1]
-    \    Log    ${text}
+    \    ${MathStr}    Run Keyword If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'    Should Match Regexp    ${text}    .+
+    \    Log    ${MathStr}
     \    Exit For Loop If    ('${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan') and ${NumPackage}==1
     \    ${text}    Run Keyword If    ('${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan') and ${NumPackage}==2    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}+2]/*[1]
-    \    Log    ${text}
+    \    ${MathStr}    Run Keyword If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'    Should Match Regexp    ${text}    .*
+    \    Log    ${MathStr}
     \    Exit For Loop If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'
 
 
