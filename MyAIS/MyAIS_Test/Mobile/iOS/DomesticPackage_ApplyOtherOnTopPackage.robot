@@ -561,7 +561,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
-    [Tags]    demotin
+    #[Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -651,7 +651,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_6_2] Change Main package Internet Plan In case : Net SIM   (Immediately)
+[F5_Package_IOS_2, 4_1-2_Y_6_2] Change Main package Internet Plan In case : Net SIM (Immediately)
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -674,6 +674,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    11. เลือก ""ยืนยัน""
     ...    12. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    13. จับภาพหน้าจอ"
+
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -683,9 +684,12 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ChangePricePlan
+    ${packname}    Select Package 1 Of Internet Package And Verify
+    Click Next And Select Immediately Effect
+    Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_7_2] Change Main package Talk Plan In case : Basic Package(Immediately)
+[F5_Package_IOS_2, 4_1-2_Y_7_2] Change Main package Talk Plan In case : Basic Package (Immediately)
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -708,6 +712,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    11. เลือก ""ยืนยัน""
     ...    12. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    13. จับภาพหน้าจอ"
+
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -717,6 +722,9 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ChangePricePlan
+    ${packname}    Select Package 2 Of Talk Package And Verify
+    Click Next And Select Immediately Effect
+    Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_8_2] Change Main package Package And Internet from Current Package And Additional Services Page
@@ -783,6 +791,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    ""Your AIS SUPER WiFi Username:09xxxxxxxx. Password:xxxx.""
     ...    ""ชื่อแพ็กเกจ รายละเอียดแพ็กเกจ เริ่มxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx""
     ...    22. จับภาพหน้าจอ"
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -791,5 +800,10 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
-    Select Sub Menu    ChangePricePlan
+    Select Sub Menu    YourCurrentPackage
+    Verify Current Package Page And Click Change Main Package Button    ${Number}
+    ${packname}    Verify Internet Package Page And Select Package 2    ${Number}
+    Verify Change Main Package Page First Step    ${Number}    ${packname}
+    Verify Change Main Package Page Second Step    ${Number}
+    Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
