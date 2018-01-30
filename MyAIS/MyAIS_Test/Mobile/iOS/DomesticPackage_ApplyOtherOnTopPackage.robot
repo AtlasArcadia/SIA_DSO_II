@@ -526,6 +526,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
+    [Tags]    onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -560,6 +561,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -569,6 +571,9 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ChangePricePlan
+    ${packname}   Select 4GMaxSpeed And Verify First Step
+    Click Next And Select Immediately Effect
+    Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_4_2] Change Main package Talk & Net Plan In case : Buffet X3 (Next day)
@@ -595,6 +600,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
+    [Tags]    onhold
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -630,6 +636,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
+    #[Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -639,6 +646,9 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Menu    Package
     Select Sub Menu    ChangePricePlan
+    ${packname}    Select Serenade Package And Verify First Step
+    Click Next And Select Immediately Effect
+    Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F5_Package_IOS_2, 4_1-2_Y_6_2] Change Main package Internet Plan In case : Net SIM   (Immediately)

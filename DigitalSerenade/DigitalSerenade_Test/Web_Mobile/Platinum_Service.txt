@@ -321,8 +321,8 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    sleep    20s
-    Comment    Change Language
+    Sleep    20
+    Change Language
     Web Mouse Over    &{lblServiceBanner}[upLeft]
     Click Web Element    &{lblServiceBanner}[upLeft]    #up left
     Verify service banner    Up Left
@@ -334,8 +334,8 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    sleep    20s
-    Comment    Change Language
+    Sleep    20
+    Change Language
     Web Mouse Over    &{lblServiceBanner}[upRight]
     Click Web Element    &{lblServiceBanner}[upRight]
     Verify service banner    Up Right
@@ -347,8 +347,8 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    sleep    20s
-    Comment    Change Language
+    Sleep    20
+    Change Language
     Web Mouse Over    &{lblServiceBanner}[downLeft]
     Click Web Element    &{lblServiceBanner}[downLeft]
     Verify service banner    Down Left
@@ -360,17 +360,21 @@ Resource          Resource/PageKeywords/DigitalSerenadeCommon.txt
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Platinum
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    sleep    20s
-    Comment    Change Language
+    Sleep    20
+    Change Language
     Web Mouse Over    &{lblServiceBanner}[downRight]
     Click Web Element    &{lblServiceBanner}[downRight]
     Verify service banner    Down Right
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 Test
-    : FOR    ${index}    IN RANGE    1    10
-    \    log    ${index}
-    \    Exit For Loop If    ${index} > 5
-    log    ${index}
+    Open SMS App    10.239.223.210:4723    Android    6.0.1    5203b3dab21863ad
+    ${currentContent}=    Get Current Context
+    log    ${currentContent}
+    Run Keyword If    "${currentContent}"=="NATIVE_APP"    log    Hello
+    Switch To Context    WEBVIEW_1
+    ${currentContent}=    Get Current Context
+    log    ${currentContent}
+    [Teardown]    Close Application
 
 *** Keywords ***

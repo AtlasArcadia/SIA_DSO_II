@@ -129,23 +129,12 @@ Verify Slide Banner
 Verify HC Page Button
     Scroll Web To Element    ${imgBanner}
     Set Selenium Speed    0.1
-    Click Web Element    ${btnHCPage1}
-    Web Capture Screen At Verify Point    CampaignPage1
-    Click Web Element    ${btnHCPage2}
-    Web Capture Screen At Verify Point    CampaignPage2
-    Click Web Element    ${btnHCPage3}
-    Web Capture Screen At Verify Point    CampaignPage3
-    Click Web Element    ${btnHCPage4}
-    Web Capture Screen At Verify Point    CampaignPage4
-    Click Web Element    ${btnHCPage5}
-    Web Capture Screen At Verify Point    CampaignPage5
-    Click Web Element    ${btnHCPage6}
-    Web Capture Screen At Verify Point    CampaignPage6
-    Click Web Element    ${btnHCPage7}
-    Web Capture Screen At Verify Point    CampaignPage7
+    : FOR    ${index}    IN RANGE    1    8    1
+    \    Click Web Element    ${btnHCPage${index}}
+    \    Web Capture Screen At Verify Point    CampaignPage${index}
 
 verify active banner
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img    src
     ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
     ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
     ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannerUBER}
@@ -168,7 +157,7 @@ verify active banner
 
 match active banner from name
     [Arguments]    ${BannerName}
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img    src
     ${Banner}    Get Regexp Matches    ${srcBanner}    ${srcBanner${BannerName}}
     Return From Keyword If    "${Banner}" == "[]"
     ${Name}    Set Variable    ${BannerName}
@@ -186,23 +175,18 @@ Find banner
 
 Verify first banner
     Scroll Web To Element    ${imgBanner}
-    Scroll Web To Element    ${imgBanner}
-    ${CurrentIndex}=    Find banner    myAIS
     Click Web Element    ${btnHCPage1}
-    Web Capture Screen At Verify Point    BannermyAIS
+    Web Capture Screen At Verify Point    First Banner
     Click Web Element    ${imgHilightCampaignActiveBanner}
-    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     Sleep    10s
-    Mobile Capture Screen At Verify Point    Banner1Redirect
+    Web Capture Screen At Verify Point    First Banner Link
 
 Verify second banner
-    Sleep    20
-    Scroll Web To Element    ${btnNextBanner}
     Scroll Web To Element    ${imgBanner}
-    ${CurrentIndex}=    Find banner    Embassy
     Click Web Element    ${btnHCPage2}
-    Web Capture Screen At Verify Point    Banner2
+    Web Capture Screen At Verify Point    Second Banner
     Click Web Element    ${imgHilightCampaignActiveBanner}
-    Click Web Element    ${imgHilightCampaignActiveBanner}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     Sleep    10s
-    Mobile Capture Screen At Verify Point    Banner2Redirect
+    Web Capture Screen At Verify Point    Second Banner Link

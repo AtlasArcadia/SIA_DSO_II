@@ -11,7 +11,7 @@ Verify HC MyAIS
     Click Web Element    ${btnHCPage${CurrentIndex}}
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
-    Select Window    url=${BannermyAISLink}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     Scroll Web To Element    ${imgmyAISLogo}
     Web Element Should Be Visible    ${imgmyAISLogo}
     Web Element Should Be Visible    ${txtmyAISTitle}
@@ -26,7 +26,7 @@ Verify HC Eat with AIS
     Click Web Element    ${btnHCPage${CurrentIndex}}
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
-    Select Window    url=${BannerEatWithAISLink}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" == "${BannerEatWithAISLink}"    Web Capture Screen At Verify Point    WebEatWithAIS
     ...    ELSE    Fail
@@ -43,7 +43,7 @@ Verify HC Embassy
     Click Web Element    ${btnHCPage${CurrentIndex}}
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
-    Select Window    url=${BannerEmbassyLink}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     Scroll Web To Element    ${imgEmbassy}
     Web Element Should Be Visible    ${imgEmbassy}
     Web Element Should Be Visible    ${txtEmbassy}
@@ -59,7 +59,7 @@ Verify HC Top 10 Cafe
     Click Web Element    ${btnHCPage${CurrentIndex}}
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
-    Select Window    url=${BannerTravelinStyleLink}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" == "${BannerTravelinStyleLink}"    Web Capture Screen At Verify Point    WebTravelinStyle
     ...    ELSE    Fail
@@ -74,7 +74,7 @@ Verify HC AIS DC and TCDC
     Click Web Element    ${btnHCPage${CurrentIndex}}
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
-    Select Window    url=${BannerFreeCoffeeLink}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     Scroll Web To Element    ${txtCoffee1}
     Web Element Text Should Be    ${txtCoffee1}    ${lblCoffee1}
     Web Element Text Should Be    ${txtCoffee2}    ${lblCoffee2}
@@ -90,7 +90,7 @@ Verify HC Netflix
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
     Sleep    5s
-    Select Window    url=${BannerNetflixLink}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     Scroll Web To Element    ${txtNetflix1}
     Web Element Should Be Visible    ${txtNetflix1}
     Web Element Should Be Visible    ${txtNetflix2}
@@ -109,7 +109,7 @@ Verify HC Mercury Ville
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
     Sleep    5s
-    Select Window    url=${BannerAISFibreLink}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" == "${BannerAISFibreLink}"    Web Capture Screen At Verify Point    WebAISFibre
     ...    ELSE    Fail
@@ -126,7 +126,7 @@ Verify HC Siam Paragon
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
     Sleep    5s
-    Select Window    url=${BannerHBOLink}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     Scroll Web To Element    ${imgHBOBanner}
     Web Element Should Be Visible    ${imgHBOBanner}
     ${lo}    Get Location
@@ -141,7 +141,7 @@ Verify HC My Kitchen
     Click Web Element    ${btnHCPage${CurrentIndex}}
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    10s
-    Select Window    url=${BannermyKitchenLink}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" == "${BannermyKitchenLink}"    Web Capture Screen At Verify Point    WebmyKitchen
     ...    ELSE    Fail
@@ -170,7 +170,6 @@ Verify Slide Banner
 
 Verify HC Page Button
     Set Selenium Speed    0.1
-    sleep    10s
     Click Web Element    ${btnHCPage1}
     Web Capture Screen At Verify Point    CampaignPage1
     Click Web Element    ${btnHCPage2}
@@ -191,7 +190,7 @@ Verify HC Page Button
     Comment    Web Capture Screen At Verify Point    CampaignPage9
 
 verify active banner
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img    src
     ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerUBER}    #${srcBannermyAIS}
     ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}    #${srcBannerFreeCoffee}
     ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}    #${srcBannerTravelinStyle}
@@ -218,7 +217,7 @@ verify active banner
 
 match active banner from name
     [Arguments]    ${BannerName}
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img    src
     ${Banner}    Get Regexp Matches    ${srcBanner}    ${srcBanner${BannerName}}
     Return From Keyword If    "${Banner}" == "[]"
     ${Name}    Set Variable    ${BannerName}
@@ -242,16 +241,14 @@ Verify first banner
     Web Capture Screen At Verify Point    BannerTravelinStyle
     Click Web Element    ${imgHilightCampaignActiveBanner}
     Sleep    5s
-    Web Capture Screen At Verify Point    BannerfirstRedirect
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     Web Capture Screen At Verify Point    BannerIRedirect
 
 Verify second banner
     Sleep    20s
     Scroll Web To Element    ${imgBanner}
-    ${CurrentIndex}=    Find banner    UBER
     Click Web Element    ${btnHCPage2}
     Web Capture Screen At Verify Point    Banner2
     Click Web Element    ${imgHilightCampaignActiveBanner}
-    Sleep    5s
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     Web Capture Screen At Verify Point    BannertwoRedirect
-    Web Capture Screen At Verify Point    Banner2Redirect

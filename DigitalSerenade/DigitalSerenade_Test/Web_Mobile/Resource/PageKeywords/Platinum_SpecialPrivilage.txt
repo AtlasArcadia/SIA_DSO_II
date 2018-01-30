@@ -7,14 +7,14 @@ Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_SpecialPrivilageL
 
 *** Keywords ***
 Verify Privilege Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
+    Web Element Should Be Visible    ${imgActiveBanner}
     Scroll Web To Element    ${imgActiveBanner}
     Web Element Text Should Be    ${txtPrivilegeTitle}    ${txtPrivilege}
     ${noDot}=    Selenium2Library.Get Matching Xpath Count    ${Owldot}
     log    ${noDot}
     ${noCampaign}=    Selenium2Library.Get Matching Xpath Count    ${imgActiveBanner}
     log    ${noCampaign}
-    Should Be Equal    ${noDot}    7    #Number of Dot
+    Should Be Equal    ${noDot}    6    #Number of Dot
     Should Be Equal    ${noCampaign}    2    #Number of Campaign
     Web Capture Screen At Verify Point    Privilege page
 
@@ -36,22 +36,21 @@ Choose banner
 
 verify active banner
     [Arguments]    ${index}
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][${index}]//img@src
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][${index}]//img    src
     Log    ${srcBanner}
     ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${imgSF}
-    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${imgSandP}
+    ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${imgS&P}
     ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${imgMiracle}
     ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${imgMajor}
     ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${imgCoffeeBean}
     ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${imgTops}
     ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${imgCinnabon}
     ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${imgOctober}
-    ${srcBanner9}    Get Regexp Matches    ${srcBanner}    ${imgBlackCanyon}
-    ${srcBanner10}    Get Regexp Matches    ${srcBanner}    ${imgMezzo}
-    ${srcBanner11}    Get Regexp Matches    ${srcBanner}    ${imgSukishi}
-    ${srcBanner12}    Get Regexp Matches    ${srcBanner}    ${imgColdStone}
-    ${srcBanner13}    Get Regexp Matches    ${srcBanner}    ${imgOrganika}
-    : FOR    ${index}    IN RANGE    1    14
+    ${srcBanner9}    Get Regexp Matches    ${srcBanner}    ${imgMezzo}
+    ${srcBanner10}    Get Regexp Matches    ${srcBanner}    ${imgSukishi}
+    ${srcBanner11}    Get Regexp Matches    ${srcBanner}    ${imgColdStone}
+    ${srcBanner12}    Get Regexp Matches    ${srcBanner}    ${imgOrganika}
+    : FOR    ${index}    IN RANGE    1    13
     \    Log    ${srcBanner${index}}
     \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
     \    ...    ELSE    Continue For Loop
@@ -63,15 +62,13 @@ verify active banner
     ${Banner}    Set Variable If    "${index}" == "6"    Tops    ${Banner}
     ${Banner}    Set Variable If    "${index}" == "7"    Cinnabon    ${Banner}
     ${Banner}    Set Variable If    "${index}" == "8"    October    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "9"    BlackCanyon    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "10"    Mezzo    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "11"    Sukishi    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "12"    ColdStone    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "13"    Organika    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "9"    Mezzo    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "10"    Sukishi    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "11"    ColdStone    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "12"    Organika    ${Banner}
     [Return]    ${Banner}
 
 Scroll To Slide Banner Button
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
     Scroll Web To Element    ${imgActiveBanner}
 
 Verify Slide Banner Button
@@ -95,41 +92,18 @@ Verify Slide Banner Button
 
 Verify Page Button
     sleep    15s
-    Click Web Element    ${btnPrivilegeDot1}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    First dot
-    Click Web Element    ${btnPrivilegeDot2}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Second dot
-    Click Web Element    ${btnPrivilegeDot3}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Third dot
-    Click Web Element    ${btnPrivilegeDot4}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Fouth dot
-    Click Web Element    ${btnPrivilegeDot5}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Fifth dot
-    Click Web Element    ${btnPrivilegeDot6}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Six dot
-    Click Web Element    ${btnPrivilegeDot7}
-    verify active banner    1
-    verify active banner    2
-    Web Capture Screen At Verify Point    Seven dot
+    : FOR    ${index}    IN RANGE    1    7    1
+    \    Click Web Element    ${btnPrivilegeDot${index}}
+    \    verify active banner    1
+    \    verify active banner    2
+    \    Web Capture Screen At Verify Point    ${index} dot
 
 Verify More Button
     sleep    10
     Click Web Element    ${btnOther}
-    Select Window    url=${URL_AllCampaign}
+    Wait Until Keyword Succeeds    5s    1s    Select Window    url=${urlAllCampaign}
     ${location}    Get Location
-    Run Keyword If    "${location}" == "${URL_AllCampaign}"    Web Capture Screen At Verify Point    All Campaign Link
+    Run Keyword If    "${location}" == "${urlAllCampaign}"    Web Capture Screen At Verify Point    All Campaign Link
     ...    ELSE    Fail
     Scroll Web To Element    ${imgPrivilege}
     Web Element Should Be Visible    ${imgPrivilege}
@@ -137,12 +111,11 @@ Verify More Button
     Web Capture Screen At Verify Point    OtherPrivilege
 
 Verify Coffee Bean Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    15
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find Banner    CoffeeBean
     Web Capture Screen At Verify Point    CoffeeBean
     Choose banner    CoffeeBean
-    Select Window    url=${URL_CoffeeBean}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${location}    Get Location
     Run Keyword If    "${location}" == "${URL_CoffeeBean}"    Web Capture Screen At Verify Point    All Campaign Link
     ...    ELSE    Fail
@@ -152,12 +125,11 @@ Verify Coffee Bean Page
     Web Capture Screen At Verify Point    PrivilegeCoffeeBean
 
 Verify Black Canyon Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30s
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    BlackCanyon
     Web Capture Screen At Verify Point    BlackCanyonBanner
     Choose banner    BlackCanyon
-    Select Window    url=${URL_BlackCanyon}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_BlackCanyon}"    Fail
     Scroll Web To Element    ${lblBlackCanyon1}
@@ -166,13 +138,12 @@ Verify Black Canyon Page
     Web Capture Screen At Verify Point    PrivilegeBlackCanyon
 
 Verify Cinnabon Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30s
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    Cinnabon
     Web Capture Screen At Verify Point    CinnabonBanner
     Choose banner    Cinnabon
     sleep    10s
-    Select Window    url=${URL_Cinnabon}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_Cinnabon}"    Fail
     Scroll Web To Element    ${lblCinnabon1}
@@ -181,13 +152,12 @@ Verify Cinnabon Page
     Web Capture Screen At Verify Point    PrivilegeCinnabon
 
 Verify SF Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    SF
     Web Capture Screen At Verify Point    SFBanner
     Choose banner    SF
     sleep    15s
-    Select Window    url=${URL_Sf}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_Sf}"    Fail
     Scroll Web To Element    ${lblSF1}
@@ -196,12 +166,11 @@ Verify SF Page
     Web Capture Screen At Verify Point    PrivilegeSF
 
 Verify Mezzo Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    Mezzo
     Web Capture Screen At Verify Point    MezzoBanner
     Choose banner    Mezzo
-    Select Window    url=${URL_Mezzo}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_Mezzo}"    Fail
     Scroll Web To Element    ${lblMezzo1}
@@ -210,13 +179,12 @@ Verify Mezzo Page
     Web Capture Screen At Verify Point    PrivilegeMezzo
 
 Verify Cold Stone Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    ColdStone
     Web Capture Screen At Verify Point    ColdStoneBanner
     Choose banner    ColdStone
     sleep    15s
-    Select Window    url=${URL_ColdStone}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_ColdStone}"    Fail
     Scroll Web To Element    ${lblColdStone1}
@@ -225,25 +193,23 @@ Verify Cold Stone Page
     Web Capture Screen At Verify Point    PrivilegeColdStone
 
 Verify Sukishi Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    Sukishi
     Web Capture Screen At Verify Point    SukishiBanner
     Choose banner    Sukishi
     sleep    15s
-    Select Window    url=${URL_Sukishi}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_Sukishi}"    Fail
     Web Capture Screen At Verify Point    PrivilegeSukishi
 
 Verify Miracle CoWorking Space Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    Miracle
     Web Capture Screen At Verify Point    MiracleBanner
     Choose banner    Miracle
     sleep    15s
-    Select Window    url=${URL_Miracle}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_Miracle}"    Fail
     Scroll Web To Element    ${lblMiracle1}
@@ -252,13 +218,12 @@ Verify Miracle CoWorking Space Page
     Web Capture Screen At Verify Point    PrivilegeMiracle
 
 Verify Major Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    Major
     Web Capture Screen At Verify Point    MajorBanner
     Choose banner    Major
     sleep    15s
-    Select Window    url=${URL_Major}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_Major}"    Fail
     Scroll Web To Element    ${lblMajor1}
@@ -267,13 +232,12 @@ Verify Major Page
     Web Capture Screen At Verify Point    PrivilegeMajor
 
 Verify Tops Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    Tops
     Web Capture Screen At Verify Point    TopsBanner
     Choose banner    Tops
     sleep    15s
-    Select Window    url=${URL_Tops}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_Tops}"    Fail
     Scroll Web To Element    ${lblTops1}
@@ -282,13 +246,12 @@ Verify Tops Page
     Web Capture Screen At Verify Point    PrivilegeTops
 
 Verify October Flower Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    October
     Web Capture Screen At Verify Point    OctoberBanner
     Choose banner    October
     sleep    15s
-    Select Window    url=${URL_October}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_October}"    Fail
     Scroll Web To Element    ${lblOctober1}
@@ -297,13 +260,12 @@ Verify October Flower Page
     Web Capture Screen At Verify Point    PrivilegeOctober
 
 Verify Organika Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    Organika
     Web Capture Screen At Verify Point    OrganikaBanner
     Choose banner    Organika
     sleep    15s
-    Select Window    url=${URL_Organika}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_Organika}"    Fail
     Scroll Web To Element    ${lblOrganika}
@@ -312,13 +274,12 @@ Verify Organika Page
     Web Capture Screen At Verify Point    PrivilegeOrganika
 
 Verify S&P Page
-    Selenium2Library.Wait Until Element Is Visible    ${imgActiveBanner}
-    sleep    30
+    Web Element Should Be Visible    ${imgActiveBanner}
     Find banner    SandP
     Web Capture Screen At Verify Point    SandPBanner
     Choose banner    SandP
     Sleep    15s
-    Select Window    url=${URL_S&P}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${lo}    Get Location
     Run Keyword If    "${lo}" != "${URL_S&P}"    Fail
     Scroll Web To Element    ${lblSandP1}
@@ -326,3 +287,20 @@ Verify S&P Page
     Web Element Text Should Be    ${lblSandP2}    ${txtSandP2}
     Web Capture Screen At Verify Point    PrivilegeSandP
 
+Verify click first and select first banner
+    Web Element Should Be Visible    ${imgActiveBanner}
+    Click Web Element    ${btnPrivilegeDot1}
+    Web Capture Screen At Verify Point    First Banner First Dot
+    Click Web Element    ${btnBanner1}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
+    ${actualLink}=    Get Location
+    Web Capture Screen At Verify Point    First Banner First Dot Link
+
+Verify click second dot and select first banner
+    Web Element Should Be Visible    ${imgActiveBanner}
+    Click Web Element    ${btnPrivilegeDot2}
+    Web Capture Screen At Verify Point    First Banner Second Dot
+    Click Web Element    ${btnBanner1}
+    Wait Until Keyword Succeeds    5s    1    Select Window    NEW
+    ${actualLink}=    Get Location
+    Web Capture Screen At Verify Point    First Banner Second Dot Link

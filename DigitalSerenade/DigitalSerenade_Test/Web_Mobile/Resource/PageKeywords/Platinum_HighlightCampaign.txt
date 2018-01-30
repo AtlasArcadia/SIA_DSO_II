@@ -17,7 +17,6 @@ Verify hilight Campaign
     Web Capture Screen At Verify Point    HilightCampaign
 
 Verify Slide Banner
-    sleep    15s
     Scroll Web To Element    ${imgBanner}
     ${banner1}    verify active banner
     Click Web Element    ${btnNextBanner}
@@ -30,32 +29,32 @@ Verify Slide Banner
     ...    ELSE    Fail
 
 verify active banner
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
-    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img    src
+    ${srcBanner1}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
     ${srcBanner2}    Get Regexp Matches    ${srcBanner}    ${srcBannerExclusiveAirport}
     ${srcBanner3}    Get Regexp Matches    ${srcBanner}    ${srcBannermyAIS}
-    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
-    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
-    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannerEmbassy}
-    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerHBO}
-    ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcBannerS8}
+    ${srcBanner4}    Get Regexp Matches    ${srcBanner}    ${srcBannerFreeCoffee}
+    ${srcBanner5}    Get Regexp Matches    ${srcBanner}    ${srcBannerS8}
+    ${srcBanner6}    Get Regexp Matches    ${srcBanner}    ${srcBannermyKitchen}
+    ${srcBanner7}    Get Regexp Matches    ${srcBanner}    ${srcBannerNetFlix}
+    ${srcBanner8}    Get Regexp Matches    ${srcBanner}    ${srcBannerUber}
     : FOR    ${index}    IN RANGE    1    9
     \    Log    ${srcBanner${index}}
     \    Run Keyword If    "${srcBanner${index}}" != "[]"    Exit For Loop
     \    ...    ELSE    Continue For Loop
-    ${Banner}    Set Variable If    "${index}" == "1"    FreeCoffee
+    ${Banner}    Set Variable If    "${index}" == "1"    Embassy
     ${Banner}    Set Variable If    "${index}" == "2"    ExclusiveAirport    ${Banner}
     ${Banner}    Set Variable If    "${index}" == "3"    MyAIS    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "4"    myKitchen    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "5"    Netflix    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "6"    Embassy    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "7"    HBO    ${Banner}
-    ${Banner}    Set Variable If    "${index}" == "8"    S8    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "4"    FreeCoffee    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "5"    S8    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "6"    myKitchen    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "7"    Netflix    ${Banner}
+    ${Banner}    Set Variable If    "${index}" == "8"    Uber    ${Banner}
     [Return]    ${Banner}
 
 match active banner from name
     [Arguments]    ${BannerName}
-    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img@src
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img    src
     ${Banner}    Get Regexp Matches    ${srcBanner}    ${srcBanner${BannerName}}
     Return From Keyword If    "${Banner}" == "[]"
     ${Name}    Set Variable    ${BannerName}
@@ -72,7 +71,6 @@ Find banner
     [Return]    ${index}
 
 Verify HC Page Button
-    sleep    15s
     Set Selenium Speed    0.1
     Scroll Web To Element    ${imgBanner}
     Click Web Element    ${btnHCPage1}
@@ -93,7 +91,6 @@ Verify HC Page Button
     Web Capture Screen At Verify Point    CampaignPage8
 
 Verify HC Free Coffee
-    sleep    20s
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    FreeCoffee
     Web Capture Screen At Verify Point    BannerFreeCoffee
@@ -108,7 +105,6 @@ Verify HC Free Coffee
     Verify Link    ${BannerFreeCoffeeLink}
 
 Verify HC HBO
-    sleep    20s
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    HBO
     Web Capture Screen At Verify Point    BannerHBO
@@ -122,7 +118,6 @@ Verify HC HBO
     Verify Link    ${BannerHBOLink}
 
 Verify HC MyAIS
-    sleep    20s
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    myAIS
     Web Capture Screen At Verify Point    BannermyAIS
@@ -136,7 +131,6 @@ Verify HC MyAIS
     Verify Link    ${BannermyAISLink}
 
 Verify HC My Kitchen
-    sleep    20s
     Set Selenium Speed    0.1
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    myKitchen
@@ -152,7 +146,6 @@ Verify HC My Kitchen
     Verify Link    ${BannermyKitchenLink}
 
 Verify HC Netflix
-    sleep    20s
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    NetFlix
     Web Capture Screen At Verify Point    BannerNetflix
@@ -169,7 +162,6 @@ Verify HC Netflix
     Verify Link    ${BannerNetflixLink}
 
 Verify HC Embassy
-    sleep    30
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    Embassy
     Web Capture Screen At Verify Point    BannerEmbassy
@@ -184,7 +176,6 @@ Verify HC Embassy
     Verify Link    ${BannerEmbassyLink}
 
 Verify Exclusive Airport
-    sleep    20s
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    ExclusiveAirport
     Web Capture Screen At Verify Point    ExclusiveAirport
@@ -198,7 +189,6 @@ Verify Exclusive Airport
     Verify Link    ${BannerExclusiveAirport}
 
 Verify S8
-    sleep    20s
     Scroll Web To Element    ${imgBanner}
     ${CurrentIndex}=    Find banner    S8
     Web Capture Screen At Verify Point    S8
@@ -212,21 +202,19 @@ Verify S8
     Verify Link    ${BannerS8Link}
 
 Verify first banner
-    Sleep    20s
     Scroll Web To Element    ${imgBanner}
-    ${CurrentIndex}=    Find banner    FreeCoffee
     Click Web Element    ${btnHCPage1}
-    Web Capture Screen At Verify Point    BannerTravelinStyle
+    Web Capture Screen At Verify Point    First Banner
     Click Web Element    ${imgHilightCampaignActiveBanner}
-    Sleep    5s
-    Mobile Capture Screen At Verify Point    BannerfirstRedirect
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
+    ${actualLink}=    Get Location
+    Web Capture Screen At Verify Point    First Banner Redirect
 
 Verify second banner
-    Sleep    20s
     Scroll Web To Element    ${imgBanner}
-    ${CurrentIndex}=    Find banner    FreeCoffee
     Click Web Element    ${btnHCPage2}
-    Web Capture Screen At Verify Point    Banner2
+    Web Capture Screen At Verify Point    Second Banner
     Click Web Element    ${imgHilightCampaignActiveBanner}
-    Sleep    5s
-    Mobile Capture Screen At Verify Point    BannertwoRedirect
+    Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
+    ${actualLink}=    Get Location
+    Web Capture Screen At Verify Point    Second Banner Redirect
