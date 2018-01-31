@@ -2,7 +2,7 @@
 Resource          Login.txt
 Resource          MyAISCommon.txt
 Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/DomesticsPackage_CancelOnTopPackageLocalized.txt
-Resource          ../PageRepository/${ar_OS}/DomesticsPackage_CancelOnTopPackage.txt
+Resource          ../PageRepository/${ar_OS}/DomesticsPackage_CancelOnTopPackageRepository.txt
 
 *** Keywords ***
 Keywords For Teardown
@@ -94,3 +94,34 @@ Select Cancel Ontop Package Name
 
 Confirm Cancel Ontop
     Click Mobile Element    ${btnConfirmCancelOnTop}
+
+Verify Dialog MSG
+    Mobile element text should be    ${txtDialogMSG}    ${CancalPackage}
+    Mobile Capture Screen At Verify Point    Dialog msg
+
+Verify Cancel Package Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblHeaderCancelPackage}
+    Mobile element number should be    ${lblMobileNumberCancelPackage}    ${Number}
+    Wait Mobile Until Element Visible    ${lblBillingCycleCancelPackage}
+    Wait Mobile Until Element Visible    ${lblTap}
+    Swipe Element To Screen    ${lblTermAndConditions}
+    Wait Mobile Until Element Visible    ${lblPackageName}
+    Wait Mobile Until Element Visible    ${lblTermAndConditions}
+    Mobile Capture Screen At Verify Point    Cancel Package Page
+    Click Mobile Element    ${lblPackageName}
+
+Verify Confirm Cancel Package Page
+    [Arguments]    ${Number}
+    Wait Mobile Until Element Visible    ${lblHeaderCancelPackage}
+    Mobile element number should be    ${lblMobileNumberCancelPackage}    ${Number}
+    Wait Mobile Until Element Visible    ${lblBillingCycleCancelPackage}
+    Wait Mobile Until Element Visible    ${lblTap}
+    Wait Mobile Until Element Visible    ${btnConfirmCancelPackage}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${lblTermAndConditions}
+    Click Mobile Element    ${btnConfirmCancelPackage}
+
+Verify Dialog MSG Wait SMS
+    Mobile element text should be    ${txtDialogMSGWaitSMS}    ${MessageCompleteCancelOnTOp}
+    Mobile Capture Screen At Verify Point    Dialog msg
