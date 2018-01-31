@@ -5,25 +5,6 @@ Resource          ../PageRepository/${ar_OS}/HomeRepository.txt
 Resource          ../Localized/${ar_OS}/${ar_LANG}/${ar_NType}/HomeLocalized.txt
 
 *** Keywords ***
-Change Language
-    [Arguments]    ${Language}
-    ${title}    AISAppiumEx.Get Text    ${lblTitle}
-    Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    Select Language    ${Language}
-
-Select Language
-    [Arguments]    ${Language}
-    Click Mobile Element    ${btnHamburger}
-    Click Mobile Element    ${btnSettings}
-    AISAppiumEx.Wait Until Page Contains Element    ${btnSwitchLanguage}    5s
-    ${checked}    AISAppiumEx.Get Element Attribute    ${btnSwitchLanguage}    checked
-    Run Keyword If    ('${Language}'=='TH') and ('${checked}'=='false')    Click Mobile Element    ${btnSwitchLanguage}
-    Run Keyword If    ('${Language}'=='EN') and ('${checked}'=='true')    Click Mobile Element    ${btnSwitchLanguage}
-    Click Mobile Element    ${btnBack}
-    ${title}    Get Mobile Text    ${lblTitle}
-    Run Keyword If    ('${title}'=='Home' and '${Language}'=='TH' ) or ('${title}'=='หน้าหลัก' and '${Language}'=='EN' )    fail    change lange not working
-    Comment    Click Mobile Element    ${mnuPackage}
-    AISAppiumEx.Wait Until Page Contains Element    ${conHomeSummary}    5s
-
 Swipe To Cloud Plus
     AISAppiumEx.Wait Until Element Is Visible    ${lblRemainingBalance}    30
     swipe in container to element by wait until visible N time    ${lblAisCloud}    ${lblSummaryInfoContainer}    2    left
