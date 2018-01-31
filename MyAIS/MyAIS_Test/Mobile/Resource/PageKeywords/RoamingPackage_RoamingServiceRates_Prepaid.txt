@@ -82,15 +82,22 @@ Verify Roaming Service Rate With Select Country iOS
     Mobile element text should be    ${lblVoiceCallRoamingCallToThailand}    ${CallToThailand}
     Mobile element text should be    ${lblVoiceCallRoamingCallToOtherCountry}    ${CallToOtherCountry}
     Mobile element text should be    ${lblVoiceCallRoamingReceivingCall}    ${ReceivingCall}
-    Mobile element text should be    ${lblValueVoiceCallRoamingLocalCall}    ${${Country}VoiceCallRoamingLocalCall}
-    Mobile element text should be    ${lblValueVoiceCallRoamingCallToThailand}    ${${Country}VoiceCallRoamingCallToThailand}
-    Mobile element text should be    ${lblValueVoiceCallRoamingCallToOtherCountry}    ${${Country}VoiceCallRoamingCallToOtherCountry}
-    Mobile element text should be    ${lblValueVoiceCallRoamingReceivingCall}    ${${Country}VoiceCallRoamingReceivingCall}
+    Mobile check existing text in name    ${lblValueVoiceCallRoamingLocalCall}    #RatesLocalcall
+    Mobile check existing text in name    ${lblValueVoiceCallRoamingCallToThailand}    #RatesCalltoThailand
+    Mobile check existing text in name    ${lblValueVoiceCallRoamingCallToOtherCountry}    #RatesCalltoOtherCountries
+    Mobile check existing text in name    ${lblValueVoiceCallRoamingReceivingCall}    #ReceivingCall
+    Comment    Mobile element text should be    ${lblValueVoiceCallRoamingLocalCall}    ${${Country}VoiceCallRoamingLocalCall}
+    Comment    Mobile element text should be    ${lblValueVoiceCallRoamingCallToThailand}    ${${Country}VoiceCallRoamingCallToThailand}
+    Comment    Mobile element text should be    ${lblValueVoiceCallRoamingCallToOtherCountry}    ${${Country}VoiceCallRoamingCallToOtherCountry}
+    Comment    Mobile element text should be    ${lblValueVoiceCallRoamingReceivingCall}    ${${Country}VoiceCallRoamingReceivingCall}
     Mobile element text should be    ${lblSMSRoaming}    ${SMSRoaming}
     Mobile element text should be    ${lblDataRoaming}    ${DataRoaming}
-    Mobile element text should be    ${lblValueSmsRoaming}    ${${Country}SmsRoaming}
-    Mobile element text should be    ${lblValueDataRate}    ${${Country}DataRate}
-    Mobile element text should be    ${lblValueDataRateMinimum}    ${${Country}DataRateMinimum}
+    Mobile check existing text in name    ${lblValueSmsRoaming}    #RatesSmsRoaming(B/SMS)
+    Mobile check existing text in name    ${lblValueDataRate}    #RatesDataRoaming(B/KB)
+    Mobile check existing text in name    ${lblValueDataRateMinimum}    #RatesDataRoamingChargingBlock(KB)
+    Comment    Mobile element text should be    ${lblValueSmsRoaming}    ${${Country}SmsRoaming}
+    Comment    Mobile element text should be    ${lblValueDataRate}    ${${Country}DataRate}
+    Comment    Mobile element text should be    ${lblValueDataRateMinimum}    ${${Country}DataRateMinimum}
     Mobile element name should be    ${btnGreatSavingRoamingPackage}    ${GreatSavingRoamingPackages}
     Mobile Capture Screen At Verify Point    Verify In Page Roaming Service Rate With Select Country Australia
     [Return]    ${ChooseCountry}
@@ -132,6 +139,7 @@ Select Country Android
 
 Select Country iOS
     [Arguments]    ${Country}
+    Wait Mobile Until Element Visible    ${ddlChooseCountryRoamingServiceRates}
     Click Mobile Element    ${ddlChooseCountryRoamingServiceRates}
     Input Mobile Text    ${cboServiceRateCountrySearch}     ${${Country}}
     Click Mobile Element    ${item${Country}CountryRoamingServiceRatePage}
@@ -174,7 +182,15 @@ Click Great Saving Roaming Packages Button
     Click Mobile Element    ${btnGreatSavingRoamingPackage}
 
 Click Continue Button
+    Run Keyword If    "${ar_OS}"=="Android"    Click Continue Button Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Click Continue Button iOS
+
+Click Continue Button Android
     Click Mobile Element    ${btnContinue}
+
+Click Continue Button iOS
+    Wait Mobile Until Element Visible    ${btnContinueApplyRoaming}
+    Click Mobile Element    ${btnContinueApplyRoaming}
 
 Verify Apply Roaming Package Not Select Country
     Wait Mobile Until Element Visible    ${msgDialog}
@@ -281,3 +297,13 @@ Select Roaming Service Rate Submenu Android
 
 Select Roaming Service Rate Submenu iOS
     Select Sub Menu    RoamingServiceRates
+
+Verify Dialog Message Please Select A Country
+    Wait Mobile Until Element Visible    ${lblDialogMessageApplyRoamingPackage}
+    Mobile element name should be    ${lblDialogMessageApplyRoamingPackage}    ${PleaseCountry}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Please Select A Country
+
+Verify Dialog Message Please Select a Package Type
+    Wait Mobile Until Element Visible    ${lblDialogMessageApplyRoamingPackage}
+    Mobile element name should be    ${lblDialogMessageApplyRoamingPackage}    ${PleaseSelectPackageType}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message Please select a package type

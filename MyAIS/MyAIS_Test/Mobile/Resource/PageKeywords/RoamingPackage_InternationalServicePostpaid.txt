@@ -83,6 +83,8 @@ Verify International Roaming Service Page iOS
     Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท
     Mobile element text should be    ${lblInternationalRoamingService}    ${InternationalRoamingService}
     Wait Mobile Until Element Visible    ${btnInternationalRoamingService}
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Mobile element text should be    ${lblInternationalCallService}    ${InternationalCallService}
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Wait Mobile Until Element Visible    ${btnInternationalCallService}
     Mobile element text should be    ${lblTermAndConditionInternationalService}    ${TermAndConditionInternationalService}
     Mobile Capture Screen At Verify Point    Verify International Roaming Service Page
 
@@ -96,9 +98,11 @@ Verify Dialog Message Enable International Service Android
     Mobile Capture Screen At Verify Point    Verify Dialog Message
 
 Verify Dialog Message Enable International Service iOS
-    Wait Mobile Until Element Visible    ${lblDialogMessage}
-    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOnInternationalRoamingService}
+    Wait Mobile Until Element Visible    ${lblDialogMessage}    30
+    Comment    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOnInternationalRoamingService}
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOnInternationalCallServiceAndIDD}    ELSE    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOnInternationalRoamingService}
     Mobile Capture Screen At Verify Point    Verify Dialog Message International roaming service is now activated.
+    Run Keyword If    "${ar_NType}"=="3PO" or "${ar_NType}"=="3BO"    Select Cancel Button
 
 Verify Dialog Message Disable International Service
     Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Message Disable International Service Android
@@ -110,13 +114,14 @@ Verify Dialog Message Disable International Service Android
     Mobile Capture Screen At Verify Point    Verify Dialog Message
 
 Verify Dialog Message Disable International Service iOS
-    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Wait Mobile Until Element Visible    ${lblDialogMessage}    30
     Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOffInternationalRoamingService}
     Mobile Capture Screen At Verify Point    Verify Dialog Message International roaming service is now deactivated.
 
 Select Switch Enable International Roaming Service
     Run Keyword If    "${ar_NType}_IRService"=="3PE_IRService"    Select Switch Enable International Roaming Service Type 3PE
     ...    ELSE IF    "${ar_NType}_IRService"=="3BE_IRService"    Select Switch Enable International Roaming Service Type 3BE
+    ...    ELSE    Select Switch Enable International Roaming Service Type Other
 
 Select Switch Enable International Roaming Service Type 3PE
     Wait Mobile Until Element Visible    ${btnInternationalRoamingService}
@@ -126,9 +131,15 @@ Select Switch Enable International Roaming Service Type 3BE
     Wait Mobile Until Element Visible    ${btnInternationalRoamingService}
     Click Mobile Element    ${btnInternationalRoamingService}
 
+Select Switch Enable International Roaming Service Type Other
+    Wait Mobile Until Element Visible    ${btnInternationalRoamingService}    30
+    Click Mobile Element    ${btnInternationalRoamingService}
+    Sleep    30
+
 Select Switch Disable International Roaming Service
     Run Keyword If    "${ar_NType}_IRService"=="3PE_IRService"    Select Switch Disable International Roaming Service Type 3PE
     ...    ELSE IF    "${ar_NType}_IRService"=="3BE_IRService"    Select Switch Disable International Roaming Service Type 3BE
+    ...    ELSE    Select Switch Disable International Roaming Service Type Other
 
 Select Switch Disable International Roaming Service Type 3PE
     Wait Mobile Until Element Visible    ${btnInternationalRoamingService}
@@ -137,3 +148,53 @@ Select Switch Disable International Roaming Service Type 3PE
 Select Switch Disable International Roaming Service Type 3BE
     Wait Mobile Until Element Visible    ${btnInternationalRoamingService}
     Click Mobile Element    ${btnInternationalRoamingService}
+
+Select Switch Disable International Roaming Service Type Other
+    Wait Mobile Until Element Visible    ${btnInternationalRoamingService}    30
+    Click Mobile Element    ${btnInternationalRoamingService}
+
+Verify Dialog Message Enable International Call Service
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Message Enable International Call Service Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dialog Message Enable International Call Service iOS
+
+Verify Dialog Message Enable International Call Service Android
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOnInternationalCallService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message
+
+Verify Dialog Message Enable International Call Service iOS
+    Wait Mobile Until Element Visible    ${lblDialogMessage}    30
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOnInternationalCallService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message International Call service is now activated.
+
+Verify Dialog Message Disable International Call Service
+    Run Keyword If    "${ar_OS}"=="Android"    Verify Dialog Message Disable International Call Service Android
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Verify Dialog Message Disable International Call Service iOS
+
+Verify Dialog Message Disable International Call Service Android
+    Wait Mobile Until Element Visible    ${lblDialogMessage}
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOffInternationalCallService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message
+
+Verify Dialog Message Disable International Call Service iOS
+    Wait Mobile Until Element Visible    ${lblDialogMessage}    30
+    Mobile element text should be    ${lblDialogMessage}    ${DialogMessageOffInternationalCallService}
+    Mobile Capture Screen At Verify Point    Verify Dialog Message International Call service is now deactivated.
+
+Select Switch Enable International Call Service
+    Wait Mobile Until Element Visible    ${btnInternationalCallService}    30
+    Click Mobile Element    ${btnInternationalCallService}
+
+Select Switch Disable International Call Service
+    Wait Mobile Until Element Visible    ${btnInternationalCallService}    30
+    Click Mobile Element    ${btnInternationalCallService}
+
+Select Cancel Button
+    Wait Mobile Until Element Visible    ${btnDialogCancelInternationalRoamingServicePage}    30
+    Click Mobile Element    ${btnDialogCancelInternationalRoamingServicePage}
+
+Select OK Button
+    Wait Mobile Until Element Visible    ${btnDialogOKInternationalRoamingServicePage}    30
+    Sleep    30
+    Click Mobile Element    ${btnDialogOKInternationalRoamingServicePage}
+    Sleep    30
