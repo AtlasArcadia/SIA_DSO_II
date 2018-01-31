@@ -873,12 +873,28 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_1_2] Activate phone number for 1 month.
     [Documentation]    ***Owner : Tong***
-    ...    Ntype : 3PO, 3BO
+    ...    Source Number : 3PO, 3BO
+    ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "ค่าใช้บริการย้อนหลัง"
+    ...    4. กรอก "เลขบัตรประชาชน"
+    ...    5. กด "ตกลง"
+    ...    6. ตรวจสอบหัวข้อ "ค่าใช้บริการย้อนหลัง"
+    ...    7. ตรวจสอบ
+    ...    - รอบบิล
+    ...    - ค่าบริการ
+    ...    - ใบแจ้งค่าบริการ
+    ...    - รายการรอบบิลย้อนหลัง 1 เดือน (เช็คว่ามีครบ 1 รายการ)
+    ...    - คลิก เพื่อดูรายละเอียดใขแจ้งค่าใช้บริการ
+    ...    - คุณสามารถดูใบแจ้งค่าใช้บริการหลังสิ้นสุดรอบบิลแล้ว 8 วัน
+    ...    - ปุ่ม"ชำระค่าบริการ"
+    ...    8. จับภาพหน้าจอ
     [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}     ${ar_NType}_1Month
-    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}_1Month
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}     ${ar_NType}_3Month
+    ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}_3Month
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
@@ -892,6 +908,22 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_2_2] Activate phone number for 3 month.
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
+    ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "ค่าใช้บริการย้อนหลัง"
+    ...    4. กรอก "เลขบัตรประชาชน"
+    ...    5. กด "ตกลง"
+    ...    6. ตรวจสอบหัวข้อ "ค่าใช้บริการย้อนหลัง"
+    ...    7. ตรวจสอบ
+    ...    - รอบบิล
+    ...    - ค่าบริการ
+    ...    - ใบแจ้งค่าบริการ
+    ...    - รายการรอบบิลย้อนหลัง 3 เดือน (เช็คว่ามีครบ 3 รายการ)
+    ...    - คลิก เพื่อดูรายละเอียดใขแจ้งค่าใช้บริการ
+    ...    - คุณสามารถดูใบแจ้งค่าใช้บริการหลังสิ้นสุดรอบบิลแล้ว 8 วัน
+    ...    - ปุ่ม"ชำระค่าบริการ"
+    ...    8. จับภาพหน้าจอ
     [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -910,6 +942,18 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_3_2] Show Detail BillingCycle
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
+    ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. เลือก "ค่าใช้บริการย้อนหลัง"
+    ...    4. กรอก "เลขบัตรประชาชน"
+    ...    5. กด "ตกลง"
+    ...    6. ตรวจสอบหัวข้อ "ค่าใช้บริการย้อนหลัง"
+    ...    7. คลิก แว่นขยาย
+    ...    8. ตรวจสอบ "ใบแจ้งค่าใช้บริการ"
+    ...    - ใบแจ้งค่าใช้บริการ (STATEMENT)
+    ...    - Logo AIS
+    ...    9. จับภาพหน้าจอ
     [Tags]    TH    EN    3PO    3BO    active    ID_Citizen    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
@@ -928,7 +972,16 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
 [F3_YourBalanceHistory_IOS_2,4_1-2_Y_4_2] Verify Balance & Usage Detail Page
     [Documentation]    ***Owner : Tong***
     ...    Ntype : 3PO, 3BO
-    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
+    ...    Test Step
+    ...    1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "เช็กยอดค่าโทร"
+    ...    3. ตรวจสอบหน้า "เช็คยอดค่าโทร"
+    ...    - เช็คยอดค่าโทร
+    ...    - ค่าใช้บริการระหว่างรอบบิล
+    ...    - ค่าใช้บริการย้อนหลัง
+    ...    - รายละเอียดค่าใช้บริการ
+    ...    4. จับภาพหน้าจอ
+    [Tags]    TH    EN    3PO    3BO    active    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
