@@ -75,7 +75,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...    4. กดเปิดใช้งาน "บริการข้ามแดนอัตโนมัติ (IR)"
     ...    5. ตรวจสอบ popup message "xxx"
     ...    6. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    IRService
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    IRService    
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_IRService
@@ -120,7 +120,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...    6. กดปิดใช้งาน "บริการข้ามแดนอัตโนมัติ (IR)"
     ...    7. ตรวจสอบ popup message "xxx"
     ...    8. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    IRService    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    IRService
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_IRService
@@ -161,7 +161,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...    4. กดเปิดใช้งาน "บริการโทรทางไกลระหว่างประเทศ"
     ...    5. ตรวจสอบ popup message "คุณเปิดบริการโทรทางไกลระหว่างประเทศเรียบร้อยแล้ว กรุณารอรับ SMS ยืนยันการทำรายการ"
     ...    6. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PO    3BO    IRService    demo
+    [Tags]    TH    EN    active    success    3PO    3BO    IRService
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_IRService
@@ -171,8 +171,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select International Service Submenu
-    Select Switch Disable International Roaming Service
-    Verify Dialog Message Disable International Service
+    Select Switch Enable International Call Service
+    Verify Dialog Message Enable International Call Service
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F11_Package_IOS_2,4_1-2_Y_4_2] Verify popup message Disable IR *popup msg loading
@@ -206,7 +206,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...    6. กดปิดใช้งาน "บริการข้ามแดนอัตโนมัติ (IR)"
     ...    7. ตรวจสอบ popup message "xxx"
     ...    8. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PO    3BO    IRService    demo
+    [Tags]    TH    EN    active    success    3PO    3BO    IRService
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_IRService
@@ -216,6 +216,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select International Service Submenu
+    Select Switch Disable International Roaming Service
+    Select OK Button
     Select Switch Disable International Roaming Service
     Verify Dialog Message Disable International Service
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
@@ -257,7 +259,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...    9. กดปิดใช้งาน "บริการโทรทางไกลระหว่างประเทศ"
     ...    10. ตรวจสอบ popup message "คุณปิดบริการโทรทางไกลระหว่างประเทศเรียบร้อยแล้ว กรุณารอรับ SMS ยืนยันการทำรายการ"
     ...    11. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PO    3BO    IRService    demo
+    [Tags]    TH    EN    active    success    3PO    3BO    IRService
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_IRService
@@ -267,6 +269,6 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select International Service Submenu
-    Select Switch Disable International Roaming Service
-    Verify Dialog Message Disable International Service
+    Select Switch Disable International Call Service
+    Verify Dialog Message Disable International Call Service
     [Teardown]    Keywords For TearDown    ${#dict_device_name}

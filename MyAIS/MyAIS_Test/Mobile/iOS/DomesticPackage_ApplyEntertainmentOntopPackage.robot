@@ -94,7 +94,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyEntertainmentOnt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Entertainment On Top Package Submenu
-    Verify Page Apply Entertainment On Top Package By NType    ${Number}
+    Verify Page Apply Entertainment On Top Package    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F10_Package_IOS_1,3_1-2_Y_2_2] Apply Entertainment OnTop Package
@@ -203,10 +203,8 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyEntertainmentOnt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Entertainment On Top Package Submenu
-    Select First Package
-    Verify Page First Package Detail    ${Number}
-    Select Continue Apply Entertainment On Top Package
-    Verify Summary Page    ${Number}
+    ${FirstPackage}    Select First Package
+    Verify Page First Package Detail    ${Number}    ${FirstPackage}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F10_Package_IOS_2,4_1-2_Y_3_2] Verify page Apply Other On-Top Package In Case PREMIER FULL HD on-top 499B
@@ -253,8 +251,6 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyEntertainmentOnt
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Apply Entertainment On Top Package Submenu
-    Select First Package
-    Verify Page First Package Detail    ${Number}
-    Select Continue Apply Entertainment On Top Package
-    Verify Summary Page    ${Number}
+    ${SecondPackage}    Select Second Package
+    Verify Page Second Package Detail    ${Number}    ${SecondPackage}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}

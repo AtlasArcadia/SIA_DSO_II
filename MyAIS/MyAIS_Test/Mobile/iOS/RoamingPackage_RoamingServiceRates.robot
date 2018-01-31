@@ -91,7 +91,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...    6. เลือก "ดำเนินการต่อ"
     ...    7. ตรวจสอบ dialog msg "กรุณาเลือกประเทศที่ต้องการสมัคร"
     ...    8. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PO    3BO
+    [Tags]    TH    EN    active    success    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -102,6 +102,9 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     Select Package Menu
     Select Roaming Service Rate Submenu
     Verify Page Roming Service Rate Not Select Country    ${Number}
+    Click Great Saving Roaming Packages Button
+    Click Continue Button
+    Verify Dialog Message Please Select A Country
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F9_Package_IOS_1,3_1-2_Y_2_2] Check Roaming Service RatesIn case : Select country
@@ -201,7 +204,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...    8. เลือก "ดำเนินการต่อ
     ...    9. ตรวจสอบ dialog msg "กรุณาเลือกประเภทแพ็กเกจที่ต้องการสมัคร"
     ...    10. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PO    3BO
+    [Tags]    TH    EN    active    success    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -211,8 +214,11 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Roaming Service Rate Submenu
-    Select Country To Cameroon
-    ${ChooseCountry}    Verify Roaming Service Rate With Select Country iOS    Cameroon    ${Number}
+    Select Country To Australia
+    ${ChooseCountry}    Verify Roaming Service Rate With Select Country iOS    Australia    ${Number}
+    Click Great Saving Roaming Packages Button
+    Click Continue Button
+    Verify Dialog Message Please Select a Package Type
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F9_Package_IOS_1-4_1-2_Y_3_2] Go to Apply Roaming Packages page
@@ -266,7 +272,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...         - ระบบของหมายเลขที่ต้องการสมัคร (จะเหมือนกับที่ทำการเลือกจากหน้าอัตราค่าบริการโรมมิ่ง)
     ...         - ประเภทแพ็กเกจที่ต้องการ (โปรดเลือก)
     ...    10. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PO    3BO
+    [Tags]    TH    EN    active    success    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -276,8 +282,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     Select Package Menu
     Select Roaming Service Rate Submenu
-    Select Country To Cameroon
-    ${ChooseCountry}    Verify Roaming Service Rate With Select Country iOS    Cameroon    ${Number}
+    Select Country To Australia
+    ${ChooseCountry}    Verify Roaming Service Rate With Select Country iOS    Australia    ${Number}
     Click Great Saving Roaming Packages Button
     Verify Apply Roaming Package Page iOS    ${Number}    ${ChooseCountry}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
