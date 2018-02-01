@@ -3,8 +3,8 @@ Resource          ../../../../Config/LocalConfig.txt
 Resource          ../Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemaining_Prepaid.txt
 
 *** Test Cases ***
-[F7_Package_IOS_1,3_1-2_Y_1_2] Check current package In case : Have Remaining usage
-    [Documentation]    Owner : Tong
+[F7_Package_IOS_1-4_1-2_Y_1_2] Check current package In case : Have Remaining usage
+    [Documentation]    Owner : Tong, TiNn
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
@@ -31,8 +31,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemai
     Verify Current Package Have Remaining Usage    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F7_Package_IOS_1,3_1-2_Y_2_2] Check current package In case : Don’t have Remaining usage
-    [Documentation]    Owner : Tong
+[F7_Package_IOS_1-4_1-2_Y_2_2] Check current package In case : Don’t have Remaining usage
+    [Documentation]    Owner : Tong, TiNn
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE
@@ -59,28 +59,4 @@ Resource          ../Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemai
     Verify Current Package And Remaining Have No Data Roaming Package    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F7_Package_IOS_2, 4_1-2_Y_1_2] Check current package In case : Have Remaining usage
-    [Documentation]    *Owner: TiNn*
-    ...
-    ...    *Test Step*
-    ...
-    ...    "1. เข้าสู่ระบบ My AIS
-    ...    2. เลือกเมนู ""แพ็กเกจ""
-    ...    3. เลือกเมนู ""แพ็กเกจปัจจุบัน/ยอดคงเหลือ""
-    ...    4. ตรวจสอบหน้า ""แพ็กเกจปัจจุบัน/ยอดคงเหลือ""
-    ...    - หมายเลขโทรศัพท์
-    ...    - รายการแพ็กเกจที่มี (Check object visible)
-    ...    5. จับภาพหน้าจอ"
 
-[F7_Package_IOS_2, 4_1-2_Y_1_2] Check current package In case : Don’t have Remaining usage
-    [Documentation]    *Owner: TiNn*
-    ...
-    ...    *Test Step*
-    ...
-    ...    "1. เข้าสู่ระบบ My AIS
-    ...    2. เลือกเมนู ""แพ็กเกจ""
-    ...    3. เลือกเมนู ""แพ็กเกจปัจจุบัน/ยอดคงเหลือ""
-    ...    4. ตรวจสอบหน้า ""แพ็กเกจปัจจุบัน/ยอดคงเหลือ""
-    ...    - หมายเลขโทรศัพท์
-    ...    - ""คุณไม่มีแพ็กเกจดาต้าโรมมิ่ง""
-    ...    5. จับภาพหน้าจอ"
