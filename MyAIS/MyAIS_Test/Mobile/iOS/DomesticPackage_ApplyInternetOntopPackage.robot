@@ -196,7 +196,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...    - ปุ่ม ""ตกลง""
     ...    16. จับภาพหน้าจอ"
     ...
-    [Tags]    demotin
+    #[Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
