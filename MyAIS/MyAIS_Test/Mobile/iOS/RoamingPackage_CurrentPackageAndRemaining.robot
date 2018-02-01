@@ -17,7 +17,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemai
     ...    - หมายเลขโทรศัพท์
     ...    - รายการแพ็กเกจที่มี (Check object visible)
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
+    ...    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_RoamingPack
@@ -44,7 +45,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemai
     ...    - หมายเลขโทรศัพท์
     ...    - "คุณไม่มีแพ็กเกจดาต้าโรมมิ่ง"
     ...    5. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    demo
+    [Tags]    TH    EN    active    success    3PE    3BE
+    ...    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -58,6 +60,27 @@ Resource          ../Resource/PageKeywords/RoamingPackage_CurrentPackageAndRemai
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F7_Package_IOS_2, 4_1-2_Y_1_2] Check current package In case : Have Remaining usage
-
+    [Documentation]    *Owner: TiNn*
+    ...
+    ...    *Test Step*
+    ...
+    ...    "1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู ""แพ็กเกจ""
+    ...    3. เลือกเมนู ""แพ็กเกจปัจจุบัน/ยอดคงเหลือ""
+    ...    4. ตรวจสอบหน้า ""แพ็กเกจปัจจุบัน/ยอดคงเหลือ""
+    ...    - หมายเลขโทรศัพท์
+    ...    - รายการแพ็กเกจที่มี (Check object visible)
+    ...    5. จับภาพหน้าจอ"
 
 [F7_Package_IOS_2, 4_1-2_Y_1_2] Check current package In case : Don’t have Remaining usage
+    [Documentation]    *Owner: TiNn*
+    ...
+    ...    *Test Step*
+    ...
+    ...    "1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู ""แพ็กเกจ""
+    ...    3. เลือกเมนู ""แพ็กเกจปัจจุบัน/ยอดคงเหลือ""
+    ...    4. ตรวจสอบหน้า ""แพ็กเกจปัจจุบัน/ยอดคงเหลือ""
+    ...    - หมายเลขโทรศัพท์
+    ...    - ""คุณไม่มีแพ็กเกจดาต้าโรมมิ่ง""
+    ...    5. จับภาพหน้าจอ"
