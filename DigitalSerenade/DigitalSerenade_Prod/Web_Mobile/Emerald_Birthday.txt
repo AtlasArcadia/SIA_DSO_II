@@ -36,12 +36,15 @@ Resource          ../../../Config/LocalConfig.txt
     ...    [2] ตรวจสอบรุปภาพ Birthday
     ...    - แสดงรูปภาพ Birthday Segment Emerald (ตามรูปด้านล่าง)
     [Tags]    3PE    TestSite    TH    Sprint1    WebMobileApplication    Success
+    ...    EN    ${EMPTY}
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
-    Verify BirthDay Page Match With Birthday Date
+    Change Language    ${ar_LANG}
+    Run Keyword If    "${ar_LANG}" =="TH"    Verify BirthDay Page Match With Birthday Date
+    Run Keyword If    "${ar_LANG}" =="EN"    Verify BirthDay Page Match With Birthday Date EN
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
 [F2_EmeraldWebMobile_2_1_Y_1_2]Verify Birthday Not Matched
