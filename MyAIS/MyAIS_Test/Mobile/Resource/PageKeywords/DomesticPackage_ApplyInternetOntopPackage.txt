@@ -378,13 +378,28 @@ Verify Apply Other On Top Package Second Step And Select Immediate Effect Button
     Mobile Capture Screen At Verify Point    Apply Other On Top Package Second Step
     Click mobile element    ${btnNext}
 
-Verify Apply Other On Top Package Third Step And Dialog Nessage
+Verify Apply Other On Top Package Second Step And Select Next billing cycle Button Then Click Next
+    [Arguments]    ${Number}
+    Sleep    10s
+    Wait Mobile Until Element Visible    ${btnBackOnTopPage}
+    Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
+    Mobile element number should be    ${lblMobileNumberApplyOtherOnTopPackage}    ${Number}
+    Mobile check existing text    ${lblBillingCycleApplyOtherOnTopPackage}
+    Mobile element name should be    ${lblChooseDay}    ${ApplyOnTopSelectPackageEffective}
+    #AISAppiumEx.Wait Until Page Contains Element    ${lblNextCycleBill}
+    AISAppiumEx.Wait Until Page Contains Element    ${lblNextDay}
+    AISAppiumEx.Wait Until Page Contains Element    ${lblImmediateEffect}
+    Swipe to element    ${lblTermAndConditions}
+    Mobile Capture Screen At Verify Point    Apply Other On Top Package Second Step
+    Click mobile element    ${btnNext}
+
+Verify Apply Other On Top Package Third Step And Dialog Message
     [Arguments]    ${Number}    ${packname}
     Sleep    30s
     Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
     Mobile element number should be    ${lblMobileNumberApplyOtherOnTopPackage}    ${Number}
     Mobile check existing text    ${lblBillingCycleApplyOtherOnTopPackage}
-    Mobile element name should be    ${lblSelectedPackageINThirdPage}    ${txtApplyOnTopYouHaveSelected}
+    Mobile element name should be    ${lblSelectedPackageINThirdPage}    ${ApplyOnTopYouHaveSelected}
     Swipe to element    ${lblTermAndConditions}
     AISAppiumEx.Element Text Should Be    ${lblSelectedPackageByUser}    ${packname}
     Mobile element name should be    ${lblDayEffective}    ${DayEffective}
@@ -443,3 +458,85 @@ Verify Apply Other Talk Package First Step And Click Next
     Mobile Capture Screen At Verify Point    Apply Other Talk Package First Step
     Click mobile element    ${btnNext}
 
+Select Add-on Packages
+    [Arguments]    ${MenuPackage}
+    Sleep    10
+    Click mobile element    ${btn${MenuPackage}}
+
+Select Package Detail
+    [Arguments]    ${Detail}
+    Click mobile element    ${btn${Detail}}
+
+Verify Internet OnTop Packages
+    Sleep     15s
+    Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
+    : FOR    ${index}    IN RANGE    4    12
+    \    ${text}    Get mobile attribute    ${lblPackages}[${index}]/XCUIElementTypeStaticText[2]    name
+    \    ${MathStr}    Should Match Regexp    ${text}    .+
+    \    Log    ${MathStr}
+    \    Swipe to element    ${lblPackages}[${index}]
+    \    ${status}=    AISAppiumEx.Get Text    ${lblPackages}[${index}+1]/XCUIElementTypeStaticText[1]
+    \    Exit For Loop If    ('${status}'=='เงื่อนไขบริการ' or '${status}'=='Terms & Conditions')
+    Wait Mobile Until Element Visible    ${lblTermAndConditions}
+    ${packname}    Get mobile attribute    ${lblPackage1}    name
+    log    ${packname}
+    Mobile Capture Screen At Verify Point    Verify Internet OnTop Packages
+    [Return]    ${packname}
+
+Verify Internet OnTop Package First Step And Click Next
+    [Arguments]    ${Number}    ${packname}
+    Sleep    10s
+    Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
+    Mobile element number should be    ${lblMobileNumberApplyOtherOnTopPackage}    ${Number}
+    Mobile check existing text    ${lblBillingCycleApplyOtherOnTopPackage}
+    Mobile element name should be    ${btnInternetOnTopPackage}    ${InternetOnTopPackages}
+    Mobile check existing text    ${lblPackageDetail}
+    AISAppiumEx.Element Text Should Be    ${lblSelectedPackage}    ${packname}
+    Swipe to element    ${lblTermAndConditions}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${lblTermAndConditions}
+    Mobile Capture Screen At Verify Point    Apply Other On Top Package First Step
+    Click mobile element    ${btnNext}
+
+Verify Talk OnTop Package First Step And Click Next
+    [Arguments]    ${Number}    ${packname}
+    Sleep    10s
+    Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
+    Mobile element number should be    ${lblMobileNumberApplyOtherOnTopPackage}    ${Number}
+    Mobile check existing text    ${lblBillingCycleApplyOtherOnTopPackage}
+    Mobile element name should be    ${btnTalkOnTopPackage}    ${TalkOnTopPackages}
+    Mobile check existing text    ${lblPackageDetail}
+    AISAppiumEx.Element Text Should Be    ${lblSelectedPackage}    ${packname}
+    Swipe to element    ${lblTermAndConditions}
+    Wait Mobile Until Element Visible    ${btnNext}
+    Wait Mobile Until Element Visible    ${btnBack}
+    Wait Mobile Until Element Visible    ${lblTermAndConditions}
+    Mobile Capture Screen At Verify Point    Apply Other On Top Package First Step
+    Click mobile element    ${btnNext}
+
+Verify Talk OnTop Packages
+    Sleep     15s
+    Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
+    : FOR    ${index}    IN RANGE    4    10
+    \    ${text}    Get mobile attribute    ${lblPackages}[${index}]/XCUIElementTypeStaticText[2]    name
+    \    ${MathStr}    Should Match Regexp    ${text}    .+
+    \    Log    ${MathStr}
+    \    Swipe to element    ${lblPackages}[${index}]
+    \    ${status}=    AISAppiumEx.Get Text    ${lblPackages}[${index}+2]/XCUIElementTypeStaticText[1]
+    \    Exit For Loop If    ('${status}'=='เงื่อนไขบริการ' or '${status}'=='Terms & Conditions')
+    Wait Mobile Until Element Visible    ${lblTermAndConditions}
+    ${packname}    Get mobile attribute    ${lblPackage1}    name
+    log    ${packname}
+    Mobile Capture Screen At Verify Point    Verify Talk OnTop Packages
+    [Return]    ${packname}
+
+Verify page Apply Other On-Top Package
+    [Arguments]    ${Number}
+    Sleep     15s
+    Mobile element number should be    ${lblMobileNumberApplyOtherOnTopPackage}    ${Number}
+    Wait Mobile Until Element Visible    ${lblYourBillingCycleStart}
+    Mobile element name should be    ${btnTalkAndNetOnTopPackage}    ${TalkAndNetOnTopPackages}
+    Mobile element name should be    ${btnInternetOnTopPackage}    ${InternetOnTopPackages}
+    Mobile element name should be    ${btnTalkOnTopPackage}    ${TalkOnTopPackages}
+    Mobile Capture Screen At Verify Point    Verify page Apply Other On-Top Package

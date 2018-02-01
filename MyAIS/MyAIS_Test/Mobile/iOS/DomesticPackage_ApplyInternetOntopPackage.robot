@@ -142,7 +142,458 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F4_Package_IOS_2, 4_1-2_Y_8_2] Verify page Apply Other On-Top Package In Case : One-Time On-Top Package (Immediately)
+[F4_Package_IOS_2,4_1-2_Y_1_2] Verify page "Apply Other On-Top Package"
+    [Documentation]    *Owner : Asma*
+    ...
+    ...    Source Number : 3BO
+    ...     Status : Active1. เข้าสู่ระบบ My AIS
+    ...     2. เลือกเมนู "แพ็กเกจ"
+    ...     3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...     4. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - แพ็กเกจเสริมโทรและเน็ต
+    ...     - แพ็กเกจเสริมอินเทอร์เน็ต
+    ...     - แพ็กเกจเสริมสำหรับโทร
+    ...     5. จับภาพหน้าจอnone
+    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Verify page Apply Other On-Top Package    ${Number}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F4_Package_IOS_2,4_1-2_Y_2_2] Verify page "Apply Other On-Top Package"In Case : Talk & Net On-Top Package
+    [Documentation]    *Owner : Asma*
+    ...
+    ...    Source Number : 3BO
+    ...    Status : Active1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก แพ็กเกจเสริมโทรและเน็ต
+    ...    5. ตรวจสอบรายการ แพ็กเกจเสริมโทรและเน็ต
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    6. เลือกแพ็กเกจที่ 1
+    ...    7. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเสริมโทรและเน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ
+    ...    6 - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    8. เลือก "ต่อไป"
+    ...    9. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    10. เลือก "มีผลทันที"
+    ...    11. เลือก "ต่อไป"
+    ...    12. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...    ขั้นตอนที่3 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 6
+    ...    - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล:
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    13. เลือก "ยืนยัน"
+    ...    14. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...    - ปุ่ม "ตกลง"
+    ...    15. จับภาพหน้าจอnone
+    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    ${packname}    Verify Apply Other On Top Package Page
+    Select First Package
+    Verify Apply Other On Top Package First Step And Click Next    ${Number}    ${packname}
+    Verify Apply Other On Top Package Second Step And Select Immediate Effect Button Then Click Next    ${Number}
+    Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F4_Package_IOS_2,4_1-2_Y_3_2] Verify page "Apply Other On-Top Package" In Case : Internet On-Top Package - Monthly On-Top Package (Next billing cycle)
+    [Documentation]    *Owner : Asma*
+    ...
+    ...    Source Number : 3BO
+    ...     Status : Active1. เข้าสู่ระบบ My AIS
+    ...     2. เลือกเมนู "แพ็กเกจ"
+    ...     3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...     4. เลือก แพ็กเกจเสริมอินเทอร์เน็ต
+    ...     5. เลือก แบบรายเดือน
+    ...     6. ตรวจสอบรายการ แบบรายเดือน
+    ...     - แพ็กเกจที่ 1
+    ...     .
+    ...     .
+    ...     - แพ็กเกจ xxx
+    ...     - เงื่อนไขบริการ
+    ...     7. เลือกแพ็กเกจที่ 1
+    ...     8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...     ขั้นตอนที่1
+    ...     เลือกแพ็กเกจ
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - แพ็กเกจเสริมอินเทอร์เน็ต
+    ...     - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ
+    ...     8 - รายละเอียด แพ็กเกจ
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ต่อไป"
+    ...     - เงื่อนไขบริการ
+    ...     9. เลือก "ต่อไป"
+    ...     10. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...     ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...     - รอบบิลถัดไป
+    ...     - วันถัดไป
+    ...     - มีผลทันที
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ต่อไป"
+    ...     - เงื่อนไขบริการ
+    ...     11. เลือก "รอบบิลถัดไป"
+    ...     12. เลือก "ต่อไป"
+    ...     13. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...     ขั้นตอนที่3 ยืนยัน
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - แพ็กเกจที่คุณเลือก
+    ...     - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...     - เลือกวันมีผลสำหรับการใช้งาน
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ยืนยัน"
+    ...     - เงื่อนไขบริการ
+    ...     14. เลือก "ยืนยัน"
+    ...     15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...     - ปุ่ม "ตกลง"
+    ...     16. จับภาพหน้าจอnone
+     [Tags]    TH    EN    active    success    3PO    3BO    demo
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Add-on Packages    InternetOnTopPackage
+    Select Package Detail    MonthlyOnTopPackage
+    ${packname}    Verify Internet OnTop Packages
+    Select First Package
+    Verify Internet OnTop Package First Step And Click Next    ${Number}    ${packname}
+    Verify Apply Other On Top Package Second Step And Select Next billing cycle Button Then Click Next    ${Number}
+    Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F4_Package_IOS_2,4_1-2_Y_4_2]Verify page "Apply Other On-Top Package" In Case : Internet On-Top Package  - One-Time On-Top Package(Immediately)
+    [Documentation]    *Owner : Asma*
+    ...
+    ...    Source Number : 3BO
+    ...     Status : Active1. เข้าสู่ระบบ My AIS
+    ...     2. เลือกเมนู "แพ็กเกจ"
+    ...     3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...     4. เลือก แพ็กเกจเสริมอินเทอร์เน็ต
+    ...     5. เลือก แบบรายครั้ง
+    ...     6. ตรวจสอบรายการ แบบรายครั้ง
+    ...     - แพ็กเกจที่ 1
+    ...     .
+    ...     .
+    ...     - แพ็กเกจ xxx
+    ...     - เงื่อนไขบริการ
+    ...     7. เลือกแพ็กเกจที่ 1
+    ...     8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...     ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - แพ็กเกจเสริมอินเทอร์เน็ต
+    ...     - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...     - รายละเอียด แพ็กเกจ
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ต่อไป"
+    ...     - เงื่อนไขบริการ
+    ...     9. เลือก "ต่อไป"
+    ...     10. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...     ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...     - รอบบิลถัดไป
+    ...     - วันถัดไป
+    ...     - มีผลทันที
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ต่อไป"
+    ...     - เงื่อนไขบริการ
+    ...     11. เลือก "มีผลทันที"
+    ...     12. เลือก "ต่อไป"
+    ...     13. ตรวจสอบหน้า "สมัครแพ็กเสริม"
+    ...     ขั้นตอนที่3 ยืนยัน
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - แพ็กเกจที่คุณเลือก
+    ...     - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...     - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล
+    ...     - เลือกวันมีผลสำหรับการใช้งาน
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ยืนยัน"
+    ...     - เงื่อนไขบริการ
+    ...     14. เลือก "ยืนยัน"
+    ...     15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
+    ...     16. จับภาพหน้าจอnone
+     [Tags]    TH    EN    active    success    3PO    3BO    demo
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Add-on Packages    InternetOnTopPackage
+    Select Package Detail    OneTimeOnTopPackage
+    ${packname}    Verify Internet OnTop Packages
+    Select First Package
+    Verify Internet OnTop Package First Step And Click Next    ${Number}    ${packname}
+    Verify Apply Other On Top Package Second Step And Select Immediate Effect Button Then Click Next    ${Number}
+    Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F4_Package_IOS_2,4_1-2_Y_5_2]Verify page "Apply Other On-Top Package" In Case : Internet On-Top Package  - WiFi (Next billing cycle)
+    [Documentation]    *Owner : Asma*
+    ...
+    ...    Source Number : 3BO
+    ...    Status : Active1. เข้าสู่ระบบ My AIS
+    ...    2. เลือกเมนู "แพ็กเกจ"
+    ...    3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...    4. เลือก แพ็กเกจเสริมอินเทอร์เน็ต
+    ...    5. เลือก WiFi
+    ...    6. ตรวจสอบรายการ WiFi
+    ...    - แพ็กเกจที่ 1
+    ...    .
+    ...    .
+    ...    - แพ็กเกจ xxx
+    ...    - เงื่อนไขบริการ
+    ...    7. เลือกแพ็กเกจ
+    ...    8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจเสริมอินเทอร์เน็ต
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...    - รายละเอียด แพ็กเกจ
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    9. เลือก "ต่อไป"
+    ...    10. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...    - รอบบิลถัดไป
+    ...    - วันถัดไป
+    ...    - มีผลทันที
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ต่อไป"
+    ...    - เงื่อนไขบริการ
+    ...    11. เลือก "รอบบิลถัดไป"
+    ...    12. เลือก "ต่อไป"
+    ...    13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...    - หมายเลขโทรศัพท์
+    ...    - รอบบิลของคุณเริ่ม
+    ...    - แพ็กเกจที่คุณเลือก
+    ...    - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...    - เลือกวันมีผลสำหรับการใช้งาน
+    ...    - ปุ่ม "กลับ"
+    ...    - ปุ่ม "ยืนยัน"
+    ...    - เงื่อนไขบริการ
+    ...    14. เลือก "ยืนยัน"
+    ...    15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ" - ปุ่ม "ตกลง"16. จับภาพหน้าจอnone
+    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Add-on Packages    InternetOnTopPackage
+    Select Package Detail    Wifi
+    ${packname}    Verify Internet OnTop Packages
+    Select First Package
+    Verify Internet OnTop Package First Step And Click Next    ${Number}    ${packname}
+    Verify Apply Other On Top Package Second Step And Select Next billing cycle Button Then Click Next    ${Number}
+    Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F4_Package_IOS_2,4_1-2_Y_6_2] Verify page "Apply Other On-Top Package" In Case : Internet On-Top Package  - Entertainment (Next billing cycle)
+    [Documentation]    *Owner : Asma*
+    ...
+    ...    *Test Step*
+    ...
+    ...    Source Number : 3BO
+    ...     Status : Active1. เข้าสู่ระบบ My AIS
+    ...     2. เลือกเมนู "แพ็กเกจ"
+    ...     3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...     4. เลือก แพ็กเกจเสริมอินเทอร์เน็ต
+    ...     5. เลือก Entertainment
+    ...     6. ตรวจสอบรายการ Entertainment
+    ...     - แพ็กเกจที่ 1
+    ...     .
+    ...     .
+    ...     - แพ็กเกจ xxx
+    ...     - เงื่อนไขบริการ
+    ...     7. เลือกแพ็กเกจ
+    ...     8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - แพ็กเกจเสริมอินเทอร์เน็ต
+    ...     - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...     - รายละเอียด แพ็กเกจ
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ต่อไป"
+    ...     - เงื่อนไขบริการ
+    ...     9. เลือก "ต่อไป"
+    ...     10. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...     - รอบบิลถัดไป
+    ...     - วันถัดไป
+    ...     - มีผลทันที
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ต่อไป"
+    ...     - เงื่อนไขบริการ
+    ...     11. เลือก "รอบบิลถัดไป"
+    ...     12. เลือก "ต่อไป"
+    ...     13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - แพ็กเกจที่คุณเลือก
+    ...     - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 8
+    ...     - เลือกวันมีผลสำหรับการใช้งาน
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ยืนยัน"
+    ...     - เงื่อนไขบริการ
+    ...     14. เลือก "ยืนยัน" 15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ" - ปุ่ม "ตกลง"16. จับภาพหน้าจอnone
+    [Tags]    TH    EN    active    success    3PO    3BO
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    ${packname}    Verify Apply Other On Top Package Page
+    Select First Package
+    Verify Apply Other On Top Package First Step And Click Next    ${Number}    ${packname}
+    Verify Apply Other On Top Package Second Step And Select Next billing cycle Button Then Click Next    ${Number}
+    Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F4_Package_IOS_2,4_1-2_Y_7_2] Verify page Apply Other On-Top Package In Case : One-Time On-Top Package (Immediately)
+    [Documentation]    *Owner : Asma*
+    ...
+    ...    *Test Step*
+    ...
+    ...    Source Number : 3BO
+    ...     Status : Active1. เข้าสู่ระบบ My AIS
+    ...     2. เลือกเมนู "แพ็กเกจ"
+    ...     3. เลือก "สมัครแพ็กเกจเสริมอื่นๆ"
+    ...     4. เลือก แพ็กเกจเสริมสำหรับโทร
+    ...     5. เลือก แบบรายเดือน
+    ...     6. ตรวจสอบรายการ แบบรายเดือน
+    ...     - แพ็กเกจที่ 1
+    ...     .
+    ...     .
+    ...     - แพ็กเกจ xxx
+    ...     - เงื่อนไขบริการ
+    ...     7. เลือกแพ็กเกจที่ 1
+    ...     8. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอื่นๆ" ขั้นตอนที่1 เลือกแพ็กเกจ
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - แพ็กเกจเสริมสำหรับโทร
+    ...     - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...     - รายละเอียด แพ็กเกจ
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ต่อไป"
+    ...     - เงื่อนไขบริการ
+    ...     9. เลือก "ต่อไป"
+    ...     10. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่2 เลือกวันมีผลใช้งาน
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - เลือก เลือกวันมีผลสำหรับการใช้งาน
+    ...     - รอบบิลถัดไป
+    ...     - วันถัดไป
+    ...     - มีผลทันที
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ต่อไป"
+    ...     - เงื่อนไขบริการ
+    ...     11. เลือก "มีผลทันที"
+    ...     12. เลือก "ต่อไป"
+    ...     13. ตรวจสอบหน้า "สมัครแพ็กเสริม" ขั้นตอนที่3 ยืนยัน
+    ...     - หมายเลขโทรศัพท์
+    ...     - รอบบิลของคุณเริ่ม
+    ...     - แพ็กเกจที่คุณเลือก
+    ...     - ชื่อแพ็กเกจเช็คได้มั้ยว่าเป็น แพ็กเกจ เดียวกันที่กดเข้ามาจากข้อ 7
+    ...     - กรณีเปลี่ยนแพ็กเกจระหว่างรอบบิล
+    ...     - เลือกวันมีผลสำหรับการใช้งาน
+    ...     - ปุ่ม "กลับ"
+    ...     - ปุ่ม "ยืนยัน"
+    ...     - เงื่อนไขบริการ
+    ...     14. เลือก "ยืนยัน" 15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ" - ปุ่ม "ตกลง"16. จับภาพหน้าจอnone
+    ...
+    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    Select Menu    Package
+    Select Sub Menu    ApplyOtherOnTopPackages
+    Select Add-on Packages    TalkOnTopPackage
+    Select Package Detail    MonthlyOnTopPackage
+    ${packname}    Verify Talk OnTop Packages
+    Select First Package
+    Verify Talk OnTop Package First Step And Click Next    ${Number}    ${packname}
+    Verify Apply Other On Top Package Second Step And Select Immediate Effect Button Then Click Next    ${Number}
+    Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F4_Package_IOS_2,4_1-2_Y_8_2] Verify page Apply Other On-Top Package In Case : One-Time On-Top Package (Immediately)
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -210,10 +661,10 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Select First Package
     Verify Apply Other On Top Package First Step And Click Next    ${Number}    ${packname}
     Verify Apply Other On Top Package Second Step And Select Immediate Effect Button Then Click Next    ${Number}
-    Verify Apply Other On Top Package Third Step And Dialog Nessage    ${Number}    ${packname}
+    Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F4_Package_IOS_2, 4_1-2_Y_9_2] Apply Other On-Top Package In Case : Monthly On-Top Package \ (Immediately)
+[F4_Package_IOS_2,4_1-2_Y_9_2] Apply Other On-Top Package In Case : Monthly On-Top Package \ (Immediately)
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*

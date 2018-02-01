@@ -324,3 +324,31 @@ Resource          ../Resource/PageKeywords/Domestic_ChangePricePlan.txt
     Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
+
+[F3_Package_IOS_2,4_2_Y_1_2] Verify page "Apply Internet On-Top Package"
+    [Documentation]    Owner : Asma
+    ...
+    ...    *Pre-requisite*
+    ...    Source Number : 3BO
+    ...     Status : Active1. เข้าสู่ระบบ My AIS
+    ...     2. เลือกเมนู "แพ็กเกจ"
+    ...     3. เลือก "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...     4. ตรวจสอบหน้า "สมัครแพ็กเกจเสริมอินเทอร์เน็ต"
+    ...     - แพ็กเกจเสริม อินเทอร์เน็ต at Header
+    ...     - เลือกแพ็กเกจตามราคาที่คุณต้องการ at Header
+    ...     - TH/EN at Header
+    ...     - อินเทอร์เน็ตเต็มสปีด
+    ...     - อินเทอร์เน็ตอัพสปีด
+    ...     - Entertainment
+    ...     - ปุ่ม "ถัดไป"
+    ...     - ปุ่ม "ยกเลิก"
+    ...     5. จับภาพหน้าจอnone
+    [Tags]    TH    EN    active    success    3PE    3BE
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
+    ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
+    Login    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}    ${Number}    ${ar_NETWORK}
+    Choose Language    ${ar_LANG}    ${ar_NETWORK}
+    [Teardown]    Keywords For TearDown    ${#dict_device_name}
