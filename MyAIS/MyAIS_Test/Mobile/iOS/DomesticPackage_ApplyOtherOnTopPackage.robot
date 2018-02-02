@@ -561,7 +561,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
-    #[Tags]    demotin
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -636,7 +636,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    12. เลือก ""ยืนยัน""
     ...    13. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    14. จับภาพหน้าจอ"
-    [Tags]    demotin
+    #[Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -674,7 +674,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    11. เลือก ""ยืนยัน""
     ...    12. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    13. จับภาพหน้าจอ"
-    #[Tags]    demotin
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -712,7 +712,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    11. เลือก ""ยืนยัน""
     ...    12. ตรวจสอบ dialog message ""กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ""
     ...    13. จับภาพหน้าจอ"
-    #[Tags]    demotin
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -791,7 +791,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     ...    ""Your AIS SUPER WiFi Username:09xxxxxxxx. Password:xxxx.""
     ...    ""ชื่อแพ็กเกจ รายละเอียดแพ็กเกจ เริ่มxx/xx/xxxx xx:xx ถึง xx/xx/xxxx xx:xx""
     ...    22. จับภาพหน้าจอ"
-    #[Tags]    demotin
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -802,7 +802,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Select Menu    Package
     Select Sub Menu    YourCurrentPackage
     Verify Current Package Page And Click Change Main Package Button    ${Number}
-    ${packname}    Verify Internet Package Page And Select Package 2    ${Number}
+    ${packname}    Verify Internet Package Page And Select Package 1    ${Number}
     Verify Change Main Package Page First Step    ${Number}    ${packname}
     Verify Change Main Package Page Second Step    ${Number}
     Verify Third Step    ${packname}

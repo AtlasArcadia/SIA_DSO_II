@@ -493,7 +493,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    3. เลือก "ค่าใช้บริการระหว่างรอบบิล"
     ...    4. ตรวจสอบหัวข้อ "ค่าใช้บริการระหว่างรอบบิล"
     ...    5. ตรวจสอบ "ขออภัย ระบบไม่สามารถให้บริการได้ในขณะนี้ กรุณาเข้าใช้บริการใหม่อีกครั้ง"
-    #[Tags]    tin
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -560,10 +560,10 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ (฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
-    #[Tags]    tin
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_HaveCurrentCharge=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveCurrentCharge
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
     ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
@@ -591,7 +591,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ(฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
-    #[Tags]    tin
+    [Tags]    demotin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
