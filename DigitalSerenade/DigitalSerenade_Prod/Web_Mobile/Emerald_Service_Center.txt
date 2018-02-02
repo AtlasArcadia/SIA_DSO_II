@@ -38,8 +38,8 @@ Resource          Resource/PageKeywords/Emerald_ServiceCenter.txt
     ...    - โลโก้ AIS
     ...    - คอนเทนต์ความบันเทิง
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}    ${ar_LANG}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
     Verify Serenade Touchpoint open GPS
@@ -79,10 +79,11 @@ Resource          Resource/PageKeywords/Emerald_ServiceCenter.txt
     ...    - AIS Shop
     ...    - กรุงเทพฯและปริมณฑล
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Change Language    ${ar_LANG}
     Verify Serenade Touchpoint close GPS
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
@@ -110,9 +111,83 @@ Resource          Resource/PageKeywords/Emerald_ServiceCenter.txt
     ...    - แสดงรูปสถานที่ศูนย์บริการ Serenade Touchpoint
     ...    - แสดงตำแหน่งศูนย์บริการ Serenade Touchpoint ถูกต้อง
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
     Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
     Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Change Language    ${ar_LANG}
     Verify Serenade Touchpoint
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_EmeraldWebMobile_2_1_Y_1_1] Verify Serenade Touchpoint EN
+    [Documentation]    * Owner:Chompoo **
+    ...    "เข้าสู่ระบบ โดยใช้ Wifi
+    ...    โปรไฟล์ Classic
+    ...    กรณีไม่ใช่ลูกค้า Serenade"
+    ...
+    ...
+    ...    ** Source Requisite **
+    ...    - Ntype 3PO
+    ...    - https://privilege.ais.co.th/WelcomeToSerenade
+    ...
+    ...    ** Test Step **
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    5. เลื่อนมาที่หน้าศูนย์บริการ
+    ...    6. ตรวจสอบหน้า Serenade Touchpoint [1]
+    ...    7. จับภาพหน้าจอ
+    ...    8. คลิก ปุ่ม "คลิก" เพื่อค้นหาศูนย์บริการ
+    ...    9. ตรวจสอบ URL [2]
+    ...    10. ตรวจสอบหน้าเว็บ [3]
+    ...    11. จับภาพหน้าจอ
+    ...    ** Expect Result**
+    ...    [1]ตรวจสอบหน้า Serenade Touchpoint
+    ...    - แสดงรูปสถานที่ศูนย์บริการ Serenade Touchpoint
+    ...    - ค้นหาศูนย์บริการ คลิก
+    ...
+    ...    [2] ตรวจสอบ URL
+    ...    http://www.ais.co.th/servicecenter
+    ...
+    ...    [3]ตรวจสอบหน้าเว็บ
+    ...    - AIS Shop
+    ...    - กรุงเทพฯและปริมณฑล
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Change Language    ${ar_LANG}
+    Verify Serenade Touchpoint Servicecenter
+    [Teardown]    Keywords For Teardown    ${#dict_device_name}
+
+[F7_EmeraldWebMobile_2_1_Y_1_5] Verify Serenade Touchpoint around location
+    [Documentation]    * Owner:Chompoo **
+    ...    "เข้าสู่ระบบ โดยใช้ Wifi
+    ...    โปรไฟล์ Classic
+    ...    กรณีไม่ใช่ลูกค้า Serenade"
+    ...
+    ...
+    ...    ** Source Requisite **
+    ...    - Ntype 3PO
+    ...    - https://privilege.ais.co.th/WelcomeToSerenade
+    ...
+    ...    ** Test Step **
+    ...    1.เปิดลิ้งค์ไปที่เบราซ์เซอร์ https://privilege.ais.co.th/WelcomeToSerenade
+    ...    2.ระบบแสดงหน้าเว็บ Serenade Digital Welcome Package
+    ...    3.Login เข้าสู่ระบบ
+    ...    5. เลื่อนมาที่หน้าศูนย์บริการ
+    ...    6. ตรวจสอบหน้า Serenade Touchpoint [1]
+    ...    7. จับภาพหน้าจอ
+    ...
+    ...    ** Expect Result**
+    ...    [1]Serenade Touchpoint
+    ...    - Serenade Touchpoint near you
+    &{#dict_device_name}=    Create Dictionary
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_DigitalSerenade_WebMobile_Prod_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Emerald=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Emerald
+    Open Browser Serenade    ${URLSerenade}    ${virtual_device_1_SN}    ${virtual_device_1_IPChromeDriver}
+    Login Serenade    ${virtual_device_1_IPAppium}    ${virtual_device_1_SN}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${Number}    false
+    Change Language    ${ar_LANG}
+    Verify Serenade Touchpoint around location
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
