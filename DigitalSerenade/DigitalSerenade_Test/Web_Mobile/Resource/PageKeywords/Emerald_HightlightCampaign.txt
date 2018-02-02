@@ -152,9 +152,9 @@ Verify HC My Kitchen
 
 Verify Hilight Campaign
     Web Element Text Should Be    ${lblHilightCampaignTitle}    ${lblHCTitle}
-    : FOR    ${index}    IN RANGE    1    6
+    : FOR    ${index}    IN RANGE    1    8
     \    Web Element Should Be Visible    ${btnHCPage${index}}
-    Selenium2Library.Page Should Not Contain Element    ${btnHCPage10}
+    Selenium2Library.Page Should Not Contain Element    ${btnHCPage8}
     Web Capture Screen At Verify Point    HilightCampaign
 
 Verify Slide Banner
@@ -170,24 +170,9 @@ Verify Slide Banner
 
 Verify HC Page Button
     Set Selenium Speed    0.1
-    Click Web Element    ${btnHCPage1}
-    Web Capture Screen At Verify Point    CampaignPage1
-    Click Web Element    ${btnHCPage2}
-    Web Capture Screen At Verify Point    CampaignPage2
-    Comment    Click Web Element    ${btnHCPage3}
-    Comment    Web Capture Screen At Verify Point    CampaignPage3
-    Comment    Click Web Element    ${btnHCPage4}
-    Comment    Web Capture Screen At Verify Point    CampaignPage4
-    Comment    Click Web Element    ${btnHCPage5}
-    Comment    Web Capture Screen At Verify Point    CampaignPage5
-    Comment    Click Web Element    ${btnHCPage6}
-    Comment    Web Capture Screen At Verify Point    CampaignPage6
-    Comment    Click Web Element    ${btnHCPage7}
-    Comment    Web Capture Screen At Verify Point    CampaignPage7
-    Comment    Click Web Element    ${btnHCPage8}
-    Comment    Web Capture Screen At Verify Point    CampaignPage8
-    Comment    Click Web Element    ${btnHCPage9}
-    Comment    Web Capture Screen At Verify Point    CampaignPage9
+    :FOR    ${index}    IN RANGE    1    8    1
+    \    Click Web Element    ${btnHCPage${index}}
+    \    Web Capture Screen At Verify Point    CampaignPage${index}
 
 verify active banner
     ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img    src
@@ -234,18 +219,14 @@ Find banner
     [Return]    ${index}
 
 Verify first banner
-    Sleep    20s
     Scroll Web To Element    ${imgBanner}
-    ${CurrentIndex}=    Find banner    UBER
     Click Web Element    ${btnHCPage1}
-    Web Capture Screen At Verify Point    BannerTravelinStyle
+    Web Capture Screen At Verify Point    Banner1
     Click Web Element    ${imgHilightCampaignActiveBanner}
-    Sleep    5s
     Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     Web Capture Screen At Verify Point    BannerIRedirect
 
 Verify second banner
-    Sleep    20s
     Scroll Web To Element    ${imgBanner}
     Click Web Element    ${btnHCPage2}
     Web Capture Screen At Verify Point    Banner2

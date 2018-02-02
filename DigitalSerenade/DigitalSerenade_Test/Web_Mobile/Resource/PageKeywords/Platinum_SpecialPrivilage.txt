@@ -14,7 +14,7 @@ Verify Privilege Page
     log    ${noDot}
     ${noCampaign}=    Selenium2Library.Get Matching Xpath Count    ${imgActiveBanner}
     log    ${noCampaign}
-    Should Be Equal    ${noDot}    6    #Number of Dot
+    Should Be Equal    ${noDot}    13    #Number of Dot
     Should Be Equal    ${noCampaign}    2    #Number of Campaign
     Web Capture Screen At Verify Point    Privilege page
 
@@ -69,33 +69,33 @@ verify active banner
     [Return]    ${Banner}
 
 Scroll To Slide Banner Button
-    Scroll Web To Element    ${imgActiveBanner}
+    Scroll Web To Element    ${txtPrivilegeTitle}
 
 Verify Slide Banner Button
     sleep    15s
     Scroll Web To Element    ${imgActiveBanner}
-    ${active1}    verify active banner    1
-    ${active2}    verify active banner    2
+    ${active1}    Get First Banner Detail
+    ${active2}    Get Second Banner Detail
     Web Capture Screen At Verify Point    Verify First And Second Campaign
     Click Web Element    ${btnNext}
-    ${active3}    verify active banner    1
-    ${active4}    verify active banner    2
+    ${active3}    Get First Banner Detail
+    ${active4}    Get Second Banner Detail
     Web Capture Screen At Verify Point    Verify Third and Fourth Campaign
     Run Keyword If    "${active1}" == "${active3}"    Fail
     Run Keyword If    "${active2}" == "${active4}"    Fail
     Click Web Element    ${btnPrev}
-    ${active3}    verify active banner    1
-    ${active4}    verify active banner    2
+    ${active3}    Get First Banner Detail
+    ${active4}    Get Second Banner Detail
     Run Keyword If    "${active1}" != "${active3}"    Fail
     Run Keyword If    "${active2}" != "${active4}"    Fail
     Web Capture Screen At Verify Point    SlideButton
 
 Verify Page Button
     sleep    15s
-    : FOR    ${index}    IN RANGE    1    7    1
+    : FOR    ${index}    IN RANGE    1    13    1
     \    Click Web Element    ${btnPrivilegeDot${index}}
-    \    verify active banner    1
-    \    verify active banner    2
+    \    ${banner1}=    Get First Banner Detail
+    \    ${banner2}=    Get Second Banner Detail
     \    Web Capture Screen At Verify Point    ${index} dot
 
 Verify More Button
@@ -304,3 +304,13 @@ Verify click second dot and select first banner
     Wait Until Keyword Succeeds    5s    1    Select Window    NEW
     ${actualLink}=    Get Location
     Web Capture Screen At Verify Point    First Banner Second Dot Link
+
+Get First Banner Detail
+    Web Element Should Be Visible    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][1]//img
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][1]//img    src
+    [Return]    ${srcBanner}
+
+Get Second Banner Detail
+    Web Element Should Be Visible    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][2]//img
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-privilege//div[@class="owl-item active" or @class='owl-item cloned active'][2]//img    src
+    [Return]    ${srcBanner}

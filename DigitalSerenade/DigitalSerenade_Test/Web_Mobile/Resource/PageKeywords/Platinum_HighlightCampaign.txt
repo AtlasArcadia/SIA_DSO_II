@@ -7,7 +7,7 @@ Resource          ../Localized/${ar_LANG}/${ar_NType}/Platinum_HighlightCampaign
 *** Keywords ***
 Verify hilight Campaign
     [Arguments]    ${CampaignAmount}
-    Scroll Web To Element    ${imgBanner}
+    Scroll Web To Element    ${lblPrivilage}
     Web Element Text Should Be    ${lblPrivilage}    ${txtPrivilage}
     ${CampaignAmount}=    Evaluate    ${CampaignAmount}+1
     : FOR    ${index}    IN RANGE    1    ${CampaignAmount}
@@ -17,14 +17,14 @@ Verify hilight Campaign
     Web Capture Screen At Verify Point    HilightCampaign
 
 Verify Slide Banner
-    Scroll Web To Element    ${imgBanner}
-    ${banner1}    verify active banner
+    Scroll Web To Element    ${lblHilightCampaignTitle}
+    ${banner1}=    Get Banner Detail
     Click Web Element    ${btnNextBanner}
-    ${banner2}    verify active banner
+    ${banner2}=    Get Banner Detail
     Run Keyword If    "${banner1}" == "${banner2}"    Fail
     ...    ELSE    Web Capture Screen At Verify Point    NextCampaign
     Click Web Element    ${btnPrevBanner}
-    ${banner3}    verify active banner
+    ${banner3}=    Get Banner Detail
     Run Keyword If    "${banner1}" == "${banner3}"    Web Capture Screen At Verify Point    PrevCampaign
     ...    ELSE    Fail
 
@@ -218,3 +218,8 @@ Verify second banner
     Wait Until Keyword Succeeds    5s    1s    Select Window    NEW
     ${actualLink}=    Get Location
     Web Capture Screen At Verify Point    Second Banner Redirect
+
+Get Banner Detail
+    Web Element Should Be Visible    xpath=//ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img
+    ${srcBanner}    Selenium2Library.Get Element Attribute    //ais-hilight-campaign//div[@class="owl-item active" or @class="owl-item cloned active"]//img    src
+    [Return]    ${srcBanner}

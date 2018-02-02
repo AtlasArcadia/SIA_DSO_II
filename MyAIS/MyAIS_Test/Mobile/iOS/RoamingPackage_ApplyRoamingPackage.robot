@@ -493,7 +493,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1-4_1-2_Y_14_2] Apply Roaming Packages Verify page : Package summary
-    [Documentation]    ***Owner : Lek***
+    [Documentation]    ***Owner : Tong***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE,3PO,3BO
@@ -531,7 +531,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Click Continue On Apply Roaming Package Page And Capture Screen iOS
     Select First Package In Select Package Page
     Select Immediate Button
-    Select Subscribe Button
+    Select Subscribe Button    14
     Verify Australia Bridge DataRoam Unlimited 1 Day Summary Page Immediate    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
