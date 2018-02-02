@@ -21,7 +21,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     ...    9. เลือก "เริ่มใช้งานทันที" (radio button)
     ...    10. กดปุ่ม "สมัครแพ็ก"
     ...    13. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    demo
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -38,7 +38,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
     Select First Package In Select Package Page
     Select Immediate Button
-    Select Subscribe Button
+    Select Subscribe Button    1
     Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Summary Immediate Page Australia
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
@@ -76,7 +76,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
     Select First Package In Select Package Page
     Select Immediate Button
-    Select Subscribe Button
+    Select Subscribe Button    2
     Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Summary Immediate Page China
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
@@ -115,7 +115,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
     Select First Package In Select Package Page
     Select Immediate Button
-    Select Subscribe Button
+    Select Subscribe Button    3
     Comment    Verify Summary Immediate Page Australia
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
@@ -154,7 +154,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Package Roaming Page iOS    ${Number}    ${Country}    ${Package}
     Select First Package In Select Package Page
     Select Immediate Button
-    Select Subscribe Button
+    Select Subscribe Button     4
     Comment    Verify Summary Immediate Page China
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
@@ -198,8 +198,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select Specify Start Date Button
     ${StartDate}    Set Specify Start Date Not More Than 30 Day
     Select Start to Use in State
-    Select Subscribe Button
-    Verify Summary Specify Page Australia    ${StartDate}
+    Select Subscribe Button    5
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Summary Specify Page Australia    ${StartDate}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1-4_1-2_Y_6_2] Subscribe Data Package : FutureIn case : Have only countries
@@ -240,8 +240,8 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select First Package In Select Package Page
     Select Specify Start Date Button
     ${StartDate}    Set Specify Start Date Not More Than 30 Day
-    Select Subscribe Button
-    Verify Summary Specify Page China    ${StartDate}
+    Select Subscribe Button    6
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Verify Summary Specify Page China    ${StartDate}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1-4_1-2_Y_7_2] Subscribe Voice Package : FutureIn case : countries with states
@@ -419,7 +419,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1-4_1-2_Y_12_2] Apply Roaming Packages Verify page : Specify Effective Date (From Package list page)
-    [Documentation]    ***Owner : Lek***
+    [Documentation]    ***Owner : Tong***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE,3PO,3BO
@@ -455,7 +455,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 [F8_Package_IOS_1-4_1-2_Y_13_2] Apply Roaming Packages Verify page : Specify Effective Date (From Package Detail page)
-    [Documentation]    ***Owner : Lek***
+    [Documentation]    ***Owner : Tong***
     ...
     ...    *Pre-requisite*
     ...    Source Number : 3PE,3BE,3PO,3BO

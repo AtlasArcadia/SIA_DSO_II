@@ -91,7 +91,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...    6. เลือก "ดำเนินการต่อ"
     ...    7. ตรวจสอบ dialog msg "กรุณาเลือกประเทศที่ต้องการสมัคร"
     ...    8. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -204,7 +204,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...    8. เลือก "ดำเนินการต่อ
     ...    9. ตรวจสอบ dialog msg "กรุณาเลือกประเภทแพ็กเกจที่ต้องการสมัคร"
     ...    10. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -272,7 +272,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_RoamingServiceRates_Pr
     ...         - ระบบของหมายเลขที่ต้องการสมัคร (จะเหมือนกับที่ทำการเลือกจากหน้าอัตราค่าบริการโรมมิ่ง)
     ...         - ประเภทแพ็กเกจที่ต้องการ (โปรดเลือก)
     ...    10. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

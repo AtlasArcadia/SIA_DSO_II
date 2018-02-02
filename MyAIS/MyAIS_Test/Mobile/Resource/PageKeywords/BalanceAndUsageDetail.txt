@@ -434,14 +434,17 @@ Verify Balance and Usage Detail Page
 Verify Dialog Message You have no unbilled charges currently
     Wait Mobile Until Element Visible    ${lblDialogMessageYourCurrentCharge}    30
     Mobile Element Text Should Be    ${lblDialogMessageYourCurrentCharge}    ${YouHaveNoUnbilledChargesCurrently}
+    Mobile Capture Screen At Verify Point    Dialog Message You have no unbilled charges currently
 
 Verify Dialog Message Please enter Card Number
     Wait Mobile Until Element Visible     ${lblDialogMessage}    30
     Mobile Element Text Should Be    ${lblDialogMessage}    ${MessagePleaseEnterCardNumber}
+    Mobile Capture Screen At Verify Point    Dialog Message Please enter Card Number
 
 Verify Dialog Message Invalid Id Number
     Wait Mobile Until Element Visible     ${lblDialogMessage}    30
     Mobile Element Text Should Be    ${lblDialogMessage}    ${messageInvalidIdNumber}
+    Mobile Capture Screen At Verify Point    Dialog Message Invalid Id Number
 
 Verify PopUp Invalid ID number
     Wait Mobile Until Element Visible    ${lblPopUp}
@@ -460,3 +463,18 @@ Verify PopUp Invalid ID number over 3 times
     Mobile Element Text Should Be    ${lblPopUp}    ${messageInvalidIdCitizenMore3Times}
     Mobile Capture Screen At Verify Point    Invalid ID number over 3 times
     Click Mobile Element    ${btnOKPopup}
+
+Verify Between Bill
+    Sleep    15s
+    Wait Mobile Until Element Visible    ${lblDetailCurrentBill}
+    Wait Mobile Until Element Visible    ${lblFromDate}
+    Wait Mobile Until Element Visible    ${lblToDate}
+    Wait Mobile Until Element Visible    ${lblHowToUse}
+    Wait Mobile Until Element Visible    ${lblUesd}
+    Wait Mobile Until Element Visible    ${lblServiceCharge}
+    Swipe to element    ${lblFinalTotal}
+    Wait Mobile Until Element Visible    ${lblTotalInCountry}
+    Wait Mobile Until Element Visible    ${lblTotalServiceCharge}
+    Wait Mobile Until Element Visible    ${lblTotalVat}
+    Wait Mobile Until Element Visible    ${lblFinalTotal}
+    Mobile Capture Screen At Verify Point     ${lblFinalTotal}

@@ -493,7 +493,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    3. เลือก "ค่าใช้บริการระหว่างรอบบิล"
     ...    4. ตรวจสอบหัวข้อ "ค่าใช้บริการระหว่างรอบบิล"
     ...    5. ตรวจสอบ "ขออภัย ระบบไม่สามารถให้บริการได้ในขณะนี้ กรุณาเข้าใช้บริการใหม่อีกครั้ง"
-    [Tags]    demotin
+    #[Tags]    tin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -529,10 +529,10 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    - รวมค่าใช้บริการ
     ...    - รวมค่าใช้บริการทั้งสิ้น (รวม vat 7%)
     ...    - รวมค่าใช้บริการทั้งสิ้น"
-    #[Tags]
+    [Tags]    tin
     &{#dict_device_name}=    Create Dictionary
-    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
-    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
+    &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_HaveCurrentCharge=include
+    ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveCurrentCharge
     ${ID_Citizen}    Get From Dictionary    ${virtual_device_1_ID_Citizen}    ${ar_NType}
     Set Network Connection    ${${ar_Network}}    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_SN}
     ${appiumInfo}    Open My AIS    ${virtual_device_1_IPAppium}    ${virtual_device_1_Platfrom_Name}    ${virtual_device_1_Platfrom_Version}    ${virtual_device_1_SN}
@@ -541,6 +541,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     Select Menu    BalanceAndUsageDetail
     Select Your Current Charge
     Input ID Citizen    ${ID_Citizen}
+    Verify Between Bill
     [Teardown]    Keyword For Teardown    ${#dict_device_name}
 
 [F2_YourBalanceHistory_IOS_2,4_1-2_Y_1_2] Voice Call : No transaction
@@ -559,7 +560,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ (฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
-    #[Tags]    demotin
+    #[Tags]    tin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_HaveCurrentCharge=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_HaveCurrentCharge
@@ -590,7 +591,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    9. ตรวจสอบ ""หน่วย""
     ...    10. ตรวจสอบ ""ค่าบริการ(฿)""
     ...    11. ตรวจสอบ ""ไม่พบรายการที่ต้องการค้นหา"""
-    #[Tags]    demotin
+    #[Tags]    tin
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -954,7 +955,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    - ใบแจ้งค่าใช้บริการ (STATEMENT)
     ...    - Logo AIS
     ...    9. จับภาพหน้าจอ
-    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen    demo
+    [Tags]    TH    EN    3PO    3BO    active    ID_Citizen
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_3Month
@@ -981,7 +982,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    - ค่าใช้บริการย้อนหลัง
     ...    - รายละเอียดค่าใช้บริการ
     ...    4. จับภาพหน้าจอ
-    [Tags]    TH    EN    3PO    3BO    active    demo
+    [Tags]    TH    EN    3PO    3BO    active
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

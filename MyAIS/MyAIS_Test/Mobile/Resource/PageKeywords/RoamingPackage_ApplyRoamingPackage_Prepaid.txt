@@ -129,6 +129,7 @@ Select Detail First Package iOS
     Comment    Click Mobile Element    ${btnFirstPackageDetailSelectRoamingPackagePage}
 
 Next Detail First Package
+    Swipe Element From Location    ${btnFirstPackageDetailSelectRoamingPackagePage}
     Click Mobile Element    ${btnFirstPackageDetailSelectRoamingPackagePage}
 
 Select Non Stop Data Roam Zone A1 Day Selected Networks Package
@@ -164,18 +165,20 @@ Select Specify Start Date Button iOS
     Click Mobile Element    ${rboSpecifyEffectiveDateSpecify}
 
 Select Subscribe Button
+    [Arguments]    ${MobileNo}
     Run Keyword If    "${ar_OS}"=="Android"    Select Subscribe Button Android
-    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Subscribe Button iOS
+    ...    ELSE IF    "${ar_OS}"=="iOS"    Select Subscribe Button iOS    ${MobileNo}
 
 Select Subscribe Button Android
     Swipe to element    ${btnSubscribeSpecifyEffectiveDate}    screen
     Click Mobile Element    ${btnSubscribeSpecifyEffectiveDate}
 
 Select Subscribe Button iOS
+    [Arguments]    ${MobileNo}
     Swipe Element From Location   ${btnSubscribeApplyRoaming}
     Wait Mobile Until Element Visible    ${btnSubscribeApplyRoaming}
     Click Mobile Element    ${btnSubscribeApplyRoaming}
-    Mobile Capture Screen At Verify Point    Select Subscribe Button iOS
+    Mobile Capture Screen At Verify Point    Select Subscribe Button iOS ${MobileNo}
 
 Select Confirm In Summary Page
     Run Keyword If    "${ar_OS}"=="Android"    Select Confirm In Summary Page Android
@@ -215,9 +218,8 @@ Select First Package In Select Package Page Android
     Click Mobile Element    ${lblFirstPackageSelectRoamingPackagePage}
 
 Select First Package In Select Package Page iOS
-    Wait Mobile Until Element Visible    ${lblFirstPackageSelectRoamingPackagePage}
+    Wait Mobile Until Element Visible    ${lblFirstPackageSelectRoamingPackagePage}    60
     Click Mobile Element    ${lblFirstPackageSelectRoamingPackagePage}
-
 
 Set Date Tomorrow And Time 00:00
     Click Mobile Element    ${btnChoosingDate}
@@ -331,14 +333,15 @@ Verify Specify Effective Date iOS
     ${MobileNumber}=    String.Remove String    ${rawMobileNumber}    -
     Log    ${MobileNumber}
     Should Be Equal    ${MobileNumber}    ${Number}    #หมายเลขโทรศัพท์
-    Wait Mobile Until Element Visible    ${lblAutraliaBridgeDataRoamUnlimited1day}
-    Mobile element text should be    ${lblSpecifyEffectiveDate}    ${SpecifyEffectiveDate}
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Wait Mobile Until Element Visible    ${lblAutraliaBridgeDataRoamUnlimited1day}
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Mobile element text should be    ${lblSpecifyEffectiveDate}    ${SpecifyEffectiveDate}
+    Wait Mobile Until Element Visible    ${rboSpecifyEffectiveDateSpecify}
     Click Mobile Element    ${rboSpecifyEffectiveDateSpecify}
-    Mobile element text should be    ${lblSpacifySetStartTime}     ${SpacifySetDateTimeApplyRoaming}
-    Mobile element text should be    ${lblSpacifyDateApplyRoaming}    ${SpacifyDateApplyRoaming}
-    Mobile element text should be    ${lblSpacifyTimeApplyRoaming}     ${SpacifyTimeApplyRoaming}
-    Mobile element name should be    ${btnCancelSubscribeApplyoaming}    ${CancelSubscribeApplyoaming}
-    Mobile element name should be    ${btnSubscribeApplyRoaming}    ${SubscribeApplyRoaming}
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Mobile element text should be    ${lblSpacifySetStartTime}     ${SpacifySetDateTimeApplyRoaming}
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Mobile element text should be    ${lblSpacifyDateApplyRoaming}    ${SpacifyDateApplyRoaming}
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Mobile element text should be    ${lblSpacifyTimeApplyRoaming}     ${SpacifyTimeApplyRoaming}
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Mobile element name should be    ${btnCancelSubscribeApplyoaming}    ${CancelSubscribeApplyoaming}
+    Run Keyword If    "${ar_NType}"=="3PE" or "${ar_NType}"=="3BE"    Mobile element name should be    ${btnSubscribeApplyRoaming}    ${SubscribeApplyRoaming}
     Mobile Capture Screen At Verify Point    Verify In Specify Page
 
 Verify Popup Msg Alert Subscribed And Close
