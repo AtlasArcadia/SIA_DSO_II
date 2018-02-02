@@ -142,7 +142,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Choose Language    ${ar_LANG}    ${ar_NETWORK}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F4_Package_IOS_2,4_1-2_Y_1_2] Verify page "Apply Other On-Top Package"
+[F4_Package_IOS_2,4_1-2_Y_1_2] Verify page Apply Other On-Top Package
     [Documentation]    *Owner : Asma*
     ...
     ...    Source Number : 3BO
@@ -169,7 +169,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Verify page Apply Other On-Top Package    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F4_Package_IOS_2,4_1-2_Y_2_2] Verify page "Apply Other On-Top Package"In Case : Talk & Net On-Top Package
+[F4_Package_IOS_2,4_1-2_Y_2_2] Verify page Apply Other On-Top Package In Case : Talk & Net On-Top Package
     [Documentation]    *Owner : Asma*
     ...
     ...    Source Number : 3BO
@@ -223,7 +223,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...    14. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
     ...    - ปุ่ม "ตกลง"
     ...    15. จับภาพหน้าจอnone
-    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -240,7 +240,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F4_Package_IOS_2,4_1-2_Y_3_2] Verify page "Apply Other On-Top Package" In Case : Internet On-Top Package - Monthly On-Top Package (Next billing cycle)
+[F4_Package_IOS_2,4_1-2_Y_3_2] Verify page Apply Other On-Top Package In Case : Internet On-Top Package Monthly On-Top Package (Next billing cycle)
     [Documentation]    *Owner : Asma*
     ...
     ...    Source Number : 3BO
@@ -295,7 +295,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...     15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
     ...     - ปุ่ม "ตกลง"
     ...     16. จับภาพหน้าจอnone
-     [Tags]    TH    EN    active    success    3PO    3BO    demo
+     [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -314,7 +314,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F4_Package_IOS_2,4_1-2_Y_4_2]Verify page "Apply Other On-Top Package" In Case : Internet On-Top Package  - One-Time On-Top Package(Immediately)
+[F4_Package_IOS_2,4_1-2_Y_4_2]Verify page Apply Other On-Top Package In Case : Internet On-Top Package One-Time On-Top Package(Immediately)
     [Documentation]    *Owner : Asma*
     ...
     ...    Source Number : 3BO
@@ -368,7 +368,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...     14. เลือก "ยืนยัน"
     ...     15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
     ...     16. จับภาพหน้าจอnone
-     [Tags]    TH    EN    active    success    3PO    3BO    demo
+     [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -387,7 +387,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F4_Package_IOS_2,4_1-2_Y_5_2]Verify page "Apply Other On-Top Package" In Case : Internet On-Top Package  - WiFi (Next billing cycle)
+[F4_Package_IOS_2,4_1-2_Y_5_2]Verify page Apply Other On-Top Package In Case : Internet On-Top Package WiFi (Next billing cycle)
     [Documentation]    *Owner : Asma*
     ...
     ...    Source Number : 3BO
@@ -436,7 +436,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...    - เงื่อนไขบริการ
     ...    14. เลือก "ยืนยัน"
     ...    15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ" - ปุ่ม "ตกลง"16. จับภาพหน้าจอnone
-    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
@@ -455,7 +455,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F4_Package_IOS_2,4_1-2_Y_6_2] Verify page "Apply Other On-Top Package" In Case : Internet On-Top Package  - Entertainment (Next billing cycle)
+[F4_Package_IOS_2,4_1-2_Y_6_2] Verify page Apply Other On-Top Package In Case : Internet On-Top Package Entertainment (Next billing cycle)
     [Documentation]    *Owner : Asma*
     ...
     ...    *Test Step*
@@ -574,7 +574,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...     - เงื่อนไขบริการ
     ...     14. เลือก "ยืนยัน" 15. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ" - ปุ่ม "ตกลง"16. จับภาพหน้าจอnone
     ...
-    [Tags]    TH    EN    active    success    3PO    3BO    demo
+    [Tags]    TH    EN    active    success    3PO    3BO
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}_Package=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package

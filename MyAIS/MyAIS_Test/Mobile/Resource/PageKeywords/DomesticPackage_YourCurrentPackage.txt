@@ -337,7 +337,6 @@ Verify Page Current Package Main Package Only iOS
     Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     comment    บริการเสริม
     Wait Mobile Until Page Contains Element    ${lblHeadValueAddService}
-    Mobile element text should be    ${lblHeadValueAddService}    ${ValueAddService}
     comment    เงื่อนไขบริการ
     Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
     comment    รูปถ่าย
@@ -359,7 +358,6 @@ Verify Page Current Package Main One On Top package iOS
     ...    ELSE IF    "${ar_NType}"=="3BE" and "${ar_NType}"=="3BO"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
     comment    ปุ่ม "เปลียนแพ็กหลัก"
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
-    Swipe Element To Screen From Location    ${locatorOther}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
     comment    แถบ "แพ็กเกจ Internet" แถบ "แพ็กเกจอื่นๆ"
     Run Keyword If    "${ar_NType}"=="3PE"    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
     ...    ELSE IF    "${ar_NType}"=="3BE"    Mobile element text should be    ${lblHeadOnTopPackage}    ${HeadOnTopInternetPackage}
@@ -367,6 +365,7 @@ Verify Page Current Package Main One On Top package iOS
     comment    Verify ว่ามี On-Top Pack
     Find And Check Package    1
     comment    ปุ่ม "สมัครแพ็กเสริม"
+    Swipe To Bottom
     Wait Mobile Until Page Contains Element    ${btnApplyPackage}
     comment    เงื่อนไขบริการ
     Mobile element text should be    ${lblTermAndConditions}    ${TermAndConditions}
@@ -388,14 +387,14 @@ Verify Page Current Package Main Two On Top package iOS
     Run Keyword If    "${ar_NType}"=="3PE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3PE}
     ...    ELSE IF    "${ar_NType}"=="3BE"    Wait Mobile Until Page Contains Element    ${lblOnlyMainPackage_3BE}
     comment    ปุ่ม "เปลียนแพ็กหลัก"
-    Swipe Element To Screen From Location    ${btnChangePricePlan}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
+    Swipe Element To Screen From Location    ${btnChangePricePlan}    swipe_line=Vertical
     Wait Mobile Until Page Contains Element    ${btnChangePricePlan}
     comment    แถบ "แพ็กเกจ Internet"
     Run Keyword If    "${ar_NType}"=="3PE"    Mobile element text should be    ${lblHeadOnTopInternetPackage}    ${HeadOnTopInternetPackage}
     ...    ELSE IF    "${ar_NType}"=="3BE"    Mobile element text should be    ${lblHeadOnTopPackage}    ${HeadOnTopInternetPackage}
     comment    Verify ว่ามี On-Top Pack
     Find And Check Package    2
-    Swipe Element To Screen From Location    ${locatorOtherButtom}    swipe_line=Vertical    action=Perform    duration=1000    ratio=0.1
+    Swipe To Bottom
     comment    ปุ่ม "สมัครแพ็กเสริม"
     Wait Mobile Until Page Contains Element    ${btnApplyPackage}
     comment    เงื่อนไขบริการ
@@ -407,7 +406,7 @@ Verify Page Current Package Main Two On Top package iOS
 Find And Check Package
     [Arguments]    ${NumPackage}=1
     : FOR    ${index}    IN RANGE    3    6
-    \    ${StatusPackage}    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}]/*[1]
+    \    ${StatusPackage}    Get mobile attribute    ${lblCheckPackage}[${index}]/*[1]    name
     \    ${text}    Run Keyword If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'    AISAppiumEx.Get Text    ${lblCheckPackage}[${index}+1]/*[1]
     \    ${MathStr}    Run Keyword If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'    Should Match Regexp    ${text}    .+
     \    Log    ${MathStr}
@@ -417,4 +416,8 @@ Find And Check Package
     \    Log    ${MathStr}
     \    Exit For Loop If    '${StatusPackage}'=='เปลี่ยนแพ็กหลัก' or '${StatusPackage}'=='Change Price Plan'
 
-
+Swipe To Bottom
+    : FOR    ${index}    IN RANGE    6    20
+    \    Swipe Element To Screen From Location    ${locatorOtherButtom}[${index}]    swipe_line=Vertical
+    \    ${Status}=    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${locatorOtherButtom}[${index}+1]    1
+    \    Exit For Loop If    '${Status}'=='False'

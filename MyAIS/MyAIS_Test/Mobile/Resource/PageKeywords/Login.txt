@@ -33,7 +33,7 @@ Choose Language
 
 verify login
     [Arguments]    ${timeout}=${lo_general_timeout}
-    ${rounds}    Evaluate    int(${timeout}/6)
+    ${rounds}    Evaluate    int(${timeout}/5)
     : FOR    ${INDEX}    IN RANGE    1    ${rounds}
     \    ${statusConfirmTerm}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnConfirmTerm}    1
     \    Run Keyword If    ${statusConfirmTerm}    Click Mobile Element    ${btnConfirmTerm}
@@ -41,8 +41,6 @@ verify login
     \    Run Keyword If    ${statusDialogCancelAISpoint}    Click Mobile Element    ${btnCancelDialog}
     \    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseAdvert}    1
     \    Run Keyword If    ${statusBtnCloseDialogShow}    Click Mobile Element    ${btnCloseAdvert}
-    \    ${statusBtnOKAISpoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnGetPassword}    1
-    \    Run Keyword If    ${statusBtnOKAISpoint}    Click Mobile Element    ${btnGetPassword}
     \    ${statusButtonDialogOk}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${iabtnDlogOk}    1
     \    ${statusUserAccount}    Run Keyword And Return Status    Wait Mobile Until Element Visible    ${lbUserAccount}    1
     \    Exit For Loop If    ${statusUserAccount} or ${statusButtonDialogOk}
@@ -53,9 +51,11 @@ verify login
     verify dialog AIS promotions
 
 verify dialog AIS promotions
-    ${statusDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnNotShowAgain}    10
-    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseAdvert}    10
-    : FOR    ${PAGE}    IN RANGE    1    20
+    ${statusDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnNotShowAgain}    5
+    ${statusBtnCloseDialogShow}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseAdvert}    5
+    ${statusBtnOKAISpoint}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnGetPassword}    5
+    : FOR    ${PAGE}    IN RANGE    1    10
+    \    Run Keyword If    ${statusBtnOKAISpoint}    Click Mobile Element    ${btnGetPassword}
     \    Run Keyword If    ${statusDialogShow}    Click Mobile Element    ${btnNotShowAgain}
     \    Run Keyword If    ${statusBtnCloseDialogShow}    Click Mobile Element    ${btnCloseAdvert}
     \    ${status}    Run Keyword And Return Status    Wait Mobile Until Page Contains Element    ${btnCloseAdvert}    1

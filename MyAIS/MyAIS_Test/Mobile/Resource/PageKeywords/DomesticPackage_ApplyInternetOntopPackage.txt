@@ -380,7 +380,6 @@ Verify Apply Other On Top Package Second Step And Select Immediate Effect Button
 
 Verify Apply Other On Top Package Second Step And Select Next billing cycle Button Then Click Next
     [Arguments]    ${Number}
-    Sleep    10s
     Wait Mobile Until Element Visible    ${btnBackOnTopPage}
     Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
     Mobile element number should be    ${lblMobileNumberApplyOtherOnTopPackage}    ${Number}
@@ -407,7 +406,7 @@ Verify Apply Other On Top Package Third Step And Dialog Message
     Wait Mobile Until Element Visible    ${btnBack}
     Wait Mobile Until Element Visible    ${lblTermAndConditions}
     Click mobile element    ${btnConfirmApplyInternetOnTopPackage}
-    Mobile check existing text    ${lblDialogMSG}
+    Mobile element name should be    ${lblDialogMSG}    ${ApplyOnTopConfirmDialogSuccess}
     Mobile Capture Screen At Verify Point    Apply Other On Top Package Third Step
     Click mobile element    ${btnOK}
 
@@ -460,7 +459,7 @@ Verify Apply Other Talk Package First Step And Click Next
 
 Select Add-on Packages
     [Arguments]    ${MenuPackage}
-    Sleep    10
+    Wait Mobile Until Element Visible    ${btn${MenuPackage}}
     Click mobile element    ${btn${MenuPackage}}
 
 Select Package Detail
@@ -468,13 +467,13 @@ Select Package Detail
     Click mobile element    ${btn${Detail}}
 
 Verify Internet OnTop Packages
-    Sleep     15s
     Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
+    Swipe Element To Screen From Location    ${lblTermAndConditions}    swipe_line=Vertical
     : FOR    ${index}    IN RANGE    4    12
     \    ${text}    Get mobile attribute    ${lblPackages}[${index}]/XCUIElementTypeStaticText[2]    name
     \    ${MathStr}    Should Match Regexp    ${text}    .+
     \    Log    ${MathStr}
-    \    Swipe to element    ${lblPackages}[${index}]
+    \    Swipe Element To Screen From Location    ${lblPackages}[${index}]    swipe_line=Vertical
     \    ${status}=    AISAppiumEx.Get Text    ${lblPackages}[${index}+1]/XCUIElementTypeStaticText[1]
     \    Exit For Loop If    ('${status}'=='เงื่อนไขบริการ' or '${status}'=='Terms & Conditions')
     Wait Mobile Until Element Visible    ${lblTermAndConditions}
@@ -485,7 +484,6 @@ Verify Internet OnTop Packages
 
 Verify Internet OnTop Package First Step And Click Next
     [Arguments]    ${Number}    ${packname}
-    Sleep    10s
     Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
     Mobile element number should be    ${lblMobileNumberApplyOtherOnTopPackage}    ${Number}
     Mobile check existing text    ${lblBillingCycleApplyOtherOnTopPackage}
@@ -501,7 +499,6 @@ Verify Internet OnTop Package First Step And Click Next
 
 Verify Talk OnTop Package First Step And Click Next
     [Arguments]    ${Number}    ${packname}
-    Sleep    10s
     Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
     Mobile element number should be    ${lblMobileNumberApplyOtherOnTopPackage}    ${Number}
     Mobile check existing text    ${lblBillingCycleApplyOtherOnTopPackage}
@@ -516,13 +513,12 @@ Verify Talk OnTop Package First Step And Click Next
     Click mobile element    ${btnNext}
 
 Verify Talk OnTop Packages
-    Sleep     15s
     Wait Mobile Until Element Visible    ${lblHeaderApplyOtherOnTopPackage}
     : FOR    ${index}    IN RANGE    4    10
     \    ${text}    Get mobile attribute    ${lblPackages}[${index}]/XCUIElementTypeStaticText[2]    name
     \    ${MathStr}    Should Match Regexp    ${text}    .+
     \    Log    ${MathStr}
-    \    Swipe to element    ${lblPackages}[${index}]
+    \    Swipe Element To Screen From Location    ${lblPackages}[${index}]    swipe_line=Vertical
     \    ${status}=    AISAppiumEx.Get Text    ${lblPackages}[${index}+2]/XCUIElementTypeStaticText[1]
     \    Exit For Loop If    ('${status}'=='เงื่อนไขบริการ' or '${status}'=='Terms & Conditions')
     Wait Mobile Until Element Visible    ${lblTermAndConditions}
