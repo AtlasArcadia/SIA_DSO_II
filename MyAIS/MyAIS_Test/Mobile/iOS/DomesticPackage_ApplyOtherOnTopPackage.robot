@@ -475,7 +475,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Verify Select First Package Minutes OnTop Package Step2    ${FirstPackage}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_1_2] Verify page Change Price Plan
+[F5_Package_IOS_2,4_1-2_Y_1_2] Verify page Change Price Plan
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -503,7 +503,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Verify page Change Price Plan    ${Number}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_2_2] Change Main package Talk & Net Plan In case : iEntertain Non-Stop (Next billing cycle)"
+[F5_Package_IOS_2,4_1-2_Y_2_2] Change Main package Talk & Net Plan In case : iEntertain Non-Stop (Next billing cycle)"
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -538,7 +538,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Select Sub Menu    ChangePricePlan
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_3_2] Change Main package Talk & Net Plan In case : 4G Max Speed (Next billing cycle)
+[F5_Package_IOS_2,4_1-2_Y_3_2] Change Main package Talk & Net Plan In case : 4G Max Speed (Next billing cycle)
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -576,7 +576,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_4_2] Change Main package Talk & Net Plan In case : Buffet X3 (Next day)
+[F5_Package_IOS_2,4_1-2_Y_4_2] Change Main package Talk & Net Plan In case : Buffet X3 (Next day)
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -612,7 +612,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Select Sub Menu    ChangePricePlan
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_5_2] Change Main package Talk & Net Plan In case : Serenade Pack (Immediately)
+[F5_Package_IOS_2,4_1-2_Y_5_2] Change Main package Talk & Net Plan In case : Serenade Pack (Immediately)
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -651,7 +651,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_6_2] Change Main package Internet Plan In case : Net SIM (Immediately)
+[F5_Package_IOS_2,4_1-2_Y_6_2] Change Main package Internet Plan In case : Net SIM (Immediately)
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -689,7 +689,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_7_2] Change Main package Talk Plan In case : Basic Package (Immediately)
+[F5_Package_IOS_2,4_1-2_Y_7_2] Change Main package Talk Plan In case : Basic Package (Immediately)
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
@@ -727,7 +727,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyOtherOnTopPackag
     Verify Third Step    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
-[F5_Package_IOS_2, 4_1-2_Y_8_2] Change Main package Package And Internet from Current Package And Additional Services Page
+[F5_Package_IOS_2,4_1-2_Y_8_2] Change Main package Package And Internet from Current Package And Additional Services Page
     [Documentation]    *Owner : TiNn*
     ...
     ...    *Test Step*
