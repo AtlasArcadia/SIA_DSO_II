@@ -20,7 +20,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    -ข้อมูลการโอนวัน
     ...    -ค่าธรรมเนียม
     ...    4.จับภาพหน้าจอ
-    [Tags]    TH    EN    3PE    active    success
+    [Tags]    TH    EN    3PE    active    success    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -626,7 +626,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
      ...    4. Enter Invalid ID number "3801261247868"
      ...    5. Click "OK"
      ...    6. Verify message "Please enter Crad Number."none
-    [Tags]    TH    EN    3PO    3BO    fail
+    [Tags]    TH    EN    3PO    3BO    fail     demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}
@@ -742,7 +742,7 @@ Resource          ../Resource/PageKeywords/BalanceAndUsageDetail.txt
     ...    10. Verify "Fee (฿)"
     ...    11. Verify tab ex. Internet
     ...    12. Verify data first rownone
-    [Tags]    TH    EN    3PO    3BO    success
+    [Tags]    TH    EN    3PO    3BO    success     demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}

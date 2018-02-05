@@ -223,7 +223,7 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     ...    14. ตรวจสอบ dialog message "กำลังดำเนินการ กรุณารอรับ SMS แจ้งยืนยันการสมัครและวันมีผลเริ่มใช้งานแพ็กเกจ"
     ...    - ปุ่ม "ตกลง"
     ...    15. จับภาพหน้าจอnone
-    [Tags]    TH    EN    active    success    3PO    3BO
+    [Tags]    TH    EN    active    success    3PO    3BO    demo
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_Package
