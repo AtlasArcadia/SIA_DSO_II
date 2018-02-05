@@ -75,7 +75,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_InternationalServicePo
     ...    4. กดเปิดใช้งาน "บริการข้ามแดนอัตโนมัติ (IR)"
     ...    5. ตรวจสอบ popup message "xxx"
     ...    6. จับภาพหน้าจอ
-    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    IRService    
+    [Tags]    TH    EN    active    success    3PE    3BE    3PO    3BO    IRService
     &{#dict_device_name}=    Create Dictionary
     &{#dict_device_name}=    Take And Define Virtual Local Configuration    ${#dict_device_name}    ${lo_MyAIS_local_config_file_path}    virtual_device_1    ${ar_TAKE_TIMEOUT}    ${ar_NType}=include
     ${Number}    Get From Dictionary    ${virtual_device_1_Number}    ${ar_NType}_IRService

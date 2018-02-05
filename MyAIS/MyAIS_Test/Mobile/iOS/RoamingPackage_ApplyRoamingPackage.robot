@@ -724,7 +724,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Click Continue On Apply Roaming Package Page
     Select First Package In Select Package Page
     Select Specify Start Date Button
-    Select Subscribe Button
+    Select Subscribe Button    19
     Verify Dialog Message No Set Start Time
     [Teardown]    Keywords For Teardown    ${#dict_device_name}
 
@@ -765,7 +765,7 @@ Resource          ../Resource/PageKeywords/RoamingPackage_ApplyRoamingPackage_Pr
     Select First Package In Select Package Page
     Select Specify Start Date Button
     Set Current Date
-    Select Subscribe Button
+    Select Subscribe Button    22
     Verify Dialog Message No Select State
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
