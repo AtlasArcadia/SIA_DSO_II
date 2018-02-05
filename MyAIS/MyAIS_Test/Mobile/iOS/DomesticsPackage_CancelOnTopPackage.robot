@@ -3,7 +3,7 @@ Resource          ../../../../Config/LocalConfig.txt
 Resource          ../Resource/PageKeywords/DomesticsPackage_CancelOnTopPackage.txt
 
 *** Test Cases ***
-[F6_Package_IOS_2,4_1-2_Y_1_2]
+[F6_Package_IOS_2,4_1-2_Y_1_2] Cancel On-Top PackageIn case : Not have Ontop package
     [Documentation]    *Owner : TiNn*
     ...    1. เข้าสู่ระบบ My AIS
     ...    2. เลือกเมนู ""แพ็กเกจ""
@@ -27,7 +27,7 @@ Resource          ../Resource/PageKeywords/DomesticsPackage_CancelOnTopPackage.t
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
 
 
-[F6_Package_IOS_2,4_1-2_Y_2_2]
+[F6_Package_IOS_2,4_1-2_Y_2_2] Cancel On-Top Package In case : Have Ontop package
     [Documentation]    *Owner : TiNn*
     ...    1. เข้าสู่ระบบ My AIS
     ...    2. เลือกเมนู ""แพ็กเกจ""
