@@ -746,6 +746,6 @@ Resource          ../Resource/PageKeywords/DomesticPackage_ApplyInternetOntopPac
     Verify Current Package Page And Click Register    ${Number}
     ${packname}    Verify Register Other Package Page    ${Number}
     Verify Apply Other Talk Package First Step And Click Next    ${Number}    ${packname}
-    Verify Apply Other On Top Package First Step An    Verify Apply Other On Top Package Second Step And Select Immediate Effect Button Then Click Next    ${Number}
-    Verify Apply Other On Top Package Third Step And Dialog Message
+    Verify Apply Other On Top Package Second Step And Select Immediate Effect Button Then Click Next    ${Number}
+    Verify Apply Other On Top Package Third Step And Dialog Message    ${Number}    ${packname}
     [Teardown]    Keywords For TearDown    ${#dict_device_name}
